@@ -1,0 +1,6 @@
+export {default as HomeScreen} from './home'
+export {default as DetailScreen} from './detail'
+export {default as CategoryScreen} from'./category'
+export {default as BikeScreen} from './bikes'
+export {default as ListData} from './ListData'
+export {default as ProfileScreen} from './profile'
