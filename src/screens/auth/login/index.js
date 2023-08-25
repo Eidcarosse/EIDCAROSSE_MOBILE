@@ -20,41 +20,60 @@ export default function Login({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <ImageBackground
           source={Icons.bglogo}
-          style={{ width: width(100), height: height(40) }}
+          style={{ width: width(100), height: height(28) }}
         >
           <View style={styles.imageiner}>
             <Text style={styles.logintext}>Login</Text>
           </View>
         </ImageBackground>
-        <View style={{ height: height(60) }}>
+        <View style={{ height: height(70),paddingTop:width(10) }}>
           <Input title={"Name"} placeholder={"Enter Name"} />
           <Input
             title={"Password"}
             placeholder={"Enter Password"}
             secure={true}
           />
-          <Button containerStyle={styles.button} title={"Login"} 
-            onPress={()=>{navigation.navigate(ScreenNames.BUTTOM)}}
+          <Button
+            containerStyle={styles.button}
+            title={"Login"}
+            onPress={() => {
+              navigation.navigate(ScreenNames.BUTTOM);
+            }}
           />
-          <View style={{ alignSelf: "center", alignContent: "center",flexDirection:'row' }}>
-            <Text >
-              Can’t login?
-            </Text>
+          <View
+            style={{
+              alignSelf: "center",
+              alignContent: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text>Can’t login?</Text>
             <TouchableOpacity>
-              <Text style={{color:AppColors.primery,fontWeight:'bold' }}> Forgot Password</Text>
+              <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+                {" "}
+                Forgot Password
+              </Text>
             </TouchableOpacity>
           </View>
-      <View style={{height:height(15)}}/>
+          <View style={{ height: height(15) }} />
 
-          <View style={{ alignSelf: "center", alignContent: "center",flexDirection:'row' }}>
-            <Text >
-            Don’t have account? 
-            </Text>
+          <View
+            style={{
+              alignSelf: "center",
+              alignContent: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text>Don’t have account?</Text>
             <TouchableOpacity
-            onPress={()=>{navigation.navigate(ScreenNames.SIGNUP)}}
-            
+              onPress={() => {
+                navigation.navigate(ScreenNames.SIGNUP);
+              }}
             >
-              <Text style={{color:AppColors.primery,fontWeight:'bold' }}> Register Now!</Text>
+              <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+                {" "}
+                Register Now!
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

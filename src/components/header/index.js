@@ -1,14 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { Image, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
 export default function Header({}) {
   return (
     <View style={styles.container}>
-      <View style={styles.menuicon}>
+      <TouchableOpacity activeOpacity={.4} style={styles.menuicon}>
         <Ionicons name="menu" size={width(7)} color={"white"} />
-      </View>
+      </TouchableOpacity>
       <View>
         <Image
           source={require("../../../assets/splash.png")}

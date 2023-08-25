@@ -20,13 +20,13 @@ export default function SignUp({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <ImageBackground
           source={Icons.bglogo}
-          style={{ width: width(100), height: height(40) }}
+          style={{ width: width(100), height: height(28) }}
         >
           <View style={styles.imageiner}>
             <Text style={styles.logintext}>SignUp</Text>
           </View>
         </ImageBackground>
-        <View style={{marginBottom:width(10)}}>
+        <View style={{paddingVertical:width(10)}}>
           <Input title={"First Name"} placeholder={"Enter Name"} />
           <Input
             title={"Last Name"}

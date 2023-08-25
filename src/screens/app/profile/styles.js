@@ -1,31 +1,63 @@
-import { StyleSheet } from 'react-native';
-import { height, width } from '../../../utills/Dimension';
-import AppColors from '../../../utills/AppColors';
+import { StyleSheet } from "react-native";
+import { height, width } from "../../../utills/Dimension";
+import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    height:height(100),
+    height: height(100),
     backgroundColor: AppColors.white,
   },
-  imageiner:{
-    height: height(25),
-    justifyContent: "flex-end",
-    marginLeft: width(10),
+  imageiner: {
+    height: height(28),
+    justifyContent: "space-around",
+    margin: width(3),
   },
-  logintext:{
+  logintext: {
     fontSize: 30,
     color: AppColors.white,
     fontWeight: "bold",
   },
-  card:{
+  avatar: {
+    width: width(20),
+    height: width(20),
+    borderRadius: width(10),
+    marginLeft: width(5),
+  },
+  card: {
     width: width(95),
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
     backgroundColor: "white",
-    padding:width(4)
-  }
-  
-  
+    padding: width(4),
+  },
+  container: {
+    backgroundColor: "white",
+    width: width(90),
+    justifyContent: "flex-start",
+    paddingVertical: width(5),
+    marginVertical: width(2),
+    borderRadius: width(1),
+  },
+  texticon: {
+    color: "black",
+    width: width(70),
+    alignSelf: "flex-start",
+    marginLeft: width(4),
+  },
+  wishlistview: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  wcontainer: {
+    backgroundColor: "white",
+    flexDirection: "column",
+    padding: width(1),
+  },
+  wtexticon: {
+    color: "black",
+    fontSize: 12,
+    marginTop: width(2),
+  },
 });
 export default styles;

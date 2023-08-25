@@ -10,6 +10,7 @@ const IconButton = ({
   onPress,
   disabled = false,
   icon,
+  iconright,
   activeOpacity = 0.7,
   containerStyle = {},
   textStyle = {},
@@ -22,7 +23,7 @@ const IconButton = ({
       style={[styles.container, containerStyle]}>
       {icon}
         <Text style={[styles.text, textStyle]}>{title}</Text>
-      
+        {iconright}
     </TouchableOpacity>
   );
 };
