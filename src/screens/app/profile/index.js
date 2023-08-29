@@ -10,7 +10,13 @@ import styles from "./styles";
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 
 import { useDispatch } from "react-redux";
-import { Button, Header, IconButton, Input, ScreenWrapper } from "../../../components";
+import {
+  Button,
+  Header,
+  IconButton,
+  Input,
+  ScreenWrapper,
+} from "../../../components";
 import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
 import { setAppLoader } from "../../../redux/slices/config";
 import Icons from "../../../asset/images";
@@ -21,10 +27,10 @@ export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   return (
     <ScreenWrapper
-    headerUnScrollable={() => <Header />}
-    statusBarColor={AppColors.primery}
-    barStyle="light-content"
-    scrollEnabled
+      headerUnScrollable={() => <Header navigation={navigation} />}
+      statusBarColor={AppColors.primery}
+      barStyle="light-content"
+      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground
@@ -33,10 +39,7 @@ export default function Profile({ navigation, route }) {
         >
           <View style={styles.imageiner}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image
-                style={styles.avatar}
-                source={Icons.car}
-              />
+              <Image style={styles.avatar} source={Icons.car} />
               <View style={{ paddingLeft: width(5) }}>
                 <Text
                   style={{
@@ -54,36 +57,48 @@ export default function Profile({ navigation, route }) {
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
-                >usamakhan@gmail.com</Text>
+                >
+                  usamakhan@gmail.com
+                </Text>
               </View>
             </View>
             <View style={styles.wishlistview}>
               <IconButton
+                onPress={() => {
+                  navigation.navigate(ScreenNames.WISH);
+                }}
                 title={"My Wish List"}
                 containerStyle={styles.wcontainer}
                 textStyle={styles.wtexticon}
                 icon={
                   <Text
-                  style={{
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    color: AppColors.primery,
-                  }}
-                >10</Text>
+                    style={{
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      color: AppColors.primery,
+                    }}
+                  >
+                    10
+                  </Text>
                 }
               />
               <IconButton
+                onPress={() => {
+                  navigation.navigate(ScreenNames.MYADS);
+                }}
                 title={"My Listings"}
                 containerStyle={styles.wcontainer}
                 textStyle={styles.wtexticon}
                 icon={
                   <Text
-                  style={{
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    color: AppColors.primery,
-                  }}
-                >10</Text>
+                    style={{
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      color: AppColors.primery,
+                    }}
+                  >
+                    10
+                  </Text>
                 }
               />
             </View>
@@ -91,6 +106,9 @@ export default function Profile({ navigation, route }) {
         </ImageBackground>
         <View style={{ padding: width(5) }}>
           <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.EDITPROFILE);
+            }}
             title={"Personal Information"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
@@ -100,6 +118,9 @@ export default function Profile({ navigation, route }) {
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
           <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.PASSWORD);
+            }}
             title={"Password"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
@@ -118,6 +139,9 @@ export default function Profile({ navigation, route }) {
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
           <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.ACCOUNT);
+            }}
             title={"Manage Account"}
             containerStyle={styles.container}
             textStyle={styles.texticon}

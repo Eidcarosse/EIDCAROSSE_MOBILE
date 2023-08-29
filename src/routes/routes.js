@@ -8,6 +8,12 @@ const ScreenNames = {
   BIKECATEGORY: "BikeCategory",
   LISTDATA: "ListData",
   BUTTOM:'Buttom',
-  PROFILE:'Profile'
+  PROFILE:'Profile',
+  EDITPROFILE:'EditProfile',
+  PASSWORD:'password',
+  ACCOUNT:'ACCOUNT',
+  WISH:'Wish',
+  MYADS:'MyAds',
+  MYLISTING:'MyListing',
 };
 export default ScreenNames;

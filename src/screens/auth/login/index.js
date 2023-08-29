@@ -2,7 +2,7 @@ import React from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import { useDispatch } from "react-redux";
-import { Button, Input, ScreenWrapper } from "../../../components";
+import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
 import { setAppLoader } from "../../../redux/slices/config";
 import Icons from "../../../asset/images";
@@ -16,6 +16,7 @@ export default function Login({ navigation, route }) {
       statusBarColor={AppColors.primery}
       barStyle="light-content"
       scrollEnabled
+      headerUnScrollable={()=><Head navigation={navigation}/>}
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground
@@ -37,6 +38,7 @@ export default function Login({ navigation, route }) {
             containerStyle={styles.button}
             title={"Login"}
             onPress={() => {
+              dispatch(setIsLoggedIn(true))
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />

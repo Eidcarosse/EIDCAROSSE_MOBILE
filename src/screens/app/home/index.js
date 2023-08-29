@@ -33,7 +33,7 @@ export default function Home({ navigation, route }) {
   ];
   return (
     <ScreenWrapper
-      headerUnScrollable={() => <Header />}
+      headerUnScrollable={() => <Header navigation={navigation}/>}
       statusBarColor={AppColors.primery}
       barStyle="light-content"
       scrollEnabled

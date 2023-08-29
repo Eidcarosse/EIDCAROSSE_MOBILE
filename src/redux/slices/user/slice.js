@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const initialState = {
   token: null,
-  isLoggedIn: true,
+  isLoggedIn: false,
   userMeta: null,
 };
 

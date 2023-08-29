@@ -6,11 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import AppColors from "../../utills/AppColors";
-import { HomeScreen, ProfileScreen } from "../../screens/app";
+import { HomeScreen, MyListingScreen, ProfileScreen } from "../../screens/app";
+import ScreenNames from "../routes";
+import { DrawerSceneWrapper } from "../../components";
+import { selectIsLoggedIn, setIsLoggedIn } from "../../redux/slices/user";
+import { PreLogin } from "../../screens/auth";
 
 const Screen1 = () => {
   return <View style={styles.screen1} />;
@@ -20,8 +26,9 @@ const Screen2 = () => {
   return <View style={styles.screen2} />;
 };
 
-export default function BottomNav({navigation}) {
-
+export default function BottomNav({ navigation }) {
+  const islogin = useSelector(selectIsLoggedIn);
+  console.log(islogin);
   const _renderIcon = (routeName, selectedTab) => {
     let icon = "";
 
@@ -32,7 +39,7 @@ export default function BottomNav({navigation}) {
       case "title2":
         icon = "chatbubble-ellipses-outline";
         break;
-      case "title3":
+      case ScreenNames.MYADS:
         icon = "file-tray-stacked-outline";
         break;
       case "title4":
@@ -60,49 +67,63 @@ export default function BottomNav({navigation}) {
   };
 
   return (
-    <CurvedBottomBarExpo.Navigator
-      type="UP"
-      style={styles.bottomBar}
-      shadowStyle={styles.shawdow}
-      height={55}
-      circleWidth={50}
-      bgColor="white"
-      initialRouteName="title1"
-      borderTopLeftRight
-      renderCircle={({ selectedTab, navigate }) => (
-        <Animated.View style={styles.btnCircleUp}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => Alert.alert("Click Action")}
-          >
-            <FontAwesome5 name={"plus"} color={"white"} size={25} />
-          </TouchableOpacity>
-        </Animated.View>
-      )}
-      tabBar={renderTabBar}
-      screenOptions={{ headerShown: false }}
-    >
-      <CurvedBottomBarExpo.Screen
-        name="title1"
-        position="LEFT"
-        component={() => <HomeScreen  navigation={navigation}/>}
-      />
-      <CurvedBottomBarExpo.Screen
-        name="title2"
-        position="LEFT"
-        component={() => <Screen2 />}
-      />
-      <CurvedBottomBarExpo.Screen
-        name="title3"
-        component={() => <Screen2 />}
-        position="RIGHT"
-      />
-      <CurvedBottomBarExpo.Screen
-        name="title4"
-        component={() => <ProfileScreen/>}
-        position="RIGHT"
-      />
-    </CurvedBottomBarExpo.Navigator>
+    <DrawerSceneWrapper>
+      <CurvedBottomBarExpo.Navigator
+        type="UP"
+        style={styles.bottomBar}
+        shadowStyle={styles.shawdow}
+        height={55}
+        circleWidth={50}
+        bgColor="white"
+        initialRouteName="title1"
+        borderTopLeftRight
+        renderCircle={({ selectedTab, navigate }) => (
+          <Animated.View style={styles.btnCircleUp}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => Alert.alert("Click Action")}
+            >
+              <FontAwesome5 name={"plus"} color={"white"} size={25} />
+            </TouchableOpacity>
+          </Animated.View>
+        )}
+        tabBar={renderTabBar}
+        screenOptions={{ headerShown: false }}
+      >
+        <CurvedBottomBarExpo.Screen
+          name="title1"
+          position="LEFT"
+          component={() => <HomeScreen navigation={navigation} />}
+        />
+        <CurvedBottomBarExpo.Screen
+          name="title2"
+          position="LEFT"
+          component={() => <Screen2 />}
+        />
+        <CurvedBottomBarExpo.Screen
+          name={ScreenNames.MYADS}
+          component={() =>
+            islogin ? (
+              <MyListingScreen navigation={navigation} />
+            ) : (
+              <PreLogin navigation={navigation} />
+            )
+          }
+          position="RIGHT"
+        />
+        <CurvedBottomBarExpo.Screen
+          name="title4"
+          component={() =>
+            islogin ? (
+              <ProfileScreen navigation={navigation} />
+            ) : (
+              <PreLogin navigation={navigation} />
+            )
+          }
+          position="RIGHT"
+        />
+      </CurvedBottomBarExpo.Navigator>
+    </DrawerSceneWrapper>
   );
 }
 

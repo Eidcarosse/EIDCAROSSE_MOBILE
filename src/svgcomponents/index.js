@@ -17,7 +17,7 @@ const categories=[
   {title:'Bikes',Icon:Bike},
   {title:'Boats',Icon:Boat},
   {title:'Drones',Icon:Drone},
-  {title:'Construction Machiens',Icon:Excavator},
+  {title:'Construction Machines',Icon:Excavator},
   {title:'Trucks',Icon:Trucks},
   {title:'Vans',Icon:Van},
   {title:'Trailers',Icon:Trailer},

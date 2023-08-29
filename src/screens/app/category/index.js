@@ -10,7 +10,7 @@ import ScreenNames from "../../../routes/routes";
 export default function Category({ navigation, route }) {
   return (
     <ScreenWrapper
-      headerUnScrollable={() => <Head navigation={navigation} />}
+      headerUnScrollable={() => <Head headtitle={"All Category"}  navigation={navigation} />}
       statusBarColor={AppColors.primery}
       barStyle="light-content"
     >

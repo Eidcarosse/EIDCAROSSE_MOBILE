@@ -21,5 +21,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
 
   },
+  modalcontainer:{
+    height:height(80),
+    width:width(96),
+    backgroundColor:'white',
+    position:'absolute',
+    bottom:-width(3),
+    left:-width(3),
+    borderTopLeftRadius:width(10),
+    borderTopRightRadius:width(10)
+  }
 });
 export default styles;

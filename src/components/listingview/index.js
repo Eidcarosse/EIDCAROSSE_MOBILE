@@ -19,11 +19,11 @@ export default function ListingView({ data }) {
         <Image resizeMode='stretch' style={styles.image} source={data?.uri} />
       </View>
       <View style={styles.detail}>
-        <View style={{ paddingBottom: width(5) }}>
+        <View style={{ paddingBottom:width(5) }}>
         <Text
             numberOfLines={1}
             style={{
-              fontSize: 15,
+              fontSize: width(3.5),
               color: AppColors.primery,
               fontWeight: "bold",
             }}
@@ -32,21 +32,21 @@ export default function ListingView({ data }) {
           </Text>
           <Text
             numberOfLines={1}
-            style={{ fontSize: 12, color: "grey", fontWeight: "bold" }}
+            style={{ fontSize: width(2.5), color: "grey", fontWeight: "bold" }}
           >
             EUR {data?.eur}
           </Text>
         </View>
         <View>
         
-          <Text numberOfLines={1} style={{ fontWeight: "bold", fontSize: 18 }}>
+          <Text numberOfLines={1} style={{ fontWeight: "bold", fontSize: width(3.5) }}>
             {data?.name}
           </Text>
-          <Text numberOfLines={1} style={{ fontSize: 12 }}>
+          <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
             <MaterialIcons name="category" color={"grey"} />
             {data?.category}
           </Text>
-          <Text numberOfLines={1} style={{ fontSize: 12 }}>
+          <Text numberOfLines={1} style={{ fontSize: width(2) }}>
             <Entypo name="location-pin" color={"grey"} />
             {data?.location}
           </Text>

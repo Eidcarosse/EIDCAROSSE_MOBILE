@@ -12,7 +12,7 @@ import {
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
-
+import { ImageSlider } from "react-native-image-slider-banner";
 export default function Detail({ navigation, route }) {
   const data = route?.params;
   // console.log("detail", data);
@@ -28,7 +28,26 @@ export default function Detail({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View style={styles.imageview}>
-          <Image resizeMode="contain" style={styles.image} source={data?.uri} />
+          {/* <Image resizeMode="contain" style={styles.image} source={data?.uri} /> */}
+          <ImageSlider
+            data={[
+              {
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5a5uCP-n4teeW2SApcIqUrcQApev8ZVCJkA&usqp=CAU",
+              },
+              {
+                img: "https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg",
+              },
+              {
+                img: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg",
+              },
+            ]}
+            indicatorContainerStyle={{color:AppColors.primery}}
+            autoPlay={false}
+            caroselImageStyle={{resizeMode:'stretch'}}
+            activeIndicatorStyle={{backgroundColor:AppColors.primery}}
+            closeIconColor="white"
+            //onItemChanged={(item) => console.log("item", item)}
+          />
         </View>
         <View style={styles.nameview}>
           <View>
@@ -97,7 +116,7 @@ export default function Detail({ navigation, route }) {
             </View>
           </View>
         </View>
-        <View style={{ paddingLeft: width(5),paddingBottom:width(3) }}>
+        <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>Description</Text>
           <Text style={{ fontSize: 12, paddingVertical: width(2) }}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -156,7 +175,6 @@ export default function Detail({ navigation, route }) {
             }}
           />
         </View>
-       
       </View>
     </ScreenWrapper>
   );

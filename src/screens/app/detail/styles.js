@@ -9,8 +9,7 @@ const styles = StyleSheet.create({
   },
   imageview: {
     width: width(100),
-    height: height(30),
-    backgroundColor: "rgba(128, 128, 128,.3)",
+    backgroundColor: AppColors.transparent,
   },
   image: {
     width: width(95),

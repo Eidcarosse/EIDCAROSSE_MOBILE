@@ -7,11 +7,12 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.primery,
     width: width(100),
     flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center'
+    alignItems:'center',
+    alignItems:'center',
+    alignContent:'center',
   },
   menuicon: {
-    paddingLeft:width(5),
+    paddingHorizontal:width(5),
   },
 });
 export default styles;
