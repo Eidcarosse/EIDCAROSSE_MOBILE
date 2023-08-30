@@ -6,6 +6,7 @@ import {
   ListingView,
   ScreenWrapper,
   SearchBar,
+  SearchFilter,
 } from "../../../components";
 import Modal from "react-native-modal";
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -15,42 +16,14 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import ScreenNames from "../../../routes/routes";
 import { FontAwesome } from "@expo/vector-icons";
-
+import {data} from '../../../utills/Data'
 import Icons from "../../../asset/images";
 import { SelectList } from "react-native-dropdown-select-list";
 
 export default function ListData({ navigation, route }) {
   const refRBSheet = useRef();
   const [visible, setVisible] = useState(false);
-  const data = [
-    {
-      name: "Vogele - Super 800",
-      category: "Construction Machines",
-      location: "Schoberbass",
-      uri: Icons.car,
-      views: "114",
-      chf: "29’900",
-      eur: "31’165",
-    },
-    {
-      name: "Vogele - Super 800",
-      category: "Construction Machines",
-      location: "Schoberbass",
-      uri: Icons.car,
-      views: "114",
-      chf: "29’900",
-      eur: "31’165",
-    },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "AC", uri: Icons.car },
-  ];
+  
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -101,14 +74,19 @@ export default function ListData({ navigation, route }) {
         height={height(80)}
         customStyles={{
           wrapper: {
-            backgroundColor: "transparent"
+            backgroundColor: "transparent",
+          },
+          container:{
+            borderTopLeftRadius:width(8),
+            borderTopRightRadius:width(8),
+            
           },
           draggableIcon: {
             backgroundColor: "#000"
           }
         }}
       >
-        <Text>okkkkk</Text>
+      <SearchFilter/>
       </RBSheet>
         </View>
       </View>

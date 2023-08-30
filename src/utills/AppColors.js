@@ -3,6 +3,7 @@ const AppColors = {
     white: '#ffffff',
     black: 'black',
     red: 'red',
-    transparent:'transparent'
+    transparent:'transparent',
+    grey:'#E5E8E8'
   };
   export default AppColors;

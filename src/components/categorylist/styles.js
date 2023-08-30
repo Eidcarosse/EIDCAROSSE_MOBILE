@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   main: {
     justifyContent: "center",
     alignItems: "center",
-    height: height(18),
+    height: height(20),
   },
   titleview: {
     justifyContent: "space-between",

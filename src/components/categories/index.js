@@ -11,18 +11,13 @@ export default function CategoryIcon({
   disabled,
   cardStyle,
   navigation,
+  onPress
 }) {
   return (
     <TouchableOpacity
       activeOpacity={0.6}
       style={[{ margin: width(2) }, cardStyle, styles.main]}
-      onPress={() => {
-        if(title=='Bikes'){
-          navigation.navigate(ScreenNames.BIKECATEGORY)
-        }
-        else{
-        navigation.navigate(ScreenNames.LISTDATA);}
-      }}
+      onPress={onPress}
     >
       <View style={[cardStyle]} disabled={disabled}>
         <View style={styles.container}>{children}</View>

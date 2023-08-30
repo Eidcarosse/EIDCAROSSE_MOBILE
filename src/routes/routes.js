@@ -15,5 +15,6 @@ const ScreenNames = {
   WISH:'Wish',
   MYADS:'MyAds',
   MYLISTING:'MyListing',
+  ADDPOST:'AddPost'
 };
 export default ScreenNames;

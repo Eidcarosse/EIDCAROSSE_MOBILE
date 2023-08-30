@@ -91,11 +91,9 @@ export default function MyCard({ data }) {
         visible={isModalVisible}
         onRequestClose={hideMenu}
       >
-        <MenuItem onPress={hideMenu}>Menu item 1</MenuItem>
-        <MenuItem onPress={hideMenu}>Menu item 2</MenuItem>
-        <MenuItem disabled>Disabled item</MenuItem>
-        <MenuDivider />
-        <MenuItem onPress={hideMenu}>Menu item 4</MenuItem>
+        <MenuItem onPress={hideMenu}>Edit</MenuItem>
+        <MenuItem onPress={hideMenu}>Delete</MenuItem>
+        <MenuItem onPress={hideMenu}>Mark as sold</MenuItem>
       </Menu>
     </View>
   );

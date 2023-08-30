@@ -43,8 +43,24 @@ export default function CategoryList({ navigation }) {
       >
         {categories.map(({ title, Icon }, index) => {
           return (
-            <CategoryIcon navigation={navigation} key={index} title={title}>
-              <Icon height={width(12)} width={width(12)} tintColor='black' fill='black' />
+            <CategoryIcon
+              navigation={navigation}
+              key={index}
+              title={title}
+              onPress={() => {
+                if (title == "Bikes") {
+                  navigation.navigate(ScreenNames.BIKECATEGORY);
+                } else {
+                  navigation.navigate(ScreenNames.LISTDATA);
+                }
+              }}
+            >
+              <Icon
+                height={width(15)}
+                width={width(15)}
+                tintColor="black"
+                fill="black"
+              />
             </CategoryIcon>
           );
         })}

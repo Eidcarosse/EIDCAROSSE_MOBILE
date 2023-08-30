@@ -24,8 +24,9 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: "center",
-    padding:width(1),
-    fontSize:10
+    padding:width(2),
+    fontSize:width(2.5),
+    fontWeight:'bold'
   },
 });
 export default styles;

@@ -14,22 +14,22 @@ import styles from "./styles";
 import SearchBar from "../../../components/searchbar";
 import { width } from "../../../utills/Dimension";
 import ScreenNames from "../../../routes/routes";
+import { SelectList } from "react-native-dropdown-select-list";
+import { data } from "../../../utills/Data";
+
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
 
-  const data = [
-    { name: "Vogele - Super 800", category: "Construction Machines", location: "Schoberbass", uri: Icons.car ,views:'114' ,chf:'29’900',eur:'31’165'},
-    { name: "Vogele - Super 800", category: "Construction Machines", location: "Schoberbass", uri: Icons.car ,views:'114' ,chf:'29’900',eur:'31’165'},
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-  
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-  
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "AC", uri: Icons.car },
+ 
+  const ddata = [
+    { key: "1", value: "Mobiles" },
+    { key: "2", value: "Appliances" },
+    { key: "3", value: "Cameras" },
+    { key: "4", value: "Computers" },
+    { key: "5", value: "Vegetables" },
+    { key: "6", value: "Diary Products" },
+    { key: "7", value: "Drinks" },
   ];
   return (
     <ScreenWrapper
@@ -40,12 +40,20 @@ export default function Home({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <SearchBar/>
+      {/* <SelectList
+            setSelected={(val) => {navigation.navigate(ScreenNames.LISTDATA)}}
+            data={ddata}
+            save="value"
+            placeholder={'Serach here'}
+            boxStyles={styles.searchbox}
+            dropdownStyles={styles.dropdown}
+          /> */}
         {/* <View>
           <TextInput style={styles.searchinput} placeholder="search" />
         </View> */}
         <CategoryList  navigation={navigation}/>
         <View style={styles.titleview}>
-        <Text style={{fontSize:18,fontWeight:'bold'}}>Latest Ads</Text>
+        <Text style={{fontSize:width(3),fontWeight:'bold'}}>Latest Ads</Text>
         <Pressable >
           <Text style={{fontSize:12,marginTop:8, color:'grey',fontWeight:'bold'}}>See all</Text>
         </Pressable>

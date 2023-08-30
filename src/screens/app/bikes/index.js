@@ -35,7 +35,10 @@ export default function BikeCategory({ navigation, route }) {
               activeOpacity={.6}
                 style={styles.card}
                 onPress={()=>{
-                  navigation.navigate(ScreenNames.LISTDATA);
+                  if(route.params=='ADD'){
+                    navigation.navigate(ScreenNames.ADDPOST);
+                  }
+                 else navigation.navigate(ScreenNames.LISTDATA);
                 }}
               >
                <Text>{item.title}</Text>

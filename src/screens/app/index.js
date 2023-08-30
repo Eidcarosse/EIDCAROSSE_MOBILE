@@ -9,6 +9,7 @@ export {default as PasswordScreens} from './changepassword'
 export {default as AccountScreen} from './manageAccount'
 export {default as WishScreen} from './wishlist'
 export {default as MyListingScreen} from './MyListings'
+export {default as AddPostScreen} from './AddPost' 
 
 
 

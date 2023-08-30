@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { LoginScreen, OnBoardingScreen, SignUpScreen } from '../screens/auth';
 import { Loader } from '../components';
 import ScreenNames from './routes';
-import { CategoryScreen, DetailScreen, HomeScreen,BikeScreen, ListData, ProfileScreen, EditProfile, PasswordScreens, AccountScreen, WishScreen, MyListingScreen } from '../screens/app';
+import { CategoryScreen, DetailScreen, HomeScreen,BikeScreen, ListData, ProfileScreen, EditProfile, PasswordScreens, AccountScreen, WishScreen, MyListingScreen, AddPostScreen } from '../screens/app';
 import { selectIsLoggedIn } from '../redux/slices/user';
 import BottomNav from './bottom';
 import MyDrawer from './drawr';
@@ -34,6 +34,8 @@ export default function Routes() {
           <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />
           <Stack.Screen name={ScreenNames.WISH} component={WishScreen} />
           <Stack.Screen name={ScreenNames.MYLISTING} component={MyListingScreen} />
+          <Stack.Screen name={ScreenNames.ADDPOST} component={AddPostScreen} />
+
         </Stack.Navigator>
     </NavigationContainer>
   );
