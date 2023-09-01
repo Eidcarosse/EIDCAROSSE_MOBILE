@@ -12,17 +12,20 @@ export default function Input({
   setvalue,
   placeholder,
   secure = false,
-  containerStyle
+  containerStyle,
+  titlestyle,
+  multi=false
 }) {
   const [secureText, setSecureText] = useState(secure);
   return (
     <View style={[styles.container,containerStyle]}>
-      {title&&<Text>{title}</Text>}
+      {title&&<Text style={titlestyle}>{title}</Text>}
       <View style={styles.innerview}>
         <TextInput
           style={{ paddingVertical: width(2), width: width(80) }}
           placeholder={placeholder}
           secureTextEntry={secureText}
+          multiline={multi}
           value={value}
           onChangeText={setvalue}
         />

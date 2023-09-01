@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     {
       backgroundColor:AppColors.primery,
       width:width(80),
-      margin:width(5),
+      margin:width(2),
     }
   
   

@@ -12,11 +12,12 @@ import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import AppColors from "../../utills/AppColors";
-import { HomeScreen, MyListingScreen, ProfileScreen } from "../../screens/app";
+import { ChatScreen, HomeScreen, MyListingScreen, ProfileScreen } from "../../screens/app";
 import ScreenNames from "../routes";
 import { DrawerSceneWrapper } from "../../components";
 import { selectIsLoggedIn, setIsLoggedIn } from "../../redux/slices/user";
 import { PreLogin } from "../../screens/auth";
+import { height, width } from "../../utills/Dimension";
 
 const Screen1 = () => {
   return <View style={styles.screen1} />;
@@ -81,9 +82,9 @@ export default function BottomNav({ navigation }) {
           <Animated.View style={styles.btnCircleUp}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() =>navigation.navigate(ScreenNames.CATEGORY,'ADD')}
+              onPress={() => navigation.navigate(ScreenNames.CATEGORY, "ADD")}
             >
-              <FontAwesome5 name={"plus"} color={"white"} size={25} />
+              <FontAwesome5 name={"plus"} color={"white"} size={22} />
             </TouchableOpacity>
           </Animated.View>
         )}
@@ -98,7 +99,7 @@ export default function BottomNav({ navigation }) {
         <CurvedBottomBarExpo.Screen
           name="title2"
           position="LEFT"
-          component={() => <Screen2 />}
+          component={() => <ChatScreen navigation={navigation}/>}
         />
         <CurvedBottomBarExpo.Screen
           name={ScreenNames.MYADS}
@@ -142,8 +143,11 @@ export const styles = StyleSheet.create({
     shadowRadius: 5,
   },
   button: {
-    flex: 1,
     justifyContent: "center",
+    width: width(10),
+    height: height(5),
+    justifyContent:'center',
+    alignItems:'center'
   },
   bottomBar: {},
   btnCircleUp: {

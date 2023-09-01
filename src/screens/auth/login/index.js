@@ -2,6 +2,8 @@ import React from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import { useDispatch } from "react-redux";
+import {AntDesign } from "@expo/vector-icons";
+
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
 import { setAppLoader } from "../../../redux/slices/config";
@@ -42,6 +44,14 @@ export default function Login({ navigation, route }) {
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />
+          <Button
+            containerStyle={styles.button}
+            title={<AntDesign name='google' size={width(3.5)}> Login with Google</AntDesign>}
+            onPress={() => {
+              dispatch(setIsLoggedIn(true))
+              navigation.navigate(ScreenNames.BUTTOM);
+            }}
+          />
           <View
             style={{
               alignSelf: "center",
@@ -52,12 +62,12 @@ export default function Login({ navigation, route }) {
             <Text>Can’t login?</Text>
             <TouchableOpacity>
               <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
-                {" "}
+                {"   "}
                 Forgot Password
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={{ height: height(15) }} />
+          <View style={{ height: height(10) }} />
 
           <View
             style={{
