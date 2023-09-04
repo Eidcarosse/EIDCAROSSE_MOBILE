@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat,Bubble ,MessageText,Time,Avatar} from "react-native-gifted-chat";
 import Icons from "../../../asset/images";
 import { Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
@@ -25,11 +25,76 @@ export default function ChatView({ navigation, route }) {
     ]);
   }, []);
 
+  const renderBubble = (props) => {
+    // Customize the style of the message bubble
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          backgroundColor:'red',
+          alignItems: 'center',
+          justifyContent: 'center',
+          right: {
+            backgroundColor:"#FAD0D0",
+            marginVertical:width(1),// Change the background color for sent messages
+          },
+          left: {
+            marginVertical:width(1),// Change the background color for received messages
+          },
+        }}
+      />
+    );
+  };
+  const renderMessageText = (props) => {
+    return (
+      <MessageText
+        {...props}
+        textStyle={{
+          right: {
+            color: 'black',
+             // Change the text color for sent messages
+          },
+          left: {
+            color: 'black', // Change the text color for received messages
+          },
+        }}
+      />
+    );
+  };
+  const renderAvatar = (props) => {
+    return (
+      <Avatar
+        {...props}
+        imageStyle={{
+          width: 100,   // Change the width of the avatar
+          height: 100,  // Change the height of the avatar
+          margin: 5,   // Change the margin around the avatar
+        }}
+      />
+    );
+  };
+
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
   }, []);
+  const renderTime = (props) => {
+    return (
+      <Time
+        {...props}
+        timeTextStyle={{
+          right: {
+            color: 'black', // Change the text color for sent message times
+          },
+          left: {
+            color: 'black', // Change the text color for received message times
+          },
+        }}
+      />
+    );
+  };
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -46,7 +111,10 @@ export default function ChatView({ navigation, route }) {
           user={{
             _id: 1,
           }}
-          messagesContainerStyle={{backgroundColor:'red'}}
+          renderBubble={renderBubble} 
+        renderMessageText={renderMessageText}
+           renderTime={renderTime}
+          // renderAvatar={renderAvatar}
         />
       </View>
     </ScreenWrapper>

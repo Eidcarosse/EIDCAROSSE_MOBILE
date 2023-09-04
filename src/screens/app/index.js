@@ -12,6 +12,7 @@ export {default as MyListingScreen} from './MyListings'
 export {default as AddPostScreen} from './AddPost' 
 export {default as ChatScreen} from './chat' 
 export {default as ChatView} from './chatView' 
+export {default as FAQScreen} from './FAQ' 
 
 
 

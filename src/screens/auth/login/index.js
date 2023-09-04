@@ -30,7 +30,7 @@ export default function Login({ navigation, route }) {
           </View>
         </ImageBackground>
         <View style={{ height: height(70),paddingTop:width(10) }}>
-          <Input title={"Name"} placeholder={"Enter Name"} />
+          <Input title={"UserName"} placeholder={"Enter username"} />
           <Input
             title={"Password"}
             placeholder={"Enter Password"}

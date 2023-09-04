@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { LoginScreen, OnBoardingScreen, SignUpScreen } from '../screens/auth';
 import { Loader } from '../components';
 import ScreenNames from './routes';
-import { CategoryScreen, DetailScreen, HomeScreen,BikeScreen, ListData, ProfileScreen, EditProfile, PasswordScreens, AccountScreen, WishScreen, MyListingScreen, AddPostScreen, ChatScreen, ChatView } from '../screens/app';
+import { CategoryScreen, DetailScreen, HomeScreen,BikeScreen, ListData, ProfileScreen, EditProfile, PasswordScreens, AccountScreen, WishScreen, MyListingScreen, AddPostScreen, ChatScreen, ChatView, FAQScreen } from '../screens/app';
 import { selectIsLoggedIn } from '../redux/slices/user';
 import BottomNav from './bottom';
 import MyDrawer from './drawr';
@@ -20,7 +20,6 @@ export default function Routes() {
     
         <Stack.Navigator  screenOptions={{ header: () => false }}>
           <Stack.Screen name={'drawr'} component={MyDrawer} />
-
           <Stack.Screen name={ScreenNames.ONBOARDING} component={OnBoardingScreen} />
           <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />
           <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
@@ -36,6 +35,8 @@ export default function Routes() {
           <Stack.Screen name={ScreenNames.MYLISTING} component={MyListingScreen} />
           <Stack.Screen name={ScreenNames.ADDPOST} component={AddPostScreen} />
           <Stack.Screen name={ScreenNames.CHAT} component={ChatView} />
+          <Stack.Screen name={ScreenNames.FAQ} component={FAQScreen} />
+
 
         </Stack.Navigator>
     </NavigationContainer>

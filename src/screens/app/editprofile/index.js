@@ -1,34 +1,19 @@
 import React from "react";
-import {
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ImageBackground, Text, View } from "react-native";
 import styles from "./styles";
-import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 
 import { useDispatch } from "react-redux";
-import {
-  Button,
-  Head,
-  Header,
-  IconButton,
-  Input,
-  ScreenWrapper,
-} from "../../../components";
-import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
-import { setAppLoader } from "../../../redux/slices/config";
 import Icons from "../../../asset/images";
-import { height, width } from "../../../utills/Dimension";
+import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
-import ScreenNames from "../../../routes/routes";
+import { height, width } from "../../../utills/Dimension";
 export default function EditProfile({ navigation, route }) {
   const dispatch = useDispatch();
   return (
     <ScreenWrapper
-      headerUnScrollable={() => <Head headtitle={"Edit Profile"} navigation={navigation} />}
+      headerUnScrollable={() => (
+        <Head headtitle={"Edit Profile"} navigation={navigation} />
+      )}
       statusBarColor={AppColors.primery}
       barStyle="light-content"
       scrollEnabled
@@ -66,22 +51,11 @@ export default function EditProfile({ navigation, route }) {
           </View>
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
-          <Input title={"First Name"} placeholder={"Enter Name"} />
-          <Input title={"Last Name"} placeholder={"Enter Password"} />
-          <Input title={"User Name"} placeholder={"Enter Name"} />
-          <Input title={"Email"} placeholder={"Enter Name"} />
-
-          <Input title={"Phone Number"} placeholder={"Enter Name"} />
-
-          <Input
-            title={"Password"}
-            placeholder={"Enter Password"}
-            secure={true}
-          />
+          <Input title={"Name"} placeholder={"Enter Name"} />
+          <Input title={"User Name"} placeholder={"Enter Username"} />
+          <Input title={"Email"} placeholder={"Enter Email"} />
+          <Input title={"Phone Number"} placeholder={"Phone Number"} />
           <Button containerStyle={styles.button} title={"Save Change"} />
-
-          <View style={{ height: height(7) }} />
-
         </View>
       </View>
     </ScreenWrapper>

@@ -16,6 +16,7 @@ const ScreenNames = {
   MYADS:'MyAds',
   MYLISTING:'MyListing',
   ADDPOST:'AddPost',
-  CHAT:'Chat'
+  CHAT:'Chat',
+  FAQ:'Faq'
 };
 export default ScreenNames;

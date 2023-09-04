@@ -19,7 +19,8 @@ import {
   Entypo,
   Ionicons,
 } from "@expo/vector-icons";
-const CustomDrawer = (props) => {
+import ScreenNames from "../../routes/routes";
+const CustomDrawer = ({navigation}) => {
   return (
     <SafeAreaView>
       <Image
@@ -33,6 +34,7 @@ const CustomDrawer = (props) => {
       <IconButton
         title={"FAQ"}
         containerStyle={styles.container}
+        onPress={()=>{navigation.navigate(ScreenNames.FAQ),navigation.closeDrawer()}}
         textStyle={styles.text}
         icon={
           <AntDesign

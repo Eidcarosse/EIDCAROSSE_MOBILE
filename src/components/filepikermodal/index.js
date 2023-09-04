@@ -1,12 +1,27 @@
-import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useState} from 'react';
 //import ImagePicker from 'react-native-image-crop-picker';
 //import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from 'expo-image-picker';
-
+import * as Permissions from 'expo-permissions';
 import DropDownMenu from '../dorpdownmenu';
 
 const FilePickerModal = ({onFilesSelected}, ref) => {
+
+
+
+
   const [isVisible, setVisible] = useState(false);
+
+  const requestPermissions = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== 'granted') {
+      alert('Permission to access camera or camera roll denied!');
+    }
+  };
+  
+  useEffect(() => {
+    requestPermissions();
+  }, []);
   useImperativeHandle(ref, () => ({
     show: function () {
       setVisible(true);
@@ -48,14 +63,8 @@ const FilePickerModal = ({onFilesSelected}, ref) => {
   // }
   const openCamera = async () => {
     try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsMultipleSelection: true,
-      });
-    
-      if (!result.cancelled) {
-        setSelectedImages([...selectedImages, result.uri]);
-      }
+      let result = await ImagePicker.launchCameraAsync({
+      }).then((a)=>onFilesSelected(a.assets)).catch((e)=>console.log("my log",e))
     } catch (error) {
       console.error("Image picker error:", error);
     }

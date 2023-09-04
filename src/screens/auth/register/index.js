@@ -30,13 +30,9 @@ export default function SignUp({ navigation, route }) {
           </View>
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
-          <Input title={"First Name"} placeholder={"Enter Name"} />
-          <Input title={"Last Name"} placeholder={"Enter Password"} />
-          <Input title={"User Name"} placeholder={"Enter Name"} />
-          <Input title={"Email"} placeholder={"Enter Name"} />
-
-          <Input title={"Phone Number"} placeholder={"Enter Name"} />
-
+          <Input title={"Name"} placeholder={"Enter Name"} />
+          <Input title={"User Name"} placeholder={"Enter username"} />
+          <Input title={"Email"} placeholder={"Enter email"} />
           <Input
             title={"Password"}
             placeholder={"Enter Password"}
