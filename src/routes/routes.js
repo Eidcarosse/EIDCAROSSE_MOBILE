@@ -17,6 +17,12 @@ const ScreenNames = {
   MYLISTING:'MyListing',
   ADDPOST:'AddPost',
   CHAT:'Chat',
-  FAQ:'Faq'
+  FAQ:'Faq',
+  HTSF:'Htsf',
+  ABOUTUS:'Aboutus',
+  TNC:'Tnc',
+  PP:'PrivacyPolicy',
+  SNTU:'Sellus',
+  REPAIR:'Repair',
 };
 export default ScreenNames;

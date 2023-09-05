@@ -1,24 +1,25 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useState} from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 //import ImagePicker from 'react-native-image-crop-picker';
 //import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
-import DropDownMenu from '../dorpdownmenu';
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import DropDownMenu from "../dorpdownmenu";
 
-const FilePickerModal = ({onFilesSelected}, ref) => {
-
-
-
-
+const FilePickerModal = ({ onFilesSelected }, ref) => {
   const [isVisible, setVisible] = useState(false);
 
   const requestPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    if (status !== 'granted') {
-      alert('Permission to access camera or camera roll denied!');
+    if (status !== "granted") {
+      alert("Permission to access camera or camera roll denied!");
     }
   };
-  
+
   useEffect(() => {
     requestPermissions();
   }, []);
@@ -30,7 +31,6 @@ const FilePickerModal = ({onFilesSelected}, ref) => {
       setVisible(false);
     },
     cleanTempImages: () => {
-
       // ImagePicker.cleanTempImages()
       //   .then(() => {
       //     console.log('removed all tmp images from tmp directory');
@@ -59,12 +59,13 @@ const FilePickerModal = ({onFilesSelected}, ref) => {
   //   } catch (error) {
   //     console.log(error);
   //   }
-  
+
   // }
   const openCamera = async () => {
     try {
-      let result = await ImagePicker.launchCameraAsync({
-      }).then((a)=>onFilesSelected(a.assets)).catch((e)=>console.log("my log",e))
+      let result = await ImagePicker.launchCameraAsync({})
+        .then((a) => onFilesSelected(a.assets))
+        .catch((e) => console.log("my log", e));
     } catch (error) {
       console.error("Image picker error:", error);
     }
@@ -73,12 +74,14 @@ const FilePickerModal = ({onFilesSelected}, ref) => {
     await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: true,
-    }).then((a)=>onFilesSelected(a.assets)).catch((e)=>console.log("my log",e))
+    })
+      .then((a) => onFilesSelected(a.assets))
+      .catch((e) => console.log("my log", e));
   };
 
   function openPicker(type = 0) {
     setVisible(false);
-   setTimeout(type == 0 ? openCamera : openGallery, 400);
+    setTimeout(type == 0 ? openCamera : openGallery, 400);
   }
   return (
     <DropDownMenu

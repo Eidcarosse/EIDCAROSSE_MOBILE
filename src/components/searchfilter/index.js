@@ -1,20 +1,12 @@
-import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import {
-  TextInput,
-  View,
-  Text,
-  FlatList,
-  Pressable,
-  ScrollView,
-} from "react-native";
-import { height, width } from "../../utills/Dimension";
-import styles from "./styles";
-import AppColors from "../../utills/AppColors";
-import { SelectList } from "react-native-dropdown-select-list";
-import Button from "../button";
 import RadioButtonRN from "radio-buttons-react-native";
+import React from "react";
+import { ScrollView, Text, View } from "react-native";
+import { SelectList } from "react-native-dropdown-select-list";
+import AppColors from "../../utills/AppColors";
+import { width } from "../../utills/Dimension";
 import Input from "../InputText";
+import Button from "../button";
+import styles from "./styles";
 
 export default function SearchFilter({ search, setSearch, containerstyle }) {
   const [sortby, setSortby] = React.useState("");
@@ -53,17 +45,16 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
   ];
   return (
     <View style={styles.container}>
-         <Text
-          style={{
-            fontSize: width(5),
-            fontWeight: "bold",
-            alignSelf: "center",
-          }}
-        >
-          Filters
-        </Text>
+      <Text
+        style={{
+          fontSize: width(5),
+          fontWeight: "bold",
+          alignSelf: "center",
+        }}
+      >
+        Filters
+      </Text>
       <ScrollView showsVerticalScrollIndicator={false}>
-     
         <View style={{ alignSelf: "center" }}>
           <Text style={styles.title}>Sort by</Text>
           <SelectList
@@ -84,15 +75,21 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
             dropdownStyles={styles.dropdown}
           />
         </View>
-        <View style={{ paddingLeft:4,paddingVertical:width(1)}}>
+        <View style={{ paddingLeft: 4, paddingVertical: width(1) }}>
           <Text style={styles.title}>Price Rang (CHF)</Text>
-          <View style={{flexDirection: "row",justifyContent:'space-between' }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
             <Input
-            setvalue={setPricefrom}
-            placeholder={"From"} containerStyle={styles.price} />
+              setvalue={setPricefrom}
+              placeholder={"From"}
+              containerStyle={styles.price}
+            />
             <Input
-            setvalue={setPriceto}
-            placeholder={"to"} containerStyle={styles.price} />
+              setvalue={setPriceto}
+              placeholder={"to"}
+              containerStyle={styles.price}
+            />
           </View>
         </View>
         <View style={{ alignSelf: "center" }}>

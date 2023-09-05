@@ -1,16 +1,15 @@
+import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
-import styles from "./styles";
-import { useDispatch } from "react-redux";
-import { Button, Input, ScreenWrapper } from "../../../components";
-import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
-import { setAppLoader } from "../../../redux/slices/config";
-import Icons from "../../../asset/images";
-import { height, width } from "../../../utills/Dimension";
-import AppColors from "../../../utills/AppColors";
-import ScreenNames from "../../../routes/routes";
 import CheckBox from "react-native-check-box";
-import { AntDesign } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import Icons from "../../../asset/images";
+import { Button, Input, ScreenWrapper } from "../../../components";
+import { setIsLoggedIn } from "../../../redux/slices/user";
+import ScreenNames from "../../../routes/routes";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
+import styles from "./styles";
 export default function SignUp({ navigation, route }) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
@@ -60,9 +59,14 @@ export default function SignUp({ navigation, route }) {
           <Button containerStyle={styles.button} title={"SignUp"} />
           <Button
             containerStyle={styles.button}
-            title={<AntDesign name='google' size={width(3.5)}> Login with Google</AntDesign>}
+            title={
+              <AntDesign name="google" size={width(3.5)}>
+                {" "}
+                Login with Google
+              </AntDesign>
+            }
             onPress={() => {
-              dispatch(setIsLoggedIn(true))
+              dispatch(setIsLoggedIn(true));
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />

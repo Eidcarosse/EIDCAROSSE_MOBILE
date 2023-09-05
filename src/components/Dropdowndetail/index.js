@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import AppColors from "../../utills/AppColors";
 
-import { height, width } from "../../utills/Dimension";
 import { FontAwesome } from "@expo/vector-icons";
+import { height, width } from "../../utills/Dimension";
 
 export default DropDownDetail = ({
   title,
@@ -52,11 +52,15 @@ export default DropDownDetail = ({
         }}
         onPress={() => setShow(!show)}
       >
-        <Text style={[styles.text, textStyles]} {...textProps} numberOfLines={1}>
+        <Text
+          style={[styles.text, textStyles]}
+          {...textProps}
+          numberOfLines={1}
+        >
           {title}
         </Text>
         <FontAwesome
-          name={show?'chevron-up':"chevron-down"}
+          name={show ? "chevron-up" : "chevron-down"}
           size={width(4)}
           color={show ? AppColors.primery : "black"}
         />

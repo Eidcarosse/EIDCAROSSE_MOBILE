@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
-import { GiftedChat,Bubble ,MessageText,Time,Avatar} from "react-native-gifted-chat";
+import {
+  Avatar,
+  Bubble,
+  GiftedChat,
+  MessageText,
+  Time,
+} from "react-native-gifted-chat";
 import Icons from "../../../asset/images";
 import { Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
@@ -31,15 +37,15 @@ export default function ChatView({ navigation, route }) {
       <Bubble
         {...props}
         wrapperStyle={{
-          backgroundColor:'red',
-          alignItems: 'center',
-          justifyContent: 'center',
+          backgroundColor: "red",
+          alignItems: "center",
+          justifyContent: "center",
           right: {
-            backgroundColor:"#FAD0D0",
-            marginVertical:width(1),// Change the background color for sent messages
+            backgroundColor: "#FAD0D0",
+            marginVertical: width(1), // Change the background color for sent messages
           },
           left: {
-            marginVertical:width(1),// Change the background color for received messages
+            marginVertical: width(1), // Change the background color for received messages
           },
         }}
       />
@@ -51,11 +57,11 @@ export default function ChatView({ navigation, route }) {
         {...props}
         textStyle={{
           right: {
-            color: 'black',
-             // Change the text color for sent messages
+            color: "black",
+            // Change the text color for sent messages
           },
           left: {
-            color: 'black', // Change the text color for received messages
+            color: "black", // Change the text color for received messages
           },
         }}
       />
@@ -66,9 +72,9 @@ export default function ChatView({ navigation, route }) {
       <Avatar
         {...props}
         imageStyle={{
-          width: 100,   // Change the width of the avatar
-          height: 100,  // Change the height of the avatar
-          margin: 5,   // Change the margin around the avatar
+          width: 100, // Change the width of the avatar
+          height: 100, // Change the height of the avatar
+          margin: 5, // Change the margin around the avatar
         }}
       />
     );
@@ -85,10 +91,10 @@ export default function ChatView({ navigation, route }) {
         {...props}
         timeTextStyle={{
           right: {
-            color: 'black', // Change the text color for sent message times
+            color: "black", // Change the text color for sent message times
           },
           left: {
-            color: 'black', // Change the text color for received message times
+            color: "black", // Change the text color for received message times
           },
         }}
       />
@@ -111,9 +117,9 @@ export default function ChatView({ navigation, route }) {
           user={{
             _id: 1,
           }}
-          renderBubble={renderBubble} 
-        renderMessageText={renderMessageText}
-           renderTime={renderTime}
+          renderBubble={renderBubble}
+          renderMessageText={renderMessageText}
+          renderTime={renderTime}
           // renderAvatar={renderAvatar}
         />
       </View>

@@ -1,29 +1,26 @@
+import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, Text, Image, Pressable, TouchableOpacity } from "react-native";
-import styles from "./styles";
-import {
-  FontAwesome,
-  MaterialIcons,
-  AntDesign,
-  Entypo,
-  Ionicons,
-} from "@expo/vector-icons";
-import { height, width } from "../../utills/Dimension";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import AppColors from "../../utills/AppColors";
+import { width } from "../../utills/Dimension";
+import styles from "./styles";
 
 export default function CardView({ data }) {
   // console.log("indata", data);
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
-        <Image resizeMode='stretch' style={styles.image} source={data?.uri} />
+        <Image resizeMode="stretch" style={styles.image} source={data?.uri} />
       </View>
       <View style={styles.detail}>
         <View style={{}}>
-          <Text numberOfLines={1} style={{ fontWeight: "bold", fontSize: width(3.5) }}>
+          <Text
+            numberOfLines={1}
+            style={{ fontWeight: "bold", fontSize: width(3.5) }}
+          >
             {data?.name}
           </Text>
-          <Text numberOfLines={1} style={{ fontSize:width(2.5) }}>
+          <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
             <MaterialIcons name="category" color={"grey"} />
             {data?.category}
           </Text>

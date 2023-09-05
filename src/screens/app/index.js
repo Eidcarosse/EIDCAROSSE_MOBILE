@@ -13,6 +13,15 @@ export {default as AddPostScreen} from './AddPost'
 export {default as ChatScreen} from './chat' 
 export {default as ChatView} from './chatView' 
 export {default as FAQScreen} from './FAQ' 
+export {default as HTSFScreen} from './HTSF' 
+export {default as AboutUsScreen} from './Aboutus' 
+export {default as TNCScreen} from './T&C' 
+export {default as PrivacyPolicyScreen} from './privacypolicy' 
+export {default as SellUsScreen} from './SNTU' 
+export {default as RepairSreen} from './repairnow' 
+
+
+
 
 
 

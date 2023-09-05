@@ -1,16 +1,16 @@
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import Modal from 'react-native-modal';
-import {SmallText} from '../index';
-import styles from './styles';
+import React from "react";
+import { TouchableOpacity, View } from "react-native";
+import Modal from "react-native-modal";
+import { SmallText } from "../index";
+import styles from "./styles";
 const DropDownMenu = ({
   isVisible = false,
   onClose = () => {},
   onPressFirstBtn = () => {},
   onPressSecondBtn = () => {},
-  firstBtnText = '',
-  secondBtnText = '',
-  thirdText = '',
+  firstBtnText = "",
+  secondBtnText = "",
+  thirdText = "",
   onPressThirdBtn = () => {},
 }) => {
   return (
@@ -19,13 +19,15 @@ const DropDownMenu = ({
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
       animationIn="fadeInUpBig"
-      animationInTiming={1000}>
+      animationInTiming={1000}
+    >
       <View style={styles.modalContainer}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             activeOpacity={0.7}
             style={styles.button}
-            onPress={onPressFirstBtn}>
+            onPress={onPressFirstBtn}
+          >
             <SmallText>{firstBtnText}</SmallText>
           </TouchableOpacity>
 
@@ -33,17 +35,19 @@ const DropDownMenu = ({
           <TouchableOpacity
             activeOpacity={0.7}
             style={styles.button}
-            onPress={onPressSecondBtn}>
+            onPress={onPressSecondBtn}
+          >
             <SmallText>{secondBtnText}</SmallText>
           </TouchableOpacity>
 
-          {thirdText !== '' && (
+          {thirdText !== "" && (
             <>
               <View style={styles.line} />
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.button}
-                onPress={onPressThirdBtn}>
+                onPress={onPressThirdBtn}
+              >
                 <SmallText>{thirdText}</SmallText>
               </TouchableOpacity>
             </>
@@ -52,7 +56,8 @@ const DropDownMenu = ({
         <TouchableOpacity
           activeOpacity={0.9}
           style={styles.cancelBtn}
-          onPress={onClose}>
+          onPress={onClose}
+        >
           <SmallText>Cancel</SmallText>
         </TouchableOpacity>
       </View>

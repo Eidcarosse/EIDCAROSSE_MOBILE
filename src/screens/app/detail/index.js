@@ -1,6 +1,7 @@
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { ImageSlider } from "react-native-image-slider-banner";
 import MapView from "react-native-maps";
 import Icons from "../../../asset/images";
 import {
@@ -12,7 +13,6 @@ import {
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
-import { ImageSlider } from "react-native-image-slider-banner";
 export default function Detail({ navigation, route }) {
   const data = route?.params;
   // console.log("detail", data);
@@ -41,10 +41,10 @@ export default function Detail({ navigation, route }) {
                 img: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg",
               },
             ]}
-            indicatorContainerStyle={{color:AppColors.primery}}
+            indicatorContainerStyle={{ color: AppColors.primery }}
             autoPlay={false}
-            caroselImageStyle={{resizeMode:'stretch'}}
-            activeIndicatorStyle={{backgroundColor:AppColors.primery}}
+            caroselImageStyle={{ resizeMode: "stretch" }}
+            activeIndicatorStyle={{ backgroundColor: AppColors.primery }}
             closeIconColor="white"
             //onItemChanged={(item) => console.log("item", item)}
           />

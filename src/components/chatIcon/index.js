@@ -1,17 +1,9 @@
 import React from "react";
-import { View, Text, Image, Pressable, TouchableOpacity } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { width } from "../../utills/Dimension";
 import styles from "./styles";
-import {
-  FontAwesome,
-  MaterialIcons,
-  AntDesign,
-  Entypo,
-  Ionicons,
-} from "@expo/vector-icons";
-import { height, width } from "../../utills/Dimension";
-import AppColors from "../../utills/AppColors";
 
-export default function ChatIcon({ data,onPress }) {
+export default function ChatIcon({ data, onPress }) {
   // console.log("indata", data);
   return (
     <TouchableOpacity style={styles.main} onPress={onPress}>
@@ -26,11 +18,8 @@ export default function ChatIcon({ data,onPress }) {
           >
             {data?.name}
           </Text>
-          <Text
-            numberOfLines={1}
-            style={{ fontSize: width(2.5) }}
-          >
-           Hi
+          <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
+            Hi
           </Text>
           <Text />
         </View>
@@ -42,7 +31,7 @@ export default function ChatIcon({ data,onPress }) {
           >
             {data?.date}
           </Text>
-          <Text/>
+          <Text />
         </View>
       </View>
     </TouchableOpacity>

@@ -1,28 +1,9 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
-import {
-  FlatList,
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import Icons from "../../../asset/images";
-import { ChatIcon, Head, ScreenWrapper } from "../../../components";
-import CardView from "../../../components/CardView";
-import CategoryList from "../../../components/categorylist";
-import Header from "../../../components/header";
-import { selectUserMeta } from "../../../redux/slices/user";
+import React from "react";
+import { View } from "react-native";
+import { Head, ScreenWrapper } from "../../../components";
+import Dropdowndetail from "../../../components/Dropdowndetail";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
-import SearchBar from "../../../components/searchbar";
-import { width } from "../../../utills/Dimension";
-import ScreenNames from "../../../routes/routes";
-import { SelectList } from "react-native-dropdown-select-list";
-import { data } from "../../../utills/Data";
-import Dropdowndetail from "../../../components/Dropdowndetail";
 
 export default function FAQ({ navigation, route }) {
   return (

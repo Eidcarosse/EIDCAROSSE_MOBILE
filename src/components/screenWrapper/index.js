@@ -1,17 +1,11 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { Fragment } from "react";
-import {
-  ImageBackground,
-  SafeAreaView,
-  StatusBar,
-  View,
-  ViewStyle,
-} from "react-native";
+import { ImageBackground, SafeAreaView, StatusBar, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
-import { height, width } from "../../utills/Dimension";
 import AppColors from "../../utills/AppColors";
+import { height, width } from "../../utills/Dimension";
 
 export default function ScreenWrapper({
   children,
@@ -88,7 +82,7 @@ export default function ScreenWrapper({
             styles.container,
             {
               height: height(30),
-              marginTop:width(7)
+              marginTop: width(7),
             },
             { backgroundColor: imageBackgroundColor },
           ]}

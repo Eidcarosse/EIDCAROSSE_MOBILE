@@ -24,10 +24,10 @@ export default function AddPost({ navigation, route }) {
   const imageRef = useRef(null);
   const userInfo = useSelector(selectUserMeta);
   const [image, setImage] = React.useState([]);
-  const [title, setTitle] = React.useState('');
+  const [title, setTitle] = React.useState("");
   const [pricing, setPricing] = React.useState();
-  const [url, setUrl] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const [url, setUrl] = React.useState("");
+  const [description, setDescription] = React.useState("");
   const [check, setCheck] = React.useState(false);
 
   const [year, setYear] = React.useState("");
@@ -192,7 +192,7 @@ export default function AddPost({ navigation, route }) {
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
-         
+
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>Priceing</Text>
 
@@ -209,32 +209,43 @@ export default function AddPost({ navigation, route }) {
               selectedBtn={(e) => setPricing(e.label)}
             />
           </View>
-          {pricing=='Price Rang'&&<View style={{ paddingVertical: width(1), alignSelf: "flex-start" }}>
-            <Text style={styles.title}>Price Rang (CHF)</Text>
+          {pricing == "Price Rang" && (
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
             >
-              <Input
-                setvalue={setPricefrom}
-                placeholder={"From"}
-                containerStyle={styles.price}
-              />
-              <Input
-                setvalue={setPriceto}
-                placeholder={"to"}
-                containerStyle={styles.price}
-              />
+              <Text style={styles.title}>Price Rang (CHF)</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Input
+                  setvalue={setPricefrom}
+                  placeholder={"From"}
+                  containerStyle={styles.price}
+                />
+                <Input
+                  setvalue={setPriceto}
+                  placeholder={"to"}
+                  containerStyle={styles.price}
+                />
+              </View>
             </View>
-          </View>}
-          {pricing=='Price'&&<View style={{ paddingVertical: width(1), alignSelf: "flex-start" }}>
-            <Text style={styles.title}>Price (CHF)</Text>
-          
+          )}
+          {pricing == "Price" && (
+            <View
+              style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
+            >
+              <Text style={styles.title}>Price (CHF)</Text>
+
               <Input
                 setvalue={setPrice}
                 placeholder={"From"}
-                containerStyle={[styles.price,{width:width(90)}]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-          </View>}
+            </View>
+          )}
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>Condition</Text>
 

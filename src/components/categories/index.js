@@ -1,9 +1,7 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
+import { width } from "../../utills/Dimension";
 import styles from "./styles";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { height, width } from "../../utills/Dimension";
-import ScreenNames from "../../routes/routes";
 
 export default function CategoryIcon({
   children,
@@ -11,7 +9,7 @@ export default function CategoryIcon({
   disabled,
   cardStyle,
   navigation,
-  onPress
+  onPress,
 }) {
   return (
     <TouchableOpacity

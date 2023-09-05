@@ -1,16 +1,15 @@
+import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
-import styles from "./styles";
 import { useDispatch } from "react-redux";
-import {AntDesign } from "@expo/vector-icons";
+import styles from "./styles";
 
-import { Button, Head, Input, ScreenWrapper } from "../../../components";
-import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
-import { setAppLoader } from "../../../redux/slices/config";
 import Icons from "../../../asset/images";
-import { height, width } from "../../../utills/Dimension";
-import AppColors from "../../../utills/AppColors";
+import { Button, Head, Input, ScreenWrapper } from "../../../components";
+import { setIsLoggedIn } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
 export default function Login({ navigation, route }) {
   const dispatch = useDispatch();
   return (
@@ -18,7 +17,7 @@ export default function Login({ navigation, route }) {
       statusBarColor={AppColors.primery}
       barStyle="light-content"
       scrollEnabled
-      headerUnScrollable={()=><Head navigation={navigation}/>}
+      headerUnScrollable={() => <Head navigation={navigation} />}
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground
@@ -29,7 +28,7 @@ export default function Login({ navigation, route }) {
             <Text style={styles.logintext}>Login</Text>
           </View>
         </ImageBackground>
-        <View style={{ height: height(70),paddingTop:width(10) }}>
+        <View style={{ height: height(70), paddingTop: width(10) }}>
           <Input title={"UserName"} placeholder={"Enter username"} />
           <Input
             title={"Password"}
@@ -40,15 +39,20 @@ export default function Login({ navigation, route }) {
             containerStyle={styles.button}
             title={"Login"}
             onPress={() => {
-              dispatch(setIsLoggedIn(true))
+              dispatch(setIsLoggedIn(true));
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />
           <Button
             containerStyle={styles.button}
-            title={<AntDesign name='google' size={width(3.5)}> Login with Google</AntDesign>}
+            title={
+              <AntDesign name="google" size={width(3.5)}>
+                {" "}
+                Login with Google
+              </AntDesign>
+            }
             onPress={() => {
-              dispatch(setIsLoggedIn(true))
+              dispatch(setIsLoggedIn(true));
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />

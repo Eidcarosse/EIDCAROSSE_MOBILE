@@ -1,28 +1,14 @@
-import React from "react";
-import {
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import styles from "./styles";
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Image, ImageBackground, Text, View } from "react-native";
+import styles from "./styles";
 
 import { useDispatch } from "react-redux";
-import {
-  Button,
-  Header,
-  IconButton,
-  Input,
-  ScreenWrapper,
-} from "../../../components";
-import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
-import { setAppLoader } from "../../../redux/slices/config";
 import Icons from "../../../asset/images";
-import { height, width } from "../../../utills/Dimension";
-import AppColors from "../../../utills/AppColors";
+import { Header, IconButton, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   return (

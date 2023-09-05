@@ -1,7 +1,7 @@
-import React from 'react';
-import {ActivityIndicator, Text, TouchableOpacity} from 'react-native';
-import AppColors from '../../utills/AppColors';
-import styles from './styles';
+import React from "react";
+import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import AppColors from "../../utills/AppColors";
+import styles from "./styles";
 
 const Button = ({
   title,
@@ -18,7 +18,8 @@ const Button = ({
       onPress={onPress}
       disabled={disabled || isLoading}
       activeOpacity={activeOpacity}
-      style={[styles.container, containerStyle]}>
+      style={[styles.container, containerStyle]}
+    >
       {isLoading ? (
         <ActivityIndicator color={loaderColor} size="small" />
       ) : (

@@ -1,29 +1,24 @@
-import React, { useState,useRef } from "react";
-import { FlatList, TouchableOpacity, View, Text } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import React, { useRef, useState } from "react";
+import { FlatList, TouchableOpacity, View } from "react-native";
+import RBSheet from "react-native-raw-bottom-sheet";
 import {
-  CategoryIcon,
   Head,
   ListingView,
   ScreenWrapper,
   SearchBar,
   SearchFilter,
 } from "../../../components";
-import Modal from "react-native-modal";
-import RBSheet from "react-native-raw-bottom-sheet";
-import categories from "../../../svgcomponents";
+import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
+import { data } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
-import ScreenNames from "../../../routes/routes";
-import { FontAwesome } from "@expo/vector-icons";
-import {data} from '../../../utills/Data'
-import Icons from "../../../asset/images";
-import { SelectList } from "react-native-dropdown-select-list";
 
 export default function ListData({ navigation, route }) {
   const refRBSheet = useRef();
   const [visible, setVisible] = useState(false);
-  
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -66,28 +61,27 @@ export default function ListData({ navigation, route }) {
           keyExtractor={(item, index) => index}
         />
         <View>
-        <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={true}
-        closeOnPressBack={true}
-        height={height(80)}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "transparent",
-          },
-          container:{
-            borderTopLeftRadius:width(8),
-            borderTopRightRadius:width(8),
-            
-          },
-          draggableIcon: {
-            backgroundColor: "#000"
-          }
-        }}
-      >
-      <SearchFilter/>
-      </RBSheet>
+          <RBSheet
+            ref={refRBSheet}
+            closeOnDragDown={true}
+            closeOnPressMask={true}
+            closeOnPressBack={true}
+            height={height(80)}
+            customStyles={{
+              wrapper: {
+                backgroundColor: "transparent",
+              },
+              container: {
+                borderTopLeftRadius: width(8),
+                borderTopRightRadius: width(8),
+              },
+              draggableIcon: {
+                backgroundColor: "#000",
+              },
+            }}
+          >
+            <SearchFilter />
+          </RBSheet>
         </View>
       </View>
     </ScreenWrapper>

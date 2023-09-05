@@ -1,20 +1,12 @@
+import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { View, Text, Image, Pressable, TouchableOpacity, } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
-import {
-  FontAwesome,
-  MaterialIcons,
-  AntDesign,
-  Entypo,
-  Ionicons,
-} from "@expo/vector-icons";
-import Modal from 'react-native-modal';
 
-import IconButton from "../Iconbutton";
-import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import { Menu, MenuItem } from "react-native-material-menu";
 
-import { height, width } from "../../utills/Dimension";
 import AppColors from "../../utills/AppColors";
+import { width } from "../../utills/Dimension";
 
 export default function MyCard({ data }) {
   // console.log("indata", data);
@@ -69,8 +61,11 @@ export default function MyCard({ data }) {
       </View>
 
       <View style={styles.icons}>
-        <TouchableOpacity style={{ paddingVertical: 3 }}
-        onPress={()=>{setModalVisible(true)}}
+        <TouchableOpacity
+          style={{ paddingVertical: 3 }}
+          onPress={() => {
+            setModalVisible(true);
+          }}
         >
           <Entypo size={width(4)} name="dots-three-vertical" />
         </TouchableOpacity>
@@ -87,10 +82,7 @@ export default function MyCard({ data }) {
           <Text style={{ fontSize: width(2.5) }}>Published</Text>
         </TouchableOpacity>
       </View>
-      <Menu
-        visible={isModalVisible}
-        onRequestClose={hideMenu}
-      >
+      <Menu visible={isModalVisible} onRequestClose={hideMenu}>
         <MenuItem onPress={hideMenu}>Edit</MenuItem>
         <MenuItem onPress={hideMenu}>Delete</MenuItem>
         <MenuItem onPress={hideMenu}>Mark as sold</MenuItem>

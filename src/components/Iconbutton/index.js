@@ -1,9 +1,7 @@
-import React from 'react';
-import {ActivityIndicator, Text, TouchableOpacity} from 'react-native';
-import AppColors from '../../utills/AppColors';
-import { Entypo } from "@expo/vector-icons";
+import React from "react";
+import { Text, TouchableOpacity } from "react-native";
 
-import styles from './styles';
+import styles from "./styles";
 
 const IconButton = ({
   title,
@@ -20,10 +18,11 @@ const IconButton = ({
       onPress={onPress}
       disabled={disabled}
       activeOpacity={activeOpacity}
-      style={[styles.container, containerStyle]}>
+      style={[styles.container, containerStyle]}
+    >
       {icon}
-        <Text style={[styles.text, textStyle]}>{title}</Text>
-        {iconright}
+      <Text style={[styles.text, textStyle]}>{title}</Text>
+      {iconright}
     </TouchableOpacity>
   );
 };

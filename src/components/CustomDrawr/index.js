@@ -1,26 +1,33 @@
+import { AntDesign, Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { Profiler } from "react";
-import { useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
 import {
-  View,
-  Text,
-  ImageBackground,
   Image,
-  TouchableOpacity,
+  SafeAreaView,
+  Share,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import { height, width } from "../../utills/Dimension";
-import AppColors from "../../utills/AppColors";
-import IconButton from "../Iconbutton";
-import {
-  FontAwesome,
-  MaterialIcons,
-  AntDesign,
-  Entypo,
-  Ionicons,
-} from "@expo/vector-icons";
 import ScreenNames from "../../routes/routes";
-const CustomDrawer = ({navigation}) => {
+import AppColors from "../../utills/AppColors";
+import { height, width } from "../../utills/Dimension";
+import IconButton from "../Iconbutton";
+const CustomDrawer = ({ navigation }) => {
+  const shareContent = async () => {
+    try {
+      const result = await Share.share({
+        message: "Hello, this is the content to share!",
+      });
+
+      if (result.action === Share.sharedAction) {
+        console.log("Shared successfully");
+      } else if (result.action === Share.dismissedAction) {
+        console.log("Share sheet dismissed");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
+  };
   return (
     <SafeAreaView>
       <Image
@@ -34,7 +41,9 @@ const CustomDrawer = ({navigation}) => {
       <IconButton
         title={"FAQ"}
         containerStyle={styles.container}
-        onPress={()=>{navigation.navigate(ScreenNames.FAQ),navigation.closeDrawer()}}
+        onPress={() => {
+          navigation.navigate(ScreenNames.FAQ), navigation.closeDrawer();
+        }}
         textStyle={styles.text}
         icon={
           <AntDesign
@@ -46,12 +55,18 @@ const CustomDrawer = ({navigation}) => {
       />
       <IconButton
         title={"How to sell fast"}
+        onPress={() => {
+          navigation.navigate(ScreenNames.HTSF), navigation.closeDrawer();
+        }}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={<AntDesign name="tags" style={styles.icon} size={width(4)} />}
       />
       <IconButton
         title={"About us"}
+        onPress={() => {
+          navigation.navigate(ScreenNames.ABOUTUS), navigation.closeDrawer();
+        }}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={
@@ -60,6 +75,9 @@ const CustomDrawer = ({navigation}) => {
       />
       <IconButton
         title={"Privacy Policy"}
+        onPress={() => {
+          navigation.navigate(ScreenNames.PP), navigation.closeDrawer();
+        }}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={
@@ -72,6 +90,9 @@ const CustomDrawer = ({navigation}) => {
       />
       <IconButton
         title={"Terms and conditions"}
+        onPress={() => {
+          navigation.navigate(ScreenNames.TNC), navigation.closeDrawer();
+        }}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={<Entypo name="open-book" style={styles.icon} size={width(4)} />}
@@ -91,31 +112,41 @@ const CustomDrawer = ({navigation}) => {
 
       <IconButton
         title={"Sell now to us"}
+        onPress={() => {
+          navigation.navigate(ScreenNames.SNTU), navigation.closeDrawer();
+        }}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={<AntDesign name="car" style={styles.icon} size={width(4)} />}
       />
       <IconButton
         title={"Request for repair now"}
+        onPress={() => {
+          navigation.navigate(ScreenNames.REPAIR), navigation.closeDrawer();
+        }}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={<FontAwesome name="wrench" style={styles.icon} size={width(4)} />}
       />
       <IconButton
         title={"Share with Friends"}
+        onPress={shareContent}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={<Entypo name="share" style={styles.icon} size={width(4)} />}
       />
-      <View 
-      style={{height:height(7),justifyContent:'flex-end',alignContent:'flex-end',alignItems:'flex-end'}}
+      <View
+        style={{
+          height: height(7),
+          justifyContent: "flex-end",
+          alignContent: "flex-end",
+          alignItems: "flex-end",
+        }}
       >
-        <Text style={styles.textbuttom}>2023@ All reserved by
-        
-        <Text
-      style={{color:'red',fontWeight:'bold'}}
-        
-        > Eidcarosse</Text></Text>
+        <Text style={styles.textbuttom}>
+          2023@ All reserved by
+          <Text style={{ color: "red", fontWeight: "bold" }}> Eidcarosse</Text>
+        </Text>
       </View>
     </SafeAreaView>
   );

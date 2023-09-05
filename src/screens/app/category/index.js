@@ -1,14 +1,13 @@
 import React from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { CategoryIcon, Head, ScreenWrapper } from "../../../components";
+import ScreenNames from "../../../routes/routes";
 import categories from "../../../svgcomponents";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
-import ScreenNames from "../../../routes/routes";
 
 export default function Category({ navigation, route }) {
-
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -30,16 +29,14 @@ export default function Category({ navigation, route }) {
                 cardStyle={styles.card}
                 title={item?.title}
                 onPress={() => {
-                  if(route?.params=='ADD')
-                  {  if (item.title == "Bikes") {
-                    navigation.navigate(ScreenNames.BIKECATEGORY,'ADD');
+                  if (route?.params == "ADD") {
+                    if (item.title == "Bikes") {
+                      navigation.navigate(ScreenNames.BIKECATEGORY, "ADD");
                     } else {
                       navigation.navigate(ScreenNames.ADDPOST);
                     }
-                  }
-                  else
-                  if (item.title == "Bikes") {
-                  navigation.navigate(ScreenNames.BIKECATEGORY);
+                  } else if (item.title == "Bikes") {
+                    navigation.navigate(ScreenNames.BIKECATEGORY);
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA);
                   }

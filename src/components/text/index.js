@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text} from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import AppColors from '../../utills/AppColors';
 
 import { width } from '../../utills/Dimension';
@@ -27,7 +27,7 @@ import { width } from '../../utills/Dimension';
 //       <Text style={[styles.text, textStyles]} {...textProps}>
 //         {children}
 //       </Text>
-//     </Pressable>
+//     </Pressable>Ê
 //   );
 // };
 

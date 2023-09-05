@@ -1,12 +1,10 @@
 import React from "react";
-import { View, Text, Image, ScrollView, Pressable } from "react-native";
-import styles from "./styles";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
-import { height, width } from "../../utills/Dimension";
-import CategoryIcon from "../categories";
-import categories from "../../svgcomponents/index";
-import Bike from "../../svgcomponents/bike";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import ScreenNames from "../../routes/routes";
+import categories from "../../svgcomponents/index";
+import { width } from "../../utills/Dimension";
+import CategoryIcon from "../categories";
+import styles from "./styles";
 
 export default function CategoryList({ navigation }) {
   return (

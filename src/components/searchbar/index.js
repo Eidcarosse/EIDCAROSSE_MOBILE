@@ -1,15 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
-import { TextInput, View, Text, FlatList, Pressable } from "react-native";
-import { height, width } from "../../utills/Dimension";
+import React from "react";
+import { TextInput, View } from "react-native";
+import { width } from "../../utills/Dimension";
 import styles from "./styles";
-import AppColors from "../../utills/AppColors";
 
-export default function SearchBar({
-search,
-setSearch,
-containerstyle
-}) {
+export default function SearchBar({ search, setSearch, containerstyle }) {
   // const data = [
   //   {
   //     title: "ABC",
@@ -45,7 +40,7 @@ containerstyle
 
   return (
     <View style={styles.container}>
-      <View style={[styles.main,containerstyle]}>
+      <View style={[styles.main, containerstyle]}>
         <Ionicons
           name="search"
           style={{ marginHorizontal: width(2) }}
