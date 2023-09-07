@@ -15,7 +15,7 @@ export default function ManageAccount({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Manage Account"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >
@@ -27,12 +27,12 @@ export default function ManageAccount({ navigation, route }) {
             }}
             title={"LogOut"}
             containerStyle={styles.logoutcontainer}
-            textStyle={{ color: AppColors.primery }}
+            textStyle={{ color: AppColors.primary }}
             icon={
               <Entypo
                 name="log-out"
                 size={width(5)}
-                color={AppColors.primery}
+                color={AppColors.primary}
               />
             }
           />

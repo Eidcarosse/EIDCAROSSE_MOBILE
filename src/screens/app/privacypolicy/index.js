@@ -71,7 +71,7 @@ export default function PP({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Privacy Policy"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       backgroundColor="white"
       barStyle="light-content"
       scrollEnabled

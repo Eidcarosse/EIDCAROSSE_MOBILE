@@ -19,7 +19,7 @@ function MyDrawer() {
         headerShown: false,
         drawerInactiveBackgroundColor:'white',
         drawerActiveBackgroundColor:'white',
-        drawerActiveTintColor:AppColors.primery,
+        drawerActiveTintColor:AppColors.primary,
         overlayColor:AppColors.transparent,
         drawerHideStatusBarOnOpen:true,
         drawerStyle:{

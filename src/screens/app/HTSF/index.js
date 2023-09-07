@@ -43,7 +43,7 @@ export default function HTSF({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"How to Sell Fast"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       backgroundColor="white"
       barStyle="light-content"
       scrollEnabled

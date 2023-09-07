@@ -39,7 +39,7 @@ export default function AboutUs({ navigation, route }) {
     },
   ];
   const AboutPara = ({ data }) => {
-    console.log(data);
+   // console.log(data);
     return (
       <View style={styles.container}>
         {data?.paraTitle && <Text style={styles.title}>{data?.paraTitle}</Text>}
@@ -67,7 +67,7 @@ export default function AboutUs({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"About Us"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       backgroundColor="white"
       barStyle="light-content"
       scrollEnabled

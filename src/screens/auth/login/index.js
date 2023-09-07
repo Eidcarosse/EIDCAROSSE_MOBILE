@@ -38,7 +38,7 @@ export default function Login({ navigation, route }) {
   const login = async (data) => {
     try {
       const response = await ApiManager.post("/auth", data);
-      console.log("in coming data ",response?.data?.data);
+    //  console.log("in coming data ",response?.data?.data);
       if (response?.data?.data) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.data?.userData));
@@ -51,7 +51,7 @@ export default function Login({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
       headerUnScrollable={() => <Head navigation={navigation} />}
@@ -111,7 +111,7 @@ export default function Login({ navigation, route }) {
           >
             <Text>Can’t login?</Text>
             <TouchableOpacity>
-              <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {"   "}
                 Forgot Password
               </Text>
@@ -132,7 +132,7 @@ export default function Login({ navigation, route }) {
                 navigation.navigate(ScreenNames.SIGNUP);
               }}
             >
-              <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {" "}
                 Register Now!
               </Text>

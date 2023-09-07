@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   
   button:
   {
-    backgroundColor:AppColors.primery,
+    backgroundColor:AppColors.primary,
     width:width(80),
     margin:width(5),
     borderRadius:width(1)

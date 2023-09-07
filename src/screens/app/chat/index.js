@@ -58,7 +58,7 @@ export default function ChatList({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>

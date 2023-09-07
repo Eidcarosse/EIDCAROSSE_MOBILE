@@ -11,7 +11,7 @@ export default function OnBoarding({ navigation, route }) {
   const dispatch = useDispatch();
   return (
     <ScreenWrapper
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       headerUnScrollable={()=><Head navigation={navigation}/>}
     >
@@ -30,13 +30,13 @@ export default function OnBoarding({ navigation, route }) {
               navigation.navigate(ScreenNames.LOGIN);
             }}
             containerStyle={styles.button}
-            textStyle={{ color: AppColors.primery }}
+            textStyle={{ color: AppColors.primary }}
             title={"Login"}
           />
           <Button
             title={"Register"}
             containerStyle={styles.button}
-            textStyle={{ color: AppColors.primery }}
+            textStyle={{ color: AppColors.primary }}
           />
         </View>
       </View>

@@ -1,5 +1,5 @@
 const AppColors = {
-    primery:'#FF0100',
+    primary:'#FF0100',
     white: '#ffffff',
     black: 'black',
     red: 'red',

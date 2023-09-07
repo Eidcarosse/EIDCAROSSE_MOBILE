@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: AppColors.primery,
+    backgroundColor: AppColors.primary,
     width: width(80),
     margin: width(5),
     borderRadius: width(1),
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     width: width(90),
     justifyContent: "center",
     borderWidth:1,
-    borderColor:AppColors.primery,
+    borderColor:AppColors.primary,
     borderRadius:width(1),
     margin:width(2)
   },
   deletecontainer: {
     width: width(90),
     justifyContent: "center",
-    borderColor:AppColors.primery,
+    borderColor:AppColors.primary,
     borderRadius:width(1),
     margin:width(2)
   },

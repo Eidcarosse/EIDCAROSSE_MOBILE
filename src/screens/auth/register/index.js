@@ -35,24 +35,24 @@ export default function SignUp({ navigation, route }) {
     return passwordRegex.test(password);
   };
   const signup = async (data) => {
-    console.log("out",data);
+    //console.log("out",data);
     try {
       const response = await ApiManager.post("/auth/register",data);
-      console.log();
+    //  console.log();
     if (response.status==200) {
       successMessage("saved");
-      console.log("in",response);
+    //  console.log("in",response);
       navigation.goBack()
     }
     } catch (error) {
-      
+      alert("Server error")
     }
     
   };
 
   return (
     <ScreenWrapper
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >
@@ -97,13 +97,13 @@ export default function SignUp({ navigation, route }) {
               onClick={() => {
                 setCheck(!check);
               }}
-              checkedCheckBoxColor={AppColors.primery}
+              checkedCheckBoxColor={AppColors.primary}
               isChecked={check}
             />
             <View style={{}}>
               <Text>I have read and agree to the Eidcarosse</Text>
               <TouchableOpacity style={{}}>
-                <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+                <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                   {" "}
                   Terms and Conditions
                 </Text>
@@ -160,7 +160,7 @@ export default function SignUp({ navigation, route }) {
                 navigation.goBack();
               }}
             >
-              <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {" "}
                 Sign in
               </Text>

@@ -25,7 +25,7 @@ export default DropDownDetail = ({
       color: color,
       textAlign: textAlign,
       fontWeight: "bold",
-      color: show ? AppColors.primery : "black",
+      color: show ? AppColors.primary : "black",
     },
   });
   return (
@@ -62,7 +62,7 @@ export default DropDownDetail = ({
         <FontAwesome
           name={show ? "chevron-up" : "chevron-down"}
           size={width(4)}
-          color={show ? AppColors.primery : "black"}
+          color={show ? AppColors.primary : "black"}
         />
       </Pressable>
       {show && (

@@ -34,7 +34,7 @@ export default function CardView({ data }) {
             numberOfLines={1}
             style={{
               fontSize: width(3.5),
-              color: AppColors.primery,
+              color: AppColors.primary,
               fontWeight: "bold",
             }}
           >
@@ -51,7 +51,7 @@ export default function CardView({ data }) {
 
       <View style={styles.icons}>
         <TouchableOpacity style={{ paddingVertical: 3 }}>
-          <AntDesign size={width(4)} color={AppColors.primery} name="heart" />
+          <AntDesign size={width(4)} color={AppColors.primary} name="heart" />
         </TouchableOpacity>
         <TouchableOpacity style={{ paddingVertical: 3 }}>
           <Ionicons size={width(4)} name="call" />

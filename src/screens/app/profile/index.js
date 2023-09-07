@@ -13,11 +13,11 @@ import { selectUserMeta } from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata=useSelector(selectUserMeta)
-  console.log("metadata",userdata);
+  //console.log("metadata",userdata);
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >
@@ -64,7 +64,7 @@ export default function Profile({ navigation, route }) {
                     style={{
                       fontSize: 15,
                       fontWeight: "bold",
-                      color: AppColors.primery,
+                      color: AppColors.primary,
                     }}
                   >
                     10
@@ -83,7 +83,7 @@ export default function Profile({ navigation, route }) {
                     style={{
                       fontSize: 15,
                       fontWeight: "bold",
-                      color: AppColors.primery,
+                      color: AppColors.primary,
                     }}
                   >
                     10
@@ -102,7 +102,7 @@ export default function Profile({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
-              <Entypo name="user" color={AppColors.primery} size={width(4)} />
+              <Entypo name="user" color={AppColors.primary} size={width(4)} />
             }
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
@@ -114,7 +114,7 @@ export default function Profile({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
-              <Entypo name="key" color={AppColors.primery} size={width(4)} />
+              <Entypo name="key" color={AppColors.primary} size={width(4)} />
             }
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
@@ -123,7 +123,7 @@ export default function Profile({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
-              <Entypo name="shield" color={AppColors.primery} size={width(4)} />
+              <Entypo name="shield" color={AppColors.primary} size={width(4)} />
             }
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
@@ -137,7 +137,7 @@ export default function Profile({ navigation, route }) {
             icon={
               <Fontisto
                 name="player-settings"
-                color={AppColors.primery}
+                color={AppColors.primary}
                 size={width(4)}
               />
             }

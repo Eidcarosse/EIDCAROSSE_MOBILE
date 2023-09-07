@@ -17,7 +17,7 @@ export default function WishList({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"My Wish List"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >

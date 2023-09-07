@@ -14,7 +14,7 @@ export default function EditProfile({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Edit Profile"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >

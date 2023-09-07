@@ -35,7 +35,7 @@ const CustomDrawer = ({ navigation }) => {
         style={{
           width: width(70),
           height: width(40),
-          tintColor: AppColors.primery,
+          tintColor: AppColors.primary,
         }}
       />
       <IconButton

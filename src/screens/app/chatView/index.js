@@ -106,7 +106,7 @@ export default function ChatView({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Chat"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>

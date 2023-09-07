@@ -32,7 +32,7 @@ export default function Input({
           <TouchableOpacity onPress={() => setSecureText(!secureText)}>
             <Entypo
               name={secureText ? "eye-with-line" : "eye"}
-              color={secureText ? "grey" : AppColors.primery}
+              color={secureText ? "grey" : AppColors.primary}
               size={width(4)}
             />
           </TouchableOpacity>

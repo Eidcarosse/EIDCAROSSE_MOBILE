@@ -14,7 +14,7 @@ export default function SNTU({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Sell Now To Us "} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       backgroundColor="white"
       barStyle="light-content"
       scrollEnabled

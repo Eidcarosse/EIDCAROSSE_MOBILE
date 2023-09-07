@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
 import { SelectList } from "react-native-dropdown-select-list";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -24,10 +24,14 @@ export default function AddPost({ navigation, route }) {
   const userInfo = useSelector(selectUserMeta);
 
   //console.log(image);
+  const mapRef = useRef(null);
+
   const imageRef = useRef(null);
   const [image, setImage] = React.useState([]);
   // const [category, setCategory] = React.useState("");
   // const [subCategory, setSubCategory] = React.useState("");
+  const category = "abc";
+  const subCategory = "xyz";
   const [title, setTitle] = React.useState("");
   const [pricing, setPricing] = React.useState();
   const [url, setUrl] = React.useState("");
@@ -46,13 +50,76 @@ export default function AddPost({ navigation, route }) {
   const [fueltype, setFueltype] = React.useState("");
   const [exterior, setExterior] = React.useState("");
   const [interior, setInterior] = React.useState("");
-
-  const [name, setName] = React.useState("");
+  const [location, setLocation] = React.useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [whatsapp, setWhatsapp] = React.useState("");
   const [viber, setViber] = React.useState("");
   const [website, setWebsite] = React.useState("");
+  const [cnumber, setCnumber] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [htc, setHtc] = React.useState("");
+
+  const handleSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("category", category);
+      formData.append("subcategory", subCategory);
+      formData.append("title", title);
+      formData.append("pricing", pricing);
+      formData.append("price", price);
+      formData.append("condition", condition);
+      formData.append("brand", brand);
+      formData.append("year", year);
+      formData.append("model", model);
+      formData.append("bodyShape", bodyshape);
+      formData.append("gearBox", gearbox);
+      formData.append("fuelType", fueltype);
+      formData.append("exteriorColor", exterior);
+      formData.append("interiorColor", interior);
+      formData.append("videoUrl", url);
+      formData.append("description", description);
+      formData.append("HTC", htc);
+      formData.append("contactNumber", phone);
+      formData.append("location", location);
+      formData.append("address", address);
+      formData.append("viber", viber);
+      formData.append("website", website);
+      formData.append("whatsapp", whatsapp);
+      formData.append("email", email);
+
+      // Append each selected image to the form data
+      image.forEach((img, index) => {
+        console.log(img);
+        formData.append("images", {
+          name: `image${index}`,
+          type: "image/jpeg", // Adjust the type if needed
+          uri: img,
+        });
+      });
+
+      // Send a POST request to your API with the form data
+      // const response = await axios.post(
+      //   "http://your-api-url/api/cars",
+      //   formData,
+      //   {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   }
+      // );
+
+      // Handle the response from the API
+      console.log("Car created:", formData);
+    } catch (error) {
+      console.error("Error creating car:", error);
+    }
+  };
 
   const rdata = [
     {
@@ -86,12 +153,17 @@ export default function AddPost({ navigation, route }) {
     { key: "6", value: "Diary Products" },
     { key: "7", value: "Drinks" },
   ];
+  const cdata = [
+    { key: "1", value: "Whatsapp" },
+    { key: "2", value: "Viber" },
+    { key: "3", value: "Phone" },
+  ];
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
         <Head headtitle="Add Post" navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >
@@ -112,7 +184,7 @@ export default function AddPost({ navigation, route }) {
             >
               <TouchableOpacity
                 style={{
-                  backgroundColor: AppColors.primery,
+                  backgroundColor: AppColors.primary,
                   borderRadius: width(2),
                   padding: width(3),
                 }}
@@ -131,16 +203,22 @@ export default function AddPost({ navigation, route }) {
               showsHorizontalScrollIndicator={false}
               style={{ marginHorizontal: width(2) }}
             >
-              <TouchableOpacity
-                style={{
-                  backgroundColor: AppColors.primery,
-                  borderRadius: width(2),
-                  padding: width(3),
-                }}
-                onPress={() => imageRef.current.show()}
-              >
-                <Ionicons name="add" size={width(8)} color={AppColors.white} />
-              </TouchableOpacity>
+              {image.length <= 5 && (
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: AppColors.primary,
+                    borderRadius: width(2),
+                    padding: width(3),
+                  }}
+                  onPress={() => imageRef.current.show()}
+                >
+                  <Ionicons
+                    name="add"
+                    size={width(8)}
+                    color={AppColors.white}
+                  />
+                </TouchableOpacity>
+              )}
               {image.map((item, index) => (
                 <Image
                   key={index}
@@ -150,7 +228,7 @@ export default function AddPost({ navigation, route }) {
                     borderRadius: width(3),
                     marginLeft: width(3),
                   }}
-                  source={{ uri: item?.uri }}
+                  source={{ uri: item }}
                 />
               ))}
             </ScrollView>
@@ -208,7 +286,7 @@ export default function AddPost({ navigation, route }) {
                 borderWidth: 0,
                 paddingVertical: width(1),
               }}
-              activeColor={AppColors.primery}
+              activeColor={AppColors.primary}
               selectedBtn={(e) => setPricing(e.label)}
             />
           </View>
@@ -224,11 +302,13 @@ export default function AddPost({ navigation, route }) {
                 }}
               >
                 <Input
+                  value={pricefrom}
                   setvalue={setPricefrom}
                   placeholder={"From"}
                   containerStyle={styles.price}
                 />
                 <Input
+                  value={priceto}
                   setvalue={setPriceto}
                   placeholder={"to"}
                   containerStyle={styles.price}
@@ -243,6 +323,7 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>Price (CHF)</Text>
 
               <Input
+                value={price}
                 setvalue={setPrice}
                 placeholder={"From"}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -261,8 +342,8 @@ export default function AddPost({ navigation, route }) {
                 borderWidth: 0,
                 paddingVertical: width(1),
               }}
-              activeColor={AppColors.primery}
-              selectedBtn={(e) => setCondition(e)}
+              activeColor={AppColors.primary}
+              selectedBtn={(e) => setCondition(e.label)}
             />
           </View>
           <View style={{ alignSelf: "center" }}>
@@ -275,16 +356,81 @@ export default function AddPost({ navigation, route }) {
               dropdownStyles={styles.dropdown}
             />
           </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Year</Text>
-            <SelectList
-              setSelected={(val) => setYear(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
+          {brand && (
+            <View>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Year</Text>
+                <SelectList
+                  setSelected={(val) => setYear(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Model</Text>
+                <SelectList
+                  setSelected={(val) => setModel(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Body Shape</Text>
+                <SelectList
+                  setSelected={(val) => setBodyshap(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Gear Box</Text>
+                <SelectList
+                  setSelected={(val) => setGearbox(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Fuel Type</Text>
+                <SelectList
+                  setSelected={(val) => setFueltype(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Exterioe Color</Text>
+                <SelectList
+                  setSelected={(val) => setExterior(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>Interior Color</Text>
+                <SelectList
+                  setSelected={(val) => setInterior(val)}
+                  data={data}
+                  save="value"
+                  boxStyles={styles.searchbox}
+                  dropdownStyles={styles.dropdown}
+                />
+              </View>
+            </View>
+          )}
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>Video url</Text>
             <Input
@@ -302,66 +448,6 @@ export default function AddPost({ navigation, route }) {
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Model</Text>
-            <SelectList
-              setSelected={(val) => setModel(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Body Shape</Text>
-            <SelectList
-              setSelected={(val) => setBodyshap(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Gear Box</Text>
-            <SelectList
-              setSelected={(val) => setGearbox(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Fuel Type</Text>
-            <SelectList
-              setSelected={(val) => setFueltype(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Exterioe Color</Text>
-            <SelectList
-              setSelected={(val) => setExterior(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Interior Color</Text>
-            <SelectList
-              setSelected={(val) => setInterior(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
-            />
-          </View>
         </View>
         {/* --------owner infomartio---- */}
         <View>
@@ -370,30 +456,15 @@ export default function AddPost({ navigation, route }) {
           >
             Contact Detail
           </Text>
-          <View style={{ paddingVertical: width(1), flexDirection:'row' }}>
-            <View style={{ paddingVertical: width(1),flex:1 }}>
-              <Text style={styles.title}>Location</Text>
-              {/* <Input
-              setvalue={setName}
-              placeholder={"Johan"}
-              containerStyle={[styles.price, { width: width(90) }]}
-            /> */}
-              <GooglePlacesAutocomplete
-                placeholder="Search"
-                onPress={(data, details = null) => {
-                  // 'details' is provided when fetchDetails = true
-                  console.log(data, details);
-                }}
-                disableScroll={true}
-                styles={{
-                  textInput: {backgroundColor:AppColors.grey},
-                }}
-                query={{
-                  key: "AIzaSyC9nSGumZ7_6Xs0pd6HBiU_paZT7mmH5UI",
-                  language: "en",
-                }}
-              />
-            </View>
+          <View style={{ alignSelf: "center", marginBottom: height(3) }}>
+            <Text style={styles.title}>How to be contact</Text>
+            <SelectList
+              setSelected={(val) => setHtc(val)}
+              data={cdata}
+              save="value"
+              boxStyles={styles.searchbox}
+              dropdownStyles={styles.dropdown}
+            />
           </View>
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>Email</Text>
@@ -403,30 +474,37 @@ export default function AddPost({ navigation, route }) {
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>phone Number</Text>
-            <Input
-              setvalue={setPhone}
-              placeholder={"XXXXXXXXXX"}
-              containerStyle={[styles.price, { width: width(90) }]}
-            />
-          </View>
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Whastapp</Text>
-            <Input
-              setvalue={setWhatsapp}
-              placeholder={"XXXXXXXXXX"}
-              containerStyle={[styles.price, { width: width(90) }]}
-            />
-          </View>
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Viber</Text>
-            <Input
-              setvalue={setViber}
-              placeholder={"XXXXXXXXXX"}
-              containerStyle={[styles.price, { width: width(90) }]}
-            />
-          </View>
+
+          {htc == "Phone" && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>phone Number</Text>
+              <Input
+                setvalue={setPhone}
+                placeholder={"XXXXXXXXXX"}
+                containerStyle={[styles.price, { width: width(90) }]}
+              />
+            </View>
+          )}
+          {htc == "Whatsapp" && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>Whastapp</Text>
+              <Input
+                setvalue={setWhatsapp}
+                placeholder={"XXXXXXXXXX"}
+                containerStyle={[styles.price, { width: width(90) }]}
+              />
+            </View>
+          )}
+          {htc == "Viber" && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>Viber</Text>
+              <Input
+                setvalue={setViber}
+                placeholder={"XXXXXXXXXX"}
+                containerStyle={[styles.price, { width: width(90) }]}
+              />
+            </View>
+          )}
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>Website</Text>
             <Input
@@ -435,14 +513,44 @@ export default function AddPost({ navigation, route }) {
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
-          <View style={{ alignSelf: "center", marginBottom: height(3) }}>
-            <Text style={styles.title}>How to be contact</Text>
-            <SelectList
-              setSelected={(val) => setBrand(val)}
-              data={data}
-              save="value"
-              boxStyles={styles.searchbox}
-              dropdownStyles={styles.dropdown}
+        </View>
+        <View style={{ paddingVertical: width(1), flexDirection: "row" }}>
+          <View style={{ paddingVertical: width(1), flex: 1 }}>
+            <Text style={styles.title}>Location</Text>
+            {/* <Input
+              setvalue={setName}
+              placeholder={"Johan"}
+              containerStyle={[styles.price, { width: width(90) }]}
+            /> */}
+            <GooglePlacesAutocomplete
+              fetchDetails={true}
+              placeholder="Search"
+              onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                //  console.log(details?.geometry?.location);
+                setAddress(details?.formatted_address);
+                setLocation({
+                  latitude: details?.geometry?.location?.lat,
+                  longitude: details?.geometry?.location?.lng,
+                });
+                mapRef.current.animateToRegion(
+                  {
+                    latitude: details?.geometry?.location?.lat,
+                    longitude: details?.geometry?.location?.lng,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  },
+                  3 * 1000
+                );
+              }}
+              disableScroll={true}
+              styles={{
+                textInput: { backgroundColor: AppColors.grey },
+              }}
+              query={{
+                key: "AIzaSyC9nSGumZ7_6Xs0pd6HBiU_paZT7mmH5UI",
+                language: "en",
+              }}
             />
           </View>
         </View>
@@ -455,18 +563,15 @@ export default function AddPost({ navigation, route }) {
           }}
         >
           <MapView
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
+            ref={mapRef}
             style={{
               width: "100%",
               height: "100%",
               borderRadius: width(3),
             }}
-          />
+          >
+            <Marker coordinate={location} />
+          </MapView>
         </View>
         <View
           style={{
@@ -480,13 +585,13 @@ export default function AddPost({ navigation, route }) {
             onClick={() => {
               setCheck(!check);
             }}
-            checkedCheckBoxColor={AppColors.primery}
+            checkedCheckBoxColor={AppColors.primary}
             isChecked={check}
           />
           <View>
             <Text>I have read and agree to the Eidcarosse</Text>
             <TouchableOpacity>
-              <Text style={{ color: AppColors.primery, fontWeight: "bold" }}>
+              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {" "}
                 Terms and Conditions
               </Text>
@@ -501,12 +606,13 @@ export default function AddPost({ navigation, route }) {
           }}
         >
           <Button
-          disabled={!check}
+            disabled={!check}
+            onPress={handleSubmit}
             title={"Post"}
             containerStyle={{
               width: width(80),
               borderRadius: width(2),
-              backgroundColor: AppColors.primery,
+              backgroundColor: !check ? "grey" : AppColors.primary,
             }}
           />
         </View>
@@ -515,7 +621,14 @@ export default function AddPost({ navigation, route }) {
         ref={imageRef}
         onFilesSelected={(img) => {
           console.log("imggggg", img);
-          setImage(img);
+          const selectedImages = img.map((imageUri) => {
+            if (image.length < 5) {
+              return Platform.OS === "android"
+                ? imageUri.uri
+                : imageUri.uri.replace("file://", "");
+            }
+          });
+          setImage([...image, ...selectedImages]);
         }}
       />
     </ScreenWrapper>

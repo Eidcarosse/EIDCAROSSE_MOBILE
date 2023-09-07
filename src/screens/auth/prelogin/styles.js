@@ -11,7 +11,7 @@ alignItems:'center'
   },
   containerStyle:{
     borderRadius:width(2),
-    backgroundColor:AppColors.primery
+    backgroundColor:AppColors.primary
   }
   
   

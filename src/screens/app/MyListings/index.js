@@ -39,7 +39,7 @@ export default function MyListing({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
     >

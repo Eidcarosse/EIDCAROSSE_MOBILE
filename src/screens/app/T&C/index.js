@@ -106,7 +106,7 @@ export default function TnC({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Terms & Conditions"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       backgroundColor="white"
       barStyle="light-content"
       scrollEnabled

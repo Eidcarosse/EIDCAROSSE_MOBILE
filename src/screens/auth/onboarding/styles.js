@@ -5,7 +5,7 @@ import AppColors from '../../../utills/AppColors';
 const styles = StyleSheet.create({
   mainViewContainer: {
     flex: 1,
-    backgroundColor: AppColors.primery,
+    backgroundColor: AppColors.primary,
     justifyContent: 'center',
     alignItems: 'center'
   },

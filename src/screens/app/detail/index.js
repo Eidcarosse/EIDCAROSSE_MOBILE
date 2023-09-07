@@ -41,10 +41,10 @@ export default function Detail({ navigation, route }) {
                 img: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg",
               },
             ]}
-            indicatorContainerStyle={{ color: AppColors.primery }}
+            indicatorContainerStyle={{ color: AppColors.primary }}
             autoPlay={false}
             caroselImageStyle={{ resizeMode: "stretch" }}
-            activeIndicatorStyle={{ backgroundColor: AppColors.primery }}
+            activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
             closeIconColor="white"
             //onItemChanged={(item) => console.log("item", item)}
           />
@@ -55,7 +55,7 @@ export default function Detail({ navigation, route }) {
               numberOfLines={1}
               style={{
                 fontSize: 15,
-                color: AppColors.primery,
+                color: AppColors.primary,
                 fontWeight: "bold",
               }}
             >

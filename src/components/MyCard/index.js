@@ -45,7 +45,7 @@ export default function MyCard({ data }) {
             numberOfLines={1}
             style={{
               fontSize: width(3.5),
-              color: AppColors.primery,
+              color: AppColors.primary,
               fontWeight: "bold",
             }}
           >

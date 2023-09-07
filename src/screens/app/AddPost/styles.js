@@ -5,13 +5,8 @@ import AppColors from '../../../utills/AppColors';
 const styles = StyleSheet.create({
   mainViewContainer: {
     alignItems: 'center',
-    padding:width(4),
-
+    padding:width(5),
     backgroundColor:AppColors.white
-  },
-  container: {
-    height: height(75),
-    padding: width(4),
   },
   title: {
     fontSize: width(3.5),

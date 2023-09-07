@@ -52,7 +52,7 @@ export default function BottomNav({ navigation }) {
       <Ionicons
         name={icon}
         size={25}
-        color={routeName === selectedTab ? AppColors.primery : "gray"}
+        color={routeName === selectedTab ? AppColors.primary : "gray"}
       />
     );
   };
@@ -160,7 +160,7 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: AppColors.primery,
+    backgroundColor: AppColors.primary,
     bottom: 20,
     shadowColor: "#000",
     shadowOffset: {

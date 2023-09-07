@@ -17,7 +17,7 @@ export default function BikeCategory({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Bikes"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>

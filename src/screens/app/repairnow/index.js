@@ -14,7 +14,7 @@ export default function Repair({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Repair Now"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       backgroundColor="white"
       barStyle="light-content"
       scrollEnabled

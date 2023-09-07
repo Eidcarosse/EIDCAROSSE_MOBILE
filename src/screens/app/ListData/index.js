@@ -24,7 +24,7 @@ export default function ListData({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"Search Data"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
@@ -37,7 +37,7 @@ export default function ListData({ navigation, route }) {
             <FontAwesome
               name="sliders"
               size={width(7)}
-              color={AppColors.primery}
+              color={AppColors.primary}
             />
           </TouchableOpacity>
         </View>

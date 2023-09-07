@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     fontSize: width(4),
   },
   button: {
-    backgroundColor: AppColors.primery,
+    backgroundColor: AppColors.primary,
     width: width(96),
     borderRadius: width(1),
   },

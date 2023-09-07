@@ -13,7 +13,7 @@ export default function Category({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"All Category"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primery}
+      statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>

@@ -103,7 +103,7 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
               borderWidth: 0,
               paddingVertical: width(1),
             }}
-            activeColor={AppColors.primery}
+            activeColor={AppColors.primary}
             selectedBtn={(e) => setCondition(e)}
           />
         </View>
@@ -198,7 +198,7 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
             containerStyle={{
               width: width(40),
               borderRadius: width(2),
-              backgroundColor: AppColors.primery,
+              backgroundColor: AppColors.primary,
             }}
           />
         </View>
