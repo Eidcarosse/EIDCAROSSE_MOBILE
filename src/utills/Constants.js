@@ -1,1 +1,1 @@
-export const BaseUrl = `www.google.com`;
+export const BaseUrl = `http://192.168.1.9:4000`;

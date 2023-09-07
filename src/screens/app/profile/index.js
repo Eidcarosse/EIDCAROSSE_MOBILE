@@ -3,14 +3,17 @@ import React from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 import styles from "./styles";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import { Header, IconButton, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
+import { selectUserMeta } from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
+  const userdata=useSelector(selectUserMeta)
+  console.log("metadata",userdata);
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -34,7 +37,7 @@ export default function Profile({ navigation, route }) {
                     color: AppColors.white,
                   }}
                 >
-                  Usama Khan
+                 {userdata?.userName}
                 </Text>
 
                 <Text
@@ -44,7 +47,7 @@ export default function Profile({ navigation, route }) {
                     color: AppColors.white,
                   }}
                 >
-                  usamakhan@gmail.com
+                     {userdata?.email}
                 </Text>
               </View>
             </View>

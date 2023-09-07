@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { BaseUrl } from '~utills/Constants';
+import { BaseUrl } from '../../src/utills/Constants';
 axios.defaults.baseURL = BaseUrl;
-axios.interceptors.response.use((response) => {
-    return response?.data
-}, (error) => {
-    return error?.response?.data ? error?.response?.data : { error: 'Something went wrong' }
-});
+// axios.interceptors.response.use((response) => {
+//     return response?.data
+// }, (error) => {
+//     return error?.response?.data ? error?.response?.data : { error: 'Something went wrong' }
+// });
 
 export const ApiManager = {
     get: async (endpoint, params = {}) => {

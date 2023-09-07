@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
       backgroundColor:AppColors.primery,
       width:width(80),
       margin:width(2),
+    },
+    dbutton:
+    {
+      backgroundColor:'grey',
+      width:width(80),
+      margin:width(2),
     }
   
   

@@ -10,9 +10,46 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { errorMessage, successMessage } from "../../../utills/Methods";
+import { ApiManager } from "../../../backend/ApiManager";
 export default function SignUp({ navigation, route }) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const userData = {
+    name,
+    userName,
+    email,
+    password,
+  };
+  const isValidEmail = (email) => {
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return emailRegex.test(email);
+  };
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=.{6,})/;
+    return passwordRegex.test(password);
+  };
+  const signup = async (data) => {
+    console.log("out",data);
+    try {
+      const response = await ApiManager.post("/auth/register",data);
+      console.log();
+    if (response.status==200) {
+      successMessage("saved");
+      console.log("in",response);
+      navigation.goBack()
+    }
+    } catch (error) {
+      
+    }
+    
+  };
+
   return (
     <ScreenWrapper
       statusBarColor={AppColors.primery}
@@ -29,10 +66,27 @@ export default function SignUp({ navigation, route }) {
           </View>
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
-          <Input title={"Name"} placeholder={"Enter Name"} />
-          <Input title={"User Name"} placeholder={"Enter username"} />
-          <Input title={"Email"} placeholder={"Enter email"} />
           <Input
+            value={name}
+            setvalue={setName}
+            title={"Name"}
+            placeholder={"Enter Name"}
+          />
+          <Input
+            value={userName}
+            setvalue={setUserName}
+            title={"User Name"}
+            placeholder={"Enter username"}
+          />
+          <Input
+            value={email}
+            setvalue={setEmail}
+            title={"Email"}
+            placeholder={"Enter email"}
+          />
+          <Input
+            value={password}
+            setvalue={setPassword}
             title={"Password"}
             placeholder={"Enter Password"}
             secure={true}
@@ -56,7 +110,28 @@ export default function SignUp({ navigation, route }) {
               </TouchableOpacity>
             </View>
           </View>
-          <Button containerStyle={styles.button} title={"SignUp"} />
+          <Button
+            disabled={!check}
+            onPress={() => {
+              if (!name) {
+                errorMessage("Name require");
+              } else if (!userName) {
+                errorMessage("User namae require");
+              } else if (!email) {
+                errorMessage("email require");
+              } else if (!isValidEmail(email)) {
+                errorMessage("Email incorect formate");
+              } else if (!password) {
+                errorMessage("Password require");
+              } else if (!isValidPassword(password)) {
+                errorMessage(
+                  "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
+                );
+              } else signup(userData);
+            }}
+            containerStyle={check ? styles.button : styles.dbutton}
+            title={"SignUp"}
+          />
           <Button
             containerStyle={styles.button}
             title={

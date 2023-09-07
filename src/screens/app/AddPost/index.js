@@ -15,21 +15,24 @@ import {
 } from "../../../components";
 import { selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
 export default function AddPost({ navigation, route }) {
   const dispatch = useDispatch();
-
-  const imageRef = useRef(null);
   const userInfo = useSelector(selectUserMeta);
+
+  //console.log(image);
+  const imageRef = useRef(null);
   const [image, setImage] = React.useState([]);
+  // const [category, setCategory] = React.useState("");
+  // const [subCategory, setSubCategory] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [pricing, setPricing] = React.useState();
   const [url, setUrl] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [check, setCheck] = React.useState(false);
-
   const [year, setYear] = React.useState("");
   const [radius, setRadius] = React.useState("");
   const [price, setPrice] = React.useState("");
@@ -367,13 +370,30 @@ export default function AddPost({ navigation, route }) {
           >
             Contact Detail
           </Text>
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Name</Text>
-            <Input
+          <View style={{ paddingVertical: width(1), flexDirection:'row' }}>
+            <View style={{ paddingVertical: width(1),flex:1 }}>
+              <Text style={styles.title}>Location</Text>
+              {/* <Input
               setvalue={setName}
               placeholder={"Johan"}
               containerStyle={[styles.price, { width: width(90) }]}
-            />
+            /> */}
+              <GooglePlacesAutocomplete
+                placeholder="Search"
+                onPress={(data, details = null) => {
+                  // 'details' is provided when fetchDetails = true
+                  console.log(data, details);
+                }}
+                disableScroll={true}
+                styles={{
+                  textInput: {backgroundColor:AppColors.grey},
+                }}
+                query={{
+                  key: "AIzaSyC9nSGumZ7_6Xs0pd6HBiU_paZT7mmH5UI",
+                  language: "en",
+                }}
+              />
+            </View>
           </View>
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>Email</Text>
@@ -413,6 +433,16 @@ export default function AddPost({ navigation, route }) {
               setvalue={setWebsite}
               placeholder={"www.abc.com"}
               containerStyle={[styles.price, { width: width(90) }]}
+            />
+          </View>
+          <View style={{ alignSelf: "center", marginBottom: height(3) }}>
+            <Text style={styles.title}>How to be contact</Text>
+            <SelectList
+              setSelected={(val) => setBrand(val)}
+              data={data}
+              save="value"
+              boxStyles={styles.searchbox}
+              dropdownStyles={styles.dropdown}
             />
           </View>
         </View>
@@ -471,6 +501,7 @@ export default function AddPost({ navigation, route }) {
           }}
         >
           <Button
+          disabled={!check}
             title={"Post"}
             containerStyle={{
               width: width(80),

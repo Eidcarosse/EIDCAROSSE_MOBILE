@@ -82,7 +82,11 @@ export default function BottomNav({ navigation }) {
           <Animated.View style={styles.btnCircleUp}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate(ScreenNames.CATEGORY, "ADD")}
+              onPress={() => {
+                // islogin ? 
+                navigation.navigate(ScreenNames.CATEGORY, "ADD")
+                //: navigation.navigate("title4")
+              }}
             >
               <FontAwesome5 name={"plus"} color={"white"} size={22} />
             </TouchableOpacity>
