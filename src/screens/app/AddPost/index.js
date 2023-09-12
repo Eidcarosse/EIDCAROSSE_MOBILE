@@ -184,7 +184,7 @@ export default function AddPost({ navigation, route }) {
       );
 
       // Handle the response from the API
-      console.log("Car created:", response);
+      console.log("Car created:", response?.data);
       // Send a POST request to your API with fetch
       // await fetch("http://192.168.1.6:4000/ad/adPost", requestOptions)
       //   .then((res) => {
