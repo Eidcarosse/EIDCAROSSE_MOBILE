@@ -20,7 +20,7 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { ApiManager } from "../../../backend/ApiManager";
 import { BaseUrl } from "../../../utills/Constants";
-import axios from "axios";
+import axios from 'axios';
 import { setAppLoader } from "../../../redux/slices/config";
 
 export default function AddPost({ navigation, route }) {
@@ -69,43 +69,9 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmite = async () => {
     try {
       const formData = new FormData();
-      formData.append("category", category);
-      formData.append("subcategory", subCategory);
-      formData.append("title", title);
-      formData.append("pricing", pricing);
-      formData.append("price", price);
-      formData.append("condition", condition);
-      formData.append("brand", brand);
-      formData.append("year", year);
-      formData.append("model", model);
-      formData.append("bodyShape", bodyshape);
-      formData.append("gearBox", gearbox);
-      formData.append("fuelType", fueltype);
-      formData.append("exteriorColor", exterior);
-      formData.append("interiorColor", interior);
-      formData.append("videoUrl", url);
-      formData.append("description", description);
-      formData.append("HTC", htc);
-      formData.append("contactNumber", phone);
-      formData.append("location", location);
-      formData.append("address", address);
-      formData.append("viber", viber);
-      formData.append("website", website);
-      formData.append("whatsapp", whatsapp);
-      formData.append("email", email);
-
-      // Append each selected image to the form data
-      image.forEach((img, index) => {
-        console.log(img);
-        formData.append("images", {
-          name: `image${index}`,
-          type: "image/jpeg", // Adjust the type if needed
-          uri: img,
-        });
-      });
 
       // Send a POST request to your API with the form data
       const response = await ApiManager.post("/ad/adPost", formData, {
@@ -115,92 +81,89 @@ export default function AddPost({ navigation, route }) {
       });
 
       // Handle the response from the API
-      //  console.log("res:", response);
+      console.log("res:", response?.data);
     } catch (error) {
       alert("Server error");
       console.log(error);
     }
   };
-  const handleSubmite = async () => {
-    try {
-      dispatch(setAppLoader(true))
-      const formData = new FormData();
-      formData.append("category", category);
-      formData.append("subCategory", subCategory);
-      formData.append("title", title);
-      formData.append("pricing", pricing);
-      formData.append("minPrice", pricefrom);
-      formData.append("maxPrice", priceto);
-      formData.append("price", price);
-      formData.append("condition", condition);
-      formData.append("brand", brand);
-      formData.append("year", year);
-      formData.append("model", model);
-      formData.append("bodyShape", bodyshape);
-      formData.append("gearBox", gearbox);
-      formData.append("fuelType", fueltype);
-      formData.append("exteriorColor", exterior);
-      formData.append("interiorColor", interior);
-      formData.append("videoUrl", url);
-      formData.append("description", description);
-      formData.append("howToContact", htc);
-      formData.append("contactNumber", phone);
-      formData.append("location", location);
-      formData.append("address", address);
-      formData.append("viber", viber);
-      formData.append("webSite", website);
-      formData.append("whatsApp", whatsapp);
-      formData.append("email", email);
+  const handleSubmit = async () => {
+  try {
+    const senddata = {
+      // ... your JSON data fields ...
 
-      // Append each selected image to the form data
-      image.forEach((img, index) => {
-        //console.log(img);
-        formData.append("file", {
-          name: `image${index}`,
-          type: "image/jpeg", // Adjust the type if needed
-          uri: img,
-        });
+      category,
+      subCategory,
+      title,
+      pricing,
+      pricefrom,
+      priceto,
+      price,
+      condition,
+      brand,
+      year,
+      model,
+      bodyshape,
+      gearbox,
+      fueltype,
+      exterior,
+      interior,
+      url,
+      description,
+      htc,
+      phone,
+      location,
+      address,
+      viber,
+      website,
+      whatsapp,
+      email
+
+
+    };
+
+    const formData = new FormData();
+
+    // Append the JSON data as a field in FormData
+    formData.append("data", JSON.stringify(senddata));
+
+    // Append each selected image to the form data
+    image.forEach((img, index) => {
+      formData.append("file", {
+        name: `image${index}`,
+        type: "image/jpeg", // Adjust the type if needed
+        uri: img,
       });
+    });
 
-      // Create headers for the fetch request
-      const headers = new Headers({
-        Accept: "application/json",
-      });
+    const headers = {
+      accept: 'application/json',
+    'content-type': 'multipart/form-data',
+    };
 
-      // Create a fetch request
-      var requestOptions = {
-        method: "POST",
-        body: formData,
-        redirect: "follow",
-      };
-      const response = await ApiManager.post(
-        "ad/adPost",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+    const response = await axios.post(
+      BaseUrl+"/ad/adPost",
+      formData,
+      {
+        headers,
+      }
+    );
 
-      // Handle the response from the API
-      console.log("Car created:", response?.data);
-      // Send a POST request to your API with fetch
-      // await fetch("http://192.168.1.6:4000/ad/adPost", requestOptions)
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((error) => console.error(error));
-      dispatch(setAppLoader(false))
-      // Handle the response from the API
-      // const data = await response.json(); // If the API returns JSON data
-      //console.log("Response data:", response);
-    } catch (error) {
-      alert("Server error");
-      console.error(error);
-      dispatch(setAppLoader(false))
+    console.log("API Response:", response.data);
+  } catch (error) {
+    // Handle Axios errors
+    if (error.response) {
+      console.error("API Error - Response Data:", error.response.data);
+      console.error("API Error - Response Status:", error.response.status);
+      console.error("API Error - Response Headers:", error.response.headers);
+    } else if (error.request) {
+      console.error("API Error - No Response Received:", error.request);
+    } else {
+      console.error("API Error - Request Setup:", error.message);
     }
-  };
+  }
+};
+
 
   const rdata = [
     {
@@ -688,7 +651,7 @@ export default function AddPost({ navigation, route }) {
         >
           <Button
             disabled={!check}
-            onPress={handleSubmite}
+            onPress={handleSubmit}
             title={"Post"}
             containerStyle={{
               width: width(80),
@@ -700,6 +663,7 @@ export default function AddPost({ navigation, route }) {
       </View>
       <FilePickerModal
         ref={imageRef}
+        multi={true}
         onFilesSelected={(img) => {
           console.log("imggggg", img);
           const selectedImages = img.map((imageUri) => {

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Eidcarosse",
-    "entryPoint": "./src/App.js", 
+    "entryPoint": "./src/App.js",
     "slug": "Eidcarosse",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/splash.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.eidcarosse.Eidcarosse"
     },
     "web": {
       "favicon": "./assets/favicon.png"

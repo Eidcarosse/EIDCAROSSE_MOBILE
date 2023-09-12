@@ -1,18 +1,18 @@
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useRef } from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 import styles from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
-import { Header, IconButton, ScreenWrapper } from "../../../components";
+import { FilePickerModal, Header, IconButton, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { selectUserMeta } from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
-  const userdata=useSelector(selectUserMeta)
+  const userdata = useSelector(selectUserMeta);
   //console.log("metadata",userdata);
   return (
     <ScreenWrapper
@@ -37,7 +37,7 @@ export default function Profile({ navigation, route }) {
                     color: AppColors.white,
                   }}
                 >
-                 {userdata?.userName}
+                  {userdata?.userName}
                 </Text>
 
                 <Text
@@ -47,7 +47,7 @@ export default function Profile({ navigation, route }) {
                     color: AppColors.white,
                   }}
                 >
-                     {userdata?.email}
+                  {userdata?.email}
                 </Text>
               </View>
             </View>
@@ -145,6 +145,7 @@ export default function Profile({ navigation, route }) {
           />
         </View>
       </View>
+    
     </ScreenWrapper>
   );
 }

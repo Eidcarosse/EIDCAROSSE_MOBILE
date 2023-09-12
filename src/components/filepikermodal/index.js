@@ -10,7 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import DropDownMenu from "../dorpdownmenu";
 
-const FilePickerModal = ({ onFilesSelected }, ref) => {
+const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
   const [isVisible, setVisible] = useState(false);
 
   const requestPermissions = async () => {
@@ -73,7 +73,7 @@ const FilePickerModal = ({ onFilesSelected }, ref) => {
   const openGallery = async () => {
     await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: true,
+      allowsMultipleSelection: multi,
     })
       .then((a) => onFilesSelected(a.assets))
       .catch((e) => console.log("my log", e));

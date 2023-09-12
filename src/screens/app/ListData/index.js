@@ -1,5 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
@@ -11,14 +11,39 @@ import {
 } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
-import { data } from "../../../utills/Data";
+//import { data } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { BaseUrl } from "../../../utills/Constants";
+import { useDispatch } from "react-redux";
+import { setAppLoader } from "../../../redux/slices/config";
 
 export default function ListData({ navigation, route }) {
   const refRBSheet = useRef();
+  const dispatch=useDispatch();
   const [visible, setVisible] = useState(false);
 
+  const [data ,setData]=useState([])
+
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    dispatch(setAppLoader(true));
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    await fetch(BaseUrl + "/ad/", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+
+        setData(result?.data), dispatch(setAppLoader(false));
+      })
+      .catch((error) => {
+        console.log("error home", error), dispatch(setAppLoader(false));
+      });
+  };
   return (
     <ScreenWrapper
       headerUnScrollable={() => (

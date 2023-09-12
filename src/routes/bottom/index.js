@@ -109,11 +109,11 @@ export default function BottomNav({ navigation }) {
         <CurvedBottomBarExpo.Screen
           name="tit"
           component={() =>
-            islogin ? (
+        //    islogin ? (
               <CategoryScreen navigation={navigation} value="ADD" />
-            ) : (
-              <PreLogin navigation={navigation} />
-            )
+            // ) : (
+            //   <PreLogin navigation={navigation} />
+            // )
           }
         />
         <CurvedBottomBarExpo.Screen
