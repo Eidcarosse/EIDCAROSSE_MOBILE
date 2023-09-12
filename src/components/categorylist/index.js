@@ -17,7 +17,7 @@ export default function CategoryList({ navigation }) {
         </Text>
         <Pressable
           onPress={() => {
-            navigation.navigate(ScreenNames.CATEGORY);
+            navigation.navigate(ScreenNames.CATEGORY,"see");
           }}
         >
           {

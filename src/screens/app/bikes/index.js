@@ -6,6 +6,7 @@ import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
 
 export default function BikeCategory({ navigation, route }) {
+  console.log("bike page",route?.params);
   const data = [
     { title: "E-Bike" },
     { title: "Bicycles" },
@@ -31,8 +32,8 @@ export default function BikeCategory({ navigation, route }) {
                 activeOpacity={0.6}
                 style={styles.card}
                 onPress={() => {
-                  if (route.params == "ADD") {
-                    navigation.navigate(ScreenNames.ADDPOST);
+                  if (route?.params?.category) {
+                    navigation.navigate(ScreenNames.ADDPOST,{category:route?.params?.category,subcategory:item?.title,});
                   } else navigation.navigate(ScreenNames.LISTDATA);
                 }}
               >

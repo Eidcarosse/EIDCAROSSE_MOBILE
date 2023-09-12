@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: width(1),
     padding: width(2),
+
   },
   titleview: {
     justifyContent: "space-between",
@@ -40,6 +41,6 @@ const styles = StyleSheet.create({
     elevation: 2,
     backgroundColor: "white",
   },
-  dropdown: { borderRadius: width(1), width: width(90) },
+  dropdown: { borderRadius: width(1), width: width(90),borderWidth:0 },
 });
 export default styles;

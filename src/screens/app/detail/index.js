@@ -15,7 +15,10 @@ import { width } from "../../../utills/Dimension";
 import styles from "./styles";
 export default function Detail({ navigation, route }) {
   const data = route?.params;
-  // console.log("detail", data);
+  //  console.log("detail", data.image);
+   const img=data.image.map((item)=>{ return{img:item}})
+   console.log("detail", img);
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -30,22 +33,13 @@ export default function Detail({ navigation, route }) {
         <View style={styles.imageview}>
           {/* <Image resizeMode="contain" style={styles.image} source={data?.uri} /> */}
           <ImageSlider
-            data={[
-              {
-                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5a5uCP-n4teeW2SApcIqUrcQApev8ZVCJkA&usqp=CAU",
-              },
-              {
-                img: "https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg",
-              },
-              {
-                img: "https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg",
-              },
-            ]}
+            data={img}
             indicatorContainerStyle={{ color: AppColors.primary }}
             autoPlay={false}
-            caroselImageStyle={{ resizeMode: "stretch" }}
+            caroselImageStyle={{ resizeMode: 'contain' }}
             activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
             closeIconColor="white"
+            
             //onItemChanged={(item) => console.log("item", item)}
           />
         </View>
@@ -59,24 +53,24 @@ export default function Detail({ navigation, route }) {
                 fontWeight: "bold",
               }}
             >
-              CHF {data?.chf}
+              CHF {data?.price}
             </Text>
             <Text
               numberOfLines={1}
               style={{ fontSize: 12, color: "grey", fontWeight: "bold" }}
             >
-              EUR {data?.eur}
+              EUR {data?.price}
             </Text>
           </View>
           <View style={{}}>
             <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-              {data?.name}
+              {data?.title}
             </Text>
             {/* <Text style={{ fontSize: 12 }}>{data?.category}</Text> */}
             <Text style={{ fontSize: 12 }}>
               <Entypo name="location-pin" color={"grey"} />
 
-              {data?.location}
+              {data?.address}
             </Text>
           </View>
         </View>
@@ -88,47 +82,45 @@ export default function Detail({ navigation, route }) {
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>Details</Text>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Condition</Text>
-              <Text style={styles.cardelement}>used</Text>
+              <Text style={styles.cardelement}>{data?.condition}</Text>
             </View>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Category</Text>
-              <Text style={styles.cardelement}>Minibus</Text>
+              <Text style={styles.cardelement}>{data?.category}</Text>
             </View>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Brand</Text>
-              <Text style={styles.cardelement}>Ford</Text>
+              <Text style={styles.cardelement}>{data?.brand}</Text>
             </View>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Model</Text>
-              <Text style={styles.cardelement}>Transit</Text>
+              <Text style={styles.cardelement}>{data?.model}</Text>
             </View>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Fuel type</Text>
-              <Text style={styles.cardelement}>Diesel</Text>
+              <Text style={styles.cardelement}>{data?.fuelType}</Text>
             </View>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Kilometers</Text>
-              <Text style={styles.cardelement}>362,000 km</Text>
+              <Text style={styles.cardelement}>{data?.kiloMeters}</Text>
             </View>
             <View style={styles.cardrow}>
               <Text style={styles.cardelement}>Axle Count</Text>
-              <Text style={styles.cardelement}>2</Text>
+              <Text style={styles.cardelement}>{data?.condition}</Text>
             </View>
           </View>
         </View>
         <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>Description</Text>
           <Text style={{ fontSize: 12, paddingVertical: width(2) }}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
+          {data?.condition}
           </Text>
         </View>
         <View style={styles.profileview}>
           <View style={styles.profilecard}>
             <View style={styles.profilecardin}>
               <Image source={Icons?.user} style={styles.profileimage} />
-              <Text style={{ marginHorizontal: width(2) }}>Name</Text>
+              <Text style={{ marginHorizontal: width(2) }}>{data?.condition}</Text>
             </View>
             <IconButton title={"See All Ads"} />
           </View>

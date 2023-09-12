@@ -12,6 +12,7 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import { ApiManager } from "../../../backend/ApiManager";
+import { setAppLoader } from "../../../redux/slices/config";
 export default function SignUp({ navigation, route }) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
@@ -37,15 +38,19 @@ export default function SignUp({ navigation, route }) {
   const signup = async (data) => {
     //console.log("out",data);
     try {
+      dispatch(setAppLoader(true))
       const response = await ApiManager.post("/auth/register",data);
     //  console.log();
     if (response.status==200) {
       successMessage("saved");
+      dispatch(setAppLoader(false))
     //  console.log("in",response);
       navigation.goBack()
     }
     } catch (error) {
-      alert("Server error")
+      dispatch(setAppLoader(false))
+      errorMessage("Network error")
+
     }
     
   };

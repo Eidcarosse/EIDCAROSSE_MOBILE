@@ -15,6 +15,7 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
+import { setAppLoader } from "../../../redux/slices/config";
 
 export default function Login({ navigation, route }) {
   const dispatch = useDispatch();
@@ -37,17 +38,22 @@ export default function Login({ navigation, route }) {
 
   const login = async (data) => {
     try {
+      dispatch(setAppLoader(true))
       const response = await ApiManager.post("/auth", data);
     //  console.log("in coming data ",response?.data?.data);
-      if (response?.data?.data) {
+      if (response?.data) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.data?.userData));
         dispatch(setToken(response?.data?.data?.token));
         successMessage("saved");
+        dispatch(setAppLoader(false))
         navigation.navigate(ScreenNames.BUTTOM);
       }
-      else(alert("Incorrect email or password"))
-    } catch (error) {}
+      else{alert("Incorrect email or password"),dispatch(setAppLoader(false))}
+    } catch (error) {
+      errorMessage("Network error")
+      dispatch(setAppLoader(false))
+    }
   };
   return (
     <ScreenWrapper

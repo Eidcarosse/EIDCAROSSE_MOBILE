@@ -18,8 +18,13 @@ import AppColors from "../../../utills/AppColors";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { ApiManager } from "../../../backend/ApiManager";
+import { BaseUrl } from "../../../utills/Constants";
+import axios from "axios";
+import { setAppLoader } from "../../../redux/slices/config";
 
 export default function AddPost({ navigation, route }) {
+  console.log("add post page", route?.params);
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
 
@@ -30,8 +35,9 @@ export default function AddPost({ navigation, route }) {
   const [image, setImage] = React.useState([]);
   // const [category, setCategory] = React.useState("");
   // const [subCategory, setSubCategory] = React.useState("");
-  const category = "abc";
-  const subCategory = "xyz";
+  const category = route?.params?.category;
+  const subCategory = route?.params?.subcategory || null;
+
   const [title, setTitle] = React.useState("");
   const [pricing, setPricing] = React.useState();
   const [url, setUrl] = React.useState("");
@@ -53,8 +59,6 @@ export default function AddPost({ navigation, route }) {
   const [location, setLocation] = React.useState({
     latitude: 37.78825,
     longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
   });
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
@@ -104,20 +108,97 @@ export default function AddPost({ navigation, route }) {
       });
 
       // Send a POST request to your API with the form data
-      // const response = await axios.post(
-      //   "http://your-api-url/api/cars",
-      //   formData,
-      //   {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   }
-      // );
+      const response = await ApiManager.post("/ad/adPost", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       // Handle the response from the API
-      console.log("Car created:", formData);
+      //  console.log("res:", response);
     } catch (error) {
-      console.error("Error creating car:", error);
+      alert("Server error");
+      console.log(error);
+    }
+  };
+  const handleSubmite = async () => {
+    try {
+      dispatch(setAppLoader(true))
+      const formData = new FormData();
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("title", title);
+      formData.append("pricing", pricing);
+      formData.append("minPrice", pricefrom);
+      formData.append("maxPrice", priceto);
+      formData.append("price", price);
+      formData.append("condition", condition);
+      formData.append("brand", brand);
+      formData.append("year", year);
+      formData.append("model", model);
+      formData.append("bodyShape", bodyshape);
+      formData.append("gearBox", gearbox);
+      formData.append("fuelType", fueltype);
+      formData.append("exteriorColor", exterior);
+      formData.append("interiorColor", interior);
+      formData.append("videoUrl", url);
+      formData.append("description", description);
+      formData.append("howToContact", htc);
+      formData.append("contactNumber", phone);
+      formData.append("location", location);
+      formData.append("address", address);
+      formData.append("viber", viber);
+      formData.append("webSite", website);
+      formData.append("whatsApp", whatsapp);
+      formData.append("email", email);
+
+      // Append each selected image to the form data
+      image.forEach((img, index) => {
+        //console.log(img);
+        formData.append("file", {
+          name: `image${index}`,
+          type: "image/jpeg", // Adjust the type if needed
+          uri: img,
+        });
+      });
+
+      // Create headers for the fetch request
+      const headers = new Headers({
+        Accept: "application/json",
+      });
+
+      // Create a fetch request
+      var requestOptions = {
+        method: "POST",
+        body: formData,
+        redirect: "follow",
+      };
+      const response = await ApiManager.post(
+        "ad/adPost",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // Handle the response from the API
+      console.log("Car created:", response);
+      // Send a POST request to your API with fetch
+      // await fetch("http://192.168.1.6:4000/ad/adPost", requestOptions)
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((error) => console.error(error));
+      dispatch(setAppLoader(false))
+      // Handle the response from the API
+      // const data = await response.json(); // If the API returns JSON data
+      //console.log("Response data:", response);
+    } catch (error) {
+      alert("Server error");
+      console.error(error);
+      dispatch(setAppLoader(false))
     }
   };
 
@@ -607,7 +688,7 @@ export default function AddPost({ navigation, route }) {
         >
           <Button
             disabled={!check}
-            onPress={handleSubmit}
+            onPress={handleSubmite}
             title={"Post"}
             containerStyle={{
               width: width(80),
@@ -622,6 +703,7 @@ export default function AddPost({ navigation, route }) {
         onFilesSelected={(img) => {
           console.log("imggggg", img);
           const selectedImages = img.map((imageUri) => {
+            console.log(image.length);
             if (image.length < 5) {
               return Platform.OS === "android"
                 ? imageUri.uri

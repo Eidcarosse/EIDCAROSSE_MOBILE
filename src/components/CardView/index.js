@@ -4,13 +4,20 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
+import Icons from "../../asset/images";
 
 export default function CardView({ data }) {
-  // console.log("indata", data);
+  //console.log("indata", data);
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
-        <Image resizeMode="stretch" style={styles.image} source={data?.uri} />
+        <Image
+          resizeMode="cover"
+          style={styles.image}
+          // source={{ uri: data?.image[0] }}
+          source={{ uri:data?.image? data?.image[0] :Icons.car }}
+
+        />
       </View>
       <View style={styles.detail}>
         <View style={{}}>
@@ -18,7 +25,7 @@ export default function CardView({ data }) {
             numberOfLines={1}
             style={{ fontWeight: "bold", fontSize: width(3.5) }}
           >
-            {data?.name}
+            {data?.title}
           </Text>
           <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
             <MaterialIcons name="category" color={"grey"} />
@@ -26,7 +33,7 @@ export default function CardView({ data }) {
           </Text>
           <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
             <Entypo name="location-pin" color={"grey"} />
-            {data?.location}
+            {data?.address}
           </Text>
         </View>
         <View>
@@ -38,20 +45,24 @@ export default function CardView({ data }) {
               fontWeight: "bold",
             }}
           >
-            CHF {data?.chf}
+            CHF {data?.price}
           </Text>
           <Text
             numberOfLines={1}
             style={{ fontSize: width(2.5), color: "grey", fontWeight: "bold" }}
           >
-            EUR {data?.eur}
+            EUR {data?.price}
           </Text>
         </View>
       </View>
 
       <View style={styles.icons}>
         <TouchableOpacity style={{ paddingVertical: 3 }}>
-          <AntDesign size={width(4)} color={AppColors.primary} name="heart" />
+          <AntDesign
+            size={width(4)}
+            color={data?.fev ? AppColors.primary : "black"}
+            name={data?.fev ? "heart" : "hearto"}
+          />
         </TouchableOpacity>
         <TouchableOpacity style={{ paddingVertical: 3 }}>
           <Ionicons size={width(4)} name="call" />

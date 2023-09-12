@@ -11,5 +11,6 @@ const Icons = {
     pp:require('./pp_bg.png'),
     sellnow:require('./sellnow.png'),
     repairnow:require('./repairnow.png'),
+    loder:require('./newloder.gif'),
   };
   export default Icons

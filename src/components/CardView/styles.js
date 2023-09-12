@@ -16,22 +16,24 @@ const styles = StyleSheet.create({
     marginVertical: width(1),
   },
   imageview: {
-    width: width(35),
+    width: width(40),
+    height: width(35),
+
   },
   image: {
-    width: width(35),
+    width: width(40),
     height: width(35),
     borderRadius: width(2),
   },
   detail: {
-    width: width(42),
+    width: width(38),
     justifyContent: "space-between",
     padding: width(2),
     alignItems: "flex-start",
   },
   icons: {
     paddingVertical: width(2),
-    width: width(12),
+    width: width(10),
     justifyContent: "space-between",
     alignItems: "flex-end",
   },

@@ -3,9 +3,7 @@ import AppColors from '../../utills/AppColors';
 import { height, width } from '../../utills/Dimension';
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: AppColors.white,
-        width: width(50),
-        paddingVertical: height(3),
+        width: width(30),
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',

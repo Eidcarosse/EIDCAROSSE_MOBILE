@@ -12,7 +12,13 @@ import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import AppColors from "../../utills/AppColors";
-import { ChatScreen, HomeScreen, MyListingScreen, ProfileScreen } from "../../screens/app";
+import {
+  CategoryScreen,
+  ChatScreen,
+  HomeScreen,
+  MyListingScreen,
+  ProfileScreen,
+} from "../../screens/app";
 import ScreenNames from "../routes";
 import { DrawerSceneWrapper } from "../../components";
 import { selectIsLoggedIn, setIsLoggedIn } from "../../redux/slices/user";
@@ -83,9 +89,9 @@ export default function BottomNav({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                // islogin ? 
-                navigation.navigate(ScreenNames.CATEGORY, "ADD")
-                //: navigation.navigate("title4")
+                // islogin ?
+                //
+                navigation.navigate("tit");
               }}
             >
               <FontAwesome5 name={"plus"} color={"white"} size={22} />
@@ -101,9 +107,25 @@ export default function BottomNav({ navigation }) {
           component={() => <HomeScreen navigation={navigation} />}
         />
         <CurvedBottomBarExpo.Screen
+          name="tit"
+          component={() =>
+            islogin ? (
+              <CategoryScreen navigation={navigation} value="ADD" />
+            ) : (
+              <PreLogin navigation={navigation} />
+            )
+          }
+        />
+        <CurvedBottomBarExpo.Screen
           name="title2"
           position="LEFT"
-          component={() => <ChatScreen navigation={navigation}/>}
+          component={() =>
+            islogin ? (
+              <ChatScreen navigation={navigation} />
+            ) : (
+              <PreLogin navigation={navigation} />
+            )
+          }
         />
         <CurvedBottomBarExpo.Screen
           name={ScreenNames.MYADS}
@@ -150,10 +172,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     width: width(10),
     height: height(5),
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
-  bottomBar: {},
+  bottomBar: {
+    //backgroundColor:'rgba(0,0,0,0)'
+  },
   btnCircleUp: {
     width: 50,
     height: 50,
