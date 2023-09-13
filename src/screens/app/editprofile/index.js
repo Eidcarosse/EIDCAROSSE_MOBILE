@@ -31,6 +31,10 @@ export default function EditProfile({ navigation, route }) {
   const [email, setEmail] = React.useState(userdata?.email ||null);
   const [phoneNumber, setPhoneNumber] = React.useState(userdata?.phoneNumber ||null);
 
+const update=()=>{
+
+}
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -108,14 +112,14 @@ export default function EditProfile({ navigation, route }) {
       <FilePickerModal
         ref={imageRef}
         onFilesSelected={(img) => {
-          console.log("imggggg", img);
+        //  console.log("imggggg", img);
           const selectedImages = img.map((imageUri) => {
-            console.log(image.length);
-            if (image.length < 5) {
+           // console.log(image.length);
+         //   if (image.length < 5) {
               return Platform.OS === "android"
                 ? imageUri.uri
                 : imageUri.uri.replace("file://", "");
-            }
+           //}
           });
           setImage(selectedImages);
         }}

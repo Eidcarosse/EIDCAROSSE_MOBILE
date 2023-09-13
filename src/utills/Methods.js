@@ -14,7 +14,7 @@ export function debounce(func, wait, immediate) {
 }
 import {showMessage} from 'react-native-flash-message';
 import AppColors from './AppColors';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const successMessage = (description = '', message = 'success') => {
   showMessage({
     message: message,
@@ -37,5 +37,22 @@ const toastMessage = (description = '', message = 'Info', type = 'info') => {
     type: type,
   });
 };
-const GlobalMethods = {toastMessage, errorMessage, successMessage};
+
+export const setAuthData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('authUser', jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+export const getAuthData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('authUser');
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
+const GlobalMethods = {toastMessage, errorMessage, successMessage,setAuthData,getAuthData};
 export default GlobalMethods;

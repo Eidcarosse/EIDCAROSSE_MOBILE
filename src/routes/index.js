@@ -1,19 +1,55 @@
 import * as React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoginScreen, OnBoardingScreen, SignUpScreen } from '../screens/auth';
 import { Loader } from '../components';
 import ScreenNames from './routes';
 import { CategoryScreen, DetailScreen, HomeScreen,BikeScreen, ListData, ProfileScreen, EditProfile, PasswordScreens, AccountScreen, WishScreen, MyListingScreen, AddPostScreen, ChatScreen, ChatView, FAQScreen, HTSFScreen, AboutUsScreen, TNCScreen, PrivacyPolicyScreen, SellUsScreen, RepairSreen } from '../screens/app';
-import { selectIsLoggedIn } from '../redux/slices/user';
+import { selectIsLoggedIn, setIsLoggedIn, setToken, setUserMeta } from '../redux/slices/user';
 import BottomNav from './bottom';
 import MyDrawer from './drawr';
+import { setAppLoader } from '../redux/slices/config';
+import { ApiManager } from '../backend/ApiManager';
+import { getAuthData } from '../utills/Methods';
+import { errorMessage } from '../utills/Methods';
+import { successMessage } from '../utills/Methods';
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   const isLogin = useSelector(selectIsLoggedIn)
+  const dispatch=useDispatch();
+
+React.useEffect(()=>{
+  getuser()
+},[])
+const getuser=async()=>{
+  let data=await getAuthData()
+  if(data){
+    login(data);
+  }
+}
+  const login = async (data) => {
+    try {
+     
+      dispatch(setAppLoader(true))
+      const response = await ApiManager.post("/auth", data);
+    // console.log("in coming data ",data);
+      if (response?.data) {
+        dispatch(setIsLoggedIn(true));
+        dispatch(setUserMeta(response?.data?.data?.userData));
+        dispatch(setToken(response?.data?.data?.token));
+        dispatch(setAppLoader(false))
+      }
+      else{alert("Relogin"),dispatch(setAppLoader(false))}
+    } catch (error) {
+      errorMessage("Network error")
+      dispatch(setAppLoader(false))
+    }
+  };
+
+  
   return (
     <NavigationContainer>
       <Loader />

@@ -14,7 +14,7 @@ import {
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { errorMessage, successMessage } from "../../../utills/Methods";
+import { errorMessage, setAuthData, successMessage } from "../../../utills/Methods";
 import { setAppLoader } from "../../../redux/slices/config";
 
 export default function Login({ navigation, route }) {
@@ -40,11 +40,12 @@ export default function Login({ navigation, route }) {
     try {
       dispatch(setAppLoader(true))
       const response = await ApiManager.post("/auth", data);
-    //  console.log("in coming data ",response?.data?.data);
+    // console.log("in coming data ",data);
       if (response?.data) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.data?.userData));
         dispatch(setToken(response?.data?.data?.token));
+        setAuthData(data)
         successMessage("saved");
         dispatch(setAppLoader(false))
         navigation.navigate(ScreenNames.BUTTOM);
