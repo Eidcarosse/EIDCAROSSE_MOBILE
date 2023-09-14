@@ -13,7 +13,7 @@ import { selectUserMeta } from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
-  //console.log("metadata",userdata);
+  console.log("metadata",userdata);
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}

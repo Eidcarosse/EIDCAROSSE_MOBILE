@@ -1,1 +1,1 @@
-export const BaseUrl = `http://192.168.1.10:4000`;
+export const BaseUrl = `https://eidcarossebe-dwxrg.ondigitalocean.app/`;

@@ -2,20 +2,20 @@ import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import styles from "./styles";
-import { ApiManager } from "../../../backend/ApiManager";
 import Icons from "../../../asset/images";
+import { loginApi } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
-import {
-  setIsLoggedIn,
-  setToken,
-  setUserMeta,
-} from "../../../redux/slices/user";
+import { setAppLoader } from "../../../redux/slices/config";
+import { setIsLoggedIn, setUserMeta } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { errorMessage, setAuthData, successMessage } from "../../../utills/Methods";
-import { setAppLoader } from "../../../redux/slices/config";
+import {
+  errorMessage,
+  setAuthData,
+  successMessage,
+} from "../../../utills/Methods";
+import styles from "./styles";
 
 export default function Login({ navigation, route }) {
   const dispatch = useDispatch();
@@ -38,22 +38,28 @@ export default function Login({ navigation, route }) {
 
   const login = async (data) => {
     try {
-      dispatch(setAppLoader(true))
-      const response = await ApiManager.post("/auth", data);
-    // console.log("in coming data ",data);
-      if (response?.data) {
+      dispatch(setAppLoader(true));
+      let res = await loginApi(data);
+      console.log(res);
+      if (!res?.success) {
+        dispatch(setAppLoader(false));
+        errorMessage(res?.message);
+      } else if (res?.success) {
         dispatch(setIsLoggedIn(true));
-        dispatch(setUserMeta(response?.data?.data?.userData));
-        dispatch(setToken(response?.data?.data?.token));
-        setAuthData(data)
+        console.log(res.token);
+        dispatch(setUserMeta(res.data));
+        // dispatch(setToken(response?.data?.data?.token));
+        setAuthData(data);
+        dispatch(setAppLoader(false));
         successMessage("saved");
-        dispatch(setAppLoader(false))
         navigation.navigate(ScreenNames.BUTTOM);
+      } else {
+        alert("Somthing wrong in Login"), dispatch(setAppLoader(false));
       }
-      else{alert("Incorrect email or password"),dispatch(setAppLoader(false))}
     } catch (error) {
-      errorMessage("Network error")
-      dispatch(setAppLoader(false))
+      errorMessage("Network error");
+      console.log(error);
+      dispatch(setAppLoader(false));
     }
   };
   return (
@@ -90,10 +96,11 @@ export default function Login({ navigation, route }) {
             containerStyle={styles.button}
             title={"Login"}
             onPress={() => {
-              if(!isValidEmail(email)){errorMessage("Email is require or may incorect formate")}
-              else if (!isValidPassword(password)){errorMessage("Password must be requied or may incorect")}
-               else login(userData)
-                
+              if (!isValidEmail(email)) {
+                errorMessage("Email is require or may incorect formate");
+              } else if (!isValidPassword(password)) {
+                errorMessage("Password must be requied or may incorect");
+              } else login(userData);
             }}
           />
           <Button

@@ -39,7 +39,7 @@ export default function AddPost({ navigation, route }) {
   const subCategory = route?.params?.subcategory || null;
 
   const [title, setTitle] = React.useState("");
-  const [pricing, setPricing] = React.useState();
+  const [pricing, setPricing] = React.useState("");
   const [url, setUrl] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [check, setCheck] = React.useState(false);
@@ -69,25 +69,70 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
-  const handleSubmite = async () => {
+  const handleSubmit= async () => {
     try {
+      dispatch(setAppLoader(true))
       const formData = new FormData();
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("title", title);
+      formData.append("pricing", pricing);
+      formData.append("minPrice", pricefrom);
+      formData.append("maxPrice", priceto);
+      formData.append("price", price);
+      formData.append("condition", condition);
+      formData.append("brand", brand);
+      formData.append("year", year);
+      formData.append("model", model);
+      formData.append("bodyShape", bodyshape);
+      formData.append("gearBox", gearbox);
+      formData.append("fuelType", fueltype);
+      formData.append("exteriorColor", exterior);
+      formData.append("interiorColor", interior);
+      formData.append("videoUrl", url);
+      formData.append("description", description);
+      formData.append("howToContact", htc);
+      formData.append("contactNumber", phone);
+      formData.append("location", JSON.stringify(location));
+      formData.append("address", address);
+      formData.append("viber", viber);
+      formData.append("webSite", website);
+      formData.append("whatsApp", whatsapp);
+      formData.append("email", email);
 
-      // Send a POST request to your API with the form data
-      const response = await ApiManager.post("/ad/adPost", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      // Append each selected image to the form data
+      image.forEach((img, index) => {
+        //console.log(img);
+        formData.append("file", {
+          name: `image${index}`,
+          type: "image/jpeg", // Adjust the type if needed
+          uri: img,
+        });
       });
+    //  console.log("formdata out ",formData);
+      const response = await ApiManager.post(
+        "ad/adPost?",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       // Handle the response from the API
-      console.log("res:", response?.data);
+      console.log("Car created:", response);
+    
+      dispatch(setAppLoader(false))
+
     } catch (error) {
+      console.error("Error creating car:", error);
       alert("Server error");
-      console.log(error);
+      console.error(error);
+      dispatch(setAppLoader(false))
     }
   };
-  const handleSubmit = async () => {
+  const handleSubmite = async () => {
   try {
     const senddata = {
       // ... your JSON data fields ...
@@ -119,7 +164,6 @@ export default function AddPost({ navigation, route }) {
       whatsapp,
       email
 
-
     };
 
     const formData = new FormData();
@@ -142,14 +186,15 @@ export default function AddPost({ navigation, route }) {
     };
 
     const response = await axios.post(
-      BaseUrl+"/ad/adPost",
-      formData,
+      "https://eidcarossebe-dwxrg.ondigitalocean.app/ad/adPost"
+      ,
+     formData,
       {
         headers,
       }
     );
 
-    console.log("API Response:", response.data);
+    console.log("API Response:", response);
   } catch (error) {
     // Handle Axios errors
     if (error.response) {

@@ -8,7 +8,7 @@ import Input from "../InputText";
 import Button from "../button";
 import styles from "./styles";
 
-export default function SearchFilter({ search, setSearch, containerstyle }) {
+export default function SearchFilter({ search, setSearch,onPressClear,onPressFilter, containerstyle }) {
   const [sortby, setSortby] = React.useState("");
   const [radius, setRadius] = React.useState("");
   const [pricefrom, setPricefrom] = React.useState("");
@@ -103,6 +103,7 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
               borderWidth: 0,
               paddingVertical: width(1),
             }}
+            
             activeColor={AppColors.primary}
             selectedBtn={(e) => setCondition(e)}
           />
@@ -192,6 +193,7 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
               borderRadius: width(2),
               backgroundColor: "grey",
             }}
+            onPress={onPressClear}
           />
           <Button
             title={"Filter"}
@@ -200,6 +202,7 @@ export default function SearchFilter({ search, setSearch, containerstyle }) {
               borderRadius: width(2),
               backgroundColor: AppColors.primary,
             }}
+            onPress={()=>{setCondition(-1)}}
           />
         </View>
       </ScrollView>

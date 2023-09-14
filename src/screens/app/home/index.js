@@ -17,6 +17,7 @@ import LottieView from "lottie-react-native";
 import { setAppLoader } from "../../../redux/slices/config";
 import { useFocusEffect } from "@react-navigation/native";
 import { BaseUrl } from "../../../utills/Constants";
+import { getDataofHomePage } from "../../../backend/api";
 
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
@@ -39,18 +40,11 @@ export default function Home({ navigation, route }) {
   );
   const getData = async () => {
     dispatch(setAppLoader(true));
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    await fetch(BaseUrl + "/ad/", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        setData(result?.data), dispatch(setAppLoader(false));
-      })
-      .catch((error) => {
-        console.log("error home", error), dispatch(setAppLoader(false));
-      });
+    let d= await getDataofHomePage()
+    if(d)setData(d)
+    else setData([])
+     dispatch(setAppLoader(false));
+  
   };
 
   return (

@@ -34,11 +34,11 @@ export default function ListData({ navigation, route }) {
       method: "GET",
       redirect: "follow",
     };
-    await fetch(BaseUrl + "/ad/", requestOptions)
+    await fetch(BaseUrl + "/ad", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-
-        setData(result?.data), dispatch(setAppLoader(false));
+        console.log(result.data.ad);
+        setData(result?.data?.ad), dispatch(setAppLoader(false));
       })
       .catch((error) => {
         console.log("error home", error), dispatch(setAppLoader(false));
@@ -105,7 +105,10 @@ export default function ListData({ navigation, route }) {
               },
             }}
           >
-            <SearchFilter />
+            <SearchFilter 
+            onPressClear={()=>refRBSheet.current.close()}
+            onPressFilter={()=>refRBSheet.current.close()}
+            />
           </RBSheet>
         </View>
       </View>
