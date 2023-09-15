@@ -20,7 +20,7 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { ApiManager } from "../../../backend/ApiManager";
 import { BaseUrl } from "../../../utills/Constants";
-import axios from 'axios';
+import axios from "axios";
 import { setAppLoader } from "../../../redux/slices/config";
 
 export default function AddPost({ navigation, route }) {
@@ -69,146 +69,166 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
-  const handleSubmit= async () => {
-    try {
-      dispatch(setAppLoader(true))
-      const formData = new FormData();
-      formData.append("category", category);
-      formData.append("subCategory", subCategory);
-      formData.append("title", title);
-      formData.append("pricing", pricing);
-      formData.append("minPrice", pricefrom);
-      formData.append("maxPrice", priceto);
-      formData.append("price", price);
-      formData.append("condition", condition);
-      formData.append("brand", brand);
-      formData.append("year", year);
-      formData.append("model", model);
-      formData.append("bodyShape", bodyshape);
-      formData.append("gearBox", gearbox);
-      formData.append("fuelType", fueltype);
-      formData.append("exteriorColor", exterior);
-      formData.append("interiorColor", interior);
-      formData.append("videoUrl", url);
-      formData.append("description", description);
-      formData.append("howToContact", htc);
-      formData.append("contactNumber", phone);
-      formData.append("location", JSON.stringify(location));
-      formData.append("address", address);
-      formData.append("viber", viber);
-      formData.append("webSite", website);
-      formData.append("whatsApp", whatsapp);
-      formData.append("email", email);
+  // const handleSubmite = async () => {
+  //   try {
+  //     {
+  //       /*
+  // data": {
+  //       "image": [
+  //           "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695474/qumu30vpab19itvd55wv.png",
+  //           "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695473/fltiibu2nssmvqs3ood4.png",
+  //           "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695475/bb9xeh3zocygiu4ls2wv.png"
+  //       ],
+  //       "category": null,
+  //       "subCategory": null,
+  //       "title": "abc",
+  //       "price": null,
+  //       "condition": null,
+  //       "brand": null,
+  //       "videoUrl": null,
+  //       "description": null,
+  //       "email": null,
+  //       "phoneNumber": null,
+  //       "whatsApp": null,
+  //       "viber": null,
+  //       "website": null,
+  //       "address": null,
+  //       "feature_list": null,
+  //       "howToContact": null,
+  //       "model": null,
+  //       "year": null,
+  //       "bodyShape": null,
+  //       "gearBox": null,
+  //       "fuelType": null,
+  //       "exteriorColor": null,
+  //       "interiorColor": null,
+  //       "engineCapacity": null,
+  //       "cylinders": null,
+  //       "kiloMeters": null,
+  //       "views": 0,
+  //       "_id": "65030034e0cdaffef2c0c02c",
+  //       "__v": 0
+  //   }
+  // */
+  //     }
+  //     dispatch(setAppLoader(true));
+  //     const formData = new FormData();
+  //     formData.append("category", category);
+  //     formData.append("subCategory", subCategory);
+  //     formData.append("title", title);
+  //     formData.append("pricing", pricing);
+  //     formData.append("minPrice", pricefrom);
+  //     formData.append("maxPrice", priceto);
+  //     formData.append("price", price);
+  //     formData.append("condition", condition);
+  //     formData.append("brand", brand);
+  //     formData.append("year", year);
+  //     formData.append("model", model);
+  //     formData.append("bodyShape", bodyshape);
+  //     formData.append("gearBox", gearbox);
+  //     formData.append("fuelType", fueltype);
+  //     formData.append("exteriorColor", exterior);
+  //     formData.append("interiorColor", interior);
+  //     formData.append("videoUrl", url);
+  //     formData.append("description", description);
+  //     formData.append("howToContact", htc);
+  //     formData.append("contactNumber", phone);
+  //     formData.append("location", JSON.stringify(location));
+  //     formData.append("address", address);
+  //     formData.append("viber", viber);
+  //     formData.append("webSite", website);
+  //     formData.append("whatsApp", whatsapp);
+  //     formData.append("email", email);
 
+  //     // Append each selected image to the form data
+  //     image.forEach((img, index) => {
+  //       //console.log(img);
+  //       formData.append("file", {
+  //         name: `image${index}`,
+  //         type: "image/jpeg", // Adjust the type if needed
+  //         uri: img,
+  //       });
+  //     });
+  //     //  console.log("formdata out ",formData);
+  //     const response = await axios.post("http://localhost:4000/ad/adPost",);
+
+  //     // Handle the response from the API
+  //     console.log("Car created:", response);
+
+  //     dispatch(setAppLoader(false));
+  //   } catch (error) {
+  //     console.error("Error creating car:", error);
+  //     alert("Server error");
+  //     console.error("ok", error);
+  //     dispatch(setAppLoader(false));
+  //   }
+  // };
+  const handleSubmit = async () => {
+    try {
+      const senddata = {
+        category,
+        subCategory,
+        title,
+        pricing,
+        pricefrom,
+        priceto,
+        price,
+        condition,
+        brand,
+        year,
+        model,
+        bodyshape,
+        gearbox,
+        fueltype,
+        exterior,
+        interior,
+        url,
+        description,
+        htc,
+        phone,
+        location,
+        address,
+        viber,
+        website,
+        whatsapp,
+        email,
+      };
+  
+      const formData = new FormData();
+  
+      // Append the JSON data as a field in FormData
+      formData.append("data",senddata);
+  
       // Append each selected image to the form data
       image.forEach((img, index) => {
-        //console.log(img);
         formData.append("file", {
           name: `image${index}`,
           type: "image/jpeg", // Adjust the type if needed
           uri: img,
         });
       });
-    //  console.log("formdata out ",formData);
-      const response = await ApiManager.post(
-        "ad/adPost?",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      // Handle the response from the API
-      console.log("Car created:", response);
-    
-      dispatch(setAppLoader(false))
-
+  
+      const response = await axios.post("http://localhost:4000/ad/adPost",formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Remove "accept" header
+        },
+      });
+  
+      console.log("API Response:", response);
     } catch (error) {
-      console.error("Error creating car:", error);
-      alert("Server error");
-      console.error(error);
-      dispatch(setAppLoader(false))
+      // Handle Axios errors
+      if (error.response) {
+        console.error("API Error - Response Data:", error.response.data);
+        console.error("API Error - Response Status:", error.response.status);
+        console.error("API Error - Response Headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("API Error - No Response Received:", error.request);
+      } else {
+        console.error("API Error - Request Setup:", error.message);
+      }
     }
   };
-  const handleSubmite = async () => {
-  try {
-    const senddata = {
-      // ... your JSON data fields ...
-
-      category,
-      subCategory,
-      title,
-      pricing,
-      pricefrom,
-      priceto,
-      price,
-      condition,
-      brand,
-      year,
-      model,
-      bodyshape,
-      gearbox,
-      fueltype,
-      exterior,
-      interior,
-      url,
-      description,
-      htc,
-      phone,
-      location,
-      address,
-      viber,
-      website,
-      whatsapp,
-      email
-
-    };
-
-    const formData = new FormData();
-
-    // Append the JSON data as a field in FormData
-    formData.append("data", JSON.stringify(senddata));
-
-    // Append each selected image to the form data
-    image.forEach((img, index) => {
-      formData.append("file", {
-        name: `image${index}`,
-        type: "image/jpeg", // Adjust the type if needed
-        uri: img,
-      });
-    });
-
-    const headers = {
-      accept: 'application/json',
-    'content-type': 'multipart/form-data',
-    };
-
-    const response = await axios.post(
-      "https://eidcarossebe-dwxrg.ondigitalocean.app/ad/adPost"
-      ,
-     formData,
-      {
-        headers,
-      }
-    );
-
-    console.log("API Response:", response);
-  } catch (error) {
-    // Handle Axios errors
-    if (error.response) {
-      console.error("API Error - Response Data:", error.response.data);
-      console.error("API Error - Response Status:", error.response.status);
-      console.error("API Error - Response Headers:", error.response.headers);
-    } else if (error.request) {
-      console.error("API Error - No Response Received:", error.request);
-    } else {
-      console.error("API Error - Request Setup:", error.message);
-    }
-  }
-};
-
+  
 
   const rdata = [
     {
