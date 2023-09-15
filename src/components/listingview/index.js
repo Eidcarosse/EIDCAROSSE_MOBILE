@@ -6,11 +6,11 @@ import { width } from "../../utills/Dimension";
 import styles from "./styles";
 
 export default function ListingView({ data }) {
-   console.log("indata", data);
+   //console.log("indata", data.image[0]);
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
-        <Image resizeMode='cover' style={styles.image} source={data?.image} />
+        <Image resizeMode='cover' style={styles.image} source={{uri:data?.image[0]}} />
       </View>
       <View style={styles.detail}>
         <View style={{ paddingBottom: width(5) }}>

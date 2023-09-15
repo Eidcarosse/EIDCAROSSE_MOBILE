@@ -5,7 +5,7 @@ import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { Button, Input, ScreenWrapper } from "../../../components";
-import { setIsLoggedIn } from "../../../redux/slices/user";
+import { setIsLoggedIn, setToken, setUserMeta } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
@@ -44,6 +44,9 @@ export default function SignUp({ navigation, route }) {
         errorMessage(r?.message);
       } else if (r) {
         successMessage("Saved");
+        // dispatch(setIsLoggedIn(true));
+        //  dispatch(setUserMeta(r?.data?.userDetails));
+        // dispatch(setToken(r?.data?.token));
         dispatch(setAppLoader(false));
         navigation.goBack();
       }

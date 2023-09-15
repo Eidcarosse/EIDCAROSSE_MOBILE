@@ -10,14 +10,39 @@ import {
   IconButton,
   ScreenWrapper,
 } from "../../../components";
+import { Linking } from 'react-native';
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
 export default function Detail({ navigation, route }) {
   const data = route?.params;
-  //  console.log("detail", data.image);
+   console.log("detail", data);
    const img=data.image.map((item)=>{ return{img:item}})
-   console.log("detail", img);
+   //console.log("detail all", img);
+
+
+   const openWhatsApp = () => {
+    const phoneNumber ="0000000000" // Replace with the recipient's phone number
+    const message = 'Hello,I saw your ad on Eidcarosse!'; // Replace with your desired message
+
+    // Construct the WhatsApp URL
+    const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+    // Open WhatsApp with the constructed URL
+    Linking.openURL(whatsappURL)
+      .then(() => {
+        console.log('WhatsApp opened successfully');
+      })
+      .catch((error) => {
+        console.error('Error opening WhatsApp:', error);
+      });
+  };
+
+
+
+
+
+
 
   return (
     <ScreenWrapper
@@ -113,7 +138,7 @@ export default function Detail({ navigation, route }) {
         <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>Description</Text>
           <Text style={{ fontSize: 12, paddingVertical: width(2) }}>
-          {data?.condition}
+          {data?.description}
           </Text>
         </View>
         <View style={styles.profileview}>
@@ -132,6 +157,7 @@ export default function Detail({ navigation, route }) {
               <Ionicons size={width(4)} name="logo-whatsapp" color={"white"} />
             }
             containerStyle={{ backgroundColor: "#41C053" }}
+            onPress={openWhatsApp}
           />
           <IconButton
             title={"Viber"}

@@ -17,6 +17,7 @@ import styles from "./styles";
 import { BaseUrl } from "../../../utills/Constants";
 import { useDispatch } from "react-redux";
 import { setAppLoader } from "../../../redux/slices/config";
+import { getAllData } from "../../../backend/api";
 
 export default function ListData({ navigation, route }) {
   const refRBSheet = useRef();
@@ -30,20 +31,13 @@ export default function ListData({ navigation, route }) {
   }, []);
   const getData = async () => {
     dispatch(setAppLoader(true));
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    await fetch(BaseUrl + "/ad", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result.data.ad);
-        setData(result?.data?.ad), dispatch(setAppLoader(false));
-      })
-      .catch((error) => {
-        console.log("error home", error), dispatch(setAppLoader(false));
-      });
+    let d= await getAllData()
+    if(d)setData(d)
+    else setData([])
+     dispatch(setAppLoader(false));
+  
   };
+  console.log(data);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (

@@ -8,6 +8,7 @@ import { setAppLoader } from "../redux/slices/config";
 import {
   selectIsLoggedIn,
   setIsLoggedIn,
+  setToken,
   setUserMeta,
 } from "../redux/slices/user";
 import {
@@ -56,9 +57,10 @@ export default function Routes() {
       dispatch(setAppLoader(true));
       const response = await loginApi(data);
       if (response?.data) {
-        dispatch(setIsLoggedIn(true));
-        dispatch(setUserMeta(response?.data));
-        // dispatch(setToken(response?.data?.data?.token));
+       // console.log("route",response.data.token);
+         dispatch(setIsLoggedIn(true));
+         dispatch(setUserMeta(response?.data?.userDetails));
+        dispatch(setToken(response?.data?.token));
         dispatch(setAppLoader(false));
       } else {
         alert("Re-login"), dispatch(setAppLoader(false));

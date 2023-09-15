@@ -69,101 +69,101 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
-  // const handleSubmite = async () => {
-  //   try {
-  //     {
-  //       /*
-  // data": {
-  //       "image": [
-  //           "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695474/qumu30vpab19itvd55wv.png",
-  //           "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695473/fltiibu2nssmvqs3ood4.png",
-  //           "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695475/bb9xeh3zocygiu4ls2wv.png"
-  //       ],
-  //       "category": null,
-  //       "subCategory": null,
-  //       "title": "abc",
-  //       "price": null,
-  //       "condition": null,
-  //       "brand": null,
-  //       "videoUrl": null,
-  //       "description": null,
-  //       "email": null,
-  //       "phoneNumber": null,
-  //       "whatsApp": null,
-  //       "viber": null,
-  //       "website": null,
-  //       "address": null,
-  //       "feature_list": null,
-  //       "howToContact": null,
-  //       "model": null,
-  //       "year": null,
-  //       "bodyShape": null,
-  //       "gearBox": null,
-  //       "fuelType": null,
-  //       "exteriorColor": null,
-  //       "interiorColor": null,
-  //       "engineCapacity": null,
-  //       "cylinders": null,
-  //       "kiloMeters": null,
-  //       "views": 0,
-  //       "_id": "65030034e0cdaffef2c0c02c",
-  //       "__v": 0
-  //   }
-  // */
-  //     }
-  //     dispatch(setAppLoader(true));
-  //     const formData = new FormData();
-  //     formData.append("category", category);
-  //     formData.append("subCategory", subCategory);
-  //     formData.append("title", title);
-  //     formData.append("pricing", pricing);
-  //     formData.append("minPrice", pricefrom);
-  //     formData.append("maxPrice", priceto);
-  //     formData.append("price", price);
-  //     formData.append("condition", condition);
-  //     formData.append("brand", brand);
-  //     formData.append("year", year);
-  //     formData.append("model", model);
-  //     formData.append("bodyShape", bodyshape);
-  //     formData.append("gearBox", gearbox);
-  //     formData.append("fuelType", fueltype);
-  //     formData.append("exteriorColor", exterior);
-  //     formData.append("interiorColor", interior);
-  //     formData.append("videoUrl", url);
-  //     formData.append("description", description);
-  //     formData.append("howToContact", htc);
-  //     formData.append("contactNumber", phone);
-  //     formData.append("location", JSON.stringify(location));
-  //     formData.append("address", address);
-  //     formData.append("viber", viber);
-  //     formData.append("webSite", website);
-  //     formData.append("whatsApp", whatsapp);
-  //     formData.append("email", email);
-
-  //     // Append each selected image to the form data
-  //     image.forEach((img, index) => {
-  //       //console.log(img);
-  //       formData.append("file", {
-  //         name: `image${index}`,
-  //         type: "image/jpeg", // Adjust the type if needed
-  //         uri: img,
-  //       });
-  //     });
-  //     //  console.log("formdata out ",formData);
-  //     const response = await axios.post("http://localhost:4000/ad/adPost",);
-
-  //     // Handle the response from the API
-  //     console.log("Car created:", response);
-
-  //     dispatch(setAppLoader(false));
-  //   } catch (error) {
-  //     console.error("Error creating car:", error);
-  //     alert("Server error");
-  //     console.error("ok", error);
-  //     dispatch(setAppLoader(false));
-  //   }
-  // };
   const handleSubmit = async () => {
+    try {
+      {
+        /*
+  data": {
+        "image": [
+            "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695474/qumu30vpab19itvd55wv.png",
+            "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695473/fltiibu2nssmvqs3ood4.png",
+            "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695475/bb9xeh3zocygiu4ls2wv.png"
+        ],
+        "category": null,
+        "subCategory": null,
+        "title": "abc",
+        "price": null,
+        "condition": null,
+        "brand": null,
+        "videoUrl": null,
+        "description": null,
+        "email": null,
+        "phoneNumber": null,
+        "whatsApp": null,
+        "viber": null,
+        "website": null,
+        "address": null,
+        "feature_list": null,
+        "howToContact": null,
+        "model": null,
+        "year": null,
+        "bodyShape": null,
+        "gearBox": null,
+        "fuelType": null,
+        "exteriorColor": null,
+        "interiorColor": null,
+        "engineCapacity": null,
+        "cylinders": null,
+        "kiloMeters": null,
+        "views": 0,
+        "_id": "65030034e0cdaffef2c0c02c",
+        "__v": 0
+    }
+  */
+      }
+      dispatch(setAppLoader(true));
+      const formData = new FormData();
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("title", title);
+      formData.append("pricing", pricing);
+      formData.append("minPrice", pricefrom);
+      formData.append("maxPrice", priceto);
+      formData.append("price", price);
+      formData.append("condition", condition);
+      formData.append("brand", brand);
+      formData.append("year", year);
+      formData.append("model", model);
+      formData.append("bodyShape", bodyshape);
+      formData.append("gearBox", gearbox);
+      formData.append("fuelType", fueltype);
+      formData.append("exteriorColor", exterior);
+      formData.append("interiorColor", interior);
+      formData.append("videoUrl", url);
+      formData.append("description", description);
+      formData.append("howToContact", htc);
+      formData.append("contactNumber", phone);
+      formData.append("location", JSON.stringify(location));
+      formData.append("address", address);
+      formData.append("viber", viber);
+      formData.append("webSite", website);
+      formData.append("whatsApp", whatsapp);
+      formData.append("email", email);
+
+      // Append each selected image to the form data
+      image.forEach((img, index) => {
+        //console.log(img);
+        formData.append("file", {
+          name: `image${index}`,
+          type: "image/jpeg", // Adjust the type if needed
+          uri: img,
+        });
+      });
+      //  console.log("formdata out ",formData);
+      const response = await axios.post("http://localhost:4000/ad/adPost",formData);
+
+      // Handle the response from the API
+      console.log("Car created:", response);
+
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.error("Error creating car:", error);
+      alert("Server error");
+      console.error("ok", error);
+      dispatch(setAppLoader(false));
+    }
+  };
+  const handleSubmite = async () => {
     try {
       const senddata = {
         category,
@@ -202,17 +202,24 @@ export default function AddPost({ navigation, route }) {
       // Append each selected image to the form data
       image.forEach((img, index) => {
         formData.append("file", {
+          uri: img,
           name: `image${index}`,
           type: "image/jpeg", // Adjust the type if needed
-          uri: img,
+         
         });
       });
   
       const response = await axios.post("http://localhost:4000/ad/adPost",formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Remove "accept" header
+
+          "Content-Type" : "multipart/form-data"// Remove "accept" header
+          
         },
       });
+
+      
+
+      
   
       console.log("API Response:", response);
     } catch (error) {

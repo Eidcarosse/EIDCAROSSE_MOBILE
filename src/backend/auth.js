@@ -8,6 +8,7 @@ const signupApi = async (data) => {
           "Content-Type": "application/json",
         },
       });
+      console.log("signup api",response);
       return response
     } catch (error) {
         errorMessage("Network error")
@@ -21,11 +22,12 @@ const signupApi = async (data) => {
           "Content-Type": "application/json",
         },
       });
-   // console.log("in coming data in log in ",response);
+   //console.log("in coming data in log IP ",response);
     return response
     } catch (error) {
       errorMessage("Network error")
       console.log(error);
+      return false
     }
   };
  export { signupApi ,loginApi};

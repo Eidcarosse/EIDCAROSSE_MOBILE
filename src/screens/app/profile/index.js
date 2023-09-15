@@ -9,11 +9,12 @@ import { FilePickerModal, Header, IconButton, ScreenWrapper } from "../../../com
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { selectUserMeta } from "../../../redux/slices/user";
+import { selectToken, selectUserMeta } from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
-  console.log("metadata",userdata);
+  const token=useSelector(selectToken)
+  console.log("metadata",userdata,token);
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}

@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    borderRadius: width(3),
+    borderRadius: width(1),
     backgroundColor: AppColors.primary,
     alignSelf: 'center',
     paddingVertical: height(1),
