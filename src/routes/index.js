@@ -57,7 +57,6 @@ export default function Routes() {
       dispatch(setAppLoader(true));
       const response = await loginApi(data);
       if (response?.data) {
-       // console.log("route",response.data.token);
          dispatch(setIsLoggedIn(true));
          dispatch(setUserMeta(response?.data?.userDetails));
         dispatch(setToken(response?.data?.token));
@@ -74,7 +73,6 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Loader />
-
       <Stack.Navigator screenOptions={{ header: () => false }}>
         <Stack.Screen name={"drawr"} component={MyDrawer} />
         <Stack.Screen

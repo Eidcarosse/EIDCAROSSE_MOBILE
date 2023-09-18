@@ -20,9 +20,9 @@ const CustomDrawer = ({ navigation }) => {
       });
 
       if (result.action === Share.sharedAction) {
-        console.log("Shared successfully");
+
       } else if (result.action === Share.dismissedAction) {
-        console.log("Share sheet dismissed");
+
       }
     } catch (error) {
       console.error("Error sharing:", error);

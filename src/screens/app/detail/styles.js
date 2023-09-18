@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   profileimage: {
     width: width(10),
     height: width(10),
+    borderRadius:width(5)
   },
   map: {
     height: height(15),

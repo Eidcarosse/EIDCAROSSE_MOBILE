@@ -1,48 +1,61 @@
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { Image, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, Linking, Text, View } from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
 import MapView from "react-native-maps";
+import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
+import { getDataofAdByID } from "../../../backend/api";
 import {
   DetailFooter,
   DetailHeader,
   IconButton,
   ScreenWrapper,
 } from "../../../components";
-import { Linking } from 'react-native';
+import { setAppLoader } from "../../../redux/slices/config";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
 export default function Detail({ navigation, route }) {
-  const data = route?.params;
-   console.log("detail", data);
-   const img=data.image.map((item)=>{ return{img:item}})
-   //console.log("detail all", img);
+  const dat = route?.params;
+  const dispatch = useDispatch();
+  const [data,setDat]=useState([])
+  console.log('====================================');
+  console.log("iner detail",data);
+  console.log('====================================');
+  const img = data?.image?.map((item) => {
+    return { img: item };
+  });
 
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    dispatch(setAppLoader(true));
+    let d = await getDataofAdByID(dat?._id);
+    if(d)setDat(d)
+    else setDat([])
+    dispatch(setAppLoader(false));
+  };
 
-   const openWhatsApp = () => {
-    const phoneNumber ="0000000000" // Replace with the recipient's phone number
-    const message = 'Hello,I saw your ad on Eidcarosse!'; // Replace with your desired message
+  const openWhatsApp = () => {
+    const phoneNumber = "0000000000"; // Replace with the recipient's phone number
+    const message = "Hello,I saw your ad on Eidcarosse!"; // Replace with your desired message
 
     // Construct the WhatsApp URL
-    const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
+      message
+    )}`;
 
     // Open WhatsApp with the constructed URL
     Linking.openURL(whatsappURL)
       .then(() => {
-        console.log('WhatsApp opened successfully');
+        console.log("WhatsApp opened successfully");
       })
       .catch((error) => {
-        console.error('Error opening WhatsApp:', error);
+        console.error("Error opening WhatsApp:", error);
       });
   };
-
-
-
-
-
-
 
   return (
     <ScreenWrapper
@@ -61,11 +74,9 @@ export default function Detail({ navigation, route }) {
             data={img}
             indicatorContainerStyle={{ color: AppColors.primary }}
             autoPlay={false}
-            caroselImageStyle={{ resizeMode: 'contain' }}
+            caroselImageStyle={{ resizeMode: "contain" }}
             activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
             closeIconColor="white"
-            
-            //onItemChanged={(item) => console.log("item", item)}
           />
         </View>
         <View style={styles.nameview}>
@@ -138,14 +149,16 @@ export default function Detail({ navigation, route }) {
         <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>Description</Text>
           <Text style={{ fontSize: 12, paddingVertical: width(2) }}>
-          {data?.description}
+            {data?.description}
           </Text>
         </View>
         <View style={styles.profileview}>
           <View style={styles.profilecard}>
             <View style={styles.profilecardin}>
-              <Image source={Icons?.user} style={styles.profileimage} />
-              <Text style={{ marginHorizontal: width(2) }}>{data?.condition}</Text>
+              <Image source={{uri:data?.userId?.image}} style={styles.profileimage} />
+              <Text style={{ marginHorizontal: width(2) }}>
+                {data?.userId?.userName}
+              </Text>
             </View>
             <IconButton title={"See All Ads"} />
           </View>

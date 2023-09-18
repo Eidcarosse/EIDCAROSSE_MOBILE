@@ -8,7 +8,6 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
 export default function Category({ navigation, route,value }) {
-  console.log(route?.params);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (

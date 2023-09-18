@@ -40,13 +40,11 @@ export default function Login({ navigation, route }) {
     try {
       dispatch(setAppLoader(true));
       let res = await loginApi(data);
-      console.log("loginpage",res.data.token);
       if (!res?.success) {
         dispatch(setAppLoader(false));
         errorMessage(res?.message);
       } else if (res?.success) {
         dispatch(setIsLoggedIn(true));
-        console.log(res.token);
         dispatch(setUserMeta(res?.data?.userDetails));
         dispatch(setToken(res?.data?.token));
         setAuthData(data);

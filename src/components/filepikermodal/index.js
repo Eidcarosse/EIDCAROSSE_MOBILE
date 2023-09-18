@@ -31,11 +31,11 @@ const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
       setVisible(false);
     },
     cleanTempImages: () => {
-      // ImagePicker.cleanTempImages()
-      //   .then(() => {
-      //     console.log('removed all tmp images from tmp directory');
-      //   })
-      //   .catch(console.log);
+      ImagePicker.cleanTempImages()
+        .then(() => {
+          console.log('removed all tmp images from tmp directory');
+        })
+        .catch(console.log);
     },
   }));
   // async function openCamera() {

@@ -9,7 +9,6 @@ import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
 
 export default function MyCard({ data }) {
-  // console.log("indata", data);
   const [isModalVisible, setModalVisible] = useState(false);
   const hideMenu = () => setModalVisible(false);
 
@@ -17,7 +16,7 @@ export default function MyCard({ data }) {
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
-        <Image resizeMode="stretch" style={styles.image} source={data?.uri} />
+        <Image resizeMode="stretch" style={styles.image} source={{uri:data?.image[0]}} />
       </View>
       <View style={styles.detail}>
         <View>
@@ -25,7 +24,7 @@ export default function MyCard({ data }) {
             numberOfLines={1}
             style={{ fontWeight: "bold", fontSize: width(3.5) }}
           >
-            {data?.name}
+            {data?.title}
           </Text>
           <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
             <MaterialIcons name="category" color={"grey"} />
@@ -79,7 +78,7 @@ export default function MyCard({ data }) {
           }}
           disabled={true}
         >
-          <Text style={{ fontSize: width(2.5) }}>Published</Text>
+          <Text style={{ fontSize: width(2) }}>Published</Text>
         </TouchableOpacity>
       </View>
       <Menu visible={isModalVisible} onRequestClose={hideMenu}>

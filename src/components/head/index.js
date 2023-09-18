@@ -5,7 +5,6 @@ import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 export default function Header({ navigation, headtitle }) {
-  //console.log(headtitle);
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.goBack()} style={styles.menuicon}>

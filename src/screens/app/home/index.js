@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper } from "../../../components";
@@ -10,14 +10,11 @@ import { selectUserMeta } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
-import { SelectList } from "react-native-dropdown-select-list";
-import LottieView from "lottie-react-native";
-import { setAppLoader } from "../../../redux/slices/config";
 import { useFocusEffect } from "@react-navigation/native";
-import { BaseUrl } from "../../../utills/Constants";
 import { getDataofHomePage } from "../../../backend/api";
+import { setAppLoader } from "../../../redux/slices/config";
+import { width } from "../../../utills/Dimension";
+import styles from "./styles";
 
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
@@ -38,14 +35,23 @@ export default function Home({ navigation, route }) {
       getData();
     }, [])
   );
-  const getData = async () => {
+
+  const getData = useCallback(async () => {
     dispatch(setAppLoader(true));
-    let d= await getDataofHomePage()
-    if(d)setData(d)
-    else setData([])
-     dispatch(setAppLoader(false));
-  
-  };
+    try {
+      const data = await getDataofHomePage();
+
+      if (data) {
+        setData(data.data);
+      } else {
+        setData([]);
+      }
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setAppLoader(false));
+    }
+  }, []);
 
   return (
     <ScreenWrapper
@@ -98,7 +104,7 @@ export default function Home({ navigation, route }) {
             </Text>
           </Pressable>
         </View>
-        <View style={{ width: width(100), alignItems: "center",flex:1 }}>
+        <View style={{ width: width(100), alignItems: "center", flex: 1 }}>
           {data.map((item, index) => (
             <TouchableOpacity
               activeOpacity={0.7}

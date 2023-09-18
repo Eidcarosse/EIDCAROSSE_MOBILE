@@ -17,7 +17,7 @@ export default function Loader() {
       animationIn={"lightSpeedIn"}
       animationOut={"lightSpeedOut"}
       isVisible={appLoader}
-      backdropOpacity={.2}
+      backdropOpacity={.5}
       backdropColor={'white'}
     >
       <View style={styles.container}>

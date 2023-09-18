@@ -1,6 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RadioButtonRN from "radio-buttons-react-native";
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -19,16 +19,15 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { ApiManager } from "../../../backend/ApiManager";
-import { BaseUrl } from "../../../utills/Constants";
+import { Apikey, BaseUrl } from "../../../utills/Constants";
 import axios from "axios";
 import { setAppLoader } from "../../../redux/slices/config";
+import { addPostAd } from "../../../backend/api";
 
 export default function AddPost({ navigation, route }) {
   console.log("add post page", route?.params);
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
-
-  //console.log(image);
   const mapRef = useRef(null);
 
   const imageRef = useRef(null);
@@ -69,49 +68,8 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
-  const handleSubmit = async () => {
+  const addPost =async () => {
     try {
-      {
-        /*
-  data": {
-        "image": [
-            "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695474/qumu30vpab19itvd55wv.png",
-            "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695473/fltiibu2nssmvqs3ood4.png",
-            "http://res.cloudinary.com/dlkuyfwzu/image/upload/v1694695475/bb9xeh3zocygiu4ls2wv.png"
-        ],
-        "category": null,
-        "subCategory": null,
-        "title": "abc",
-        "price": null,
-        "condition": null,
-        "brand": null,
-        "videoUrl": null,
-        "description": null,
-        "email": null,
-        "phoneNumber": null,
-        "whatsApp": null,
-        "viber": null,
-        "website": null,
-        "address": null,
-        "feature_list": null,
-        "howToContact": null,
-        "model": null,
-        "year": null,
-        "bodyShape": null,
-        "gearBox": null,
-        "fuelType": null,
-        "exteriorColor": null,
-        "interiorColor": null,
-        "engineCapacity": null,
-        "cylinders": null,
-        "kiloMeters": null,
-        "views": 0,
-        "_id": "65030034e0cdaffef2c0c02c",
-        "__v": 0
-    }
-  */
-      }
-      dispatch(setAppLoader(true));
       const formData = new FormData();
       formData.append("category", category);
       formData.append("subCategory", subCategory);
@@ -142,100 +100,23 @@ export default function AddPost({ navigation, route }) {
 
       // Append each selected image to the form data
       image.forEach((img, index) => {
-        //console.log(img);
         formData.append("file", {
           name: `image${index}`,
           type: "image/jpeg", // Adjust the type if needed
           uri: img,
         });
       });
-      //  console.log("formdata out ",formData);
-      const response = await axios.post("http://localhost:4000/ad/adPost",formData);
 
-      // Handle the response from the API
-      console.log("Car created:", response);
+      console.log(formData);
 
-      dispatch(setAppLoader(false));
+      const response = await addPostAd(formData);
+      console.log("===================Start=================");
+      console.log("response of add ad", response);
+      console.log("====================end==================");
     } catch (error) {
-      console.error("Error creating car:", error);
-      alert("Server error");
-      console.error("ok", error);
-      dispatch(setAppLoader(false));
+      console.error("Image upload error:", error);
     }
   };
-  const handleSubmite = async () => {
-    try {
-      const senddata = {
-        category,
-        subCategory,
-        title,
-        pricing,
-        pricefrom,
-        priceto,
-        price,
-        condition,
-        brand,
-        year,
-        model,
-        bodyshape,
-        gearbox,
-        fueltype,
-        exterior,
-        interior,
-        url,
-        description,
-        htc,
-        phone,
-        location,
-        address,
-        viber,
-        website,
-        whatsapp,
-        email,
-      };
-  
-      const formData = new FormData();
-  
-      // Append the JSON data as a field in FormData
-      formData.append("data",senddata);
-  
-      // Append each selected image to the form data
-      image.forEach((img, index) => {
-        formData.append("file", {
-          uri: img,
-          name: `image${index}`,
-          type: "image/jpeg", // Adjust the type if needed
-         
-        });
-      });
-  
-      const response = await axios.post("http://localhost:4000/ad/adPost",formData, {
-        headers: {
-
-          "Content-Type" : "multipart/form-data"// Remove "accept" header
-          
-        },
-      });
-
-      
-
-      
-  
-      console.log("API Response:", response);
-    } catch (error) {
-      // Handle Axios errors
-      if (error.response) {
-        console.error("API Error - Response Data:", error.response.data);
-        console.error("API Error - Response Status:", error.response.status);
-        console.error("API Error - Response Headers:", error.response.headers);
-      } else if (error.request) {
-        console.error("API Error - No Response Received:", error.request);
-      } else {
-        console.error("API Error - Request Setup:", error.message);
-      }
-    }
-  };
-  
 
   const rdata = [
     {
@@ -274,6 +155,7 @@ export default function AddPost({ navigation, route }) {
     { key: "2", value: "Viber" },
     { key: "3", value: "Phone" },
   ];
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -642,13 +524,12 @@ export default function AddPost({ navigation, route }) {
               fetchDetails={true}
               placeholder="Search"
               onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                //  console.log(details?.geometry?.location);
                 setAddress(details?.formatted_address);
                 setLocation({
                   latitude: details?.geometry?.location?.lat,
                   longitude: details?.geometry?.location?.lng,
                 });
+
                 mapRef.current.animateToRegion(
                   {
                     latitude: details?.geometry?.location?.lat,
@@ -664,7 +545,7 @@ export default function AddPost({ navigation, route }) {
                 textInput: { backgroundColor: AppColors.grey },
               }}
               query={{
-                key: "AIzaSyC9nSGumZ7_6Xs0pd6HBiU_paZT7mmH5UI",
+                key: Apikey,
                 language: "en",
               }}
             />
@@ -723,7 +604,7 @@ export default function AddPost({ navigation, route }) {
         >
           <Button
             disabled={!check}
-            onPress={handleSubmit}
+            onPress={addPost}
             title={"Post"}
             containerStyle={{
               width: width(80),
@@ -737,7 +618,6 @@ export default function AddPost({ navigation, route }) {
         ref={imageRef}
         multi={true}
         onFilesSelected={(img) => {
-          console.log("imggggg", img);
           const selectedImages = img.map((imageUri) => {
             console.log(image.length);
             if (image.length < 5) {

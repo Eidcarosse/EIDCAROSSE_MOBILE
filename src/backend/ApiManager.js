@@ -2,7 +2,6 @@ import axios from 'axios';
 import { BaseUrl } from '../../src/utills/Constants';
 axios.defaults.baseURL = BaseUrl;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.response.use((response) => {
     return response?.data

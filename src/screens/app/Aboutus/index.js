@@ -39,7 +39,7 @@ export default function AboutUs({ navigation, route }) {
     },
   ];
   const AboutPara = ({ data }) => {
-   // console.log(data);
+
     return (
       <View style={styles.container}>
         {data?.paraTitle && <Text style={styles.title}>{data?.paraTitle}</Text>}

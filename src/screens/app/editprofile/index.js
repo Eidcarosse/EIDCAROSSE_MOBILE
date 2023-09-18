@@ -112,10 +112,7 @@ const update=()=>{
       <FilePickerModal
         ref={imageRef}
         onFilesSelected={(img) => {
-        //  console.log("imggggg", img);
           const selectedImages = img.map((imageUri) => {
-           // console.log(image.length);
-         //   if (image.length < 5) {
               return Platform.OS === "android"
                 ? imageUri.uri
                 : imageUri.uri.replace("file://", "");

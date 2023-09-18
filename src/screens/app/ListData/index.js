@@ -37,7 +37,6 @@ export default function ListData({ navigation, route }) {
      dispatch(setAppLoader(false));
   
   };
-  console.log(data);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (

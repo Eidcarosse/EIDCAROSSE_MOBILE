@@ -35,7 +35,6 @@ const Screen2 = () => {
 
 export default function BottomNav({ navigation }) {
   const islogin = useSelector(selectIsLoggedIn);
-  console.log(islogin);
   const _renderIcon = (routeName, selectedTab) => {
     let icon = "";
 
@@ -109,11 +108,11 @@ export default function BottomNav({ navigation }) {
         <CurvedBottomBarExpo.Screen
           name="tit"
           component={() =>
-        //    islogin ? (
+           islogin ? (
               <CategoryScreen navigation={navigation} value="ADD" />
-            // ) : (
-            //   <PreLogin navigation={navigation} />
-            // )
+            ) : (
+              <PreLogin navigation={navigation} />
+            )
           }
         />
         <CurvedBottomBarExpo.Screen

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
@@ -9,33 +9,25 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { getAllMyData } from "../../../backend/api";
+import { setAppLoader } from "../../../redux/slices/config";
+import { getOwneAd } from "../../../backend/auth";
+import { useFocusEffect } from "@react-navigation/native";
 export default function MyListing({ navigation, route }) {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
+const [data,setData]=useState([])
 
-  const data = [
-    {
-      name: "Vogele - Super 800",
-      category: "Construction Machines",
-      location: "Schoberbass",
-      uri: Icons.car,
-      views: "114",
-      chf: "29’900",
-      eur: "31’165",
-    },
-    {
-      name: "Vogele - Super 800",
-      category: "Construction Machines",
-      location: "Schoberbass",
-      uri: Icons.car,
-      views: "114",
-      chf: "29’900",
-      eur: "31’165",
-    },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "ABC", uri: Icons.car },
-    { name: "Civic", category: "ABC", location: "AC", uri: Icons.car },
-  ];
+useFocusEffect(
+  React.useCallback(async() => {
+    dispatch(setAppLoader(true));
+    let d= await getOwneAd()
+    if(d)setData(d)
+    else setData([])
+     dispatch(setAppLoader(false));
+  }, [])
+);
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -45,7 +37,7 @@ export default function MyListing({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View style={{ width: width(100), alignItems: "center" }}>
-          {data.map((item, index) => (
+          {data?.adIds?.map((item, index) => (
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => {
