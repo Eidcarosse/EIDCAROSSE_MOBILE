@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper } from "../../../components";
@@ -32,26 +32,24 @@ export default function Home({ navigation, route }) {
 
   useFocusEffect(
     useCallback(() => {
-      getData();
+      async () => {
+        dispatch(setAppLoader(true));
+        try {
+          const data = await getDataofHomePage();
+
+          if (data) {
+            setData(data.data);
+          } else {
+            setData([]);
+          }
+          dispatch(setAppLoader(false));
+        } catch (error) {
+          console.log("Error:", error);
+          dispatch(setAppLoader(false));
+        }
+      };
     }, [])
   );
-
-  const getData = useCallback(async () => {
-    dispatch(setAppLoader(true));
-    try {
-      const data = await getDataofHomePage();
-
-      if (data) {
-        setData(data.data);
-      } else {
-        setData([]);
-      }
-      dispatch(setAppLoader(false));
-    } catch (error) {
-      console.log("Error:", error);
-      dispatch(setAppLoader(false));
-    }
-  }, []);
 
   return (
     <ScreenWrapper

@@ -62,7 +62,7 @@ export default function ListData({ navigation, route }) {
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
-          style={{ marginBottom: width(10), marginVertical: height(2) }}
+          style={{ marginBottom: width(10), marginVertical: height(2),width:width(95) }}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity

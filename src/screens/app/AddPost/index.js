@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useCallback, useEffect, useRef } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
 import { SelectList } from "react-native-dropdown-select-list";
 import MapView, { Marker } from "react-native-maps";
@@ -55,10 +55,8 @@ export default function AddPost({ navigation, route }) {
   const [fueltype, setFueltype] = React.useState("");
   const [exterior, setExterior] = React.useState("");
   const [interior, setInterior] = React.useState("");
-  const [location, setLocation] = React.useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
-  });
+  const [latitude, setLatiitude] = React.useState(37.78825);
+  const [longitude, setLongitude] = React.useState(-122.4324);
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [whatsapp, setWhatsapp] = React.useState("");
@@ -68,12 +66,33 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
-  const addPost =async () => {
+  const addPost = async () => {
     try {
+      const requiredFields = [
+        title,
+        category,
+        subCategory,
+        condition,
+        brand,
+        year,
+        model,
+        description,
+        latitude,
+        longitude,
+        address,
+      ];
+    
+      const isAnyFieldEmpty = requiredFields.some((field) => !field);
+    
+      if (isAnyFieldEmpty) {
+        // Show an alert if any required field is empty
+        Alert.alert('Missing Fields', 'Please fill in all required fields.');
+        return;
+      }
       const formData = new FormData();
+      formData.append("title", title);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
-      formData.append("title", title);
       formData.append("pricing", pricing);
       formData.append("minPrice", pricefrom);
       formData.append("maxPrice", priceto);
@@ -89,15 +108,12 @@ export default function AddPost({ navigation, route }) {
       formData.append("interiorColor", interior);
       formData.append("videoUrl", url);
       formData.append("description", description);
-      formData.append("howToContact", htc);
-      formData.append("contactNumber", phone);
-      formData.append("location", JSON.stringify(location));
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
       formData.append("address", address);
       formData.append("viber", viber);
       formData.append("webSite", website);
       formData.append("whatsApp", whatsapp);
-      formData.append("email", email);
-
       // Append each selected image to the form data
       image.forEach((img, index) => {
         formData.append("file", {
@@ -109,15 +125,14 @@ export default function AddPost({ navigation, route }) {
 
       console.log(formData);
 
-      const response = await addPostAd(formData);
-      console.log("===================Start=================");
-      console.log("response of add ad", response);
-      console.log("====================end==================");
+      // const response = await addPostAd(formData);
+      // console.log("===================Start=================");
+      // console.log("response of add ad", response);
+      // console.log("====================end==================");
     } catch (error) {
       console.error("Image upload error:", error);
     }
   };
-
   const rdata = [
     {
       label: "new",
@@ -151,9 +166,9 @@ export default function AddPost({ navigation, route }) {
     { key: "7", value: "Drinks" },
   ];
   const cdata = [
-    { key: "1", value: "Whatsapp" },
-    { key: "2", value: "Viber" },
-    { key: "3", value: "Phone" },
+    { value: "Whatsapp" },
+    {  value: "Viber" },
+    // { key: "3", value: "Phone" },
   ];
 
   return (
@@ -473,7 +488,7 @@ export default function AddPost({ navigation, route }) {
             />
           </View>
 
-          {htc == "Phone" && (
+          {/* {htc == "Phone" && ( */}
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>phone Number</Text>
               <Input
@@ -482,7 +497,7 @@ export default function AddPost({ navigation, route }) {
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
-          )}
+          {/* )} */}
           {htc == "Whatsapp" && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>Whastapp</Text>
@@ -525,11 +540,8 @@ export default function AddPost({ navigation, route }) {
               placeholder="Search"
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
-                setLocation({
-                  latitude: details?.geometry?.location?.lat,
-                  longitude: details?.geometry?.location?.lng,
-                });
-
+                setLatiitude(details?.geometry?.location?.lat);
+                setLongitude(details?.geometry?.location?.lng)
                 mapRef.current.animateToRegion(
                   {
                     latitude: details?.geometry?.location?.lat,
@@ -567,7 +579,12 @@ export default function AddPost({ navigation, route }) {
               borderRadius: width(3),
             }}
           >
-            <Marker coordinate={location} />
+            <Marker
+              coordinate={{
+                latitude: latitude,
+                longitude: longitude,
+              }}
+            />
           </MapView>
         </View>
         <View

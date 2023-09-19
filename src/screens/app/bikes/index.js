@@ -6,38 +6,55 @@ import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
 
 export default function BikeCategory({ navigation, route }) {
-  console.log("bike page",route?.params);
+  console.log("bike page", route?.params);
   const data = [
     { title: "E-Bike" },
     { title: "Bicycles" },
     { title: "E-Scooters" },
     { title: "Motorcycle" },
   ];
+  const Parts = [
+    { title: "Car" },
+    { title: "Bikes" },
+    { title: "Boats" },
+    { title: "Drones" },
+    { title: "Construction Machines" },
+    { title: "Trucks" },
+    { title: "Vans" },
+    { title: "Trailers" },
+    { title: "Buses" },
+    { title: "Others" },
+  ];
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Bikes"} navigation={navigation} />
+        <Head
+          headtitle={route?.params?.category == "Parts" ? "Parts" : "Bikes"}
+          navigation={navigation}
+        />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
         <FlatList
-          data={data}
+          data={route?.params?.category == "Parts" ? Parts : data}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
-            Icon = item.Icon;
             return (
               <TouchableOpacity
                 activeOpacity={0.6}
                 style={styles.card}
                 onPress={() => {
                   if (route?.params?.category) {
-                    navigation.navigate(ScreenNames.ADDPOST,{category:route?.params?.category,subcategory:item?.title,});
+                    navigation.navigate(ScreenNames.ADDPOST, {
+                      category: route?.params?.category,
+                      subcategory: item?.title,
+                    });
                   } else navigation.navigate(ScreenNames.LISTDATA);
                 }}
               >
-                <Text>{item.title}</Text>
+                <Text>{item.title} Parts</Text>
               </TouchableOpacity>
             );
           }}

@@ -47,12 +47,16 @@ export const getAllMyData = async () => {
 export const getDataofAdByID = async (id) => {
   try {
     const response = await ApiManager.get("ad/getSpecific/"+id);
-    if (!response.success) {
-      throw new Error("Network error home APi");
-    }
+    // if (!response.success) {
+    //   throw new Error("Network error home APi");
+    // }
+    console.log('====================================');
+    console.log(response);
+    console.log('====================================');
    return response.data;
   } catch (error) {
     alert("data by id");
+    console.log(error);
     return []; // or some default value as needed
   }
 };

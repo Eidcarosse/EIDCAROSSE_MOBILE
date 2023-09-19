@@ -30,7 +30,7 @@ export default function Category({ navigation, route,value }) {
                 title={item?.title}
                 onPress={() => {
                   if (value == "ADD") {
-                    if (item.title == "Bikes") {
+                    if (item.title == "Bikes"||item.title == "Parts") {
                       navigation.navigate(ScreenNames.BIKECATEGORY, {category:item?.title});
                     } else {
                       navigation.navigate(ScreenNames.ADDPOST,{category:item?.title});

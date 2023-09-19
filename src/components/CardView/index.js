@@ -15,7 +15,7 @@ export default function CardView({ data }) {
           resizeMode="cover"
           style={styles.image}
           // source={{ uri: data?.image[0] }}
-          source={{ uri:data?.image? data?.image[0] :Icons.car }}
+          source={{ uri:data?.images? data?.images[0] :Icons.car }}
 
         />
       </View>
