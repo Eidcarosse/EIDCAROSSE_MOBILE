@@ -20,6 +20,9 @@ import { setAppLoader } from "../../../redux/slices/config";
 import { getAllData } from "../../../backend/api";
 
 export default function ListData({ navigation, route }) {
+
+  //console.log("show list page ",route?.params);
+
   const refRBSheet = useRef();
   const dispatch=useDispatch();
   const [visible, setVisible] = useState(false);
@@ -27,14 +30,14 @@ export default function ListData({ navigation, route }) {
   const [data ,setData]=useState([])
 
   useEffect(() => {
-    getData();
+   getData();
   }, []);
   const getData = async () => {
     dispatch(setAppLoader(true));
     let d= await getAllData()
     if(d)setData(d)
     else setData([])
-     dispatch(setAppLoader(false));
+    dispatch(setAppLoader(false));
   
   };
   return (
@@ -65,14 +68,7 @@ export default function ListData({ navigation, route }) {
           style={{ marginBottom: width(10), marginVertical: height(2),width:width(95) }}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => {
-                  navigation.navigate(ScreenNames.DETAIL, item);
-                }}
-              >
                 <ListingView data={item} />
-              </TouchableOpacity>
             );
           }}
           numColumns={2}

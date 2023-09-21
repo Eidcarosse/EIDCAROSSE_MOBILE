@@ -8,7 +8,7 @@ export const getDataofHomePage = async () => {
   })
     .then(async (response) => {
       let data = await response.json();
-      return data;
+      return data?.data;
     })
     .catch((error) => {
       alert("home data api crashed")
@@ -19,8 +19,8 @@ export const getDataofHomePage = async () => {
 
 export const getAllData = async () => {
   try {
-    //https://eidcarossebe-dwxrg.ondigitalocean.app/ad/fetchTopAds
     const response = await ApiManager.get(`ad`);
+
     if (!response.success) {
       throw new Error("Network error home APi");
     }
@@ -30,29 +30,12 @@ export const getAllData = async () => {
     return []; // or some default value as needed
   }
 };
-export const getAllMyData = async () => {
-  try {
-    const response = await ApiManager.get(
-      `auth/getUserAds/6502dfff6eac8c07ee077054`
-    );
-    if (!response.success) {
-      throw new Error("Network error home APi");
-    }
-    return response?.data?.adIds;
-  } catch (error) {
-    alert("all my data api");
-    return []; // or some default value as needed
-  }
-};
 export const getDataofAdByID = async (id) => {
   try {
     const response = await ApiManager.get("ad/getSpecific/"+id);
-    // if (!response.success) {
-    //   throw new Error("Network error home APi");
-    // }
-    console.log('====================================');
-    console.log(response);
-    console.log('====================================');
+    if (!response.success) {
+      throw new Error("Network error home APi");
+    }
    return response.data;
   } catch (error) {
     alert("data by id");
@@ -69,20 +52,59 @@ export async function addPostAd(formData) {
         'Content-Type': 'multipart/form-data',
       },
     };
-    const response = await fetch(
+    const resp = await fetch(
       BaseUrl+"ad/adPost",
       requestOptions
     );
-
-    if (!response.ok) {
-      // Handle non-OK responses here, if needed
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const result = await response.text();
-    return result;
+    let response=await resp.json()
+    return response;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("crashed", error);
     throw error; // Re-throw the error to handle it at a higher level if necessary
   }
 }
+export const getCarData = async () => {
+  try {
+    const response = await ApiManager.get(
+      `ad/allCars`
+    );
+    if (!response.success) {
+      throw new Error("Network error home APi");
+    }
+    return response?.data;
+  } catch (error) {
+    alert("car api");
+    return []; // or some default value as needed
+  }
+};
+export const getCarModel= async (value) => {
+  try {
+    const response = await ApiManager.get(
+      `ad/findModels/${value}`
+    );
+    if (!response.success) {
+      throw new Error("Network error home APi");
+    }
+return response?.data[0].model
+  } catch (error) {
+    alert("model api");
+    return []; // or some default value as needed
+  }
+};
+export const deleteAdById= async (id) => {
+  try {
+    const response = await ApiManager.delete(
+      `ad/deleteAd/${id}`
+    );
+    // if (!response.success) {
+    //   throw new Error("Network error home APi");
+    // }
+    console.log('====================================');
+    console.log("delete",response);
+    console.log('====================================');
+
+  } catch (error) {
+    alert("model api");
+    return []; // or some default value as needed
+  }
+};

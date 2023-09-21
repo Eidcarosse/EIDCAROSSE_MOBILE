@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 
@@ -7,11 +7,17 @@ const styles = StyleSheet.create({
     width: width(46),
     backgroundColor: AppColors.white,
     borderRadius: width(1),
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
     margin: width(1),
   },
   imageview: {

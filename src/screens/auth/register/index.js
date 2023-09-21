@@ -5,7 +5,11 @@ import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { Button, Input, ScreenWrapper } from "../../../components";
-import { setIsLoggedIn, setToken, setUserMeta } from "../../../redux/slices/user";
+import {
+  setIsLoggedIn,
+  setToken,
+  setUserMeta,
+} from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
@@ -17,15 +21,20 @@ import { signupApi } from "../../../backend/auth";
 export default function SignUp({ navigation, route }) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const userData = {
+    firstName,
+    lastName,
     userName,
     email,
     password,
+    phoneNumber,
   };
   const isValidEmail = (email) => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -44,15 +53,13 @@ export default function SignUp({ navigation, route }) {
         errorMessage(r?.message);
       } else if (r) {
         successMessage("Saved");
-        // dispatch(setIsLoggedIn(true));
-        //  dispatch(setUserMeta(r?.data?.userDetails));
-        // dispatch(setToken(r?.data?.token));
+        dispatch(setIsLoggedIn(true));
+        dispatch(setUserMeta(r?.data?.userDetails));
+        dispatch(setToken(r?.data?.token));
         dispatch(setAppLoader(false));
         navigation.goBack();
-      }
-      else{
+      } else {
         errorMessage("some issu");
-
       }
     } catch (error) {
       dispatch(setAppLoader(false));
@@ -77,9 +84,15 @@ export default function SignUp({ navigation, route }) {
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
           <Input
-            value={name}
-            setvalue={setName}
-            title={"Name"}
+            value={firstName}
+            setvalue={setFirstName}
+            title={"First Name"}
+            placeholder={"Enter Name"}
+          />
+          <Input
+            value={lastName}
+            setvalue={setLastName}
+            title={"Last Name"}
             placeholder={"Enter Name"}
           />
           <Input
@@ -100,6 +113,12 @@ export default function SignUp({ navigation, route }) {
             title={"Password"}
             placeholder={"Enter Password"}
             secure={true}
+          />
+          <Input
+            value={phoneNumber}
+            setvalue={setPhoneNumber}
+            title={"Contact Number"}
+            placeholder={"Enter Number"}
           />
           <View style={{ flexDirection: "row", padding: width(4) }}>
             <CheckBox
@@ -123,20 +142,24 @@ export default function SignUp({ navigation, route }) {
           <Button
             disabled={!check}
             onPress={() => {
-              if (!name) {
-                errorMessage("Name require");
-              } else if (!userName) {
-                errorMessage("User namae require");
+              if (!firstName) {
+                errorMessage("First Name require");
+              } else if (!lastName) {
+                errorMessage("Last Name require");
+              }else if (!userName) {
+                errorMessage("User Name require");
               } else if (!email) {
                 errorMessage("email require");
               } else if (!isValidEmail(email)) {
                 errorMessage("Email incorect formate");
-              } else if (!password) {
+              } else if (!phoneNumber) {
                 errorMessage("Password require");
               } else if (!isValidPassword(password)) {
                 errorMessage(
                   "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
                 );
+              } else if (!phoneNumber) {
+                errorMessage("Phone Number require");
               } else signup(userData);
             }}
             containerStyle={check ? styles.button : styles.dbutton}
@@ -151,8 +174,8 @@ export default function SignUp({ navigation, route }) {
               </AntDesign>
             }
             onPress={() => {
-              dispatch(setIsLoggedIn(true));
-              navigation.navigate(ScreenNames.BUTTOM);
+              // dispatch(setIsLoggedIn(true));
+              // navigation.navigate(ScreenNames.BUTTOM);
             }}
           />
           <View style={{ height: height(5) }} />

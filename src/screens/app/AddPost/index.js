@@ -1,7 +1,14 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useCallback, useEffect, useRef } from "react";
-import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import CheckBox from "react-native-check-box";
 import { SelectList } from "react-native-dropdown-select-list";
 import MapView, { Marker } from "react-native-maps";
@@ -13,7 +20,7 @@ import {
   Input,
   ScreenWrapper,
 } from "../../../components";
-import { selectUserMeta } from "../../../redux/slices/user";
+import { selectUserMeta, setUserAds } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { height, width } from "../../../utills/Dimension";
@@ -22,10 +29,11 @@ import { ApiManager } from "../../../backend/ApiManager";
 import { Apikey, BaseUrl } from "../../../utills/Constants";
 import axios from "axios";
 import { setAppLoader } from "../../../redux/slices/config";
-import { addPostAd } from "../../../backend/api";
+import { addPostAd, getCarData, getCarModel } from "../../../backend/api";
+import { getOwneAd } from "../../../backend/auth";
+import ScreenNames from "../../../routes/routes";
 
 export default function AddPost({ navigation, route }) {
-  console.log("add post page", route?.params);
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
   const mapRef = useRef(null);
@@ -66,12 +74,36 @@ export default function AddPost({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
+  const [car, setcar] = React.useState([]);
+  const [carModel, setCarModel] = React.useState([]);
+  useEffect(() => {
+    getcar();
+  }, []);
+  const getcar = async () => {
+    let cardata = await getCarData();
+    const convertedData = cardata.map((item, index) => ({
+      key: item._id,
+      value: item.make,
+    }));
+    setcar(convertedData);
+  };
+  useEffect(() => {
+    if (brand) getmodel(brand);
+  }, [brand]);
+  const getmodel = async (brand) => {
+    let cardata = await getCarModel(brand);
+    const convertedData = cardata.map((item, index) => ({
+      key: index,
+      value: item,
+    }));
+    setCarModel(convertedData);
+  };
+
   const addPost = async () => {
     try {
       const requiredFields = [
         title,
         category,
-        subCategory,
         condition,
         brand,
         year,
@@ -81,25 +113,25 @@ export default function AddPost({ navigation, route }) {
         longitude,
         address,
       ];
-    
+
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
-    
+
       if (isAnyFieldEmpty) {
         // Show an alert if any required field is empty
-        Alert.alert('Missing Fields', 'Please fill in all required fields.');
+        Alert.alert("Missing Fields", "Please fill in all required fields.");
         return;
       }
       const formData = new FormData();
+      formData.append("userId", userInfo?._id);
       formData.append("title", title);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
-      formData.append("pricing", pricing);
+      formData.append("price", price);
       formData.append("minPrice", pricefrom);
       formData.append("maxPrice", priceto);
-      formData.append("price", price);
       formData.append("condition", condition);
       formData.append("brand", brand);
-      formData.append("year", year);
+      formData.append("year", 2005);
       formData.append("model", model);
       formData.append("bodyShape", bodyshape);
       formData.append("gearBox", gearbox);
@@ -112,8 +144,8 @@ export default function AddPost({ navigation, route }) {
       formData.append("longitude", longitude);
       formData.append("address", address);
       formData.append("viber", viber);
-      formData.append("webSite", website);
-      formData.append("whatsApp", whatsapp);
+      formData.append("website", website);
+      formData.append("whatsapp", whatsapp);
       // Append each selected image to the form data
       image.forEach((img, index) => {
         formData.append("file", {
@@ -125,10 +157,10 @@ export default function AddPost({ navigation, route }) {
 
       console.log(formData);
 
-      // const response = await addPostAd(formData);
-      // console.log("===================Start=================");
-      // console.log("response of add ad", response);
-      // console.log("====================end==================");
+      await addPostAd(formData);
+      navigation.navigate(ScreenNames.BUTTOM);
+      const userAd = await getOwneAd(userInfo?._id);
+      dispatch(setUserAds(userAd));
     } catch (error) {
       console.error("Image upload error:", error);
     }
@@ -167,10 +199,21 @@ export default function AddPost({ navigation, route }) {
   ];
   const cdata = [
     { value: "Whatsapp" },
-    {  value: "Viber" },
+    { value: "Viber" },
     // { key: "3", value: "Phone" },
   ];
-
+  console.log(
+    title,
+    category,
+    condition,
+    brand,
+    year,
+    model,
+    description,
+    latitude,
+    longitude,
+    address
+  );
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -338,7 +381,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={price}
                 setvalue={setPrice}
-                placeholder={"From"}
+                placeholder={"price"}
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
@@ -363,7 +406,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>Brand</Text>
             <SelectList
               setSelected={(val) => setBrand(val)}
-              data={data}
+              data={car}
               save="value"
               boxStyles={styles.searchbox}
               dropdownStyles={styles.dropdown}
@@ -372,20 +415,19 @@ export default function AddPost({ navigation, route }) {
           {brand && (
             <View>
               <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>Year</Text>
+                <Text style={styles.title}>Model</Text>
                 <SelectList
-                  setSelected={(val) => setYear(val)}
-                  data={data}
+                  setSelected={(val) => setModel(val)}
+                  data={carModel}
                   save="value"
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
                 />
               </View>
-
               <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>Model</Text>
+                <Text style={styles.title}>Year</Text>
                 <SelectList
-                  setSelected={(val) => setModel(val)}
+                  setSelected={(val) => setYear(val)}
                   data={data}
                   save="value"
                   boxStyles={styles.searchbox}
@@ -489,14 +531,14 @@ export default function AddPost({ navigation, route }) {
           </View>
 
           {/* {htc == "Phone" && ( */}
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>phone Number</Text>
-              <Input
-                setvalue={setPhone}
-                placeholder={"XXXXXXXXXX"}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
+          <View style={{ paddingVertical: width(1) }}>
+            <Text style={styles.title}>phone Number</Text>
+            <Input
+              setvalue={setPhone}
+              placeholder={"XXXXXXXXXX"}
+              containerStyle={[styles.price, { width: width(90) }]}
+            />
+          </View>
           {/* )} */}
           {htc == "Whatsapp" && (
             <View style={{ paddingVertical: width(1) }}>
@@ -541,7 +583,7 @@ export default function AddPost({ navigation, route }) {
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
                 setLatiitude(details?.geometry?.location?.lat);
-                setLongitude(details?.geometry?.location?.lng)
+                setLongitude(details?.geometry?.location?.lng);
                 mapRef.current.animateToRegion(
                   {
                     latitude: details?.geometry?.location?.lat,

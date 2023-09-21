@@ -18,5 +18,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding:width(2)
   },
+  greybackground:{
+    backgroundColor:'white',
+    elevation:0
+  },
+  textStyle:{
+    width:width(45),
+    textAlign:'center',
+    fontSize:width(4)
+  }
 });
 export default styles;

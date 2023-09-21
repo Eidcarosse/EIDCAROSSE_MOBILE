@@ -1,8 +1,8 @@
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Image, Linking, Text, View } from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { getDataofAdByID } from "../../../backend/api";
@@ -18,12 +18,10 @@ import { width } from "../../../utills/Dimension";
 import styles from "./styles";
 export default function Detail({ navigation, route }) {
   const dat = route?.params;
+  const mapRef = useRef(null);
   const dispatch = useDispatch();
-  const [data,setDat]=useState([])
-  console.log('====================================');
-  console.log("iner detail",data);
-  console.log('====================================');
-  const img = data?.image?.map((item) => {
+  const [data, setDat] = useState([]);
+  const img = data?.images?.map((item) => {
     return { img: item };
   });
 
@@ -33,8 +31,18 @@ export default function Detail({ navigation, route }) {
   const getData = async () => {
     dispatch(setAppLoader(true));
     let d = await getDataofAdByID(dat?._id);
-    if(d)setDat(d)
-    else setDat([])
+    if (d) {
+      setDat(d);
+      mapRef.current.animateToRegion(
+        {
+          latitude: d?.latitude,
+          longitude: d?.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        3 * 1000
+      );
+    } else setDat([]);
     dispatch(setAppLoader(false));
   };
 
@@ -116,36 +124,119 @@ export default function Detail({ navigation, route }) {
         <View style={styles.detailview}>
           <View style={styles.detailcard}>
             <Text style={{ fontSize: 18, fontWeight: "bold" }}>Details</Text>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Condition</Text>
-              <Text style={styles.cardelement}>{data?.condition}</Text>
-            </View>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Category</Text>
-              <Text style={styles.cardelement}>{data?.category}</Text>
-            </View>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Brand</Text>
-              <Text style={styles.cardelement}>{data?.brand}</Text>
-            </View>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Model</Text>
-              <Text style={styles.cardelement}>{data?.model}</Text>
-            </View>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Fuel type</Text>
-              <Text style={styles.cardelement}>{data?.fuelType}</Text>
-            </View>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Kilometers</Text>
-              <Text style={styles.cardelement}>{data?.kiloMeters}</Text>
-            </View>
-            <View style={styles.cardrow}>
-              <Text style={styles.cardelement}>Axle Count</Text>
-              <Text style={styles.cardelement}>{data?.condition}</Text>
-            </View>
+            {data?.category != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>Condition</Text>
+                <Text style={styles.cardelement}>{data?.category}</Text>
+              </View>
+            )}
+            {data?.subCategory != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>subCategory</Text>
+                <Text style={styles.cardelement}>{data?.subCategory}</Text>
+              </View>
+            )}
+            {data?.brand != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>Brand</Text>
+                <Text style={styles.cardelement}>{data?.brand}</Text>
+              </View>
+            )}
+            {data?.model != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>model</Text>
+                <Text style={styles.cardelement}>{data?.model}</Text>
+              </View>
+            )}
+            {data?.year != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>year</Text>
+                <Text style={styles.cardelement}>{data?.year}</Text>
+              </View>
+            )}
+            {data?.condition != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>Condition</Text>
+                <Text style={styles.cardelement}>{data?.condition}</Text>
+              </View>
+            )}
+            {data?.bodyShape != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>Body Shape</Text>
+                <Text style={styles.cardelement}>{data?.bodyShape}</Text>
+              </View>
+            )}
+            {data?.engineCapacity != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>Engine Capacity</Text>
+                <Text style={styles.cardelement}>{data?.engineCapacity}</Text>
+              </View>
+            )}
+            {data?.exteriorColor != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>Exterior Color</Text>
+                <Text style={styles.cardelement}>{data?.exteriorColor}</Text>
+              </View>
+            )}
+            {data?.interiorColor != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>interiorColor</Text>
+                <Text style={styles.cardelement}>{data?.interiorColor}</Text>
+              </View>
+            )}
+            {data?.fuelType != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>fuelType</Text>
+                <Text style={styles.cardelement}>{data?.fuelType}</Text>
+              </View>
+            )}
+            {data?.gearBox != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>gearBox</Text>
+                <Text style={styles.cardelement}>{data?.gearBox}</Text>
+              </View>
+            )}
+            {data?.km != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>km</Text>
+                <Text style={styles.cardelement}>{data?.km}</Text>
+              </View>
+            )}
+            {data?.maxPrice != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>maxPrice</Text>
+                <Text style={styles.cardelement}>{data?.maxPrice}</Text>
+              </View>
+            )}
+            {data?.minPrice != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>minPrice</Text>
+                <Text style={styles.cardelement}>{data?.minPrice}</Text>
+              </View>
+            )}
+            {data?.price != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>price</Text>
+                <Text style={styles.cardelement}>{data?.price}</Text>
+              </View>
+            )}
+            {data?.videoUrl != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>videoUrl</Text>
+                <Text style={styles.cardelement}>{data?.videoUrl}</Text>
+              </View>
+            )}
+            {data?.website != "null" && (
+              <View style={styles.cardrow}>
+                <Text style={styles.cardelement}>website</Text>
+                <Text style={styles.cardelement}>{data?.website}</Text>
+              </View>
+            )}
           </View>
         </View>
+        {
+          /////task uper/////
+        }
         <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>Description</Text>
           <Text style={{ fontSize: 12, paddingVertical: width(2) }}>
@@ -155,7 +246,10 @@ export default function Detail({ navigation, route }) {
         <View style={styles.profileview}>
           <View style={styles.profilecard}>
             <View style={styles.profilecardin}>
-              <Image source={{uri:data?.userId?.image}} style={styles.profileimage} />
+              <Image
+                source={{ uri: data?.userId?.image }}
+                style={styles.profileimage}
+              />
               <Text style={{ marginHorizontal: width(2) }}>
                 {data?.userId?.userName}
               </Text>
@@ -194,17 +288,20 @@ export default function Detail({ navigation, route }) {
         </View>
         <View style={styles.map}>
           <MapView
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
+            ref={mapRef}
             style={{
               width: "100%",
               height: "100%",
+              borderRadius: width(3),
             }}
-          />
+          >
+            <Marker
+              coordinate={{
+                latitude: data?.latitude,
+                longitude: data?.longitude,
+              }}
+            />
+          </MapView>
         </View>
       </View>
     </ScreenWrapper>

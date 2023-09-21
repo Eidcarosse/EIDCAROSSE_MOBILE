@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  appLoader:false
+  appLoader:false,
+  topads:[]
 };
 
 const configSlice = createSlice({
@@ -11,6 +12,9 @@ const configSlice = createSlice({
     setAppLoader: (state, action) => {
       state.appLoader = action.payload
   },
+  setTopAds: (state, action) => {
+    state.topads = action.payload
+},
   },
 });
 

@@ -9,11 +9,13 @@ import { FilePickerModal, Header, IconButton, ScreenWrapper } from "../../../com
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { selectToken, selectUserMeta } from "../../../redux/slices/user";
+import { selectToken, selectUserAds, selectUserMeta } from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
+  const userAds=useSelector(selectUserAds)
   const token=useSelector(selectToken)
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -28,7 +30,7 @@ export default function Profile({ navigation, route }) {
         >
           <View style={styles.imageiner}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image style={styles.avatar} source={Icons.car} />
+              <Image style={styles.avatar} source={{uri:userdata?.image}} />
               <View style={{ paddingLeft: width(5) }}>
                 <Text
                   style={{
@@ -86,7 +88,7 @@ export default function Profile({ navigation, route }) {
                       color: AppColors.primary,
                     }}
                   >
-                    10
+                    {userAds.length}
                   </Text>
                 }
               />

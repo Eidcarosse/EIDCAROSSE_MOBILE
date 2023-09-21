@@ -25,8 +25,10 @@ export default function EditProfile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const imageRef = useRef(null);
-  const [image, setImage] = React.useState("");
-  const [name, setName] = React.useState(userdata?.name ||null);
+  const [image, setImage] = React.useState([userdata?.image]);
+  const [firstName, setFirstName] = React.useState(userdata?.firstName ||null);
+  const [lastName, setLastName] = React.useState(userdata?.lastName ||null);
+
   const [userName, setUserName] = React.useState(userdata?.userName ||null);
   const [email, setEmail] = React.useState(userdata?.email ||null);
   const [phoneNumber, setPhoneNumber] = React.useState(userdata?.phoneNumber ||null);
@@ -54,7 +56,7 @@ const update=()=>{
               <TouchableOpacity onPress={() => imageRef.current.show()}>
                 <Image
                   style={styles.avatar}
-                  source={image == "" ? Icons.car : { uri: image[0] }}
+                  source={{ uri: image[0] }}
                 />
               </TouchableOpacity>
               <View style={{ paddingLeft: width(5) }}>
@@ -83,10 +85,16 @@ const update=()=>{
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
           <Input
-            title={"Name"}
+            title={"First Name"}
             placeholder={"Enter Name"}
-            value={name}
-            setvalue={setName}
+            value={firstName}
+            setvalue={setFirstName}
+          />
+          <Input
+            title={"Last Name"}
+            placeholder={"Enter Name"}
+            value={lastName}
+            setvalue={setLastName}
           />
           <Input
             title={"User Name"}

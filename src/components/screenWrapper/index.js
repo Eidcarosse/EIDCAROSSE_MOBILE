@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { Fragment } from "react";
-import { ImageBackground, SafeAreaView, StatusBar, View } from "react-native";
+import { ImageBackground, RefreshControl, SafeAreaView, StatusBar, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
@@ -21,6 +21,8 @@ export default function ScreenWrapper({
   imageBackgroundColor = AppColors.primary,
   barStyle = "dark-content",
   onTouchEnd,
+  refreshing=false,
+  onRefresh,
 }) {
   if (backgroundImage) {
     backgroundColor = AppColors.transparent;
@@ -50,6 +52,9 @@ export default function ScreenWrapper({
                 styles.contentContainer,
                 contentContainerStyle,
               ]}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[AppColors.primary]} />
+              }
               keyboardShouldPersistTaps="handled"
               extraScrollHeight={height(8)}
               showsVerticalScrollIndicator={false}

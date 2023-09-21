@@ -1,41 +1,48 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   main: {
     flexDirection: "row",
-    width: width(93),
+    width: width(95),
     backgroundColor: AppColors.white,
     borderRadius: width(2),
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
     marginVertical: width(1),
   },
   imageview: {
-    width: width(40),
-    height: width(35),
+    width: width(45),
+    height: width(40),
 
   },
   image: {
-    width: width(40),
-    height: width(35),
+    width: width(45),
+    height: width(40),
     borderRadius: width(2),
   },
   detail: {
-    width: width(38),
+    width: width(42),
     justifyContent: "space-between",
     padding: width(2),
     alignItems: "flex-start",
+
   },
   icons: {
     paddingVertical: width(2),
-    width: width(10),
+    width: width(7),
     justifyContent: "space-between",
-    alignItems: "flex-end",
+    alignItems: 'center',
   },
 });
 export default styles;

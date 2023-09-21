@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     
   },
   contentContainer: {    
-    //paddingVertical: height(2),
     
   },
 });

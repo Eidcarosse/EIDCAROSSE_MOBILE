@@ -27,7 +27,9 @@ export default function Category({ navigation, route,value }) {
                 navigation={navigation}
                 disabled={true}
                 cardStyle={styles.card}
+                greybackground={styles.greybackground}
                 title={item?.title}
+                textStyle={styles.textStyle}
                 onPress={() => {
                   if (value == "ADD") {
                     if (item.title == "Bikes"||item.title == "Parts") {
@@ -35,10 +37,10 @@ export default function Category({ navigation, route,value }) {
                     } else {
                       navigation.navigate(ScreenNames.ADDPOST,{category:item?.title});
                     }
-                  } else if (item.title == "Bikes") {
-                    navigation.navigate(ScreenNames.BIKECATEGORY);
+                  } else if (item.title == "Bikes"||item.title == "Parts") {
+                    navigation.navigate(ScreenNames.BIKECATEGORY,{category:item?.title,show:true});
                   } else {
-                    navigation.navigate(ScreenNames.LISTDATA);
+                    navigation.navigate(ScreenNames.LISTDATA,{category:item?.title});
                   }
                 }}
               >

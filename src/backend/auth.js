@@ -30,14 +30,26 @@ const signupApi = async (data) => {
   };
    const getOwneAd = async (id) => {
     try {
-      const response = await ApiManager.get("auth/getUserAds/6507d56c81bb6d6586d9cd11");
-      if (!response.success) {
-        throw new Error("Network error home APi");
-      }
-     return response.data;
+      const response = await ApiManager.get(`auth/getUserAds/${id}`);
+      // if (!response.success) {
+      //   throw new Error("Network error home APi");
+      // }
+     return response?.data?.adIds;
     } catch (error) {
       alert("my own data ");
       return []; // or some default value as needed
     }
   };
- export { signupApi ,loginApi,getOwneAd};
+  const getFavAds = async (id) => {
+    try {
+      const response = await ApiManager.get(`auth/getFavAds/${id}`);
+      if (!response.success) {
+        throw new Error("Network error home APi");
+      }
+     return response?.data;
+    } catch (error) {
+      alert("my own data ");
+      return []; // or some default value as needed
+    }
+  };
+ export { signupApi ,loginApi,getOwneAd,getFavAds};

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import AppColors from '../../utills/AppColors';
 import { height, width } from '../../utills/Dimension';
 
@@ -12,11 +12,17 @@ const styles = StyleSheet.create({
     paddingVertical: height(1),
     paddingHorizontal: height(2),
 
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    elevation: 1,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
     flexDirection:'row'
   },
   text: {

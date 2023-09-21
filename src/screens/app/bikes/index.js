@@ -6,7 +6,7 @@ import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
 
 export default function BikeCategory({ navigation, route }) {
-  console.log("bike page", route?.params);
+  console.log("bike page", route?.params?.show);
   const data = [
     { title: "E-Bike" },
     { title: "Bicycles" },
@@ -46,15 +46,22 @@ export default function BikeCategory({ navigation, route }) {
                 activeOpacity={0.6}
                 style={styles.card}
                 onPress={() => {
-                  if (route?.params?.category) {
+                  if (!route?.params?.show) {
                     navigation.navigate(ScreenNames.ADDPOST, {
                       category: route?.params?.category,
                       subcategory: item?.title,
                     });
-                  } else navigation.navigate(ScreenNames.LISTDATA);
+                  } else
+                    navigation.navigate(ScreenNames.LISTDATA, {
+                      category: route?.params?.category,
+                      subcategory: item?.title,
+                    });
                 }}
               >
-                <Text>{item.title} Parts</Text>
+                <Text>
+                  {item.title}
+                  {route?.params?.category == "Parts" ? " Parts" : ""}
+                </Text>
               </TouchableOpacity>
             );
           }}

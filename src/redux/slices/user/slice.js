@@ -4,6 +4,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   userMeta: null,
+  myAds:[]
 };
 
 const userSlice = createSlice({
@@ -18,6 +19,9 @@ const userSlice = createSlice({
     },
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
+    },
+    setUserAds:(state, action) => {
+      state.myAds = action.payload;
     },
   },
 });

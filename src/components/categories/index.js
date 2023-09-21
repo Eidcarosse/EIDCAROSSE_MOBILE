@@ -8,7 +8,9 @@ export default function CategoryIcon({
   title,
   disabled,
   cardStyle,
+  greybackground,
   navigation,
+  textStyle,
   onPress,
 }) {
   return (
@@ -18,9 +20,9 @@ export default function CategoryIcon({
       onPress={onPress}
     >
       <View style={[cardStyle]} disabled={disabled}>
-        <View style={styles.container}>{children}</View>
+        <View style={[styles.container,greybackground]}>{children}</View>
       </View>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={[styles.text,textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 }

@@ -46,10 +46,15 @@ export default function CategoryList({ navigation }) {
               key={index}
               title={title}
               onPress={() => {
-                if (title == "Bikes") {
-                  navigation.navigate(ScreenNames.BIKECATEGORY);
+                // if (title == "Bikes") {
+                //   navigation.navigate(ScreenNames.BIKECATEGORY);
+                // } else {
+                //   navigation.navigate(ScreenNames.LISTDATA);
+                // }
+                if (title == "Bikes"||title == "Parts") {
+                  navigation.navigate(ScreenNames.BIKECATEGORY,{category:title,show:true});
                 } else {
-                  navigation.navigate(ScreenNames.LISTDATA);
+                  navigation.navigate(ScreenNames.LISTDATA,{category:title});
                 }
               }}
             >

@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Pressable, Text, TouchableOpacity, View, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
@@ -12,14 +12,14 @@ import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
 import { useFocusEffect } from "@react-navigation/native";
 import { getDataofHomePage } from "../../../backend/api";
-import { setAppLoader } from "../../../redux/slices/config";
-import { width } from "../../../utills/Dimension";
+import { selectTopAds, setAppLoader, setTopAds } from "../../../redux/slices/config";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import Icons from "../../../asset/images";
 
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
-  const userInfo = useSelector(selectUserMeta);
-  const [data, setData] = useState([]);
+  const data=useSelector(selectTopAds)
   const ddata = [
     { key: "1", value: "Mobiles" },
     { key: "2", value: "Appliances" },
@@ -29,34 +29,41 @@ export default function Home({ navigation, route }) {
     { key: "6", value: "Diary Products" },
     { key: "7", value: "Drinks" },
   ];
-
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    setRefreshing(true);
+    getData()
+    setRefreshing(false);
+  };
   useFocusEffect(
     useCallback(() => {
-      async () => {
-        dispatch(setAppLoader(true));
-        try {
-          const data = await getDataofHomePage();
-
-          if (data) {
-            setData(data.data);
-          } else {
-            setData([]);
-          }
-          dispatch(setAppLoader(false));
-        } catch (error) {
-          console.log("Error:", error);
-          dispatch(setAppLoader(false));
-        }
-      };
+    getData();
     }, [])
   );
 
+  const getData =useCallback( async () => {
+    // dispatch(setAppLoader(true));
+    try {
+      const data = await getDataofHomePage();
+      if (data) {
+        dispatch(setTopAds(data))
+      } else {
+        dispatch(setTopAds([]))
+      }
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.log("Error:", error);
+      // dispatch(setAppLoader(false));
+    }
+  })
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
+      refreshing={refreshing}
+      onRefresh={onRefresh}
     >
       <View style={styles.mainViewContainer}>
         {/* <View
@@ -103,18 +110,23 @@ export default function Home({ navigation, route }) {
           </Pressable>
         </View>
         <View style={{ width: width(100), alignItems: "center", flex: 1 }}>
-          {data.map((item, index) => (
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => {
-                navigation.navigate(ScreenNames.DETAIL, item);
-              }}
-              key={index}
-              style={{ width: width(100), alignItems: "center" }}
-            >
-              <CardView data={item} />
-            </TouchableOpacity>
-          ))}
+          {(data?.length === 0) ? (
+            <View style={styles.notfoundview}>
+              <Image
+                source={Icons.empty}
+                style={{ height: width(50), width: width(60) }}
+              />
+            </View>
+          ) :(
+            data.map((item, index) => (
+              <View
+                key={index}
+                style={{ width: width(100), alignItems: "center" }}
+              >
+                <CardView data={item} />
+              </View>
+            ))
+          ) }
         </View>
       </View>
     </ScreenWrapper>

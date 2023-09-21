@@ -2,6 +2,7 @@ import React from "react";
 import {
   Alert,
   Animated,
+  Platform,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -175,7 +176,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomBar: {
-    //backgroundColor:'rgba(0,0,0,0)'
+    backgroundColor:'rgba(0,0,0,0)',
+ 
   },
   btnCircleUp: {
     width: 50,
@@ -185,14 +187,17 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: AppColors.primary,
     bottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 1,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
   },
   imgCircle: {
     width: 25,

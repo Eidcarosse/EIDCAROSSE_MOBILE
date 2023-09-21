@@ -1,14 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as React from "react";
+import React, { useCallback, useEffect} from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { loginApi } from "../backend/auth";
+import { getOwneAd, loginApi } from "../backend/auth";
 import { Loader } from "../components";
-import { setAppLoader } from "../redux/slices/config";
+import { setAppLoader, setTopAds } from "../redux/slices/config";
 import {
   selectIsLoggedIn,
   setIsLoggedIn,
   setToken,
+  setUserAds,
   setUserMeta,
 } from "../redux/slices/user";
 import {
@@ -36,6 +38,7 @@ import { LoginScreen, OnBoardingScreen, SignUpScreen } from "../screens/auth";
 import { errorMessage, getAuthData } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
+import { getDataofHomePage } from "../backend/api";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,9 +46,28 @@ export default function Routes() {
   const isLogin = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     getuser();
   }, []);
+  useEffect(()=>{
+    getData();
+  },[])
+  const getData =useCallback( async () => {
+    dispatch(setAppLoader(true));
+    try {
+      const data = await getDataofHomePage();
+
+      if (data) {
+        dispatch(setTopAds(data))
+      } else {
+        dispatch(setTopAds([]))
+      }
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setAppLoader(false));
+    }
+  })
   const getuser = async () => {
     let data = await getAuthData();
     if (data) {
@@ -54,19 +76,22 @@ export default function Routes() {
   };
   const login = async (data) => {
     try {
-      dispatch(setAppLoader(true));
+      // dispatch(setAppLoader(true));
       const response = await loginApi(data);
       if (response?.data) {
-         dispatch(setIsLoggedIn(true));
-         dispatch(setUserMeta(response?.data?.userDetails));
+        dispatch(setIsLoggedIn(true));
+        dispatch(setUserMeta(response?.data?.userDetails));
         dispatch(setToken(response?.data?.token));
+        const userAd = await getOwneAd(response?.data?.userDetails?._id);
+        dispatch(setUserAds(userAd));
         dispatch(setAppLoader(false));
       } else {
-        alert("Re-login"), dispatch(setAppLoader(false));
+        alert("Re-login");
+        //  dispatch(setAppLoader(false));
       }
     } catch (error) {
       errorMessage("Network error");
-      dispatch(setAppLoader(false));
+      // dispatch(setAppLoader(false));
     }
   };
 
