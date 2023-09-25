@@ -1,9 +1,9 @@
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Image, Linking, Text, View } from "react-native";
+import { Image, Linking, Pressable, Text, View } from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import { getDataofAdByID } from "../../../backend/api";
 import {
@@ -12,19 +12,25 @@ import {
   IconButton,
   ScreenWrapper,
 } from "../../../components";
+import GlobalMethods from "../../../utills/Methods";
 import { setAppLoader } from "../../../redux/slices/config";
 import AppColors from "../../../utills/AppColors";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import ScreenNames from "../../../routes/routes";
+import { selectUserMeta } from "../../../redux/slices/user";
 export default function Detail({ navigation, route }) {
   const dat = route?.params;
+  const loginuser = useSelector(selectUserMeta);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
   const [data, setDat] = useState([]);
   const img = data?.images?.map((item) => {
     return { img: item };
   });
-
+  function isNullOrNullOrEmpty(value) {
+    return value === null || value === "" || value === "null";
+  }
   useEffect(() => {
     getData();
   }, []);
@@ -35,8 +41,8 @@ export default function Detail({ navigation, route }) {
       setDat(d);
       mapRef.current.animateToRegion(
         {
-          latitude: d?.latitude,
-          longitude: d?.longitude,
+          latitude: d?.latitude || 0,
+          longitude: d?.longitude || 0,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         },
@@ -64,20 +70,29 @@ export default function Detail({ navigation, route }) {
         console.error("Error opening WhatsApp:", error);
       });
   };
-
+  console.log("detail", data);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <DetailHeader onPressBack={() => navigation.goBack()} />
+        <DetailHeader
+          onPressBack={() => navigation.goBack()}
+          onPressShare={GlobalMethods.onPressShare}
+          like={data?.userId?._id == loginuser?._id}
+        />
       )}
-      footerUnScrollable={() => <DetailFooter />}
+      footerUnScrollable={() => (
+        <DetailFooter
+          onPressCall={GlobalMethods.onPressCall}
+          onPressChat={GlobalMethods.onPressMessage}
+          onPressMail={GlobalMethods.onPressEmail}
+        />
+      )}
       statusBarColor={"rgba(128, 128, 128,5)"}
       barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
         <View style={styles.imageview}>
-          {/* <Image resizeMode="contain" style={styles.image} source={data?.uri} /> */}
           <ImageSlider
             data={img}
             indicatorContainerStyle={{ color: AppColors.primary }}
@@ -88,11 +103,11 @@ export default function Detail({ navigation, route }) {
           />
         </View>
         <View style={styles.nameview}>
-          <View>
+          <View style={{ paddingBottom: height(2) }}>
             <Text
               numberOfLines={1}
               style={{
-                fontSize: 15,
+                fontSize: width(4),
                 color: AppColors.primary,
                 fontWeight: "bold",
               }}
@@ -101,21 +116,26 @@ export default function Detail({ navigation, route }) {
             </Text>
             <Text
               numberOfLines={1}
-              style={{ fontSize: 12, color: "grey", fontWeight: "bold" }}
+              style={{ fontSize: width(3), color: "grey", fontWeight: "bold" }}
             >
               EUR {data?.price}
             </Text>
           </View>
-          <View style={{}}>
-            <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+          <View>
+            <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
               {data?.title}
             </Text>
-            {/* <Text style={{ fontSize: 12 }}>{data?.category}</Text> */}
-            <Text style={{ fontSize: 12 }}>
-              <Entypo name="location-pin" color={"grey"} />
-
-              {data?.address}
-            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                width: width(80),
+                paddingVertical: width(2),
+                alignItems: "center",
+              }}
+            >
+              <Entypo name="location-pin" color={"grey"} size={width(5)} />
+              <Text style={{ fontSize: width(3) }}>{data?.address}</Text>
+            </View>
           </View>
         </View>
         {
@@ -123,113 +143,113 @@ export default function Detail({ navigation, route }) {
         }
         <View style={styles.detailview}>
           <View style={styles.detailcard}>
-            <Text style={{ fontSize: 18, fontWeight: "bold" }}>Details</Text>
-            {data?.category != "null" && (
+            <Text style={{ fontSize: width(5), fontWeight: "bold" }}>Details</Text>
+            {!isNullOrNullOrEmpty(data?.category) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>Condition</Text>
-                <Text style={styles.cardelement}>{data?.category}</Text>
+                <Text style={styles.cardelement}>category</Text>
+                <Text style={styles.cardelement2}>{data?.category}</Text>
               </View>
             )}
-            {data?.subCategory != "null" && (
+            {!isNullOrNullOrEmpty(data?.subCategory) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>subCategory</Text>
-                <Text style={styles.cardelement}>{data?.subCategory}</Text>
+                <Text style={styles.cardelement2}>{data?.subCategory}</Text>
               </View>
             )}
-            {data?.brand != "null" && (
+            {!isNullOrNullOrEmpty(data?.brand) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>Brand</Text>
-                <Text style={styles.cardelement}>{data?.brand}</Text>
+                <Text style={styles.cardelement2}>{data?.brand}</Text>
               </View>
             )}
-            {data?.model != "null" && (
+            {!isNullOrNullOrEmpty(data?.model) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>model</Text>
-                <Text style={styles.cardelement}>{data?.model}</Text>
+                <Text style={styles.cardelement2}>{data?.model}</Text>
               </View>
             )}
-            {data?.year != "null" && (
+            {!isNullOrNullOrEmpty(data?.year) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>year</Text>
-                <Text style={styles.cardelement}>{data?.year}</Text>
+                <Text style={styles.cardelement2}>{data?.year}</Text>
               </View>
             )}
-            {data?.condition != "null" && (
+            {!isNullOrNullOrEmpty(data?.condition) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>Condition</Text>
-                <Text style={styles.cardelement}>{data?.condition}</Text>
+                <Text style={styles.cardelement2}>{data?.condition}</Text>
               </View>
             )}
-            {data?.bodyShape != "null" && (
+            {!isNullOrNullOrEmpty(data?.bodyShape) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>Body Shape</Text>
-                <Text style={styles.cardelement}>{data?.bodyShape}</Text>
+                <Text style={styles.cardelement2}>{data?.bodyShape}</Text>
               </View>
             )}
-            {data?.engineCapacity != "null" && (
+            {!isNullOrNullOrEmpty(data?.engineCapacity) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>Engine Capacity</Text>
-                <Text style={styles.cardelement}>{data?.engineCapacity}</Text>
+                <Text style={styles.cardelement2}>{data?.engineCapacity}</Text>
               </View>
             )}
-            {data?.exteriorColor != "null" && (
+            {!isNullOrNullOrEmpty(data?.exteriorColor) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>Exterior Color</Text>
-                <Text style={styles.cardelement}>{data?.exteriorColor}</Text>
+                <Text style={styles.cardelement2}>{data?.exteriorColor}</Text>
               </View>
             )}
-            {data?.interiorColor != "null" && (
+            {!isNullOrNullOrEmpty(data?.interiorColor) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>interiorColor</Text>
-                <Text style={styles.cardelement}>{data?.interiorColor}</Text>
+                <Text style={styles.cardelement2}>{data?.interiorColor}</Text>
               </View>
             )}
-            {data?.fuelType != "null" && (
+            {!isNullOrNullOrEmpty(data?.fuelType) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>fuelType</Text>
-                <Text style={styles.cardelement}>{data?.fuelType}</Text>
+                <Text style={styles.cardelement2}>{data?.fuelType}</Text>
               </View>
             )}
-            {data?.gearBox != "null" && (
+            {!isNullOrNullOrEmpty(data?.gearBox) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>gearBox</Text>
-                <Text style={styles.cardelement}>{data?.gearBox}</Text>
+                <Text style={styles.cardelement2}>{data?.gearBox}</Text>
               </View>
             )}
-            {data?.km != "null" && (
+            {!isNullOrNullOrEmpty(data?.km) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>km</Text>
-                <Text style={styles.cardelement}>{data?.km}</Text>
+                <Text style={styles.cardelement2}>{data?.km}</Text>
               </View>
             )}
-            {data?.maxPrice != "null" && (
+            {!isNullOrNullOrEmpty(data?.maxPrice) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>maxPrice</Text>
-                <Text style={styles.cardelement}>{data?.maxPrice}</Text>
+                <Text style={styles.cardelement2}>{data?.maxPrice}</Text>
               </View>
             )}
-            {data?.minPrice != "null" && (
+            {!isNullOrNullOrEmpty(data?.minPrice) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>minPrice</Text>
-                <Text style={styles.cardelement}>{data?.minPrice}</Text>
+                <Text style={styles.cardelement2}>{data?.minPrice}</Text>
               </View>
             )}
-            {data?.price != "null" && (
+            {!isNullOrNullOrEmpty(data?.price) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>price</Text>
-                <Text style={styles.cardelement}>{data?.price}</Text>
+                <Text style={styles.cardelement2}>{data?.price}</Text>
               </View>
             )}
-            {data?.videoUrl != "null" && (
+            {!isNullOrNullOrEmpty(data?.videoUrl) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>videoUrl</Text>
-                <Text style={styles.cardelement}>{data?.videoUrl}</Text>
+                <Text style={styles.cardelement2}>{data?.videoUrl}</Text>
               </View>
             )}
-            {data?.website != "null" && (
+            {!isNullOrNullOrEmpty(data?.website) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>website</Text>
-                <Text style={styles.cardelement}>{data?.website}</Text>
+                <Text style={styles.cardelement2}>{data?.website}</Text>
               </View>
             )}
           </View>
@@ -238,48 +258,75 @@ export default function Detail({ navigation, route }) {
           /////task uper/////
         }
         <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
-          <Text style={{ fontWeight: "bold", fontSize: 18 }}>Description</Text>
-          <Text style={{ fontSize: 12, paddingVertical: width(2) }}>
+          <Text style={{ fontWeight: "bold", fontSize: width(5) }}>Description</Text>
+          <Text style={{ fontSize: width(3), paddingVertical: width(2) }}>
             {data?.description}
           </Text>
         </View>
-        <View style={styles.profileview}>
-          <View style={styles.profilecard}>
-            <View style={styles.profilecardin}>
-              <Image
-                source={{ uri: data?.userId?.image }}
-                style={styles.profileimage}
+        {/* user profile */}
+        {!(data?.userId?._id == loginuser?._id) && (
+          <Pressable style={styles.profileview}>
+            <View style={styles.profilecard}>
+              <View style={styles.profilecardin}>
+                <Image
+                  source={{ uri: data?.userId?.image }}
+                  style={styles.profileimage}
+                />
+                <Text
+                  style={{
+                    marginHorizontal: width(2),
+                    fontSize: width(4),
+                    fontWeight: "bold",
+                    color: AppColors.black,
+                  }}
+                >
+                  {data?.userId?.userName}
+                </Text>
+              </View>
+              <IconButton
+                title={"See All Ads"}
+                onPress={() => {
+                  navigation.navigate(ScreenNames.OTHERPROFILE, {
+                    user: data?.userId,
+                  });
+                }}
               />
-              <Text style={{ marginHorizontal: width(2) }}>
-                {data?.userId?.userName}
-              </Text>
             </View>
-            <IconButton title={"See All Ads"} />
+          </Pressable>
+        )}
+        {!(data?.userId?._id == loginuser?._id) && (
+          <View style={styles.contact}>
+            {!isNullOrNullOrEmpty(data?.whatsapp) && (
+              <IconButton
+                title={"WhatsApp"}
+                icon={
+                  <Ionicons
+                    size={width(4)}
+                    name="logo-whatsapp"
+                    color={"white"}
+                  />
+                }
+                containerStyle={{ backgroundColor: "#41C053" }}
+                onPress={openWhatsApp}
+              />
+            )}
+            {!isNullOrNullOrEmpty(data?.viber) && (
+              <IconButton
+                title={"Viber"}
+                icon={<Fontisto size={width(4)} name="viber" color={"white"} />}
+                containerStyle={{
+                  backgroundColor: "#7D3DAF",
+                  marginLeft: width(2),
+                }}
+              />
+            )}
           </View>
-        </View>
-        <View style={styles.contact}>
-          <IconButton
-            title={"WhatsApp"}
-            icon={
-              <Ionicons size={width(4)} name="logo-whatsapp" color={"white"} />
-            }
-            containerStyle={{ backgroundColor: "#41C053" }}
-            onPress={openWhatsApp}
-          />
-          <IconButton
-            title={"Viber"}
-            icon={<Fontisto size={width(4)} name="viber" color={"white"} />}
-            containerStyle={{
-              backgroundColor: "#7D3DAF",
-              marginLeft: width(2),
-            }}
-          />
-        </View>
+        )}
         <View style={{ paddingLeft: width(4) }}>
           <Text
             style={{
               fontWeight: "bold",
-              fontSize: 18,
+              fontSize: width(5),
               marginVertical: width(2),
             }}
           >
@@ -297,8 +344,8 @@ export default function Detail({ navigation, route }) {
           >
             <Marker
               coordinate={{
-                latitude: data?.latitude,
-                longitude: data?.longitude,
+                latitude: dat?.latitude || 0,
+                longitude: dat?.longitude || 0,
               }}
             />
           </MapView>

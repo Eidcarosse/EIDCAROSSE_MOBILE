@@ -9,6 +9,7 @@ const ScreenNames = {
   LISTDATA: "ListData",
   BUTTOM:'Buttom',
   PROFILE:'Profile',
+  OTHERPROFILE:'OtherProfile',
   EDITPROFILE:'EditProfile',
   PASSWORD:'password',
   ACCOUNT:'ACCOUNT',

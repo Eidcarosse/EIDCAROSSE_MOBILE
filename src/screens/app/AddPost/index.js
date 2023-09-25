@@ -32,6 +32,14 @@ import { setAppLoader } from "../../../redux/slices/config";
 import { addPostAd, getCarData, getCarModel } from "../../../backend/api";
 import { getOwneAd } from "../../../backend/auth";
 import ScreenNames from "../../../routes/routes";
+import {
+  bodyShapeList,
+  exteriorColorList,
+  fuelTypelist,
+  gearBoxList,
+  interiorColorList,
+} from "../../../utills/Data";
+import { errorMessage, successMessage } from "../../../utills/Methods";
 
 export default function AddPost({ navigation, route }) {
   const dispatch = useDispatch();
@@ -65,12 +73,11 @@ export default function AddPost({ navigation, route }) {
   const [interior, setInterior] = React.useState("");
   const [latitude, setLatiitude] = React.useState(37.78825);
   const [longitude, setLongitude] = React.useState(-122.4324);
-  const [email, setEmail] = React.useState("");
-  const [phone, setPhone] = React.useState("");
+  const [email, setEmail] = React.useState(userInfo?.email);
+  const [phone, setPhone] = React.useState(userInfo?.phoneNumber);
   const [whatsapp, setWhatsapp] = React.useState("");
   const [viber, setViber] = React.useState("");
   const [website, setWebsite] = React.useState("");
-  const [cnumber, setCnumber] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
 
@@ -98,8 +105,8 @@ export default function AddPost({ navigation, route }) {
     }));
     setCarModel(convertedData);
   };
-
   const addPost = async () => {
+    dispatch(setAppLoader(true));
     try {
       const requiredFields = [
         title,
@@ -131,7 +138,7 @@ export default function AddPost({ navigation, route }) {
       formData.append("maxPrice", priceto);
       formData.append("condition", condition);
       formData.append("brand", brand);
-      formData.append("year", 2005);
+      formData.append("year", year);
       formData.append("model", model);
       formData.append("bodyShape", bodyshape);
       formData.append("gearBox", gearbox);
@@ -157,12 +164,21 @@ export default function AddPost({ navigation, route }) {
 
       console.log(formData);
 
-      await addPostAd(formData);
-      navigation.navigate(ScreenNames.BUTTOM);
+     const resp= await addPostAd(formData);
+     console.log("response of Ad post",resp);
+     if(resp?.success){
+      successMessage("Ad successfuly posted")
+     }
+     else{
+      errorMessage("Something went wrong")
+     }
+      dispatch(setAppLoader(false));
+      navigation.navigate("title1");
       const userAd = await getOwneAd(userInfo?._id);
       dispatch(setUserAds(userAd));
     } catch (error) {
       console.error("Image upload error:", error);
+      dispatch(setAppLoader(false));
     }
   };
   const rdata = [
@@ -187,33 +203,22 @@ export default function AddPost({ navigation, route }) {
       label: "Disable",
     },
   ];
-
-  const data = [
-    { key: "1", value: "Mobiles" },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers" },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
   const cdata = [
     { value: "Whatsapp" },
     { value: "Viber" },
-    // { key: "3", value: "Phone" },
   ];
-  console.log(
-    title,
-    category,
-    condition,
-    brand,
-    year,
-    model,
-    description,
-    latitude,
-    longitude,
-    address
-  );
+  // console.log(
+  //   title,
+  //   category,
+  //   condition,
+  //   brand,
+  //   year,
+  //   model,
+  //   description,
+  //   latitude,
+  //   longitude,
+  //   address
+  // );
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -424,7 +429,16 @@ export default function AddPost({ navigation, route }) {
                   dropdownStyles={styles.dropdown}
                 />
               </View>
-              <View style={{ alignSelf: "center" }}>
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>Year</Text>
+                <Input
+                  value={year}
+                  setvalue={setYear}
+                  containerStyle={[styles.price, { width: width(90) }]}
+                  placeholder={"1999"}
+                />
+              </View>
+              {/* <View style={{ alignSelf: "center" }}>
                 <Text style={styles.title}>Year</Text>
                 <SelectList
                   setSelected={(val) => setYear(val)}
@@ -433,12 +447,12 @@ export default function AddPost({ navigation, route }) {
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
                 />
-              </View>
+              </View> */}
               <View style={{ alignSelf: "center" }}>
                 <Text style={styles.title}>Body Shape</Text>
                 <SelectList
                   setSelected={(val) => setBodyshap(val)}
-                  data={data}
+                  data={bodyShapeList}
                   save="value"
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
@@ -448,7 +462,7 @@ export default function AddPost({ navigation, route }) {
                 <Text style={styles.title}>Gear Box</Text>
                 <SelectList
                   setSelected={(val) => setGearbox(val)}
-                  data={data}
+                  data={gearBoxList}
                   save="value"
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
@@ -458,7 +472,7 @@ export default function AddPost({ navigation, route }) {
                 <Text style={styles.title}>Fuel Type</Text>
                 <SelectList
                   setSelected={(val) => setFueltype(val)}
-                  data={data}
+                  data={fuelTypelist}
                   save="value"
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
@@ -468,7 +482,7 @@ export default function AddPost({ navigation, route }) {
                 <Text style={styles.title}>Exterioe Color</Text>
                 <SelectList
                   setSelected={(val) => setExterior(val)}
-                  data={data}
+                  data={exteriorColorList}
                   save="value"
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
@@ -478,7 +492,7 @@ export default function AddPost({ navigation, route }) {
                 <Text style={styles.title}>Interior Color</Text>
                 <SelectList
                   setSelected={(val) => setInterior(val)}
-                  data={data}
+                  data={interiorColorList}
                   save="value"
                   boxStyles={styles.searchbox}
                   dropdownStyles={styles.dropdown}
@@ -524,9 +538,10 @@ export default function AddPost({ navigation, route }) {
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>Email</Text>
             <Input
+              value={email}
               setvalue={setEmail}
-              placeholder={"abc@gmail.com"}
               containerStyle={[styles.price, { width: width(90) }]}
+              editable={false}
             />
           </View>
 
@@ -534,9 +549,10 @@ export default function AddPost({ navigation, route }) {
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>phone Number</Text>
             <Input
+              value={phone}
               setvalue={setPhone}
-              placeholder={"XXXXXXXXXX"}
               containerStyle={[styles.price, { width: width(90) }]}
+              editable={false}
             />
           </View>
           {/* )} */}

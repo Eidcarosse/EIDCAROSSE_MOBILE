@@ -4,7 +4,7 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   main: {
-    width: width(46),
+    width: width(47),
     backgroundColor: AppColors.white,
     borderRadius: width(1),
     ...Platform.select({
@@ -19,13 +19,14 @@ const styles = StyleSheet.create({
       },
     }),
     margin: width(1),
+    justifyContent:'space-between'
   },
   imageview: {
-    width: width(46),
+    width: width(47),
   },
   image: {
-    width: width(46),
-    height: width(35),
+    width: width(47),
+    height: width(30),
 
   },
   detail: {

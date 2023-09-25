@@ -1,4 +1,4 @@
-import { Linking,Share } from "react-native";
+import { Linking, Platform, Share, ToastAndroid } from "react-native";
 
 export function debounce(func, wait, immediate) {
   var timeout;
@@ -18,6 +18,9 @@ export function debounce(func, wait, immediate) {
 import { showMessage } from "react-native-flash-message";
 import AppColors from "./AppColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+export const toastMessage = (message) => {
+  ToastAndroid.show(message, ToastAndroid.SHORT);
+};
 export const successMessage = (description = "", message = "success") => {
   showMessage({
     message: message,
@@ -33,13 +36,13 @@ export const errorMessage = (description = "", message = "error") => {
     position: "top",
   });
 };
-const toastMessage = (description = "", message = "Info", type = "info") => {
-  showMessage({
-    message: message,
-    description: description,
-    type: type,
-  });
-};
+// export const toastMessage = (description = "", message = "Info", type = "info") => {
+//   showMessage({
+//     message: message,
+//     description: description,
+//     type: type,
+//   });
+// };
 
 export const setAuthData = async (value) => {
   try {
@@ -58,7 +61,8 @@ export const getAuthData = async () => {
   }
 };
 const onPressCall = (phoneNumber) => {
-  const url = `tel:${phoneNumber}`;
+  const url =
+    Platform.OS == "ios" ? `telprompt:${phoneNumber}` : `tel:${phoneNumber}`;
 
   Linking.openURL(url)
     .then((result) => {
@@ -84,6 +88,22 @@ const onPressMessage = () => {
     })
     .catch((error) => console.error("Error opening messaging app:", error));
 };
+const onPressEmail = () => {
+  const emailAddress = "example@email.com"; // Replace with the email address you want to send an email to
+  const subject = "Subject of your email"; // Optional: Replace with the subject of your email
+
+  const url = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}`;
+
+  Linking.openURL(url)
+    .then((result) => {
+      if (result) {
+        console.log("Email app opened successfully");
+      } else {
+        console.log("Unable to open email app");
+      }
+    })
+    .catch((error) => console.error("Error opening email app:", error));
+};
 const onPressShare = async () => {
   try {
     const result = await Share.share({
@@ -97,8 +117,7 @@ const onPressShare = async () => {
     console.error("Error sharing:", error);
   }
 };
-const onPressFavorite = () => {
-};
+const onPressFavorite = () => {};
 const GlobalMethods = {
   toastMessage,
   errorMessage,
@@ -108,6 +127,7 @@ const GlobalMethods = {
   onPressCall,
   onPressMessage,
   onPressShare,
-  onPressFavorite
+  onPressFavorite,
+  onPressEmail,
 };
 export default GlobalMethods;

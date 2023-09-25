@@ -17,11 +17,11 @@ export default function ScreenWrapper({
   contentContainerStyle = {},
   headerUnScrollable = () => null,
   footerUnScrollable = () => null,
-  backgroundColor = AppColors.transparent,
+  backgroundColor = AppColors.white,
   imageBackgroundColor = AppColors.primary,
   barStyle = "dark-content",
   onTouchEnd,
-  refreshing=false,
+  refreshing,
   onRefresh,
 }) {
   if (backgroundImage) {
@@ -56,6 +56,7 @@ export default function ScreenWrapper({
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[AppColors.primary]} />
               }
               keyboardShouldPersistTaps="handled"
+              enableAutomaticScroll={true}
               extraScrollHeight={height(8)}
               showsVerticalScrollIndicator={false}
               onTouchEnd={onTouchEnd}

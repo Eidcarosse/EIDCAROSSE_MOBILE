@@ -4,7 +4,7 @@ import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    height: height(100),
+    flex:1,
     backgroundColor: AppColors.white,
   },
   imageiner: {
@@ -12,7 +12,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     margin: width(3),
   },
-
+  logintext: {
+    fontSize: 30,
+    color: AppColors.white,
+    fontWeight: "bold",
+  },
   avatar: {
     width: width(25),
     height: width(25),
@@ -47,19 +51,11 @@ const styles = StyleSheet.create({
   },
   wcontainer: {
     backgroundColor: "white",
-    flexDirection: "column",
     padding: width(1),
   },
   wtexticon: {
-    color: "black",
-    fontSize: 12,
-    marginTop: width(2),
-  },
-  ptext: {
-    fontSize: width(2),
-    fontWeight: "bold",
-    color: AppColors.white,
-    padding: width(1),
+    color: AppColors.primary,
+    fontSize: width(3.5),
   },
 });
 export default styles;

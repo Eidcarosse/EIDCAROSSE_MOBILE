@@ -1,3 +1,4 @@
+import { BaseUrl1 } from "../utills/Constants";
 import { errorMessage } from "../utills/Methods";
 import { ApiManager } from "./ApiManager";
 
@@ -40,6 +41,27 @@ const signupApi = async (data) => {
       return []; // or some default value as needed
     }
   };
+ async function updateProfile(id,formData) {
+    try {
+      const requestOptions = {
+        method: "PUT",
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const resp = await fetch(
+        BaseUrl1+`auth/userProfile/${id}`,
+        requestOptions
+      );
+      let response=await resp.json()
+      console.log(response);
+       return response?.data?.userDetails;
+    } catch (error) {
+      console.error("crashed", error);
+      throw error; // Re-throw the error to handle it at a higher level if necessary
+    }
+  }
   const getFavAds = async (id) => {
     try {
       const response = await ApiManager.get(`auth/getFavAds/${id}`);
@@ -52,4 +74,4 @@ const signupApi = async (data) => {
       return []; // or some default value as needed
     }
   };
- export { signupApi ,loginApi,getOwneAd,getFavAds};
+ export { signupApi ,loginApi,getOwneAd,getFavAds,updateProfile};

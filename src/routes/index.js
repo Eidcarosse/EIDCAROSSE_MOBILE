@@ -26,6 +26,7 @@ import {
   HTSFScreen,
   ListData,
   MyListingScreen,
+  OtherProfileScreen,
   PasswordScreens,
   PrivacyPolicyScreen,
   ProfileScreen,
@@ -111,6 +112,7 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
         <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
         <Stack.Screen name={ScreenNames.PROFILE} component={ProfileScreen} />
+        <Stack.Screen name={ScreenNames.OTHERPROFILE} component={OtherProfileScreen} />
         <Stack.Screen name={ScreenNames.EDITPROFILE} component={EditProfile} />
         <Stack.Screen name={ScreenNames.PASSWORD} component={PasswordScreens} />
         <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />

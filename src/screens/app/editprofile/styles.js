@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   avatar: {
-    width: width(30),
-    height: width(30),
+    width: width(35),
+    height: width(35),
     borderRadius: width(30),
     marginLeft: width(5),
   },

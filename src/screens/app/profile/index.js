@@ -5,17 +5,26 @@ import styles from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
-import { FilePickerModal, Header, IconButton, ScreenWrapper } from "../../../components";
+import {
+  FilePickerModal,
+  Header,
+  IconButton,
+  ScreenWrapper,
+} from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { selectToken, selectUserAds, selectUserMeta } from "../../../redux/slices/user";
+import {
+  selectToken,
+  selectUserAds,
+  selectUserMeta,
+} from "../../../redux/slices/user";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
-  const userAds=useSelector(selectUserAds)
-  const token=useSelector(selectToken)
-
+  const userAds = useSelector(selectUserAds);
+  const token = useSelector(selectToken);
+  console.log(userdata);
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -26,31 +35,25 @@ export default function Profile({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <ImageBackground
           source={Icons.bglogo}
-          style={{ width: width(100), height: height(28) }}
+          style={{ width: width(100), height: height(30) }}
         >
           <View style={styles.imageiner}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image style={styles.avatar} source={{uri:userdata?.image}} />
+              <Image style={styles.avatar} source={{ uri: userdata?.image }} />
               <View style={{ paddingLeft: width(5) }}>
                 <Text
                   style={{
-                    fontSize: 20,
+                    fontSize: width(5),
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
                 >
-                  {userdata?.userName}
+                  {userdata?.firstName} {userdata?.lastName}
                 </Text>
 
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.email}
-                </Text>
+                <Text style={styles.ptext}>{userdata?.userName}</Text>
+                <Text style={styles.ptext}>{userdata?.email}</Text>
+                <Text style={styles.ptext}>{userdata?.phoneNumber}</Text>
               </View>
             </View>
             <View style={styles.wishlistview}>
@@ -88,7 +91,7 @@ export default function Profile({ navigation, route }) {
                       color: AppColors.primary,
                     }}
                   >
-                    {userAds.length}
+                    {userAds?.length||0}
                   </Text>
                 }
               />
@@ -147,7 +150,6 @@ export default function Profile({ navigation, route }) {
           />
         </View>
       </View>
-    
     </ScreenWrapper>
   );
 }

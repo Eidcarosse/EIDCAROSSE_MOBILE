@@ -40,9 +40,12 @@ export default function SignUp({ navigation, route }) {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return emailRegex.test(email);
   };
+  // const isValidPassword = (password) => {
+  //   const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=.{6,})/;
+  //   return passwordRegex.test(password);
+  // };
   const isValidPassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=.{6,})/;
-    return passwordRegex.test(password);
+    return password.length === 6;
   };
   const signup = async (data) => {
     try {

@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   },
   nameview: {
     padding: width(4),
-    height: height(15),
     justifyContent: "space-between",
     borderBottomWidth: 0.3,
     borderColor: "grey",
@@ -31,10 +30,11 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
   },
   cardrow: { flexDirection: "row", flex: 1, marginVertical: width(3) },
-  cardelement: { fontSize: 15, flex: 1 },
+  cardelement: { fontSize: width(3.5), flex: 1 ,fontWeight:'bold'},
+  cardelement2: { fontSize: width(3.5), flex: 1 },
   profileview: { padding: width(4) },
   profilecard: {
-    padding: width(4),
+    padding: width(2),
     backgroundColor: "#E5E8E84D",
     borderRadius: width(2),
     flexDirection: "row",
@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileimage: {
-    width: width(10),
-    height: width(10),
-    borderRadius:width(5)
+    width: width(12),
+    height: width(12),
+    borderRadius:width(10)
   },
   map: {
-    height: height(15),
+    height: height(25),
     width: width(90),
     alignSelf: "center",
   },

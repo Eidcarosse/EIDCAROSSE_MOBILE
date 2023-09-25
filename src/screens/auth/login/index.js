@@ -22,18 +22,23 @@ export default function Login({ navigation, route }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // const isValidEmail = (email) => {
+  //   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  //   return emailRegex.test(email);
+  // };
+  // const isValidPassword = (password) => {
+  //   const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=.{6,})/;
+  //   return passwordRegex.test(password);
+  // };
   const isValidEmail = (email) => {
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    return emailRegex.test(email);
+    return email.length > 0;
   };
   const isValidPassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=.{6,})/;
-    return passwordRegex.test(password);
+    return password.length >= 6;
   };
-
   const userData = {
-    email,
-    password,
+    email:email.trim(),
+    password:password.trim(),
   };
 
   const login = async (data) => {

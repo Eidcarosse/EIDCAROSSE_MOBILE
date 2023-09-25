@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     padding: width(2),
   },
   card: {
-    width: width(45),
+    width: width(44),
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",

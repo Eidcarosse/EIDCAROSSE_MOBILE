@@ -25,29 +25,57 @@ export default function ListingView({ data }) {
           <Image style={styles.image} source={{ uri: data?.images[0] }} />
         </View>
         <View style={styles.detail}>
-          <View style={{ paddingBottom: width(5) }}>
+          <View
+            style={{
+              paddingBottom: width(5),
+              flexDirection: "row",
+              width: width(43),
+              justifyContent: "space-between",
+            }}
+          >
+            <View>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: width(4),
+                  color: AppColors.primary,
+                  fontWeight: "bold",
+                }}
+              >
+                CHF {data?.price}
+              </Text>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: width(3),
+                  color: "grey",
+                  fontWeight: "bold",
+                }}
+              >
+                EUR {data?.price}
+              </Text>
+            </View>
+            <View>
+              <TouchableOpacity onPress={setMyFav}>
+                <AntDesign
+                  size={width(4)}
+                  color={fav ? AppColors.primary : "black"}
+                  name={fav ? "heart" : "hearto"}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View>
             <Text
               numberOfLines={1}
               style={{
                 fontSize: width(4),
-                color: AppColors.primary,
+                marginVertical: width(2),
                 fontWeight: "bold",
               }}
             >
-              CHF {data?.price}
+              {data?.title}
             </Text>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: width(3),
-                color: "grey",
-                fontWeight: "bold",
-              }}
-            >
-              EUR {data?.price}
-            </Text>
-          </View>
-          <View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <MaterialIcons name="category" color={"grey"} size={width(4)} />
               <Text
@@ -67,33 +95,20 @@ export default function ListingView({ data }) {
                   width: width(35),
                 }}
               >
-                {data?.address}s
+                {data?.address}
               </Text>
             </View>
           </View>
         </View>
       </TouchableOpacity>
       <View style={styles.icons}>
-        <TouchableOpacity onPress={setMyFav}>
-          <AntDesign
-            size={width(4)}
-            color={fav ? AppColors.primary : "black"}
-            name={fav ? "heart" : "hearto"}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-        onPress={GlobalMethods.onPressCall}
-        >
+        <TouchableOpacity onPress={GlobalMethods.onPressCall}>
           <Ionicons size={width(4)} name="call" />
         </TouchableOpacity>
-        <TouchableOpacity
-        onPress={GlobalMethods.onPressMessage}
-        >
+        <TouchableOpacity onPress={GlobalMethods.onPressMessage}>
           <Ionicons size={width(4)} name="chatbubble-ellipses" />
         </TouchableOpacity>
-        <TouchableOpacity
-        onPress={GlobalMethods.onPressShare}
-        >
+        <TouchableOpacity onPress={GlobalMethods.onPressShare}>
           <Entypo size={width(4)} name="share" />
         </TouchableOpacity>
         <AntDesign size={width(4)} name="eye" color={"grey"} />

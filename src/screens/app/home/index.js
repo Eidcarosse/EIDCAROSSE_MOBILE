@@ -16,6 +16,7 @@ import { selectTopAds, setAppLoader, setTopAds } from "../../../redux/slices/con
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import Icons from "../../../asset/images";
+import { toastMessage } from "../../../utills/Methods";
 
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export default function Home({ navigation, route }) {
     setRefreshing(true);
     getData()
     setRefreshing(false);
+    toastMessage('Refresh')
   };
   useFocusEffect(
     useCallback(() => {
@@ -109,7 +111,7 @@ export default function Home({ navigation, route }) {
             </Text>
           </Pressable>
         </View>
-        <View style={{ width: width(100), alignItems: "center", flex: 1 }}>
+        <View style={{ width: width(100), alignItems: "center",}}>
           {(data?.length === 0) ? (
             <View style={styles.notfoundview}>
               <Image

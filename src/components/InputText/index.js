@@ -14,6 +14,7 @@ export default function Input({
   containerStyle,
   titlestyle,
   multi = false,
+  editable=true
 }) {
   const [secureText, setSecureText] = useState(secure);
   return (
@@ -21,6 +22,7 @@ export default function Input({
       {title && <Text style={titlestyle}>{title}</Text>}
       <View style={styles.innerview}>
         <TextInput
+         editable={editable}
           style={{ paddingVertical: width(2), width: width(80) }}
           placeholder={placeholder}
           secureTextEntry={secureText}
