@@ -8,12 +8,16 @@ import Icons from "../../asset/images";
 import { useNavigation } from "@react-navigation/native";
 import ScreenNames from "../../routes/routes";
 import GlobalMethods from "../../utills/Methods";
+import { useSelector } from "react-redux";
+import { selectUserMeta } from "../../redux/slices/user";
 export default function CardView({ data }) {
   //console.log("indata", data);
+  const loginuser=useSelector(selectUserMeta)
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
   const onpressfav = () => {
-    setFav(!fav);
+    if(!loginuser){alert("Please login first")}
+    else setFav(!fav);
   };
 
   return (

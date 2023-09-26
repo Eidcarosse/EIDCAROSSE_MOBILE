@@ -8,13 +8,13 @@ import styles from "./styles";
 export default function BikeCategory({ navigation, route }) {
   console.log("bike page", route?.params?.show);
   const data = [
-    { title: "E-Bike" },
+    { title: "E-bikes" },
     { title: "Bicycles" },
-    { title: "E-Scooters" },
+    { title: "E-scooter" },
     { title: "Motorcycle" },
   ];
   const Parts = [
-    { title: "Car" },
+    { title: "Autos" },
     { title: "Bikes" },
     { title: "Boats" },
     { title: "Drones" },
@@ -53,8 +53,8 @@ export default function BikeCategory({ navigation, route }) {
                     });
                   } else
                     navigation.navigate(ScreenNames.LISTDATA, {
-                      category: route?.params?.category,
-                      subcategory: item?.title,
+                      category: item?.title,
+                      // subcategory: item?.title,
                     });
                 }}
               >

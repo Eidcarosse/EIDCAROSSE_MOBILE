@@ -63,20 +63,64 @@ export async function addPostAd(formData) {
     throw error; // Re-throw the error to handle it at a higher level if necessary
   }
 }
-export const getCarData = async () => {
+export const geVehicleMakes = async (type) => {
+  console.log("type",type);
   try {
     const response = await ApiManager.get(
-      `ad/allCars`
+      `ad/findVehicleMake/${type}`
     );
-    if (!response.success) {
+    if (!response?.success) {
       throw new Error("Network error home APi");
     }
-    return response?.data;
+    console.log("ris",response);
+    return response?.data[0]?.make;
   } catch (error) {
-    alert("car api");
+    alert("car api faild");
+    console.log('====================================');
+    console.log(error);
+    console.log('====================================');
     return []; // or some default value as needed
   }
 };
+export const geVehicleModel = async (type) => {
+  console.log("type",type);
+  try {
+    const response = await ApiManager.get(
+      `ad/findVehicleCategory/${type}`
+    );
+    if (!response?.success) {
+      throw new Error("Network error home APi");
+    }
+    console.log("ris",response?.data[0]?.make);
+    return response?.data[0]?.make;
+  } catch (error) {
+    alert("car api faild");
+    console.log('====================================');
+    console.log(error);
+    console.log('====================================');
+    return []; // or some default value as needed
+  }
+};
+export const geVehicle = async (type) => {
+  console.log("type",type);
+  try {
+    const response = await ApiManager.get(
+      `ad/findVehicleMake/${type}`
+    );
+    if (!response?.success) {
+      throw new Error("Network error home APi");
+    }
+    console.log("ris",response?.data[0]?.make);
+    return response?.data[0]?.make;
+  } catch (error) {
+    alert("car api faild");
+    console.log('====================================');
+    console.log(error);
+    console.log('====================================');
+    return []; // or some default value as needed
+  }
+};
+
 export const getCarModel= async (value) => {
   try {
     const response = await ApiManager.get(

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BaseUrl } from '../../src/utills/Constants';
+import { BaseUrl,BaseUrl1 } from '../../src/utills/Constants';
 axios.defaults.baseURL = BaseUrl;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 

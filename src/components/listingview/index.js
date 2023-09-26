@@ -7,11 +7,15 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import ScreenNames from "../../routes/routes";
 import GlobalMethods from "../../utills/Methods";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserMeta } from "../../redux/slices/user";
 export default function ListingView({ data }) {
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
+  const loginuser=useSelector(selectUserMeta)
   const setMyFav = () => {
-    setFav(!fav);
+    if(!loginuser){alert("Please login first")}
+    else setFav(!fav);
   };
   return (
     <View style={styles.main}>

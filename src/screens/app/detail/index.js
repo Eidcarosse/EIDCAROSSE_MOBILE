@@ -48,7 +48,7 @@ export default function Detail({ navigation, route }) {
         },
         3 * 1000
       );
-    } else setDat([]);
+    } else setDat({});
     dispatch(setAppLoader(false));
   };
 
@@ -70,7 +70,6 @@ export default function Detail({ navigation, route }) {
         console.error("Error opening WhatsApp:", error);
       });
   };
-  console.log("detail", data);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -78,6 +77,7 @@ export default function Detail({ navigation, route }) {
           onPressBack={() => navigation.goBack()}
           onPressShare={GlobalMethods.onPressShare}
           like={data?.userId?._id == loginuser?._id}
+          loginuser={loginuser?true:false}
         />
       )}
       footerUnScrollable={() => (

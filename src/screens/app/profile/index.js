@@ -24,7 +24,7 @@ export default function Profile({ navigation, route }) {
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
   const token = useSelector(selectToken);
-  console.log(userdata);
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}

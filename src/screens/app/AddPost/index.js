@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useCallback, useEffect, useRef } from "react";
 import {
@@ -29,7 +29,13 @@ import { ApiManager } from "../../../backend/ApiManager";
 import { Apikey, BaseUrl } from "../../../utills/Constants";
 import axios from "axios";
 import { setAppLoader } from "../../../redux/slices/config";
-import { addPostAd, getCarData, getCarModel } from "../../../backend/api";
+import {
+  addPostAd,
+  geVehicleData,
+  geVehicleMakes,
+  getCarData,
+  getCarModel,
+} from "../../../backend/api";
 import { getOwneAd } from "../../../backend/auth";
 import ScreenNames from "../../../routes/routes";
 import {
@@ -87,12 +93,15 @@ export default function AddPost({ navigation, route }) {
     getcar();
   }, []);
   const getcar = async () => {
-    let cardata = await getCarData();
-    const convertedData = cardata.map((item, index) => ({
-      key: item._id,
-      value: item.make,
-    }));
-    setcar(convertedData);
+    let vehicledata = await geVehicleMakes(category);
+    // const convertedData = cardata.map((item, index) => ({
+    //   key: item._id,
+    //   value: item.make,
+    // }));
+    // setcar(convertedData);
+    // console.log('====================================');
+    // console.log(vehicledata);
+    // console.log('====================================');
   };
   useEffect(() => {
     if (brand) getmodel(brand);
@@ -162,16 +171,15 @@ export default function AddPost({ navigation, route }) {
         });
       });
 
-      console.log(formData);
+      // console.log(formData);
 
-     const resp= await addPostAd(formData);
-     console.log("response of Ad post",resp);
-     if(resp?.success){
-      successMessage("Ad successfuly posted")
-     }
-     else{
-      errorMessage("Something went wrong")
-     }
+      const resp = await addPostAd(formData);
+      console.log("response of Ad post", resp);
+      if (resp?.success) {
+        successMessage("Ad successfuly posted");
+      } else {
+        errorMessage("Something went wrong");
+      }
       dispatch(setAppLoader(false));
       navigation.navigate("title1");
       const userAd = await getOwneAd(userInfo?._id);
@@ -203,10 +211,7 @@ export default function AddPost({ navigation, route }) {
       label: "Disable",
     },
   ];
-  const cdata = [
-    { value: "Whatsapp" },
-    { value: "Viber" },
-  ];
+  const cdata = [{ value: "Whatsapp" }, { value: "Viber" }];
   // console.log(
   //   title,
   //   category,
@@ -270,6 +275,8 @@ export default function AddPost({ navigation, route }) {
                     backgroundColor: AppColors.primary,
                     borderRadius: width(2),
                     padding: width(3),
+
+                    alignSelf: "center",
                   }}
                   onPress={() => imageRef.current.show()}
                 >
@@ -281,16 +288,31 @@ export default function AddPost({ navigation, route }) {
                 </TouchableOpacity>
               )}
               {image.map((item, index) => (
-                <Image
-                  key={index}
-                  style={{
-                    height: width(15),
-                    width: width(15),
-                    borderRadius: width(3),
-                    marginLeft: width(3),
+                <View style={{ flexDirection: "row" }}>
+                  <Image
+                    key={index}
+                    style={{
+                      height: width(15),
+                      width: width(15),
+                      borderRadius: width(3),
+                      marginLeft: width(3),
+                    }}
+                    source={{ uri: item }}
+                  />
+                  <TouchableOpacity
+                  onPress={()=>{
+                    let temp
+                    temp = image.filter(i => i !== item);
+                    setImage(temp)
                   }}
-                  source={{ uri: item }}
-                />
+                  style={{height:height(3)}}>
+                    <Entypo
+                      name="squared-cross"
+                      size={width(4)}
+                      color={AppColors.primary}
+                    />
+                  </TouchableOpacity>
+                </View>
               ))}
             </ScrollView>
           )}
@@ -408,6 +430,16 @@ export default function AddPost({ navigation, route }) {
             />
           </View>
           <View style={{ alignSelf: "center" }}>
+            <Text style={styles.title}>Category</Text>
+            <SelectList
+              setSelected={(val) => setBrand(val)}
+              data={car}
+              save="value"
+              boxStyles={styles.searchbox}
+              dropdownStyles={styles.dropdown}
+            />
+          </View>
+          <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>Brand</Text>
             <SelectList
               setSelected={(val) => setBrand(val)}
@@ -419,16 +451,28 @@ export default function AddPost({ navigation, route }) {
           </View>
           {brand && (
             <View>
-              <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>Model</Text>
-                <SelectList
-                  setSelected={(val) => setModel(val)}
-                  data={carModel}
-                  save="value"
-                  boxStyles={styles.searchbox}
-                  dropdownStyles={styles.dropdown}
-                />
-              </View>
+              {carModel != null ? (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>Model</Text>
+                  <SelectList
+                    setSelected={(val) => setModel(val)}
+                    data={carModel}
+                    save="value"
+                    boxStyles={styles.searchbox}
+                    dropdownStyles={styles.dropdown}
+                  />
+                </View>
+              ) : (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>Year</Text>
+                  <Input
+                    value={year}
+                    setvalue={setYear}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                    placeholder={"1999"}
+                  />
+                </View>
+              )}
               <View style={{ paddingVertical: width(1) }}>
                 <Text style={styles.title}>Year</Text>
                 <Input
@@ -695,7 +739,7 @@ export default function AddPost({ navigation, route }) {
         onFilesSelected={(img) => {
           const selectedImages = img.map((imageUri) => {
             console.log(image.length);
-            if (image.length < 5) {
+            if (image.length< 5) {
               return Platform.OS === "android"
                 ? imageUri.uri
                 : imageUri.uri.replace("file://", "");

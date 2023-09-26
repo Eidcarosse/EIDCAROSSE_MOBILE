@@ -5,8 +5,8 @@ import React, {
   useState,
 } from "react";
 //import ImagePicker from 'react-native-image-crop-picker';
-//import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import * as ImagePicker from "expo-image-picker";
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+//import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import DropDownMenu from "../dorpdownmenu";
 
@@ -63,7 +63,7 @@ const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
   // }
   const openCamera = async () => {
     try {
-      let result = await ImagePicker.launchCameraAsync({})
+      let result = await launchCamera({})
         .then((a) => onFilesSelected(a.assets))
         .catch((e) => console.log("my log", e));
     } catch (error) {
@@ -71,9 +71,10 @@ const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
     }
   };
   const openGallery = async () => {
-    await ImagePicker.launchImageLibraryAsync({
+    await ImagePicker.launchImageLibrary({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: multi,
+      selectionLimit:5
     })
       .then((a) => onFilesSelected(a.assets))
       .catch((e) => console.log("my log", e));

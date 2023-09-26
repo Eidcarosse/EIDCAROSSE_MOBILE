@@ -1,4 +1,4 @@
-import { BaseUrl1 } from "../utills/Constants";
+import { BaseUrl, BaseUrl1 } from "../utills/Constants";
 import { errorMessage } from "../utills/Methods";
 import { ApiManager } from "./ApiManager";
 
@@ -51,7 +51,7 @@ const signupApi = async (data) => {
         },
       };
       const resp = await fetch(
-        BaseUrl1+`auth/userProfile/${id}`,
+        BaseUrl+`auth/userProfile/${id}`,
         requestOptions
       );
       let response=await resp.json()

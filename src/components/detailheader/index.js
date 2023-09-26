@@ -14,11 +14,13 @@ export default function DetailHeader({
   onPressHeart,
   onPressShare,
   onPressOption,
-  like=true
+  like=true,
+  loginuser=false
 }) {
   const [fav, setFav] = useState(false);
   const setMyFav = () => {
-    setFav(!fav);
+    if(!loginuser){alert("Please login first")}
+    else setFav(!fav);
   };
   return (
     <View style={styles.container}>
