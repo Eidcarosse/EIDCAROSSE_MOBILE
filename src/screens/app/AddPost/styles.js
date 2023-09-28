@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
   mainViewContainer: {
     alignItems: 'center',
     padding:width(5),
-    backgroundColor:AppColors.white
+    backgroundColor:AppColors.white,
+    flexBasis:'auto'
   },
   title: {
     fontSize: width(3.5),
@@ -28,12 +29,11 @@ const styles = StyleSheet.create({
         elevation: 3,
       },
     }),
-    backgroundColor: "white",
   },
   dropdown: { borderRadius: width(1), width: width(90) },
   price: {
     width: width(40),
-    backgroundColor: AppColors.grey,
+    backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,
     borderRadius:width(1)
   },

@@ -6,7 +6,11 @@ import Icons from "../../../asset/images";
 import { loginApi } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
-import { setIsLoggedIn, setToken, setUserMeta } from "../../../redux/slices/user";
+import {
+  setIsLoggedIn,
+  setToken,
+  setUserMeta,
+} from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
@@ -37,8 +41,8 @@ export default function Login({ navigation, route }) {
     return password.length >= 6;
   };
   const userData = {
-    email:email.trim(),
-    password:password.trim(),
+    email: email.trim(),
+    password: password.trim(),
   };
 
   const login = async (data) => {
@@ -73,10 +77,7 @@ export default function Login({ navigation, route }) {
       headerUnScrollable={() => <Head navigation={navigation} />}
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground
-          source={Icons.bglogo}
-          style={{ width: width(100), height: height(28) }}
-        >
+        <ImageBackground source={Icons.bglogo} style={styles.bg}>
           <View style={styles.imageiner}>
             <Text style={styles.logintext}>Login</Text>
           </View>
@@ -119,16 +120,10 @@ export default function Login({ navigation, route }) {
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />
-          <View
-            style={{
-              alignSelf: "center",
-              alignContent: "center",
-              flexDirection: "row",
-            }}
-          >
+          <View style={styles.forget}>
             <Text>Can’t login?</Text>
             <TouchableOpacity>
-              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
+              <Text style={styles.text}>
                 {"   "}
                 Forgot Password
               </Text>
@@ -149,10 +144,7 @@ export default function Login({ navigation, route }) {
                 navigation.navigate(ScreenNames.SIGNUP);
               }}
             >
-              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
-                {" "}
-                Register Now!
-              </Text>
+              <Text style={styles.text}> Register Now!</Text>
             </TouchableOpacity>
           </View>
         </View>

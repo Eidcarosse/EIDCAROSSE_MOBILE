@@ -15,7 +15,10 @@ export default function BikeCategory({ navigation, route }) {
   ];
   const Parts = [
     { title: "Autos" },
-    { title: "Bikes" },
+    { title: "E-bikes" },
+    { title: "Bicycles" },
+    { title: "E-scooter" },
+    { title: "Motorcycle" },
     { title: "Boats" },
     { title: "Drones" },
     { title: "Construction Machines" },
@@ -49,12 +52,14 @@ export default function BikeCategory({ navigation, route }) {
                   if (!route?.params?.show) {
                     navigation.navigate(ScreenNames.ADDPOST, {
                       category: route?.params?.category,
+                      find: item?.title,
                       subcategory: item?.title,
                     });
                   } else
                     navigation.navigate(ScreenNames.LISTDATA, {
-                      category: item?.title,
-                      // subcategory: item?.title,
+                      category: route?.params?.category,
+                      find: item?.title,
+                      subcategory: item?.title,
                     });
                 }}
               >

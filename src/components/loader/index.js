@@ -22,7 +22,7 @@ export default function Loader() {
     >
       <View style={styles.container}>
         <Image
-        style={{width:width(20),height:width(20), borderRadius: width(10),}}
+        style={styles.image}
         source={Icons.loder}
         />
         {/* <ActivityIndicator color={AppColors.primary} size={'large'}/> */}

@@ -8,6 +8,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: height(20),
   },
+  categorytext: {
+    fontSize: width(4),
+    fontWeight: "bold",
+    marginVertical: width(2),
+  },
+  textseeall: {
+    fontSize: width(2.8),
+    fontWeight: "bold",
+    marginTop: height(2),
+    color: "grey",
+  },
   titleview: {
     justifyContent: "space-between",
     padding: width(1),

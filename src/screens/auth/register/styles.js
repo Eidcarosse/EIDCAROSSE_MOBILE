@@ -1,35 +1,40 @@
-import { StyleSheet } from 'react-native';
-import { height, width } from '../../../utills/Dimension';
-import AppColors from '../../../utills/AppColors';
+import { StyleSheet } from "react-native";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: AppColors.white,
   },
-  imageiner:{
+  imageiner: {
     height: height(25),
     justifyContent: "flex-end",
     marginLeft: width(10),
   },
-  logintext:{
+  logintext: {
     fontSize: 30,
     color: AppColors.white,
     fontWeight: "bold",
   },
-  button:
-    {
-      backgroundColor:AppColors.primary,
-      width:width(80),
-      margin:width(2),
-    },
-    dbutton:
-    {
-      backgroundColor:'grey',
-      width:width(80),
-      margin:width(2),
-    }
-  
-  
+  button: {
+    backgroundColor: AppColors.primary,
+    width: width(80),
+    margin: width(2),
+  },
+  dbutton: {
+    backgroundColor: "grey",
+    width: width(80),
+    margin: width(2),
+  },
+  image: { width: width(100), height: height(28) },
+  checkview: { flexDirection: "row", padding: width(4) },
+  tandc: { color: AppColors.primary, fontWeight: "bold" },
+  already: {
+    alignSelf: "center",
+    alignContent: "center",
+    flexDirection: "row",
+  },
+  signin: { color: AppColors.primary, fontWeight: "bold" },
 });
 export default styles;

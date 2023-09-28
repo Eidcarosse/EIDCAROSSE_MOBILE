@@ -57,6 +57,7 @@ export default function ScreenWrapper({
               }
               keyboardShouldPersistTaps="handled"
               enableAutomaticScroll={true}
+              enableResetScrollToCoords={false}
               extraScrollHeight={height(8)}
               showsVerticalScrollIndicator={false}
               onTouchEnd={onTouchEnd}

@@ -1,6 +1,6 @@
-import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
+import { Entypo, Fontisto, Ionicons ,AntDesign} from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Image, Linking, Pressable, Text, View } from "react-native";
+import { Image, Linking, Pressable, Text, View,TouchableOpacity } from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,12 @@ export default function Detail({ navigation, route }) {
   const mapRef = useRef(null);
   const dispatch = useDispatch();
   const [data, setDat] = useState([]);
+  const [fav, setFav] = useState(false);
+  const setMyFav = () => {
+    if (!loginuser) {
+      alert("Please login first");
+    } else setFav(!fav);
+  };
   const img = data?.images?.map((item) => {
     return { img: item };
   });
@@ -77,7 +83,7 @@ export default function Detail({ navigation, route }) {
           onPressBack={() => navigation.goBack()}
           onPressShare={GlobalMethods.onPressShare}
           like={data?.userId?._id == loginuser?._id}
-          loginuser={loginuser?true:false}
+          loginuser={loginuser ? true : false}
         />
       )}
       footerUnScrollable={() => (
@@ -87,7 +93,7 @@ export default function Detail({ navigation, route }) {
           onPressMail={GlobalMethods.onPressEmail}
         />
       )}
-      statusBarColor={"rgba(128, 128, 128,5)"}
+      statusBarColor={AppColors.primary} //{"rgba(128, 128, 128,5)"}
       barStyle="light-content"
       scrollEnabled
     >
@@ -103,23 +109,41 @@ export default function Detail({ navigation, route }) {
           />
         </View>
         <View style={styles.nameview}>
-          <View style={{ paddingBottom: height(2) }}>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: width(4),
-                color: AppColors.primary,
-                fontWeight: "bold",
+          <View style={{ paddingBottom: height(2), flexDirection: "row",justifyContent:'space-between',alignItems:'center' }}>
+            <View style={{}}>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: width(4),
+                  color: AppColors.primary,
+                  fontWeight: "bold",
+                }}
+              >
+                CHF {data?.price}
+              </Text>
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: width(3),
+                  color: "grey",
+                  fontWeight: "bold",
+                }}
+              >
+                EUR {data?.price}
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={{ marginHorizontal: width(3) }}
+              onPress={() => {
+                setMyFav();
               }}
             >
-              CHF {data?.price}
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={{ fontSize: width(3), color: "grey", fontWeight: "bold" }}
-            >
-              EUR {data?.price}
-            </Text>
+              <AntDesign
+                size={width(5)}
+                color={fav ? AppColors.primary : "black"}
+                name={fav ? "heart" : "hearto"}
+              />
+            </TouchableOpacity>
           </View>
           <View>
             <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
@@ -143,7 +167,9 @@ export default function Detail({ navigation, route }) {
         }
         <View style={styles.detailview}>
           <View style={styles.detailcard}>
-            <Text style={{ fontSize: width(5), fontWeight: "bold" }}>Details</Text>
+            <Text style={{ fontSize: width(5), fontWeight: "bold" }}>
+              Details
+            </Text>
             {!isNullOrNullOrEmpty(data?.category) && (
               <View style={styles.cardrow}>
                 <Text style={styles.cardelement}>category</Text>
@@ -258,7 +284,9 @@ export default function Detail({ navigation, route }) {
           /////task uper/////
         }
         <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
-          <Text style={{ fontWeight: "bold", fontSize: width(5) }}>Description</Text>
+          <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
+            Description
+          </Text>
           <Text style={{ fontSize: width(3), paddingVertical: width(2) }}>
             {data?.description}
           </Text>

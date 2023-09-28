@@ -23,7 +23,7 @@ export default function Input({
       <View style={styles.innerview}>
         <TextInput
          editable={editable}
-          style={{ paddingVertical: width(2), width: width(80) }}
+          style={{ paddingVertical: width(3), width: width(80),fontSize:width(4) }}
           placeholder={placeholder}
           secureTextEntry={secureText}
           multiline={multi}

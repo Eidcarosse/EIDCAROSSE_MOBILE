@@ -1,23 +1,24 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
+import Icons from "../../asset/images";
+import { selectUserMeta } from "../../redux/slices/user";
+import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import styles from "./styles";
-import Icons from "../../asset/images";
-import { useNavigation } from "@react-navigation/native";
-import ScreenNames from "../../routes/routes";
 import GlobalMethods from "../../utills/Methods";
-import { useSelector } from "react-redux";
-import { selectUserMeta } from "../../redux/slices/user";
+import styles from "./styles";
 export default function CardView({ data }) {
   //console.log("indata", data);
-  const loginuser=useSelector(selectUserMeta)
+  const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
   const onpressfav = () => {
-    if(!loginuser){alert("Please login first")}
-    else setFav(!fav);
+    if (!loginuser) {
+      alert("Please login first");
+    } else setFav(!fav);
   };
 
   return (
@@ -38,69 +39,35 @@ export default function CardView({ data }) {
           />
         </View>
         <View style={styles.detail}>
-          <View style={{}}>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontWeight: "bold",
-                fontSize: width(4),
-                paddingBottom: width(1),
-              }}
-            >
+          <View>
+            <Text numberOfLines={1} style={styles.titletext}>
               {data?.title}
             </Text>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={styles.categoryview}>
               <MaterialIcons name="category" color={"grey"} size={width(4)} />
-              <Text
-                numberOfLines={1}
-                style={{ fontSize: width(3), marginLeft: width(2) }}
-              >
+              <Text numberOfLines={1} style={styles.detailtext}>
                 {data?.category}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={styles.categoryview}>
               <Entypo name="location-pin" color={"grey"} size={width(4)} />
-              <Text
-                numberOfLines={2}
-                style={{
-                  fontSize: width(3),
-                  marginLeft: width(2),
-                  width: width(35),
-                }}
-              >
-                {data?.address}s
+              <Text numberOfLines={2} style={styles.detailtext}>
+                {data?.address}
               </Text>
             </View>
           </View>
           <View>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: width(4),
-                color: AppColors.primary,
-                fontWeight: "bold",
-              }}
-            >
+            <Text numberOfLines={1} style={styles.chf}>
               CHF {data?.price}
             </Text>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: width(3),
-                color: "grey",
-                fontWeight: "bold",
-              }}
-            >
+            <Text numberOfLines={1} style={styles.eur}>
               EUR {data?.price}
             </Text>
           </View>
         </View>
       </TouchableOpacity>
       <View style={styles.icons}>
-        <TouchableOpacity
-          onPress={onpressfav}
-          style={{ paddingVertical: width(1) }}
-        >
+        <TouchableOpacity onPress={onpressfav} style={styles.space}>
           <AntDesign
             size={width(4)}
             color={fav ? AppColors.primary : "black"}
@@ -108,19 +75,19 @@ export default function CardView({ data }) {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ paddingVertical: width(1) }}
+          style={styles.space}
           onPress={GlobalMethods.onPressCall}
         >
           <Ionicons size={width(4)} name="call" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ paddingVertical: width(1) }}
+          style={styles.space}
           onPress={GlobalMethods.onPressMessage}
         >
           <Ionicons size={width(4)} name="chatbubble-ellipses" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ paddingVertical: width(1) }}
+          style={styles.space}
           onPress={GlobalMethods.onPressShare}
         >
           <Entypo size={width(4)} name="share" />

@@ -18,11 +18,7 @@ export default function Header({ navigation }) {
       <View>
         <Image
           source={require("../../../assets/splash.png")}
-          style={{
-            width: width(40),
-            height: width(20),
-            marginLeft: -width(15),
-          }}
+          style={styles.image}
         />
       </View>
       <View />

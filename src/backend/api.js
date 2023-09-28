@@ -2,7 +2,7 @@ import { BaseUrl } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 export const getDataofHomePage = async () => {
-  return fetch(BaseUrl+"ad/fetchTopAds", {
+  return fetch(BaseUrl + "ad/fetchTopAds", {
     method: "GET",
     credentials: "include",
   })
@@ -11,7 +11,7 @@ export const getDataofHomePage = async () => {
       return data?.data;
     })
     .catch((error) => {
-      alert("home data api crashed")
+      alert("home data api crashed");
       // Handle errors
       throw error; // Re-throw the error so that it can be caught by the caller
     });
@@ -32,11 +32,11 @@ export const getAllData = async () => {
 };
 export const getDataofAdByID = async (id) => {
   try {
-    const response = await ApiManager.get("ad/getSpecific/"+id);
+    const response = await ApiManager.get("ad/getSpecific/" + id);
     if (!response.success) {
       throw new Error("Network error home APi");
     }
-   return response.data;
+    return response.data;
   } catch (error) {
     alert("data by id");
     console.log(error);
@@ -49,14 +49,11 @@ export async function addPostAd(formData) {
       method: "POST",
       body: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     };
-    const resp = await fetch(
-      BaseUrl+"ad/adPost",
-      requestOptions
-    );
-    let response=await resp.json()
+    const resp = await fetch(BaseUrl + "ad/adPost", requestOptions);
+    let response = await resp.json();
     return response;
   } catch (error) {
     console.error("crashed", error);
@@ -64,91 +61,86 @@ export async function addPostAd(formData) {
   }
 }
 export const geVehicleMakes = async (type) => {
-  console.log("type",type);
+  console.log("type", type);
   try {
-    const response = await ApiManager.get(
-      `ad/findVehicleMake/${type}`
-    );
-    if (!response?.success) {
-      throw new Error("Network error home APi");
-    }
-    console.log("ris",response);
-    return response?.data[0]?.make;
+    const response = await ApiManager.get(`ad/findVehicleMake/${type}`);
+    // if (!response?.success) {
+    //   throw new Error("Network error home APi");
+    // }
+    if (response?.data?.make) return response?.data?.make;
+    return [];
   } catch (error) {
-    alert("car api faild");
-    console.log('====================================');
+    alert("make company name");
+    console.log("====================================");
     console.log(error);
-    console.log('====================================');
+    console.log("====================================");
     return []; // or some default value as needed
   }
 };
-export const geVehicleModel = async (type) => {
-  console.log("type",type);
+////////////////////////////////////////////////
+export const geVehicleCategory = async (type) => {
+  console.log("type", type);
   try {
-    const response = await ApiManager.get(
-      `ad/findVehicleCategory/${type}`
-    );
+    const response = await ApiManager.get(`ad/findVehicleSubCategory/${type}`);
     if (!response?.success) {
       throw new Error("Network error home APi");
     }
-    console.log("ris",response?.data[0]?.make);
-    return response?.data[0]?.make;
-  } catch (error) {
-    alert("car api faild");
     console.log('====================================');
-    console.log(error);
+    console.log("this",response?.data[0]?.category);
     console.log('====================================');
-    return []; // or some default value as needed
-  }
-};
-export const geVehicle = async (type) => {
-  console.log("type",type);
-  try {
-    const response = await ApiManager.get(
-      `ad/findVehicleMake/${type}`
-    );
-    if (!response?.success) {
-      throw new Error("Network error home APi");
+    if (response?.data[0]?.category) {
+      return response?.data[0]?.category;
     }
-    console.log("ris",response?.data[0]?.make);
-    return response?.data[0]?.make;
+    return false;
   } catch (error) {
-    alert("car api faild");
-    console.log('====================================');
     console.log(error);
-    console.log('====================================');
-    return []; // or some default value as needed
+    return false; // or some default value as needed
   }
 };
+////////////////////////////////////////
 
-export const getCarModel= async (value) => {
+// export const geVehicle = async (type) => {
+//   console.log("type",type);
+//   try {
+//     const response = await ApiManager.get(
+//       `ad/findVehicleMake/${type}`
+//     );
+//     if (!response?.success) {
+//       throw new Error("Network error home APi");
+//     }
+//     console.log("ris",response?.data[0]?.make);
+//     return response?.data[0]?.make;
+//   } catch (error) {
+//     alert("car api faild");
+//     console.log('====================================');
+//     console.log(error);
+//     console.log('====================================');
+//     return []; // or some default value as needed
+//   }
+// };
+
+export const getModel = async (type, value) => {
   try {
-    const response = await ApiManager.get(
-      `ad/findModels/${value}`
-    );
-    if (!response.success) {
-      throw new Error("Network error home APi");
+    const response = await ApiManager.get(`ad//findModels/${type}/${value}`);
+    if (response?.data[0]?.model) {
+      return response?.data[0]?.model;
     }
-return response?.data[0].model
+    return false;
   } catch (error) {
-    alert("model api");
-    return []; // or some default value as needed
+    return false; // or some default value as needed
   }
 };
-export const deleteAdById= async (id) => {
+export const deleteAdById = async (id) => {
   try {
-    const response = await ApiManager.delete(
-      `ad/deleteAd/${id}`
-    );
+    const response = await ApiManager.delete(`ad/deleteAd/${id}`);
     // if (!response.success) {
     //   throw new Error("Network error home APi");
     // }
-    console.log('====================================');
-    console.log("delete",response);
-    console.log('====================================');
-
+    console.log("====================================");
+    console.log("delete", response);
+    console.log("====================================");
   } catch (error) {
-    alert("model api");
+    alert("delete api");
     return []; // or some default value as needed
   }
 };

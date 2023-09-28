@@ -10,28 +10,13 @@ export default function CategoryList({ navigation }) {
   return (
     <View style={styles.main}>
       <View style={styles.titleview}>
-        <Text
-          style={{ fontSize: 18, fontWeight: "bold", marginVertical: width(2) }}
-        >
-          Categories
-        </Text>
+        <Text style={styles.categorytext}>Categories</Text>
         <Pressable
           onPress={() => {
-            navigation.navigate(ScreenNames.CATEGORY,"see");
+            navigation.navigate(ScreenNames.CATEGORY, "see");
           }}
         >
-          {
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "bold",
-                marginTop: 8,
-                color: "grey",
-              }}
-            >
-              See all
-            </Text>
-          }
+          {<Text style={styles.textseeall}>See all</Text>}
         </Pressable>
       </View>
       <ScrollView
@@ -51,10 +36,15 @@ export default function CategoryList({ navigation }) {
                 // } else {
                 //   navigation.navigate(ScreenNames.LISTDATA);
                 // }
-                if (title == "Bikes"||title == "Parts") {
-                  navigation.navigate(ScreenNames.BIKECATEGORY,{category:title,show:true});
+                if (title == "Bikes" || title == "Parts") {
+                  navigation.navigate(ScreenNames.BIKECATEGORY, {
+                    category: title,
+                    show: true,
+                  });
                 } else {
-                  navigation.navigate(ScreenNames.LISTDATA,{category:title});
+                  navigation.navigate(ScreenNames.LISTDATA, {
+                    category: title,
+                  });
                 }
               }}
             >

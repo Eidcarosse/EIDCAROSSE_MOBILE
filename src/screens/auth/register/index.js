@@ -4,20 +4,18 @@ import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
+import { signupApi } from "../../../backend/auth";
 import { Button, Input, ScreenWrapper } from "../../../components";
+import { setAppLoader } from "../../../redux/slices/config";
 import {
   setIsLoggedIn,
   setToken,
   setUserMeta,
 } from "../../../redux/slices/user";
-import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
 import { errorMessage, successMessage } from "../../../utills/Methods";
-import { ApiManager } from "../../../backend/ApiManager";
-import { setAppLoader } from "../../../redux/slices/config";
-import { signupApi } from "../../../backend/auth";
+import styles from "./styles";
 export default function SignUp({ navigation, route }) {
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
@@ -77,10 +75,7 @@ export default function SignUp({ navigation, route }) {
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground
-          source={Icons.bglogo}
-          style={{ width: width(100), height: height(28) }}
-        >
+        <ImageBackground source={Icons.bglogo} style={styles.image}>
           <View style={styles.imageiner}>
             <Text style={styles.logintext}>SignUp</Text>
           </View>
@@ -123,7 +118,7 @@ export default function SignUp({ navigation, route }) {
             title={"Contact Number"}
             placeholder={"Enter Number"}
           />
-          <View style={{ flexDirection: "row", padding: width(4) }}>
+          <View style={styles.checkview}>
             <CheckBox
               style={{ paddingRight: width(2) }}
               onClick={() => {
@@ -132,13 +127,10 @@ export default function SignUp({ navigation, route }) {
               checkedCheckBoxColor={AppColors.primary}
               isChecked={check}
             />
-            <View style={{}}>
+            <View>
               <Text>I have read and agree to the Eidcarosse</Text>
-              <TouchableOpacity style={{}}>
-                <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
-                  {" "}
-                  Terms and Conditions
-                </Text>
+              <TouchableOpacity>
+                <Text style={styles.tandc}> Terms and Conditions</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -149,7 +141,7 @@ export default function SignUp({ navigation, route }) {
                 errorMessage("First Name require");
               } else if (!lastName) {
                 errorMessage("Last Name require");
-              }else if (!userName) {
+              } else if (!userName) {
                 errorMessage("User Name require");
               } else if (!email) {
                 errorMessage("email require");
@@ -183,23 +175,14 @@ export default function SignUp({ navigation, route }) {
           />
           <View style={{ height: height(5) }} />
 
-          <View
-            style={{
-              alignSelf: "center",
-              alignContent: "center",
-              flexDirection: "row",
-            }}
-          >
+          <View style={styles.already}>
             <Text>Already have an account?</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.goBack();
               }}
             >
-              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
-                {" "}
-                Sign in
-              </Text>
+              <Text style={styles.signin}> Sign in</Text>
             </TouchableOpacity>
           </View>
         </View>

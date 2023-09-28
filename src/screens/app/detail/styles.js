@@ -35,11 +35,17 @@ const styles = StyleSheet.create({
   profileview: { padding: width(4) },
   profilecard: {
     padding: width(2),
-    backgroundColor: "#E5E8E84D",
+    backgroundColor: "white",
     borderRadius: width(2),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+
+    elevation:3,
+    shadowColor: 'red',
+shadowOffset: { width: 0, height: 2 },
+shadowOpacity: 0.1,
+shadowRadius: 2,
   },
   profilecardin: {
     flexDirection: "row",

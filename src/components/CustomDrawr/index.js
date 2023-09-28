@@ -20,9 +20,7 @@ const CustomDrawer = ({ navigation }) => {
       });
 
       if (result.action === Share.sharedAction) {
-
       } else if (result.action === Share.dismissedAction) {
-
       }
     } catch (error) {
       console.error("Error sharing:", error);
@@ -135,14 +133,7 @@ const CustomDrawer = ({ navigation }) => {
         textStyle={styles.text}
         icon={<Entypo name="share" style={styles.icon} size={width(4)} />}
       />
-      <View
-        style={{
-          height: height(7),
-          justifyContent: "flex-end",
-          alignContent: "flex-end",
-          alignItems: "flex-end",
-        }}
-      >
+      <View style={styles.bottomview}>
         <Text style={styles.textbuttom}>
           2023@ All reserved by
           <Text style={{ color: "red", fontWeight: "bold" }}> Eidcarosse</Text>
@@ -172,5 +163,11 @@ const styles = StyleSheet.create({
   textbuttom: {
     alignSelf: "center",
     fontSize: 12,
+  },
+  bottomview: {
+    height: height(7),
+    justifyContent: "flex-end",
+    alignContent: "flex-end",
+    alignItems: "flex-end",
   },
 });

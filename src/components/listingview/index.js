@@ -1,21 +1,22 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
+import { selectUserMeta } from "../../redux/slices/user";
+import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import styles from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import ScreenNames from "../../routes/routes";
 import GlobalMethods from "../../utills/Methods";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUserMeta } from "../../redux/slices/user";
+import styles from "./styles";
 export default function ListingView({ data }) {
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
-  const loginuser=useSelector(selectUserMeta)
+  const loginuser = useSelector(selectUserMeta);
   const setMyFav = () => {
-    if(!loginuser){alert("Please login first")}
-    else setFav(!fav);
+    if (!loginuser) {
+      alert("Please login first");
+    } else setFav(!fav);
   };
   return (
     <View style={styles.main}>
@@ -29,33 +30,12 @@ export default function ListingView({ data }) {
           <Image style={styles.image} source={{ uri: data?.images[0] }} />
         </View>
         <View style={styles.detail}>
-          <View
-            style={{
-              paddingBottom: width(5),
-              flexDirection: "row",
-              width: width(43),
-              justifyContent: "space-between",
-            }}
-          >
+          <View style={styles.detailinerview}>
             <View>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontSize: width(4),
-                  color: AppColors.primary,
-                  fontWeight: "bold",
-                }}
-              >
+              <Text numberOfLines={1} style={styles.chf}>
                 CHF {data?.price}
               </Text>
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontSize: width(3),
-                  color: "grey",
-                  fontWeight: "bold",
-                }}
-              >
+              <Text numberOfLines={1} style={styles.eur}>
                 EUR {data?.price}
               </Text>
             </View>
@@ -70,35 +50,18 @@ export default function ListingView({ data }) {
             </View>
           </View>
           <View>
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: width(4),
-                marginVertical: width(2),
-                fontWeight: "bold",
-              }}
-            >
+            <Text numberOfLines={1} style={styles.titletext}>
               {data?.title}
             </Text>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={styles.categoryview}>
               <MaterialIcons name="category" color={"grey"} size={width(4)} />
-              <Text
-                numberOfLines={1}
-                style={{ fontSize: width(3), marginLeft: width(2) }}
-              >
+              <Text numberOfLines={1} style={styles.categorytext}>
                 {data?.category}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={styles.categoryview}>
               <Entypo name="location-pin" color={"grey"} size={width(4)} />
-              <Text
-                numberOfLines={2}
-                style={{
-                  fontSize: width(3),
-                  marginLeft: width(2),
-                  width: width(35),
-                }}
-              >
+              <Text numberOfLines={2} style={styles.categorytext}>
                 {data?.address}
               </Text>
             </View>

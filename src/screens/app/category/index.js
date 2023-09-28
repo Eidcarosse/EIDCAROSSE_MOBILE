@@ -7,16 +7,25 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
-export default function Category({ navigation, route,value }) {
+export default function Category({ navigation, route, value }) {
   return (
     <ScreenWrapper
-      headerUnScrollable={() => (
-        route?.params? <Head headtitle={"Categories"} navigation={navigation} />: <Header  navigation={navigation} />
-      )}
+      headerUnScrollable={() =>
+        route?.params ? (
+          <Head headtitle={"Categories"} navigation={navigation} />
+        ) : (
+          <Header navigation={navigation} />
+        )
+      }
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
-      <View style={[styles.mainViewContainer,{paddingBottom:route?.params?height(2):height(7)}]}>
+      <View
+        style={[
+          styles.mainViewContainer,
+          { paddingBottom: route?.params ? height(2) : height(7) },
+        ]}
+      >
         <FlatList
           data={categories}
           showsVerticalScrollIndicator={false}
@@ -32,15 +41,26 @@ export default function Category({ navigation, route,value }) {
                 textStyle={styles.textStyle}
                 onPress={() => {
                   if (value == "ADD") {
-                    if (item.title == "Bikes"||item.title == "Parts") {
-                      navigation.navigate(ScreenNames.BIKECATEGORY, {category:item?.title});
+                    if (item.title == "Bikes" || item.title == "Parts") {
+                      navigation.navigate(ScreenNames.BIKECATEGORY, {
+                        category: item?.title,
+                        find: item?.title,
+                      });
                     } else {
-                      navigation.navigate(ScreenNames.ADDPOST,{category:item?.title});
+                      navigation.navigate(ScreenNames.ADDPOST, {
+                        category: item?.title,
+                        find: item?.title,
+                      });
                     }
-                  } else if (item.title == "Bikes"||item.title == "Parts") {
-                    navigation.navigate(ScreenNames.BIKECATEGORY,{category:item?.title,show:true});
+                  } else if (item.title == "Bikes" || item.title == "Parts") {
+                    navigation.navigate(ScreenNames.BIKECATEGORY, {
+                      category: item?.title,
+                      show: true,
+                    });
                   } else {
-                    navigation.navigate(ScreenNames.LISTDATA,{category:item?.title});
+                    navigation.navigate(ScreenNames.LISTDATA, {
+                      category: item?.title,
+                    });
                   }
                 }}
               >

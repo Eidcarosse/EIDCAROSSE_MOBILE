@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowColor: "rgba(0, 0, 0, 0.2)",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
@@ -21,10 +21,27 @@ const styles = StyleSheet.create({
     }),
     marginVertical: width(1),
   },
+  titletext: {
+    fontWeight: "bold",
+    fontSize: width(4),
+    paddingBottom: width(1),
+  },
+  categoryview: { flexDirection: "row", alignItems: "center" },
+  detailtext: { fontSize: width(3), marginLeft: width(2), width: width(34) },
+  chf: {
+    fontSize: width(4),
+    color: AppColors.primary,
+    fontWeight: "bold",
+  },
+  eur: {
+    fontSize: width(3),
+    color: "grey",
+    fontWeight: "bold",
+  },
+  space: { paddingVertical: width(1) },
   imageview: {
     width: width(45),
     height: width(40),
-
   },
   image: {
     width: width(45),
@@ -36,13 +53,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: width(2),
     alignItems: "flex-start",
-
   },
   icons: {
     paddingVertical: width(2),
     width: width(7),
     justifyContent: "space-between",
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 export default styles;

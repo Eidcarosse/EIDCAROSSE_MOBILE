@@ -18,9 +18,9 @@ export default function PreLogin({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <Image
           source={Icons.accountbg}
-          style={{ width: width(85), alignSelf: "center", height: height(30) }}
+          style={styles.image}
         />
-        <Text style={{ fontSize: 18, margin: width(10), fontWeight: "bold" }}>
+        <Text style={styles.text}>
           You must login to continue
         </Text>
         <Button

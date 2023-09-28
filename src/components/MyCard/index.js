@@ -1,17 +1,16 @@
-import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import React, { useCallback, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 import { Menu, MenuItem } from "react-native-material-menu";
 
-import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
-import { deleteAdById } from "../../backend/api";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteAdById } from "../../backend/api";
+import { getOwneAd } from "../../backend/auth";
 import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
-import { getOwneAd } from "../../backend/auth";
+import { width } from "../../utills/Dimension";
 
 export default function MyCard({ data }) {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ export default function MyCard({ data }) {
       const data = await deleteAdById(id);
       dispatch(setAppLoader(false));
 
-     await getData(userid);
+      await getData(userid);
     } catch (error) {
       console.log("Error:", error);
       dispatch(setAppLoader(false));
@@ -51,65 +50,28 @@ export default function MyCard({ data }) {
       </View>
       <View style={styles.detail}>
         <View>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontWeight: "bold",
-              fontSize: width(4),
-              paddingBottom: width(3),
-            }}
-          >
+          <Text numberOfLines={1} style={styles.titletext}>
             {data?.title}
           </Text>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: width(1),
-            }}
-          >
+          <View style={styles.categoryview}>
             <AntDesign name="clockcircleo" color={"grey"} size={width(4)} />
-            <Text
-              numberOfLines={1}
-              style={{ fontSize: width(3), marginLeft: width(2) }}
-            >
+            <Text numberOfLines={1} style={styles.textcategory}>
               {data?.category}
             </Text>
           </View>
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.categoryview}>
             <AntDesign name="eye" color={"grey"} size={width(4)} />
-            <Text
-              numberOfLines={2}
-              style={{
-                fontSize: width(3),
-                marginLeft: width(2),
-                width: width(35),
-              }}
-            >
+            <Text numberOfLines={2} style={styles.textcategory}>
               129 Views
             </Text>
           </View>
         </View>
         <View>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: width(4),
-              color: AppColors.primary,
-              fontWeight: "bold",
-            }}
-          >
+          <Text numberOfLines={1} style={styles.chf}>
             CHF {data?.price}
           </Text>
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: width(3),
-              color: "grey",
-              fontWeight: "bold",
-            }}
-          >
+          <Text numberOfLines={1} style={styles.eur}>
             EUR {data?.price}
           </Text>
         </View>

@@ -38,7 +38,7 @@ export default DropDownDetail = ({
         borderRadius: width(1),
         ...Platform.select({
           ios: {
-            shadowColor: 'rgba(0, 0, 0, 0.2)',
+            shadowColor: "rgba(0, 0, 0, 0.2)",
             shadowOffset: { width: 0, height: 2 },
             shadowOpacity: 0.8,
             shadowRadius: 2,

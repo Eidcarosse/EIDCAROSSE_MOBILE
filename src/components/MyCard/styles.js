@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from "react-native";
 import AppColors from "../../utills/AppColors";
-import { height, width } from "../../utills/Dimension";
+import { width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   main: {
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowColor: "rgba(0, 0, 0, 0.2)",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
@@ -41,6 +41,31 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
-
+  titletext: {
+    fontWeight: "bold",
+    fontSize: width(4),
+    paddingBottom: width(3),
+  },
+  categoryview: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: width(1),
+  },
+  textcategory: {
+    fontSize: width(3),
+    marginLeft: width(2),
+    width: width(35),
+  },
+  eur: {
+    fontSize: width(3),
+    color: "grey",
+    fontWeight: "bold",
+  },
+  chf: {
+    fontSize: width(4),
+    color: AppColors.primary,
+    fontWeight: "bold",
+    paddingBottom: width(1),
+  },
 });
 export default styles;
