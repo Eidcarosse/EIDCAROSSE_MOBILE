@@ -113,7 +113,7 @@ export default function ListData({ navigation, route }) {
             closeOnDragDown={true}
             closeOnPressMask={true}
             closeOnPressBack={true}
-            height={height(80)}
+            height={height(70)}
             customStyles={{
               wrapper: {
                 backgroundColor: "transparent",
@@ -121,6 +121,8 @@ export default function ListData({ navigation, route }) {
               container: {
                 borderTopLeftRadius: width(8),
                 borderTopRightRadius: width(8),
+                borderWidth:width(.1),
+                borderBlockColor:AppColors.primary
               },
               draggableIcon: {
                 backgroundColor: "#000",

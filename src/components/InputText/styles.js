@@ -4,7 +4,6 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:AppColors.white,
     width: width(90),
     alignSelf: "center",
     alignContent:'center',
@@ -17,8 +16,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: width(90),
     paddingLeft:width(2),
-    alignItems:'center'
-
+    alignItems:'center',
   },
 });
 export default styles;

@@ -568,7 +568,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={subCategory}
                 setvalue={setSubCategory}
-                containerStyle={[styles.price, { width: width(90) }]}
+                containerStyle={[styles.price,]}
                 editable={false}
               />
             </View>
@@ -874,27 +874,6 @@ export default function AddPost({ navigation, route }) {
               }}
             />
           </View>
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Email</Text>
-            <Input
-              value={email}
-              setvalue={setEmail}
-              containerStyle={[styles.price, { width: width(90) }]}
-              editable={false}
-            />
-          </View>
-
-          {/* {htc == "Phone" && ( */}
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>phone Number</Text>
-            <Input
-              value={phone}
-              setvalue={setPhone}
-              containerStyle={[styles.price, { width: width(90) }]}
-              editable={false}
-            />
-          </View>
-          {/* )} */}
           {htc == "Whatsapp" && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>Whastapp</Text>
@@ -917,6 +896,27 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
+          <View style={{ paddingVertical: width(1) }}>
+            <Text style={styles.title}>Email</Text>
+            <Input
+              value={email}
+              setvalue={setEmail}
+              containerStyle={[styles.price, { width: width(90) }]}
+              editable={false}
+            />
+          </View>
+
+          {/* {htc == "Phone" && ( */}
+          <View style={{ paddingVertical: width(1) }}>
+            <Text style={styles.title}>phone Number</Text>
+            <Input
+              value={phone}
+              setvalue={setPhone}
+              containerStyle={[styles.price, { width: width(90) }]}
+              editable={false}
+            />
+          </View>
+          {/* )} */}
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>Website</Text>
             <Input

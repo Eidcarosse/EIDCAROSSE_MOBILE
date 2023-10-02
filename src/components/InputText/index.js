@@ -19,11 +19,11 @@ export default function Input({
   const [secureText, setSecureText] = useState(secure);
   return (
     <View style={[styles.container, containerStyle]}>
-      {title && <Text style={titlestyle}>{title}</Text>}
+      {title && <Text style={[titlestyle]}>{title}</Text>}
       <View style={styles.innerview}>
         <TextInput
          editable={editable}
-          style={{ paddingVertical: width(3), width: width(80),fontSize:width(4) }}
+          style={{ paddingVertical: width(2.5), width: width(80),fontSize:width(4) }}
           placeholder={placeholder}
           secureTextEntry={secureText}
           multiline={multi}

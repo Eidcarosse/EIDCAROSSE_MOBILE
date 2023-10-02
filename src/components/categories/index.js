@@ -19,7 +19,7 @@ export default function CategoryIcon({
       style={[{ margin: width(2) }, cardStyle, styles.main]}
       onPress={onPress}
     >
-      <View style={[cardStyle]} disabled={disabled}>
+      <View disabled={disabled}>
         <View style={[styles.container,greybackground]}>{children}</View>
       </View>
       <Text style={[styles.text,textStyle]}>{title}</Text>

@@ -8,22 +8,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: width(2),
     paddingBottom: width(15),
-    backgroundColor: AppColors.white,
   },
   card: {
-    width: width(45),
+    width: width(30),
+    height:height(18),
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
     backgroundColor: "white",
-    padding:width(2)
+    padding:width(2),
+    justifyContent:'space-between'
   },
   greybackground:{
     backgroundColor:'white',
     elevation:0
   },
   textStyle:{
-    width:width(45),
+    width:width(30),
     textAlign:'center',
     fontSize:width(4)
   }

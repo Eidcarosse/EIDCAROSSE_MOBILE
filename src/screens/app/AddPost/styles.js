@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: width(3.5),
     paddingVertical: width(2),
+    paddingLeft:width(2),
     fontWeight: "bold",
   },
   searchbox: {
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
   },
   dropdown: { borderRadius: width(1), width: width(90) },
   price: {
-    width: width(40),
     backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,
     borderRadius:width(1)

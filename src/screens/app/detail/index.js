@@ -35,7 +35,7 @@ export default function Detail({ navigation, route }) {
     return { img: item };
   });
   function isNullOrNullOrEmpty(value) {
-    return value === null || value === "" || value === "null";
+    return value === null || value === "" || value === "null"|| value === undefined || value === "undefined";
   }
   useEffect(() => {
     getData();
@@ -190,13 +190,13 @@ export default function Detail({ navigation, route }) {
             )}
             {!isNullOrNullOrEmpty(data?.model) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>model</Text>
+                <Text style={styles.cardelement}>Model</Text>
                 <Text style={styles.cardelement2}>{data?.model}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.year) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>year</Text>
+                <Text style={styles.cardelement}>Year</Text>
                 <Text style={styles.cardelement2}>{data?.year}</Text>
               </View>
             )}
@@ -226,55 +226,55 @@ export default function Detail({ navigation, route }) {
             )}
             {!isNullOrNullOrEmpty(data?.interiorColor) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>interiorColor</Text>
+                <Text style={styles.cardelement}>Interior Color</Text>
                 <Text style={styles.cardelement2}>{data?.interiorColor}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.fuelType) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>fuelType</Text>
+                <Text style={styles.cardelement}>Fuel Type</Text>
                 <Text style={styles.cardelement2}>{data?.fuelType}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.gearBox) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>gearBox</Text>
+                <Text style={styles.cardelement}>Gear Box</Text>
                 <Text style={styles.cardelement2}>{data?.gearBox}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.km) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>km</Text>
+                <Text style={styles.cardelement}>Killo Meter</Text>
                 <Text style={styles.cardelement2}>{data?.km}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.maxPrice) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>maxPrice</Text>
+                <Text style={styles.cardelement}>Max Price</Text>
                 <Text style={styles.cardelement2}>{data?.maxPrice}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.minPrice) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>minPrice</Text>
+                <Text style={styles.cardelement}>Min Price</Text>
                 <Text style={styles.cardelement2}>{data?.minPrice}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.price) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>price</Text>
+                <Text style={styles.cardelement}>Price</Text>
                 <Text style={styles.cardelement2}>{data?.price}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.videoUrl) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>videoUrl</Text>
+                <Text style={styles.cardelement}>Video Url</Text>
                 <Text style={styles.cardelement2}>{data?.videoUrl}</Text>
               </View>
             )}
             {!isNullOrNullOrEmpty(data?.website) && (
               <View style={styles.cardrow}>
-                <Text style={styles.cardelement}>website</Text>
+                <Text style={styles.cardelement}>Website</Text>
                 <Text style={styles.cardelement2}>{data?.website}</Text>
               </View>
             )}

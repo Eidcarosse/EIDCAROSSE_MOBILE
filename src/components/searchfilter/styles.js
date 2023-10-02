@@ -4,8 +4,8 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   container: {
-    height: height(75),
     padding: width(4),
+    paddingBottom:height(10)
   },
   title: {
     fontSize: width(3.5),

@@ -64,11 +64,11 @@ export default function Category({ navigation, route, value }) {
                   }
                 }}
               >
-                <Icon height={width(20)} width={width(20)} />
+                <Icon height={width(15)} width={width(15)} />
               </CategoryIcon>
             );
           }}
-          numColumns={2}
+          numColumns={3}
           keyExtractor={(item, index) => index}
         />
       </View>
