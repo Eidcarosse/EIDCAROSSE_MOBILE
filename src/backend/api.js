@@ -17,9 +17,14 @@ export const getDataofHomePage = async () => {
     });
 };
 
-export const getAllData = async () => {
+export const getAllData = async (queryParams) => {
+  console.log(queryParams);
+  let { address, category, page, subCategory, title } = queryParams;
   try {
-    const response = await ApiManager.get(`ad`);
+    const response = await ApiManager.get(
+      `ad/?category=${category}&title=${title}&address=${address}&subcategory=${subCategory}&page=${page}`,
+      { params: queryParams }
+    );
 
     if (!response.success) {
       throw new Error("Network error home APi");
@@ -71,9 +76,6 @@ export const geVehicleMakes = async (type) => {
     return [];
   } catch (error) {
     alert("make company name");
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
     return []; // or some default value as needed
   }
 };
@@ -85,9 +87,6 @@ export const geVehicleCategory = async (type) => {
     if (!response?.success) {
       throw new Error("Network error home APi");
     }
-    console.log('====================================');
-    console.log("this",response?.data[0]?.category);
-    console.log('====================================');
     if (response?.data[0]?.category) {
       return response?.data[0]?.category;
     }
@@ -97,28 +96,6 @@ export const geVehicleCategory = async (type) => {
     return false; // or some default value as needed
   }
 };
-////////////////////////////////////////
-
-// export const geVehicle = async (type) => {
-//   console.log("type",type);
-//   try {
-//     const response = await ApiManager.get(
-//       `ad/findVehicleMake/${type}`
-//     );
-//     if (!response?.success) {
-//       throw new Error("Network error home APi");
-//     }
-//     console.log("ris",response?.data[0]?.make);
-//     return response?.data[0]?.make;
-//   } catch (error) {
-//     alert("car api faild");
-//     console.log('====================================');
-//     console.log(error);
-//     console.log('====================================');
-//     return []; // or some default value as needed
-//   }
-// };
-
 export const getModel = async (type, value) => {
   try {
     const response = await ApiManager.get(`ad//findModels/${type}/${value}`);
@@ -136,11 +113,42 @@ export const deleteAdById = async (id) => {
     // if (!response.success) {
     //   throw new Error("Network error home APi");
     // }
-    console.log("====================================");
-    console.log("delete", response);
-    console.log("====================================");
   } catch (error) {
     alert("delete api");
+    return []; // or some default value as needed
+  }
+};
+export const toggleFavorite = async (id, userId) => {
+  try {
+    // const response = await ApiManager.put(`ad/setFavorite/${id}`, JSON.stringify({
+    //   userId: userId
+    // }));
+    // // if (!response.success) {
+    // //   throw new Error("Network error home APi");
+    // // }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      userId: userId,
+    });
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    let res = await fetch(`${BaseUrl}ad/setFavorite/${id}`, requestOptions);
+    let result = await res.json();
+    console.log("====================================");
+    console.log("on like data ", result);
+    console.log("====================================");
+    return result?.data?.favAdIds;
+  } catch (error) {
+    alert("fav api");
+    console.log(error);
     return []; // or some default value as needed
   }
 };

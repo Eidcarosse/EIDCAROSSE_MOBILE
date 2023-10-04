@@ -1,22 +1,55 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { useSelector } from "react-redux";
-import { selectUserMeta } from "../../redux/slices/user";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectFavAds,
+  selectUserMeta,
+  setAdsFav,
+} from "../../redux/slices/user";
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
 import GlobalMethods from "../../utills/Methods";
 import styles from "./styles";
+import { toggleFavorite } from "../../backend/api";
 export default function ListingView({ data }) {
+  const dispatch = useDispatch();
+  const favAdIds = useSelector(selectFavAds);
+  //console.log("indata", data);
+  const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
-  const loginuser = useSelector(selectUserMeta);
-  const setMyFav = () => {
+
+  useEffect(() => {
+    if (isInArray(data._id, favAdIds)) {
+      console.log("====================================");
+      console.log(true);
+      console.log("====================================");
+      setFav(true);
+    }
+  }, [data]);
+
+  function isInArray(element, arr) {
+    // Check if arr is defined and not null
+    if (arr && Array.isArray(arr)) {
+      return arr.includes(element);
+    }
+    return false; // Return false if arr is not defined or not an array
+  }
+  const onpressfav = async () => {
     if (!loginuser) {
       alert("Please login first");
-    } else setFav(!fav);
+    } else {
+      let fav = await toggleFavorite(data._id, loginuser._id);
+      if (isInArray(data._id, fav)) {
+        setFav(true);
+      } else {
+        setFav(false);
+      }
+      dispatch(setAdsFav(fav));
+    }
   };
   return (
     <View style={styles.main}>
@@ -40,7 +73,7 @@ export default function ListingView({ data }) {
               </Text>
             </View>
             <View>
-              <TouchableOpacity onPress={setMyFav}>
+              <TouchableOpacity onPress={onpressfav}>
                 <AntDesign
                   size={width(4)}
                   color={fav ? AppColors.primary : "black"}

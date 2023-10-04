@@ -15,6 +15,7 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import {
+  selectFavAds,
   selectToken,
   selectUserAds,
   selectUserMeta,
@@ -23,6 +24,7 @@ export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
+  const userFav=useSelector(selectFavAds)
   const token = useSelector(selectToken);
 
   return (
@@ -72,7 +74,7 @@ export default function Profile({ navigation, route }) {
                       color: AppColors.primary,
                     }}
                   >
-                    10
+                    {userFav?.length||0}
                   </Text>
                 }
               />

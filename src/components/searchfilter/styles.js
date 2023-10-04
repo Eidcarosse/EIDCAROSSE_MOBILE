@@ -5,7 +5,7 @@ import { height, width } from "../../utills/Dimension";
 const styles = StyleSheet.create({
   container: {
     padding: width(4),
-    paddingBottom:height(10)
+    paddingBottom: height(10),
   },
   title: {
     fontSize: width(3.5),
@@ -18,23 +18,23 @@ const styles = StyleSheet.create({
     // borderWidth: 0,
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.2)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
+        shadowColor: "black",
+        shadowOffset: { width: 3, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
       },
       android: {
-        elevation: 3,
+        elevation: 1,
       },
     }),
-    backgroundColor: "white",
+    backgroundColor:AppColors.greybackground,
   },
   dropdown: { borderRadius: width(1), width: width(90) },
   price: {
     width: width(40),
-    backgroundColor: AppColors.grey,
+    backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,
-    borderRadius:width(1)
+    borderRadius: width(1),
   },
 });
 export default styles;

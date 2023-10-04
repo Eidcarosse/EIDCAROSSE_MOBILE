@@ -4,7 +4,8 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   userMeta: null,
-  myAds:[]
+  myAds:[],
+  myFav:[],
 };
 
 const userSlice = createSlice({
@@ -22,6 +23,9 @@ const userSlice = createSlice({
     },
     setUserAds:(state, action) => {
       state.myAds = action.payload;
+    },
+    setAdsFav:(state, action) => {
+      state.myFav = action.payload;
     },
   },
 });

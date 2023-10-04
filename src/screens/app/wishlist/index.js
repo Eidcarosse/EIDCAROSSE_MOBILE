@@ -3,7 +3,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Head, ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
-import { selectUserMeta } from "../../../redux/slices/user";
+import { selectFavAds, selectUserMeta } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
@@ -16,7 +16,9 @@ import Icons from "../../../asset/images";
 export default function WishList({ navigation, route }) {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
-  const id = userInfo?.id;
+  const userFav = useSelector(selectFavAds);
+  const id = userInfo?._id;
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function WishList({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <View style={{ width: width(100), alignItems: "center" }}>
           {data?.length === 0 ? (
-            <View style={{height:height(100)}}>
+            <View style={{ height: height(100) }}>
               <Image
                 source={Icons.empty}
                 style={{ height: width(50), width: width(60) }}

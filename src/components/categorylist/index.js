@@ -39,11 +39,13 @@ export default function CategoryList({ navigation }) {
                 if (title == "Bikes" || title == "Parts") {
                   navigation.navigate(ScreenNames.BIKECATEGORY, {
                     category: title,
+                    find: title,
                     show: true,
                   });
                 } else {
                   navigation.navigate(ScreenNames.LISTDATA, {
                     category: title,
+                    find: title,
                   });
                 }
               }}

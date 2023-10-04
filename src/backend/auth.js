@@ -32,10 +32,7 @@ const signupApi = async (data) => {
    const getOwneAd = async (id) => {
     try {
       const response = await ApiManager.get(`auth/getUserAds/${id}`);
-      // if (!response.success) {
-      //   throw new Error("Network error home APi");
-      // }
-     return response?.data?.adIds;
+     return response?.data;
     } catch (error) {
       alert("my own data ");
       return []; // or some default value as needed
@@ -65,9 +62,9 @@ const signupApi = async (data) => {
   const getFavAds = async (id) => {
     try {
       const response = await ApiManager.get(`auth/getFavAds/${id}`);
-      if (!response.success) {
-        throw new Error("Network error home APi");
-      }
+      // if (!response.success) {
+      //   throw new Error("Network error home APi");
+      // }
      return response?.data;
     } catch (error) {
       alert("my own data ");

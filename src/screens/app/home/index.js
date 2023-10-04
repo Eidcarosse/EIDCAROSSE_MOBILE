@@ -95,7 +95,7 @@ export default function Home({ navigation, route }) {
         </View> */}
         <CategoryList navigation={navigation} />
         <View style={styles.titleview}>
-          <Text style={{ fontSize: width(3), fontWeight: "bold" }}>
+          <Text style={{ fontSize: width(3.5), fontWeight: "bold" }}>
             Latest Ads
           </Text>
           <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>

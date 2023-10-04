@@ -1,11 +1,18 @@
-import { Entypo, Fontisto, Ionicons ,AntDesign} from "@expo/vector-icons";
+import { Entypo, Fontisto, Ionicons, AntDesign } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { Image, Linking, Pressable, Text, View,TouchableOpacity } from "react-native";
+import {
+  Image,
+  Linking,
+  Pressable,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
-import { getDataofAdByID } from "../../../backend/api";
+import { getDataofAdByID, toggleFavorite } from "../../../backend/api";
 import {
   DetailFooter,
   DetailHeader,
@@ -18,24 +25,58 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import ScreenNames from "../../../routes/routes";
-import { selectUserMeta } from "../../../redux/slices/user";
+import {
+  selectFavAds,
+  selectUserMeta,
+  setAdsFav,
+} from "../../../redux/slices/user";
 export default function Detail({ navigation, route }) {
   const dat = route?.params;
   const loginuser = useSelector(selectUserMeta);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
   const [data, setDat] = useState([]);
+  const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
-  const setMyFav = () => {
+
+  useEffect(() => {
+    if (isInArray(data._id, favAdIds)) {
+      console.log(data._id);
+      setFav(true);
+    }
+  }, [data]);
+
+  function isInArray(element, arr) {
+    // Check if arr is defined and not null
+    if (arr && Array.isArray(arr)) {
+      return arr.includes(element);
+    }
+    return false; // Return false if arr is not defined or not an array
+  }
+  const onpressfav = async () => {
     if (!loginuser) {
       alert("Please login first");
-    } else setFav(!fav);
+    } else {
+      let fav = await toggleFavorite(data._id, loginuser._id);
+      if (isInArray(data._id, fav)) {
+        setFav(true);
+      } else {
+        setFav(false);
+      }
+      dispatch(setAdsFav(fav));
+    }
   };
   const img = data?.images?.map((item) => {
     return { img: item };
   });
   function isNullOrNullOrEmpty(value) {
-    return value === null || value === "" || value === "null"|| value === undefined || value === "undefined";
+    return (
+      value === null ||
+      value === "" ||
+      value === "null" ||
+      value === undefined ||
+      value === "undefined"
+    );
   }
   useEffect(() => {
     getData();
@@ -109,7 +150,14 @@ export default function Detail({ navigation, route }) {
           />
         </View>
         <View style={styles.nameview}>
-          <View style={{ paddingBottom: height(2), flexDirection: "row",justifyContent:'space-between',alignItems:'center' }}>
+          <View
+            style={{
+              paddingBottom: height(2),
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <View style={{}}>
               <Text
                 numberOfLines={1}
@@ -134,9 +182,7 @@ export default function Detail({ navigation, route }) {
             </View>
             <TouchableOpacity
               style={{ marginHorizontal: width(3) }}
-              onPress={() => {
-                setMyFav();
-              }}
+              onPress={onpressfav}
             >
               <AntDesign
                 size={width(5)}

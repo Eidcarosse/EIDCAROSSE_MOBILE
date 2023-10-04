@@ -55,11 +55,13 @@ export default function Category({ navigation, route, value }) {
                   } else if (item.title == "Bikes" || item.title == "Parts") {
                     navigation.navigate(ScreenNames.BIKECATEGORY, {
                       category: item?.title,
+                      find: item?.title,
                       show: true,
                     });
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
                       category: item?.title,
+                      find: item?.title,
                     });
                   }
                 }}

@@ -4,30 +4,11 @@ import { Head, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
+import { Parts, bikedata, data } from "../../../utills/Data";
 
 export default function BikeCategory({ navigation, route }) {
   console.log("bike page", route?.params?.show);
-  const data = [
-    { title: "E-bikes" },
-    { title: "Bicycles" },
-    { title: "E-scooter" },
-    { title: "Motorcycle" },
-  ];
-  const Parts = [
-    { title: "Autos" },
-    { title: "E-bikes" },
-    { title: "Bicycles" },
-    { title: "E-scooter" },
-    { title: "Motorcycle" },
-    { title: "Boats" },
-    { title: "Drones" },
-    { title: "Construction Machines" },
-    { title: "Trucks" },
-    { title: "Vans" },
-    { title: "Trailers" },
-    { title: "Buses" },
-    { title: "Others" },
-  ];
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -41,7 +22,7 @@ export default function BikeCategory({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <FlatList
-          data={route?.params?.category == "Parts" ? Parts : data}
+          data={route?.params?.category == "Parts" ? Parts : bikedata}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             return (

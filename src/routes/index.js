@@ -8,6 +8,7 @@ import { Loader } from "../components";
 import { setAppLoader, setTopAds } from "../redux/slices/config";
 import {
   selectIsLoggedIn,
+  setAdsFav,
   setIsLoggedIn,
   setToken,
   setUserAds,
@@ -40,6 +41,7 @@ import { errorMessage, getAuthData } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
 import { getDataofHomePage } from "../backend/api";
+import { getFavAds } from "../backend/auth";
 
 const Stack = createNativeStackNavigator();
 
@@ -79,12 +81,17 @@ export default function Routes() {
     try {
       // dispatch(setAppLoader(true));
       const response = await loginApi(data);
+      console.log('====================================');
+      console.log(response?.data?.userDetails?.favAdIds);
+      console.log('====================================');
       if (response?.data) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.userDetails));
         dispatch(setToken(response?.data?.token));
         const userAd = await getOwneAd(response?.data?.userDetails?._id);
+        //const userFav=await getFavAds(response?.data?.userDetails?._id)
         dispatch(setUserAds(userAd));
+        dispatch(setAdsFav(response?.data?.userDetails?.favAdIds))
         dispatch(setAppLoader(false));
       } else {
         alert("Re-login");

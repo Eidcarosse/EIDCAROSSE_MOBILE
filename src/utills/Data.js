@@ -219,3 +219,24 @@ export const interiorColorList = [
   "Orange",
   "Other",
 ];
+export const bikedata = [
+  { title: "E-bikes" },
+  { title: "Bicycles" },
+  { title: "E-scooter" },
+  { title: "Motorcycle" },
+];
+export const Parts = [
+  { title: "Autos" },
+  { title: "E-bikes" },
+  { title: "Bicycles" },
+  { title: "E-scooter" },
+  { title: "Motorcycle" },
+  { title: "Boats" },
+  { title: "Drones" },
+  { title: "Construction Machines" },
+  { title: "Trucks" },
+  { title: "Vans" },
+  { title: "Trailers" },
+  { title: "Buses" },
+  { title: "Others" },
+];

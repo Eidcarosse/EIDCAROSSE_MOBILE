@@ -108,9 +108,6 @@ export default function AddPost({ navigation, route }) {
       let vehicledata = await geVehicleCategory(find);
       console.log(vehicledata);
       if (vehicledata) {
-        console.log("====================================");
-        console.log(vehicledata);
-        console.log("====================================");
         setVCategory(vehicledata);
       }
     } else {
@@ -243,7 +240,6 @@ export default function AddPost({ navigation, route }) {
   //   longitude,
   //   address
   // );
-  console.log(category, find, sub);
   const showYear = (x) => {
     return (
       x === "Autos" ||
