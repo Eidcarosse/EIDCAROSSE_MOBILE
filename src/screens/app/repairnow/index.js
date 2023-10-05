@@ -15,7 +15,7 @@ export default function Repair({ navigation, route }) {
         <Head headtitle={"Repair Now"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

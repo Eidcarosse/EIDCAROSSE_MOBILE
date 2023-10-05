@@ -3,6 +3,7 @@ import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
+import AppColors from "../../utills/AppColors";
 export default function Header({ navigation }) {
   return (
     <View style={styles.container}>
@@ -13,7 +14,7 @@ export default function Header({ navigation }) {
           navigation.openDrawer();
         }}
       >
-        <Ionicons name="menu" size={width(7)} color={"white"} />
+        <Ionicons name="menu" size={width(7)} color={AppColors.white} />
       </TouchableOpacity>
       <View>
         <Image

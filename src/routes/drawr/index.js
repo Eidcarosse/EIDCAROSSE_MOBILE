@@ -1,9 +1,9 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import BottomNav from '../bottom';
-import { CustomDrawer } from '../../components';
-import AppColors from '../../utills/AppColors';
-import { width } from '../../utills/Dimension';
-import ScreenNames from '../routes';
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import BottomNav from "../bottom";
+import { CustomDrawer } from "../../components";
+import AppColors from "../../utills/AppColors";
+import { width } from "../../utills/Dimension";
+import ScreenNames from "../routes";
 
 const Drawer = createDrawerNavigator();
 
@@ -17,22 +17,23 @@ function MyDrawer() {
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
-        drawerInactiveBackgroundColor:'white',
-        drawerActiveBackgroundColor:'white',
-        drawerActiveTintColor:AppColors.primary,
-        overlayColor:AppColors.transparent,
-        drawerHideStatusBarOnOpen:true,
-        drawerStyle:{
-          backgroundColor:"#E5E8E8",
-          width:width(65)
+        drawerInactiveBackgroundColor: AppColors.white,
+        drawerActiveBackgroundColor: AppColors.white,
+        drawerActiveTintColor: AppColors.primary,
+        overlayColor: AppColors.transparent,
+        drawerHideStatusBarOnOpen: true,
+        drawerStyle: {
+          backgroundColor: "#E5E8E8",
+          width: width(65),
         },
-        sceneContainerStyle:{
-          backgroundColor:"#E5E8E8"
-        }
+        sceneContainerStyle: {
+          backgroundColor: "#E5E8E8",
+        },
       }}
-      drawerContent={props => <CustomDrawer {...props} />}>
+      drawerContent={(props) => <CustomDrawer {...props} />}
+    >
       <Drawer.Screen name={ScreenNames.BUTTOM} component={BottomNav} />
     </Drawer.Navigator>
   );
 }
-export default MyDrawer
+export default MyDrawer;

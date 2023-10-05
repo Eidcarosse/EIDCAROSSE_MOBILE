@@ -8,6 +8,7 @@ import { View } from "react-native";
 import { width } from "../../utills/Dimension";
 import IconButton from "../Iconbutton";
 import styles from "./styles";
+import AppColors from "../../utills/AppColors";
 export default function DetailFooter({
   onPressCall,
   onPressMail,
@@ -17,12 +18,12 @@ export default function DetailFooter({
     <View style={styles.container}>
       <IconButton
         onPress={onPressCall}
-        icon={<Ionicons size={width(4)} name="call" color={"white"} />}
+        icon={<Ionicons size={width(4)} name="call" color={AppColors.white} />}
         title={"Call"}
       />
       <IconButton
         onPress={onPressMail}
-        icon={<AntDesign size={width(4)} name="mail" color={"white"} />}
+        icon={<AntDesign size={width(4)} name="mail" color={AppColors.white} />}
         title={"Email"}
       />
       <IconButton
@@ -31,7 +32,7 @@ export default function DetailFooter({
           <MaterialCommunityIcons
             size={width(4)}
             name="chat-processing"
-            color={"white"}
+            color={AppColors.white}
           />
         }
         title={"Chat"}

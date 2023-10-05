@@ -44,7 +44,7 @@ export default function HTSF({ navigation, route }) {
         <Head headtitle={"How to Sell Fast"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

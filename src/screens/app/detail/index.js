@@ -41,10 +41,11 @@ export default function Detail({ navigation, route }) {
 
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
-      console.log(data._id);
       setFav(true);
+    } else {
+      setFav(false);
     }
-  }, [data]);
+  });
 
   function isInArray(element, arr) {
     // Check if arr is defined and not null
@@ -146,7 +147,7 @@ export default function Detail({ navigation, route }) {
             autoPlay={false}
             caroselImageStyle={{ resizeMode: "contain" }}
             activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
-            closeIconColor="white"
+            closeIconColor={AppColors.white}
           />
         </View>
         <View style={styles.nameview}>
@@ -377,7 +378,7 @@ export default function Detail({ navigation, route }) {
                   <Ionicons
                     size={width(4)}
                     name="logo-whatsapp"
-                    color={"white"}
+                    color={AppColors.white}
                   />
                 }
                 containerStyle={{ backgroundColor: "#41C053" }}
@@ -387,7 +388,7 @@ export default function Detail({ navigation, route }) {
             {!isNullOrNullOrEmpty(data?.viber) && (
               <IconButton
                 title={"Viber"}
-                icon={<Fontisto size={width(4)} name="viber" color={"white"} />}
+                icon={<Fontisto size={width(4)} name="viber" color={AppColors.white} />}
                 containerStyle={{
                   backgroundColor: "#7D3DAF",
                   marginLeft: width(2),

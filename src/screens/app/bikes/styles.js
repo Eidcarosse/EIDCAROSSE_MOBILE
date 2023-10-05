@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     padding: width(4),
     elevation:3,
     shadowColor: "black",

@@ -18,6 +18,13 @@ import { toggleFavorite } from "../../backend/api";
 export default function CardView({ data }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
+   function isInArray(element, arr) {
+    // Check if arr is defined and not null
+    if (arr && Array.isArray(arr)) {
+      return arr.includes(element);
+    }
+    return false; // Return false if arr is not defined or not an array
+  }
   //console.log("indata", data);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
@@ -27,26 +34,23 @@ export default function CardView({ data }) {
     if (isInArray(data._id, favAdIds)) {
       setFav(true);
     }
-  }, [data]);
-
-  function isInArray(element, arr) {
-    // Check if arr is defined and not null
-    if (arr && Array.isArray(arr)) {
-      return arr.includes(element);
+    else{
+      setFav(false)
     }
-    return false; // Return false if arr is not defined or not an array
-  }
+  });
+
+ 
   const onpressfav = async () => {
     if (!loginuser) {
       alert("Please login first");
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
+      dispatch(setAdsFav(fav));
       if (isInArray(data._id, fav)) {
         setFav(true);
       } else {
         setFav(false);
       }
-      dispatch(setAdsFav(fav));
     }
   };
 

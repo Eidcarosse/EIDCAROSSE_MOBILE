@@ -81,9 +81,6 @@ export default function Routes() {
     try {
       // dispatch(setAppLoader(true));
       const response = await loginApi(data);
-      console.log('====================================');
-      console.log(response?.data?.userDetails?.favAdIds);
-      console.log('====================================');
       if (response?.data) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.userDetails));

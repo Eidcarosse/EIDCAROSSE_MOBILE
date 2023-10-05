@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     padding:width(2),
     justifyContent:'space-between'
   },
   greybackground:{
-    backgroundColor:'white',
+    backgroundColor:AppColors.white,
     elevation:0
   },
   textStyle:{

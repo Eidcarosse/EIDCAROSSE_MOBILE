@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   profileview: { padding: width(4) },
   profilecard: {
     padding: width(2),
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     borderRadius: width(2),
     flexDirection: "row",
     justifyContent: "space-between",

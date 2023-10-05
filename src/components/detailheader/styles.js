@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textdetail: {
-    color: "white",
+    color: AppColors.white,
     fontWeight: "bold",
     fontSize: width(5),
     marginLeft: width(3),

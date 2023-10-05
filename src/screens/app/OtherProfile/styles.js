@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     padding: width(4),
   },
   container: {
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     width: width(90),
     justifyContent: "flex-start",
     paddingVertical: width(5),
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   wcontainer: {
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     padding: width(1),
   },
   wtexticon: {

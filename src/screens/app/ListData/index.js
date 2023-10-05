@@ -42,18 +42,24 @@ export default function ListData({ navigation, route }) {
   const sub = route?.params?.subcategory;
   const refRBSheet = useRef();
   const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
+  const [findValue, setFindValue] = useState(find);
   const modelRef = useRef();
   const [sortby, setSortby] = React.useState("");
-  const [subCategory, setSubCategory] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [subCategory, setSubCategory] = React.useState(sub);
   const [title, setTitle] = React.useState("");
-
+  const [pageNumber, setPageNumber] = React.useState(1);
   const [pricefrom, setPricefrom] = React.useState();
   const [priceto, setPriceto] = React.useState("");
   const [condition, setCondition] = React.useState("");
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
   const [category, setCategory] = React.useState(cat);
+  const [searchString, setSearchString] = useState("");
+
+  const [refreshing, onRefresh] = React.useState(false);
+  const [empty, setempty] = React.useState(false);
+
   // const [gearbox, setGearbox] = React.useState("");
   // const [fueltype, setFueltype] = React.useState("");
   // const [exterior, setExterior] = React.useState("");
@@ -65,23 +71,35 @@ export default function ListData({ navigation, route }) {
   const [apimodel, setapiModel] = React.useState([]);
   const [data, setData] = useState([]);
   const [columnumber, setcolumnumber] = useState(2);
-
+  console.log("====================================");
+  console.log(empty);
+  console.log("====================================");
   const queryParams = {
     address: "",
-    category: category||'',
-    subCategory: "",
-    condition: "",
-    title: "",
+    category: category || "",
+    subCategory: subCategory || "",
+    condition: condition || "",
+    title: title || "",
     brand: brand,
     minPrice: priceto,
     maxPrice: pricefrom,
     sortBy: sortby,
-    page: 1, // Adjust the page number as needed
+    page: pageNumber, // Adjust the page number as needed
   };
 
   useEffect(() => {
     getData();
   }, []);
+  const handleEndReached = () => {
+    getData();
+  };
+  // useEffect(() => {
+  //   if (category != "Bike") {
+  //     setFindValue(category);
+  //   } else {
+  //     setFindValue(subCategory);
+  //   }
+  // });
   // useEffect(() => {
   //   if (route?.params?.find) {
   //     dispatch(setCategoryFilter(route?.params?.find));
@@ -89,17 +107,16 @@ export default function ListData({ navigation, route }) {
   //     dispatch(setCategoryFilter(null));
   //   }
   // }, []);
-
+  console.log("find value fo :", findValue, find);
   useEffect(() => {
     getvehicleMake();
-    if (sub == undefined) {
+    if (subCategory == undefined) {
       getvehicleSubCategory();
     }
   }, [category]);
   const getvehicleMake = async () => {
     setLoder(true);
-    let vehicledata = await geVehicleMakes(find);
-
+    let vehicledata = await geVehicleMakes(findValue);
     if (vehicledata) {
       setLoder(false);
       setVcompanies(vehicledata);
@@ -111,13 +128,12 @@ export default function ListData({ navigation, route }) {
   };
   const getvehicleSubCategory = async () => {
     if (sub == undefined) {
-      let vehicledata = await geVehicleCategory(category);
-      console.log(vehicledata);
+      let vehicledata = await geVehicleCategory(findValue);
       if (vehicledata) {
         setVCategory(vehicledata);
       }
     } else {
-      setVCategory(false);
+      setVCategory([]);
     }
   };
   // useEffect(() => {
@@ -137,18 +153,19 @@ export default function ListData({ navigation, route }) {
   //   dispatch(setAppLoader(false));
   // };
   const getData = async () => {
-    dispatch(setAppLoader(true));
-    console.log('====================================');
-    console.log(queryParams);
-    console.log('====================================');
+    onRefresh(true);
     let d = await getAllData(queryParams);
-    console.log('====================================');
-    console.log(d);
-    console.log('====================================');
-    if (d) setData(d);
-    else setData([]);
-    dispatch(setAppLoader(false));
-  }
+    if (d.length == 0) {
+      setempty(true);
+    }
+    if (d) {
+      setPageNumber(pageNumber + 1);
+      setData((prevData) => [...prevData, ...d]);
+    } else {
+      setData([]);
+    }
+    onRefresh(false);
+  };
 
   const rdata = [
     {
@@ -167,7 +184,6 @@ export default function ListData({ navigation, route }) {
     "Price (low to high)",
     "Price (high to low)",
   ];
-
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -178,7 +194,11 @@ export default function ListData({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View style={styles.filterview}>
-          <SearchBar containerstyle={{ width: width(80) }} />
+          <SearchBar
+            search={searchString}
+            setSearch={setSearchString}
+            containerstyle={{ width: width(80) }}
+          />
           <TouchableOpacity
             style={{ marginLeft: width(2) }}
             onPress={() => refRBSheet.current.open()}
@@ -192,7 +212,12 @@ export default function ListData({ navigation, route }) {
         </View>
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
-            Total Result : {data?.length || 0}
+            Total Result :{" "}
+            {data.filter((item) => {
+              return item.title
+                .toLowerCase()
+                .includes(searchString.toLowerCase());
+            }).length || 0}
           </Text>
           <View style={styles.iconview}>
             <TouchableOpacity
@@ -222,7 +247,11 @@ export default function ListData({ navigation, route }) {
         {columnumber == 2 ? (
           <FlatList
             key={"colum2"}
-            data={data}
+            data={data.filter((item) => {
+              return item.title
+                .toLowerCase()
+                .includes(searchString.toLowerCase());
+            })}
             showsVerticalScrollIndicator={false}
             style={styles.flatlist}
             renderItem={({ item }) => {
@@ -235,13 +264,28 @@ export default function ListData({ navigation, route }) {
                 </View>
               );
             }}
+            onEndReached={() => {
+              if (!empty) handleEndReached();
+            }} // Callback when the end is reached
+            onEndReachedThreshold={0.1}
             numColumns={2}
+            ListFooterComponent={() =>
+              !loder && !empty ? (
+                <ActivityIndicator size={"large"} color={AppColors.primary} />
+              ) : (
+                <></>
+              )
+            }
             keyExtractor={(item, index) => index}
           />
         ) : (
           <FlatList
             key={"coloum1"}
-            data={data}
+            data={data.filter((item) => {
+              return item.title
+                .toLowerCase()
+                .includes(searchString.toLowerCase());
+            })}
             showsVerticalScrollIndicator={false}
             style={styles.flatlist}
             renderItem={({ item }) => {
@@ -259,6 +303,17 @@ export default function ListData({ navigation, route }) {
               );
             }}
             numColumns={1}
+            onEndReached={() => {
+              if (!empty) handleEndReached();
+            }} // Callback when the end is reached
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={() =>
+              !loder && !empty ? (
+                <ActivityIndicator size={"large"} color={AppColors.primary} />
+              ) : (
+                <></>
+              )
+            }
             keyExtractor={(item, index) => index}
           />
         )}
@@ -271,7 +326,7 @@ export default function ListData({ navigation, route }) {
             height={height(75)}
             customStyles={styles.bs}
           >
-            {loder ? (
+            {refreshing ? (
               <ActivityIndicator color={AppColors.primary} size={"large"} />
             ) : (
               <View style={styles.container}>
@@ -285,7 +340,7 @@ export default function ListData({ navigation, route }) {
                   Filters
                 </Text>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                  <View style={{ alignSelf: "center" }}>
+                  {/* <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>Category</Text>
                     <SelectDropdown
                       data={categories.map((i) => i.title)}
@@ -310,12 +365,13 @@ export default function ListData({ navigation, route }) {
                         return item;
                       }}
                     />
-                  </View>
+                  </View> */}
                   {!(vCategory == undefined || vCategory == []) ? (
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>sub Category</Text>
+                      <Text style={styles.title}>Sub Category</Text>
                       <SelectDropdown
                         data={vCategory}
+                        defaultValue={subCategory}
                         searchPlaceHolder={"Search here"}
                         search={true}
                         buttonStyle={styles.searchbox}
@@ -343,18 +399,53 @@ export default function ListData({ navigation, route }) {
                         }}
                       />
                     </View>
-                  ) : sub ? (
+                  ) : (
+                    // ) : sub ? (
+                    //   <View style={{ alignSelf: "center" }}>
+                    //     <Text style={styles.title}>Sub bike Category</Text>
+                    //     <SelectDropdown
+                    //       data={
+                    //         route?.params?.category == "Parts"
+                    //           ? Parts.map((i) => i.title)
+                    //           : bikedata.map((i) => i.title)
+                    //       }
+                    //       searchPlaceHolder={"Search here"}
+                    //       search={true}
+                    //       defaultValue={sub}
+                    //       buttonStyle={styles.searchbox}
+                    //       selectedRowStyle={{
+                    //         backgroundColor: AppColors.primary,
+                    //       }}
+                    //       selectedRowTextStyle={{ color: AppColors.white }}
+                    //       buttonTextStyle={{
+                    //         textAlign: "left",
+                    //         fontSize: width(3.5),
+                    //       }}
+                    //       dropdownStyle={styles.dropdown}
+                    //       onSelect={(selectedItem, index) => {
+                    //         console.log(selectedItem);
+                    //         setFindValue(selectedItem)
+                    //         setSubCategory(selectedItem);
+                    //       }}
+                    //       buttonTextAfterSelection={(selectedItem, index) => {
+                    //         return selectedItem;
+                    //       }}
+                    //       rowTextForSelection={(item, index) => {
+                    //         return item;
+                    //       }}
+                    //     />
+                    //   </View>
+                    // ) :
+                    <></>
+                  )}
+                  {category && (
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>Sub Category</Text>
+                      <Text style={styles.title}>Brand</Text>
                       <SelectDropdown
-                        data={
-                          route?.params?.category == "Parts"
-                            ? Parts.map((i) => i.title)
-                            : bikedata.map((i) => i.title)
-                        }
-                        searchPlaceHolder={"Search here"}
+                        data={vcompanies}
                         search={true}
-                        defaultValue={sub}
+                        defaultValue={brand}
+                        searchPlaceHolder={"Search here"}
                         buttonStyle={styles.searchbox}
                         selectedRowStyle={{
                           backgroundColor: AppColors.primary,
@@ -366,18 +457,21 @@ export default function ListData({ navigation, route }) {
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
-                          setSubCategory(selectedItem);
+                          // if (model) modelRef.current.reset();
+                          setBrand(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
                           return selectedItem;
                         }}
                         rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
                           return item;
                         }}
                       />
                     </View>
-                  ) : (
-                    <></>
                   )}
                   <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>Sort By</Text>
@@ -385,6 +479,7 @@ export default function ListData({ navigation, route }) {
                       data={sortdata}
                       searchPlaceHolder={"Search here"}
                       search={true}
+                      defaultValue={sortby}
                       buttonStyle={styles.searchbox}
                       selectedRowStyle={{ backgroundColor: AppColors.primary }}
                       selectedRowTextStyle={{ color: AppColors.white }}
@@ -410,6 +505,22 @@ export default function ListData({ navigation, route }) {
                       value={title}
                       setvalue={setTitle}
                       placeholder={"Title of Vahicel"}
+                      containerStyle={[
+                        {
+                          width: width(90),
+                          backgroundColor: AppColors.greybackground,
+                          borderBottomWidth: 0,
+                          borderRadius: width(1),
+                        },
+                      ]}
+                    />
+                  </View>
+                  <View style={{ paddingVertical: width(1) }}>
+                    <Text style={styles.title}>Address</Text>
+                    <Input
+                      value={address}
+                      setvalue={setAddress}
+                      placeholder={"search by address"}
                       containerStyle={[
                         {
                           width: width(90),
@@ -454,43 +565,12 @@ export default function ListData({ navigation, route }) {
                         paddingVertical: width(1),
                       }}
                       activeColor={AppColors.primary}
-                      selectedBtn={(e) => setCondition(e)}
+                      selectedBtn={(e) => {
+                        setCondition(e?.label);
+                      }}
                     />
                   </View>
-                  {category && (
-                    <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>Brand</Text>
-                      <SelectDropdown
-                        data={vcompanies}
-                        search={true}
-                        searchPlaceHolder={"Search here"}
-                        buttonStyle={styles.searchbox}
-                        selectedRowStyle={{
-                          backgroundColor: AppColors.primary,
-                        }}
-                        selectedRowTextStyle={{ color: AppColors.white }}
-                        buttonTextStyle={{
-                          textAlign: "left",
-                          fontSize: width(3.5),
-                        }}
-                        dropdownStyle={styles.dropdown}
-                        onSelect={(selectedItem, index) => {
-                          // if (model) modelRef.current.reset();
-                          setBrand(selectedItem);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return selectedItem;
-                        }}
-                        rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return item;
-                        }}
-                      />
-                    </View>
-                  )}
+
                   {/* {apimodel.length != 0 && (
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>Model</Text>
@@ -547,9 +627,11 @@ export default function ListData({ navigation, route }) {
                         borderRadius: width(2),
                         backgroundColor: AppColors.primary,
                       }}
-                      onPressFilter={() => {
+                      onPress={() => {
                         refRBSheet.current.close();
-                        //getFilterData();
+                        setData([]);
+                        setPageNumber(1);
+                        getData();
                       }}
                     />
                   </View>

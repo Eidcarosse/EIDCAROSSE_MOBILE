@@ -12,7 +12,11 @@ import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
 import { useFocusEffect } from "@react-navigation/native";
 import { getDataofHomePage } from "../../../backend/api";
-import { selectTopAds, setAppLoader, setTopAds } from "../../../redux/slices/config";
+import {
+  selectTopAds,
+  setAppLoader,
+  setTopAds,
+} from "../../../redux/slices/config";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import Icons from "../../../asset/images";
@@ -20,7 +24,7 @@ import { toastMessage } from "../../../utills/Methods";
 
 export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
-  const data=useSelector(selectTopAds)
+  const data = useSelector(selectTopAds);
   const ddata = [
     { key: "1", value: "Mobiles" },
     { key: "2", value: "Appliances" },
@@ -31,33 +35,34 @@ export default function Home({ navigation, route }) {
     { key: "7", value: "Drinks" },
   ];
   const [refreshing, setRefreshing] = useState(false);
+  const [searchString, setSearchString] = useState('');
+
   const onRefresh = async () => {
     setRefreshing(true);
-    getData()
+    getData();
     setRefreshing(false);
-    toastMessage('Refresh')
+    toastMessage("Refresh");
   };
   useFocusEffect(
     useCallback(() => {
-    getData();
+      getData();
     }, [])
   );
-
-  const getData =useCallback( async () => {
+  const getData = useCallback(async () => {
     // dispatch(setAppLoader(true));
     try {
       const data = await getDataofHomePage();
       if (data) {
-        dispatch(setTopAds(data))
+        dispatch(setTopAds(data));
       } else {
-        dispatch(setTopAds([]))
+        dispatch(setTopAds([]));
       }
       dispatch(setAppLoader(false));
     } catch (error) {
       console.log("Error:", error);
       // dispatch(setAppLoader(false));
     }
-  })
+  });
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -69,7 +74,7 @@ export default function Home({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         {/* <View
-        style={{position:'absolute',backgroundColor:'white',zIndex:1,top:height(3)}}
+        style={{position:'absolute',backgroundColor:Appcolor.White,zIndex:1,top:height(3)}}
         >
         <SelectList
           setSelected={(val) =>{}}
@@ -80,7 +85,7 @@ export default function Home({ navigation, route }) {
           dropdownStyles={styles.dropdown}
         />
         </View> */}
-        <SearchBar />
+        <SearchBar search={searchString} setSearch={setSearchString} />
 
         {/* <SelectList
             setSelected={(val) => {navigation.navigate(ScreenNames.LISTDATA)}}
@@ -111,24 +116,30 @@ export default function Home({ navigation, route }) {
             </Text>
           </Pressable>
         </View>
-        <View style={{ width: width(100), alignItems: "center",}}>
-          {(data?.length === 0) ? (
+        <View style={{ width: width(100), alignItems: "center" }}>
+          {data?.length === 0 ? (
             <View style={styles.notfoundview}>
               <Image
                 source={Icons.empty}
                 style={{ height: width(50), width: width(60) }}
               />
             </View>
-          ) :(
-            data.map((item, index) => (
-              <View
-                key={index}
-                style={{ width: width(100), alignItems: "center" }}
-              >
-                <CardView data={item} />
-              </View>
-            ))
-          ) }
+          ) : (
+            data
+              .filter((item) => {
+                return item.title
+                  .toLowerCase()
+                  .includes(searchString.toLowerCase());
+              })
+              .map((item, index) => (
+                <View
+                  key={index}
+                  style={{ width: width(100), alignItems: "center" }}
+                >
+                  <CardView data={item} />
+                </View>
+              ))
+          )}
         </View>
       </View>
     </ScreenWrapper>

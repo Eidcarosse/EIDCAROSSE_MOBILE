@@ -107,7 +107,7 @@ export default function TnC({ navigation, route }) {
         <Head headtitle={"Terms & Conditions"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

@@ -4,7 +4,7 @@ import { height, width } from '../../utills/Dimension';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'white',
+    backgroundColor:AppColors.white,
     width: width(100),
     flexDirection:'row',
     justifyContent:'space-around',

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     borderRadius: width(1),
   },
   logoutcontainer: {
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     width: width(90),
     justifyContent: "center",
     borderWidth:1,

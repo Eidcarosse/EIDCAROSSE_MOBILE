@@ -77,7 +77,7 @@
 //   { key: "5", value: "Grey" },
 //   { key: "6", value: "Green" },
 //   { key: "7", value: "Red" },
-//   { key: "8", value: "White" },
+//   { key: "8", value: AppColors.white },
 //   { key: "9", value: "Black" },
 //   { key: "10", value: "Silver" },
 //   { key: "11", value: "Violet" },
@@ -98,7 +98,7 @@
 //   { key: "10", value: "Orange" },
 //   { key: "11", value: "Gold" },
 //   { key: "12", value: "Paintwork (Metallic)" },
-//   { key: "13", value: "White" },
+//   { key: "13", value: AppColors.white },
 //   { key: "14", value: "Other" },
 // ];
 
@@ -106,7 +106,7 @@
 //   { key: "1", value: "Beige" },
 //   { key: "2", value: "Black" },
 //   { key: "3", value: "Grey" },
-//   { key: "4", value: "White" },
+//   { key: "4", value: AppColors.white },
 //   { key: "5", value: "Brown" },
 //   { key: "6", value: "Red" },
 //   { key: "7", value: "Yellow" },

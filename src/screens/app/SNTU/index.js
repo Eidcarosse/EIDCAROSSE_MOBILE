@@ -15,7 +15,7 @@ export default function SNTU({ navigation, route }) {
         <Head headtitle={"Sell Now To Us "} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

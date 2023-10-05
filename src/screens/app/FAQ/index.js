@@ -12,7 +12,7 @@ export default function FAQ({ navigation, route }) {
         <Head headtitle={"FAQ"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

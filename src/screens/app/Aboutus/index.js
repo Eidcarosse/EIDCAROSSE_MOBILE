@@ -68,7 +68,7 @@ export default function AboutUs({ navigation, route }) {
         <Head headtitle={"About Us"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         elevation: 3,
       },
     }),
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
   },
   dropdown: { borderRadius: width(1), width: width(90), borderWidth: 0 },
   notfoundview: {

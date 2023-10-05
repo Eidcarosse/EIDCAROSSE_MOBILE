@@ -72,7 +72,7 @@ export default function PP({ navigation, route }) {
         <Head headtitle={"Privacy Policy"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
-      backgroundColor="white"
+      backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
     >

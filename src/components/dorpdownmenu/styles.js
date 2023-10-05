@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     height: height(6),
     justifyContent: 'center',
     borderRadius: width(4),
-    backgroundColor: 'white',
+    backgroundColor: AppColors.white,
     alignItems: 'center',
   },
   btnText: {

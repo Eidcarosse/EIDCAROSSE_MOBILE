@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
+import AppColors from "../../utills/AppColors";
 export default function DetailHeader({
   onPressBack,
   onPressHeart,
@@ -21,7 +22,7 @@ export default function DetailHeader({
     <View style={styles.container}>
       <View style={styles.menuicon}>
         <TouchableOpacity onPress={onPressBack}>
-          <Ionicons name="chevron-back" size={width(6)} color={"white"} />
+          <Ionicons name="chevron-back" size={width(6)} color={AppColors.white} />
         </TouchableOpacity>
         <Text style={styles.textdetail}>Details</Text>
       </View>
@@ -37,7 +38,7 @@ export default function DetailHeader({
         onPress={()=>{setMyFav()}}>
           <AntDesign
             size={width(4)}
-            color={fav ? AppColors.primary : "white"}
+            color={fav ? AppColors.primary : AppColors.white}
             name={fav ? "heart" : "hearto"}
           />
         </TouchableOpacity>} */}
@@ -45,16 +46,16 @@ export default function DetailHeader({
           style={{ marginHorizontal: width(3) }}
           onPress={onPressShare}
         >
-          <Entypo size={width(4)} name="share" color={"white"} />
+          <Entypo size={width(4)} name="share" color={AppColors.white} />
         </TouchableOpacity>
         <TouchableOpacity style={{ marginHorizontal: width(3) }}>
           <SimpleLineIcons
             size={width(4)}
             name="options-vertical"
-            color={"white"}
+            color={AppColors.white}
           />
         </TouchableOpacity>
-        {/* <Ionicons name="chevron-back" size={width(7)} color={"white"} /> */}
+        {/* <Ionicons name="chevron-back" size={width(7)} color={AppColors.white} /> */}
       </View>
     </View>
   );

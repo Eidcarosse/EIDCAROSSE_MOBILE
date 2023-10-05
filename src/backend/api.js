@@ -27,7 +27,7 @@ export const getAllData = async (queryParams) => {
     );
 
     if (!response.success) {
-      throw new Error("Network error home APi");
+      throw new Error("Network error getAll data");
     }
     return response?.data?.ad;
   } catch (error) {
@@ -69,9 +69,6 @@ export const geVehicleMakes = async (type) => {
   console.log("type", type);
   try {
     const response = await ApiManager.get(`ad/findVehicleMake/${type}`);
-    // if (!response?.success) {
-    //   throw new Error("Network error home APi");
-    // }
     if (response?.data?.make) return response?.data?.make;
     return [];
   } catch (error) {
@@ -85,7 +82,7 @@ export const geVehicleCategory = async (type) => {
   try {
     const response = await ApiManager.get(`ad/findVehicleSubCategory/${type}`);
     if (!response?.success) {
-      throw new Error("Network error home APi");
+      throw new Error("vehicle category error");
     }
     if (response?.data[0]?.category) {
       return response?.data[0]?.category;
@@ -110,9 +107,6 @@ export const getModel = async (type, value) => {
 export const deleteAdById = async (id) => {
   try {
     const response = await ApiManager.delete(`ad/deleteAd/${id}`);
-    // if (!response.success) {
-    //   throw new Error("Network error home APi");
-    // }
   } catch (error) {
     alert("delete api");
     return []; // or some default value as needed
@@ -120,7 +114,7 @@ export const deleteAdById = async (id) => {
 };
 export const toggleFavorite = async (id, userId) => {
   try {
-    // const response = await ApiManager.put(`ad/setFavorite/${id}`, JSON.stringify({
+    // const response = await ApiManager.put(`ad/setFavorite/${id}/${userId}`, JSON.stringify({
     //   userId: userId
     // }));
     // // if (!response.success) {

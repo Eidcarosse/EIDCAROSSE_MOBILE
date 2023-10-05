@@ -24,7 +24,7 @@ export default function SearchBar({ search, setSearch, containerstyle }) {
   // const renderItem = ({ item }) => (
   //   <Pressable
   //     style={{
-  //       backgroundColor: "white",
+  //       backgroundColor: AppColors.white,
   //       padding: width(3),
   //       elevation: 5,
   //       shadowColor: "#000",

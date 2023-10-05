@@ -81,7 +81,7 @@ export default function BottomNav({ navigation }) {
         shadowStyle={styles.shawdow}
         height={55}
         circleWidth={50}
-        bgColor="white"
+        bgColor={AppColors.white}
         initialRouteName="title1"
         borderTopLeftRight
         renderCircle={({ selectedTab, navigate }) => (
@@ -94,7 +94,7 @@ export default function BottomNav({ navigation }) {
                 navigation.navigate("tit");
               }}
             >
-              <FontAwesome5 name={"plus"} color={"white"} size={22} />
+              <FontAwesome5 name={"plus"} color={AppColors.white} size={22} />
             </TouchableOpacity>
           </Animated.View>
         )}

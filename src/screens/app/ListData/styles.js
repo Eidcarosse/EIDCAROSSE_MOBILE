@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
   },
   filterview: {
     flexDirection: "row",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   modalcontainer: {
     height: height(80),
     width: width(96),
-    backgroundColor: "white",
+    backgroundColor: AppColors.white,
     position: "absolute",
     bottom: -width(3),
     left: -width(3),

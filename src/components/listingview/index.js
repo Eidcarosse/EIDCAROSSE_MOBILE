@@ -24,19 +24,19 @@ export default function ListingView({ data }) {
 
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
-      console.log("====================================");
-      console.log(true);
-      console.log("====================================");
       setFav(true);
     }
-  }, [data]);
+    else{
+      setFav(false)
+    }
+  });
 
   function isInArray(element, arr) {
     // Check if arr is defined and not null
     if (arr && Array.isArray(arr)) {
       return arr.includes(element);
     }
-    return false; // Return false if arr is not defined or not an array
+    return false // Return false if arr is not defined or not an array
   }
   const onpressfav = async () => {
     if (!loginuser) {
