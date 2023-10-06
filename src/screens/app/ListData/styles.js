@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     padding: width(2),
-    paddingBottom: height(5),
+    paddingBottom: height(2),
   },
   card: {
     width: width(44),
@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     paddingTop: width(3),
     flexDirection: "row",
     justifyContent: "space-between",
+
+    alignItems:'center'
   },
   totaltext: {
     color: AppColors.primary,
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
   },
   iconview: {
     flexDirection: "row",
-    width: width(15),
+    width: width(25),
     justifyContent: "space-around",
     alignContent: "center",
     alignItems: "center",

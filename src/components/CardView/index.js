@@ -18,7 +18,7 @@ import { toggleFavorite } from "../../backend/api";
 export default function CardView({ data }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
-   function isInArray(element, arr) {
+  function isInArray(element, arr) {
     // Check if arr is defined and not null
     if (arr && Array.isArray(arr)) {
       return arr.includes(element);
@@ -33,13 +33,11 @@ export default function CardView({ data }) {
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
       setFav(true);
-    }
-    else{
-      setFav(false)
+    } else {
+      setFav(false);
     }
   });
 
- 
   const onpressfav = async () => {
     if (!loginuser) {
       alert("Please login first");
@@ -53,7 +51,6 @@ export default function CardView({ data }) {
       }
     }
   };
-
   return (
     <View style={styles.main}>
       <TouchableOpacity
@@ -99,35 +96,39 @@ export default function CardView({ data }) {
           </View>
         </View>
       </TouchableOpacity>
-      <View style={styles.icons}>
-        <TouchableOpacity onPress={onpressfav} style={styles.space}>
-          <AntDesign
-            size={width(4)}
-            color={fav ? AppColors.primary : "black"}
-            name={fav ? "heart" : "hearto"}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.space}
-          onPress={GlobalMethods.onPressCall}
-        >
-          <Ionicons size={width(4)} name="call" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.space}
-          onPress={GlobalMethods.onPressMessage}
-        >
-          <Ionicons size={width(4)} name="chatbubble-ellipses" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.space}
-          onPress={GlobalMethods.onPressShare}
-        >
-          <Entypo size={width(4)} name="share" />
-        </TouchableOpacity>
-        <AntDesign size={width(4)} name="eye" color={"grey"} />
-        <Text style={{ fontSize: width(2) }}>{data?.views} view</Text>
-      </View>
+      {!(data?.userId === loginuser?._id) ? (
+        <View style={styles.icons}>
+          <TouchableOpacity onPress={onpressfav} style={styles.space}>
+            <AntDesign
+              size={width(4)}
+              color={fav ? AppColors.primary : "black"}
+              name={fav ? "heart" : "hearto"}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.space}
+            onPress={GlobalMethods.onPressCall}
+          >
+            <Ionicons size={width(4)} name="call" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.space}
+            onPress={GlobalMethods.onPressMessage}
+          >
+            <Ionicons size={width(4)} name="chatbubble-ellipses" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.space}
+            onPress={GlobalMethods.onPressShare}
+          >
+            <Entypo size={width(4)} name="share" />
+          </TouchableOpacity>
+          <AntDesign size={width(4)} name="eye" color={"grey"} />
+          <Text style={{ fontSize: width(2) }}>{data?.views} view</Text>
+        </View>
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

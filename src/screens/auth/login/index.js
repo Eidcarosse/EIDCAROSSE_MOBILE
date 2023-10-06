@@ -7,6 +7,7 @@ import { loginApi } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
 import {
+  setAdsFav,
   setIsLoggedIn,
   setToken,
   setUserMeta,
@@ -56,6 +57,7 @@ export default function Login({ navigation, route }) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(res?.data?.userDetails));
         dispatch(setToken(res?.data?.token));
+        dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
         setAuthData(data);
         dispatch(setAppLoader(false));
         successMessage("saved");

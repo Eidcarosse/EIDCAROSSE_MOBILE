@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: width(0.2),
     alignItems:'center',
-
   },
 });
 export default styles;

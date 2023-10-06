@@ -17,7 +17,6 @@ import {
   Input,
   ListingView,
   ScreenWrapper,
-  SearchBar,
 } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
@@ -30,16 +29,15 @@ import {
   geVehicleMakes,
   getAllData,
 } from "../../../backend/api";
-import { setAppLoader } from "../../../redux/slices/config";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
-import categories from "../../../svgcomponents";
-import { Parts, bikedata } from "../../../utills/Data";
+import { setAppLoader } from "../../../redux/slices/config";
 
 export default function ListData({ navigation, route }) {
   const cat = route?.params?.category;
   const find = route?.params?.find;
   const sub = route?.params?.subcategory;
+  const t = route?.params?.search;
   const refRBSheet = useRef();
   const dispatch = useDispatch();
   const [findValue, setFindValue] = useState(find);
@@ -47,7 +45,7 @@ export default function ListData({ navigation, route }) {
   const [sortby, setSortby] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [subCategory, setSubCategory] = React.useState(sub);
-  const [title, setTitle] = React.useState("");
+  const [title, setTitle] = React.useState(t || "");
   const [pageNumber, setPageNumber] = React.useState(1);
   const [pricefrom, setPricefrom] = React.useState();
   const [priceto, setPriceto] = React.useState("");
@@ -68,28 +66,31 @@ export default function ListData({ navigation, route }) {
   const [loder, setLoder] = React.useState(false);
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vCategory, setVCategory] = React.useState();
-  const [apimodel, setapiModel] = React.useState([]);
+  const [filter, setFilter] = React.useState(false);
   const [data, setData] = useState([]);
   const [columnumber, setcolumnumber] = useState(2);
-  console.log("====================================");
-  console.log(empty);
-  console.log("====================================");
+
   const queryParams = {
-    address: "",
+    address: address,
     category: category || "",
     subCategory: subCategory || "",
     condition: condition || "",
     title: title || "",
-    brand: brand,
+    brand: brand || "",
     minPrice: priceto,
     maxPrice: pricefrom,
-    sortBy: sortby,
+    sortBy: sortby || "",
     page: pageNumber, // Adjust the page number as needed
   };
 
   useEffect(() => {
+    dispatch(setAppLoader(true));
     getData();
+    dispatch(setAppLoader(false));
   }, []);
+  useEffect(() => {
+    if (filter) getData();
+  }, [filter]);
   const handleEndReached = () => {
     getData();
   };
@@ -107,7 +108,7 @@ export default function ListData({ navigation, route }) {
   //     dispatch(setCategoryFilter(null));
   //   }
   // }, []);
-  console.log("find value fo :", findValue, find);
+  //console.log("find value fo :", findValue, find);
   useEffect(() => {
     getvehicleMake();
     if (subCategory == undefined) {
@@ -159,8 +160,8 @@ export default function ListData({ navigation, route }) {
       setempty(true);
     }
     if (d) {
-      setPageNumber(pageNumber + 1);
       setData((prevData) => [...prevData, ...d]);
+      setPageNumber(pageNumber + 1);
     } else {
       setData([]);
     }
@@ -194,13 +195,13 @@ export default function ListData({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View style={styles.filterview}>
-          <SearchBar
+          {/* <SearchBar
             search={searchString}
             setSearch={setSearchString}
             containerstyle={{ width: width(80) }}
-          />
-          <TouchableOpacity
-            style={{ marginLeft: width(2) }}
+          /> */}
+          {/* <TouchableOpacity
+            style={{ marginLeft: height(2) }}
             onPress={() => refRBSheet.current.open()}
           >
             <FontAwesome
@@ -208,7 +209,7 @@ export default function ListData({ navigation, route }) {
               size={width(7)}
               color={AppColors.primary}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
@@ -221,6 +222,7 @@ export default function ListData({ navigation, route }) {
           </Text>
           <View style={styles.iconview}>
             <TouchableOpacity
+              style={{ paddingHorizontal: width(3) }}
               onPress={() => {
                 setcolumnumber(2);
               }}
@@ -232,6 +234,7 @@ export default function ListData({ navigation, route }) {
               />
             </TouchableOpacity>
             <TouchableOpacity
+              style={{ paddingHorizontal: width(3) }}
               onPress={() => {
                 setcolumnumber(1);
               }}
@@ -240,6 +243,16 @@ export default function ListData({ navigation, route }) {
                 name="th-list"
                 size={width(4)}
                 color={columnumber == 1 ? AppColors.primary : "black"}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginLeft: height(2) }}
+              onPress={() => refRBSheet.current.open()}
+            >
+              <FontAwesome
+                name="sliders"
+                size={width(7)}
+                color={AppColors.primary}
               />
             </TouchableOpacity>
           </View>
@@ -257,13 +270,15 @@ export default function ListData({ navigation, route }) {
             renderItem={({ item }) => {
               return <ListingView data={item} />;
             }}
-            ListEmptyComponent={({ item }) => {
-              return (
-                <View style={styles.emptyview}>
+            ListEmptyComponent={({ item }) => (
+              <View style={styles.emptyview}>
+                {refreshing ? (
+                  <ActivityIndicator size={"large"} color={AppColors.primary} />
+                ) : (
                   <Image source={Icons.empty} style={styles.emptyimage} />
-                </View>
-              );
-            }}
+                )}
+              </View>
+            )}
             onEndReached={() => {
               if (!empty) handleEndReached();
             }} // Callback when the end is reached
@@ -295,13 +310,15 @@ export default function ListData({ navigation, route }) {
                 </View>
               );
             }}
-            ListEmptyComponent={({ item }) => {
-              return (
-                <View style={styles.emptyview}>
+            ListEmptyComponent={({ item }) => (
+              <View style={styles.emptyview}>
+                {refreshing ? (
+                  <ActivityIndicator size={"large"} color={AppColors.primary} />
+                ) : (
                   <Image source={Icons.empty} style={styles.emptyimage} />
-                </View>
-              );
-            }}
+                )}
+              </View>
+            )}
             numColumns={1}
             onEndReached={() => {
               if (!empty) handleEndReached();
@@ -566,7 +583,7 @@ export default function ListData({ navigation, route }) {
                       }}
                       activeColor={AppColors.primary}
                       selectedBtn={(e) => {
-                        setCondition(e?.label);
+                        setCondition(e.label);
                       }}
                     />
                   </View>
@@ -628,10 +645,13 @@ export default function ListData({ navigation, route }) {
                         backgroundColor: AppColors.primary,
                       }}
                       onPress={() => {
-                        refRBSheet.current.close();
                         setData([]);
-                        setPageNumber(1);
-                        getData();
+                        setempty(false);
+                        if (pageNumber != 0) {
+                          setPageNumber(1);
+                        }
+                        refRBSheet.current.close();
+                        setFilter(filter + 1);
                       }}
                     />
                   </View>

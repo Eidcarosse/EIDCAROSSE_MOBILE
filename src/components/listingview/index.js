@@ -25,9 +25,8 @@ export default function ListingView({ data }) {
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
       setFav(true);
-    }
-    else{
-      setFav(false)
+    } else {
+      setFav(false);
     }
   });
 
@@ -36,7 +35,7 @@ export default function ListingView({ data }) {
     if (arr && Array.isArray(arr)) {
       return arr.includes(element);
     }
-    return false // Return false if arr is not defined or not an array
+    return false; // Return false if arr is not defined or not an array
   }
   const onpressfav = async () => {
     if (!loginuser) {
@@ -72,15 +71,19 @@ export default function ListingView({ data }) {
                 EUR {data?.price}
               </Text>
             </View>
-            <View>
-              <TouchableOpacity onPress={onpressfav}>
-                <AntDesign
-                  size={width(4)}
-                  color={fav ? AppColors.primary : "black"}
-                  name={fav ? "heart" : "hearto"}
-                />
-              </TouchableOpacity>
-            </View>
+            {!(data?.userId === loginuser?._id) ? (
+              <View>
+                <TouchableOpacity onPress={onpressfav}>
+                  <AntDesign
+                    size={width(4)}
+                    color={fav ? AppColors.primary : "black"}
+                    name={fav ? "heart" : "hearto"}
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <></>
+            )}
           </View>
           <View>
             <Text numberOfLines={1} style={styles.titletext}>
@@ -101,19 +104,23 @@ export default function ListingView({ data }) {
           </View>
         </View>
       </TouchableOpacity>
-      <View style={styles.icons}>
-        <TouchableOpacity onPress={GlobalMethods.onPressCall}>
-          <Ionicons size={width(4)} name="call" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={GlobalMethods.onPressMessage}>
-          <Ionicons size={width(4)} name="chatbubble-ellipses" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={GlobalMethods.onPressShare}>
-          <Entypo size={width(4)} name="share" />
-        </TouchableOpacity>
-        <AntDesign size={width(4)} name="eye" color={"grey"} />
-        <Text style={{ fontSize: width(2) }}>{data?.views} view</Text>
-      </View>
+      {!(data?.userId === loginuser?._id) ? (
+        <View style={styles.icons}>
+          <TouchableOpacity onPress={GlobalMethods.onPressCall}>
+            <Ionicons size={width(4)} name="call" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={GlobalMethods.onPressMessage}>
+            <Ionicons size={width(4)} name="chatbubble-ellipses" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={GlobalMethods.onPressShare}>
+            <Entypo size={width(4)} name="share" />
+          </TouchableOpacity>
+          <AntDesign size={width(4)} name="eye" color={"grey"} />
+          <Text style={{ fontSize: width(2) }}>{data?.views} view</Text>
+        </View>
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

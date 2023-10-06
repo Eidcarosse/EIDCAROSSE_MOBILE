@@ -9,6 +9,7 @@ export const {
   setMaxPriceFilter,
   setMinPriceFilter,
   setModelFilter,
+  setTitleFilter
 } = configSlice.actions;
 export const selectLoader = (state) => state.config.appLoader;
 export const selectTopAds = (state) => state.config.topads;
@@ -18,3 +19,4 @@ export const selectCategoryFilter = (state) => state.config.filter?.category;
 export const selectMaxPriceFilter = (state) => state.config.filter?.maxPrice;
 export const selectMinPriceFilter = (state) => state.config.filter?.minPrice;
 export const selectModelFilter = (state) => state.config.filter?.model;
+export const selectTitleFilter = (state) => state.config.filter?.title;

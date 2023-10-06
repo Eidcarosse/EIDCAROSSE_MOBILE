@@ -35,7 +35,7 @@ export default function Home({ navigation, route }) {
     { key: "7", value: "Drinks" },
   ];
   const [refreshing, setRefreshing] = useState(false);
-  const [searchString, setSearchString] = useState('');
+  const [searchString, setSearchString] = useState("");
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -85,7 +85,11 @@ export default function Home({ navigation, route }) {
           dropdownStyles={styles.dropdown}
         />
         </View> */}
-        <SearchBar search={searchString} setSearch={setSearchString} />
+        <SearchBar
+          search={searchString}
+          setSearch={setSearchString}
+          next={true}
+        />
 
         {/* <SelectList
             setSelected={(val) => {navigation.navigate(ScreenNames.LISTDATA)}}
@@ -126,11 +130,6 @@ export default function Home({ navigation, route }) {
             </View>
           ) : (
             data
-              .filter((item) => {
-                return item.title
-                  .toLowerCase()
-                  .includes(searchString.toLowerCase());
-              })
               .map((item, index) => (
                 <View
                   key={index}

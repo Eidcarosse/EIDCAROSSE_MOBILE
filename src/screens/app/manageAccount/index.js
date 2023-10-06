@@ -5,7 +5,7 @@ import styles from "./styles";
 
 import { useDispatch } from "react-redux";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
-import { setIsLoggedIn, setUserAds, setUserMeta } from "../../../redux/slices/user";
+import { setAdsFav, setIsLoggedIn, setUserAds, setUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import { setAuthData } from "../../../utills/Methods";
@@ -27,7 +27,9 @@ export default function ManageAccount({ navigation, route }) {
               dispatch(setIsLoggedIn(false))
               dispatch(setUserMeta(null))
               dispatch(setUserAds(null))
+              dispatch(setAdsFav([]))
               setAuthData(null)
+
               , navigation.goBack();
             }}
             title={"LogOut"}

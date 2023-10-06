@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   mainViewContainer: {
     flex: 1,
     backgroundColor: AppColors.white,
+    paddingBottom:height(2)
   },
   imageview: {
     width: width(100),

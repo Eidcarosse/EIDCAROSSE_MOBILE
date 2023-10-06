@@ -9,6 +9,7 @@ const initialState = {
     model: null,
     maxPrice: null,
     minPrice: null,
+    title:''
   },
 };
 
@@ -39,6 +40,9 @@ const configSlice = createSlice({
     },
     setMinPriceFilter: (state, action) => {
       state.filter.minPrice = action.payload;
+    },
+    setTitleFilter: (state, action) => {
+      state.filter.title = action.payload;
     },
   },
 });

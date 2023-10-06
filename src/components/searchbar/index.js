@@ -1,10 +1,23 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { TextInput, View } from "react-native";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import ScreenNames from "../../routes/routes";
+import { useDispatch } from "react-redux";
+import { setTitleFilter } from "../../redux/slices/config";
+import Button from "../button";
+import AppColors from "../../utills/AppColors";
+export default function SearchBar({
+  search,
+  setSearch,
+  containerstyle,
+  next = false,
+}) {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-export default function SearchBar({ search, setSearch, containerstyle }) {
   // const data = [
   //   {
   //     title: "ABC",
@@ -37,22 +50,54 @@ export default function SearchBar({ search, setSearch, containerstyle }) {
   //     <Text>{item?.title}</Text>
   //   </Pressable>
   // );
+  const handleInputSubmit = () => {
+    // Navigate to the next screen here
 
+    next &&
+      (navigation.navigate(ScreenNames.LISTDATA, { search: search }),
+      setSearch(""));
+  };
   return (
     <View style={styles.container}>
-      <View style={[styles.main, containerstyle]}>
+      <View
+        style={[
+          styles.main,
+          { borderColor: search ? AppColors.primary : "black" },
+          containerstyle,
+        ]}
+      >
         <Ionicons
           name="search"
           style={{ marginHorizontal: width(2) }}
-          color={"grey"}
+          color={search ? AppColors.primary : "grey"}
           size={width(5)}
         />
         <TextInput
           placeholder="Search"
           value={search}
           onChangeText={setSearch}
-          style={{ width: width(80) }}
+          style={{ width: width(63) }}
+          onSubmitEditing={handleInputSubmit}
         />
+        {search && (
+          <Button
+            onPress={handleInputSubmit}
+            title={"search"}
+            containerStyle={{
+              width: width(15),
+              padding: width(0.1),
+              paddingVertical: width(1.5),
+              backgroundColor: AppColors.primary,
+              borderRadius: width(1),
+              marginVertical: width(0.5),
+            }}
+            textStyle={{
+              fontSize: width(3),
+              margin: width(0.1),
+              padding: width(0.1),
+            }}
+          />
+        )}
       </View>
 
       {/* {search != "" && (

@@ -118,6 +118,7 @@ export default function Detail({ navigation, route }) {
         console.error("Error opening WhatsApp:", error);
       });
   };
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -128,13 +129,15 @@ export default function Detail({ navigation, route }) {
           loginuser={loginuser ? true : false}
         />
       )}
-      footerUnScrollable={() => (
-        <DetailFooter
-          onPressCall={GlobalMethods.onPressCall}
-          onPressChat={GlobalMethods.onPressMessage}
-          onPressMail={GlobalMethods.onPressEmail}
-        />
-      )}
+      footerUnScrollable={() =>
+        !(data?.userId?._id == loginuser?._id) && (
+          <DetailFooter
+            onPressCall={GlobalMethods.onPressCall}
+            onPressChat={GlobalMethods.onPressMessage}
+            onPressMail={GlobalMethods.onPressEmail}
+          />
+        )
+      }
       statusBarColor={AppColors.primary} //{"rgba(128, 128, 128,5)"}
       barStyle="light-content"
       scrollEnabled
@@ -181,16 +184,20 @@ export default function Detail({ navigation, route }) {
                 EUR {data?.price}
               </Text>
             </View>
-            <TouchableOpacity
-              style={{ marginHorizontal: width(3) }}
-              onPress={onpressfav}
-            >
-              <AntDesign
-                size={width(5)}
-                color={fav ? AppColors.primary : "black"}
-                name={fav ? "heart" : "hearto"}
-              />
-            </TouchableOpacity>
+            {!(data?.userId?._id === loginuser?._id) ? (
+              <TouchableOpacity
+                style={{ marginHorizontal: width(3) }}
+                onPress={onpressfav}
+              >
+                <AntDesign
+                  size={width(5)}
+                  color={fav ? AppColors.primary : "black"}
+                  name={fav ? "heart" : "hearto"}
+                />
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
           </View>
           <View>
             <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
@@ -388,7 +395,13 @@ export default function Detail({ navigation, route }) {
             {!isNullOrNullOrEmpty(data?.viber) && (
               <IconButton
                 title={"Viber"}
-                icon={<Fontisto size={width(4)} name="viber" color={AppColors.white} />}
+                icon={
+                  <Fontisto
+                    size={width(4)}
+                    name="viber"
+                    color={AppColors.white}
+                  />
+                }
                 containerStyle={{
                   backgroundColor: "#7D3DAF",
                   marginLeft: width(2),
