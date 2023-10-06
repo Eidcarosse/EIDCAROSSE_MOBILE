@@ -6,7 +6,6 @@ import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 export default function DetailHeader({
   onPressBack,
-  onPressHeart,
   onPressShare,
   onPressOption,
   like = true,
@@ -32,16 +31,6 @@ export default function DetailHeader({
           justifyContent: "space-around",
         }}
       >
-        {/* {!like&&<TouchableOpacity 
-        style={{marginHorizontal:width(3)}}
-
-        onPress={()=>{setMyFav()}}>
-          <AntDesign
-            size={width(4)}
-            color={fav ? AppColors.primary : AppColors.white}
-            name={fav ? "heart" : "hearto"}
-          />
-        </TouchableOpacity>} */}
         <TouchableOpacity
           style={{ marginHorizontal: width(3) }}
           onPress={onPressShare}

@@ -58,10 +58,7 @@ export default function AddPost({ navigation, route }) {
   const [description, setDescription] = React.useState("");
   const [check, setCheck] = React.useState(false);
   const [year, setYear] = React.useState("");
-  const [radius, setRadius] = React.useState("");
   const [price, setPrice] = React.useState("");
-  const [pricefrom, setPricefrom] = React.useState("");
-  const [priceto, setPriceto] = React.useState("");
   const [condition, setCondition] = React.useState("");
   const [brand, setBrand] = React.useState("");
   const [model, setModel] = React.useState("");
@@ -159,8 +156,7 @@ export default function AddPost({ navigation, route }) {
       formData.append("category", category);
       formData.append("subCategory", subCategory);
       formData.append("price", price);
-      formData.append("minPrice", pricefrom);
-      formData.append("maxPrice", priceto);
+      formData.append("km", km);
       formData.append("condition", condition);
       formData.append("brand", brand);
       formData.append("year", year);
@@ -219,9 +215,6 @@ export default function AddPost({ navigation, route }) {
   const pdata = [
     {
       label: "Price",
-    },
-    {
-      label: "Price Rang",
     },
     {
       label: "Disable",
@@ -472,35 +465,12 @@ export default function AddPost({ navigation, route }) {
                 paddingVertical: width(1),
               }}
               activeColor={AppColors.primary}
-              selectedBtn={(e) => setPricing(e.label)}
+              selectedBtn={(e) => {
+                e.label == "Disable" ? setPrice("") : "";
+                setPricing(e.label);
+              }}
             />
           </View>
-          {pricing == "Price Rang" && (
-            <View
-              style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
-            >
-              <Text style={styles.title}>Price Rang (CHF)</Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Input
-                  value={pricefrom}
-                  setvalue={setPricefrom}
-                  placeholder={"From"}
-                  containerStyle={styles.price}
-                />
-                <Input
-                  value={priceto}
-                  setvalue={setPriceto}
-                  placeholder={"to"}
-                  containerStyle={styles.price}
-                />
-              </View>
-            </View>
-          )}
           {pricing == "Price" && (
             <View
               style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
@@ -564,7 +534,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={subCategory}
                 setvalue={setSubCategory}
-                containerStyle={[styles.price,]}
+                containerStyle={[styles.price]}
                 editable={false}
               />
             </View>
@@ -806,15 +776,6 @@ export default function AddPost({ navigation, route }) {
               )}
             </View>
           )}
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Video url</Text>
-            <Input
-              value={url}
-              setvalue={setUrl}
-              placeholder={"http://video.com"}
-              containerStyle={[styles.price, { width: width(90) }]}
-            />
-          </View>
           {showKM(category) && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>Kms Driven</Text>
@@ -836,6 +797,15 @@ export default function AddPost({ navigation, route }) {
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
+        </View>
+        <View style={{ paddingVertical: width(1) }}>
+          <Text style={styles.title}>Video url</Text>
+          <Input
+            value={url}
+            setvalue={setUrl}
+            placeholder={"http://video.com"}
+            containerStyle={[styles.price, { width: width(90) }]}
+          />
         </View>
         {/* --------owner infomartio---- */}
         <View>
