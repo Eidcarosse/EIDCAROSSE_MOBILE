@@ -18,9 +18,9 @@ export const getDataofHomePage = async () => {
 };
 
 export const getAllData = async (queryParams) => {
-  console.log('====================================');
+  console.log("====================================");
   console.log(queryParams);
-  console.log('====================================');
+  console.log("====================================");
   try {
     const response = await ApiManager.get(`ad/`, queryParams);
 
@@ -94,7 +94,7 @@ export const geVehicleCategory = async (type) => {
 };
 export const getModel = async (type, value) => {
   try {
-    const response = await ApiManager.get(`ad//findModels/${type}/${value}`);
+    const response = await ApiManager.get(`ad/findModels/${type}/${value}`);
     if (response?.data[0]?.model) {
       return response?.data[0]?.model;
     }
@@ -115,6 +115,15 @@ export const toggleFavorite = async (id, userId) => {
   try {
     const response = await ApiManager.put(`ad/setFavorite/${id}/${userId}`);
     return response?.data?.favAdIds;
+  } catch (error) {
+    alert("fav api");
+    console.log(error);
+    return []; // or some default value as needed
+  }
+};
+export const adView = async (adId) => {
+  try {
+    const response = await ApiManager.patch(`ad/addView?id=${adId}`);
   } catch (error) {
     alert("fav api");
     console.log(error);

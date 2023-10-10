@@ -1,32 +1,40 @@
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 import React, { useCallback, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 import { Menu, MenuItem } from "react-native-material-menu";
 
-import { useDispatch, useSelector } from "react-redux";
+import AppColors from "../../utills/AppColors";
+import { width } from "../../utills/Dimension";
 import { deleteAdById } from "../../backend/api";
-import { getOwneAd } from "../../backend/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
-import { width } from "../../utills/Dimension";
+import { getOwneAd } from "../../backend/auth";
+import GlobalMethods from "../../utills/Methods";
 
 export default function MyCard({ data }) {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
   const userid = userInfo?._id;
-
   const getData = useCallback(async (id) => {
     let d = await getOwneAd(id);
     if (d) dispatch(setUserAds(d));
     else dispatch(setUserAds([]));
   });
+  const [sold, setSold] = useState(false);
+  const [publish, setPublish] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
   const hideMenu = () => setModalVisible(false);
 
   const showMenu = () => setModalVisible(true);
-
+  const calculateTimeDifference = (createdAt) => {
+    const distance = formatDistanceToNow(new Date(createdAt), {
+      addSuffix: true,
+    });
+    return distance;
+  };
   const deleteAd = async (id) => {
     dispatch(setAppLoader(true));
     try {
@@ -56,14 +64,14 @@ export default function MyCard({ data }) {
           <View style={styles.categoryview}>
             <AntDesign name="clockcircleo" color={"grey"} size={width(4)} />
             <Text numberOfLines={1} style={styles.textcategory}>
-              {data?.category}
+              {GlobalMethods.calculateTimeDifference(data?.createdAt)}
             </Text>
           </View>
 
           <View style={styles.categoryview}>
             <AntDesign name="eye" color={"grey"} size={width(4)} />
             <Text numberOfLines={2} style={styles.textcategory}>
-              129 Views
+              {data?.views} Views
             </Text>
           </View>
         </View>
@@ -78,26 +86,54 @@ export default function MyCard({ data }) {
       </View>
 
       <View style={styles.icons}>
-        <TouchableOpacity
-          style={{ paddingVertical: 3 }}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
+        <TouchableOpacity style={{ paddingVertical: 3 }} onPress={showMenu}>
           <Entypo size={width(4)} name="dots-three-vertical" />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderWidth: 1,
-            borderColor: "grey",
-            paddingHorizontal: width(3),
-            padding: width(1),
-            borderRadius: width(5),
-          }}
-          disabled={true}
-        >
-          <Text style={{ fontSize: width(2) }}>Published</Text>
-        </TouchableOpacity>
+        {sold ? (
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: AppColors.primary,
+              paddingHorizontal: width(3),
+              padding: width(1),
+              borderRadius: width(5),
+              backgroundColor: AppColors.primary,
+            }}
+            disabled={true}
+          >
+            <Text
+              style={{
+                fontSize: width(2),
+                color: AppColors.white,
+                fontWeight: "bold",
+              }}
+            >
+              Sold
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={{
+              borderWidth: 1,
+              borderColor: publish ? AppColors.grey : AppColors.primary,
+              paddingHorizontal: width(3),
+              padding: width(1),
+              borderRadius: width(5),
+              backgroundColor: publish ? AppColors.white : AppColors.primary,
+            }}
+            disabled={true}
+          >
+            <Text
+              style={{
+                fontSize: width(2.5),
+                color: publish ? AppColors.black : AppColors.white,
+                fontWeight: publish ? "400" : "bold",
+              }}
+            >
+              {publish ? "Published" : "Mute"}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
       <Menu visible={isModalVisible} onRequestClose={hideMenu}>
         <MenuItem onPress={hideMenu}>Edit</MenuItem>
@@ -108,7 +144,39 @@ export default function MyCard({ data }) {
         >
           Delete
         </MenuItem>
-        <MenuItem onPress={hideMenu}>Mark as sold</MenuItem>
+        {!sold && (
+          <MenuItem
+            onPress={() => {
+              hideMenu();
+              setSold(true);
+            }}
+          >
+            Mark as sold
+          </MenuItem>
+        )}
+        {!sold ? (
+          publish ? (
+            <MenuItem
+              onPress={() => {
+                hideMenu();
+                setPublish(false);
+              }}
+            >
+              Mute
+            </MenuItem>
+          ) : (
+            <MenuItem
+              onPress={() => {
+                hideMenu();
+                setPublish(true);
+              }}
+            >
+              Re-publish
+            </MenuItem>
+          )
+        ) : (
+          <></>
+        )}
       </Menu>
     </View>
   );

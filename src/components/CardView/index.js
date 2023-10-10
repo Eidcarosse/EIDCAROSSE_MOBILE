@@ -1,6 +1,6 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../asset/images";
@@ -15,7 +15,11 @@ import { width } from "../../utills/Dimension";
 import GlobalMethods from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
+import SwiperFlatList from "react-native-swiper-flatlist";
 export default function CardView({ data }) {
+  const [slideNo, setSlideNo] = useState(0);
+  const introRef = useRef(null);
+
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
   function isInArray(element, arr) {
@@ -51,14 +55,24 @@ export default function CardView({ data }) {
       }
     }
   };
+  const renderItem = ({ item }) => {
+    return (
+      <Image
+        resizeMode="cover"
+        style={styles.image}
+        // source={{ uri: data?.image[0] }}
+        source={{ uri: item ? item : Icons.car }}
+      />
+    );
+  };
   return (
     <View style={styles.main}>
       <TouchableOpacity
         activeOpacity={0.7}
-        style={{ flexDirection: "row" }}
         onPress={() => {
           navigation.navigate(ScreenNames.DETAIL, data);
         }}
+        style={{ flexDirection: "row" }}
       >
         <View style={styles.imageview}>
           <Image
@@ -67,6 +81,14 @@ export default function CardView({ data }) {
             // source={{ uri: data?.image[0] }}
             source={{ uri: data?.images ? data?.images[0] : Icons.car }}
           />
+          {/* <SwiperFlatList
+            // ref={introRef}
+            // autoplay
+            // autoplayDelay={1}
+            // autoplayLoop={true}
+            data={data?.images}
+            renderItem={renderItem}
+          /> */}
         </View>
         <View style={styles.detail}>
           <View>
@@ -83,6 +105,12 @@ export default function CardView({ data }) {
               <Entypo name="location-pin" color={"grey"} size={width(4)} />
               <Text numberOfLines={2} style={styles.detailtext}>
                 {data?.address}
+              </Text>
+            </View>
+            <View style={styles.categoryview}>
+              <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
+              <Text numberOfLines={1} style={styles.detailtext}>
+                {GlobalMethods.calculateTimeDifference(data?.createdAt)}
               </Text>
             </View>
           </View>
@@ -107,24 +135,26 @@ export default function CardView({ data }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            onPress={GlobalMethods.onPressCall}
+            onPress={() => GlobalMethods.onPressCall("234567890")}
           >
             <Ionicons size={width(4)} name="call" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            onPress={GlobalMethods.onPressMessage}
+            onPress={() => {
+              navigation.navigate(ScreenNames.CHAT,data);
+            }}
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            onPress={GlobalMethods.onPressShare}
+            onPress={() => GlobalMethods.onPressShare("Share")}
           >
             <Entypo size={width(4)} name="share" />
           </TouchableOpacity>
           <AntDesign size={width(4)} name="eye" color={"grey"} />
-          <Text style={{ fontSize: width(2) }}>{data?.views} view</Text>
+          <Text style={{ fontSize: width(2) }}>{data?.views}</Text>
         </View>
       ) : (
         <></>

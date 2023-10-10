@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { Image, Text, View } from "react-native";
 import {
   Avatar,
   Bubble,
@@ -8,12 +8,14 @@ import {
   Time,
 } from "react-native-gifted-chat";
 import Icons from "../../../asset/images";
-import { Head, ScreenWrapper } from "../../../components";
+import { AdView, Button, Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
 export default function ChatView({ navigation, route }) {
+
+const adDetail=  route?.params
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -110,6 +112,7 @@ export default function ChatView({ navigation, route }) {
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
+        <AdView detail={adDetail}/>
         <GiftedChat
           messages={messages}
           style={{ width: width(90) }}

@@ -13,7 +13,7 @@ import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
-import { getDataofAdByID, toggleFavorite } from "../../../backend/api";
+import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
 import {
   DetailFooter,
   DetailHeader,
@@ -95,6 +95,9 @@ export default function Detail({ navigation, route }) {
     setload(false);
     if (d) {
       setDat(d);
+      if (d.userId._id != loginuser?._id) {
+        await adView(dat?._id);
+      }
       mapRef.current.animateToRegion(
         {
           latitude: d?.latitude || 0,
@@ -109,39 +112,24 @@ export default function Detail({ navigation, route }) {
     setload(false);
   };
 
-  const openWhatsApp = () => {
-    const phoneNumber = "0000000000"; // Replace with the recipient's phone number
-    const message = "Hello,I saw your ad on Eidcarosse!"; // Replace with your desired message
-
-    // Construct the WhatsApp URL
-    const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
-      message
-    )}`;
-
-    // Open WhatsApp with the constructed URL
-    Linking.openURL(whatsappURL)
-      .then(() => {
-        console.log("WhatsApp opened successfully");
-      })
-      .catch((error) => {
-        console.error("Error opening WhatsApp:", error);
-      });
-  };
-
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
         <DetailHeader
           onPressBack={() => navigation.goBack()}
-          onPressShare={GlobalMethods.onPressShare}
+          onPressShare={() =>
+            GlobalMethods.onPressShare("this is about to share")
+          }
         />
       )}
       footerUnScrollable={() =>
-        !(data?.userId?._id == loginuser?._id ||load) && (
+        !(data?.userId?._id == loginuser?._id || load) && (
           <DetailFooter
-            onPressCall={GlobalMethods.onPressCall}
-            onPressChat={GlobalMethods.onPressMessage}
-            onPressMail={GlobalMethods.onPressEmail}
+            onPressCall={() => GlobalMethods.onPressCall(data?.phoneNumber)}
+            onPressChat={() => {
+              navigation.navigate(ScreenNames.CHAT,dat);
+            }}
+            onPressMail={() => GlobalMethods.onPressEmail(data?.email)}
           />
         )
       }
@@ -410,7 +398,7 @@ export default function Detail({ navigation, route }) {
                     />
                   }
                   containerStyle={{ backgroundColor: "#41C053" }}
-                  onPress={openWhatsApp}
+                  onPress={() => GlobalMethods.openWhatsApp(data?.whatsapp)}
                 />
               )}
               {!isNullOrNullOrEmpty(data?.viber) && (
@@ -427,6 +415,7 @@ export default function Detail({ navigation, route }) {
                     backgroundColor: "#7D3DAF",
                     marginLeft: width(2),
                   }}
+                  onPress={() => GlobalMethods.openViber(data?.viber)}
                 />
               )}
             </View>

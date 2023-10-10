@@ -27,7 +27,12 @@ const styles = StyleSheet.create({
     paddingBottom: width(1),
   },
   categoryview: { flexDirection: "row", alignItems: "center" },
-  detailtext: { fontSize: width(3), marginLeft: width(2), width: width(34) },
+  detailtext: {
+    fontSize: width(3),
+    marginLeft: width(2),
+    width: width(34),
+    marginVertical: width(0.5),
+  },
   chf: {
     fontSize: width(4),
     color: AppColors.primary,
@@ -59,6 +64,11 @@ const styles = StyleSheet.create({
     width: width(7),
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  textcategory: {
+    fontSize: width(3),
+    marginLeft: width(2),
+    width: width(35),
   },
 });
 export default styles;

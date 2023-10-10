@@ -4,6 +4,8 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
+import { Menu, MenuItem } from "react-native-material-menu";
+
 export default function DetailHeader({
   onPressBack,
   onPressShare,
@@ -17,11 +19,19 @@ export default function DetailHeader({
       alert("Please login first");
     } else setFav(!fav);
   };
+  const [isModalVisible, setModalVisible] = useState(false);
+  const hideMenu = () => setModalVisible(false);
+
+  const showMenu = () => setModalVisible(true);
   return (
     <View style={styles.container}>
       <View style={styles.menuicon}>
         <TouchableOpacity onPress={onPressBack}>
-          <Ionicons name="chevron-back" size={width(6)} color={AppColors.white} />
+          <Ionicons
+            name="chevron-back"
+            size={width(6)}
+            color={AppColors.white}
+          />
         </TouchableOpacity>
         <Text style={styles.textdetail}>Details</Text>
       </View>
@@ -37,13 +47,25 @@ export default function DetailHeader({
         >
           <Entypo size={width(4)} name="share" color={AppColors.white} />
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginHorizontal: width(3) }}>
+        <TouchableOpacity
+          style={{ marginHorizontal: width(3) }}
+          onPress={showMenu}
+        >
           <SimpleLineIcons
             size={width(4)}
             name="options-vertical"
             color={AppColors.white}
           />
         </TouchableOpacity>
+        <Menu visible={isModalVisible} onRequestClose={hideMenu}>
+          <MenuItem
+            onPress={() => {
+              hideMenu();
+            }}
+          >
+            Block
+          </MenuItem>
+        </Menu>
         {/* <Ionicons name="chevron-back" size={width(7)} color={AppColors.white} /> */}
       </View>
     </View>

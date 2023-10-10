@@ -20,6 +20,8 @@ export {default as DropDownMenu} from './dorpdownmenu'
 export {default as SmallText} from './text'
 export {default as FilePickerModal} from './filepikermodal'
 export {default as ChatIcon} from './chatIcon'
+export {default as AdView} from './adviewChat'
+
 
 
 

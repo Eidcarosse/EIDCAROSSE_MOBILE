@@ -1,5 +1,5 @@
 import { Linking, Platform, Share, ToastAndroid } from "react-native";
-
+import { formatDistanceToNow } from "date-fns";
 export function debounce(func, wait, immediate) {
   var timeout;
   return function () {
@@ -74,8 +74,7 @@ const onPressCall = (phoneNumber) => {
     })
     .catch((error) => console.error("Error opening phone app:", error));
 };
-const onPressMessage = () => {
-  const phoneNumber = "1234567890"; // Replace with the phone number you want to send a message to
+const onPressMessage = (phoneNumber) => {
   const url = `sms:${phoneNumber}`;
 
   Linking.openURL(url)
@@ -88,11 +87,10 @@ const onPressMessage = () => {
     })
     .catch((error) => console.error("Error opening messaging app:", error));
 };
-const onPressEmail = () => {
-  const emailAddress = "example@email.com"; // Replace with the email address you want to send an email to
-  const subject = "Subject of your email"; // Optional: Replace with the subject of your email
+const onPressEmail = (email) => {
+  const subject = "Eidcaross"; // Optional: Replace with the subject of your email
 
-  const url = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}`;
+  const url = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 
   Linking.openURL(url)
     .then((result) => {
@@ -104,10 +102,10 @@ const onPressEmail = () => {
     })
     .catch((error) => console.error("Error opening email app:", error));
 };
-const onPressShare = async () => {
+const onPressShare = async (message) => {
   try {
     const result = await Share.share({
-      message: "Hello, this is the content to share!",
+      message: message,
     });
 
     if (result.action === Share.sharedAction) {
@@ -116,6 +114,48 @@ const onPressShare = async () => {
   } catch (error) {
     console.error("Error sharing:", error);
   }
+};
+const openWhatsApp = (phoneNumber) => {
+  const message = "Hello,I saw your ad on Eidcarosse!"; // Replace with your desired message
+
+  // Construct the WhatsApp URL
+  const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
+    message
+  )}`;
+
+  // Open WhatsApp with the constructed URL
+  Linking.openURL(whatsappURL)
+    .then(() => {
+      console.log("WhatsApp opened successfully");
+    })
+    .catch((error) => {
+      console.error("Error opening WhatsApp:", error);
+      errorMessage("Whatsapp not exist")
+    });
+};
+const openViber = (phoneNumber) => {
+  const message = "Hello, I saw your ad on Eidcarosse!"; // Replace with your desired message
+
+  // Construct the Viber URL
+  const viberURL = `viber://forward?text=${encodeURIComponent(
+    message
+  )}&phone=${phoneNumber}`;
+
+  // Open Viber with the constructed URL
+  Linking.openURL(viberURL)
+    .then(() => {
+      console.log("Viber opened successfully");
+    })
+    .catch((error) => {
+      console.error("Error opening Viber:", error);
+      errorMessage("Viber not exist")
+    });
+};
+const calculateTimeDifference = (createdAt) => {
+  const distance = formatDistanceToNow(new Date(createdAt), {
+    addSuffix: true,
+  });
+  return distance;
 };
 const onPressFavorite = () => {};
 const GlobalMethods = {
@@ -129,5 +169,8 @@ const GlobalMethods = {
   onPressShare,
   onPressFavorite,
   onPressEmail,
+  openWhatsApp,
+  openViber,
+  calculateTimeDifference
 };
 export default GlobalMethods;

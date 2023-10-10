@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     fontSize: width(3),
     marginLeft: width(2),
     width: width(35),
+    marginVertical:width(.5)
   },
 });
 export default styles;

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Head, ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
@@ -20,14 +20,17 @@ export default function WishList({ navigation, route }) {
   const id = userInfo?._id;
 
   const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     getData(id);
   }, []);
   const getData = useCallback(async (id) => {
+    setLoader(true)
     let d = await getFavAds(id);
     if (d) setData(d);
     else setData([]);
+    setLoader(false)
   });
   return (
     <ScreenWrapper
@@ -41,12 +44,16 @@ export default function WishList({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <View style={{ width: width(100), alignItems: "center" }}>
           {data?.length === 0 ? (
-            <View style={{ height: height(100) }}>
-              <Image
-                source={Icons.empty}
-                style={{ height: width(50), width: width(60) }}
-              />
-            </View>
+            loader ? (
+              <ActivityIndicator  color={AppColors.primary} size={'large'}/>
+            ) : (
+              <View style={{ height: height(100) }}>
+                <Image
+                  source={Icons.empty}
+                  style={{ height: width(50), width: width(60) }}
+                />
+              </View>
+            )
           ) : (
             data.map((item, index) => (
               <TouchableOpacity

@@ -101,22 +101,34 @@ export default function ListingView({ data }) {
                 {data?.address}
               </Text>
             </View>
+            <View style={styles.categoryview}>
+              <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
+              <Text numberOfLines={1} style={styles.categorytext}>
+                {GlobalMethods.calculateTimeDifference(data?.createdAt)}
+              </Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
       {!(data?.userId === loginuser?._id) ? (
         <View style={styles.icons}>
-          <TouchableOpacity onPress={GlobalMethods.onPressCall}>
+          <TouchableOpacity
+            onPress={() => GlobalMethods.onPressCall("12345678")}
+          >
             <Ionicons size={width(4)} name="call" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={GlobalMethods.onPressMessage}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ScreenNames.CHAT, data);
+            }}
+          >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={GlobalMethods.onPressShare}>
+          <TouchableOpacity onPress={() => GlobalMethods.onPressShare("share")}>
             <Entypo size={width(4)} name="share" />
           </TouchableOpacity>
           <AntDesign size={width(4)} name="eye" color={"grey"} />
-          <Text style={{ fontSize: width(2) }}>{data?.views} view</Text>
+          <Text style={{ fontSize: width(2) }}>{data?.views}</Text>
         </View>
       ) : (
         <></>

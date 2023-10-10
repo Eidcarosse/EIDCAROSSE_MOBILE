@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   mainViewContainer: {
     flex: 1,
     backgroundColor: AppColors.white,
-    paddingBottom:height(2)
+    paddingBottom: height(2),
   },
   imageview: {
     width: width(100),
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
   },
   cardrow: { flexDirection: "row", flex: 1, marginVertical: width(3) },
-  cardelement: { fontSize: width(3.5), flex: 1 ,fontWeight:'bold'},
+  cardelement: { fontSize: width(3.5), flex: 1, fontWeight: "bold" },
   cardelement2: { fontSize: width(3.5), flex: 1 },
   profileview: { padding: width(4) },
   profilecard: {
@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
 
-    elevation:3,
-    shadowColor: 'red',
-shadowOffset: { width: 0, height: 2 },
-shadowOpacity: 0.1,
-shadowRadius: 2,
+    elevation: 3,
+    shadowColor: "red",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   profilecardin: {
     flexDirection: "row",
@@ -56,7 +56,9 @@ shadowRadius: 2,
   profileimage: {
     width: width(12),
     height: width(12),
-    borderRadius:width(10)
+    borderRadius: width(10),
+    borderColor: AppColors.black,
+    borderWidth: width(1),
   },
   map: {
     height: height(25),
@@ -66,7 +68,6 @@ shadowRadius: 2,
   contact: {
     paddingLeft: width(4),
     flexDirection: "row",
-
   },
 });
 export default styles;

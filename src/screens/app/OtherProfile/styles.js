@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     height: width(25),
     borderRadius: width(20),
     marginLeft: width(5),
+    borderColor:AppColors.white,
+    borderWidth:width(1)
   },
   card: {
     width: width(95),
