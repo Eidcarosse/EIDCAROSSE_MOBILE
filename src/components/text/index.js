@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import AppColors from '../../utills/AppColors';
-
+import { useTranslation } from 'react-i18next';
 import { width } from '../../utills/Dimension';
 
 // export const LargeText = ({
@@ -31,30 +31,32 @@ import { width } from '../../utills/Dimension';
 //   );
 // };
 
-// export const MediumText = ({
-//   children = '',
-//   size = 4.5,
-//   textAlign,
-//   color = AppColors.black,
-//   textStyles,
-//   textProps,
-//   onPress = undefined,
-// }) => {
-//   const styles = StyleSheet.create({
-//     text: {
-//       fontSize: width(size),
-//       color: color,
-//       textAlign: textAlign,
-//     },
-//   });
-//   return (
-//     <Pressable disabled={typeof onPress == 'undefined'} onPress={onPress}>
-//       <Text style={[styles.text, textStyles]} {...textProps}>
-//         {children}
-//       </Text>
-//     </Pressable>
-//   );
-// };
+export const MediumText = ({
+  children = '',
+  size = 4.5,
+  textAlign,
+  color = AppColors.black,
+  textStyles,
+  textProps,
+  onPress = undefined,
+}) => {
+  const styles = StyleSheet.create({
+    text: {
+      fontSize: width(size),
+      color: color,
+      textAlign: textAlign,
+    },
+  });
+  const { t } = useTranslation();
+  i18n.changeLanguage(lng);
+  return (
+    <Pressable disabled={typeof onPress == 'undefined'} onPress={onPress}>
+      <Text style={[styles.text, textStyles]} {...textProps}>
+        {children}
+      </Text>
+    </Pressable>
+  );
+};
 export default SmallText = ({
   children = '',
   size = 4,

@@ -125,7 +125,7 @@ export default function OtherProfile({ navigation, route }) {
                   />
                 }
               />
-              <IconButton
+              {/* <IconButton
                 onPress={GlobalMethods.onPressCall}
                 title={"Chat"}
                 containerStyle={styles.wcontainer}
@@ -137,7 +137,7 @@ export default function OtherProfile({ navigation, route }) {
                     color={AppColors.primary}
                   />
                 }
-              />
+              /> */}
             </View>
           </View>
         </ImageBackground>

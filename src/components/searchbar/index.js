@@ -1,14 +1,13 @@
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { TextInput, View } from "react-native";
-import { height, width } from "../../utills/Dimension";
-import styles from "./styles";
+import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import ScreenNames from "../../routes/routes";
+import React from "react";
+import { TextInput, TouchableOpacity, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { setTitleFilter } from "../../redux/slices/config";
-import Button from "../button";
+import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
+import { height, width } from "../../utills/Dimension";
+import Button from "../button";
+import styles from "./styles";
 export default function SearchBar({
   search,
   setSearch,
@@ -17,39 +16,6 @@ export default function SearchBar({
 }) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
-  // const data = [
-  //   {
-  //     title: "ABC",
-  //   },
-  //   {
-  //     title: "ABC",
-  //   },
-  //   {
-  //     title: "ABC",
-  //   },
-  //   {
-  //     title: "ABC",
-  //   },
-  // ];
-  // const [search, setSearch] = useState("");
-
-  // const renderItem = ({ item }) => (
-  //   <Pressable
-  //     style={{
-  //       backgroundColor: AppColors.white,
-  //       padding: width(3),
-  //       elevation: 5,
-  //       shadowColor: "#000",
-  //       shadowOffset: { width: 0, height: 1 },
-  //       shadowOpacity: 0.5,
-  //       shadowRadius: 2,
-  //     }}
-  //     onPress={() => setSearch(item?.title)}
-  //   >
-  //     <Text>{item?.title}</Text>
-  //   </Pressable>
-  // );
   const handleInputSubmit = () => {
     // Navigate to the next screen here
 
@@ -76,7 +42,7 @@ export default function SearchBar({
           placeholder="Search"
           value={search}
           onChangeText={setSearch}
-          style={{ width: width(63) }}
+          style={{ width: width(50) }}
           onSubmitEditing={handleInputSubmit}
         />
         {search && (
@@ -99,20 +65,18 @@ export default function SearchBar({
           />
         )}
       </View>
-
-      {/* {search != "" && (
-        <View
-          style={{
-            flex: 1,
-            position: "absolute",
-            width: width(90),
-            zIndex: 1,
-            top: height(5),
-          }}
+      <View>
+        <TouchableOpacity
+          style={{ marginLeft: height(2) }}
+          onPress={() => navigation.navigate(ScreenNames.MAP)}
         >
-          <FlatList data={data} renderItem={renderItem} />
-        </View>
-      )} */}
+          <Feather
+            name="globe"
+            size={width(7)}
+            color={AppColors.primary}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

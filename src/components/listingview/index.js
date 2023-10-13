@@ -11,7 +11,7 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods from "../../utills/Methods";
+import GlobalMethods, { infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 export default function ListingView({ data }) {
@@ -39,7 +39,7 @@ export default function ListingView({ data }) {
   }
   const onpressfav = async () => {
     if (!loginuser) {
-      alert("Please login first");
+      infoMessage('Login to ad Favotite','Authentication')
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {

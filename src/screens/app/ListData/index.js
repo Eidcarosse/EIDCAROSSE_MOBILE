@@ -71,7 +71,7 @@ export default function ListData({ navigation, route }) {
   const [columnumber, setcolumnumber] = useState(2);
 
   const queryParams = {
-    address: address,
+    address: address||"",
     category: category || "",
     subCategory: subCategory || "",
     condition: condition || "",
@@ -194,23 +194,6 @@ export default function ListData({ navigation, route }) {
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
-        <View style={styles.filterview}>
-          {/* <SearchBar
-            search={searchString}
-            setSearch={setSearchString}
-            containerstyle={{ width: width(80) }}
-          /> */}
-          {/* <TouchableOpacity
-            style={{ marginLeft: height(2) }}
-            onPress={() => refRBSheet.current.open()}
-          >
-            <FontAwesome
-              name="sliders"
-              size={width(7)}
-              color={AppColors.primary}
-            />
-          </TouchableOpacity> */}
-        </View>
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
             Total Result :{" "}

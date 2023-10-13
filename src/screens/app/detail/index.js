@@ -18,9 +18,10 @@ import {
   DetailFooter,
   DetailHeader,
   IconButton,
+  RelatedAd,
   ScreenWrapper,
 } from "../../../components";
-import GlobalMethods from "../../../utills/Methods";
+import GlobalMethods, { infoMessage } from "../../../utills/Methods";
 import { setAppLoader } from "../../../redux/slices/config";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
@@ -57,7 +58,7 @@ export default function Detail({ navigation, route }) {
   }
   const onpressfav = async () => {
     if (!loginuser) {
-      alert("Please login first");
+      infoMessage("Login to ad Favotite", "Authentication");
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {
@@ -82,7 +83,7 @@ export default function Detail({ navigation, route }) {
   }
   useEffect(() => {
     getData();
-  }, []);
+  }, [dat?._id != data?._id]);
   // useEffect(() => {
   //  if(isEnabled){
 
@@ -127,7 +128,7 @@ export default function Detail({ navigation, route }) {
           <DetailFooter
             onPressCall={() => GlobalMethods.onPressCall(data?.phoneNumber)}
             onPressChat={() => {
-              navigation.navigate(ScreenNames.CHAT,dat);
+              navigation.navigate(ScreenNames.CHAT, dat);
             }}
             onPressMail={() => GlobalMethods.onPressEmail(data?.email)}
           />
@@ -158,6 +159,7 @@ export default function Detail({ navigation, route }) {
               caroselImageStyle={{ resizeMode: "contain" }}
               activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
               closeIconColor={AppColors.white}
+              preview={true}
             />
           </View>
           <View style={styles.nameview}>
@@ -448,6 +450,7 @@ export default function Detail({ navigation, route }) {
               />
             </MapView>
           </View>
+          <RelatedAd category={data?.category} />
         </View>
       )}
     </ScreenWrapper>

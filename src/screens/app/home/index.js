@@ -73,35 +73,11 @@ export default function Home({ navigation, route }) {
       onRefresh={onRefresh}
     >
       <View style={styles.mainViewContainer}>
-        {/* <View
-        style={{position:'absolute',backgroundColor:Appcolor.White,zIndex:1,top:height(3)}}
-        >
-        <SelectList
-          setSelected={(val) =>{}}
-          data={ddata}
-          save="value"
-          maxHeight={height(80)}
-          boxStyles={styles.searchbox}
-          dropdownStyles={styles.dropdown}
-        />
-        </View> */}
         <SearchBar
           search={searchString}
           setSearch={setSearchString}
           next={true}
         />
-
-        {/* <SelectList
-            setSelected={(val) => {navigation.navigate(ScreenNames.LISTDATA)}}
-            data={ddata}
-            save="value"
-            placeholder={'Serach here'}
-            boxStyles={styles.searchbox}
-            dropdownStyles={styles.dropdown}
-          /> */}
-        {/* <View>
-          <TextInput style={styles.searchinput} placeholder="search" />
-        </View> */}
         <CategoryList navigation={navigation} />
         <View style={styles.titleview}>
           <Text style={{ fontSize: width(3.5), fontWeight: "bold" }}>

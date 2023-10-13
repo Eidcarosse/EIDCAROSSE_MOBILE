@@ -26,6 +26,7 @@ import {
   FAQScreen,
   HTSFScreen,
   ListData,
+  MapAdView,
   MyListingScreen,
   OtherProfileScreen,
   PasswordScreens,
@@ -121,6 +122,7 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.PASSWORD} component={PasswordScreens} />
         <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />
         <Stack.Screen name={ScreenNames.WISH} component={WishScreen} />
+        <Stack.Screen name={ScreenNames.MAP} component={MapAdView} />
         <Stack.Screen
           name={ScreenNames.MYLISTING}
           component={MyListingScreen}

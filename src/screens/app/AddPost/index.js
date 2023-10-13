@@ -899,6 +899,7 @@ export default function AddPost({ navigation, route }) {
             <GooglePlacesAutocomplete
               fetchDetails={true}
               placeholder="Search"
+              currentLocation={true}
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
                 setLatiitude(details?.geometry?.location?.lat);

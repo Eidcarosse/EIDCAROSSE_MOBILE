@@ -36,6 +36,14 @@ export const errorMessage = (description = "", message = "error") => {
     position: "top",
   });
 };
+export const infoMessage = (description = "", message = "info") => {
+  showMessage({
+    message: message,
+    description: description,
+    type: "info",
+    position: "top",
+  });
+};
 // export const toastMessage = (description = "", message = "Info", type = "info") => {
 //   showMessage({
 //     message: message,

@@ -25,5 +25,6 @@ const ScreenNames = {
   PP:'PrivacyPolicy',
   SNTU:'Sellus',
   REPAIR:'Repair',
+  MAP:'Map'
 };
 export default ScreenNames;

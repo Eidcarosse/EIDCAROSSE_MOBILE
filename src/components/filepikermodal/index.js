@@ -10,7 +10,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import DropDownMenu from "../dorpdownmenu";
 
-const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
+const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
   const [isVisible, setVisible] = useState(false);
 
   const requestPermissions = async () => {
@@ -33,7 +33,7 @@ const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
     cleanTempImages: () => {
       ImagePicker.cleanTempImages()
         .then(() => {
-          console.log('removed all tmp images from tmp directory');
+          console.log("removed all tmp images from tmp directory");
         })
         .catch(console.log);
     },
@@ -63,7 +63,7 @@ const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
   // }
   const openCamera = async () => {
     try {
-      let result = await launchCameraAsync({})
+      await ImagePicker.launchCameraAsync({})
         .then((a) => onFilesSelected(a.assets))
         .catch((e) => console.log("my log", e));
     } catch (error) {
@@ -74,7 +74,7 @@ const FilePickerModal = ({ onFilesSelected, multi=false}, ref) => {
     await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: multi,
-      selectionLimit:5
+      selectionLimit: 5,
     })
       .then((a) => onFilesSelected(a.assets))
       .catch((e) => console.log("my log", e));
