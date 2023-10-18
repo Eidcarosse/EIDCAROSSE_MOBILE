@@ -43,10 +43,11 @@ import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
 import { getDataofHomePage } from "../backend/api";
 import { getFavAds } from "../backend/auth";
-
+import {getDatabase, ref, onValue, off } from 'firebase/database';
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
+  const db=getDatabase()
   const isLogin = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
@@ -91,6 +92,7 @@ export default function Routes() {
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds))
         dispatch(setAppLoader(false));
+        fetchRoomsData(response?.data?.userDetails?._id);
       } else {
         alert("Re-login");
         //  dispatch(setAppLoader(false));
@@ -100,7 +102,37 @@ export default function Routes() {
       // dispatch(setAppLoader(false));
     }
   };
+    const fetchRoomsData = async (id) => {
+      let roomRef;
+      try {
+        console.log('Updating rooms list');
+        roomRef = ref(db, `RoomLists/${id}/rooms`);
 
+        const handleRoomUpdate = (snapshot) => {
+          const room = snapshot.val() || [];
+         console.log('====================================');
+         console.log(room);
+         console.log('====================================');
+        };
+
+        onValue(roomRef, handleRoomUpdate);
+
+        // Clean up the listener when the component is unmounted or the user logs out
+        return () => {
+          if (roomRef) {
+            off(roomRef, handleRoomUpdate);
+          }
+        };
+      } catch (error) {
+        console.error('Error fetching room data:', error);
+      }
+    };
+
+   
+ 
+
+
+  
   return (
     <NavigationContainer>
       <Loader />

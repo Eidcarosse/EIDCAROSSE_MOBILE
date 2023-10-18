@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor:AppColors.primary,
     borderRadius:width(1),
+    paddingVertical:width(2.5),
     margin:width(2)
   },
 });

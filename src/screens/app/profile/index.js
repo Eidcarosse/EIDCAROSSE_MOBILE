@@ -1,4 +1,4 @@
-import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
+import { Entypo, Fontisto,MaterialIcons, Ionicons } from "@expo/vector-icons";
 import React, { useRef } from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 import styles from "./styles";
@@ -138,12 +138,28 @@ export default function Profile({ navigation, route }) {
             onPress={() => {
               navigation.navigate(ScreenNames.ACCOUNT);
             }}
-            title={"Manage Account"}
+            title={"App Setting"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
               <Fontisto
                 name="player-settings"
+                color={AppColors.primary}
+                size={width(4)}
+              />
+            }
+            iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+          />
+           <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.ACCOUNT);
+            }}
+            title={"Manage Account"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            icon={
+              <MaterialIcons
+                name="account-tree"
                 color={AppColors.primary}
                 size={width(4)}
               />
