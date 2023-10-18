@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Eidcarosse",
-    "entryPoint": "./src/App.js",
+    "entryPoint": "./App",
     "slug": "Eidcarosse",
     "version": "1.0.0",
     "orientation": "portrait",

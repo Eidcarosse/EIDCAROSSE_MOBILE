@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { selectLoader } from "../../redux/slices/config";
 import AppColors from "../../utills/AppColors";
 import styles from "./styles";
-import LottieView from "lottie-react-native";
 import { height, width } from "../../utills/Dimension";
 import Icons from "../../asset/images";
 export default function Loader() {
@@ -25,13 +24,6 @@ export default function Loader() {
         style={styles.image}
         source={Icons.loder}
         />
-        {/* <ActivityIndicator color={AppColors.primary} size={'large'}/> */}
-        {/* <LottieView
-        source={require("../../asset/animations/loder.json")}
-        width={width(50)}
-        height={height(20)}
-
-        /> */}
       </View>
     </Modal>
   );

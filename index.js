@@ -7,8 +7,8 @@ import { name as appName } from "./app.json";
 // It also ensures that whether you load the app in the Expo client or in a native build,
 // the environment is set up appropriately
 // if (Platform.OS == "android") {
-//   registerRootComponent(App);
+  registerRootComponent(App);
 // } else {
-  AppRegistry.registerComponent('main', () => App);
+  // AppRegistry.registerComponent('main', () => App);
 
 //}
