@@ -39,7 +39,7 @@ export default function ListingView({ data }) {
   }
   const onpressfav = async () => {
     if (!loginuser) {
-      infoMessage('Login to ad Favotite','Authentication')
+      infoMessage("Login to ad Favotite", "Authentication");
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {
@@ -63,14 +63,22 @@ export default function ListingView({ data }) {
         </View>
         <View style={styles.detail}>
           <View style={styles.detailinerview}>
-            <View>
-              <Text numberOfLines={1} style={styles.chf}>
-                CHF {data?.price}
-              </Text>
-              <Text numberOfLines={1} style={styles.eur}>
-                EUR {data?.price}
-              </Text>
-            </View>
+            {data?.price ? (
+              <View>
+                <Text numberOfLines={1} style={styles.chf}>
+                  CHF {data?.price}
+                </Text>
+                <Text numberOfLines={1} style={styles.eur}>
+                  EUR {data?.price}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.cfpview}>
+                <Text numberOfLines={1} style={styles.cfp}>
+                  Contact for Price
+                </Text>
+              </View>
+            )}
             {!(data?.userId === loginuser?._id) ? (
               <View>
                 <TouchableOpacity onPress={onpressfav}>

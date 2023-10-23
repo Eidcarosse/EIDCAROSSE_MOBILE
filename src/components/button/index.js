@@ -2,6 +2,7 @@ import React from "react";
 import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import AppColors from "../../utills/AppColors";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 const Button = ({
   title,
@@ -13,6 +14,8 @@ const Button = ({
   containerStyle = {},
   textStyle = {},
 }) => {
+  const { t } = useTranslation();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -23,7 +26,7 @@ const Button = ({
       {isLoading ? (
         <ActivityIndicator color={loaderColor} size="small" />
       ) : (
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+        <Text style={[styles.text, textStyle]}>{t(title)}</Text>
       )}
     </TouchableOpacity>
   );

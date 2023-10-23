@@ -3,4 +3,4 @@ export const languageSliceReducer = languageSlice.reducer;
 
 export const { setLanguage } = languageSlice.actions;
 
-export const selectCurrentLanguage = (state) => state.language.currentLanguage;
+export const selectCurrentLanguage = (state) => state.language.selectedLanguage;

@@ -4,7 +4,9 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
+import { useDispatch, useSelector } from "react-redux";
 export default function Header({ navigation }) {
+  const dispatch=useDispatch()
   return (
     <View style={styles.container}>
       <TouchableOpacity

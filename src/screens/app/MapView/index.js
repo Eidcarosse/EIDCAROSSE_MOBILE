@@ -42,9 +42,6 @@ export default function MapAdView({ navigation, route }) {
   const getData = async () => {
     let d = await getAllData(queryParams);
     if (d) {
-      console.log("====================================");
-      console.log(d);
-      console.log("====================================");
       setData(d);
     } else {
       setData([]);

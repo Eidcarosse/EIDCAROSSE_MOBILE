@@ -44,7 +44,7 @@ export default function CardView({ data }) {
 
   const onpressfav = async () => {
     if (!loginuser) {
-      infoMessage('Login to ad Favotite','Authentication')
+      infoMessage("Login to ad Favotite", "Authentication");
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       dispatch(setAdsFav(fav));
@@ -114,14 +114,23 @@ export default function CardView({ data }) {
               </Text>
             </View>
           </View>
-          <View>
-            <Text numberOfLines={1} style={styles.chf}>
-              CHF {data?.price}
-            </Text>
-            <Text numberOfLines={1} style={styles.eur}>
-              EUR {data?.price}
-            </Text>
-          </View>
+          {data?.price ? (
+            <View>
+              <Text numberOfLines={1} style={styles.chf}>
+                CHF {data?.price}
+              </Text>
+              <Text numberOfLines={1} style={styles.eur}>
+                EUR {data?.price}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.cfpview}>
+              <Text numberOfLines={1} style={styles.cfp}>
+                Contact for Price
+              </Text>
+             
+            </View>
+          )}
         </View>
       </TouchableOpacity>
       {!(data?.userId === loginuser?._id) ? (
@@ -142,7 +151,7 @@ export default function CardView({ data }) {
           <TouchableOpacity
             style={styles.space}
             onPress={() => {
-              navigation.navigate(ScreenNames.CHAT,data);
+              navigation.navigate(ScreenNames.CHAT, data);
             }}
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />

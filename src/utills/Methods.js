@@ -68,6 +68,22 @@ export const getAuthData = async () => {
     // error reading value
   }
 };
+export const setThemeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem("color", jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+export const getThemeData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("color");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
+};
 const onPressCall = (phoneNumber) => {
   const url =
     Platform.OS == "ios" ? `telprompt:${phoneNumber}` : `tel:${phoneNumber}`;

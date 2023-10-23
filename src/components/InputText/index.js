@@ -4,6 +4,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function Input({
   title,
@@ -14,17 +15,22 @@ export default function Input({
   containerStyle,
   titlestyle,
   multi = false,
-  editable=true
+  editable = true,
 }) {
+  const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);
   return (
     <View style={[styles.container, containerStyle]}>
-      {title && <Text style={[titlestyle]}>{title}</Text>}
+      {title && <Text style={[titlestyle]}>{t(title)}</Text>}
       <View style={styles.innerview}>
         <TextInput
-         editable={editable}
-          style={{ paddingVertical: width(2.5), width: width(80),fontSize:width(4) }}
-          placeholder={placeholder}
+          editable={editable}
+          style={{
+            paddingVertical: width(2.5),
+            width: width(80),
+            fontSize: width(4),
+          }}
+          placeholder={t(placeholder)}
           secureTextEntry={secureText}
           multiline={multi}
           value={value}

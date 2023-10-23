@@ -4,8 +4,9 @@ import { Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
-
+import { useTranslation } from 'react-i18next';
 export default function AboutUs({ navigation, route }) {
+  const { t } = useTranslation();
   const data = [
     {
       paraTitle: "",

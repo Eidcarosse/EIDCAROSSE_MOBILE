@@ -998,7 +998,6 @@ export default function AddPost({ navigation, route }) {
         multi={true}
         onFilesSelected={(img) => {
           const selectedImages = img.map((imageUri) => {
-            console.log(image.length);
             if (image.length < 5) {
               return Platform.OS === "android"
                 ? imageUri.uri

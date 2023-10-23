@@ -34,6 +34,16 @@ const styles = StyleSheet.create({
     padding: width(2),
     alignItems: "flex-start",
   },
+  cfpview: {
+    backgroundColor: AppColors.grey,
+    padding: width(2),
+    borderRadius: width(1),
+  },
+  cfp: {
+    fontSize: width(3),
+    color: AppColors.primary,
+    fontWeight: "bold",
+  },
   detailinerview: {
     paddingBottom: width(5),
     flexDirection: "row",
@@ -67,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: width(3),
     marginLeft: width(2),
     width: width(35),
-    marginVertical:width(.5)
+    marginVertical: width(0.5),
   },
 });
 export default styles;

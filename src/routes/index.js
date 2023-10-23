@@ -18,6 +18,7 @@ import {
   AboutUsScreen,
   AccountScreen,
   AddPostScreen,
+  AppSetting,
   BikeScreen,
   CategoryScreen,
   ChatView,
@@ -110,9 +111,6 @@ export default function Routes() {
 
         const handleRoomUpdate = (snapshot) => {
           const room = snapshot.val() || [];
-         console.log('====================================');
-         console.log(room);
-         console.log('====================================');
         };
 
         onValue(roomRef, handleRoomUpdate);
@@ -168,6 +166,7 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.PP} component={PrivacyPolicyScreen} />
         <Stack.Screen name={ScreenNames.SNTU} component={SellUsScreen} />
         <Stack.Screen name={ScreenNames.REPAIR} component={RepairSreen} />
+        <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
       </Stack.Navigator>
     </NavigationContainer>
   );

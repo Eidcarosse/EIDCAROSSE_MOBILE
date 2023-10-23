@@ -9,19 +9,29 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.white,
   },
   imageview: {
-    backgroundColor: AppColors.grey,
+    backgroundColor: AppColors.white,
     width: width(96),
     borderRadius: width(1),
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation:3
   },
   container: {
     flexDirection: "column",
     padding: width(5),
     width:width(96),
     borderRadius:width(1),
-    backgroundColor:AppColors.grey,
+    backgroundColor:AppColors.white,
     margin:width(1),
     justifyContent:'center',
     alignItems:'center',
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation:3
   },
   image:{
     height:height(18),

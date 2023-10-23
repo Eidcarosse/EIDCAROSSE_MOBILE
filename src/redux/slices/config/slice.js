@@ -11,6 +11,15 @@ const initialState = {
     minPrice: null,
     title:''
   },
+  appColor:{
+    primary:'#FF0100',
+    white: '#ffffff',
+    black: 'black',
+    red: 'red',
+    transparent:'transparent',
+    grey:'#E5E8E8',
+    greybackground:'#EFEFEF'
+  }
 };
 
 const configSlice = createSlice({
@@ -43,6 +52,9 @@ const configSlice = createSlice({
     },
     setTitleFilter: (state, action) => {
       state.filter.title = action.payload;
+    },
+    setWhiteColor: (state, action) => {
+      state.appColor.white = action.payload;
     },
   },
 });

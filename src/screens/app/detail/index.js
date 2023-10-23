@@ -171,28 +171,36 @@ export default function Detail({ navigation, route }) {
                 alignItems: "center",
               }}
             >
-              <View style={{}}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: width(4),
-                    color: AppColors.primary,
-                    fontWeight: "bold",
-                  }}
-                >
-                  CHF {data?.price}
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontSize: width(3),
-                    color: "grey",
-                    fontWeight: "bold",
-                  }}
-                >
-                  EUR {data?.price}
-                </Text>
-              </View>
+              {!isNullOrNullOrEmpty(data?.price) ? (
+                <View style={{}}>
+                  <Text
+                    numberOfLines={1}
+                    style={{
+                      fontSize: width(4),
+                      color: AppColors.primary,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    CHF {data?.price}
+                  </Text>
+                  <Text
+                    numberOfLines={1}
+                    style={{
+                      fontSize: width(3),
+                      color: "grey",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    EUR {data?.price}
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.cfpview}>
+                  <Text numberOfLines={1} style={styles.cfp}>
+                    Contact for Price
+                  </Text>
+                </View>
+              )}
               {!(data?.userId?._id === loginuser?._id) ? (
                 <TouchableOpacity
                   style={{ marginHorizontal: width(3) }}

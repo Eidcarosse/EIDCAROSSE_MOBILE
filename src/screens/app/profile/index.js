@@ -26,7 +26,6 @@ export default function Profile({ navigation, route }) {
   const userAds = useSelector(selectUserAds);
   const userFav=useSelector(selectFavAds)
   const token = useSelector(selectToken);
-
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -136,7 +135,7 @@ export default function Profile({ navigation, route }) {
           />
           <IconButton
             onPress={() => {
-              navigation.navigate(ScreenNames.ACCOUNT);
+              navigation.navigate(ScreenNames.SETTING);
             }}
             title={"App Setting"}
             containerStyle={styles.container}

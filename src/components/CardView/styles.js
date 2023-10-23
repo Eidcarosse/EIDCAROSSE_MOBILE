@@ -43,6 +43,16 @@ const styles = StyleSheet.create({
     color: "grey",
     fontWeight: "bold",
   },
+  cfpview:{
+    backgroundColor:AppColors.grey,
+    padding:width(2),
+    borderRadius:width(1)
+  },
+  cfp: {
+    fontSize: width(3),
+    color: AppColors.primary,
+    fontWeight: "bold",
+  },
   space: { paddingVertical: width(1) },
   imageview: {
     width: width(45),

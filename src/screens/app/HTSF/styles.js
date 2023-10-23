@@ -11,26 +11,30 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     padding: width(5),
-    width:width(96),
-    borderRadius:width(1),
-    backgroundColor:AppColors.grey,
-    margin:width(1),
-    justifyContent:'center',
-    alignItems:'center',
+    width: width(96),
+    borderRadius: width(1),
+    backgroundColor: AppColors.white,
+    margin: width(1),
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation:3
   },
-  image:{
-    height:height(18),
-    resizeMode:'contain',
+  image: {
+    height: height(18),
+    resizeMode: "contain",
   },
-  title:{
-    fontSize:width(4),
-    fontWeight:'bold',
-    color:'black',
-    margin:width(5)
+  title: {
+    fontSize: width(4),
+    fontWeight: "bold",
+    color: "black",
+    margin: width(5),
   },
-  description:{
-    fontSize:width(3)
-  }
- 
+  description: {
+    fontSize: width(3),
+  },
 });
 export default styles;

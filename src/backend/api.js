@@ -18,9 +18,6 @@ export const getDataofHomePage = async () => {
 };
 
 export const getAllData = async (queryParams) => {
-  console.log("====================================");
-  console.log(queryParams);
-  console.log("====================================");
   try {
     const response = await ApiManager.get(`ad/`, queryParams);
 

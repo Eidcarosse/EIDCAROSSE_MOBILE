@@ -16,6 +16,16 @@ const styles = StyleSheet.create({
     width: width(95),
     height: height(30),
   },
+  cfpview:{
+    backgroundColor:AppColors.grey,
+    padding:width(2),
+    borderRadius:width(1)
+  },
+  cfp: {
+    fontSize: width(3.5),
+    color: AppColors.primary,
+    fontWeight: "bold",
+  },
   nameview: {
     padding: width(4),
     justifyContent: "space-between",

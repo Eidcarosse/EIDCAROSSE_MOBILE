@@ -101,12 +101,15 @@ const CustomDrawer = ({ navigation }) => {
         textStyle={styles.text}
         icon={<AntDesign name="contacts" style={styles.icon} size={width(4)} />}
       />
-      {/* <IconButton
+      <IconButton
         title={"App Settings"}
         containerStyle={styles.container}
         textStyle={styles.text}
         icon={<Ionicons name="settings" style={styles.icon} size={width(4)} />}
-      /> */}
+        onPress={() => {
+          navigation.navigate(ScreenNames.SETTING), navigation.closeDrawer();
+        }}
+      />
 
       <IconButton
         title={"Sell now to us"}
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   bottomview: {
-    height: height(16),
+    height: height(7),
     justifyContent: "flex-end",
     alignContent: "flex-end",
     alignItems: "flex-end",

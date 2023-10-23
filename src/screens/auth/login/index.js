@@ -21,8 +21,10 @@ import {
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
-
+import { useTranslation } from "react-i18next";
+//import i18n from "../../../translation";
 export default function Login({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,6 +56,9 @@ export default function Login({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(res?.message);
       } else if (res?.success) {
+        console.log('====================================');
+        console.log(res?.data?.userDetails?.favAdIds);
+        console.log('====================================');
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(res?.data?.userDetails));
         dispatch(setToken(res?.data?.token));
@@ -81,7 +86,7 @@ export default function Login({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.bg}>
           <View style={styles.imageiner}>
-            <Text style={styles.logintext}>Login</Text>
+            <Text style={styles.logintext}>{t("login.login")}</Text>
           </View>
         </ImageBackground>
         <View style={{ height: height(70), paddingTop: width(10) }}>
@@ -89,18 +94,18 @@ export default function Login({ navigation, route }) {
             value={email}
             setvalue={setEmail}
             title={"Email"}
-            placeholder={"Enter email"}
+            placeholder={"login.yourEmailAddress"}
           />
           <Input
             value={password}
             setvalue={setPassword}
             title={"Password"}
-            placeholder={"Enter Password"}
+            placeholder={"login.yourPassword"}
             secure={true}
           />
           <Button
             containerStyle={styles.button}
-            title={"Login"}
+            title={"login.loginButton"}
             onPress={() => {
               if (!isValidEmail(email)) {
                 errorMessage("Email is require or may incorect formate");
