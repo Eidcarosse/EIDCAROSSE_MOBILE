@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function CategoryIcon({
   children,
@@ -13,6 +14,7 @@ export default function CategoryIcon({
   textStyle,
   onPress,
 }) {
+  const { t } = useTranslation();
   return (
     <TouchableOpacity
       activeOpacity={0.6}
@@ -20,9 +22,9 @@ export default function CategoryIcon({
       onPress={onPress}
     >
       <View disabled={disabled}>
-        <View style={[styles.container,greybackground]}>{children}</View>
+        <View style={[styles.container, greybackground]}>{children}</View>
       </View>
-      <Text style={[styles.text,textStyle]}>{title}</Text>
+      <Text style={[styles.text, textStyle]}>{t(title)}</Text>
     </TouchableOpacity>
   );
 }

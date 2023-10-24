@@ -35,6 +35,7 @@ export default function MapAdView({ navigation, route }) {
 
   const queryParams = {
     address: address || "",
+    page:1,
   };
   useEffect(() => {
     getData();
@@ -99,7 +100,7 @@ export default function MapAdView({ navigation, route }) {
         const parts = placeName.split(", "); // Split the address string by commas and create an array
 
         // Get the last part, which should be "Pakistan"
-        const lastPart = parts[parts.length - 1];
+        const lastPart = parts[parts.length - 2];
 
         setAddresss(lastPart);
       }
@@ -135,7 +136,7 @@ export default function MapAdView({ navigation, route }) {
               const parts = placeName.split(", "); // Split the address string by commas and create an array
 
               // Get the last part, which should be "Pakistan"
-              const lastPart = parts[parts.length - 1];
+              const lastPart = parts[parts.length - 2];
 
               setAddresss(lastPart);
               mapRef.current.animateToRegion(

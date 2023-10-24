@@ -11,17 +11,21 @@ import Trucks from "./trucks";
 import Van from "./van";
 
 const categories = [
-  { title: "Autos", Icon: Car },
-  { title: "Bikes", Icon: Bike },
-  { title: "Boats", Icon: Boat },
-  { title: "Drones", Icon: Drone },
-  { title: "Construction Machine", Icon: Excavator },
-  { title: "Trucks", Icon: Trucks },
-  { title: "Vans", Icon: Van },
-  { title: "Trailers", Icon: Trailer },
-  { title: "Busses", Icon: Bus },
-  { title: "Parts", Icon: SPart },
-  { title: "Others", Icon: More },
+  { title: "Autos", show: "category.Autos", Icon: Car },
+  { title: "Bikes", show: "category.Bikes", Icon: Bike },
+  { title: "Boats", show: "category.Boats", Icon: Boat },
+  { title: "Drones", show: "category.Drones", Icon: Drone },
+  {
+    title: "Construction Machines",
+    show: "category.ConstructionMachines",
+    Icon: Excavator,
+  },
+  { title: "Trucks", show: "category.Trucks", Icon: Trucks },
+  { title: "Vans", show: "category.Vans", Icon: Van },
+  { title: "Trailers", show: "category.Trailers", Icon: Trailer },
+  { title: "Busses", show: "category.Busses", Icon: Bus },
+  { title: "Parts", show: "category.Parts", Icon: SPart },
+  { title: "Others", show: "category.Others", Icon: More },
 ];
 
 export default categories;

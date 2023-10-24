@@ -1,39 +1,31 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Pressable, Text, TouchableOpacity, View, Image } from "react-native";
+import React, { useCallback, useState } from "react";
+import { Image, Pressable, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
 import CategoryList from "../../../components/categorylist";
 import Header from "../../../components/header";
 import SearchBar from "../../../components/searchbar";
-import { selectUserMeta } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
 import { useFocusEffect } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
 import {
   selectTopAds,
   setAppLoader,
   setTopAds,
 } from "../../../redux/slices/config";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
-import Icons from "../../../asset/images";
+import { width } from "../../../utills/Dimension";
 import { toastMessage } from "../../../utills/Methods";
+import styles from "./styles";
 
 export default function Home({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const data = useSelector(selectTopAds);
-  const ddata = [
-    { key: "1", value: "Mobiles" },
-    { key: "2", value: "Appliances" },
-    { key: "3", value: "Cameras" },
-    { key: "4", value: "Computers" },
-    { key: "5", value: "Vegetables" },
-    { key: "6", value: "Diary Products" },
-    { key: "7", value: "Drinks" },
-  ];
   const [refreshing, setRefreshing] = useState(false);
   const [searchString, setSearchString] = useState("");
 
@@ -81,7 +73,7 @@ export default function Home({ navigation, route }) {
         <CategoryList navigation={navigation} />
         <View style={styles.titleview}>
           <Text style={{ fontSize: width(3.5), fontWeight: "bold" }}>
-            Latest Ads
+            {t("home.letest")}
           </Text>
           <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>
             <Text
@@ -92,7 +84,7 @@ export default function Home({ navigation, route }) {
                 fontWeight: "bold",
               }}
             >
-              See all
+              {t("home.seeAll")}
             </Text>
           </Pressable>
         </View>
@@ -105,15 +97,14 @@ export default function Home({ navigation, route }) {
               />
             </View>
           ) : (
-            data
-              .map((item, index) => (
-                <View
-                  key={index}
-                  style={{ width: width(100), alignItems: "center" }}
-                >
-                  <CardView data={item} />
-                </View>
-              ))
+            data.map((item, index) => (
+              <View
+                key={index}
+                style={{ width: width(100), alignItems: "center" }}
+              >
+                <CardView data={item} />
+              </View>
+            ))
           )}
         </View>
       </View>

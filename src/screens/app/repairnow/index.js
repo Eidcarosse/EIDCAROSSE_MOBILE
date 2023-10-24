@@ -4,11 +4,10 @@ import Icons from "../../../asset/images";
 import { Button, Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function Repair({ navigation, route }) {
-  const data =
-    "You can now sell your vehicle and machines to Eidcarosse. We provide a hassle-free process and competitive prices for your vehicle. Whether you're looking to upgrade or need to sell your vehicle and things quickly, we've got you covered. Sell now and experience a seamless selling experience with us!";
-
+  const { t } = useTranslation();
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -24,7 +23,7 @@ export default function Repair({ navigation, route }) {
           <Image source={Icons.repairnow} style={styles.image} />
         </View>
         <View style={styles.container}>
-          <Text style={styles.description}>{data}</Text>
+          <Text style={styles.description}>{t("RN.data")}</Text>
         </View>
         <Button containerStyle={styles.button} title={"Repair Now"} />
       </View>

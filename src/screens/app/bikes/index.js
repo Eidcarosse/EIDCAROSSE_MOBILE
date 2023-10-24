@@ -5,9 +5,11 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
 import { Parts, bikedata, data } from "../../../utills/Data";
+import { useTranslation } from "react-i18next";
 
 export default function BikeCategory({ navigation, route }) {
-  console.log("bike page", route?.params?.show);
+  // console.log("bike page", route?.params?.show);
+  const { t } = useTranslation();
 
   return (
     <ScreenWrapper
@@ -45,8 +47,7 @@ export default function BikeCategory({ navigation, route }) {
                 }}
               >
                 <Text>
-                  {item.title}
-                  {route?.params?.category == "Parts" ? " Parts" : ""}
+                  {t(item.show)}
                 </Text>
               </TouchableOpacity>
             );

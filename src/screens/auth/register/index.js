@@ -16,7 +16,10 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
+import ScreenNames from "../../../routes/routes";
 export default function SignUp({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -77,46 +80,46 @@ export default function SignUp({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.image}>
           <View style={styles.imageiner}>
-            <Text style={styles.logintext}>SignUp</Text>
+            <Text style={styles.logintext}>{t("signup.signup")}</Text>
           </View>
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
           <Input
             value={firstName}
             setvalue={setFirstName}
-            title={"First Name"}
-            placeholder={"Enter Name"}
+            title={"signup.firstNameTitle"}
+            placeholder={"signup.firstNamePlaceholder"}
           />
           <Input
             value={lastName}
             setvalue={setLastName}
-            title={"Last Name"}
-            placeholder={"Enter Name"}
+            title={"signup.lastNameTitle"}
+            placeholder={"signup.lastNamePlaceholder"}
           />
           <Input
             value={userName}
             setvalue={setUserName}
-            title={"User Name"}
-            placeholder={"Enter username"}
+            title={"signup.userNameTitle"}
+            placeholder={"signup.usernamePlaceholder"}
           />
           <Input
             value={email}
             setvalue={setEmail}
-            title={"Email"}
-            placeholder={"Enter email"}
+            title={"signup.emailTitle"}
+            placeholder={"signup.emailPlaceholder"}
           />
           <Input
             value={password}
             setvalue={setPassword}
-            title={"Password"}
-            placeholder={"Enter Password"}
+            title={"signup.passwordTitle"}
+            placeholder={"signup.passwordPlaceholder"}
             secure={true}
           />
           <Input
             value={phoneNumber}
             setvalue={setPhoneNumber}
-            title={"Contact Number"}
-            placeholder={"Enter Number"}
+            title={"signup.phoneNumberTitle"}
+            placeholder={"signup.phoneNumberPlaceholder"}
           />
           <View style={styles.checkview}>
             <CheckBox
@@ -128,9 +131,11 @@ export default function SignUp({ navigation, route }) {
               isChecked={check}
             />
             <View>
-              <Text>I have read and agree to the Eidcarosse</Text>
-              <TouchableOpacity>
-                <Text style={styles.tandc}> Terms and Conditions</Text>
+              <Text>{t("signup.checkBoxText")}</Text>
+              <TouchableOpacity
+              onPress={()=>navigation.navigate(ScreenNames.TNC)}
+              >
+                <Text style={styles.tandc}> {t("signup.termAndCondition")}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -158,15 +163,12 @@ export default function SignUp({ navigation, route }) {
               } else signup(userData);
             }}
             containerStyle={check ? styles.button : styles.dbutton}
-            title={"SignUp"}
+            title={"signup.signupButton"}
           />
           <Button
             containerStyle={styles.button}
             title={
-              <AntDesign name="google" size={width(3.5)}>
-                {" "}
-                Login with Google
-              </AntDesign>
+             "signup.continueWithGoogle"
             }
             onPress={() => {
               // dispatch(setIsLoggedIn(true));
@@ -176,13 +178,13 @@ export default function SignUp({ navigation, route }) {
           <View style={{ height: height(5) }} />
 
           <View style={styles.already}>
-            <Text>Already have an account?</Text>
+            <Text>{t("signup.alreadyHaveAccount")}{"  "}</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.goBack();
               }}
             >
-              <Text style={styles.signin}> Sign in</Text>
+              <Text style={styles.signin}>{t("signup.signin")}</Text>
             </TouchableOpacity>
           </View>
         </View>

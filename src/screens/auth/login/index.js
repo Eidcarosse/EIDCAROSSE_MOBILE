@@ -56,9 +56,9 @@ export default function Login({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(res?.message);
       } else if (res?.success) {
-        console.log('====================================');
+        console.log("====================================");
         console.log(res?.data?.userDetails?.favAdIds);
-        console.log('====================================');
+        console.log("====================================");
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(res?.data?.userDetails));
         dispatch(setToken(res?.data?.token));
@@ -93,13 +93,13 @@ export default function Login({ navigation, route }) {
           <Input
             value={email}
             setvalue={setEmail}
-            title={"Email"}
+            title={"login.emailTitle"}
             placeholder={"login.yourEmailAddress"}
           />
           <Input
             value={password}
             setvalue={setPassword}
-            title={"Password"}
+            title={"login.passwordTitle"}
             placeholder={"login.yourPassword"}
             secure={true}
           />
@@ -116,23 +116,18 @@ export default function Login({ navigation, route }) {
           />
           <Button
             containerStyle={styles.button}
-            title={
-              <AntDesign name="google" size={width(3.5)}>
-                {" "}
-                Login with Google
-              </AntDesign>
-            }
+            title={"login.continueWithGoogle"}
             onPress={() => {
               dispatch(setIsLoggedIn(true));
               navigation.navigate(ScreenNames.BUTTOM);
             }}
           />
           <View style={styles.forget}>
-            <Text>Can’t login?</Text>
+            <Text>{t("login.cannotLogin")} {"  "}</Text>
             <TouchableOpacity>
               <Text style={styles.text}>
-                {"   "}
-                Forgot Password
+
+              {t("login.forgetPassword")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -145,13 +140,13 @@ export default function Login({ navigation, route }) {
               flexDirection: "row",
             }}
           >
-            <Text>Don’t have account?</Text>
+            <Text>{t("login.donothaveaccount")}{"   "}</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate(ScreenNames.SIGNUP);
               }}
             >
-              <Text style={styles.text}> Register Now!</Text>
+              <Text style={styles.text}> {t("login.registerNow")}</Text>
             </TouchableOpacity>
           </View>
         </View>

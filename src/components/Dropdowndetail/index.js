@@ -4,6 +4,7 @@ import AppColors from "../../utills/AppColors";
 
 import { FontAwesome } from "@expo/vector-icons";
 import { height, width } from "../../utills/Dimension";
+import { useTranslation } from "react-i18next";
 
 export default DropDownDetail = ({
   title,
@@ -18,6 +19,7 @@ export default DropDownDetail = ({
   onPress = undefined,
 }) => {
   const [show, setShow] = useState(false);
+  const { t } = useTranslation();
 
   const styles = StyleSheet.create({
     text: {
@@ -26,6 +28,7 @@ export default DropDownDetail = ({
       textAlign: textAlign,
       fontWeight: "bold",
       color: show ? AppColors.primary : "black",
+      width:width(80)
     },
   });
   return (
@@ -61,9 +64,9 @@ export default DropDownDetail = ({
         <Text
           style={[styles.text, textStyles]}
           {...textProps}
-          numberOfLines={1}
+          numberOfLines={show?2:1}
         >
-          {title}
+          {t(title)}
         </Text>
         <FontAwesome
           name={show ? "chevron-up" : "chevron-down"}
@@ -76,7 +79,7 @@ export default DropDownDetail = ({
           style={{ fontSize: width(3), paddingVertical: width(3) }}
           {...inertextProps}
         >
-          {detail}
+          {t(detail)}
         </Text>
       )}
     </View>

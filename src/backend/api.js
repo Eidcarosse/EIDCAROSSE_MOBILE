@@ -18,12 +18,14 @@ export const getDataofHomePage = async () => {
 };
 
 export const getAllData = async (queryParams) => {
+  console.log("params",queryParams)
   try {
     const response = await ApiManager.get(`ad/`, queryParams);
 
-    if (!response.success) {
-      throw new Error("Network error getAll data");
-    }
+    // if (!response.success) {
+    //   throw new Error("Network error getAll data");
+    // }
+
     return response?.data?.ad;
   } catch (error) {
     console.log(error);

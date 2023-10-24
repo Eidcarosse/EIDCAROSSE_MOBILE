@@ -12,6 +12,7 @@ import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 import IconButton from "../Iconbutton";
+import { ScrollView } from "react-native-gesture-handler";
 const CustomDrawer = ({ navigation }) => {
   const shareContent = async () => {
     try {
@@ -36,112 +37,123 @@ const CustomDrawer = ({ navigation }) => {
           tintColor: AppColors.primary,
         }}
       />
-      <IconButton
-        title={"FAQ"}
-        containerStyle={styles.container}
-        onPress={() => {
-          navigation.navigate(ScreenNames.FAQ), navigation.closeDrawer();
-        }}
-        textStyle={styles.text}
-        icon={
-          <AntDesign
-            name="questioncircle"
-            style={styles.icon}
-            size={width(4)}
-          />
-        }
-      />
-      <IconButton
-        title={"How to sell fast"}
-        onPress={() => {
-          navigation.navigate(ScreenNames.HTSF), navigation.closeDrawer();
-        }}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<AntDesign name="tags" style={styles.icon} size={width(4)} />}
-      />
-      <IconButton
-        title={"About us"}
-        onPress={() => {
-          navigation.navigate(ScreenNames.ABOUTUS), navigation.closeDrawer();
-        }}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={
-          <AntDesign name="infocirlce" style={styles.icon} size={width(4)} />
-        }
-      />
-      <IconButton
-        title={"Privacy Policy"}
-        onPress={() => {
-          navigation.navigate(ScreenNames.PP), navigation.closeDrawer();
-        }}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={
-          <Ionicons
-            name="shield-checkmark-sharp"
-            style={styles.icon}
-            size={width(4)}
-          />
-        }
-      />
-      <IconButton
-        title={"Terms and conditions"}
-        onPress={() => {
-          navigation.navigate(ScreenNames.TNC), navigation.closeDrawer();
-        }}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<Entypo name="open-book" style={styles.icon} size={width(4)} />}
-      />
-      <IconButton
-        title={"Contact us"}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<AntDesign name="contacts" style={styles.icon} size={width(4)} />}
-      />
-      <IconButton
-        title={"App Settings"}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<Ionicons name="settings" style={styles.icon} size={width(4)} />}
-        onPress={() => {
-          navigation.navigate(ScreenNames.SETTING), navigation.closeDrawer();
-        }}
-      />
+      <ScrollView>
+        <IconButton
+          title={"drawr.faq"}
+          containerStyle={styles.container}
+          onPress={() => {
+            navigation.navigate(ScreenNames.FAQ), navigation.closeDrawer();
+          }}
+          textStyle={styles.text}
+          icon={
+            <AntDesign
+              name="questioncircle"
+              style={styles.icon}
+              size={width(4)}
+            />
+          }
+        />
+        <IconButton
+          title={"drawr.HTSF"}
+          onPress={() => {
+            navigation.navigate(ScreenNames.HTSF), navigation.closeDrawer();
+          }}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={<AntDesign name="tags" style={styles.icon} size={width(4)} />}
+        />
+        <IconButton
+          title={"drawr.aboutus"}
+          onPress={() => {
+            navigation.navigate(ScreenNames.ABOUTUS), navigation.closeDrawer();
+          }}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={
+            <AntDesign name="infocirlce" style={styles.icon} size={width(4)} />
+          }
+        />
+        <IconButton
+          title={"drawr.privacyPolicy"}
+          onPress={() => {
+            navigation.navigate(ScreenNames.PP), navigation.closeDrawer();
+          }}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={
+            <Ionicons
+              name="shield-checkmark-sharp"
+              style={styles.icon}
+              size={width(4)}
+            />
+          }
+        />
+        <IconButton
+          title={"drawr.TermsAndCondition"}
+          onPress={() => {
+            navigation.navigate(ScreenNames.TNC), navigation.closeDrawer();
+          }}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={<Entypo name="open-book" style={styles.icon} size={width(4)} />}
+        />
+        <IconButton
+          title={"drawr.contactUs"}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={
+            <AntDesign name="contacts" style={styles.icon} size={width(4)} />
+          }
+        />
+        <IconButton
+          title={"drawr.appSetting"}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={
+            <Ionicons name="settings" style={styles.icon} size={width(4)} />
+          }
+          onPress={() => {
+            navigation.navigate(ScreenNames.SETTING), navigation.closeDrawer();
+          }}
+        />
 
-      <IconButton
-        title={"Sell now to us"}
-        onPress={() => {
-          navigation.navigate(ScreenNames.SNTU), navigation.closeDrawer();
-        }}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<AntDesign name="car" style={styles.icon} size={width(4)} />}
-      />
-      <IconButton
-        title={"Request for repair now"}
-        onPress={() => {
-          navigation.navigate(ScreenNames.REPAIR), navigation.closeDrawer();
-        }}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<FontAwesome name="wrench" style={styles.icon} size={width(4)} />}
-      />
-      <IconButton
-        title={"Share with Friends"}
-        onPress={shareContent}
-        containerStyle={styles.container}
-        textStyle={styles.text}
-        icon={<Entypo name="share" style={styles.icon} size={width(4)} />}
-      />
-      <View style={styles.bottomview}>
-        <Text style={styles.textbuttom}>
-          2023@ All reserved by
-          <Text style={{ color: "red", fontWeight: "bold" }}> Eidcarosse</Text>
-        </Text>
-      </View>
+        <IconButton
+          title={"drawr.SNTU"}
+          onPress={() => {
+            navigation.navigate(ScreenNames.SNTU), navigation.closeDrawer();
+          }}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={<AntDesign name="car" style={styles.icon} size={width(4)} />}
+        />
+        <IconButton
+          title={"drawr.RFRN"}
+          onPress={() => {
+            navigation.navigate(ScreenNames.REPAIR), navigation.closeDrawer();
+          }}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={
+            <FontAwesome name="wrench" style={styles.icon} size={width(4)} />
+          }
+        />
+        <IconButton
+          title={"drawr.share"}
+          onPress={shareContent}
+          containerStyle={styles.container}
+          textStyle={styles.text}
+          icon={<Entypo name="share" style={styles.icon} size={width(4)} />}
+        />
+        <View style={styles.bottomview}>
+          <Text style={styles.textbuttom}>
+            2023@ All reserved by
+            <Text style={{ color: "red", fontWeight: "bold" }}>
+              {" "}
+              Eidcarosse
+            </Text>
+          </Text>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

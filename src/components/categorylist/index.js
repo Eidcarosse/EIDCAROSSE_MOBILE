@@ -5,18 +5,20 @@ import categories from "../../svgcomponents/index";
 import { width } from "../../utills/Dimension";
 import CategoryIcon from "../categories";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function CategoryList({ navigation }) {
+  const {t}=useTranslation();
   return (
     <View style={styles.main}>
       <View style={styles.titleview}>
-        <Text style={styles.categorytext}>Categories</Text>
+        <Text style={styles.categorytext}>{t("categorylist.categories")}</Text>
         <Pressable
           onPress={() => {
             navigation.navigate(ScreenNames.CATEGORY, "see");
           }}
         >
-          {<Text style={styles.textseeall}>See all</Text>}
+          {<Text style={styles.textseeall}>{t("categorylist.seeAll")}</Text>}
         </Pressable>
       </View>
       <ScrollView
@@ -24,12 +26,12 @@ export default function CategoryList({ navigation }) {
         showsHorizontalScrollIndicator={false}
         style={styles.listicon}
       >
-        {categories.map(({ title, Icon }, index) => {
+        {categories.map(({ show, title, Icon }, index) => {
           return (
             <CategoryIcon
               navigation={navigation}
               key={index}
-              title={title}
+              title={show}
               onPress={() => {
                 // if (title == "Bikes") {
                 //   navigation.navigate(ScreenNames.BIKECATEGORY);

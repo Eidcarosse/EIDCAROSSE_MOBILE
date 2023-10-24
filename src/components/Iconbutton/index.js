@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 const IconButton = ({
   title,
@@ -13,6 +14,7 @@ const IconButton = ({
   containerStyle = {},
   textStyle = {},
 }) => {
+  const { t } = useTranslation();
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -21,7 +23,7 @@ const IconButton = ({
       style={[styles.container, containerStyle]}
     >
       {icon}
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+      <Text style={[styles.text, textStyle]}>{t(title)}</Text>
       {iconright}
     </TouchableOpacity>
   );

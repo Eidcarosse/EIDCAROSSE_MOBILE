@@ -37,7 +37,7 @@ export default function Category({ navigation, route, value }) {
                 disabled={true}
                 cardStyle={styles.card}
                 greybackground={styles.greybackground}
-                title={item?.title}
+                title={item?.show}
                 textStyle={styles.textStyle}
                 onPress={() => {
                   if (value == "ADD") {

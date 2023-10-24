@@ -38,8 +38,10 @@ import {
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function AddPost({ navigation, route }) {
+  const { t } = useTranslation();
   const category = route?.params?.category;
   const find = route?.params?.find;
   const sub = route?.params?.subcategory;
@@ -320,7 +322,7 @@ export default function AddPost({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle="Add Post" navigation={navigation} />
+        <Head headtitle={"addPost.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -417,10 +419,10 @@ export default function AddPost({ navigation, route }) {
               padding: width(3),
             }}
           >
-            Attach Image
+            {t("addPost.attachImage1")}
           </Text>
           <Text style={{ fontSize: width(2.5), padding: width(1) }}>
-            You can upload up to 5 images.
+            {t("addPost.attachImage2")}
           </Text>
           <Text
             style={{
@@ -430,8 +432,7 @@ export default function AddPost({ navigation, route }) {
               textAlign: "center",
             }}
           >
-            First picture is the title picture. Long press to drag and sort
-            images.
+            {t("addPost.attachImage3")}
           </Text>
         </View>
         {/* --------product infomartio---- */}
@@ -439,7 +440,7 @@ export default function AddPost({ navigation, route }) {
           <Text
             style={[styles.title, { fontSize: width(5), margin: width(2) }]}
           >
-            Product Information
+            {t("addPost.productInformation")}
           </Text>
 
           <View style={{ paddingVertical: width(1) }}>
@@ -453,7 +454,7 @@ export default function AddPost({ navigation, route }) {
           </View>
 
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Priceing</Text>
+            <Text style={styles.title}>{t("addPost.pricing")}</Text>
 
             <RadioButtonRN
               data={pdata}
@@ -475,7 +476,7 @@ export default function AddPost({ navigation, route }) {
             <View
               style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
             >
-              <Text style={styles.title}>Price (CHF)</Text>
+              <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
               <Input
                 value={price}
@@ -486,7 +487,7 @@ export default function AddPost({ navigation, route }) {
             </View>
           )}
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Condition</Text>
+            <Text style={styles.title}>{t("addPost.condition")}</Text>
 
             <RadioButtonRN
               data={rdata}
@@ -503,7 +504,7 @@ export default function AddPost({ navigation, route }) {
           </View>
           {!(vCategory == undefined || vCategory == []) ? (
             <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>Category</Text>
+              <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <SelectDropdown
                 data={vCategory}
                 searchPlaceHolder={"Search here"}
@@ -530,7 +531,7 @@ export default function AddPost({ navigation, route }) {
             </View>
           ) : sub ? (
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>Category</Text>
+              <Text style={styles.title}>{t("addPost.category")}</Text>
               <Input
                 value={subCategory}
                 setvalue={setSubCategory}
@@ -542,7 +543,7 @@ export default function AddPost({ navigation, route }) {
             <></>
           )}
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Brand</Text>
+            <Text style={styles.title}>{t("addPost.brand")}</Text>
             <SelectDropdown
               data={vcompanies}
               search={true}
@@ -572,7 +573,7 @@ export default function AddPost({ navigation, route }) {
             <View>
               {apimodel ? (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>Model</Text>
+                  <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
                     ref={modelRef}
                     searchPlaceHolder={"Search here"}
@@ -606,7 +607,7 @@ export default function AddPost({ navigation, route }) {
               )}
               {showYear(category) && (
                 <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>Year</Text>
+                  <Text style={styles.title}>{t("addPost.year")}</Text>
                   <Input
                     value={year}
                     setvalue={setYear}
@@ -617,7 +618,7 @@ export default function AddPost({ navigation, route }) {
               )}
               {showbodyShape(category) && (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>Body Shape</Text>
+                  <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
                     data={category == "Bikes" ? bikeBodyShape : bodyShapeList}
                     search={true}
@@ -648,7 +649,7 @@ export default function AddPost({ navigation, route }) {
               )}
               {showGearBox(find) && (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>Gear Box</Text>
+                  <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
                     data={gearBoxList}
                     search={true}
@@ -679,7 +680,7 @@ export default function AddPost({ navigation, route }) {
               )}
               {showFuletype(find) && (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>Fuel Type</Text>
+                  <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
                     data={category == "Bikes" ? BikeFuelType : fuelTypelist}
                     search={true}
@@ -710,7 +711,7 @@ export default function AddPost({ navigation, route }) {
               )}
               {showExteriorColor(category) && (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>Exterioe Color</Text>
+                  <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
                   <SelectDropdown
                     data={
                       category == "Bikes"
@@ -745,7 +746,7 @@ export default function AddPost({ navigation, route }) {
               )}
               {showInteriorColor(category) && (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>Interior Color</Text>
+                  <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
                     data={interiorColorList}
                     search={true}
@@ -778,7 +779,7 @@ export default function AddPost({ navigation, route }) {
           )}
           {showKM(category) && (
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>Kms Driven</Text>
+              <Text style={styles.title}>{t("addPost.km")}</Text>
               <Input
                 value={km}
                 setvalue={setKm}
@@ -788,7 +789,7 @@ export default function AddPost({ navigation, route }) {
             </View>
           )}
           <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Description</Text>
+            <Text style={styles.title}>{t("addPost.description")}</Text>
             <Input
               value={description}
               multi
@@ -815,7 +816,7 @@ export default function AddPost({ navigation, route }) {
             Contact Detail
           </Text>
           <View style={{ alignSelf: "center", marginBottom: height(3) }}>
-            <Text style={styles.title}>How to be contact</Text>
+            <Text style={styles.title}>{t("addPost.htc")}</Text>
             <SelectDropdown
               data={cdata}
               search={true}
@@ -842,7 +843,7 @@ export default function AddPost({ navigation, route }) {
           </View>
           {htc == "Whatsapp" && (
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>Whastapp</Text>
+              <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
               <Input
                 value={whatsapp}
                 setvalue={setWhatsapp}
@@ -853,7 +854,7 @@ export default function AddPost({ navigation, route }) {
           )}
           {htc == "Viber" && (
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>Viber</Text>
+              <Text style={styles.title}>{t("addPost.viber")}</Text>
               <Input
                 value={viber}
                 setvalue={setViber}
@@ -863,7 +864,7 @@ export default function AddPost({ navigation, route }) {
             </View>
           )}
           <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Email</Text>
+            <Text style={styles.title}>{t("addPost.email")}</Text>
             <Input
               value={email}
               setvalue={setEmail}
@@ -874,7 +875,7 @@ export default function AddPost({ navigation, route }) {
 
           {/* {htc == "Phone" && ( */}
           <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>phone Number</Text>
+            <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
             <Input
               value={phone}
               setvalue={setPhone}
@@ -884,7 +885,7 @@ export default function AddPost({ navigation, route }) {
           </View>
           {/* )} */}
           <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Website</Text>
+            <Text style={styles.title}>{t("addPost.website")}</Text>
             <Input
               value={website}
               setvalue={setWebsite}
@@ -895,7 +896,7 @@ export default function AddPost({ navigation, route }) {
         </View>
         <View style={{ paddingVertical: width(1), flexDirection: "row" }}>
           <View style={{ paddingVertical: width(1), flex: 1 }}>
-            <Text style={styles.title}>Location</Text>
+            <Text style={styles.title}>{t("addPost.location")}</Text>
             <GooglePlacesAutocomplete
               fetchDetails={true}
               placeholder="Search"
@@ -965,11 +966,11 @@ export default function AddPost({ navigation, route }) {
             isChecked={check}
           />
           <View>
-            <Text>I have read and agree to the Eidcarosse</Text>
+            <Text>{t("addPost.TandC1")}</Text>
             <TouchableOpacity>
               <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {" "}
-                Terms and Conditions
+                {t("addPost.TandC2")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -984,7 +985,7 @@ export default function AddPost({ navigation, route }) {
           <Button
             disabled={!check}
             onPress={addPost}
-            title={"Post"}
+            title={"addPost.post"}
             containerStyle={{
               width: width(80),
               borderRadius: width(2),

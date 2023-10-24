@@ -10,9 +10,9 @@ import styles from "./styles";
 export default function RelatedAd({ category }) {
   const [data, setData] = useState([]);
   const [refreshing, onRefresh] = useState(false);
-
   const queryParams = {
     category: category || "",
+    page: 1, // Adjust the page number as needed
   };
   useEffect(() => {
     getData();

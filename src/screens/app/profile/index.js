@@ -1,4 +1,4 @@
-import { Entypo, Fontisto,MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { Entypo, Fontisto, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import React, { useRef } from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 import styles from "./styles";
@@ -24,7 +24,7 @@ export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
-  const userFav=useSelector(selectFavAds)
+  const userFav = useSelector(selectFavAds);
   const token = useSelector(selectToken);
   return (
     <ScreenWrapper
@@ -62,7 +62,7 @@ export default function Profile({ navigation, route }) {
                 onPress={() => {
                   navigation.navigate(ScreenNames.WISH);
                 }}
-                title={"My Wish List"}
+                title={"profile.wish"}
                 containerStyle={styles.wcontainer}
                 textStyle={styles.wtexticon}
                 icon={
@@ -73,7 +73,7 @@ export default function Profile({ navigation, route }) {
                       color: AppColors.primary,
                     }}
                   >
-                    {userFav?.length||0}
+                    {userFav?.length || 0}
                   </Text>
                 }
               />
@@ -81,7 +81,7 @@ export default function Profile({ navigation, route }) {
                 onPress={() => {
                   navigation.navigate(ScreenNames.MYADS);
                 }}
-                title={"My Listings"}
+                title={"profile.listing"}
                 containerStyle={styles.wcontainer}
                 textStyle={styles.wtexticon}
                 icon={
@@ -92,7 +92,7 @@ export default function Profile({ navigation, route }) {
                       color: AppColors.primary,
                     }}
                   >
-                    {userAds?.length||0}
+                    {userAds?.length || 0}
                   </Text>
                 }
               />
@@ -104,7 +104,7 @@ export default function Profile({ navigation, route }) {
             onPress={() => {
               navigation.navigate(ScreenNames.EDITPROFILE);
             }}
-            title={"Personal Information"}
+            title={"profile.personalInformation"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
@@ -116,7 +116,7 @@ export default function Profile({ navigation, route }) {
             onPress={() => {
               navigation.navigate(ScreenNames.PASSWORD);
             }}
-            title={"Password"}
+            title={"profile.password"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
@@ -125,7 +125,7 @@ export default function Profile({ navigation, route }) {
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
           <IconButton
-            title={"Privacy & Safety"}
+            title={"profile.privacy"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
@@ -137,7 +137,7 @@ export default function Profile({ navigation, route }) {
             onPress={() => {
               navigation.navigate(ScreenNames.SETTING);
             }}
-            title={"App Setting"}
+            title={"profile.appSetting"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
@@ -149,11 +149,11 @@ export default function Profile({ navigation, route }) {
             }
             iconright={<Ionicons name="chevron-forward" size={width(4)} />}
           />
-           <IconButton
+          <IconButton
             onPress={() => {
               navigation.navigate(ScreenNames.ACCOUNT);
             }}
-            title={"Manage Account"}
+            title={"profile.manageAccount"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={
