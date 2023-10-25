@@ -38,7 +38,7 @@ export default function FAQ({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"FAQ"} navigation={navigation} />
+        <Head headtitle={"FAQ.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

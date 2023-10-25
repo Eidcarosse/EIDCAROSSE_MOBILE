@@ -1,6 +1,7 @@
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -38,7 +39,6 @@ import {
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
 
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
@@ -141,6 +141,7 @@ export default function AddPost({ navigation, route }) {
         latitude,
         longitude,
         address,
+        image
       ];
 
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
@@ -205,20 +206,25 @@ export default function AddPost({ navigation, route }) {
   };
   const rdata = [
     {
-      label: "new",
+      key: "new",
+      label: t("condition.new"),
     },
     {
-      label: "used",
+      key: "used",
+      label: t("condition.used"),
     },
     {
-      label: "Recondition",
+      key: "Recondition",
+      label: t("condition.Recondition"),
     },
   ];
   const pdata = [
     {
+      key: "Price",
       label: "Price",
     },
     {
+      key: "Disable",
       label: "Disable",
     },
   ];
@@ -448,7 +454,7 @@ export default function AddPost({ navigation, route }) {
             <Input
               value={title}
               setvalue={setTitle}
-              placeholder={"Title of Vahicel"}
+              placeholder={t("addPost.phtitleWord")}
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
@@ -481,7 +487,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={price}
                 setvalue={setPrice}
-                placeholder={"price"}
+                placeholder={t("addPost.phprice")}
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
@@ -499,7 +505,9 @@ export default function AddPost({ navigation, route }) {
                 paddingVertical: width(1),
               }}
               activeColor={AppColors.primary}
-              selectedBtn={(e) => setCondition(e.label)}
+              selectedBtn={(e) => {
+                setCondition(e.key);
+              }}
             />
           </View>
           {!(vCategory == undefined || vCategory == []) ? (
@@ -507,7 +515,7 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <SelectDropdown
                 data={vCategory}
-                searchPlaceHolder={"Search here"}
+                searchPlaceHolder={t("addPost.phsearchHere")}
                 search={true}
                 buttonStyle={styles.searchbox}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -547,7 +555,7 @@ export default function AddPost({ navigation, route }) {
             <SelectDropdown
               data={vcompanies}
               search={true}
-              searchPlaceHolder={"Search here"}
+              searchPlaceHolder={t("addPost.phsearchHere")}
               buttonStyle={styles.searchbox}
               selectedRowStyle={{ backgroundColor: AppColors.primary }}
               selectedRowTextStyle={{ color: AppColors.white }}
@@ -576,7 +584,7 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
                     ref={modelRef}
-                    searchPlaceHolder={"Search here"}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
                     data={apimodel}
                     search={true}
                     buttonStyle={styles.searchbox}
@@ -612,7 +620,7 @@ export default function AddPost({ navigation, route }) {
                     value={year}
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
-                    placeholder={"1999"}
+                    placeholder={t("addPost.phyear")}
                   />
                 </View>
               )}
@@ -622,7 +630,7 @@ export default function AddPost({ navigation, route }) {
                   <SelectDropdown
                     data={category == "Bikes" ? bikeBodyShape : bodyShapeList}
                     search={true}
-                    searchPlaceHolder={"Search here"}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -632,17 +640,17 @@ export default function AddPost({ navigation, route }) {
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
-                      setBodyshap(selectedItem);
+                      setBodyshap(selectedItem.value);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return selectedItem;
+                      return t(selectedItem.key);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return item;
+                      return t(item.key);
                     }}
                   />
                 </View>
@@ -653,7 +661,7 @@ export default function AddPost({ navigation, route }) {
                   <SelectDropdown
                     data={gearBoxList}
                     search={true}
-                    searchPlaceHolder={"Search here"}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -663,17 +671,17 @@ export default function AddPost({ navigation, route }) {
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
-                      setGearbox(selectedItem);
+                      setGearbox(selectedItem.value);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return selectedItem;
+                      return t(selectedItem.key);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return item;
+                      return t(item.key);
                     }}
                   />
                 </View>
@@ -684,7 +692,7 @@ export default function AddPost({ navigation, route }) {
                   <SelectDropdown
                     data={category == "Bikes" ? BikeFuelType : fuelTypelist}
                     search={true}
-                    searchPlaceHolder={"Search here"}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -694,17 +702,17 @@ export default function AddPost({ navigation, route }) {
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
-                      setFueltype(selectedItem);
+                      setFueltype(selectedItem.value);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return selectedItem;
+                      return t(selectedItem.key);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return item;
+                      return t(item.key);
                     }}
                   />
                 </View>
@@ -719,7 +727,7 @@ export default function AddPost({ navigation, route }) {
                         : exteriorColorList
                     }
                     search={true}
-                    searchPlaceHolder={"Search here"}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -729,17 +737,17 @@ export default function AddPost({ navigation, route }) {
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
-                      setExterior(selectedItem);
+                      setExterior(selectedItem.value);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return selectedItem;
+                      return t(selectedItem.key);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return item;
+                      return t(item.key);
                     }}
                   />
                 </View>
@@ -750,7 +758,7 @@ export default function AddPost({ navigation, route }) {
                   <SelectDropdown
                     data={interiorColorList}
                     search={true}
-                    searchPlaceHolder={"Search here"}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -760,17 +768,17 @@ export default function AddPost({ navigation, route }) {
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
-                      setInterior(selectedItem);
+                      setInterior(selectedItem.value);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return selectedItem;
+                      return t(selectedItem.key);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return item;
+                      return t(item.key);
                     }}
                   />
                 </View>
@@ -783,7 +791,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={km}
                 setvalue={setKm}
-                placeholder={"5000"}
+                placeholder={t("addPost.phkm")}
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
@@ -794,17 +802,17 @@ export default function AddPost({ navigation, route }) {
               value={description}
               multi
               setvalue={setDescription}
-              placeholder={"Description here.."}
+              placeholder={t("addPost.phdescription")}
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
         </View>
         <View style={{ paddingVertical: width(1) }}>
-          <Text style={styles.title}>Video url</Text>
+          <Text style={styles.title}>{t("addPost.videourl")}</Text>
           <Input
             value={url}
             setvalue={setUrl}
-            placeholder={"http://video.com"}
+            placeholder={t("addPost.phurl")}
             containerStyle={[styles.price, { width: width(90) }]}
           />
         </View>
@@ -813,14 +821,14 @@ export default function AddPost({ navigation, route }) {
           <Text
             style={[styles.title, { fontSize: width(5), margin: width(2) }]}
           >
-            Contact Detail
+            {t("addPost.contactdetail")}
           </Text>
           <View style={{ alignSelf: "center", marginBottom: height(3) }}>
             <Text style={styles.title}>{t("addPost.htc")}</Text>
             <SelectDropdown
               data={cdata}
               search={true}
-              searchPlaceHolder={"Search here"}
+              searchPlaceHolder={t("addPost.phsearchHere")}
               buttonStyle={styles.searchbox}
               selectedRowStyle={{ backgroundColor: AppColors.primary }}
               selectedRowTextStyle={{ color: AppColors.white }}
@@ -847,7 +855,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={whatsapp}
                 setvalue={setWhatsapp}
-                placeholder={"XXXXXXXXXX"}
+                placeholder={t("addPost.phwhatsapp")}
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
@@ -858,7 +866,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={viber}
                 setvalue={setViber}
-                placeholder={"XXXXXXXXXX"}
+                placeholder={t("addPost.phviber")}
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
@@ -889,7 +897,7 @@ export default function AddPost({ navigation, route }) {
             <Input
               value={website}
               setvalue={setWebsite}
-              placeholder={"www.abc.com"}
+              placeholder={t("addPost.phwebsite")}
               containerStyle={[styles.price, { width: width(90) }]}
             />
           </View>
@@ -899,7 +907,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.location")}</Text>
             <GooglePlacesAutocomplete
               fetchDetails={true}
-              placeholder="Search"
+              placeholder={t("addPost.phlocation")}
               currentLocation={true}
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);

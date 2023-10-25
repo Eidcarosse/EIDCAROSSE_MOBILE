@@ -11,7 +11,7 @@ export default function ChangePassword({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Change Password"} navigation={navigation} />
+        <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -19,10 +19,16 @@ export default function ChangePassword({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View style={{ paddingVertical: width(10) }}>
-          <Input title={"New Password"} placeholder={"New Password"} />
+          <Input
+            title={"changePassword.newPassword"}
+            placeholder={"changePassword.phnewPassword"}
+          />
 
-          <Input title={"Confirm Password"} placeholder={"Enter Password"} />
-          <Button containerStyle={styles.button} title={"Save Change"} />
+          <Input
+            title={"changePassword.confirmpassword"}
+            placeholder={"changePassword.phconfirmpassword"}
+          />
+          <Button containerStyle={styles.button} title={"changePassword.savebutton"} />
 
           <View style={{ height: height(7) }} />
         </View>

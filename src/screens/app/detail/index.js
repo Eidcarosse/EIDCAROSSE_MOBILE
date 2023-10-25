@@ -32,7 +32,9 @@ import {
   selectUserMeta,
   setAdsFav,
 } from "../../../redux/slices/user";
+import { useTranslation } from "react-i18next";
 export default function Detail({ navigation, route }) {
+  const { t } = useTranslation();
   const dat = route?.params;
   const loginuser = useSelector(selectUserMeta);
   const mapRef = useRef(null);
@@ -197,7 +199,7 @@ export default function Detail({ navigation, route }) {
               ) : (
                 <View style={styles.cfpview}>
                   <Text numberOfLines={1} style={styles.cfp}>
-                    Contact for Price
+                    {t("detail.CFP")}
                   </Text>
                 </View>
               )}
@@ -239,53 +241,59 @@ export default function Detail({ navigation, route }) {
           <View style={styles.detailview}>
             <View style={styles.detailcard}>
               <Text style={{ fontSize: width(5), fontWeight: "bold" }}>
-                Details
+                {t("detail.detailword")}
               </Text>
               {!isNullOrNullOrEmpty(data?.category) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>category</Text>
+                  <Text style={styles.cardelement}>{t("detail.category")}</Text>
                   <Text style={styles.cardelement2}>{data?.category}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.subCategory) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>subCategory</Text>
+                  <Text style={styles.cardelement}>
+                    {t("detail.subcategory")}
+                  </Text>
                   <Text style={styles.cardelement2}>{data?.subCategory}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.brand) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Brand</Text>
+                  <Text style={styles.cardelement}>{t("detail.brand")}</Text>
                   <Text style={styles.cardelement2}>{data?.brand}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.model) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Model</Text>
+                  <Text style={styles.cardelement}>{t("detail.model")}</Text>
                   <Text style={styles.cardelement2}>{data?.model}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.year) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Year</Text>
+                  <Text style={styles.cardelement}>{t("detail.year")}</Text>
                   <Text style={styles.cardelement2}>{data?.year}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.condition) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Condition</Text>
+                  <Text style={styles.cardelement}>
+                    {t("detail.condition")}
+                  </Text>
                   <Text style={styles.cardelement2}>{data?.condition}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.bodyShape) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Body Shape</Text>
+                  <Text style={styles.cardelement}>
+                    {t("detail.bodyshape")}
+                  </Text>
                   <Text style={styles.cardelement2}>{data?.bodyShape}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.engineCapacity) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Engine Capacity</Text>
+                  <Text style={styles.cardelement}>{t("detail.engin")}</Text>
                   <Text style={styles.cardelement2}>
                     {data?.engineCapacity}
                   </Text>
@@ -293,35 +301,39 @@ export default function Detail({ navigation, route }) {
               )}
               {!isNullOrNullOrEmpty(data?.exteriorColor) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Exterior Color</Text>
+                  <Text style={styles.cardelement}>
+                    {t("detail.exteriorcolor")}
+                  </Text>
                   <Text style={styles.cardelement2}>{data?.exteriorColor}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.interiorColor) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Interior Color</Text>
+                  <Text style={styles.cardelement}>
+                    {t("detail.interiorcolor")}
+                  </Text>
                   <Text style={styles.cardelement2}>{data?.interiorColor}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.fuelType) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Fuel Type</Text>
+                  <Text style={styles.cardelement}>{t("detail.fueltype")}</Text>
                   <Text style={styles.cardelement2}>{data?.fuelType}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.gearBox) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Gear Box</Text>
+                  <Text style={styles.cardelement}>{t("detail.gearbox")}</Text>
                   <Text style={styles.cardelement2}>{data?.gearBox}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.km) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Killo Meter</Text>
+                  <Text style={styles.cardelement}>{t("detail.km")}</Text>
                   <Text style={styles.cardelement2}>{data?.km}</Text>
                 </View>
               )}
-              {!isNullOrNullOrEmpty(data?.maxPrice) && (
+              {/* {!isNullOrNullOrEmpty(data?.maxPrice) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>Max Price</Text>
                   <Text style={styles.cardelement2}>{data?.maxPrice}</Text>
@@ -332,22 +344,22 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>Min Price</Text>
                   <Text style={styles.cardelement2}>{data?.minPrice}</Text>
                 </View>
-              )}
+              )} */}
               {!isNullOrNullOrEmpty(data?.price) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Price</Text>
+                  <Text style={styles.cardelement}>{t("detail.price")}</Text>
                   <Text style={styles.cardelement2}>{data?.price}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.videoUrl) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Video Url</Text>
+                  <Text style={styles.cardelement}>{t("detail.videourl")}</Text>
                   <Text style={styles.cardelement2}>{data?.videoUrl}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.website) && (
                 <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Website</Text>
+                  <Text style={styles.cardelement}>{t("detail.website")}</Text>
                   <Text style={styles.cardelement2}>{data?.website}</Text>
                 </View>
               )}
@@ -358,7 +370,7 @@ export default function Detail({ navigation, route }) {
           }
           <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
             <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
-              Description
+              {t("detail.description")}
             </Text>
             <Text style={{ fontSize: width(3), paddingVertical: width(2) }}>
               {data?.description}
@@ -385,7 +397,7 @@ export default function Detail({ navigation, route }) {
                   </Text>
                 </View>
                 <IconButton
-                  title={"See All Ads"}
+                  title={"detail.seeAllAds"}
                   onPress={() => {
                     navigation.navigate(ScreenNames.OTHERPROFILE, {
                       user: data?.userId,
@@ -438,7 +450,7 @@ export default function Detail({ navigation, route }) {
                 marginVertical: width(2),
               }}
             >
-              Location
+              {t("detail.location")}
             </Text>
           </View>
           <View style={styles.map}>

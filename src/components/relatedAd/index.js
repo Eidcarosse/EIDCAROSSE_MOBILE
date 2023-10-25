@@ -6,8 +6,10 @@ import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
 import CardView from "../CardView";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function RelatedAd({ category }) {
+  const {t}=useTranslation();
   const [data, setData] = useState([]);
   const [refreshing, onRefresh] = useState(false);
   const queryParams = {
@@ -45,7 +47,7 @@ export default function RelatedAd({ category }) {
     <View style={styles.main}>
       <View style={styles.titleview}>
         <Text style={{ fontSize: width(4), fontWeight: "bold" }}>
-          Related Ads
+          {t("detail.relatedAds")}
         </Text>
       </View>
       <View style={{ width: width(100), alignItems: "center" }}>

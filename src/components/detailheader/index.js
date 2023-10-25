@@ -5,6 +5,7 @@ import { width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { Menu, MenuItem } from "react-native-material-menu";
+import { useTranslation } from "react-i18next";
 
 export default function DetailHeader({
   onPressBack,
@@ -13,6 +14,7 @@ export default function DetailHeader({
   like = true,
   loginuser = false,
 }) {
+  const {t}=useTranslation();
   const [fav, setFav] = useState(false);
   const setMyFav = () => {
     if (!loginuser) {
@@ -33,7 +35,7 @@ export default function DetailHeader({
             color={AppColors.white}
           />
         </TouchableOpacity>
-        <Text style={styles.textdetail}>Details</Text>
+        <Text style={styles.textdetail}>{t("detailheader.title")}</Text>
       </View>
       <View
         style={{

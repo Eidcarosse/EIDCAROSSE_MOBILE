@@ -14,7 +14,7 @@ export default function ManageAccount({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Manage Account"} navigation={navigation} />
+        <Head headtitle={"manageAccount.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -32,7 +32,7 @@ export default function ManageAccount({ navigation, route }) {
 
               , navigation.goBack();
             }}
-            title={"LogOut"}
+            title={"manageAccount.logout"}
             containerStyle={styles.logoutcontainer}
             textStyle={{ color: AppColors.primary }}
             icon={
@@ -44,7 +44,7 @@ export default function ManageAccount({ navigation, route }) {
             }
           />
           <IconButton
-            title={"Delete Account"}
+            title={"manageAccount.deleteaccount"}
             containerStyle={styles.deletecontainer}
             icon={
               <AntDesign

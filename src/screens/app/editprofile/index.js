@@ -72,7 +72,7 @@ export default function EditProfile({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Edit Profile"} navigation={navigation} />
+        <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -130,41 +130,41 @@ export default function EditProfile({ navigation, route }) {
         </ImageBackground>
         <View style={{ paddingVertical: width(10) }}>
           <Input
-            title={"First Name"}
-            placeholder={"Enter Name"}
+            title={"editprofile.firstNameTitle"}
+            placeholder={"editprofile.firstNamePlaceholder"}
             value={firstName}
             setvalue={setFirstName}
           />
           <Input
-            title={"Last Name"}
-            placeholder={"Enter Name"}
+            title={"editprofile.lastNameTitle"}
+            placeholder={"editprofile.lastNamePlaceholder"}
             value={lastName}
             setvalue={setLastName}
           />
           <Input
-            title={"User Name"}
-            placeholder={"Enter Username"}
+            title={"editprofile.userNameTitle"}
+            placeholder={"editprofile.usernamePlaceholder"}
             value={userName}
             setvalue={setUserName}
             editable={false}
           />
           <Input
-            title={"Email"}
-            placeholder={"Enter Email"}
+            title={"editprofile.emailTitle"}
+            placeholder={"editprofile.emailPlaceholder"}
             value={email}
             setvalue={setEmail}
             editable={false}
           />
           <Input
-            title={"Phone Number"}
-            placeholder={"Phone Number"}
+            title={"editprofile.phoneNumberTitle"}
+            placeholder={"editprofile.phoneNumberPlaceholder"}
             value={phoneNumber}
             setvalue={setPhoneNumber}
           />
           <Button
             containerStyle={styles.button}
             onPress={update}
-            title={"Save Change"}
+            title={"editprofile.update"}
           />
         </View>
       </View>
