@@ -26,7 +26,7 @@ const AdView = ({ detail, onPressView }) => {
         resizeMode="cover"
       />
       <View style={styles.textview}>
-        <Text style={styles.title}>{detail?.title}</Text>
+        <Text style={styles.title} numberOfLines={1}>{detail?.title}</Text>
         <Text style={styles.price}>CHF {detail?.price} </Text>
       </View>
       <Button

@@ -1,6 +1,6 @@
 export default {
   signup: {
-    signup: "Inscription",
+    signup: "S'inscrire",
     firstNameTitle: "Prénom",
     firstNamePlaceholder: "Entrez votre prénom",
     lastNameTitle: "Nom de famille",
@@ -9,11 +9,11 @@ export default {
     phoneNumberPlaceholder: "Entrez votre numéro de téléphone",
     userNameTitle: "Nom d'utilisateur",
     usernamePlaceholder: "Entrez votre nom d'utilisateur",
-    emailTitle: "E-mail",
+    emailTitle: "Email",
     emailPlaceholder: "Entrez votre adresse e-mail",
     passwordTitle: "Mot de passe",
     passwordPlaceholder: "Entrez votre mot de passe",
-    checkBoxText: "J'ai lu et j'accepte les conditions d'Eidcarosse",
+    checkBoxText: "J'ai lu et accepté les conditions d'Eidcarosse",
     termAndCondition: "Conditions générales",
     continueWithGoogle: "Continuer avec Google",
 
@@ -22,67 +22,68 @@ export default {
     or: "ou",
 
     alreadyHaveAccount: "Vous avez déjà un compte ?",
-    signin: "Connexion",
+    signin: "Se connecter",
   },
 
   login: {
-    login: "Connexion",
+    login: "Se connecter",
     continueWithGoogle: "Continuer avec Google",
-    emailTitle: "E-mail",
+    emailTitle: "Email",
     yourEmailAddress: "Entrez votre adresse e-mail",
     passwordTitle: "Mot de passe",
     yourPassword: "Entrez votre mot de passe",
-    loginButton: "Connexion",
-    cannotLogin: "Impossible de se connecter ?",
+    loginButton: "Se connecter",
+    cannotLogin: "Vous ne pouvez pas vous connecter ?",
     forgetPassword: "Mot de passe oublié",
     donothaveaccount: "Vous n'avez pas de compte ?",
     registerNow: "Inscrivez-vous maintenant !",
   },
   prelogin: {
     mustLogin: "Vous devez vous connecter pour continuer",
-    loginSignupButton: "Connexion / Inscription",
+    loginSignupButton: "Se connecter / S'inscrire",
   },
   FAQ: {
-    q1: "Comment modifier/supprimer mes annonces ?",
-    a1: "Connectez-vous simplement et allez dans Compte => Mes annonces, où vous obtiendrez une liste de vos annonces. Chaque annonce a une option de suppression.",
+    title: "FAQ",
+    q1: "Comment puis-je modifier/supprimer mes annonces ?",
+    a1: "Connectez-vous simplement et allez dans Mon compte => Mes annonces, où vous trouverez une liste de vos annonces. Chaque annonce a une option de suppression.",
     q2: "Comment modifier mon annonce ?",
-    a2: "Connectez-vous simplement et allez dans Compte => Mes annonces, où vous obtiendrez une liste de vos annonces. Chaque annonce a une option de modification.",
+    a2: "Connectez-vous simplement et allez dans Mon compte => Mes annonces, où vous trouverez une liste de vos annonces. Chaque annonce a une option de modification.",
 
-    q3: "Combien de jours mes annonces resteront-elles actives ?",
-    a3: "Cela dépend de vos paramètres. Le nombre de jours pendant lesquels l'annonce restera active dépend de ces paramètres et déterminera sa visibilité.",
+    q3: "Combien de temps mes annonces resteront-elles actives ?",
+    a3: "Cela dépend de vos paramètres. La durée de la publication dépend de ces paramètres et détermine la visibilité des annonces.",
 
     q4: "Combien d'annonces puis-je publier gratuitement ?",
-    a4: "Cela dépend de vos paramètres sur le site web. Les vendeurs auront un certain nombre d'annonces gratuites à publier pendant un certain nombre de jours.",
+    a4: "Cela dépend de vos paramètres sur le site Web. Le vendeur peut publier un certain nombre d'annonces gratuites pendant un certain nombre de jours.",
 
     q5: "Comment puis-je modifier les informations de mon compte ?",
     a5: "Connectez-vous, puis accédez à Mon compte, où vous trouverez l'option de modification des informations de votre compte.",
 
-    q6: "Comment démarrer une conversation avec quelqu'un ?",
-    a6: "Rendez-vous sur les détails d'une annonce ; vous y trouverez l'option d'e-mail, de téléphone et de chat. Cliquez simplement sur l'icône de chat et commencez votre conversation.",
+    q6: "Comment commencer une discussion avec quelqu'un ?",
+    a6: "Allez dans les détails d'une annonce ; vous trouverez l'option de chat. Appuyez simplement sur l'icône de chat pour commencer votre conversation.",
 
     q7: "Vais-je recevoir des notifications de chat en tant que vendeur ?",
-    a7: "Oui, en tant que vendeur, vous recevrez une notification par e-mail pour les demandes de chat ou d'e-mail. Pour le chat, l'acheteur recevra un premier message initial sous forme de notification par e-mail.",
+    a7: "Oui. Le vendeur recevra une notification par e-mail pour les demandes de chat ou les e-mails. Pour le chat, l'acheteur recevra le premier message initial sous forme de notification par e-mail.",
   },
   HTSF: {
     title1: "Choisissez le bon prix",
     detail1:
-      "Lorsque vous déterminez le prix d'un article, tenez compte du fait que le prix est un facteur important pour les clients. Pour vous assurer de fixer un prix raisonnable et compétitif, prenez le temps de rechercher des annonces similaires avant de finaliser votre stratégie tarifaire.",
+      "Lors de la détermination du prix d'un article, tenez compte du fait que le prix est un facteur important pour les clients. Pour vous assurer de fixer un prix raisonnable et compétitif, prenez le temps de rechercher des annonces similaires avant de finaliser votre stratégie de tarification.",
     title2: "Utilisez de superbes photos",
     detail2:
-      "Utilisez des photos claires et authentiques de votre produit ou de vos produits. Incluez plusieurs images prises sous différents angles pour fournir aux acheteurs potentiels une compréhension complète et détaillée de vos articles.",
+      "Utilisez des photos claires et authentiques de votre produit ou de vos produits. Incluez plusieurs images sous différents angles pour offrir aux acheteurs potentiels une compréhension complète et détaillée de vos articles.",
     title3: "Fournissez une description claire",
     detail3:
       "Offrez une description claire et détaillée de votre produit, en veillant à fournir des informations précises et complètes sur vos articles.",
   },
   aboutUs: {
     paraDetail1:
-      "Eidcarosse est un marché en ligne complet dédié à faciliter l'achat et la vente de véhicules. Avec une interface conviviale et de puissantes fonctionnalités de recherche, Eidcarosse met en relation les personnes à la recherche de véhicules avec des vendeurs proposant une large gamme d'options. Que vous recherchiez une berline élégante, un camion puissant, une moto élégante ou tout autre véhicule, Eidcarosse offre une plateforme qui simplifie l'ensemble du processus.",
+      "Eidcarosse est une place de marché en ligne complète dédiée à faciliter l'achat et la vente de véhicules. Avec une interface conviviale et des fonctionnalités de recherche puissantes, Eidcarosse met en relation les particuliers à la recherche de véhicules avec des vendeurs proposant une gamme étendue d'options. Que vous recherchiez une berline élégante, un puissant camion, une moto élégante ou tout autre véhicule, Eidcarosse offre une plateforme qui simplifie l'ensemble du processus.",
 
     paraTitle2: "Acheteurs",
     paraDetail2by1:
-      "Pour les acheteurs, Eidcarosse offre une vaste sélection de véhicules provenant de vendeurs privés et de concessionnaires, vous garantissant un accès à un large éventail d'options adaptées à vos préférences et à votre budget.",
+      "Pour les acheteurs, Eidcarosse offre une vaste sélection de véhicules provenant de vendeurs privés et de concessionnaires, vous assurant un accès à un large éventail d'options pour répondre à vos préférences et votre budget.",
     paraDetail2by2:
-      "Avec des annonces détaillées et des informations complètes sur les véhicules, y compris les spécifications, le kilométrage et les prix, vous pouvez prendre des décisions éclairées et trouver le véhicule parfait répondant à vos besoins.",
+      "Avec des annonces détaillées et des informations complètes sur les véhicules, notamment les spécifications, le kilométrage et les prix, vous pouvez prendre des décisions éclairées et trouver le véhicule parfait qui répond à vos besoins.",
 
     paraTitle3: "Vendeurs",
     paraDetail3by1:
@@ -90,56 +91,58 @@ export default {
     paraDetail3by2:
       "Listez votre véhicule avec des descriptions détaillées, des images de haute qualité et des prix compétitifs, et entrez directement en contact avec des acheteurs intéressés.",
     paraDetail3by3:
-      "Eidcarosse permet aux vendeurs d'atteindre un marché plus vaste et de simplifier le processus de vente, facilitant ainsi la recherche de l'acheteur idéal pour votre véhicule.",
+      "Eidcarosse permet aux vendeurs d'atteindre un public plus large et de rationaliser le processus de vente, ce qui facilite la recherche de l'acheteur idéal pour votre véhicule.",
 
     paraDetail4:
-      "Eidcarosse accorde la priorité à l'expérience utilisateur et garantit un processus de transaction sécurisé et transparent. La plateforme offre des fonctionnalités de messagerie, permettant aux acheteurs et aux vendeurs de communiquer directement et de négocier les modalités. De plus, Eidcarosse propose une gamme de fonctionnalités de vérification et de sécurité pour offrir la tranquillité d'esprit à tous les utilisateurs.",
+      "Eidcarosse accorde la priorité à l'expérience de l'utilisateur et assure un processus de transaction sécurisé et transparent. La plateforme offre des capacités de messagerie, permettant aux acheteurs et aux vendeurs de communiquer directement et de négocier les modalités. De plus, Eidcarosse propose une gamme de fonctionnalités de vérification et de sécurité pour offrir la tranquillité d'esprit à tous les utilisateurs.",
   },
 
   SNTU: {
-    data: "Vous pouvez désormais vendre votre véhicule et vos machines sur Eidcarosse. Nous proposons un processus sans tracas et des prix compétitifs pour votre véhicule. Que vous souhaitiez le mettre à niveau ou que vous ayez besoin de vendre votre véhicule rapidement, nous avons tout ce qu'il vous faut. Vendez maintenant et profitez d'une expérience de vente fluide avec nous !",
+    data: "Vous pouvez désormais vendre votre véhicule et vos machines sur Eidcarosse. Nous offrons un processus sans tracas et des prix compétitifs pour votre véhicule. Que vous souhaitiez effectuer une mise à niveau ou que vous ayez besoin de vendre rapidement votre véhicule et vos biens, nous avons tout prévu. Vendez maintenant et vivez une expérience de vente sans problème avec nous !",
   },
   RN: {
-    data: "Vous pouvez désormais vendre votre véhicule et vos machines sur Eidcarosse. Nous proposons un processus sans tracas et des prix compétitifs pour votre véhicule. Que vous souhaitiez le mettre à niveau ou que vous ayez besoin de vendre votre véhicule rapidement, nous avons tout ce qu'il vous faut. Vendez maintenant et profitez d'une expérience de vente fluide avec nous !",
+    data: "Vous pouvez désormais vendre votre véhicule et vos machines sur Eidcarosse. Nous offrons un processus sans tracas et des prix compétitifs pour votre véhicule. Que vous souhaitiez effectuer une mise à niveau ou que vous ayez besoin de vendre rapidement votre véhicule et vos biens, nous avons tout prévu. Vendez maintenant et vivez une expérience de vente sans problème avec nous !",
   },
+
   privacy: {
     paraDetail1:
-      "Les créateurs de l'application mobile Eidcarosse accordent la priorité et attachent de la valeur à la sécurité et à la confidentialité des informations que vous partagez avec nous via notre application Eidcarosse. Nous souhaitons rendre nos utilisateurs aussi à l'aise que possible lorsqu'ils utilisent notre application. Si vous nous faites confiance avec vos informations, vous devez comprendre comment nous les collectons, les utilisons et les maintenons.\n\nLorsque vous vous apprêtez à acquérir Eidcarosse, vous devrez vous inscrire chez nous. L'inscription nous donne votre nom et prénom, adresse e-mail et numéro de téléphone.",
+      "Les créateurs de l'application mobile Eidcarosse – accordent la priorité et attachent de l'importance à la sécurité et à la confidentialité des informations que vous partagez avec nous via notre application Eidcarosse. Nous souhaitons que nos utilisateurs se sentent aussi à l'aise que possible lorsqu'ils utilisent notre application. Si vous décidez de nous faire confiance avec vos informations, vous devez comprendre comment nous les collectons, les utilisons et les conservons.\n\nLorsque vous vous apprêtez à utiliser Eidcarosse, vous devrez vous inscrire auprès de nous. L'inscription nous donne votre prénom, nom de famille, adresse e-mail et numéro de téléphone.",
 
-    paraTitle2: "Collecte et Utilisation des Informations",
+    paraTitle2: "Collecte et utilisation des informations",
     paraDetail2:
-      "Nous pouvons vous demander de nous fournir certaines informations personnelles pour une meilleure expérience. Ces informations comprennent, entre autres, le nom, l'adresse et les données de localisation. Ces informations ne seront accessibles que par nous et ne seront utilisées que comme décrit dans cette politique de confidentialité.",
+      "Nous pouvons vous demander de nous fournir certaines informations personnelles pour une meilleure expérience. Ces informations comprennent, entre autres, le nom, l'adresse et les données de localisation. Ces informations ne seront accessibles qu'à nous et ne seront utilisées que comme décrit dans cette politique de confidentialité.",
 
-    paraTitle3: "Informations Personnelles :",
+    paraTitle3: "Informations personnelles :",
     paraDetail3:
       "Lorsque vous vous inscrivez et fournissez votre nom, numéro de téléphone, adresse e-mail, nom d'utilisateur et mot de passe, nous ne conserverons pas vos informations d'adresse.",
 
     paraTitle4:
-      "Pendant Combien de Temps les Informations Personnelles Sont-elles Conservées ?",
+      "Pendant combien de temps les informations personnelles sont-elles conservées ?",
     paraDetail4:
-      "Lorsque vous vous inscrivez chez nous, vos informations personnelles et votre adresse e-mail sont conservées pour d'éventuels besoins futurs. Ces informations restent stockées chez nous jusqu'à ce que vous supprimiez vos informations personnelles.",
+      "Lorsque vous vous inscrivez auprès de nous, vos informations personnelles et votre adresse e-mail sont conservées pour le futur support. Ces informations restent stockées chez nous jusqu'à ce que vous supprimiez vos informations personnelles.",
 
     paraTitle5:
-      "Ce que Nous Ne Faisons Pas Avec Vos Informations Personnelles :",
+      "Ce que nous ne faisons pas avec vos informations personnelles :",
     paraDetail5:
-      "Nous ne divulguons pas et ne divulguerons jamais vos informations privées à d'autres entreprises pour la promotion de leurs propres services ou produits. Il est également contraire à notre politique de partager vos informations personnelles avec des personnes non autorisées.",
+      "Nous ne divulguons et ne divulguerons jamais vos informations privées à d'autres entreprises pour la promotion de leurs propres services ou produits. Il est également contraire à notre politique de partager vos informations personnelles avec des personnes non autorisées.",
 
-    paraTitle6: "Vos Droits sur Vos Données :",
+    paraTitle6: "Vos droits sur vos données :",
     paraDetail6:
-      "En tant qu'utilisateur inscrit, vous avez le droit de modifier vos informations personnelles. Vous pouvez également demander l'exportation d'un fichier de vos informations. Lorsque vous vous connectez à notre site, vous pouvez également supprimer vos données.",
+      "En tant qu'utilisateur inscrit, il est de votre droit de modifier vos informations personnelles. Vous pouvez également demander l'exportation d'un fichier de vos informations. En vous connectant à notre site, vous pouvez également supprimer vos données.",
 
     paraTitle7: "Cookies",
-    paraDetail7:
-      "Les cookies sont de petits fichiers contenant peu de données et sont souvent utilisés pour une identification anonyme unique. Le site Web que vous visitez les envoie à votre navigateur et les stocke dans la mémoire interne de votre appareil.\n\nBien que notre application ou service n'utilise pas explicitement de cookies, elle peut utiliser un code tiers qui les utilise pour collecter des informations et améliorer ses services. Vous saurez quand des cookies sont envoyés à votre appareil et aurez la possibilité de les accepter ou de les refuser. Cependant, le rejet des cookies peut vous empêcher d'accéder à certains services.",
 
-    paraTitle8: "Nos Procédures de Sécurité Contre les Violations de Données :",
+    paraDetail7:
+      "Les cookies sont de petits fichiers contenant peu de données qui sont souvent utilisés à des fins d'identification anonyme unique. Le site web que vous visitez les envoie à votre navigateur et les stocke dans la mémoire interne de votre appareil.\n\nBien que notre application ou notre service n'utilise pas explicitement de cookies, il peut utiliser un code tiers qui les utilise pour collecter des informations et améliorer leurs services. Vous saurez quand des cookies sont envoyés à votre appareil et aurez la possibilité de les accepter ou de les refuser. Cependant, le refus des cookies peut vous empêcher d'accéder à certains services.",
+
+    paraTitle8: "Nos procédures de sécurité contre les violations de données :",
     paraDetail8:
-      "Nous apprécions la confiance que vous nous avez accordée en nous fournissant vos informations personnelles. Par conséquent, nous utilisons des moyens et des technologies de sécurité conformes à l'industrie pour protéger vos informations personnelles contre tout accès, divulgation ou utilisation non autorisés. Veuillez ne pas divulguer votre mot de passe d'inscription et votre nom d'utilisateur à des personnes non autorisées pour nous aider à protéger votre vie privée.\n\nMême si aucune méthode de transmission sur Internet ou de procédure de stockage électronique n'est infaillible à 100 %, Eidcarosse ne laisse rien au hasard pour protéger vos informations personnelles.\n\nSi vos informations sont consultées par des personnes non autorisées ou perdues, nous vous informerons dès que nous en aurons connaissance.",
+      "Nous attachons de l'importance à la confiance que vous nous avez accordée en nous fournissant vos informations personnelles. Par conséquent, nous utilisons des moyens de sécurité conformes aux normes de l'industrie et des technologies pour protéger vos informations personnelles contre toute divulgation, tout accès ou toute utilisation non autorisés. Veuillez ne pas divulguer votre mot de passe d'inscription et votre nom d'utilisateur à des personnes non autorisées pour nous aider à protéger votre vie privée.\n\nBien qu'aucune méthode de transmission sur Internet ou de procédure de stockage électronique ne soit totalement étanche, Eidcarosse ne laisse rien au hasard pour protéger vos informations personnelles.\n\nDans le cas où vos informations sont consultées par des personnes non autorisées ou sont perdues, nous vous en informerons dès que nous en aurons connaissance.",
 
     paraTitle9:
-      "Comment Accéder à Vos Données ou Modifier Vos Informations Personnelles :",
+      "Comment accéder à vos données ou modifier vos informations personnelles :",
     paraDetail9:
-      "Lorsque vous vous connectez à notre site avec vos informations, toutes vos informations de compte seront disponibles pour que vous les modifiiez ou les supprimiez. Si vous souhaitez arrêter de recevoir des notifications par e-mail de l'application Eidcarosse, il vous suffit de vous désabonner ou de nous envoyer un e-mail, et nous supprimerons votre e-mail ou votre compte. Assurez-vous que le sujet de votre e-mail indique 'supprimer mon nom d'utilisateur'.",
+      "Lorsque vous vous connectez sur notre site avec vos détails, toutes vos informations de compte seront disponibles pour que vous puissiez les modifier ou les supprimer. Si vous souhaitez arrêter de recevoir des notifications par e-mail pour l'application Eidcarosse, il vous suffit de vous désabonner ou de nous envoyer un e-mail, et nous effacerons votre e-mail ou votre compte. Assurez-vous que le sujet de votre e-mail indique 'supprimer mon nom d'utilisateur'.",
 
     paraTitle10: "Contactez-nous",
     paraDetail10:
@@ -147,70 +150,356 @@ export default {
   },
   terms: {
     paraData1:
-      "Avant d'utiliser le service de l'application mobile Eidcarosse, il est essentiel que vous examiniez attentivement et acceptiez les conditions générales suivantes. Votre acceptation de ces termes est nécessaire pour utiliser l'application. Assurez-vous de lire attentivement les conditions générales avant d'utiliser le service.",
+      "Avant d'utiliser le service de l'application mobile Eidcarosse, il est essentiel que vous examiniez attentivement et acceptiez les Conditions Générales suivantes. Votre acceptation de ces conditions est nécessaire pour utiliser l'application. Assurez-vous de lire attentivement les Conditions Générales avant d'utiliser le service.",
 
-    paraTitle2: "Généralités",
+    paraTitle2: "Général",
     paraData2:
-      "Eidcarosse tient les annonceurs et les utilisateurs responsables de veiller à ce que tout le contenu, y compris les images, vidéos, graphiques et textes, téléchargé sur la plateforme, soit conforme aux lois applicables. Les inexactitudes ou les problèmes juridiques découlant du contenu publié ne relèvent pas de la responsabilité d'Eidcarosse. Les annonceurs et les utilisateurs garantissent que leur contenu ne viole pas les droits d'auteur, les droits de propriété intellectuelle ou les droits de toute autre personne ou entité. En utilisant le service, l'utilisateur ou l'annonceur accepte de dégager Eidcarosse de toute obligation, réclamation ou responsabilité liée à l'utilisation de la plateforme ou à l'incapacité de l'utiliser. De plus, les annonceurs consentent à ce que leur contenu soit affiché sur les sites partenaires d'Eidcarosse, sous réserve des mêmes conditions que sur Eidcarosse lui-même.",
+      "Eidcarosse tient les annonceurs et les utilisateurs responsables de s'assurer que tout le contenu, y compris les images, vidéos, graphiques et textes, téléchargé sur la plateforme respecte les lois applicables. Toutes les inexactitudes ou problèmes légaux découlant du contenu publié ne relèvent pas de la responsabilité d'Eidcarosse. Les annonceurs et les utilisateurs garantissent que leur contenu ne viole pas les droits d'auteur, les droits de propriété intellectuelle ou tout autre droit de toute personne ou entité. En utilisant le service, l'utilisateur ou l'annonceur accepte de libérer Eidcarosse de toute obligation, réclamation ou responsabilité liée à l'utilisation ou à l'incapacité d'utiliser la plateforme. De plus, les annonceurs consentent à ce que leur contenu soit affiché sur les sites partenaires d'Eidcarosse, sous réserve des mêmes conditions que sur Eidcarosse elle-même.",
 
-    paraTitle3: "Droits d'Auteur",
+    paraTitle3: "Droit d'Auteur",
     paraData3:
-      "Les annonceurs accordent à Eidcarosse une licence perpétuelle, irrévocable, sans redevance et non exclusive, ainsi que le droit d'utiliser, de modifier, de reproduire, de publier, d'adapter, de traduire, de créer des œuvres dérivées, de distribuer ou d'incorporer le contenu fourni sous quelque forme, technologie ou support que ce soit, que ce soit actuellement connu ou développé à l'avenir.",
+      "Les annonceurs accordent à Eidcarosse une licence perpétuelle, irrévocable, exempte de redevances et non exclusive, ainsi que le droit d'utiliser, de modifier, de reproduire, de publier, d'adapter, de traduire, de créer des œuvres dérivées, de distribuer ou d'incorporer le contenu fourni sous quelque forme, technologie ou support que ce soit, que ce soit actuellement connu ou développé à l'avenir.",
 
     paraTitle4: "Filigranes",
     paraData4:
-      "Eidcarosse applique des filigranes à toutes les images pour empêcher leur réutilisation non autorisée à d'autres fins sans l'autorisation expresse de l'annonceur.",
+      "Eidcarosse applique des filigranes à toutes les images pour empêcher leur utilisation non autorisée à d'autres fins sans la permission explicite de l'annonceur.",
 
     paraTitle5: "Sécurité et Images",
     paraData5:
-      "Eidcarosse se réserve le droit de modifier les titres de tout contenu de l'application à des fins éditoriales.",
+      "Eidcarosse se réserve le droit de modifier les titres de tout contenu sur l'application à des fins éditoriales.",
 
-    paraTitle6: "Personnel",
+    paraTitle6: "Données Personnelles",
     paraData6:
-      "Eidcarosse se réserve le droit de coopérer avec les autorités en cas de violation de la loi par un contenu de l'application. L'identité des utilisateurs, des acheteurs ou des annonceurs peut être déterminée, par exemple, par un FSI. Les adresses IP peuvent également être enregistrées pour garantir le respect des conditions générales.",
+      "Eidcarosse se réserve le droit de coopérer avec les autorités en cas de violation de la loi par un contenu sur l'application. L'identité des utilisateurs, des acheteurs ou des annonceurs peut être déterminée, par exemple, par un fournisseur d'accès Internet. Les adresses IP peuvent également être enregistrées pour garantir le respect des conditions générales.",
 
-    paraTitle7: "Confidentialité",
+    paraTitle7: "Vie Privée",
     paraData7:
-      "Eidcarosse collectera des informations auprès des utilisateurs, des acheteurs et des annonceurs. En utilisant Eidcarosse, chaque utilisateur et annonceur consent à la collecte et à l'utilisation de ces informations. Eidcarosse se réserve également le droit de divulguer les informations aux affiliés de l'entreprise et à toute autre personne pour soutenir, administrer et maintenir Eidcarosse, y compris la commercialisation, la recherche, la planification et le développement de produits.",
+      "Eidcarosse collectera des informations auprès des utilisateurs, des acheteurs et des annonceurs. En utilisant Eidcarosse, chaque utilisateur et annonceur consent à la collecte et à l'utilisation de ces informations. Eidcarosse se réserve également le droit de divulguer les informations aux affiliés de l'entreprise et à toute autre personne pour soutenir, administrer et maintenir Eidcarosse, y compris le marketing, la recherche, la planification et le développement de produits.",
 
     paraTitle8: "Cookies",
     paraData8:
-      "Cette application peut utiliser des cookies, qui nécessitent des appareils compatibles avec les cookies. Un fichier cookie contient des informations, telles qu'un identifiant d'utilisateur aléatoire que le site attribue automatiquement à un visiteur pour suivre les pages qu'il visite. Les cookies ne peuvent pas lire les données de votre disque dur ni identifier l'utilisateur.",
+      "Cette application peut utiliser des cookies, qui nécessitent des appareils activés pour les cookies. Un fichier cookie contient des informations, telles qu'un identifiant utilisateur aléatoire que le site attribue automatiquement à un visiteur pour suivre les pages qu'il visite. Les cookies ne peuvent pas lire les données sur votre disque dur ni identifier l'utilisateur.",
 
-    paraTitle9: "Adresse E-mail des Utilisateurs",
+    paraTitle9: "Adresse Email des Utilisateurs",
     paraData9:
-      "Les utilisateurs doivent soumettre des adresses e-mail valides avant de pouvoir publier des annonces. Les adresses e-mail ne seront pas affichées publiquement. Cependant, les utilisateurs sont autorisés à envoyer des e-mails à d'autres utilisateurs via Eidcarosse.",
+      "Les utilisateurs doivent fournir des adresses e-mail valides avant de pouvoir publier des annonces. Les adresses e-mail ne seront pas affichées publiquement. Cependant, les utilisateurs sont autorisés à envoyer des e-mails à d'autres utilisateurs via Eidcarosse.",
 
     paraTitle10: "Disponibilité du Site",
-    paraData10:
-      "Eidcarosse ne garantit pas un accès ininterrompu ou sécurisé à l'application. L'application est fournie sur une base 'telle quelle' et 'telle que disponible' .",
+    paraData10: `  "Eidcarosse ne garantit pas un accès ininterrompu ou sécurisé à l'application. L'application est fournie "telle quelle" et "selon disponibilité"."`,
 
     paraTitle11: "Liens vers des Sites Web Tiers",
     paraData11:
-      "Eidcarosse peut contenir des références et des liens vers d'autres sites (Sites Web Tiers). Cependant, Eidcarosse ne sera pas responsable du contenu de ces sites Web tiers. Les sites Web tiers ne sont pas surveillés ni examinés par Eidcarosse. Lorsqu'un utilisateur décide de quitter Eidcarosse et d'accéder à un site Web tiers, il le fait à ses propres risques.",
+      "Eidcarosse peut contenir des références et des liens vers d'autres sites (Sites Web Tiers). Cependant, Eidcarosse ne sera pas responsable du contenu de ces sites web tiers. Les sites web tiers ne sont pas surveillés ni investigués par Eidcarosse. Lorsqu'un utilisateur décide de quitter Eidcarosse et d'accéder à un site web tiers, il le fait à ses propres risques.",
 
-    paraTitle12: "Contenu Payant et Service",
+    paraTitle12: "Contenu et Service Payant",
     paraData12:
-      "Certains services et contenus sur Eidcarosse peuvent nécessiter un paiement, notamment les forfaits d'adhésion et la publication d'annonces dans des catégories spécifiques. Les utilisateurs peuvent acheter des promotions d'annonces à l'aide de bons vendus ou émis par Eidcarosse, mais les bons ne sont pas remboursables en espèces. Les annonceurs et les autres utilisateurs peuvent être tenus de transmettre des informations sur leur contenu payant via un fournisseur tiers, régi par ses propres conditions générales. Les utilisateurs et les annonceurs acceptent de tels liens à leurs propres risques, et Eidcarosse décline toute responsabilité à leur égard. Eidcarosse n'est pas tenu de rembourser les paiements effectués concernant le contenu payant.",
+      "Certains services et contenus sur Eidcarosse peuvent nécessiter un paiement, notamment des forfaits d'adhésion et la publication d'annonces dans des catégories spécifiques. Les utilisateurs peuvent acheter des promotions d'annonces en utilisant des bons vendus ou émis par Eidcarosse, mais les bons ne sont pas monnayables. Les annonceurs et d'autres utilisateurs peuvent être tenus de transmettre des informations sur leur contenu payant via un fournisseur tiers, régi par ses propres conditions générales. Les utilisateurs et les annonceurs acceptent de tels liens à leurs propres risques, et Eidcarosse décline toute responsabilité liée à eux. Eidcarosse n'est pas tenu de rembourser les paiements effectués concernant du contenu payant.",
 
     paraTitle13: "Adhésions",
     paraData13:
-      "Eidcarosse créera un magasin au nom de l'utilisateur. Le magasin créé sera dépourvu de contenu en attente de l'ajout de contenu par l'utilisateur. Eidcarosse a le droit de tout contenu ajouté au magasin par l'utilisateur et a le droit de supprimer ou de refuser de publier le contenu qu'il juge inapproprié ou en violation de certains aspects des conditions générales. Eidcarosse se réserve le droit de modifier ou de modifier les forfaits d'adhésion, y compris leur prix et leur contenu. Eidcarosse n'est pas tenu de rembourser les services ou l'argent si un forfait d'adhésion est annulé prématurément, pour quelque raison que ce soit.",
+      "Eidcarosse créera un magasin au nom de l'utilisateur. Le magasin créé sera dépourvu de contenu, en attente de l'ajout de contenu par l'utilisateur. Eidcarosse a le droit sur tout contenu ajouté au magasin par l'utilisateur et a le droit de le supprimer ou de refuser de publier du contenu qu'il juge inapproprié ou en violation des termes et conditions. Eidcarosse se réserve le droit de modifier ou de modifier les forfaits d'adhésion, y compris leur prix et leur contenu. Eidcarosse n'est pas tenu de rembourser les services ou l'argent si un forfait d'adhésion est annulé prématurément, pour quelque raison que ce soit.",
 
-    paraTitle14: "Clause de Non-Responsabilité",
+    paraTitle14: "Clause de non-responsabilité",
     paraData14:
-      "Eidcarosse n'assume aucune responsabilité pour l'utilisation d'Eidcarosse et décline toute responsabilité pour toute réclamation, blessure, dommage ou responsabilité de quelque nature que ce soit découlant, résultant ou liée de quelque manière que ce soit à (a) des erreurs sur Eidcarosse ou le contenu, y compris, mais sans s'y limiter, les erreurs typographiques et techniques, (b) des sites Web tiers ou du contenu consulté ou récupéré directement ou indirectement par le biais de liens sur Eidcarosse, (c) l'indisponibilité d'Eidcarosse, (d) votre utilisation d'Eidcarosse ou du contenu, ou (e) votre utilisation de tout équipement (ou logiciel) en relation avec Eidcarosse.",
+      "Eidcarosse n'assume aucune responsabilité pour l'utilisation d'Eidcarosse et décline toute responsabilité pour toute réclamation, blessure, dommage ou responsabilité de quelque nature que ce soit résultant, découlant de ou lié de quelque manière que ce soit à (a) toute erreur sur Eidcarosse ou le Contenu, y compris, mais sans s'y limiter, les erreurs typographiques et les erreurs techniques, (b) tout site web ou contenu de tiers accédé ou récupéré directement ou indirectement par le biais de liens sur Eidcarosse, (c) l'indisponibilité d'Eidcarosse, (d) votre utilisation d'Eidcarosse ou du Contenu, ou (e) votre utilisation de tout équipement (ou logiciel) en relation avec Eidcarosse.",
 
     paraTitle15: "Indemnisation",
     paraData15:
-      "Les annonceurs et les autres utilisateurs acceptent d'indemniser Eidcarosse et ses employés, agents, dirigeants, administrateurs, de toutes dépenses, pertes, dommages et coûts, y compris les honoraires d'avocat, découlant de toute violation de ces conditions générales (y compris une conduite négligente ou fautive).",
+      "Les annonceurs et autres utilisateurs acceptent d'indemniser Eidcarosse et ses employés, agents, dirigeants et directeurs de toutes dépenses, pertes, dommages et frais, y compris les frais d'avocat, découlant de toute violation de ces Conditions Générales (y compris une conduite négligente ou fautive).",
 
     paraTitle16: "Modifications",
     paraData16:
-      "Eidcarosse se réserve le droit de modifier ou de modifier ces conditions générales. De telles modifications ou modifications seront effectives immédiatement après leur publication sur Eidcarosse. Vous êtes responsable de les consulter régulièrement. Votre accès continu ou votre utilisation d'Eidcarosse sera réputé constituer votre acceptation des termes et conditions modifiés.",
+      "Eidcarosse se réserve le droit de modifier ou de modifier ces Conditions Générales. De telles modifications ou modifications seront effectives immédiatement après leur publication sur Eidcarosse. Vous êtes responsable de vérifier régulièrement de telles modifications. Votre accès ou votre utilisation continue d'Eidcarosse sera réputé être votre acceptation des Conditions Générales modifiées.",
 
-    paraTitle17: "Droit Applicable",
+    paraTitle17: "Loi Applicable",
     paraData17:
-      "Eidcarosse est exploité conformément aux lois et règlements du pays respectif.",
+      "Eidcarosse est exploitée conformément aux lois et réglementations du pays respectif.",
   },
+  drawr: {
+    faq: "FAQ",
+    HTSF: "Comment vendre rapidement",
+    aboutus: "À propos de nous",
+    privacyPolicy: "Politique de confidentialité",
+    TermsAndCondition: "Conditions Générales",
+    contactUs: "Contactez-nous",
+    appSetting: "Paramètres de l'application",
+    SNTU: "Vendre maintenant à nous",
+    RFRN: "Demander une réparation maintenant",
+    share: "Partager avec des amis",
+  },
+  category: {
+    Autos: "Automobiles",
+    Bikes: "Vélos",
+    Boats: "Bateaux",
+    Drones: "Drones",
+    ConstructionMachines: "Engins de construction",
+    Trucks: "Camions",
+    Vans: "Fourgonnettes",
+    Trailers: "Remorques",
+    Busses: "Autobus",
+    Parts: "Pièces",
+    Others: "Autres",
+  },
+  bikecategory: {
+    Ebikes: "Vélos électriques",
+    Bicycles: "Vélos",
+    Escooter: "Trottinettes électriques",
+    Motorcycle: "Motos",
+  },
+  partscategory: {
+    Autos: "Pièces d'Auto",
+    Ebikes: "Pièces de Vélo Électrique",
+    Bicycles: "Pièces de Vélo",
+    Escooter: "Pièces de Trottinette Électrique",
+    Motorcycle: "Pièces de Moto",
+    Boats: "Pièces de Bateau",
+    Drones: "Pièces de Drone",
+    ConstructionMachines: "Pièces de Machines de Construction",
+    Trucks: "Pièces de Camion",
+    Vans: "Pièces de Fourgonnettes",
+    Trailers: "Pièces de Remorque",
+    Busses: "Pièces d'Autobus",
+    Others: "Autres Pièces",
+  },
+  profile: {
+    wish: "Ma Liste de Souhaits",
+    listing: "Mes Annonces",
+    personalInformation: "Informations Personnelles",
+    password: "Mot de Passe",
+    privacy: "Confidentialité et Sécurité",
+    appSetting: "Paramètres de l'Application",
+    manageAccount: "Gérer le Compte",
+  },
+  home: {
+    letest: "Dernières Annonces",
+    seeAll: "Voir Tout",
+  },
+  categorylist: {
+    categories: "Catégories",
+    seeAll: "Voir Tout",
+  },
+  addPost: {
+    title: "Ajouter une Annonce",
+    attachImage1: "Joindre une Image",
+    attachImage2: "Vous pouvez télécharger jusqu'à 5 images.",
+    attachImage3:
+      "La première image est l'image de titre. Appuyez longuement pour la faire glisser et la classer.",
+    productInformation: "Informations sur le Produit",
+    titleWord: "Titre",
+    phtitleWord: "Titre du Véhicule",
+    pricing: "Tarification",
+    price: "Prix",
+    phprice: "12345",
+    condition: "État",
+    subcategory: "Sous-Catégorie",
+    brand: "Marque",
+    model: "Modèle",
+    year: "Année",
+    phyear: "1999",
+    bodyshape: "Forme de la Carrosserie",
+    gearbox: "Boîte de Vitesse",
+    fueltype: "Type de Carburant",
+    exteriorcolor: "Couleur Extérieure",
+    interiorcolor: "Couleur Intérieure",
+    km: "Kilométrage",
+    phkm: "2222",
+    description: "Description",
+    phdescription: "Ceci est ma description de l'annonce",
+    videourl: "URL de la Vidéo",
+    phurl: "http//abc/xyz",
+    contactdetail: "Coordonnées",
+    htc: "Comment Contacter",
+    whatsapp: "Whatsapp",
+    phwhatsapp: "0313456789",
+    viber: "Viber",
+    phviber: "0313456789",
+    email: "E-mail",
+    phoneNumber: "Numéro de Téléphone",
+    website: "Site Web",
+    phwebsite: "www.google.com",
+    location: "Emplacement",
+    phlocation: "Rawalpindi",
+    TandC1: "J'ai lu et j'accepte les",
+    TandC2: "Conditions Générales d'Eidcarosse",
+    post: "Ajouter une Annonce",
+    phsearchHere: "Rechercher ici",
+  },
+  fuelTypelist: {
+    Gasoline: "Essence",
+    Diesel: "Diesel",
+    Ethanol: "Éthanol",
+    Electric: "Électrique",
+    Hydrogen: "Hydrogène",
+    LPG: "GPL",
+    CNG: "GNC",
+    Hybridg: "Hybride (Électrique/Essence)",
+    Hybridd: "Hybride (Électrique/Diesel)",
+    Others: "Autres",
+  },
+  truckaxelType: {
+    one: "1",
+    two: "2",
+    three: "3",
+    four: ">3",
+  },
+  bikeBodyShape: {
+    Supersport: "Supersport",
+    SportTouring: "Sport Tourisme",
+    ChopperCruiser: "Chopper/Cruiser",
+    TouringEnduro: "Touring Enduro",
+    Streetfighter: "Streetfighter",
+    EnduroBike: "Moto d'Enduro",
+    Motocrosser: "Motocross",
+    Sidecar: "Sidecar",
+    Classic: "Classique",
+    ThreeWheeler: "Tricycle",
+    Scooter: "Scooter",
+    Moped: "Mobylette",
+    SuperMoto: "Super Moto",
+    Minibike: "Mini-Moto",
+    NakedBike: "Naked Bike",
+    Quad: "Quad",
+    Rally: "Rallye",
+    TrialsBike: "Moto d'Essai",
+    Racing: "Course",
+    Tourer: "Touring",
+    Other: "Autre",
+  },
+  BikeFuelType: {
+    Gasoline: "Essence",
+    Diesel: "Diesel",
+    Electric: "Électrique",
+    LPG: "GPL",
+    Hybrid: "Hybride (Électrique/Essence)",
+    Others: "Autres",
+  },
+  bodyShapeList: {
+    Convertible: "Décapotable",
+    Compact: "Compacte",
+    Coupe: "Coupé",
+    SUV: "VUS/Tout-Terrain/Pick-up",
+    StationWagon: "Break",
+    Sedan: "Berline",
+    Van: "Fourgon",
+    Transporter: "Transporteur",
+    Other: "Autre",
+  },
+  gearBoxList: {
+    Automatic: "Automatique",
+    Manual: "Manuelle",
+    Semiautomatic: "Semi-automatique",
+  },
+  exteriorColorList: {
+    Blue: "Bleu",
+    Brown: "Marron",
+    Bronze: "Bronze",
+    Yellow: "Jaune",
+    Grey: "Gris",
+    Green: "Vert",
+    Red: "Rouge",
+    White: "Blanc",
+    Black: "Noir",
+    Silver: "Argent",
+    Violet: "Violet",
+    Gold: "Or",
+    Other: "Autre",
+  },
+  bikeExteriorColor: {
+    Beige: "Beige",
+    Brown: "Marron",
+    Bronze: "Bronze",
+    Yellow: "Jaune",
+    Green: "Vert",
+    Red: "Rouge",
+    Black: "Noir",
+    Silver: "Argent",
+    Violet: "Violet",
+    Orange: "Orange",
+    Gold: "Or",
+    Paintwork: "Peinture (Métallisée)",
+    White: "Blanc",
+    Other: "Autre",
+  },
+  interiorColorList: {
+    Beige: "Beige",
+    Black: "Noir",
+    Grey: "Gris",
+    White: "Blanc",
+    Brown: "Marron",
+    Red: "Rouge",
+    Yellow: "Jaune",
+    Orange: "Orange",
+    Other: "Autre",
+  },
+  condition: {
+    new: "neuf",
+    used: "d'occasion",
+    Recondition: "reconditionné",
+  },
+  editprofile: {
+    headtitle: "Modifier le Profil",
+    firstNameTitle: "Prénom",
+    firstNamePlaceholder: "Entrez votre prénom",
+    lastNameTitle: "Nom de Famille",
+    lastNamePlaceholder: "Entrez votre nom de famille",
+    phoneNumberTitle: "Numéro de Contact",
+    phoneNumberPlaceholder: "Entrez votre numéro de téléphone",
+    userNameTitle: "Nom d'Utilisateur",
+    usernamePlaceholder: "Entrez votre nom d'utilisateur",
+    emailTitle: "E-mail",
+    emailPlaceholder: "Entrez votre adresse e-mail",
+    update: "Mettre à Jour",
+  },
+  manageAccount: {
+    title: "Gérer le Compte",
+    logout: "Déconnexion",
+    deleteaccount: "Supprimer le Compte",
+  },
+  changePassword: {
+    title: "Changer le Mot de Passe",
+    newPassword: "Nouveau Mot de Passe",
+    phnewPassword: "Entrez un nouveau Mot de Passe",
+    confirmpassword: "Confirmer le Mot de Passe",
+    phconfirmpassword: "Re-entrez pour confirmer le Mot de Passe",
+    savebutton: "Enregistrer",
+  },
+  detailheader: {
+    title: "Détail",
+  },
+  detail: {
+    detailword: "Détails",
+    CFP: "Contacter pour le Prix",
+    price: "Prix",
+    condition: "État",
+    category: "Catégorie",
+    subcategory: "Sous-Catégorie",
+    brand: "Marque",
+    model: "Modèle",
+    year: "Année",
+    bodyshape: "Forme de Carrosserie",
+    gearbox: "Boîte de Vitesses",
+    fueltype: "Type de Carburant",
+    exteriorcolor: "Couleur Extérieure",
+    interiorcolor: "Couleur Intérieure",
+    km: "Kilométrage",
+    description: "Description",
+    videourl: "URL de la Vidéo",
+    website: "Site Web",
+    location: "Emplacement",
+    seeAllAds: "Voir Toutes les Annonces",
+    relatedAds: "Annonces Connexes",
+  },
+  searchbar: {
+    phsearch: "Que souhaitez-vous rechercher ?",
+    search: "Rechercher",
+  },
+  appseting: {
+    language: "Langue",
+    English: "Anglais",
+    German: "Allemand",
+    Italian: "Italien",
+    Spanish: "Espagnol",
+    French: "Français",
+  },
+
 };

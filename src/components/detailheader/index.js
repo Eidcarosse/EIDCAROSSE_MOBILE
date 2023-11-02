@@ -31,7 +31,7 @@ export default function DetailHeader({
         <TouchableOpacity onPress={onPressBack}>
           <Ionicons
             name="chevron-back"
-            size={width(6)}
+            size={width(8)}
             color={AppColors.white}
           />
         </TouchableOpacity>

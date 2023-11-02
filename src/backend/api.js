@@ -129,3 +129,10 @@ export const adView = async (adId) => {
     return []; // or some default value as needed
   }
 };
+// export const chatRooms=async({ userId, productId, productUserId })=>{
+//   try {
+//     const response=await ApiManager.post(`chatroom/`)
+//   } catch (error) {
+    
+//   }
+// }

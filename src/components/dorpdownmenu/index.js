@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import { SmallText } from "../index";
 import styles from "./styles";
+import AppColors from "../../utills/AppColors";
 const DropDownMenu = ({
   isVisible = false,
   onClose = () => {},
@@ -28,7 +29,7 @@ const DropDownMenu = ({
             style={styles.button}
             onPress={onPressFirstBtn}
           >
-            <SmallText>{firstBtnText}</SmallText>
+            <SmallText color="blue">{firstBtnText}</SmallText>
           </TouchableOpacity>
 
           <View style={styles.line} />
@@ -37,7 +38,7 @@ const DropDownMenu = ({
             style={styles.button}
             onPress={onPressSecondBtn}
           >
-            <SmallText>{secondBtnText}</SmallText>
+            <SmallText color="blue">{secondBtnText}</SmallText>
           </TouchableOpacity>
 
           {thirdText !== "" && (
@@ -58,7 +59,7 @@ const DropDownMenu = ({
           style={styles.cancelBtn}
           onPress={onClose}
         >
-          <SmallText>Cancel</SmallText>
+          <SmallText color={AppColors.primary}>Cancel</SmallText>
         </TouchableOpacity>
       </View>
     </Modal>

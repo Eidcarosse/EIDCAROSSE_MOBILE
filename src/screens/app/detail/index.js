@@ -33,6 +33,19 @@ import {
   setAdsFav,
 } from "../../../redux/slices/user";
 import { useTranslation } from "react-i18next";
+import categories from "../../../svgcomponents";
+import {
+  BikeFuelType,
+  Parts,
+  bikeBodyShape,
+  bikeExteriorColor,
+  bikedata,
+  bodyShapeList,
+  exteriorColorList,
+  fuelTypelist,
+  gearBoxList,
+  interiorColorList,
+} from "../../../utills/Data";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
@@ -130,7 +143,11 @@ export default function Detail({ navigation, route }) {
           <DetailFooter
             onPressCall={() => GlobalMethods.onPressCall(data?.phoneNumber)}
             onPressChat={() => {
-              navigation.navigate(ScreenNames.CHAT, dat);
+              navigation.navigate(ScreenNames.CHAT, {
+                userRoom:null,
+                usr: data?.userId,
+                userItem: data?._id,
+              });
             }}
             onPressMail={() => GlobalMethods.onPressEmail(data?.email)}
           />
@@ -246,7 +263,13 @@ export default function Detail({ navigation, route }) {
               {!isNullOrNullOrEmpty(data?.category) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.category")}</Text>
-                  <Text style={styles.cardelement2}>{data?.category}</Text>
+                  <Text style={styles.cardelement2}>
+                    {t(
+                      categories.find(
+                        (category) => category.title === data?.category
+                      )?.show
+                    )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.subCategory) && (
@@ -254,7 +277,21 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.subcategory")}
                   </Text>
-                  <Text style={styles.cardelement2}>{data?.subCategory}</Text>
+                  <Text style={styles.cardelement2}>
+                    {data?.category == "Bikes"
+                      ? t(
+                          bikedata.find(
+                            (category) => category.title === data?.subCategory
+                          )?.show
+                        )
+                      : data?.category == "Parts"
+                      ? t(
+                          Parts.find(
+                            (category) => category.title === data?.subCategory
+                          )?.show
+                        )
+                      : data?.subCategory}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.brand) && (
@@ -280,7 +317,14 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.condition")}
                   </Text>
-                  <Text style={styles.cardelement2}>{data?.condition}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.condition} */}
+                    {t(
+                      categories.find(
+                        (category) => category.title === data?.category
+                      )?.show
+                    )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.bodyShape) && (
@@ -288,7 +332,20 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.bodyshape")}
                   </Text>
-                  <Text style={styles.cardelement2}>{data?.bodyShape}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.bodyShape} */}
+                    {data?.category == "Bikes"
+                      ? t(
+                          bikeBodyShape.find(
+                            (category) => category.value === data?.bodyShape
+                          )?.key
+                        )
+                      : t(
+                          bodyShapeList.find(
+                            (category) => category.value === data?.bodyShape
+                          )?.key
+                        )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.engineCapacity) && (
@@ -304,7 +361,20 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.exteriorcolor")}
                   </Text>
-                  <Text style={styles.cardelement2}>{data?.exteriorColor}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.exteriorColor} */}
+                    {data?.category == "Bikes"
+                      ? t(
+                          bikeExteriorColor.find(
+                            (category) => category.value === data?.exteriorColor
+                          )?.key
+                        )
+                      : t(
+                          exteriorColorList.find(
+                            (category) => category.value === data?.exteriorColor
+                          )?.key
+                        )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.interiorColor) && (
@@ -312,19 +382,46 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.interiorcolor")}
                   </Text>
-                  <Text style={styles.cardelement2}>{data?.interiorColor}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.interiorColor} */}
+                    {t(
+                      interiorColorList.find(
+                        (category) => category.value === data?.interiorColor
+                      )?.key
+                    )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.fuelType) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.fueltype")}</Text>
-                  <Text style={styles.cardelement2}>{data?.fuelType}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.fuelType} */}
+                    {data?.category == "Bikes"
+                      ? t(
+                          BikeFuelType.find(
+                            (category) => category.value === data?.fuelType
+                          )?.key
+                        )
+                      : t(
+                          fuelTypelist.find(
+                            (category) => category.value === data?.fuelType
+                          )?.key
+                        )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.gearBox) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.gearbox")}</Text>
-                  <Text style={styles.cardelement2}>{data?.gearBox}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.gearBox} */}
+                    {t(
+                      gearBoxList.find(
+                        (category) => category.value === data?.gearBox
+                      )?.key
+                    )}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.km) && (

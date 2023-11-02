@@ -67,6 +67,7 @@ export default function AddPost({ navigation, route }) {
   const [bodyshape, setBodyshap] = React.useState("");
   const [gearbox, setGearbox] = React.useState("");
   const [fueltype, setFueltype] = React.useState("");
+  const [engineCapacity, setEngineCapacity] = React.useState("");
   const [exterior, setExterior] = React.useState("");
   const [interior, setInterior] = React.useState("");
   const [latitude, setLatiitude] = React.useState(37.78825);

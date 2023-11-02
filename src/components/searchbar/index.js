@@ -8,12 +8,15 @@ import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 import Button from "../button";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
+
 export default function SearchBar({
   search,
   setSearch,
   containerstyle,
   next = false,
 }) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleInputSubmit = () => {
@@ -39,7 +42,7 @@ export default function SearchBar({
           size={width(5)}
         />
         <TextInput
-          placeholder="Search"
+          placeholder={t("searchbar.phsearch")}
           value={search}
           onChangeText={setSearch}
           style={{ width: width(50) }}
@@ -48,7 +51,7 @@ export default function SearchBar({
         {search && (
           <Button
             onPress={handleInputSubmit}
-            title={"search"}
+            title={"searchbar.search"}
             containerStyle={{
               width: width(15),
               padding: width(0.1),
@@ -70,11 +73,7 @@ export default function SearchBar({
           style={{ marginLeft: height(2) }}
           onPress={() => navigation.navigate(ScreenNames.MAP)}
         >
-          <Feather
-            name="globe"
-            size={width(7)}
-            color={AppColors.primary}
-          />
+          <Feather name="globe" size={width(7)} color={AppColors.primary} />
         </TouchableOpacity>
       </View>
     </View>

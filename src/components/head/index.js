@@ -10,7 +10,7 @@ export default function Header({ navigation, headtitle }) {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.goBack()} style={styles.menuicon}>
-        <Ionicons name="chevron-back" size={width(6)} color={AppColors.white} />
+        <Ionicons name="chevron-back" size={width(8)} color={AppColors.white} />
       </Pressable>
       <View style={styles.headview}>
         <Text style={styles.headtext}>{t(headtitle)}</Text>

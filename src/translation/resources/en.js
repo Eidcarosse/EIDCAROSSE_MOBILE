@@ -43,7 +43,7 @@ export default {
     loginSignupButton: "Login / SignUp",
   },
   FAQ: {
-    title:"FAQ",
+    title: "FAQ",
     q1: "How do I edit/delete my ads?",
     a1: "Simply login and go to Account => my listing & you will get a list of your ads. Each ad has delete option",
     q2: "How to edit my ad?",
@@ -468,7 +468,7 @@ export default {
     CFP: "Contact for Price",
     price: "Price",
     condition: "Condition",
-    category:"Category",
+    category: "Category",
     subcategory: "Sub Category",
     brand: "Brand",
     model: "Model",
@@ -482,10 +482,20 @@ export default {
     description: "Description",
     videourl: "Video Url",
     website: "Website",
-    location:"Location",
-    seeAllAds:"See All Ads",
-    relatedAds:"Related Ads",
-
+    location: "Location",
+    seeAllAds: "See All Ads",
+    relatedAds: "Related Ads",
   },
-  
+  searchbar: {
+    phsearch: "what you want to search?",
+    search: "Search",
+  },
+  appseting: {
+    language:"Language",
+    English: "English",
+    German: "German",
+    Italian: "Italian",
+    Spanish: "Spanish",
+    French: "French",
+  },
 };

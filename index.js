@@ -7,12 +7,13 @@ import { name as appName } from "./app.json";
 const firebaseConfig = {
   apiKey: "AIzaSyBNgp2owPCTFdoonCCfEIA3c-mdTP52bXs",
   authDomain: "eidcarosse-7d282.firebaseapp.com",
-  databaseURL: "https://eidcarosse-7d282-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL:
+    "https://eidcarosse-7d282-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "eidcarosse-7d282",
   storageBucket: "eidcarosse-7d282.appspot.com",
   messagingSenderId: "232832919856",
   appId: "1:232832919856:web:c2cd17aa51558494f0c0f5",
-  measurementId: "G-Q5SN026G80"
+  measurementId: "G-Q5SN026G80",
 };
 
 // // Initialize Firebase
@@ -21,13 +22,15 @@ const firebaseConfig = {
 // It also ensures that whether you load the app in the Expo client or in a native build,
 // the environment is set up appropriately
 // if (Platform.OS == "android") {
-  registerRootComponent(App);
+registerRootComponent(App);
 // } else {
-  // AppRegistry.registerComponent('main', () => App);
+// AppRegistry.registerComponent('main', () => App);
 
 //}
 import { getApps, initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
 
 if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
+export default database = getDatabase();

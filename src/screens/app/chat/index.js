@@ -6,55 +6,12 @@ import Header from "../../../components/header";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
+import { useSelector } from "react-redux";
+import { selectChatRooms } from "../../../redux/slices/user";
+
 
 export default function ChatList({ navigation, route }) {
-  const data = [
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Usama",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-    {
-      name: "Us",
-      uri: Icons.car,
-      date: "2023-9-1",
-    },
-  ];
+  const data = useSelector(selectChatRooms)
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -68,9 +25,6 @@ export default function ChatList({ navigation, route }) {
           renderItem={({ item }) => (
             <ChatIcon
               data={item}
-              onPress={() => {
-                navigation.navigate(ScreenNames.CHAT);
-              }}
             />
           )}
           keyExtractor={(item, index) => index}
