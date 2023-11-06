@@ -540,7 +540,7 @@ export default function AddPost({ navigation, route }) {
             </View>
           ) : sub ? (
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.category")}</Text>
+              <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <Input
                 value={subCategory}
                 setvalue={setSubCategory}

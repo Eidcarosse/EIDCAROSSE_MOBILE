@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
     width: width(20),
     height: width(20),
     borderRadius: width(10),
+    borderWidth:width(.3),
+    borderColor:AppColors.primary
   },
   detail: {
     width: width(47),

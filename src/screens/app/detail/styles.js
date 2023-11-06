@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   imageview: {
     width: width(100),
     backgroundColor: AppColors.transparent,
+    flexDirection:'row'
   },
   image: {
     width: width(95),

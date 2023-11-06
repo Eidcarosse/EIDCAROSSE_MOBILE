@@ -9,7 +9,7 @@ import styles from "./styles";
 import { useTranslation } from "react-i18next";
 
 export default function RelatedAd({ category }) {
-  const {t}=useTranslation();
+  const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [refreshing, onRefresh] = useState(false);
   const queryParams = {
@@ -50,11 +50,18 @@ export default function RelatedAd({ category }) {
           {t("detail.relatedAds")}
         </Text>
       </View>
-      <View style={{ width: width(100), alignItems: "center" }}>
+      <View
+        style={{
+          width: width(100),
+          alignItems: "center",
+        }}
+      >
         <FlatList
+          scrollEnabled={false}
           data={data}
           renderItem={renderItem}
           ListEmptyComponent={emptyView}
+          keyExtractor={(item, index) => index}
         />
       </View>
     </View>

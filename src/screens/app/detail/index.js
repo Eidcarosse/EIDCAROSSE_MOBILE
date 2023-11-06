@@ -114,15 +114,17 @@ export default function Detail({ navigation, route }) {
       if (d.userId._id != loginuser?._id) {
         await adView(dat?._id);
       }
-      mapRef.current.animateToRegion(
-        {
-          latitude: d?.latitude || 0,
-          longitude: d?.longitude || 0,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-        3 * 1000
-      );
+      if (mapRef.current) {
+        mapRef.current.animateToRegion(
+          {
+            latitude: d?.latitude || 0,
+            longitude: d?.longitude || 0,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          },
+          3 * 1000
+        );
+      }
     } else setDat({});
     // dispatch(setAppLoader(false));
     setload(false);
@@ -144,7 +146,7 @@ export default function Detail({ navigation, route }) {
             onPressCall={() => GlobalMethods.onPressCall(data?.phoneNumber)}
             onPressChat={() => {
               navigation.navigate(ScreenNames.CHAT, {
-                userRoom:null,
+                userRoom: null,
                 usr: data?.userId,
                 userItem: data?._id,
               });
@@ -172,6 +174,7 @@ export default function Detail({ navigation, route }) {
         <View style={styles.mainViewContainer}>
           <View style={styles.imageview}>
             <ImageSlider
+              showIndicator
               data={img}
               indicatorContainerStyle={{ color: AppColors.primary }}
               autoPlay={false}

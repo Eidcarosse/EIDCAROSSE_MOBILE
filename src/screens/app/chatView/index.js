@@ -1,10 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { height, width } from "../../../utills/Dimension";
-
 import { AdView, DropDownMenu } from "../../../components";
-
 import { selectUserMeta, setChatRooms } from "../../../redux/slices/user";
-
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Actions,
@@ -13,10 +10,8 @@ import {
   MessageText,
   Time,
 } from "react-native-gifted-chat";
-
-// import database from "../Firebase/index";
-import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
-
+import database from "../../../../index";
+import { get, onValue, push, ref, set } from "firebase/database";
 import {
   Image,
   Platform,
@@ -32,16 +27,18 @@ import {
   getStorage,
   ref as storageRef,
   uploadBytesResumable,
+  uploadBytes,
 } from "@firebase/storage";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import Modal from "react-native-modal";
-import { ScreenWrapper, Button } from "../../../components";
-import AppColors from "../../../utills/AppColors";
 import { getDataofAdByID } from "../../../backend/api";
+import { Button, ScreenWrapper } from "../../../components";
+import AppColors from "../../../utills/AppColors";
+import axios from "axios";
+import ScreenNames from "../../../routes/routes";
 
 function ChatView({ route }) {
-  const database = getDatabase();
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState();
   const [roomID, setRoomID] = useState(route?.params.userRoom, roomID);
@@ -126,6 +123,7 @@ function ChatView({ route }) {
     // Customize the style of the message bubble
     return (
       <Bubble
+        key={props.index}
         {...props}
         wrapperStyle={{
           backgroundColor: "red",
@@ -386,91 +384,122 @@ function ChatView({ route }) {
     }
   }, []);
 
-  const getBlobFromUri = async (uri) => {
-    console.log("Executing Blob");
-    try {
-      const response = await fetch(uri);
+  // const getBlobFromUri = async (uri) => {
+  //   console.log("Executing Blob");
+  //   try {
+  //     const response =fetch(uri);
+  //     const blob = await response.data;
+  //     console.log("Blob Created");
+  //     return blob;
+  //   } catch (error) {
+  //     console.error("Error fetching and creating blob:", error);
+  //     throw error;
+  //   }
+  // };
 
-      if (!response.ok) {
-        console.error(
-          `Failed to fetch ${uri}. HTTP status: ${response.status}`
-        );
-        throw new Error(
-          `Failed to fetch ${uri}. HTTP status: ${response.status}`
-        );
-      }
+  // const saveImages = async () => {
+  //   const imageUrls = [];
+  //   const storage = getStorage();
+  //   const newMessageRef = push(ref(database, `chatrooms/${roomID}/messages`));
+  //   console.log(newMessageRef);
+  //   for (const imageUri of image) {
+  //     try {
+  //       const split = imageUri.split("/");
+  //       const name = split.pop();
+  //       const imageRef = storageRef(
+  //         storage,
+  //         `chatrooms/${roomID}/images/${name}`
+  //       );
 
-      console.log("Blob Response", response);
-      const blob = await response.blob();
-      console.log("Blob Executed Successfully");
-      return blob;
-    } catch (error) {
-      console.error("Error fetching the resource:", error);
-      throw error;
-    }
-  };
+  //       const metadata = {
+  //         contentType: "image/jpeg/jpg/png",
+  //       };
 
-  const saveImages = async () => {
-    const imageUrls = [];
-    const storage = getStorage();
-    const newMessageRef = push(ref(database, `chatrooms/${roomID}/messages`));
-    console.log(newMessageRef);
-    for (const imageUri of image) {
-      try {
-        const split = imageUri.split("/");
-        const name = split.pop();
-        const imageRef = storageRef(
-          storage,
-          `chatrooms/${roomID}/images/${name}`
-        );
+  //       // Get the blob from the image URI
+  //       console.log("Getting Blob", imageUri);
+  //       const imageBlob = await getBlobFromUri(imageUri);
 
-        const metadata = {
-          contentType: "image/jpeg",
-        };
+  //       // Use uploadBytesResumable to upload the blob
+  //       console.log("Blob Received", imageBlob);
+  //       const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
 
-        // Get the blob from the image URI
-        console.log("Getting Blob", imageUri);
-        const imageBlob = await getBlobFromUri(imageUri);
+  //       // Wait for the upload task to complete
+  //       console.log("Image Uploading");
+  //       const snapshot = await uploadTask;
 
-        // Use uploadBytesResumable to upload the blob
-        console.log("Blob Received");
-        const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
+  //       if (snapshot.state === "success") {
+  //         console.log("Image Uploaded");
+  //         const downloadUrl = await getDownloadURL(imageRef);
+  //         if (downloadUrl) {
+  //           imageUrls.push(downloadUrl);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error uploading image:", error);
+  //       // Handle the error appropriately, e.g., show an error message to the user.
+  //     }
+  //   }
 
-        // Wait for the upload task to complete
-        console.log("Image Uploading");
-        const snapshot = await uploadTask;
+  //   if (imageUrls.length > 0) {
+  //     const messageData = {
+  //       images: imageUrls,
+  //       timestamp: Date.now(),
+  //       senderId: user?._id,
+  //     };
 
-        if (snapshot.state === "success") {
-          console.log("Image Uploaded");
-          const downloadUrl = await getDownloadURL(imageRef);
-          if (downloadUrl) {
-            imageUrls.push(downloadUrl);
-          }
-        }
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        // Handle the error appropriately, e.g., show an error message to the user.
-      }
-    }
+  //     try {
+  //       await set(newMessageRef, messageData);
+  //     } catch (error) {
+  //       console.error("Error setting new message:", error);
+  //       // Handle the error appropriately, e.g., show an error message to the user.
+  //     }
+  //   }
 
-    if (imageUrls.length > 0) {
-      const messageData = {
-        images: imageUrls,
-        timestamp: Date.now(),
-        senderId: user?._id,
-      };
+  //   setImageModal(false);
+  //   setImage([]);
+  // };
+  // const saveImages = async () => {
+  //   const imageUrls = [];
+  //   const storage = getStorage();
+  //   for (const img of image) {
+  //     // Create image storage
+  //     const split = img.split("/");
+  //     const name = split.pop();
+  //     const imageRef = storageRef(
+  //       storage,
+  //       `chatrooms/${roomID}/images/${name}`
+  //     );
 
-      try {
-        await set(newMessageRef, messageData);
-      } catch (error) {
-        console.error("Error setting new message:", error);
-        // Handle the error appropriately, e.g., show an error message to the user.
-      }
-    }
+  //     // upload image
+  //     await uploadBytes(imageRef, img).catch((err) => {
+  //       console.log("Error uploading images:", err);
+  //     });
 
-    setImageModal(false);
-    setImage([]);
-  };
+  //     // get the download url
+  //     const downloadURL = await getDownloadURL(imageRef).catch((err) => {
+  //       console.log("Error getting download URL:", err);
+  //     });
+
+  //     if (downloadURL) {
+  //       imageUrls.push(downloadURL);
+  //     }
+
+  //     if (image.length === imageUrls.length) {
+  //       // // dbref for the database reference
+  //       const messageRef = ref(database, `chatrooms/${roomID}/messages`);
+
+  //       const newMessageRef = push(messageRef);
+  //       set(newMessageRef, {
+  //         senderId: user?._id,
+  //         images: imageUrls,
+  //         timestamps: Date.now(),
+  //       });
+  //     }
+  //     setImageModal(false);
+  //     // // Clear the selected images after sending
+  //     setImage([]);
+  //   }
+  // };
 
   const getItems = async () => {
     const response = await getDataofAdByID(route.params?.userItem);
@@ -507,15 +536,21 @@ function ChatView({ route }) {
       <View style={styles.container}>
         <View style={styles.account_View}>
           <TouchableOpacity style={styles.icon_Style} onPress={handleBack}>
-            <MaterialIcons name="arrow-back-ios" size={20} />
-
+            <MaterialIcons name="arrow-back-ios" size={width(7)} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(ScreenNames.OTHERPROFILE, {
+                user: usrData,
+              });
+            }}
+          >
             <Image
               source={{ uri: usrData?.image }}
               style={styles.image_Style}
               resizeMode="cover"
             />
           </TouchableOpacity>
-
           <View>
             <Text style={styles.account_Text}>{usrData?.firstName}</Text>
             {online ? (
@@ -544,7 +579,7 @@ function ChatView({ route }) {
             _id: user?._id, // Use a unique user ID here
           }}
           renderAvatar={renderAvatar}
-          renderActions={renderActions}
+          // renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}
           renderTime={renderTime}
@@ -574,16 +609,16 @@ function ChatView({ route }) {
                     <Image
                       source={{
                         uri: img,
-                        width: width(100),
-                        height: height(80),
+                        width: width(90),
+                        height: height(70),
                         alignSelf: "center",
                       }}
-                      resizeMode="center"
+                      resizeMode="contain"
                     />
                   );
                 })}
 
-              <Button title="Send" onPress={saveImages} />
+              {/* <Button title="Send" onPress={saveImages} /> */}
             </View>
           </Modal>
         </View>
@@ -623,20 +658,24 @@ const styles = StyleSheet.create({
   },
   icon_Style: {
     fontSize: 20,
-    width: width(30),
+    width: width(10),
     flexDirection: "row",
     alignItems: "center",
   },
   image_Style: {
     width: width(13),
     height: height(6),
-    borderRadius: 30,
+    borderRadius: width(20),
+    borderWidth:width(.3),
+    borderColor:AppColors.primary
   },
   account_Text: {
+    marginLeft: width(5),
     fontSize: 20,
     fontWeight: "600",
   },
   online_View: {
+    marginLeft: width(5),
     flexDirection: "row",
     alignItems: "center",
   },
@@ -693,5 +732,6 @@ const styles = StyleSheet.create({
     width: width(100),
     height: height(100),
     backgroundColor: "black",
+    justifyContent: "center",
   },
 });

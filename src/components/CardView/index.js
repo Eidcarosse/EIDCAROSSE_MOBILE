@@ -152,16 +152,16 @@ export default function CardView({ data }) {
             // onPress={() => {
             //   navigation.navigate(ScreenNames.CHAT, data);
             // }}
-            onPress={() => {
-              // console.log('====================================');
-              // console.log("product detail in chat ",data);
-              // console.log('====================================');
-              navigation.navigate(ScreenNames.CHAT, {
-                room: null,
-                ownerID: data?.userId,
-                productInfo:data
-              });
-            }}
+            // onPress={() => {
+            //   // console.log('====================================');
+            //   // console.log("product detail in chat ",data);
+            //   // console.log('====================================');
+            //   navigation.navigate(ScreenNames.CHAT, {
+            //     room: null,
+            //     ownerID: data?.userId,
+            //     productInfo:data
+            //   });
+            // }}
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>

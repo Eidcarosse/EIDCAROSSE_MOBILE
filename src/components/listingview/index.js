@@ -126,9 +126,9 @@ export default function ListingView({ data }) {
             <Ionicons size={width(4)} name="call" />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(ScreenNames.CHAT, data);
-            }}
+            // onPress={() => {
+            //   navigation.navigate(ScreenNames.CHAT, data);
+            // }}
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>

@@ -12,7 +12,7 @@ export { default as WishScreen } from "./wishlist";
 export { default as MyListingScreen } from "./MyListings";
 export { default as AddPostScreen } from "./AddPost";
 export { default as ChatScreen } from "./chat";
-export { default as ChatView } from "./chatView";
+export { default as ChatViewScreen } from "./chatView";
 export { default as FAQScreen } from "./FAQ";
 export { default as HTSFScreen } from "./HTSF";
 export { default as AboutUsScreen } from "./Aboutus";

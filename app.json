@@ -1,9 +1,9 @@
 {
   "expo": {
     "name": "Eidcarosse",
-    "entryPoint": "./App",
     "slug": "Eidcarosse",
     "version": "1.0.0",
+    "permissions": ["INTERNET"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -29,8 +29,25 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      
-      "expo-build-properties"
-    ]
+   
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "30.0.2"
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ecec4ccc-ca34-4185-9f67-707b25fb0b4d"
+      }
+    }
   }
 }

@@ -3,6 +3,9 @@ import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
+  container:{
+    flexDirection:'row'
+  },
   main: {
     justifyContent: "center",
     alignItems: "center",

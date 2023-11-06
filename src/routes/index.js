@@ -22,7 +22,7 @@ import {
   AppSetting,
   BikeScreen,
   CategoryScreen,
-  ChatView,
+  ChatViewScreen,
   DetailScreen,
   EditProfile,
   FAQScreen,
@@ -138,7 +138,7 @@ export default function Routes() {
       const handleRoomUpdate = (snapshot) => {
         const room = snapshot.val() || [];
         console.log(room);
-        dispatch(setChatRooms(room))
+        dispatch(setChatRooms(room));
       };
 
       onValue(roomRef, handleRoomUpdate);
@@ -150,7 +150,7 @@ export default function Routes() {
         }
       };
     } catch (error) {
-      console.error('Error fetching room data:', error);
+      console.error("Error fetching room data:", error);
     }
   };
 
@@ -184,7 +184,7 @@ export default function Routes() {
           component={MyListingScreen}
         />
         <Stack.Screen name={ScreenNames.ADDPOST} component={AddPostScreen} />
-        <Stack.Screen name={ScreenNames.CHAT} component={ChatView} />
+        <Stack.Screen name={ScreenNames.CHAT} component={ChatViewScreen} />
         <Stack.Screen name={ScreenNames.FAQ} component={FAQScreen} />
         <Stack.Screen name={ScreenNames.HTSF} component={HTSFScreen} />
         <Stack.Screen name={ScreenNames.ABOUTUS} component={AboutUsScreen} />
