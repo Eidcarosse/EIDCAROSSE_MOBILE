@@ -3,7 +3,6 @@ import { FlatList, View } from "react-native";
 import Icons from "../../../asset/images";
 import { ChatIcon, ScreenWrapper } from "../../../components";
 import Header from "../../../components/header";
-import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
 import { useSelector } from "react-redux";

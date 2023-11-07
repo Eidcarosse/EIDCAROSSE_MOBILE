@@ -57,7 +57,7 @@ export default function Detail({ navigation, route }) {
   const [fav, setFav] = useState(false);
   const [load, setload] = useState(false);
   useEffect(() => {
-    if (isInArray(data._id, favAdIds)) {
+    if (isInArray(data?._id, favAdIds)) {
       setFav(true);
     } else {
       setFav(false);
@@ -75,7 +75,7 @@ export default function Detail({ navigation, route }) {
     if (!loginuser) {
       infoMessage("Login to ad Favotite", "Authentication");
     } else {
-      let fav = await toggleFavorite(data._id, loginuser._id);
+      let fav = await toggleFavorite(data?._id, loginuser?._id);
       if (isInArray(data._id, fav)) {
         setFav(true);
       } else {
@@ -114,8 +114,8 @@ export default function Detail({ navigation, route }) {
       if (d.userId._id != loginuser?._id) {
         await adView(dat?._id);
       }
-      if (mapRef.current) {
-        mapRef.current.animateToRegion(
+      if (mapRef?.current) {
+        mapRef?.current.animateToRegion(
           {
             latitude: d?.latitude || 0,
             longitude: d?.longitude || 0,
@@ -323,7 +323,7 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement2}>
                     {/* {data?.condition} */}
                     {t(
-                      categories.find(
+                      categories?.find(
                         (category) => category.title === data?.category
                       )?.show
                     )}
@@ -369,12 +369,14 @@ export default function Detail({ navigation, route }) {
                     {data?.category == "Bikes"
                       ? t(
                           bikeExteriorColor.find(
-                            (category) => category.value === data?.exteriorColor
+                            (category) =>
+                              category?.value === data?.exteriorColor
                           )?.key
                         )
                       : t(
                           exteriorColorList.find(
-                            (category) => category.value === data?.exteriorColor
+                            (category) =>
+                              category?.value === data?.exteriorColor
                           )?.key
                         )}
                   </Text>
@@ -389,7 +391,7 @@ export default function Detail({ navigation, route }) {
                     {/* {data?.interiorColor} */}
                     {t(
                       interiorColorList.find(
-                        (category) => category.value === data?.interiorColor
+                        (category) => category?.value === data?.interiorColor
                       )?.key
                     )}
                   </Text>
@@ -403,12 +405,12 @@ export default function Detail({ navigation, route }) {
                     {data?.category == "Bikes"
                       ? t(
                           BikeFuelType.find(
-                            (category) => category.value === data?.fuelType
+                            (category) => category?.value === data?.fuelType
                           )?.key
                         )
                       : t(
                           fuelTypelist.find(
-                            (category) => category.value === data?.fuelType
+                            (category) => category?.value === data?.fuelType
                           )?.key
                         )}
                   </Text>

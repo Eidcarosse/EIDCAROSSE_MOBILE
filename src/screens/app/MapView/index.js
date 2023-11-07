@@ -35,7 +35,7 @@ export default function MapAdView({ navigation, route }) {
 
   const queryParams = {
     address: address || "",
-    page:1,
+    page: 1,
   };
   useEffect(() => {
     getData();
@@ -184,20 +184,34 @@ export default function MapAdView({ navigation, route }) {
           }}
           zoomControlEnabled={true}
         >
-          {data.map((item) => (
-            <Marker
-              coordinate={{
-                latitude: item?.latitude || 0,
-                longitude: item?.longitude || 0,
-              }}
-              onPress={() => {
-                setSelectData(item);
-                setTimeout(() => {
-                  refRBSheet.current.open();
-                }, 500);
-              }}
-            />
-          ))}
+          {data.map((item, index) => {
+            let MyIcon = categories.find(
+              (category) => category.title === item?.category
+            )?.Icon;
+            return (
+              MyIcon && (
+                <Marker
+                  key={index}
+                  coordinate={{
+                    latitude: item?.latitude || 0,
+                    longitude: item?.longitude || 0,
+                  }}
+                  onPress={() => {
+                    setSelectData(item);
+                    setTimeout(() => {
+                      refRBSheet.current.open();
+                    }, 500);
+                  }}
+                >
+                  <MyIcon
+                    height={width(5)}
+                    width={width(5)}
+                    tintColor={AppColors.primary}
+                  />
+                </Marker>
+              )
+            );
+          })}
         </MapView>
       </View>
       <RBSheet

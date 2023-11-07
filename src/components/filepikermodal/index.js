@@ -15,6 +15,8 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
 
   const requestPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
+     await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+     await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
     if (status !== "granted") {
       alert("Permission to access camera or camera roll denied!");
     }

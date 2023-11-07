@@ -142,7 +142,7 @@ export default function AddPost({ navigation, route }) {
         latitude,
         longitude,
         address,
-        image
+        image,
       ];
 
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
@@ -908,6 +908,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.location")}</Text>
             <GooglePlacesAutocomplete
               fetchDetails={true}
+              autoFillOnNotFound={true}
               placeholder={t("addPost.phlocation")}
               currentLocation={true}
               onPress={(data, details = null) => {
