@@ -478,6 +478,7 @@ export default {
     search: "Buscar",
   },
   appseting: {
+    title: "Configuración de la aplicación",
     language: "Idioma",
     English: "Inglés",
     German: "Alemán",

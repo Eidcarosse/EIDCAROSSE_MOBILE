@@ -494,6 +494,7 @@ export default {
     search: "Rechercher",
   },
   appseting: {
+    title: "Paramètres de l'application",
     language: "Langue",
     English: "Anglais",
     German: "Allemand",
@@ -501,5 +502,4 @@ export default {
     Spanish: "Espagnol",
     French: "Français",
   },
-
 };

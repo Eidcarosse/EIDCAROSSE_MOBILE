@@ -45,6 +45,7 @@ import {
   fuelTypelist,
   gearBoxList,
   interiorColorList,
+  kilometers,
 } from "../../../utills/Data";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
@@ -432,9 +433,21 @@ export default function Detail({ navigation, route }) {
               {!isNullOrNullOrEmpty(data?.km) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.km")}</Text>
-                  <Text style={styles.cardelement2}>{data?.km}</Text>
+                  <Text style={styles.cardelement2}>
+                    {/* {data?.gearBox} */}
+                    {t(
+                      kilometers.find((category) => category.value === data?.km)
+                        ?.value
+                    )}
+                  </Text>
                 </View>
               )}
+              {/* {!isNullOrNullOrEmpty(data?.km) && (
+                <View style={styles.cardrow}>
+                  <Text style={styles.cardelement}>{t("detail.km")}</Text>
+                  <Text style={styles.cardelement2}>{data?.km}</Text>
+                </View>
+              )} */}
               {/* {!isNullOrNullOrEmpty(data?.maxPrice) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>Max Price</Text>

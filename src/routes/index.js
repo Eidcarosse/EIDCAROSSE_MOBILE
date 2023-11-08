@@ -2,7 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useCallback, useEffect } from "react";
 
+import { getDatabase, off, onValue, ref } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
+import { getDataofHomePage } from "../backend/api";
 import { getOwneAd, loginApi } from "../backend/auth";
 import { Loader } from "../components";
 import { setAppLoader, setTopAds } from "../redux/slices/config";
@@ -43,9 +45,6 @@ import { LoginScreen, OnBoardingScreen, SignUpScreen } from "../screens/auth";
 import { errorMessage, getAuthData } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
-import { getDataofHomePage } from "../backend/api";
-import { getFavAds } from "../backend/auth";
-import { getDatabase, ref, onValue, off } from "firebase/database";
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {

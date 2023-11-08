@@ -491,6 +491,7 @@ export default {
     search: "Search",
   },
   appseting: {
+    title:"App Settings",
     language:"Language",
     English: "English",
     German: "German",

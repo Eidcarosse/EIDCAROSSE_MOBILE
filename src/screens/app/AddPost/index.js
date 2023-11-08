@@ -35,6 +35,7 @@ import {
   fuelTypelist,
   gearBoxList,
   interiorColorList,
+  kilometers,
 } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
@@ -490,6 +491,7 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setPrice}
                 placeholder={t("addPost.phprice")}
                 containerStyle={[styles.price, { width: width(90) }]}
+                keyboardType="number-pad"
               />
             </View>
           )}
@@ -622,6 +624,7 @@ export default function AddPost({ navigation, route }) {
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
                     placeholder={t("addPost.phyear")}
+                    keyboardType="number-pad"
                   />
                 </View>
               )}
@@ -630,7 +633,6 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
                     data={category == "Bikes" ? bikeBodyShape : bodyShapeList}
-                    search={true}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -661,7 +663,6 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
                     data={gearBoxList}
-                    search={true}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -692,7 +693,6 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
                     data={category == "Bikes" ? BikeFuelType : fuelTypelist}
-                    search={true}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -727,7 +727,6 @@ export default function AddPost({ navigation, route }) {
                         ? bikeExteriorColor
                         : exteriorColorList
                     }
-                    search={true}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -758,7 +757,6 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
                     data={interiorColorList}
-                    search={true}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -784,9 +782,39 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
+              {showKM(category) && (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.km")}</Text>
+                  <SelectDropdown
+                    data={kilometers}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
+                    buttonStyle={styles.searchbox}
+                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowTextStyle={{ color: AppColors.white }}
+                    buttonTextStyle={{
+                      textAlign: "left",
+                      fontSize: width(3.5),
+                    }}
+                    dropdownStyle={styles.dropdown}
+                    onSelect={(selectedItem, index) => {
+                      setKm(selectedItem.value);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      // text represented after item is selected
+                      // if data array is an array of objects then return selectedItem.property to render after item is selected
+                      return t(selectedItem.value);
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      // text represented for each item in dropdown
+                      // if data array is an array of objects then return item.property to represent item in dropdown
+                      return t(item.value);
+                    }}
+                  />
+                </View>
+              )}
             </View>
           )}
-          {showKM(category) && (
+          {/* {showKM(category) && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.km")}</Text>
               <Input
@@ -796,7 +824,7 @@ export default function AddPost({ navigation, route }) {
                 containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
-          )}
+          )} */}
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>{t("addPost.description")}</Text>
             <Input
@@ -828,7 +856,6 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.htc")}</Text>
             <SelectDropdown
               data={cdata}
-              search={true}
               searchPlaceHolder={t("addPost.phsearchHere")}
               buttonStyle={styles.searchbox}
               selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -858,6 +885,7 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setWhatsapp}
                 placeholder={t("addPost.phwhatsapp")}
                 containerStyle={[styles.price, { width: width(90) }]}
+                keyboardType="phone-pad"
               />
             </View>
           )}
@@ -869,6 +897,7 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setViber}
                 placeholder={t("addPost.phviber")}
                 containerStyle={[styles.price, { width: width(90) }]}
+                keyboardType="phone-pad"
               />
             </View>
           )}
@@ -893,7 +922,7 @@ export default function AddPost({ navigation, route }) {
             />
           </View>
           {/* )} */}
-          <View style={{ paddingVertical: width(1) }}>
+          {/* <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>{t("addPost.website")}</Text>
             <Input
               value={website}
@@ -901,7 +930,7 @@ export default function AddPost({ navigation, route }) {
               placeholder={t("addPost.phwebsite")}
               containerStyle={[styles.price, { width: width(90) }]}
             />
-          </View>
+          </View> */}
         </View>
         <View style={{ paddingVertical: width(1), flexDirection: "row" }}>
           <View style={{ paddingVertical: width(1), flex: 1 }}>

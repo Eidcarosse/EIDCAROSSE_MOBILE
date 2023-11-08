@@ -466,6 +466,7 @@ export default {
     search: "Cerca",
   },
   appseting: {
+    title:"Impostazioni dell'app",
     language: "Lingua",
     English: "Inglese",
     German: "Tedesco",

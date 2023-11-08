@@ -58,7 +58,7 @@ export default function AppSetting({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"App Setting"} navigation={navigation} />
+        <Head headtitle={"appseting.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

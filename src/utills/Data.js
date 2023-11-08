@@ -101,6 +101,38 @@ export const bikeExteriorColor = [
   { key: "bikeExteriorColor.White", value: "White" },
   { key: "bikeExteriorColor.Other", value: "Other" },
 ];
+export const kilometers = [
+  {
+    value: "0 - 10000 Km",
+  },
+  {
+    value: "10000 - 20000 Km",
+  },
+  {
+    value: "20000 - 30000 Km",
+  },
+  {
+    value: "30000 - 50000 Km",
+  },
+  {
+    value: "50000 - 70000 Km",
+  },
+  {
+    value: "70000 - 100000 Km",
+  },
+  {
+    value: "100000 - 150000 Km",
+  },
+  {
+    value: "150000 - 200000 Km",
+  },
+  {
+    value: "200000 - 300000 Km",
+  },
+  {
+    value: "300000+ Km",
+  },
+];
 
 export const interiorColorList = [
   { key: "interiorColorList.Beige", value: "Beige" },

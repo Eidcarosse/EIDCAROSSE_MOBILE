@@ -16,6 +16,7 @@ export default function Input({
   titlestyle,
   multi = false,
   editable = true,
+  keyboardType="default",
 }) {
   const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);
@@ -30,6 +31,7 @@ export default function Input({
             width: width(80),
             fontSize: width(4),
           }}
+          keyboardType={keyboardType}
           placeholder={t(placeholder)}
           secureTextEntry={secureText}
           multiline={multi}

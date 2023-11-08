@@ -208,8 +208,8 @@ export default {
     Boats: "Boote",
     Drones: "Drohnen",
     ConstructionMachines: "Baumaschinen",
-    Trucks: "Lastwagen",
-    Vans: "Lieferwagen",
+    Trucks: "Lkw",
+    Vans: "Nutzfahrzeuge",
     Trailers: "Anhänger",
     Busses: "Busse",
     Parts: "Ersatzteile",
@@ -219,7 +219,7 @@ export default {
     Ebikes: "E-Bikes",
     Bicycles: "Fahrräder",
     Escooter: "E-Scooter",
-    Motorcycle: "Motorrad",
+    Motorcycle: "Motorräderr",
   },
   partscategory: {
     Autos: "Autoteile",
@@ -246,12 +246,12 @@ export default {
     manageAccount: "Konto verwalten",
   },
   home: {
-    letest: "Neueste Anzeigen",
-    seeAll: "Alle anzeigen",
+    letest: "Neueste Inserate",
+    seeAll: "Alle Inserate",
   },
   categorylist: {
     categories: "Kategorien",
-    seeAll: "Alle anzeigen",
+    seeAll: "Alle Kategorien",
   },
   addPost: {
     title: "Beitrag hinzufügen",
@@ -471,6 +471,7 @@ export default {
     search: "Suchen",
   },
   appseting: {
+    title: "App-Einstellungen",
     language: "Sprache",
     English: "Englisch",
     German: "Deutsch",
