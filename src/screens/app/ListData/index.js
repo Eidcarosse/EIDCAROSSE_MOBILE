@@ -17,6 +17,7 @@ import {
   Input,
   ListingView,
   ScreenWrapper,
+  SearchBar,
 } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
@@ -71,7 +72,7 @@ export default function ListData({ navigation, route }) {
   const [columnumber, setcolumnumber] = useState(2);
 
   const queryParams = {
-    address: address||"",
+    address: address || "",
     category: category || "",
     subCategory: subCategory || "",
     condition: condition || "",
@@ -88,6 +89,7 @@ export default function ListData({ navigation, route }) {
     getData();
     dispatch(setAppLoader(false));
   }, []);
+
   useEffect(() => {
     if (filter) getData();
   }, [filter]);
@@ -194,6 +196,19 @@ export default function ListData({ navigation, route }) {
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
+        <SearchBar
+          search={title}
+          setSearch={setTitle}
+          containerstyle={styles.search}
+          onPress={() => {
+            setData([]);
+            setempty(false);
+            if (pageNumber != 0) {
+              setPageNumber(1);
+            }
+            setFilter(filter + 1);
+          }}
+        />
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
             Total Result :{" "}

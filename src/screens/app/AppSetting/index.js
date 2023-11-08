@@ -73,7 +73,6 @@ export default function AppSetting({ navigation, route }) {
         </Text>
         <SelectDropdown
           data={countries}
-          search={true}
           defaultButtonText={lang}
           searchPlaceHolder={t("addPost.phsearchHere")}
           buttonStyle={styles.searchbox}

@@ -22,10 +22,6 @@ export default function TnC({ navigation, route }) {
       paraData: "terms.paraData3",
     },
     {
-      paraTitle: "terms.paraTitle3",
-      paraData: "terms.paraData3",
-    },
-    {
       paraTitle: "terms.paraTitle4",
       paraData: "terms.paraData4",
     },
@@ -95,7 +91,7 @@ export default function TnC({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Terms & Conditions"} navigation={navigation} />
+        <Head headtitle={"terms.tandc"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

@@ -22,29 +22,19 @@ const styles = StyleSheet.create({
     borderRadius: width(1),
     padding: width(2),
   },
+  search: {
+    width: width(80),
+    borderRadius: width(2),
+    padding: width(1),
+    flexDirection: "row",
+    borderWidth: width(0.2),
+    alignItems: "center",
+  },
   titleview: {
     justifyContent: "space-between",
     padding: width(1),
     flexDirection: "row",
     width: width(90),
-  },
-
-  searchbox: {
-    width: width(90),
-    borderRadius: width(1),
-    // borderWidth: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "rgba(0, 0, 0, 0.2)",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 3,
-      },
-    }),
-    backgroundColor: AppColors.white,
   },
   dropdown: { borderRadius: width(1), width: width(90), borderWidth: 0 },
   notfoundview: {

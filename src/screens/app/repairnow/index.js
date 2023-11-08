@@ -11,7 +11,7 @@ export default function Repair({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Repair Now"} navigation={navigation} />
+        <Head headtitle={"RN.rn"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

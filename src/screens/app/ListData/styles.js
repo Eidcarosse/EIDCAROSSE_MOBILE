@@ -9,6 +9,14 @@ const styles = StyleSheet.create({
     padding: width(2),
     paddingBottom: height(2),
   },
+  search: {
+    width: width(98),
+    borderRadius: width(2),
+    padding: width(1),
+    flexDirection: "row",
+    borderWidth: width(.1),
+    alignItems: "center",
+  },
   card: {
     width: width(44),
     margin: width(1),
@@ -39,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
 
-    alignItems:'center'
+    alignItems: "center",
   },
   totaltext: {
     color: AppColors.primary,

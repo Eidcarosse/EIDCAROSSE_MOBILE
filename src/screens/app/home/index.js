@@ -68,6 +68,7 @@ export default function Home({ navigation, route }) {
         <SearchBar
           search={searchString}
           setSearch={setSearchString}
+          containerstyle={styles.search}
           next={true}
         />
         <CategoryList navigation={navigation} />

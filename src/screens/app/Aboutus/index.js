@@ -64,7 +64,7 @@ export default function AboutUs({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"About Us"} navigation={navigation} />
+        <Head headtitle={"aboutUs.aboutus"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

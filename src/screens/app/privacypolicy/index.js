@@ -63,7 +63,7 @@ export default function PP({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Privacy Policy"} navigation={navigation} />
+        <Head headtitle={"privacy.privacy"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

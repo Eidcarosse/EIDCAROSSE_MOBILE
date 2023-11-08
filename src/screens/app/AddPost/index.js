@@ -223,11 +223,11 @@ export default function AddPost({ navigation, route }) {
   const pdata = [
     {
       key: "Price",
-      label: "Price",
+      label: t("condition.price"),
     },
     {
       key: "Disable",
-      label: "Disable",
+      label: t("condition.disable"),
     },
   ];
   const cdata = ["Whatsapp", "Viber"];
@@ -257,16 +257,7 @@ export default function AddPost({ navigation, route }) {
     );
   };
   const showbodyShape = (x) => {
-    return (
-      x === "Autos" ||
-      x === "Bikes" ||
-      x === "Boats" ||
-      x === "Construction Machine" ||
-      x === "Trucks" ||
-      x === "Vans" ||
-      x === "Trailers" ||
-      x === "Busses"
-    );
+    return x === "Autos";
   };
   const showGearBox = (x) => {
     return (
@@ -517,7 +508,9 @@ export default function AddPost({ navigation, route }) {
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <SelectDropdown
+              defaultButtonText={t("addPost.defaultValueDropdown")}
                 data={vCategory}
+              
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 search={true}
                 buttonStyle={styles.searchbox}
@@ -556,6 +549,7 @@ export default function AddPost({ navigation, route }) {
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>{t("addPost.brand")}</Text>
             <SelectDropdown
+            defaultButtonText={t("addPost.defaultValueDropdown")}
               data={vcompanies}
               search={true}
               searchPlaceHolder={t("addPost.phsearchHere")}
@@ -586,6 +580,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
+                  defaultButtonText={t("addPost.defaultValueDropdown")}
                     ref={modelRef}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     data={apimodel}
@@ -632,6 +627,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
+                  defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={category == "Bikes" ? bikeBodyShape : bodyShapeList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -662,6 +658,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
+                  defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={gearBoxList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -692,6 +689,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
+                  defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={category == "Bikes" ? BikeFuelType : fuelTypelist}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -722,6 +720,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
                   <SelectDropdown
+                  defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={
                       category == "Bikes"
                         ? bikeExteriorColor
@@ -756,6 +755,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
+                  defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={interiorColorList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -787,6 +787,7 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.km")}</Text>
                   <SelectDropdown
                     data={kilometers}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -856,6 +857,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.htc")}</Text>
             <SelectDropdown
               data={cdata}
+              defaultButtonText={t("addPost.defaultValueDropdown")}
               searchPlaceHolder={t("addPost.phsearchHere")}
               buttonStyle={styles.searchbox}
               selectedRowStyle={{ backgroundColor: AppColors.primary }}

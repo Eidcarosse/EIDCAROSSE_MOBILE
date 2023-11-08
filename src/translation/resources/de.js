@@ -40,26 +40,27 @@ export default {
   },
   FAQ: {
     title: "FAQ",
-    q1: "Wie bearbeite/lösche ich meine Anzeigen?",
-    a1: "Melden Sie sich einfach an und gehen Sie zu Konto => Meine Anzeigen & Sie erhalten eine Liste Ihrer Anzeigen. Jede Anzeige hat eine Löschoption",
-    q2: "Wie bearbeite ich meine Anzeige?",
-    a2: "Melden Sie sich einfach an und gehen Sie zu Konto => Meine Anzeigen & Sie erhalten eine Liste Ihrer Anzeigen. Jede Anzeige hat eine Bearbeitungsoption",
-    q3: "Wie lange bleiben meine Anzeigen aktiv?",
-    a3: "Es hängt von Ihren Einstellungen ab, wie viele Tage die Anzeige aktiv bleibt, abhängig davon, wie lange sie sichtbar ist.",
-    q4: "Wie viele Anzeigen kann ich kostenlos schalten?",
-    a4: "Es hängt von Ihren Einstellungen auf der Website ab. Der Verkäufer erhält eine bestimmte Anzahl kostenloser Anzeigen für eine bestimmte Anzahl von Tagen.",
+    q1: "Wie bearbeite/lösche ich meine Inserate?",
+    a1: "Melden Sie sich einfach an und gehen Sie zu Konto => Meine Inserate & Sie erhalten eine Liste Ihrer Inserate. Jedes Inserat hat eine Löschoption",
+    q2: "Wie bearbeite ich meine Inserat?",
+    a2: "Melden Sie sich einfach an und gehen Sie zu Konto => Meine Inserate & Sie erhalten eine Liste Ihrer Inserate. Jedes Inserat hat eine Bearbeitungsoption",
+    q3: "Wie lange bleiben meine Inserate aktiv?",
+    a3: "Es hängt von Ihren Einstellungen ab, wie viele Tage das Inserat aktiv bleibt, abhängig davon, wie lange sie sichtbar ist.",
+    q4: "Wie viele Inserate kann ich kostenlos publizieren?",
+    a4: "Es hängt von Ihren Einstellungen auf der Website ab. Der Verkäufer erhält eine bestimmte Anzahl kostenloser Inserate für eine bestimmte Anzahl von Tagen.",
     q5: "Wie kann ich meine Kontoinformationen bearbeiten?",
     a5: "Melden Sie sich an und gehen Sie dann zu Mein Konto. Sie erhalten die Option zur Bearbeitung Ihrer Kontoinformationen.",
     q6: "Wie starte ich einen Chat mit jemandem?",
-    a6: "Gehen Sie zu den Details einer Anzeige. Sie erhalten die Optionen für E-Mail, Telefon und Chat. Tippen Sie einfach auf das Chat-Symbol und starten Sie Ihr Gespräch.",
+    a6: "Gehen Sie zu den Details eines Inserat. Sie erhalten die Optionen für E-Mail, Telefon und Chat. Tippen Sie einfach auf das Chat-Symbol und starten Sie Ihr Gespräch.",
     q7: "Erhalte ich Chat-Benachrichtigungen als Verkäufer?",
     a7: "Ja, der Verkäufer erhält E-Mail-Benachrichtigungen für Chat-Anfragen oder E-Mails. Der Käufer erhält die erste E-Mail-Benachrichtigung als erste Nachricht für den Chat.",
   },
   HTSF: {
+    htsf:"Wie man schnell verkauft.",
     title1: "Wählen Sie den richtigen Preis",
     detail1:
-      "Bei der Festlegung des Preises eines Artikels sollten Sie berücksichtigen, dass der Preis ein wichtiger Faktor für die Kunden ist. Um sicherzustellen, dass Sie einen angemessenen und wettbewerbsfähigen Preis festlegen, nehmen Sie sich Zeit, ähnliche Anzeigen zu recherchieren, bevor Sie Ihre Preisstrategie finalisieren.",
-    title2: "Verwenden Sie großartige Fotos",
+      "Bei der Festlegung des Preises eines Artikels sollten Sie berücksichtigen, dass der Preis ein wichtiger Faktor für die Kunden ist. Um sicherzustellen, dass Sie einen angemessenen und wettbewerbsfähigen Preis festlegen, nehmen Sie sich Zeit, ähnliche Inserate zu recherchieren, bevor Sie Ihre Preisstrategie finalisieren.",
+    title2: "Verwenden Sie detaillierte Fotos",
     detail2:
       "Verwenden Sie klare und authentische Fotos Ihres Produkts oder Ihrer Produkte. Fügen Sie mehrere Bilder aus verschiedenen Blickwinkeln hinzu, um potenziellen Käufern ein umfassendes und detailliertes Verständnis Ihrer Artikel zu ermöglichen.",
     title3: "Geben Sie eine klare Beschreibung",
@@ -67,8 +68,9 @@ export default {
       "Bieten Sie eine klare und detaillierte Beschreibung Ihres Produkts, um sicherzustellen, dass Sie genaue und umfassende Informationen über Ihre Artikel bereitstellen.",
   },
   aboutUs: {
+    aboutus:"Über uns",
     paraDetail1:
-      "Eidcarosse ist ein umfassender Online-Marktplatz, der sich auf den Kauf und Verkauf von Fahrzeugen spezialisiert hat. Mit einer benutzerfreundlichen Oberfläche und leistungsstarken Suchfunktionen verbindet Eidcarosse Einzelpersonen, die nach Fahrzeugen suchen, mit Verkäufern, die eine umfangreiche Palette von Optionen anbieten. Egal, ob Sie auf der Suche nach einer schicken Limousine, einem leistungsstarken Lastwagen, einem eleganten Motorrad oder einem anderen Fahrzeug sind, bietet Eidcarosse eine Plattform, die den gesamten Prozess vereinfacht.",
+      "Eidcarosse ist ein umfassender Online-Marktplatz, der sich auf den Kauf und Verkauf von Fahrzeugen aller Art sowie allen motorischen Bewegunsmitteln spezialisiert hat. Mit einer benutzerfreundlichen Oberfläche und leistungsstarken Suchfunktionen verbindet Eidcarosse Einzelpersonen, die nach Fahrzeugen suchen, mit Verkäufern, die eine umfangreiche Palette von Optionen anbieten. Egal, ob Sie auf der Suche nach einer schicken Limousine, einem leistungsstarken Lastwagen, einem eleganten Motorrad oder einem anderen Fahrzeug sind, bietet Eidcarosse eine Plattform, die den gesamten Prozess vereinfacht.",
     paraTitle2: "Käufer",
     paraDetail2by1:
       "Für Käufer bietet Eidcarosse eine große Auswahl an Fahrzeugen von Privatverkäufern und Autohäusern, sodass Sie Zugriff auf eine breite Palette von Optionen haben, die Ihren Vorlieben und Ihrem Budget entsprechen.",
@@ -85,14 +87,17 @@ export default {
       "Eidcarosse legt großen Wert auf die Benutzererfahrung und gewährleistet einen sicheren und transparenten Transaktionsprozess. Die Plattform bietet Messaging-Funktionen, mit denen Käufer und Verkäufer direkt kommunizieren und Verhandlungen führen können. Darüber hinaus bietet Eidcarosse eine Reihe von Verifizierungs- und Sicherheitsfunktionen, um allen Benutzern ein sicheres Gefühl zu vermitteln.",
   },
   SNTU: {
+    sntu:"Jetzt an uns verkaufen",
     data: "Jetzt können Sie Ihr Fahrzeug und Ihre Maschinen an Eidcarosse verkaufen. Wir bieten einen unkomplizierten Prozess und wettbewerbsfähige Preise für Ihr Fahrzeug. Egal, ob Sie aufrüsten möchten oder Ihr Fahrzeug und Ihre Dinge schnell verkaufen müssen, wir haben Sie abgedeckt. Verkaufen Sie jetzt und erleben Sie ein reibungsloses Verkaufserlebnis mit uns!",
   },
   RN: {
+    rn:"Jetzt reparieren",
     data: "Jetzt können Sie Ihr Fahrzeug und Ihre Maschinen an Eidcarosse verkaufen. Wir bieten einen unkomplizierten Prozess und wettbewerbsfähige Preise für Ihr Fahrzeug. Egal, ob Sie aufrüsten möchten oder Ihr Fahrzeug und Ihre Dinge schnell verkaufen müssen, wir haben Sie abgedeckt. Verkaufen Sie jetzt und erleben Sie ein reibungsloses Verkaufserlebnis mit uns!",
   },
   privacy: {
+    privacy:"Datenschutzrichtlinie",
     paraDetail1:
-      "Die Schöpfer der Eidcarosse-App – priorisieren und schätzen die Sicherheit und Privatsphäre der Informationen, die Sie über unsere Eidcarosse mit uns teilen. Wir beabsichtigen, unseren Benutzern die Verwendung unserer App so komfortabel wie möglich zu gestalten. Wenn Sie uns vertrauen sollen, müssen Sie verstehen, wie wir Ihre Informationen sammeln, verwenden und aufbewahren.",
+      "Die Hersteller der Eidcarosse-App – priorisieren und schätzen die Sicherheit und Privatsphäre der Informationen, die Sie über unsere Eidcarosse mit uns teilen. Wir beabsichtigen, unseren Benutzern die Verwendung unserer App so komfortabel wie möglich zu gestalten. Wenn Sie uns vertrauen sollen, müssen Sie verstehen, wie wir Ihre Informationen sammeln, verwenden und aufbewahren.",
     paraTitle2: "Datensammlung und Verwendung",
     paraDetail2:
       "Wir können Sie auffordern, bestimmte personenbezogene Informationen bereitzustellen, um ein besseres Nutzungserlebnis zu ermöglichen. Diese Informationen umfassen, sind jedoch nicht beschränkt auf Name, Adresse und Standortdaten. Diese Informationen sind nur für uns zugänglich und werden nur wie in dieser Datenschutzrichtlinie beschrieben verwendet.",
@@ -123,6 +128,7 @@ export default {
       "Wenn Sie Anregungen oder Fragen zu unserer Datenschutzrichtlinie haben, können Sie uns gerne unter kundendienst@eidcarosse.ch kontaktieren.",
   },
   terms: {
+    tandc:"Allgemeine Geschäftsbedingungen",
     paraData1:
       "Bevor Sie den mobilen Dienst von Eidcarosse nutzen, ist es wichtig, dass Sie die folgenden Nutzungsbedingungen sorgfältig durchlesen und zustimmen. Die Zustimmung zu diesen Bedingungen ist erforderlich, um die App zu nutzen. Stellen Sie sicher, dass Sie die Nutzungsbedingungen gründlich durchgehen, bevor Sie den Service nutzen.",
 
@@ -168,7 +174,7 @@ export default {
 
     paraTitle12: "Kostenpflichtige Inhalte und Dienste",
     paraData12:
-      "Einige Dienste und Inhalte auf Eidcarosse erfordern möglicherweise Zahlungen, einschließlich, aber nicht beschränkt auf Mitgliedschaftspakete und das Schalten von Anzeigen in bestimmten Kategorien. Benutzer können Anzeigenförderungen mit von Eidcarosse verkauften oder ausgestellten Gutscheinen erwerben, aber Gutscheine sind nicht in Bargeld einlösbar. Werbetreibende und andere Benutzer müssen möglicherweise Informationen zu ihren kostenpflichtigen Inhalten über einen Drittanbieter übertragen, der von dessen eigenen Nutzungsbedingungen geregelt wird. Benutzer und Werbetreibende akzeptieren solche Links auf eigenes Risiko, und Eidcarosse lehnt jegliche Haftung in Bezug auf sie ab. Eidcarosse ist nicht verpflichtet, Zahlungen im Zusammenhang mit kostenpflichtigen Inhalten zu erstatten.",
+      "Einige Dienste und Inhalte auf Eidcarosse erfordern möglicherweise Zahlungen, einschließlich, aber nicht beschränkt auf Mitgliedschaftspakete und das Publizieren von Inserate in bestimmten Kategorien. Benutzer können Inserateförderungen mit von Eidcarosse verkauften oder ausgestellten Gutscheinen erwerben, aber Gutscheine sind nicht in Bargeld einlösbar. Werbetreibende und andere Benutzer müssen möglicherweise Informationen zu ihren kostenpflichtigen Inhalten über einen Drittanbieter übertragen, der von dessen eigenen Nutzungsbedingungen geregelt wird. Benutzer und Werbetreibende akzeptieren solche Links auf eigenes Risiko, und Eidcarosse lehnt jegliche Haftung in Bezug auf sie ab. Eidcarosse ist nicht verpflichtet, Zahlungen im Zusammenhang mit kostenpflichtigen Inhalten zu erstatten.",
 
     paraTitle13: "Mitgliedschaften",
     paraData13:
@@ -222,19 +228,19 @@ export default {
     Motorcycle: "Motorräderr",
   },
   partscategory: {
-    Autos: "Autoteile",
-    Ebikes: "E-Bike-Teile",
-    Bicycles: "Fahrradteile",
-    Escooter: "E-Scooter-Teile",
-    Motorcycle: "Motorradteile",
-    Boats: "Bootsteile",
-    Drones: "Drohnen-Teile",
-    ConstructionMachines: "Baumaschinen-Teile",
-    Trucks: "Lastwagen-Teile",
-    Vans: "Lieferwagen-Teile",
-    Trailers: "Anhänger-Teile",
-    Busses: "Bus-Teile",
-    Others: "Andere Teile",
+    Autos: "Autos",
+    Ebikes: "E-Bikes",
+    Bicycles: "Fahrräder",
+    Escooter: "E-Scooter",
+    Motorcycle: "Motorräderr",
+    Boats: "Boote",
+    Drones: "Drohnen",
+    ConstructionMachines: "Baumaschinen",
+    Trucks: "Lkw's",
+    Vans: "Nutzfahrzeuge",
+    Trailers: "Anhänger",
+    Busses: "Busse",
+    Others: "Andere Ersatzteile",
   },
   profile: {
     wish: "Meine Wunschliste",
@@ -254,11 +260,11 @@ export default {
     seeAll: "Alle Kategorien",
   },
   addPost: {
-    title: "Beitrag hinzufügen",
+    title: "Inserat hinzufügen",
     attachImage1: "Bild anhängen",
     attachImage2: "Sie können bis zu 5 Bilder hochladen.",
     attachImage3:
-      "Das erste Bild ist das Titelbild. Lange drücken, um Bilder zu ziehen und zu sortieren.",
+      "Das erste Bild ist das Titelbild. Langes drücken, um Bilder zu ziehen und zu sortieren.",
     productInformation: "Produktinformationen",
     titleWord: "Titel",
     phtitleWord: "Fahrzeugtitel",
@@ -276,10 +282,10 @@ export default {
     fueltype: "Kraftstoffart",
     exteriorcolor: "Außenfarbe",
     interiorcolor: "Innenfarbe",
-    km: "KM gefahren",
+    km: "Km",
     phkm: "2222",
     description: "Beschreibung",
-    phdescription: "Dies ist meine Anzeigebeschreibung",
+    phdescription: "Dies ist meine Inseratbeschreibung",
     videourl: "Video-URL",
     phurl: "http//abc/xyz",
     contactdetail: "Kontaktdaten",
@@ -296,8 +302,9 @@ export default {
     phlocation: "Rawalpindi",
     TandC1: "Ich habe die Eidcarosse gelesen und stimme zu",
     TandC2: "Allgemeine Geschäftsbedingungen",
-    post: "Beitrag hinzufügen",
+    post: "Inserat hinzufügen",
     phsearchHere: "Hier suchen",
+    defaultValueDropdown:"Option auswählen"
   },
   fuelTypelist: {
     Gasoline: "Benzin",
@@ -407,9 +414,11 @@ export default {
     Other: "Andere",
   },
   condition: {
-    new: "neu",
-    used: "gebraucht",
-    Recondition: "generalüberholt",
+    new: "Neu",
+    used: "Gebraucht",
+    Recondition: "Ab Platz",
+    price: "Fixpreis",
+    disable: "Auf Anfrage",
   },
   editprofile: {
     headtitle: "Profil bearbeiten",
@@ -463,8 +472,8 @@ export default {
     videourl: "Video-URL",
     website: "Website",
     location: "Ort",
-    seeAllAds: "Alle Anzeigen anzeigen",
-    relatedAds: "Ähnliche Anzeigen",
+    seeAllAds: "Alle Inserate anzeigen",
+    relatedAds: "Ähnliche Inserate",
   },
   searchbar: {
     phsearch: "Wonach suchen Sie?",

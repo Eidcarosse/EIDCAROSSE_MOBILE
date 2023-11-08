@@ -1,4 +1,4 @@
-import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Feather, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
@@ -15,6 +15,7 @@ export default function SearchBar({
   setSearch,
   containerstyle,
   next = false,
+  onPress,
 }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
@@ -22,17 +23,17 @@ export default function SearchBar({
   const handleInputSubmit = () => {
     // Navigate to the next screen here
 
-    next &&
-      (navigation.navigate(ScreenNames.LISTDATA, { search: search }),
-      setSearch(""));
+    next
+      ? (navigation.navigate(ScreenNames.LISTDATA, { search: search }),
+        setSearch(""))
+      : onPress();
   };
   return (
     <View style={styles.container}>
       <View
         style={[
-          styles.main,
-          { borderColor: search ? AppColors.primary : "black" },
-          containerstyle,
+          search?styles.main:containerstyle,
+          { borderColor: search ? AppColors.primary : "black", },
         ]}
       >
         <Ionicons
@@ -68,14 +69,29 @@ export default function SearchBar({
           />
         )}
       </View>
-      <View>
-        <TouchableOpacity
-          style={{ marginLeft: height(2) }}
-          onPress={() => navigation.navigate(ScreenNames.MAP)}
-        >
-          <Feather name="globe" size={width(7)} color={AppColors.primary} />
-        </TouchableOpacity>
-      </View>
+      {next && (
+        <View>
+          <TouchableOpacity
+            style={{ marginLeft: height(2) }}
+            onPress={() => navigation.navigate(ScreenNames.MAP)}
+          >
+            <Feather name="globe" size={width(7)} color={AppColors.primary} />
+          </TouchableOpacity>
+        </View>
+      )}
+      {!next && search != "" && (
+        <View>
+          <TouchableOpacity style={{ marginLeft: height(2) }}
+          onPress={()=>{setSearch(""),onPress()}}
+          >
+            <MaterialIcons
+              name="clear"
+              size={width(7)}
+              color={AppColors.primary}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }

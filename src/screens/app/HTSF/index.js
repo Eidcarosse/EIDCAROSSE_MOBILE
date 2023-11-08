@@ -40,7 +40,7 @@ export default function HTSF({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"How to Sell Fast"} navigation={navigation} />
+        <Head headtitle={"HTSF.htsf"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

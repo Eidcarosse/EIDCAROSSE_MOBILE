@@ -112,7 +112,7 @@ export default function MapAdView({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Search by Location"} navigation={navigation} />
+        <Head headtitle={"searchpage.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

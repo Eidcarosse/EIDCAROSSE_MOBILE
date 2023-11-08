@@ -11,7 +11,7 @@ export default function SNTU({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Sell Now To Us "} navigation={navigation} />
+        <Head headtitle={"SNTU.sntu"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}

@@ -65,6 +65,7 @@ export default {
     a7: "Yes. For chat request or email, seller will get an email notification. For chat, buyer will get first initial message as email notification.",
   },
   HTSF: {
+    htsf:"How to Sell Fast",
     title1: "Pick the right price",
     detail1:
       "When determining the price of an item, consider that price is a significant factor for customers. To ensure you set a reasonable and competitive price, take the time to research similar ads before finalizing your pricing strategy.",
@@ -76,6 +77,7 @@ export default {
       "Offer a clear and detailed description of your product, ensuring that you provide accurate and comprehensive information about your items.",
   },
   aboutUs: {
+    aboutus:"About Us",
     paraDetail1:
       "Eidcarosse is a comprehensive online marketplace dedicated to facilitating the buying and selling of vehicles. With a user-friendly interface and powerful search features, Eidcarosse connects individuals looking for vehicles with sellers offering an extensive range of options. Whether you're in the market for a stylish sedan, a powerful truck, a sleek bike, or any other vehicle, Eidcarosse provides a platform that simplifies the entire process.",
 
@@ -98,13 +100,16 @@ export default {
   },
 
   SNTU: {
+    sntu:"Sell Now to Us",
     data: "You can now sell your vehicle and machines to Eidcarosse. We provide a hassle-free process and competitive prices for your vehicle. Whether you're looking to upgrade or need to sell your vehicle and things quickly, we've got you covered. Sell now and experience a seamless selling experience with us!",
   },
   RN: {
+    rn:"Repair Now",
     data: "You can now sell your vehicle and machines to Eidcarosse. We provide a hassle-free process and competitive prices for your vehicle. Whether you're looking to upgrade or need to sell your vehicle and things quickly, we've got you covered. Sell now and experience a seamless selling experience with us!",
   },
 
   privacy: {
+    privacy:"Privacy Policy",
     paraDetail1:
       "Eidcarosse mobile application creators – prioritizes and values the security and privacy of the information you share with us through our Eidcarosse. We intend to make our users as comfortable using our app as possible. If you are to trust us with your information, you must understand how we collect, use, and maintain it.\n\nWhen you are about to acquire Eidcarosse, you'll need to register with us. The registration gives us your First and Last Name, Email Address and Phone Number.",
 
@@ -145,6 +150,7 @@ export default {
       "If you have any suggestions or questions about our privacy policy, please feel free to contact us via kundendienst@eidcarosse.ch ",
   },
   terms: {
+    tandc:"Terms and Condition",
     paraData1:
       "Before using the Eidcarosse mobile app service, it is essential that you carefully review and agree to the following Terms and Conditions. Your acceptance of these terms is required for utilizing the app. Make sure to go through the Terms & Conditions thoroughly prior to using the service.",
 
@@ -320,6 +326,7 @@ export default {
     TandC2: "Terms and Conditions",
     post: "Add Post",
     phsearchHere: "Search here",
+    defaultValueDropdown:"Select an Option"
   },
   fuelTypelist: {
     Gasoline: "Gasoline",
@@ -429,9 +436,11 @@ export default {
     Other: "Other",
   },
   condition: {
-    new: "new",
-    used: "used",
+    new: "New",
+    used: "Used",
     Recondition: "Recondition",
+    price:"Price",
+    disable:"Disable"
   },
   editprofile: {
     headtitle: "Edit Profile",
@@ -478,7 +487,7 @@ export default {
     fueltype: "Fuel Type",
     exteriorcolor: "Exterior Color",
     interiorcolor: "Interior Color",
-    km: "KM Driven",
+    km: "Km Driven",
     description: "Description",
     videourl: "Video Url",
     website: "Website",
@@ -487,7 +496,7 @@ export default {
     relatedAds: "Related Ads",
   },
   searchbar: {
-    phsearch: "what you want to search?",
+    phsearch: "What do you want to search?",
     search: "Search",
   },
   appseting: {
@@ -499,4 +508,7 @@ export default {
     Spanish: "Spanish",
     French: "French",
   },
+  searchpage:{
+    title:"Search by Location"
+  }
 };
