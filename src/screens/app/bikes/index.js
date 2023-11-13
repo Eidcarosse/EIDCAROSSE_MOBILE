@@ -15,7 +15,11 @@ export default function BikeCategory({ navigation, route }) {
     <ScreenWrapper
       headerUnScrollable={() => (
         <Head
-          headtitle={route?.params?.category == "Parts" ? "Parts" : "Bikes"}
+          headtitle={
+            route?.params?.category == "Parts"
+              ? t("subcategory.titleParts")
+              : t("subcategory.titleBike")
+          }
           navigation={navigation}
         />
       )}
@@ -46,9 +50,7 @@ export default function BikeCategory({ navigation, route }) {
                     });
                 }}
               >
-                <Text>
-                  {t(item.show)}
-                </Text>
+                <Text>{t(item.show)}</Text>
               </TouchableOpacity>
             );
           }}

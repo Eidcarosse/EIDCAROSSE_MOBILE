@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: width(2),
   },
   ptext: {
-    fontSize: width(2),
+    fontSize: width(3),
     fontWeight: "bold",
     color: AppColors.white,
     padding: width(1),

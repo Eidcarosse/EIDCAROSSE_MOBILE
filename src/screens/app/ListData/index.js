@@ -12,6 +12,7 @@ import {
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
   Button,
+  Card,
   CardView,
   Head,
   Input,
@@ -33,12 +34,14 @@ import {
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { setAppLoader } from "../../../redux/slices/config";
+import { useTranslation } from "react-i18next";
 
 export default function ListData({ navigation, route }) {
+  const { t } = useTranslation();
   const cat = route?.params?.category;
   const find = route?.params?.find;
   const sub = route?.params?.subcategory;
-  const t = route?.params?.search;
+  const ti = route?.params?.search;
   const refRBSheet = useRef();
   const dispatch = useDispatch();
   const [findValue, setFindValue] = useState(find);
@@ -46,7 +49,7 @@ export default function ListData({ navigation, route }) {
   const [sortby, setSortby] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [subCategory, setSubCategory] = React.useState(sub);
-  const [title, setTitle] = React.useState(t || "");
+  const [title, setTitle] = React.useState(ti || "");
   const [pageNumber, setPageNumber] = React.useState(1);
   const [pricefrom, setPricefrom] = React.useState();
   const [priceto, setPriceto] = React.useState("");
@@ -190,7 +193,7 @@ export default function ListData({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"Search Data"} navigation={navigation} />
+        <Head headtitle={"allData.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -211,7 +214,7 @@ export default function ListData({ navigation, route }) {
         />
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
-            Total Result :{" "}
+            {t("allData.totalresult")} :{" "}
             {data.filter((item) => {
               return item.title
                 .toLowerCase()
@@ -219,7 +222,7 @@ export default function ListData({ navigation, route }) {
             }).length || 0}
           </Text>
           <View style={styles.iconview}>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{ paddingHorizontal: width(3) }}
               onPress={() => {
                 setcolumnumber(2);
@@ -242,7 +245,7 @@ export default function ListData({ navigation, route }) {
                 size={width(4)}
                 color={columnumber == 1 ? AppColors.primary : "black"}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={{ marginLeft: height(2) }}
               onPress={() => refRBSheet.current.open()}
@@ -255,7 +258,7 @@ export default function ListData({ navigation, route }) {
             </TouchableOpacity>
           </View>
         </View>
-        {columnumber == 2 ? (
+        {/* {columnumber == 2 ? (
           <FlatList
             key={"colum2"}
             data={data.filter((item) => {
@@ -291,7 +294,7 @@ export default function ListData({ navigation, route }) {
             }
             keyExtractor={(item, index) => index}
           />
-        ) : (
+        ) : ( */}
           <FlatList
             key={"coloum1"}
             data={data.filter((item) => {
@@ -304,7 +307,7 @@ export default function ListData({ navigation, route }) {
             renderItem={({ item }) => {
               return (
                 <View style={{ width: width(98), alignItems: "center" }}>
-                  <CardView data={item} />
+                  <Card data={item} />
                 </View>
               );
             }}
@@ -331,7 +334,7 @@ export default function ListData({ navigation, route }) {
             }
             keyExtractor={(item, index) => index}
           />
-        )}
+        {/* )} */}
         <View>
           <RBSheet
             ref={refRBSheet}
@@ -345,15 +348,32 @@ export default function ListData({ navigation, route }) {
               <ActivityIndicator color={AppColors.primary} size={"large"} />
             ) : (
               <View style={styles.container}>
-                <Text
+                <View
                   style={{
-                    fontSize: width(5),
-                    fontWeight: "bold",
-                    alignSelf: "center",
+                    marginBottom: width(3),
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignContent: "center",
                   }}
                 >
-                  Filters
-                </Text>
+                  <Text
+                    style={{
+                      fontSize: width(5),
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Filters
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: width(3),
+                      color: AppColors.primary,
+                    }}
+                  >
+                    close
+                  </Text>
+                </View>
+
                 <ScrollView showsVerticalScrollIndicator={false}>
                   {/* <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>Category</Text>
@@ -514,7 +534,7 @@ export default function ListData({ navigation, route }) {
                       }}
                     />
                   </View>
-                  <View style={{ paddingVertical: width(1) }}>
+                  {/* <View style={{ paddingVertical: width(1) }}>
                     <Text style={styles.title}>Title</Text>
                     <Input
                       value={title}
@@ -529,7 +549,7 @@ export default function ListData({ navigation, route }) {
                         },
                       ]}
                     />
-                  </View>
+                  </View> */}
                   <View style={{ paddingVertical: width(1) }}>
                     <Text style={styles.title}>Address</Text>
                     <Input
@@ -618,42 +638,40 @@ export default function ListData({ navigation, route }) {
             />
           </View>
         )} */}
-                  <View
-                    style={{
-                      padding: width(3),
-                      flexDirection: "row",
-                      width: width(90),
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Button
-                      title={"clear"}
-                      containerStyle={{
-                        width: width(40),
-                        borderRadius: width(2),
-                        backgroundColor: "grey",
-                      }}
-                      onPressClear={() => refRBSheet.current.close()}
-                    />
-                    <Button
-                      title={"Filter"}
-                      containerStyle={{
-                        width: width(40),
-                        borderRadius: width(2),
-                        backgroundColor: AppColors.primary,
-                      }}
-                      onPress={() => {
-                        setData([]);
-                        setempty(false);
-                        if (pageNumber != 0) {
-                          setPageNumber(1);
-                        }
-                        refRBSheet.current.close();
-                        setFilter(filter + 1);
-                      }}
-                    />
-                  </View>
                 </ScrollView>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Button
+                    title={"clear"}
+                    containerStyle={{
+                      width: width(48),
+                      borderRadius: width(1),
+                      backgroundColor: "grey",
+                    }}
+                    onPressClear={() => refRBSheet.current.close()}
+                  />
+                  <Button
+                    title={"Filter"}
+                    containerStyle={{
+                      width: width(40),
+                      borderRadius: width(1),
+                      backgroundColor: AppColors.primary,
+                    }}
+                    onPress={() => {
+                      setData([]);
+                      setempty(false);
+                      if (pageNumber != 0) {
+                        setPageNumber(1);
+                      }
+                      refRBSheet.current.close();
+                      setFilter(filter + 1);
+                    }}
+                  />
+                </View>
               </View>
             )}
           </RBSheet>

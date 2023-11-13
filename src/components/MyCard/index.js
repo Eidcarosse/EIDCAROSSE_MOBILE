@@ -1,5 +1,5 @@
 import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
@@ -13,8 +13,11 @@ import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
 import { getOwneAd } from "../../backend/auth";
 import GlobalMethods from "../../utills/Methods";
+import { useTranslation } from "react-i18next";
 
 export default function MyCard({ data }) {
+
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
   const userid = userInfo?._id;
@@ -47,6 +50,9 @@ export default function MyCard({ data }) {
       dispatch(setAppLoader(false));
     }
   };
+  useEffect(()=>{
+    console.log(GlobalMethods.calculateTimeDifference(data?.createdAt).includes("month"));
+  })
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
@@ -108,7 +114,7 @@ export default function MyCard({ data }) {
                 fontWeight: "bold",
               }}
             >
-              Sold
+              {t("myad.sold")}
             </Text>
           </TouchableOpacity>
         ) : (
@@ -119,30 +125,31 @@ export default function MyCard({ data }) {
               paddingHorizontal: width(3),
               padding: width(1),
               borderRadius: width(5),
-              backgroundColor: publish ? AppColors.white : AppColors.primary,
+              backgroundColor: publish ? AppColors.green : AppColors.primary,
             }}
             disabled={true}
           >
             <Text
               style={{
                 fontSize: width(2.5),
-                color: publish ? AppColors.black : AppColors.white,
-                fontWeight: publish ? "400" : "bold",
+                color: AppColors.white,
+                fontWeight: publish ? "600" : "bold",
               }}
             >
-              {publish ? "Published" : "Mute"}
+              {publish ? t("myad.published") : t("myad.mute")}
             </Text>
           </TouchableOpacity>
         )}
       </View>
       <Menu visible={isModalVisible} onRequestClose={hideMenu}>
-        <MenuItem onPress={hideMenu}>Edit</MenuItem>
+        <MenuItem onPress={hideMenu}>{t("myad.edit")}</MenuItem>
+        <MenuItem onPress={hideMenu}>{t("myad.refresh")}</MenuItem>
         <MenuItem
           onPress={() => {
             hideMenu(), deleteAd(data._id);
           }}
         >
-          Delete
+          {t("myad.delete")}
         </MenuItem>
         {!sold && (
           <MenuItem
@@ -151,7 +158,7 @@ export default function MyCard({ data }) {
               setSold(true);
             }}
           >
-            Mark as sold
+            {t("myad.markassold")}
           </MenuItem>
         )}
         {!sold ? (
@@ -162,7 +169,7 @@ export default function MyCard({ data }) {
                 setPublish(false);
               }}
             >
-              Mute
+              {t("myad.mute")}
             </MenuItem>
           ) : (
             <MenuItem
@@ -171,7 +178,7 @@ export default function MyCard({ data }) {
                 setPublish(true);
               }}
             >
-              Re-publish
+              {t("myad.republish")}
             </MenuItem>
           )
         ) : (

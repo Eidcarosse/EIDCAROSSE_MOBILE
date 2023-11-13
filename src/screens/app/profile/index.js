@@ -52,7 +52,7 @@ export default function Profile({ navigation, route }) {
                   {userdata?.firstName} {userdata?.lastName}
                 </Text>
 
-                <Text style={styles.ptext}>{userdata?.userName}</Text>
+                {/* <Text style={styles.ptext}>{userdata?.userName}</Text> */}
                 <Text style={styles.ptext}>{userdata?.email}</Text>
                 <Text style={styles.ptext}>{userdata?.phoneNumber}</Text>
               </View>

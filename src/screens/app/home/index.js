@@ -21,6 +21,7 @@ import {
 import { width } from "../../../utills/Dimension";
 import { toastMessage } from "../../../utills/Methods";
 import styles from "./styles";
+import { Card } from "../../../components";
 
 export default function Home({ navigation, route }) {
   const { t } = useTranslation();
@@ -103,7 +104,7 @@ export default function Home({ navigation, route }) {
                 key={index}
                 style={{ width: width(100), alignItems: "center" }}
               >
-                <CardView data={item} />
+                <Card data={item} />
               </View>
             ))
           )}

@@ -14,6 +14,7 @@ import {
   selectCurrentLanguage,
   setLanguage,
 } from "../../../redux/slices/language";
+import { storelangData } from "../../../utills/Methods";
 
 export default function AppSetting({ navigation, route }) {
   const countries = [
@@ -27,7 +28,7 @@ export default function AppSetting({ navigation, route }) {
   const lang = useSelector(selectCurrentLanguage);
   const dispatch = useDispatch();
 
-  const changeAppLanguage = (newLanguage) => {
+  const changeAppLanguage = async (newLanguage) => {
     console.log("change language");
     let value;
 
@@ -52,9 +53,27 @@ export default function AppSetting({ navigation, route }) {
     }
 
     // store.dispatch(changeLanguage(value)); // If you're using Redux
+    await storelangData(value);
     i18n.changeLanguage(value);
   };
+  const defaultvalue = (v) => {
+    switch (v) {
+      case "en":
+        return "English";
+      case "de":
+        return "German";
+      case "it":
+        return "Italian";
+      case "es":
+        return "Spanish";
 
+      case "fr":
+        return "French";
+    }
+  };
+  const show = countries.find((item) => {
+    return item.value == defaultvalue(lang);
+  })?.key;
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -73,7 +92,7 @@ export default function AppSetting({ navigation, route }) {
         </Text>
         <SelectDropdown
           data={countries}
-          defaultButtonText={lang}
+          defaultButtonText={t(show)}
           searchPlaceHolder={t("addPost.phsearchHere")}
           buttonStyle={styles.searchbox}
           selectedRowStyle={{ backgroundColor: AppColors.primary }}

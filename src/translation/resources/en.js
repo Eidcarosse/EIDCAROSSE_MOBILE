@@ -510,5 +510,24 @@ export default {
   },
   searchpage:{
     title:"Search by Location"
+  },
+  allData:{
+    title:"Search Data",
+    totalresult:"Total Result"
+  },
+  subcategory:{
+    titleBike:"Bikes",
+    titleParts:"Parts",
+  },
+  myad:{
+    edit:"Edit",
+    title:"My Ads",
+    published:"Published",
+    mute:"Mute",
+    delete:"Delete",
+    refresh:"Refresh",
+    markassold:"Mark as Sold",
+    republish:"Re-publish",
+    sold:"Sold"
   }
 };

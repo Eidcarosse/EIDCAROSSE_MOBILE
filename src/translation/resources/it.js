@@ -66,7 +66,7 @@ export default {
     a7: "Sì. Per le richieste di chat o le email, il venditore riceverà una notifica via email. Per la chat, l'acquirente riceverà il primo messaggio iniziale come notifica via email.",
   },
   HTSF: {
-    htsf:"Come vendere velocemente",
+    htsf: "Come vendere velocemente",
     title1: "Scegli il prezzo giusto",
     detail1:
       "Nel determinare il prezzo di un oggetto, considera che il prezzo è un fattore significativo per i clienti. Per assicurarti di impostare un prezzo ragionevole e competitivo, prenditi il tempo per cercare annunci simili prima di definire la tua strategia di prezzo.",
@@ -79,7 +79,7 @@ export default {
   },
 
   aboutUs: {
-    aboutus:"Chi siamo",
+    aboutus: "Chi siamo",
     paraDetail1:
       "Eidcarosse è un completo mercato online dedicato a facilitare l'acquisto e la vendita di veicoli. Con un'interfaccia utente amichevole e potenti funzionalità di ricerca, Eidcarosse collega individui alla ricerca di veicoli con venditori che offrono un'ampia gamma di opzioni. Che tu stia cercando una berlina elegante, un potente camion, una moto elegante o qualsiasi altro veicolo, Eidcarosse fornisce una piattaforma che semplifica l'intero processo.",
     paraTitle2: "Acquirenti",
@@ -98,15 +98,15 @@ export default {
       "Eidcarosse privilegia l'esperienza dell'utente e assicura un processo di transazione sicuro e trasparente. La piattaforma offre funzionalità di messaggistica, consentendo agli acquirenti e ai venditori di comunicare direttamente e negoziare i termini. Inoltre, Eidcarosse offre una serie di funzionalità di verifica e sicurezza per garantire la tranquillità di tutti gli utenti.",
   },
   SNTU: {
-    sntu:"Vendi ora a noi.",
+    sntu: "Vendi ora a noi.",
     data: "Ora puoi vendere il tuo veicolo e le tue macchine su Eidcarosse. Offriamo un processo senza problemi e prezzi competitivi per il tuo veicolo. Che tu stia cercando di fare un upgrade o hai bisogno di vendere velocemente il tuo veicolo e le tue cose, siamo qui per te! Vendi ora e vivi un'esperienza di vendita senza intoppi con noi!",
   },
   RN: {
-    rn:"Ripara ora",
+    rn: "Ripara ora",
     data: "Ora puoi vendere il tuo veicolo e le tue macchine su Eidcarosse. Offriamo un processo senza problemi e prezzi competitivi per il tuo veicolo. Che tu stia cercando di fare un upgrade o hai bisogno di vendere velocemente il tuo veicolo e le tue cose, siamo qui per te! Vendi ora e vivi un'esperienza di vendita senza intoppi con noi!",
   },
   privacy: {
-    privacy:"Informativa sulla privacy",
+    privacy: "Informativa sulla privacy",
     paraDetail1:
       "Gli sviluppatori dell'applicazione mobile di Eidcarosse danno la massima priorità e valore alla sicurezza e alla privacy delle informazioni che condividi con noi tramite la nostra applicazione Eidcarosse. La nostra intenzione è fare in modo che gli utenti si sentano il più confortevoli possibile nell'utilizzare la nostra app. Se decidi di affidarci le tue informazioni, devi capire come le raccogliamo, le usiamo e le manteniamo.\n\nQuando ti accingi ad acquisire Eidcarosse, dovrai registrarci. La registrazione ci fornisce il tuo nome e cognome, indirizzo email e numero di telefono.",
     paraTitle2: "Raccolta e Utilizzo delle Informazioni",
@@ -141,7 +141,7 @@ export default {
       "Se hai suggerimenti o domande sulla nostra politica sulla privacy, non esitare a contattarci tramite kundendienst@eidcarosse.ch",
   },
   terms: {
-    tandc:"Termini e condizioni",
+    tandc: "Termini e condizioni",
     paraData1:
       "Prima di utilizzare il servizio dell'app mobile di Eidcarosse, è essenziale che tu legga attentamente e accetti le seguenti Condizioni d'Uso. La tua accettazione di queste condizioni è necessaria per utilizzare l'app. Assicurati di leggere attentamente i Termini e le Condizioni prima di utilizzare il servizio.",
     paraTitle2: "Generale",
@@ -301,7 +301,7 @@ export default {
     TandC2: "Termini e Condizioni di Eidcarosse",
     post: "Aggiungi Pubblicazione",
     phsearchHere: "Cerca qui",
-    defaultValueDropdown:"Seleziona un'opzione"
+    defaultValueDropdown: "Seleziona un'opzione",
   },
   fuelTypelist: {
     Gasoline: "Benzina",
@@ -473,12 +473,31 @@ export default {
     search: "Cerca",
   },
   appseting: {
-    title:"Impostazioni dell'app",
+    title: "Impostazioni dell'app",
     language: "Lingua",
     English: "Inglese",
     German: "Tedesco",
     Italian: "Italiano",
     Spanish: "Spagnolo",
     French: "Francese",
+  },
+  allData: {
+    title: "Dati di ricerca",
+    totalresult: "Risultato totale",
+  },
+  subcategory: {
+    titleBike: "Bikes",
+    titleParts: "Parts",
+  },
+  myad: {
+    edit: "Modifica",
+    title: "Le mie inserzioni",
+    published: "Pubblicato",
+    mute: "Silenzia",
+    delete: "Elimina",
+    refresh: "Aggiorna",
+    markassold: "Segna come venduto",
+    republish: "Ripubblica",
+    sold: "Venduto",
   },
 };

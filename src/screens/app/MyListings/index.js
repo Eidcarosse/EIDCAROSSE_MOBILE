@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import { MyListingView, ScreenWrapper } from "../../../components";
@@ -15,26 +15,28 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { getOwneAd } from "../../../backend/auth";
 import { useFocusEffect } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 export default function MyListing({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const data = useSelector(selectUserAds);
   const userdata = useSelector(selectUserMeta);
   const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh =  () => {
+  const onRefresh = () => {
     setRefreshing(true);
-    myAdsFunction()
+    myAdsFunction();
     setRefreshing(false);
   };
   useFocusEffect(
     React.useCallback(() => {
-      myAdsFunction()
+      myAdsFunction();
     }, [])
   );
-  const myAdsFunction=async()=>{
+  const myAdsFunction = async () => {
     const userAd = await getOwneAd(userdata?._id);
     dispatch(setUserAds(userAd));
-  }
+  };
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -45,6 +47,9 @@ export default function MyListing({ navigation, route }) {
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
+        <View style={styles.myadsView}>
+          <Text style={styles.myads}>{t("myad.title")}</Text>
+        </View>
         <View style={{ width: width(100), alignItems: "center" }}>
           {data?.length === 0 ? (
             <View style={{ height: height(100) }}>

@@ -28,5 +28,14 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     width:width(90)
   },
+  myads:{
+    color:AppColors.black,
+    fontWeight:'bold',
+    fontSize:width(5),
+
+  },
+  myadsView:{
+    margin:width(2)
+  }
 });
 export default styles;

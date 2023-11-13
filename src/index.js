@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Routes from "./routes";
 import { Provider } from "react-redux";
 import { store } from "./redux/index";
 import FlashMessage from "react-native-flash-message";
 import { LogBox } from "react-native";
+import i18n from "./translation";
+import { getlangData } from "./utills/Methods";
+import { setLanguage } from "./redux/slices/language";
 LogBox.ignoreAllLogs(true);
 
 // import { initReactI18next } from "react-i18next";
@@ -18,9 +21,10 @@ LogBox.ignoreAllLogs(true);
 //   fallbackLng: "en",
 // });
 export default function App() {
+ 
+
   return (
     <Provider store={store}>
-      
       <Routes />
       <FlashMessage position="bottom" icon="auto" />
     </Provider>
@@ -33,7 +37,6 @@ export default function App() {
 // import { StatusBar } from "expo-status-bar";
 // import { useTranslation } from "react-i18next";
 // import { Button, StyleSheet, Text, View } from "react-native";
- import i18n from "./translation";
 
 // export default function App() {
 //   const { t } = useTranslation();

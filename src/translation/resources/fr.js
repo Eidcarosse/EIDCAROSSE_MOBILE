@@ -509,4 +509,23 @@ export default {
     Spanish: "Espagnol",
     French: "Français",
   },
+  allData:{
+    title:"Données de recherche",
+    totalresult:"Résultat Total"
+  },
+  subcategory:{
+    titleBike:"Bikes",
+    titleParts:"Parts",
+  },
+  myad:{
+    edit:"Modifier",
+    title: "Mes annonces",
+    published:"Publié",
+    mute:"Muet",
+    delete:"Supprimer",
+    refresh:"Actualiser",
+    markassold:"Marquer comme vendu",
+    republish:"Republier",
+    sold:"Vendu"
+  }
 };

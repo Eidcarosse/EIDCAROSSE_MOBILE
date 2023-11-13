@@ -40,6 +40,7 @@ import {
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
+import ScreenNames from "../../../routes/routes";
 
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
@@ -443,7 +444,7 @@ export default function AddPost({ navigation, route }) {
           </Text>
 
           <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>Title</Text>
+            <Text style={styles.title}>{t("addPost.titleWord")}</Text>
             <Input
               value={title}
               setvalue={setTitle}
@@ -994,7 +995,7 @@ export default function AddPost({ navigation, route }) {
         <View
           style={{
             flexDirection: "row",
-            padding: width(4),
+            paddingVertical: width(4),
             alignSelf: "flex-start",
           }}
         >
@@ -1008,7 +1009,9 @@ export default function AddPost({ navigation, route }) {
           />
           <View>
             <Text>{t("addPost.TandC1")}</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={()=>{navigation.navigate(ScreenNames.TNC)}}
+            >
               <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {" "}
                 {t("addPost.TandC2")}

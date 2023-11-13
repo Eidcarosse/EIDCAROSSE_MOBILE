@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   },
   iconview: {
     flexDirection: "row",
-    width: width(25),
+    width: width(10),
     justifyContent: "space-around",
     alignContent: "center",
     alignItems: "center",
   },
   flatlist: {
-    marginBottom: width(10),
+    marginBottom: height(8),
     marginVertical: height(2),
     width: width(98),
   },
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
       backgroundColor: "transparent",
     },
     container: {
-      borderTopLeftRadius: width(8),
-      borderTopRightRadius: width(8),
+      borderTopLeftRadius: width(2),
+      borderTopRightRadius: width(2),
       borderWidth: width(0.1),
       borderBlockColor: AppColors.primary,
     },
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   container: {
     padding: width(4),
     paddingBottom: height(8),
+    justifyContent:"space-between"
   },
   title: {
     fontSize: width(3.5),

@@ -488,4 +488,23 @@ export default {
     Spanish: "Spanisch",
     French: "Französisch",
   },
+  allData:{
+    title:"Suchergebnis",
+    totalresult:"Resultate"
+  },
+  subcategory:{
+    titleBike:"Fahrräder",
+    titleParts:"Ersatzteile",
+  },
+  myad:{
+    edit:"Bearbeiten",
+    title:"Meine Anzeigen",
+    published:"AKTIV",
+    mute:"Stummschalten",
+    delete:"Löschen",
+    refresh:"Aktualisieren",
+    markassold:"Als verkauft markieren",
+    republish:"Erneut veröffentlichen",
+    sold:"Verkauft"
+  }
 };

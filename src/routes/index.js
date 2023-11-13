@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useCallback, useEffect } from "react";
-
+import i18n from "../translation";
 import { getDatabase, off, onValue, ref } from "firebase/database";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataofHomePage } from "../backend/api";
@@ -42,9 +42,10 @@ import {
   WishScreen,
 } from "../screens/app";
 import { LoginScreen, OnBoardingScreen, SignUpScreen } from "../screens/auth";
-import { errorMessage, getAuthData } from "../utills/Methods";
+import { errorMessage, getAuthData, getlangData } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
+import { setLanguage } from "../redux/slices/language";
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
@@ -152,7 +153,14 @@ export default function Routes() {
       console.error("Error fetching room data:", error);
     }
   };
-
+  useEffect(() => {
+    languageset();
+  }, []);
+  const languageset = async () => {
+    let lang = await getlangData();
+    i18n.changeLanguage(lang);
+    dispatch(setLanguage(lang));
+  };
   return (
     <NavigationContainer>
       <Loader />

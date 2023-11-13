@@ -49,7 +49,7 @@ export default function DetailHeader({
         >
           <Entypo size={width(4)} name="share" color={AppColors.white} />
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ marginHorizontal: width(3) }}
           onPress={showMenu}
         >
@@ -58,8 +58,8 @@ export default function DetailHeader({
             name="options-vertical"
             color={AppColors.white}
           />
-        </TouchableOpacity>
-        <Menu visible={isModalVisible} onRequestClose={hideMenu}>
+        </TouchableOpacity> */}
+        {/* <Menu visible={isModalVisible} onRequestClose={hideMenu}>
           <MenuItem
             onPress={() => {
               hideMenu();
@@ -67,7 +67,7 @@ export default function DetailHeader({
           >
             Block
           </MenuItem>
-        </Menu>
+        </Menu> */}
         {/* <Ionicons name="chevron-back" size={width(7)} color={AppColors.white} /> */}
       </View>
     </View>

@@ -68,18 +68,35 @@ export const getAuthData = async () => {
     // error reading value
   }
 };
-export const setThemeData = async (value) => {
+// export const setLangData = async (value) => {
+//   try {
+//     const jsonValue = JSON.stringify(value);
+//     await AsyncStorage.setItem("lang", jsonValue);
+//   } catch (e) {
+//     // saving error
+//   }
+// };
+// export const getLangData = async () => {
+//   try {
+//     const jsonValue = await AsyncStorage.getItem("lang");
+//     return jsonValue != null ? JSON.parse(jsonValue) : null;
+//   } catch (e) {
+//     // error reading value
+//   }
+// };
+export const storelangData = async (value) => {
   try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem("color", jsonValue);
+    await AsyncStorage.setItem("language", value);
   } catch (e) {
     // saving error
   }
 };
-export const getThemeData = async () => {
+export const getlangData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem("color");
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    const value = await AsyncStorage.getItem("language");
+    if (value !== null) {
+      return value
+    }
   } catch (e) {
     // error reading value
   }
@@ -154,7 +171,7 @@ const openWhatsApp = (phoneNumber) => {
     })
     .catch((error) => {
       console.error("Error opening WhatsApp:", error);
-      errorMessage("Whatsapp not exist")
+      errorMessage("Whatsapp not exist");
     });
 };
 const openViber = (phoneNumber) => {
@@ -172,7 +189,7 @@ const openViber = (phoneNumber) => {
     })
     .catch((error) => {
       console.error("Error opening Viber:", error);
-      errorMessage("Viber not exist")
+      errorMessage("Viber not exist");
     });
 };
 const calculateTimeDifference = (createdAt) => {
@@ -195,6 +212,8 @@ const GlobalMethods = {
   onPressEmail,
   openWhatsApp,
   openViber,
-  calculateTimeDifference
+  calculateTimeDifference,
+  storelangData,
+  getlangData,
 };
 export default GlobalMethods;
