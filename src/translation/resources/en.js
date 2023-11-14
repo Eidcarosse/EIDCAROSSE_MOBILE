@@ -513,7 +513,16 @@ export default {
   },
   allData:{
     title:"Search Data",
-    totalresult:"Total Result"
+    totalresult:"Total Result",
+    filter:"Filter",
+    brand:"Brand",
+    sub:"Sub Ctegory",
+    storeby:"Store By",
+    address:"Address",
+    pricerang:"Price Rang (CHF)",
+    condition:"Condition",
+    clear:"Clear",
+    search:"Search"
   },
   subcategory:{
     titleBike:"Bikes",

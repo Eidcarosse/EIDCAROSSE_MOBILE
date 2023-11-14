@@ -17,7 +17,6 @@ import { toggleFavorite } from "../../backend/api";
 export default function ListingView({ data }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
-  //console.log("indata", data);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);

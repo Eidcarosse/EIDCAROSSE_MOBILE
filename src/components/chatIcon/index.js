@@ -12,25 +12,28 @@ export default function ChatIcon({ data, onPress }) {
   const navigation = useNavigation();
   const loginuser = useSelector(selectUserMeta);
   const [user, setUser] = useState();
-  useEffect(async () => {
+  useEffect(() => {
+    getdata()
+  }, []);
+  const getdata = async () => {
     let search;
     loginuser._id == data.split("_")[0]
       ? (search = data.split("_")[1])
       : (search = data.split("_")[0]);
     let user = await getUserByID(search);
     setUser(user);
-  }, []);
+  };
   // console.log("indata", data);
   return (
     <TouchableOpacity
       style={styles.main}
       onPress={() => {
-        console.log('====================================');
-        console.log("All Chatroom id ",data);
-        console.log('====================================');
+        console.log("====================================");
+        console.log("All Chatroom id ", data);
+        console.log("====================================");
         navigation.navigate(ScreenNames.CHAT, {
           usr: user,
-          userRoom:data,
+          userRoom: data,
           userItem: data.split("_")[2],
         });
       }}
@@ -48,11 +51,9 @@ export default function ChatIcon({ data, onPress }) {
             numberOfLines={1}
             style={{ fontWeight: "bold", fontSize: width(3.5) }}
           >
-            {user?.firstName}{" "}{user?.lastName}
+            {user?.firstName} {user?.lastName}
           </Text>
-          <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
-            
-          </Text>
+          <Text numberOfLines={1} style={{ fontSize: width(2.5) }}></Text>
           <Text />
         </View>
 

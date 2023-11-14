@@ -188,11 +188,7 @@ export default function AddPost({ navigation, route }) {
           uri: img,
         });
       });
-
-      // console.log(formData);
-
       const resp = await addPostAd(formData);
-      // console.log("response of Ad post", resp);
       if (resp?.success) {
         successMessage("Ad successfuly posted");
       } else {

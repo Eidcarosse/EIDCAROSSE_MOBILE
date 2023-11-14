@@ -585,7 +585,7 @@ export default function Detail({ navigation, route }) {
               />
             </MapView>
           </View>
-          <RelatedAd category={data?.category} />
+          {/* <RelatedAd category={data?.category} /> */}
         </View>
       )}
     </ScreenWrapper>

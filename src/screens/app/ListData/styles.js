@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: width(4),
-    paddingBottom: height(8),
+    paddingBottom: height(15),
     justifyContent:"space-between"
   },
   title: {

@@ -56,7 +56,7 @@ export default {
     a7: "Ja, der Verkäufer erhält E-Mail-Benachrichtigungen für Chat-Anfragen oder E-Mails. Der Käufer erhält die erste E-Mail-Benachrichtigung als erste Nachricht für den Chat.",
   },
   HTSF: {
-    htsf:"Wie man schnell verkauft.",
+    htsf: "Wie man schnell verkauft.",
     title1: "Wählen Sie den richtigen Preis",
     detail1:
       "Bei der Festlegung des Preises eines Artikels sollten Sie berücksichtigen, dass der Preis ein wichtiger Faktor für die Kunden ist. Um sicherzustellen, dass Sie einen angemessenen und wettbewerbsfähigen Preis festlegen, nehmen Sie sich Zeit, ähnliche Inserate zu recherchieren, bevor Sie Ihre Preisstrategie finalisieren.",
@@ -68,7 +68,7 @@ export default {
       "Bieten Sie eine klare und detaillierte Beschreibung Ihres Produkts, um sicherzustellen, dass Sie genaue und umfassende Informationen über Ihre Artikel bereitstellen.",
   },
   aboutUs: {
-    aboutus:"Über uns",
+    aboutus: "Über uns",
     paraDetail1:
       "Eidcarosse ist ein umfassender Online-Marktplatz, der sich auf den Kauf und Verkauf von Fahrzeugen aller Art sowie allen motorischen Bewegunsmitteln spezialisiert hat. Mit einer benutzerfreundlichen Oberfläche und leistungsstarken Suchfunktionen verbindet Eidcarosse Einzelpersonen, die nach Fahrzeugen suchen, mit Verkäufern, die eine umfangreiche Palette von Optionen anbieten. Egal, ob Sie auf der Suche nach einer schicken Limousine, einem leistungsstarken Lastwagen, einem eleganten Motorrad oder einem anderen Fahrzeug sind, bietet Eidcarosse eine Plattform, die den gesamten Prozess vereinfacht.",
     paraTitle2: "Käufer",
@@ -87,15 +87,15 @@ export default {
       "Eidcarosse legt großen Wert auf die Benutzererfahrung und gewährleistet einen sicheren und transparenten Transaktionsprozess. Die Plattform bietet Messaging-Funktionen, mit denen Käufer und Verkäufer direkt kommunizieren und Verhandlungen führen können. Darüber hinaus bietet Eidcarosse eine Reihe von Verifizierungs- und Sicherheitsfunktionen, um allen Benutzern ein sicheres Gefühl zu vermitteln.",
   },
   SNTU: {
-    sntu:"Jetzt an uns verkaufen",
+    sntu: "Jetzt an uns verkaufen",
     data: "Jetzt können Sie Ihr Fahrzeug und Ihre Maschinen an Eidcarosse verkaufen. Wir bieten einen unkomplizierten Prozess und wettbewerbsfähige Preise für Ihr Fahrzeug. Egal, ob Sie aufrüsten möchten oder Ihr Fahrzeug und Ihre Dinge schnell verkaufen müssen, wir haben Sie abgedeckt. Verkaufen Sie jetzt und erleben Sie ein reibungsloses Verkaufserlebnis mit uns!",
   },
   RN: {
-    rn:"Jetzt reparieren",
+    rn: "Jetzt reparieren",
     data: "Jetzt können Sie Ihr Fahrzeug und Ihre Maschinen an Eidcarosse verkaufen. Wir bieten einen unkomplizierten Prozess und wettbewerbsfähige Preise für Ihr Fahrzeug. Egal, ob Sie aufrüsten möchten oder Ihr Fahrzeug und Ihre Dinge schnell verkaufen müssen, wir haben Sie abgedeckt. Verkaufen Sie jetzt und erleben Sie ein reibungsloses Verkaufserlebnis mit uns!",
   },
   privacy: {
-    privacy:"Datenschutzrichtlinie",
+    privacy: "Datenschutzrichtlinie",
     paraDetail1:
       "Die Hersteller der Eidcarosse-App – priorisieren und schätzen die Sicherheit und Privatsphäre der Informationen, die Sie über unsere Eidcarosse mit uns teilen. Wir beabsichtigen, unseren Benutzern die Verwendung unserer App so komfortabel wie möglich zu gestalten. Wenn Sie uns vertrauen sollen, müssen Sie verstehen, wie wir Ihre Informationen sammeln, verwenden und aufbewahren.",
     paraTitle2: "Datensammlung und Verwendung",
@@ -128,7 +128,7 @@ export default {
       "Wenn Sie Anregungen oder Fragen zu unserer Datenschutzrichtlinie haben, können Sie uns gerne unter kundendienst@eidcarosse.ch kontaktieren.",
   },
   terms: {
-    tandc:"Allgemeine Geschäftsbedingungen",
+    tandc: "Allgemeine Geschäftsbedingungen",
     paraData1:
       "Bevor Sie den mobilen Dienst von Eidcarosse nutzen, ist es wichtig, dass Sie die folgenden Nutzungsbedingungen sorgfältig durchlesen und zustimmen. Die Zustimmung zu diesen Bedingungen ist erforderlich, um die App zu nutzen. Stellen Sie sicher, dass Sie die Nutzungsbedingungen gründlich durchgehen, bevor Sie den Service nutzen.",
 
@@ -214,7 +214,7 @@ export default {
     Boats: "Boote",
     Drones: "Drohnen",
     ConstructionMachines: "Baumaschinen",
-    Trucks: "Lkw",
+    Trucks: "Lkw's",
     Vans: "Nutzfahrzeuge",
     Trailers: "Anhänger",
     Busses: "Busse",
@@ -304,7 +304,7 @@ export default {
     TandC2: "Allgemeine Geschäftsbedingungen",
     post: "Inserat hinzufügen",
     phsearchHere: "Hier suchen",
-    defaultValueDropdown:"Option auswählen"
+    defaultValueDropdown: "Option auswählen",
   },
   fuelTypelist: {
     Gasoline: "Benzin",
@@ -488,23 +488,32 @@ export default {
     Spanish: "Spanisch",
     French: "Französisch",
   },
-  allData:{
-    title:"Suchergebnis",
-    totalresult:"Resultate"
+  allData: {
+    title: "Suchdaten",
+    totalresult: "Gesamtergebnis",
+    filter: "Filter",
+    brand: "Marke",
+    sub: "Unterkategorie",
+    storeby: "Speichern nach",
+    address: "Adresse",
+    pricerang: "Preisspanne (CHF)",
+    condition: "Zustand",
+    clear: "Löschen",
+    search: "Suche",
   },
-  subcategory:{
-    titleBike:"Fahrräder",
-    titleParts:"Ersatzteile",
+  subcategory: {
+    titleBike: "Fahrräder",
+    titleParts: "Ersatzteile",
   },
-  myad:{
-    edit:"Bearbeiten",
-    title:"Meine Anzeigen",
-    published:"AKTIV",
-    mute:"Stummschalten",
-    delete:"Löschen",
-    refresh:"Aktualisieren",
-    markassold:"Als verkauft markieren",
-    republish:"Erneut veröffentlichen",
-    sold:"Verkauft"
-  }
+  myad: {
+    edit: "Bearbeiten",
+    title: "Meine Anzeigen",
+    published: "AKTIV",
+    mute: "Stummschalten",
+    delete: "Löschen",
+    refresh: "Aktualisieren",
+    markassold: "Als verkauft markieren",
+    republish: "Erneut veröffentlichen",
+    sold: "Verkauft",
+  },
 };

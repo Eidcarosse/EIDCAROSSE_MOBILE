@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Alert,
   Animated,
   Platform,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
 import AppColors from "../../utills/AppColors";
 import {
   CategoryScreen,
@@ -25,15 +25,7 @@ import { DrawerSceneWrapper } from "../../components";
 import { selectIsLoggedIn, setIsLoggedIn } from "../../redux/slices/user";
 import { PreLogin } from "../../screens/auth";
 import { height, width } from "../../utills/Dimension";
-
-const Screen1 = () => {
-  return <View style={styles.screen1} />;
-};
-
-const Screen2 = () => {
-  return <View style={styles.screen2} />;
-};
-
+import Home from "../../screens/app/home";
 export default function BottomNav({ navigation }) {
   const islogin = useSelector(selectIsLoggedIn);
   const _renderIcon = (routeName, selectedTab) => {
@@ -65,7 +57,14 @@ export default function BottomNav({ navigation }) {
   const renderTabBar = ({ routeName, selectedTab, navigate }) => {
     return (
       <TouchableOpacity
-        onPress={() => navigate(routeName)}
+        onPress={() => {
+          navigate(routeName);
+          console.log("button pressed");
+          if (Home?.scrollViewRef?.current) {
+            console.log("ref found");
+            Home.scrollViewRef.current.scrollToTop();
+          }
+        }}
         style={styles.tabbarItem}
       >
         {_renderIcon(routeName, selectedTab)}
@@ -94,7 +93,7 @@ export default function BottomNav({ navigation }) {
                 navigation.navigate("tit");
               }}
             >
-              <FontAwesome5 name={"plus"} color={AppColors.white} size={22} />
+              <FontAwesome5 name={"plus"} color={AppColors.white} size={width(6)} />
             </TouchableOpacity>
           </Animated.View>
         )}
@@ -109,7 +108,7 @@ export default function BottomNav({ navigation }) {
         <CurvedBottomBarExpo.Screen
           name="tit"
           component={() =>
-           islogin ? (
+            islogin ? (
               <CategoryScreen navigation={navigation} value="ADD" />
             ) : (
               <PreLogin navigation={navigation} />
@@ -176,8 +175,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomBar: {
-    backgroundColor:'rgba(0,0,0,0)',
- 
+    backgroundColor: "rgba(0,0,0,0)",
   },
   btnCircleUp: {
     width: 50,
@@ -189,7 +187,7 @@ export const styles = StyleSheet.create({
     bottom: 20,
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowColor: "rgba(0, 0, 0, 0.2)",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,

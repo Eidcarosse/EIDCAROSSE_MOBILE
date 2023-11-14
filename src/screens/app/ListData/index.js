@@ -35,6 +35,7 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { setAppLoader } from "../../../redux/slices/config";
 import { useTranslation } from "react-i18next";
+import categories from "../../../svgcomponents";
 
 export default function ListData({ navigation, route }) {
   const { t } = useTranslation();
@@ -193,7 +194,14 @@ export default function ListData({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"allData.title"} navigation={navigation} />
+        <Head
+          headtitle={
+            category
+              ? t(categories?.find((cat) => cat.title === category)?.show)
+              : "allData.title"
+          }
+          navigation={navigation}
+        />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -295,45 +303,45 @@ export default function ListData({ navigation, route }) {
             keyExtractor={(item, index) => index}
           />
         ) : ( */}
-          <FlatList
-            key={"coloum1"}
-            data={data.filter((item) => {
-              return item.title
-                .toLowerCase()
-                .includes(searchString.toLowerCase());
-            })}
-            showsVerticalScrollIndicator={false}
-            style={styles.flatlist}
-            renderItem={({ item }) => {
-              return (
-                <View style={{ width: width(98), alignItems: "center" }}>
-                  <Card data={item} />
-                </View>
-              );
-            }}
-            ListEmptyComponent={({ item }) => (
-              <View style={styles.emptyview}>
-                {refreshing ? (
-                  <ActivityIndicator size={"large"} color={AppColors.primary} />
-                ) : (
-                  <Image source={Icons.empty} style={styles.emptyimage} />
-                )}
+        <FlatList
+          key={"coloum1"}
+          data={data.filter((item) => {
+            return item.title
+              .toLowerCase()
+              .includes(searchString.toLowerCase());
+          })}
+          showsVerticalScrollIndicator={false}
+          style={styles.flatlist}
+          renderItem={({ item }) => {
+            return (
+              <View style={{ width: width(98), alignItems: "center" }}>
+                <Card data={item} />
               </View>
-            )}
-            numColumns={1}
-            onEndReached={() => {
-              if (!empty) handleEndReached();
-            }} // Callback when the end is reached
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={() =>
-              !loder && !empty ? (
+            );
+          }}
+          ListEmptyComponent={({ item }) => (
+            <View style={styles.emptyview}>
+              {refreshing ? (
                 <ActivityIndicator size={"large"} color={AppColors.primary} />
               ) : (
-                <></>
-              )
-            }
-            keyExtractor={(item, index) => index}
-          />
+                <Image source={Icons.empty} style={styles.emptyimage} />
+              )}
+            </View>
+          )}
+          numColumns={1}
+          onEndReached={() => {
+            if (!empty) handleEndReached();
+          }} // Callback when the end is reached
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={() =>
+            !loder && !empty ? (
+              <ActivityIndicator size={"large"} color={AppColors.primary} />
+            ) : (
+              <></>
+            )
+          }
+          keyExtractor={(item, index) => index}
+        />
         {/* )} */}
         <View>
           <RBSheet
@@ -358,23 +366,26 @@ export default function ListData({ navigation, route }) {
                 >
                   <Text
                     style={{
-                      fontSize: width(5),
+                      fontSize: width(6),
                       fontWeight: "bold",
                     }}
                   >
-                    Filters
+                    {t("allData.filter")}
                   </Text>
-                  <Text
+                  {/* <Text
                     style={{
                       fontSize: width(3),
                       color: AppColors.primary,
                     }}
                   >
                     close
-                  </Text>
+                  </Text> */}
                 </View>
 
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView
+                  style={{ height: height(57) }}
+                  showsVerticalScrollIndicator={false}
+                >
                   {/* <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>Category</Text>
                     <SelectDropdown
@@ -403,7 +414,7 @@ export default function ListData({ navigation, route }) {
                   </View> */}
                   {!(vCategory == undefined || vCategory == []) ? (
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>Sub Category</Text>
+                      <Text style={styles.title}>{t("allData.sub")}</Text>
                       <SelectDropdown
                         data={vCategory}
                         defaultValue={subCategory}
@@ -475,7 +486,7 @@ export default function ListData({ navigation, route }) {
                   )}
                   {category && (
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>Brand</Text>
+                      <Text style={styles.title}>{t("allData.brand")}</Text>
                       <SelectDropdown
                         data={vcompanies}
                         search={true}
@@ -509,7 +520,7 @@ export default function ListData({ navigation, route }) {
                     </View>
                   )}
                   <View style={{ alignSelf: "center" }}>
-                    <Text style={styles.title}>Sort By</Text>
+                    <Text style={styles.title}>{t("allData.storeby")}</Text>
                     <SelectDropdown
                       data={sortdata}
                       searchPlaceHolder={"Search here"}
@@ -551,7 +562,7 @@ export default function ListData({ navigation, route }) {
                     />
                   </View> */}
                   <View style={{ paddingVertical: width(1) }}>
-                    <Text style={styles.title}>Address</Text>
+                    <Text style={styles.title}>{t("allData.address")}</Text>
                     <Input
                       value={address}
                       setvalue={setAddress}
@@ -567,7 +578,7 @@ export default function ListData({ navigation, route }) {
                     />
                   </View>
                   <View style={{ paddingLeft: 4, paddingVertical: width(1) }}>
-                    <Text style={styles.title}>Price Rang (CHF)</Text>
+                    <Text style={styles.title}>{t("allData.pricerang")}</Text>
                     <View
                       style={{
                         flexDirection: "row",
@@ -589,7 +600,7 @@ export default function ListData({ navigation, route }) {
                     </View>
                   </View>
                   <View style={{ alignSelf: "center" }}>
-                    <Text style={styles.title}>Condition</Text>
+                    <Text style={styles.title}>{t("allData.condition")}</Text>
 
                     <RadioButtonRN
                       data={rdata}
@@ -646,7 +657,7 @@ export default function ListData({ navigation, route }) {
                   }}
                 >
                   <Button
-                    title={"clear"}
+                    title={"allData.clear"}
                     containerStyle={{
                       width: width(48),
                       borderRadius: width(1),
@@ -655,7 +666,7 @@ export default function ListData({ navigation, route }) {
                     onPressClear={() => refRBSheet.current.close()}
                   />
                   <Button
-                    title={"Filter"}
+                    title={"allData.search"}
                     containerStyle={{
                       width: width(40),
                       borderRadius: width(1),

@@ -65,7 +65,7 @@ export default {
     a7: "Oui. Le vendeur recevra une notification par e-mail pour les demandes de chat ou les e-mails. Pour le chat, l'acheteur recevra le premier message initial sous forme de notification par e-mail.",
   },
   HTSF: {
-    htsf:"Comment vendre rapidement",
+    htsf: "Comment vendre rapidement",
     title1: "Choisissez le bon prix",
     detail1:
       "Lors de la détermination du prix d'un article, tenez compte du fait que le prix est un facteur important pour les clients. Pour vous assurer de fixer un prix raisonnable et compétitif, prenez le temps de rechercher des annonces similaires avant de finaliser votre stratégie de tarification.",
@@ -77,7 +77,7 @@ export default {
       "Offrez une description claire et détaillée de votre produit, en veillant à fournir des informations précises et complètes sur vos articles.",
   },
   aboutUs: {
-    aboutus:"À propos de nous",
+    aboutus: "À propos de nous",
     paraDetail1:
       "Eidcarosse est une place de marché en ligne complète dédiée à faciliter l'achat et la vente de véhicules. Avec une interface conviviale et des fonctionnalités de recherche puissantes, Eidcarosse met en relation les particuliers à la recherche de véhicules avec des vendeurs proposant une gamme étendue d'options. Que vous recherchiez une berline élégante, un puissant camion, une moto élégante ou tout autre véhicule, Eidcarosse offre une plateforme qui simplifie l'ensemble du processus.",
 
@@ -100,16 +100,16 @@ export default {
   },
 
   SNTU: {
-    sntu:"Vendez maintenant à nous",
+    sntu: "Vendez maintenant à nous",
     data: "Vous pouvez désormais vendre votre véhicule et vos machines sur Eidcarosse. Nous offrons un processus sans tracas et des prix compétitifs pour votre véhicule. Que vous souhaitiez effectuer une mise à niveau ou que vous ayez besoin de vendre rapidement votre véhicule et vos biens, nous avons tout prévu. Vendez maintenant et vivez une expérience de vente sans problème avec nous !",
   },
   RN: {
-    rn:"Réparez maintenant",
+    rn: "Réparez maintenant",
     data: "Vous pouvez désormais vendre votre véhicule et vos machines sur Eidcarosse. Nous offrons un processus sans tracas et des prix compétitifs pour votre véhicule. Que vous souhaitiez effectuer une mise à niveau ou que vous ayez besoin de vendre rapidement votre véhicule et vos biens, nous avons tout prévu. Vendez maintenant et vivez une expérience de vente sans problème avec nous !",
   },
 
   privacy: {
-    privacy:"Politique de confidentialité",
+    privacy: "Politique de confidentialité",
     paraDetail1:
       "Les créateurs de l'application mobile Eidcarosse – accordent la priorité et attachent de l'importance à la sécurité et à la confidentialité des informations que vous partagez avec nous via notre application Eidcarosse. Nous souhaitons que nos utilisateurs se sentent aussi à l'aise que possible lorsqu'ils utilisent notre application. Si vous décidez de nous faire confiance avec vos informations, vous devez comprendre comment nous les collectons, les utilisons et les conservons.\n\nLorsque vous vous apprêtez à utiliser Eidcarosse, vous devrez vous inscrire auprès de nous. L'inscription nous donne votre prénom, nom de famille, adresse e-mail et numéro de téléphone.",
 
@@ -154,7 +154,7 @@ export default {
       "Si vous avez des suggestions ou des questions concernant notre politique de confidentialité, n'hésitez pas à nous contacter à l'adresse kundendienst@eidcarosse.ch.",
   },
   terms: {
-    tandc:"Conditions générales",
+    tandc: "Conditions générales",
     paraData1:
       "Avant d'utiliser le service de l'application mobile Eidcarosse, il est essentiel que vous examiniez attentivement et acceptiez les Conditions Générales suivantes. Votre acceptation de ces conditions est nécessaire pour utiliser l'application. Assurez-vous de lire attentivement les Conditions Générales avant d'utiliser le service.",
 
@@ -329,7 +329,7 @@ export default {
     TandC2: "Conditions Générales d'Eidcarosse",
     post: "Ajouter une Annonce",
     phsearchHere: "Rechercher ici",
-    defaultValueDropdown:"Sélectionnez une option"
+    defaultValueDropdown: "Sélectionnez une option",
   },
   fuelTypelist: {
     Gasoline: "Essence",
@@ -509,23 +509,32 @@ export default {
     Spanish: "Espagnol",
     French: "Français",
   },
-  allData:{
-    title:"Données de recherche",
-    totalresult:"Résultat Total"
+  allData: {
+    title: "Rechercher des données",
+    totalresult: "Résultat total",
+    filter: "Filtre",
+    brand: "Marque",
+    sub: "Sous-catégorie",
+    storeby: "Stocké par",
+    address: "Adresse",
+    pricerang: "Plage de prix (CHF)",
+    condition: "État",
+    clear: "Effacer",
+    search: "Rechercher",
   },
-  subcategory:{
-    titleBike:"Bikes",
-    titleParts:"Parts",
+  subcategory: {
+    titleBike: "Bikes",
+    titleParts: "Parts",
   },
-  myad:{
-    edit:"Modifier",
+  myad: {
+    edit: "Modifier",
     title: "Mes annonces",
-    published:"Publié",
-    mute:"Muet",
-    delete:"Supprimer",
-    refresh:"Actualiser",
-    markassold:"Marquer comme vendu",
-    republish:"Republier",
-    sold:"Vendu"
-  }
+    published: "Publié",
+    mute: "Muet",
+    delete: "Supprimer",
+    refresh: "Actualiser",
+    markassold: "Marquer comme vendu",
+    republish: "Republier",
+    sold: "Vendu",
+  },
 };

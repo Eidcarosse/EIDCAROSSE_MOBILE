@@ -482,8 +482,17 @@ export default {
     French: "Francese",
   },
   allData: {
-    title: "Dati di ricerca",
+    title: "Ricerca dati",
     totalresult: "Risultato totale",
+    filter: "Filtro",
+    brand: "Marca",
+    sub: "Sottocategoria",
+    storeby: "Archivia per",
+    address: "Indirizzo",
+    pricerang: "Intervallo di prezzo (CHF)",
+    condition: "Condizione",
+    clear: "Cancella",
+    search: "Ricerca",
   },
   subcategory: {
     titleBike: "Bikes",

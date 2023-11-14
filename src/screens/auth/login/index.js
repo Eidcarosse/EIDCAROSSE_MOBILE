@@ -56,9 +56,6 @@ export default function Login({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(res?.message);
       } else if (res?.success) {
-        console.log("====================================");
-        console.log(res?.data?.userDetails?.favAdIds);
-        console.log("====================================");
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(res?.data?.userDetails));
         dispatch(setToken(res?.data?.token));

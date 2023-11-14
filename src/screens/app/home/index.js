@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper } from "../../../components";
@@ -10,9 +10,11 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
 import { useFocusEffect } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
+import { useNavigation } from "@react-navigation/native";
 import {
   selectTopAds,
   setAppLoader,
@@ -22,14 +24,14 @@ import { width } from "../../../utills/Dimension";
 import { toastMessage } from "../../../utills/Methods";
 import styles from "./styles";
 import { Card } from "../../../components";
-
+import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 export default function Home({ navigation, route }) {
+  const scrollViewRef = useRef(null);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const data = useSelector(selectTopAds);
   const [refreshing, setRefreshing] = useState(false);
   const [searchString, setSearchString] = useState("");
-
   const onRefresh = async () => {
     setRefreshing(true);
     getData();
@@ -41,6 +43,7 @@ export default function Home({ navigation, route }) {
       getData();
     }, [])
   );
+
   const getData = useCallback(async () => {
     // dispatch(setAppLoader(true));
     try {
@@ -64,6 +67,7 @@ export default function Home({ navigation, route }) {
       scrollEnabled
       refreshing={refreshing}
       onRefresh={onRefresh}
+      scrollViewRef={scrollViewRef}
     >
       <View style={styles.mainViewContainer}>
         <SearchBar

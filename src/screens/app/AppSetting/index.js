@@ -29,7 +29,6 @@ export default function AppSetting({ navigation, route }) {
   const dispatch = useDispatch();
 
   const changeAppLanguage = async (newLanguage) => {
-    console.log("change language");
     let value;
 
     switch (newLanguage) {

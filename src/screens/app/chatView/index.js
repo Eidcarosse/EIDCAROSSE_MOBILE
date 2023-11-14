@@ -384,80 +384,80 @@ function ChatView({ route }) {
     }
   }, []);
 
-  // const getBlobFromUri = async (uri) => {
-  //   console.log("Executing Blob");
-  //   try {
-  //     const response =fetch(uri);
-  //     const blob = await response.data;
-  //     console.log("Blob Created");
-  //     return blob;
-  //   } catch (error) {
-  //     console.error("Error fetching and creating blob:", error);
-  //     throw error;
-  //   }
-  // };
+  const getBlobFromUri = async (uri) => {
+    console.log("Executing Blob");
+    try {
+      const response =fetch(uri);
+      const blob = await response.data;
+      console.log("Blob Created");
+      return blob;
+    } catch (error) {
+      console.error("Error fetching and creating blob:", error);
+      throw error;
+    }
+  };
 
-  // const saveImages = async () => {
-  //   const imageUrls = [];
-  //   const storage = getStorage();
-  //   const newMessageRef = push(ref(database, `chatrooms/${roomID}/messages`));
-  //   console.log(newMessageRef);
-  //   for (const imageUri of image) {
-  //     try {
-  //       const split = imageUri.split("/");
-  //       const name = split.pop();
-  //       const imageRef = storageRef(
-  //         storage,
-  //         `chatrooms/${roomID}/images/${name}`
-  //       );
+  const saveImages = async () => {
+    const imageUrls = [];
+    const storage = getStorage();
+    const newMessageRef = push(ref(database, `chatrooms/${roomID}/messages`));
+    console.log(newMessageRef);
+    for (const imageUri of image) {
+      try {
+        const split = imageUri.split("/");
+        const name = split.pop();
+        const imageRef = storageRef(
+          storage,
+          `chatrooms/${roomID}/images/${name}`
+        );
 
-  //       const metadata = {
-  //         contentType: "image/jpeg/jpg/png",
-  //       };
+        const metadata = {
+          contentType: "image/jpeg/jpg/png",
+        };
 
-  //       // Get the blob from the image URI
-  //       console.log("Getting Blob", imageUri);
-  //       const imageBlob = await getBlobFromUri(imageUri);
+        // Get the blob from the image URI
+        console.log("Getting Blob", imageUri);
+        const imageBlob = await getBlobFromUri(imageUri);
 
-  //       // Use uploadBytesResumable to upload the blob
-  //       console.log("Blob Received", imageBlob);
-  //       const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
+        // Use uploadBytesResumable to upload the blob
+        console.log("Blob Received", imageBlob);
+        const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
 
-  //       // Wait for the upload task to complete
-  //       console.log("Image Uploading");
-  //       const snapshot = await uploadTask;
+        // Wait for the upload task to complete
+        console.log("Image Uploading");
+        const snapshot = await uploadTask;
 
-  //       if (snapshot.state === "success") {
-  //         console.log("Image Uploaded");
-  //         const downloadUrl = await getDownloadURL(imageRef);
-  //         if (downloadUrl) {
-  //           imageUrls.push(downloadUrl);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error uploading image:", error);
-  //       // Handle the error appropriately, e.g., show an error message to the user.
-  //     }
-  //   }
+        if (snapshot.state === "success") {
+          console.log("Image Uploaded");
+          const downloadUrl = await getDownloadURL(imageRef);
+          if (downloadUrl) {
+            imageUrls.push(downloadUrl);
+          }
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        // Handle the error appropriately, e.g., show an error message to the user.
+      }
+    }
 
-  //   if (imageUrls.length > 0) {
-  //     const messageData = {
-  //       images: imageUrls,
-  //       timestamp: Date.now(),
-  //       senderId: user?._id,
-  //     };
+    if (imageUrls.length > 0) {
+      const messageData = {
+        images: imageUrls,
+        timestamp: Date.now(),
+        senderId: user?._id,
+      };
 
-  //     try {
-  //       await set(newMessageRef, messageData);
-  //     } catch (error) {
-  //       console.error("Error setting new message:", error);
-  //       // Handle the error appropriately, e.g., show an error message to the user.
-  //     }
-  //   }
+      try {
+        await set(newMessageRef, messageData);
+      } catch (error) {
+        console.error("Error setting new message:", error);
+        // Handle the error appropriately, e.g., show an error message to the user.
+      }
+    }
 
-  //   setImageModal(false);
-  //   setImage([]);
-  // };
+    setImageModal(false);
+    setImage([]);
+  };
   // const saveImages = async () => {
   //   const imageUrls = [];
   //   const storage = getStorage();
@@ -579,7 +579,7 @@ function ChatView({ route }) {
             _id: user?._id, // Use a unique user ID here
           }}
           renderAvatar={renderAvatar}
-          // renderActions={renderActions}
+          renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}
           renderTime={renderTime}
@@ -596,7 +596,7 @@ function ChatView({ route }) {
             hasBackdrop={true}
           >
             <View style={styles.modalContainer}>
-              {/* <Button title="Close" onPress={closeModal} /> */}
+              <Button title="Close" onPress={closeModal} />
               <TouchableOpacity
                 onPress={closeModal}
                 style={{ margin: width(5) }}

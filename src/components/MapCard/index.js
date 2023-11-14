@@ -18,7 +18,6 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 export default function MapAdCard({ data, onPress }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
-  //console.log("indata", data);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);

@@ -92,7 +92,7 @@ export default function MyCard({ data }) {
       </View>
 
       <View style={styles.icons}>
-        <TouchableOpacity style={{ paddingVertical: 3 }} onPress={showMenu}>
+        <TouchableOpacity style={{backgroundColor:AppColors.grey,padding:width(2),borderRadius:width(1) }} onPress={showMenu}>
           <Entypo size={width(4)} name="dots-three-vertical" />
         </TouchableOpacity>
         {sold ? (

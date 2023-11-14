@@ -4,7 +4,8 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   main: {
-    width: width(96),
+    width: width(95),
+    padding: width(2),
     backgroundColor: AppColors.white,
     borderRadius: width(1),
     ...Platform.select({
@@ -22,16 +23,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   imageview: {
-    width: width(96),
-    height: width(50),
+    width: width(90),
+    backgroundColor: AppColors.transparent,
+    flexDirection: "row",
+    alignSelf: "center",
+    borderRadius: width(5),
   },
   image: {
-    width: width(100),
+    width: width(87),
     height: width(50),
-    resizeMode:'contain'
+    borderRadius: width(5),
+    resizeMode: "cover",
   },
   detail: {
-    width: width(96),
+    width: width(93),
     justifyContent: "space-between",
     padding: width(2),
   },
@@ -46,23 +51,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   detailinerview: {
-    paddingBottom: width(5),
+    paddingBottom: width(2),
     flexDirection: "row",
-    width: width(43),
     justifyContent: "space-between",
   },
   chf: {
-    fontSize: width(4),
+    fontSize: width(5),
     color: AppColors.primary,
     fontWeight: "bold",
   },
   eur: {
-    fontSize: width(3),
+    fontSize: width(4),
     color: "grey",
     fontWeight: "bold",
   },
   icons: {
-    width: width(96),
+    width: width(20),
     justifyContent: "space-between",
     flexDirection: "row",
     padding: width(2),
@@ -77,8 +81,14 @@ const styles = StyleSheet.create({
   categorytext: {
     fontSize: width(3),
     marginLeft: width(2),
-    width: width(35),
-    marginVertical: width(0.5),
+    width: width(65),
+    color: "grey",
+  },
+  cics: {
+    resizeMode: "cover",
+    height: height(30),
+    alignItems: "center",
+    alignSelf: "center",
   },
 });
 export default styles;

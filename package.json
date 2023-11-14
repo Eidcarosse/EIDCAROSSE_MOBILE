@@ -45,7 +45,7 @@
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-dropdown-select-list": "^2.0.5",
     "react-native-flash-message": "^0.2.1",
-    "react-native-gesture-handler": "~2.12.0",
+    "react-native-gesture-handler": "^2.13.4",
     "react-native-gifted-chat": "^2.4.0",
     "react-native-google-places-autocomplete": "^2.5.1",
     "react-native-image-crop-picker": "^0.38.0",

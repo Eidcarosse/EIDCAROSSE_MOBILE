@@ -41,7 +41,6 @@ export default function SearchFilter({
 
   useEffect(() => {
     getvehicleMake();
-    console.log(  pricefrom);
   }, [category]);
   const getvehicleMake = async () => {
     setLoder(true);

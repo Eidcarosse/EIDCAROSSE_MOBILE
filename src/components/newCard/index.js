@@ -1,7 +1,15 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFavAds,
@@ -15,10 +23,10 @@ import GlobalMethods, { infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
+import { ImageSlider } from "react-native-image-slider-banner";
 export default function Card({ data }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
-  //console.log("indata", data);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
@@ -30,7 +38,9 @@ export default function Card({ data }) {
       setFav(false);
     }
   });
-
+  const img = data?.images?.map((item) => {
+    return { img: item };
+  });
   function isInArray(element, arr) {
     // Check if arr is defined and not null
     if (arr && Array.isArray(arr)) {
@@ -53,32 +63,38 @@ export default function Card({ data }) {
   };
   const renderItem = ({ item }) => {
     return (
-      <Image
-        resizeMode="cover"
-        style={styles.image}
-        // source={{ uri: data?.image[0] }}
-        source={{ uri: item ? item : Icons.car }}
-      />
+      <Pressable
+        onPress={() => {
+          navigation.navigate(ScreenNames.DETAIL, data);
+        }}
+        style={{ paddingHorizontal: width(.5) }}
+      >
+        <Image
+          resizeMode="cover"
+          style={styles.image}
+          // source={{ uri: data?.image[0] }}
+          source={{ uri: item ? item?.img : Icons.car }}
+        />
+      </Pressable>
     );
   };
   return (
     <View style={styles.main}>
-      <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={() => {
-          navigation.navigate(ScreenNames.DETAIL, data);
-        }}
-      >
-        <View style={styles.detail}>
+      <View style={{ borderBottomWidth: width(0.1) }}>
+        <Pressable
+          style={styles.detail}
+          onPress={() => {
+            navigation.navigate(ScreenNames.DETAIL, data);
+          }}
+        >
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              width: width(93),
-              paddingHorizontal: width(2),
+              width: width(90),
             }}
           >
-            <View>
+            <View style={{ width: width(65) }}>
               <Text numberOfLines={1} style={styles.titletext}>
                 {data?.title}
               </Text>
@@ -93,20 +109,21 @@ export default function Card({ data }) {
               style={{
                 flexDirection: "row",
                 width: width(20),
-                justifyContent: "space-around",
+                justifyContent: "space-between",
+                padding: width(2),
               }}
             >
               <TouchableOpacity
                 onPress={() => GlobalMethods.onPressShare("share")}
               >
-                <Entypo size={width(4)} name="share" />
+                <Entypo size={width(5)} name="share" color={"grey"} />
               </TouchableOpacity>
               {!(data?.userId === loginuser?._id) ? (
                 <View>
                   <TouchableOpacity onPress={onpressfav}>
                     <AntDesign
-                      size={width(4)}
-                      color={fav ? AppColors.primary : "black"}
+                      size={width(5)}
+                      color={fav ? AppColors.primary : "grey"}
                       name={fav ? "heart" : "hearto"}
                     />
                   </TouchableOpacity>
@@ -116,19 +133,24 @@ export default function Card({ data }) {
               )}
             </View>
           </View>
-        </View>
+        </Pressable>
 
         <View style={styles.imageview}>
-          {/* <Image style={styles.image} source={{ uri: data?.images[0] }} /> */}
-          <SwiperFlatList
-            // autoplay
-            // autoplayDelay={1}
-            // autoplayLoop={true}
-            data={data?.images}
-            renderItem={renderItem}
-          />
+          {/* <ImageSlider
+            data={img}
+            showIndicator={false}
+            autoPlay={false}
+            preview={false}
+            caroselImageStyle={styles.cics}
+          /> */}
+          <FlatList horizontal data={img} renderItem={renderItem} />
         </View>
-        <View style={styles.detail}>
+        <Pressable
+          style={styles.detail}
+          onPress={() => {
+            navigation.navigate(ScreenNames.DETAIL, data);
+          }}
+        >
           <View style={styles.detailinerview}>
             {data?.price ? (
               <View>
@@ -153,7 +175,7 @@ export default function Card({ data }) {
               justifyContent: "space-between",
               alignItems: "center",
               alignContent: "center",
-              width: width(90),
+              width: width(87),
             }}
           >
             <View style={styles.categoryview}>
@@ -162,13 +184,13 @@ export default function Card({ data }) {
                 {GlobalMethods.calculateTimeDifference(data?.createdAt)}
               </Text>
             </View>
-            <Text style={{ fontSize: width(2) }}>
+            <Text style={{ fontSize: width(3), color: "grey" }}>
               {data?.views}
               {"  Views"}
             </Text>
           </View>
-        </View>
-      </TouchableOpacity>
+        </Pressable>
+      </View>
       {!(data?.userId === loginuser?._id) ? (
         <View style={styles.icons}>
           <View style={styles.categoryview}>
@@ -180,21 +202,21 @@ export default function Card({ data }) {
           <View
             style={{
               flexDirection: "row",
-              width: width(18),
+              width: width(20),
               justifyContent: "space-around",
             }}
           >
             <TouchableOpacity
               onPress={() => GlobalMethods.onPressCall("12345678")}
             >
-              <Ionicons size={width(4)} name="call" />
+              <Ionicons size={width(5)} name="call" color={"grey"} />
             </TouchableOpacity>
             <TouchableOpacity
             // onPress={() => {
             //   navigation.navigate(ScreenNames.CHAT, data);
             // }}
             >
-              <Ionicons size={width(4)} name="chatbubble-ellipses" />
+              <Entypo size={width(5)} name="chat" color={"grey"} />
             </TouchableOpacity>
           </View>
         </View>

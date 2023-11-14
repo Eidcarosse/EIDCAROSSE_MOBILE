@@ -8,7 +8,6 @@ import { Parts, bikedata, data } from "../../../utills/Data";
 import { useTranslation } from "react-i18next";
 
 export default function BikeCategory({ navigation, route }) {
-  // console.log("bike page", route?.params?.show);
   const { t } = useTranslation();
 
   return (
