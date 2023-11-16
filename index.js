@@ -2,6 +2,7 @@ import { AppRegistry, Platform } from "react-native";
 import { registerRootComponent } from "expo";
 import App from "./src";
 import { name as appName } from "./app.json";
+
 // import { initializeApp } from '@react-native-firebase/app';
 // // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {

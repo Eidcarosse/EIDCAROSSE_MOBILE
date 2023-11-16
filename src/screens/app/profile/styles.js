@@ -4,8 +4,9 @@ import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    height: height(100),
+    flex:1,
     backgroundColor: AppColors.white,
+    paddingBottom:height(10)
   },
   imageiner: {
     height: height(28),

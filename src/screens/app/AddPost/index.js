@@ -505,9 +505,8 @@ export default function AddPost({ navigation, route }) {
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <SelectDropdown
-              defaultButtonText={t("addPost.defaultValueDropdown")}
+                defaultButtonText={t("addPost.defaultValueDropdown")}
                 data={vCategory}
-              
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 search={true}
                 buttonStyle={styles.searchbox}
@@ -546,7 +545,7 @@ export default function AddPost({ navigation, route }) {
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>{t("addPost.brand")}</Text>
             <SelectDropdown
-            defaultButtonText={t("addPost.defaultValueDropdown")}
+              defaultButtonText={t("addPost.defaultValueDropdown")}
               data={vcompanies}
               search={true}
               searchPlaceHolder={t("addPost.phsearchHere")}
@@ -577,7 +576,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
-                  defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     ref={modelRef}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     data={apimodel}
@@ -624,7 +623,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
-                  defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={category == "Bikes" ? bikeBodyShape : bodyShapeList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -655,7 +654,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
-                  defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={gearBoxList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -686,7 +685,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
-                  defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={category == "Bikes" ? BikeFuelType : fuelTypelist}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -717,7 +716,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
                   <SelectDropdown
-                  defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={
                       category == "Bikes"
                         ? bikeExteriorColor
@@ -752,7 +751,7 @@ export default function AddPost({ navigation, route }) {
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
-                  defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={t("addPost.defaultValueDropdown")}
                     data={interiorColorList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -1006,7 +1005,9 @@ export default function AddPost({ navigation, route }) {
           <View>
             <Text>{t("addPost.TandC1")}</Text>
             <TouchableOpacity
-            onPress={()=>{navigation.navigate(ScreenNames.TNC)}}
+              onPress={() => {
+                navigation.navigate(ScreenNames.TNC);
+              }}
             >
               <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
                 {" "}

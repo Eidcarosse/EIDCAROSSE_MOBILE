@@ -1,5 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import BottomNav from "../bottom";
+import BottomNav from "../BottomNav";
 import { CustomDrawer } from "../../components";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";

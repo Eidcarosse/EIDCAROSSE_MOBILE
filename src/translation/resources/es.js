@@ -505,6 +505,11 @@ export default {
     condition: "Condición",
     clear: "Limpiar",
     search: "Buscar",
+    phsearchHere: "Buscar aquí",
+    defaultValueDropdown: "Seleccionar una opción",
+    searchbyaddress: "Buscar por dirección",
+    from: "desde",
+    to: "a",
   },
   subcategory: {
     titleBike: "Bikes",

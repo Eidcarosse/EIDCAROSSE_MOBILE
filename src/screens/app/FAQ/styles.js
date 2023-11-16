@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   mainViewContainer: {
     alignItems: "center",
     padding: width(1),
-    paddingBottom: width(15),
+    paddingBottom: width(17),
     backgroundColor: AppColors.white,
   },
  

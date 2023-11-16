@@ -493,6 +493,11 @@ export default {
     condition: "Condizione",
     clear: "Cancella",
     search: "Ricerca",
+    defaultValueDropdown: "Seleziona un'opzione",
+    phsearchHere: "Cerca qui",
+    searchbyaddress: "Ricerca per indirizzo",
+    from: "da",
+    to: "a",
   },
   subcategory: {
     titleBike: "Bikes",

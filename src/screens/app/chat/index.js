@@ -8,9 +8,8 @@ import styles from "./styles";
 import { useSelector } from "react-redux";
 import { selectChatRooms } from "../../../redux/slices/user";
 
-
 export default function ChatList({ navigation, route }) {
-  const data = useSelector(selectChatRooms)
+  const data = useSelector(selectChatRooms);
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}
@@ -22,9 +21,7 @@ export default function ChatList({ navigation, route }) {
           showsVerticalScrollIndicator={false}
           data={data}
           renderItem={({ item }) => (
-            <ChatIcon
-              data={item}
-            />
+            <ChatIcon data={item} navigation={navigation} />
           )}
           keyExtractor={(item, index) => index}
         />

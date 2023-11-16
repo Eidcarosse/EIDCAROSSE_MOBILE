@@ -176,13 +176,16 @@ export default function ListData({ navigation, route }) {
 
   const rdata = [
     {
-      label: "new",
+      key: "new",
+      label: t("condition.new"),
     },
     {
-      label: "used",
+      key: "used",
+      label: t("condition.used"),
     },
     {
-      label: "Recondition",
+      key: "Recondition",
+      label: t("condition.Recondition"),
     },
   ];
   const sortdata = [
@@ -417,8 +420,9 @@ export default function ListData({ navigation, route }) {
                       <Text style={styles.title}>{t("allData.sub")}</Text>
                       <SelectDropdown
                         data={vCategory}
+                        defaultButtonText={t("allData.defaultValueDropdown")}
                         defaultValue={subCategory}
-                        searchPlaceHolder={"Search here"}
+                        searchPlaceHolder={t("allData.phsearchHere")}
                         search={true}
                         buttonStyle={styles.searchbox}
                         selectedRowStyle={{
@@ -488,10 +492,11 @@ export default function ListData({ navigation, route }) {
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("allData.brand")}</Text>
                       <SelectDropdown
+                        defaultButtonText={t("allData.defaultValueDropdown")}
                         data={vcompanies}
                         search={true}
                         defaultValue={brand}
-                        searchPlaceHolder={"Search here"}
+                        searchPlaceHolder={t("allData.phsearchHere")}
                         buttonStyle={styles.searchbox}
                         selectedRowStyle={{
                           backgroundColor: AppColors.primary,
@@ -523,7 +528,8 @@ export default function ListData({ navigation, route }) {
                     <Text style={styles.title}>{t("allData.storeby")}</Text>
                     <SelectDropdown
                       data={sortdata}
-                      searchPlaceHolder={"Search here"}
+                      defaultButtonText={t("allData.defaultValueDropdown")}
+                      searchPlaceHolder={t("allData.phsearchHere")}
                       search={true}
                       defaultValue={sortby}
                       buttonStyle={styles.searchbox}
@@ -566,7 +572,7 @@ export default function ListData({ navigation, route }) {
                     <Input
                       value={address}
                       setvalue={setAddress}
-                      placeholder={"search by address"}
+                      placeholder={"allData.searchbyaddress"}
                       containerStyle={[
                         {
                           width: width(90),
@@ -588,13 +594,13 @@ export default function ListData({ navigation, route }) {
                       <Input
                         value={pricefrom}
                         setvalue={setPricefrom}
-                        placeholder={"From"}
+                        placeholder={"allData.from"}
                         containerStyle={styles.price}
                       />
                       <Input
                         value={priceto}
                         setvalue={setPriceto}
-                        placeholder={"to"}
+                        placeholder={"allData.to"}
                         containerStyle={styles.price}
                       />
                     </View>
@@ -604,6 +610,7 @@ export default function ListData({ navigation, route }) {
 
                     <RadioButtonRN
                       data={rdata}
+                      initial={1}
                       circleSize={width(3)}
                       boxStyle={{
                         width: width(90),
@@ -612,7 +619,7 @@ export default function ListData({ navigation, route }) {
                       }}
                       activeColor={AppColors.primary}
                       selectedBtn={(e) => {
-                        setCondition(e.label);
+                        setCondition(e.key);
                       }}
                     />
                   </View>

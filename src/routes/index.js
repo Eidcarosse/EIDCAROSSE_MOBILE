@@ -29,6 +29,7 @@ import {
   EditProfile,
   FAQScreen,
   HTSFScreen,
+  HomeScreen,
   ListData,
   MapAdView,
   MyListingScreen,
@@ -202,5 +203,15 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+export function TestStack() {
+  return (
+    <Stack.Navigator screenOptions={{ header: () => false }}>
+      <Stack.Screen name={ScreenNames.HOME} component={HomeScreen} />
+      <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
+      <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
+      <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
+    </Stack.Navigator>
   );
 }

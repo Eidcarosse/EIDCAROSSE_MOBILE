@@ -521,6 +521,11 @@ export default {
     condition: "État",
     clear: "Effacer",
     search: "Rechercher",
+    phsearchHere: "Rechercher ici",
+    defaultValueDropdown: "Sélectionnez une option",
+    searchbyaddress: "Recherche par adresse",
+    from: "de",
+    to: "à",
   },
   subcategory: {
     titleBike: "Bikes",

@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import AppColors from "../../utills/AppColors";
@@ -49,7 +49,7 @@ export default function BottomNav({ navigation }) {
     return (
       <Ionicons
         name={icon}
-        size={25}
+        size={width(6)}
         color={routeName === selectedTab ? AppColors.primary : "gray"}
       />
     );
@@ -58,12 +58,15 @@ export default function BottomNav({ navigation }) {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigate(routeName);
+          navigate(routeName, {
+            itemId: 86,
+            otherParam: 'anything you want here',
+          });
           console.log("button pressed");
-          if (Home?.scrollViewRef?.current) {
-            console.log("ref found");
-            Home.scrollViewRef.current.scrollToTop();
-          }
+          // if (Home?.scrollViewRef?.current) {
+          //   console.log("ref found");
+          //   Home.scrollViewRef.current.scrollToTop();
+          // }
         }}
         style={styles.tabbarItem}
       >
@@ -93,7 +96,11 @@ export default function BottomNav({ navigation }) {
                 navigation.navigate("tit");
               }}
             >
-              <FontAwesome5 name={"plus"} color={AppColors.white} size={width(6)} />
+              <FontAwesome5
+                name={"plus"}
+                color={AppColors.white}
+                size={width(6)}
+              />
             </TouchableOpacity>
           </Animated.View>
         )}

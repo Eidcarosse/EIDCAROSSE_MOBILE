@@ -9,12 +9,12 @@ import SearchBar from "../../../components/searchbar";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useIsFocused } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import {
   selectTopAds,
   setAppLoader,
@@ -24,9 +24,29 @@ import { width } from "../../../utills/Dimension";
 import { toastMessage } from "../../../utills/Methods";
 import styles from "./styles";
 import { Card } from "../../../components";
-import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
-export default function Home({ navigation, route }) {
+import { useScrollToTop } from "@react-navigation/native";
+export default function Home({}) {
   const scrollViewRef = useRef(null);
+  const navigation = useNavigation();
+  useScrollToTop(scrollViewRef);
+  // useEffect(() => {
+  //   const handleScrollToTop = () => {
+  //     if (scrollViewRef.current) {
+  //       console.log("====================================");
+  //       console.log("running");
+  //       console.log("====================================");
+  //       scrollViewRef.current?.scrollToPosition(0, 0, true);
+  //     }
+  //   };
+
+  //   // Add a listener for the event (e.g., a button press or navigation event)
+  //   const unsubscribe = navigation.addListener("tabPress", handleScrollToTop);
+
+  //   // Clean up the listener when the component is unmounted
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [navigation]);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const data = useSelector(selectTopAds);
@@ -43,7 +63,6 @@ export default function Home({ navigation, route }) {
       getData();
     }, [])
   );
-
   const getData = useCallback(async () => {
     // dispatch(setAppLoader(true));
     try {
@@ -59,6 +78,7 @@ export default function Home({ navigation, route }) {
       // dispatch(setAppLoader(false));
     }
   });
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => <Header navigation={navigation} />}

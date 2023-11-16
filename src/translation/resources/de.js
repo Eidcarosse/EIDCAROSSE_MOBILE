@@ -500,6 +500,11 @@ export default {
     condition: "Zustand",
     clear: "Löschen",
     search: "Suche",
+    defaultValueDropdown: "Option auswählen",
+    phsearchHere: "Hier suchen",
+    searchbyaddress: "Suche nach Adresse",
+    from: "von",
+    to: "zu",
   },
   subcategory: {
     titleBike: "Fahrräder",
@@ -507,7 +512,7 @@ export default {
   },
   myad: {
     edit: "Bearbeiten",
-    title: "Meine Anzeigen",
+    title: "Meine Inserate",
     published: "AKTIV",
     mute: "Stummschalten",
     delete: "Löschen",

@@ -8,12 +8,11 @@ import ScreenNames from "../../routes/routes";
 import { useSelector } from "react-redux";
 import { selectUserMeta } from "../../redux/slices/user";
 
-export default function ChatIcon({ data, onPress }) {
-  const navigation = useNavigation();
+export default function ChatIcon({ navigation, data, onPress }) {
   const loginuser = useSelector(selectUserMeta);
   const [user, setUser] = useState();
   useEffect(() => {
-    getdata()
+    getdata();
   }, []);
   const getdata = async () => {
     let search;

@@ -24,7 +24,10 @@ import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { ImageSlider } from "react-native-image-slider-banner";
+import categories from "../../svgcomponents";
+import { useTranslation } from "react-i18next";
 export default function Card({ data }) {
+  const {t}=useTranslation()
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
   const loginuser = useSelector(selectUserMeta);
@@ -67,7 +70,7 @@ export default function Card({ data }) {
         onPress={() => {
           navigation.navigate(ScreenNames.DETAIL, data);
         }}
-        style={{ paddingHorizontal: width(.5) }}
+        style={{ paddingHorizontal: width(0.5) }}
       >
         <Image
           resizeMode="cover"
@@ -101,7 +104,13 @@ export default function Card({ data }) {
               <View style={styles.categoryview}>
                 <MaterialIcons name="category" color={"grey"} size={width(4)} />
                 <Text numberOfLines={1} style={styles.categorytext}>
-                  {data?.category}
+                  {/* {data?.category}
+                   */}
+                  {t(
+                    categories.find(
+                      (category) => category.title === data?.category
+                    )?.show
+                  )}
                 </Text>
               </View>
             </View>
@@ -143,7 +152,12 @@ export default function Card({ data }) {
             preview={false}
             caroselImageStyle={styles.cics}
           /> */}
-          <FlatList horizontal data={img} renderItem={renderItem} />
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={img}
+            renderItem={renderItem}
+          />
         </View>
         <Pressable
           style={styles.detail}
@@ -191,14 +205,15 @@ export default function Card({ data }) {
           </View>
         </Pressable>
       </View>
-      {!(data?.userId === loginuser?._id) ? (
-        <View style={styles.icons}>
-          <View style={styles.categoryview}>
-            <Entypo name="location-pin" color={"grey"} size={width(4)} />
-            <Text numberOfLines={2} style={styles.categorytext}>
-              {data?.address}
-            </Text>
-          </View>
+
+      <View style={styles.icons}>
+        <View style={styles.categoryview}>
+          <Entypo name="location-pin" color={"grey"} size={width(4)} />
+          <Text numberOfLines={2} style={styles.categorytext}>
+            {data?.address}
+          </Text>
+        </View>
+        {!(data?.userId === loginuser?._id) ? (
           <View
             style={{
               flexDirection: "row",
@@ -219,10 +234,10 @@ export default function Card({ data }) {
               <Entypo size={width(5)} name="chat" color={"grey"} />
             </TouchableOpacity>
           </View>
-        </View>
-      ) : (
-        <></>
-      )}
+        ) : (
+          <></>
+        )}
+      </View>
     </View>
   );
 }
