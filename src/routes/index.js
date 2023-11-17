@@ -36,13 +36,14 @@ import {
   OtherProfileScreen,
   PasswordScreens,
   PrivacyPolicyScreen,
+  PrivacySafety,
   ProfileScreen,
   RepairSreen,
   SellUsScreen,
   TNCScreen,
   WishScreen,
 } from "../screens/app";
-import { LoginScreen, OnBoardingScreen, SignUpScreen } from "../screens/auth";
+import { ForgetPasswordScreen, LoginScreen, OnBoardingScreen, SignUpScreen } from "../screens/auth";
 import { errorMessage, getAuthData, getlangData } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
@@ -172,6 +173,7 @@ export default function Routes() {
           component={OnBoardingScreen}
         />
         <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />
+        <Stack.Screen name={ScreenNames.FORGET} component={ForgetPasswordScreen} />
         <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
         <Stack.Screen name={ScreenNames.DETAIL} component={DetailScreen} />
         <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
@@ -201,17 +203,9 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.SNTU} component={SellUsScreen} />
         <Stack.Screen name={ScreenNames.REPAIR} component={RepairSreen} />
         <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
+        <Stack.Screen name={ScreenNames.PANDS} component={PrivacySafety} />
+        
       </Stack.Navigator>
     </NavigationContainer>
-  );
-}
-export function TestStack() {
-  return (
-    <Stack.Navigator screenOptions={{ header: () => false }}>
-      <Stack.Screen name={ScreenNames.HOME} component={HomeScreen} />
-      <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
-      <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
-      <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
-    </Stack.Navigator>
   );
 }

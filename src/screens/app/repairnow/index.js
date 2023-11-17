@@ -25,7 +25,7 @@ export default function Repair({ navigation, route }) {
         <View style={styles.container}>
           <Text style={styles.description}>{t("RN.data")}</Text>
         </View>
-        <Button containerStyle={styles.button} title={"Repair Now"} />
+        <Button containerStyle={styles.button} title={"RN.rn"} />
       </View>
     </ScreenWrapper>
   );

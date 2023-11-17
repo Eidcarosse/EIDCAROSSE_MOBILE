@@ -7,6 +7,10 @@ export default {
     lastNamePlaceholder: "Enter your last name",
     phoneNumberTitle: "Contact Number",
     phoneNumberPlaceholder: "Enter your phone number",
+    whatsappTitle: "Whatsapp",
+    whatsappPlaceholder: "Enter your Whatsapp number",
+    viberTitle: "Viber",
+    viberPlaceholder: "Enter your Viber number",
     userNameTitle: "User Name",
     usernamePlaceholder: "Enter your username",
     emailTitle: "Email",
@@ -510,6 +514,7 @@ export default {
   },
   searchpage: {
     title: "Search by Location",
+    search: "Search",
   },
   allData: {
     title: "Search Data",
@@ -517,7 +522,7 @@ export default {
     filter: "Filter",
     brand: "Brand",
     sub: "Sub Ctegory",
-    storeby: "Store By",
+    sortby: "Sort By",
     address: "Address",
     pricerang: "Price Rang (CHF)",
     condition: "Condition",
@@ -543,5 +548,13 @@ export default {
     markassold: "Mark as Sold",
     republish: "Re-publish",
     sold: "Sold",
+    unsold: "UnSold",
+  },
+  sortList: {
+    latest: "Latest",
+    atoz: "A to Z (title)",
+    ztoa: "Z to A (title)",
+    lowtohigh: "Price (low to high)",
+    hightolow: "Price (high to low)",
   },
 };

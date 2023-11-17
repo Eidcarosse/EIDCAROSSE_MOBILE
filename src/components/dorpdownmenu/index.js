@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
-import { SmallText } from "../index";
+import  SmallText  from "../text";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 const DropDownMenu = ({

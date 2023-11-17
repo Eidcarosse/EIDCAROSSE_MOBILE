@@ -1,5 +1,6 @@
 import { Linking, Platform, Share, ToastAndroid } from "react-native";
 import { formatDistanceToNow } from "date-fns";
+import { es, de, it, enUS, fr } from "date-fns/locale";
 export function debounce(func, wait, immediate) {
   var timeout;
   return function () {
@@ -95,7 +96,7 @@ export const getlangData = async () => {
   try {
     const value = await AsyncStorage.getItem("language");
     if (value !== null) {
-      return value
+      return value;
     }
   } catch (e) {
     // error reading value
@@ -192,8 +193,29 @@ const openViber = (phoneNumber) => {
       errorMessage("Viber not exist");
     });
 };
-const calculateTimeDifference = (createdAt) => {
+const calculateTimeDifference = (createdAt, l) => {
+  let locale;
+  switch (l) {
+    case "fr":
+      locale = fr;
+      break;
+    case "de":
+      locale = de;
+      break;
+    case "it":
+      locale = it;
+      break;
+    case "es":
+      locale = es;
+      break;
+    case "en":
+      locale = enUS;
+      break;
+    default:
+      locale = enUS;
+  }
   const distance = formatDistanceToNow(new Date(createdAt), {
+    locale,
     addSuffix: true,
   });
   return distance;

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Fontisto } from "@expo/vector-icons";
 
-import { Head, ScreenWrapper } from "../../../components";
+import { Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
@@ -17,6 +17,7 @@ import {
 import { storelangData } from "../../../utills/Methods";
 
 export default function AppSetting({ navigation, route }) {
+  const dispatch = useDispatch();
   const countries = [
     { key: "appseting.English", value: "English" },
     { key: "appseting.German", value: "German" },
@@ -26,7 +27,6 @@ export default function AppSetting({ navigation, route }) {
   ];
   const { t, i18n } = useTranslation();
   const lang = useSelector(selectCurrentLanguage);
-  const dispatch = useDispatch();
 
   const changeAppLanguage = async (newLanguage) => {
     let value;

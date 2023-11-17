@@ -1,4 +1,4 @@
-import { Feather, MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { Feather, AntDesign, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TextInput, TouchableOpacity, View } from "react-native";
@@ -84,9 +84,9 @@ export default function SearchBar({
           <TouchableOpacity style={{ marginLeft: height(2) }}
           onPress={()=>{setSearch(""),onPress()}}
           >
-            <MaterialIcons
-              name="clear"
-              size={width(7)}
+            <AntDesign
+              name="closesquare"
+              size={width(8)}
               color={AppColors.primary}
             />
           </TouchableOpacity>

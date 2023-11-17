@@ -126,6 +126,9 @@ export default function Profile({ navigation, route }) {
           />
           <IconButton
             title={"profile.privacy"}
+            onPress={() => {
+              navigation.navigate(ScreenNames.PANDS);
+            }}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             icon={

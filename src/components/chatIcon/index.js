@@ -11,6 +11,7 @@ import { selectUserMeta } from "../../redux/slices/user";
 export default function ChatIcon({ navigation, data, onPress }) {
   const loginuser = useSelector(selectUserMeta);
   const [user, setUser] = useState();
+  
   useEffect(() => {
     getdata();
   }, []);

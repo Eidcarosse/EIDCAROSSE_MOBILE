@@ -7,6 +7,11 @@ export default {
     lastNamePlaceholder: "Inserisci il tuo cognome",
     phoneNumberTitle: "Numero di contatto",
     phoneNumberPlaceholder: "Inserisci il tuo numero di telefono",
+    whatsappTitle: "Whatsapp",
+    whatsappPlaceholder: "Inserisci il tuo numero di Whatsapp",
+    viberTitle: "Viber",
+    viberPlaceholder: "Inserisci il tuo numero di Viber",
+
     userNameTitle: "Nome utente",
     usernamePlaceholder: "Inserisci il tuo nome utente",
     emailTitle: "Email",
@@ -481,13 +486,18 @@ export default {
     Spanish: "Spagnolo",
     French: "Francese",
   },
+  searchpage: {
+    title: "Ricerca per Posizione",
+    search: "Cerca",
+  },
+
   allData: {
     title: "Ricerca dati",
     totalresult: "Risultato totale",
     filter: "Filtro",
     brand: "Marca",
     sub: "Sottocategoria",
-    storeby: "Archivia per",
+    sortby: "Ordina per",
     address: "Indirizzo",
     pricerang: "Intervallo di prezzo (CHF)",
     condition: "Condizione",
@@ -513,5 +523,13 @@ export default {
     markassold: "Segna come venduto",
     republish: "Ripubblica",
     sold: "Venduto",
+    unsold: "Invenduto",
+  },
+  sortList: {
+    latest: "Ultimo",
+    atoz: "A a Z (titolo)",
+    ztoa: "Z a A (titolo)",
+    lowtohigh: "Prezzo (basso ad alto)",
+    hightolow: "Prezzo (alto a basso)",
   },
 };

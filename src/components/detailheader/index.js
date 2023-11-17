@@ -44,10 +44,10 @@ export default function DetailHeader({
         }}
       >
         <TouchableOpacity
-          style={{ marginHorizontal: width(3) }}
+          style={{ marginHorizontal: width(8) }}
           onPress={onPressShare}
         >
-          <Entypo size={width(4)} name="share" color={AppColors.white} />
+          <Entypo size={width(6)} name="share" color={AppColors.white} />
         </TouchableOpacity>
         {/* <TouchableOpacity
           style={{ marginHorizontal: width(3) }}

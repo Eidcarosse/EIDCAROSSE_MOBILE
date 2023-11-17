@@ -69,15 +69,14 @@ export default function AddPost({ navigation, route }) {
   const [bodyshape, setBodyshap] = React.useState("");
   const [gearbox, setGearbox] = React.useState("");
   const [fueltype, setFueltype] = React.useState("");
-  const [engineCapacity, setEngineCapacity] = React.useState("");
   const [exterior, setExterior] = React.useState("");
   const [interior, setInterior] = React.useState("");
   const [latitude, setLatiitude] = React.useState(37.78825);
   const [longitude, setLongitude] = React.useState(-122.4324);
   const [email, setEmail] = React.useState(userInfo?.email);
   const [phone, setPhone] = React.useState(userInfo?.phoneNumber);
-  const [whatsapp, setWhatsapp] = React.useState("");
-  const [viber, setViber] = React.useState("");
+  const [whatsapp, setWhatsapp] = React.useState(userInfo?.whatsapp);
+  const [viber, setViber] = React.useState(userInfo?.viber);
   const [website, setWebsite] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");

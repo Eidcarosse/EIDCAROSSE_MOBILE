@@ -26,9 +26,11 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 import { ImageSlider } from "react-native-image-slider-banner";
 import categories from "../../svgcomponents";
 import { useTranslation } from "react-i18next";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 export default function Card({ data }) {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const language = useSelector(selectCurrentLanguage);
   const favAdIds = useSelector(selectFavAds);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
@@ -195,7 +197,10 @@ export default function Card({ data }) {
             <View style={styles.categoryview}>
               <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
               <Text numberOfLines={1} style={styles.categorytext}>
-                {GlobalMethods.calculateTimeDifference(data?.createdAt)}
+                {GlobalMethods.calculateTimeDifference(
+                  data?.createdAt,
+                  language
+                )}
               </Text>
             </View>
             <Text style={{ fontSize: width(3), color: "grey" }}>

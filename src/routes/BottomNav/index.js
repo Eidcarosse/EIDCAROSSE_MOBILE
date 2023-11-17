@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import {
+  BikeScreen,
   CategoryScreen,
   ChatScreen,
   HomeScreen,
@@ -19,12 +20,23 @@ import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { height, width } from "../../utills/Dimension";
 import ScreenNames from "../routes";
 import AppColors from "../../utills/AppColors";
-import { Platform, View } from "react-native";
+import { Platform, View, Fragment } from "react-native";
 import { ListData } from "../../screens/app";
-import { TestStack } from "..";
-import AddIcon from "../../svgcomponents/plus";
-const Tab = createBottomTabNavigator();
 
+import AddIcon from "../../svgcomponents/plus";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+function TestStack() {
+  return (
+    <Stack.Navigator screenOptions={{ header: () => false }}>
+      <Stack.Screen name={ScreenNames.HOME} component={HomeScreen} />
+      <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
+      <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
+      <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
+    </Stack.Navigator>
+  );
+}
 const BottomNav = ({ navigation }) => {
   const islogin = useSelector(selectIsLoggedIn);
   return (
@@ -34,9 +46,9 @@ const BottomNav = ({ navigation }) => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === "Home") {
+            if (route.name === "StackHome") {
               iconName = focused ? "ios-home-outline" : "ios-home-outline";
-            } else if (route.name === "Chat") {
+            } else if (route.name === "myChat") {
               iconName = focused
                 ? "chatbubble-ellipses-outline"
                 : "chatbubble-ellipses-outline";
@@ -62,7 +74,11 @@ const BottomNav = ({ navigation }) => {
                 //     size={width(15)}
                 //     color={"red"}
                 //   /> */}
-                  <AddIcon  tintColor='#2d3436' height={width(15)} width={width(15)} />
+                  <AddIcon
+                    tintColor="#2d3436"
+                    height={width(15)}
+                    width={width(15)}
+                  />
                 </View>
               );
             } else if (route.name === ScreenNames.MYADS) {
@@ -70,6 +86,8 @@ const BottomNav = ({ navigation }) => {
                 ? "file-tray-stacked-outline"
                 : "file-tray-stacked-outline";
             } else if (route.name === "Profile") {
+              iconName = focused ? "person-outline" : "person-outline";
+            } else {
               iconName = focused ? "person-outline" : "person-outline";
             }
 
@@ -109,54 +127,40 @@ const BottomNav = ({ navigation }) => {
         })}
       >
         <Tab.Screen
-          name="Home"
+          name="StackHome"
           component={TestStack}
           options={{ headerShown: false }}
         />
-        <Tab.Screen
-          name="Chat"
-          component={() =>
-            islogin ? (
-              <ChatScreen navigation={navigation} />
-            ) : (
-              <PreLogin navigation={navigation} />
-            )
-          }
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="tit"
-          component={() =>
-            islogin ? (
-              <CategoryScreen navigation={navigation} value="ADD" />
-            ) : (
-              <PreLogin navigation={navigation} />
-            )
-          }
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name={ScreenNames.MYADS}
-          component={() =>
-            islogin ? (
-              <MyListingScreen navigation={navigation} />
-            ) : (
-              <PreLogin navigation={navigation} />
-            )
-          }
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={() =>
-            islogin ? (
-              <ProfileScreen navigation={navigation} />
-            ) : (
-              <PreLogin navigation={navigation} />
-            )
-          }
-          options={{ headerShown: false }}
-        />
+        {!islogin ? (
+          <Tab.Screen
+            name="pre"
+            component={PreLogin}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <>
+            <Tab.Screen
+              name="myChat"
+              component={ChatScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="tit"
+              component={CategoryScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name={ScreenNames.MYADS}
+              component={MyListingScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{ headerShown: false }}
+            />
+          </>
+        )}
       </Tab.Navigator>
     </DrawerSceneWrapper>
   );

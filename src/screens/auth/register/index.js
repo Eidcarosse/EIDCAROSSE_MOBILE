@@ -28,6 +28,8 @@ export default function SignUp({ navigation, route }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [whatsapp, SetWhatsapp] = useState("");
+  const [viber, setViber] = useState("");
 
   const userData = {
     firstName,
@@ -36,6 +38,8 @@ export default function SignUp({ navigation, route }) {
     email,
     password,
     phoneNumber,
+    whatsapp,
+    viber,
   };
   const isValidEmail = (email) => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -121,6 +125,18 @@ export default function SignUp({ navigation, route }) {
             title={"signup.phoneNumberTitle"}
             placeholder={"signup.phoneNumberPlaceholder"}
           />
+          <Input
+            value={whatsapp}
+            setvalue={SetWhatsapp}
+            title={"signup.whatsappTitle"}
+            placeholder={"signup.whatsappPlaceholder"}
+          />
+          <Input
+            value={viber}
+            setvalue={setViber}
+            title={"signup.viberTitle"}
+            placeholder={"signup.viberPlaceholder"}
+          />
           <View style={styles.checkview}>
             <CheckBox
               style={{ paddingRight: width(2) }}
@@ -133,9 +149,12 @@ export default function SignUp({ navigation, route }) {
             <View>
               <Text>{t("signup.checkBoxText")}</Text>
               <TouchableOpacity
-              onPress={()=>navigation.navigate(ScreenNames.TNC)}
+                onPress={() => navigation.navigate(ScreenNames.TNC)}
               >
-                <Text style={styles.tandc}> {t("signup.termAndCondition")}</Text>
+                <Text style={styles.tandc}>
+                  {" "}
+                  {t("signup.termAndCondition")}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -167,9 +186,7 @@ export default function SignUp({ navigation, route }) {
           />
           <Button
             containerStyle={styles.button}
-            title={
-             "signup.continueWithGoogle"
-            }
+            title={"signup.continueWithGoogle"}
             onPress={() => {
               // dispatch(setIsLoggedIn(true));
               // navigation.navigate(ScreenNames.BUTTOM);
@@ -178,7 +195,10 @@ export default function SignUp({ navigation, route }) {
           <View style={{ height: height(5) }} />
 
           <View style={styles.already}>
-            <Text>{t("signup.alreadyHaveAccount")}{"  "}</Text>
+            <Text>
+              {t("signup.alreadyHaveAccount")}
+              {"  "}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.goBack();

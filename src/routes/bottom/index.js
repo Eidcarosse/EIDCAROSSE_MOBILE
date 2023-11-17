@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import AppColors from "../../utills/AppColors";
@@ -60,7 +60,7 @@ export default function BottomNav({ navigation }) {
         onPress={() => {
           navigate(routeName, {
             itemId: 86,
-            otherParam: 'anything you want here',
+            otherParam: "anything you want here",
           });
           console.log("button pressed");
           // if (Home?.scrollViewRef?.current) {

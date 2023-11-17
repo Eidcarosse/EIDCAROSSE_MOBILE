@@ -14,12 +14,13 @@ import { selectUserMeta, setUserAds } from "../../redux/slices/user";
 import { getOwneAd } from "../../backend/auth";
 import GlobalMethods from "../../utills/Methods";
 import { useTranslation } from "react-i18next";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 
 export default function MyCard({ data }) {
-
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
+  const language = useSelector(selectCurrentLanguage);
   const userid = userInfo?._id;
   const getData = useCallback(async (id) => {
     let d = await getOwneAd(id);
@@ -32,12 +33,6 @@ export default function MyCard({ data }) {
   const hideMenu = () => setModalVisible(false);
 
   const showMenu = () => setModalVisible(true);
-  const calculateTimeDifference = (createdAt) => {
-    const distance = formatDistanceToNow(new Date(createdAt), {
-      addSuffix: true,
-    });
-    return distance;
-  };
   const deleteAd = async (id) => {
     dispatch(setAppLoader(true));
     try {
@@ -50,9 +45,6 @@ export default function MyCard({ data }) {
       dispatch(setAppLoader(false));
     }
   };
-  useEffect(()=>{
-    console.log(GlobalMethods.calculateTimeDifference(data?.createdAt).includes("month"));
-  })
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
@@ -70,7 +62,7 @@ export default function MyCard({ data }) {
           <View style={styles.categoryview}>
             <AntDesign name="clockcircleo" color={"grey"} size={width(4)} />
             <Text numberOfLines={1} style={styles.textcategory}>
-              {GlobalMethods.calculateTimeDifference(data?.createdAt)}
+              {GlobalMethods.calculateTimeDifference(data?.createdAt, language)}
             </Text>
           </View>
 
@@ -92,7 +84,14 @@ export default function MyCard({ data }) {
       </View>
 
       <View style={styles.icons}>
-        <TouchableOpacity style={{backgroundColor:AppColors.grey,padding:width(2),borderRadius:width(1) }} onPress={showMenu}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: AppColors.grey,
+            padding: width(2),
+            borderRadius: width(1),
+          }}
+          onPress={showMenu}
+        >
           <Entypo size={width(4)} name="dots-three-vertical" />
         </TouchableOpacity>
         {sold ? (
@@ -182,7 +181,14 @@ export default function MyCard({ data }) {
             </MenuItem>
           )
         ) : (
-          <></>
+          <MenuItem
+            onPress={() => {
+              hideMenu();
+              setSold(false);
+            }}
+          >
+            {t("myad.unsold")}
+          </MenuItem>
         )}
       </Menu>
     </View>

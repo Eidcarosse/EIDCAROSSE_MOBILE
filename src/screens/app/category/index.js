@@ -66,7 +66,7 @@ export default function Category({ navigation, route, value }) {
                   }
                 }}
               >
-                <Icon height={width(15)} width={width(15)} />
+                <Icon height={width(17)} width={width(17)} />
               </CategoryIcon>
             );
           }}

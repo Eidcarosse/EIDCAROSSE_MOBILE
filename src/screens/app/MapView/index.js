@@ -18,8 +18,10 @@ import Icons from "../../../asset/images";
 import categories from "../../../svgcomponents";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { getAllData } from "../../../backend/api";
+import { useTranslation } from "react-i18next";
 
 export default function MapAdView({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const mapRef = useRef();
   const refRBSheet = useRef();
@@ -128,7 +130,7 @@ export default function MapAdView({ navigation, route }) {
         <View style={{ paddingVertical: width(1), flex: 1 }}>
           <GooglePlacesAutocomplete
             fetchDetails={true}
-            placeholder="Search"
+            placeholder={t("searchpage.search")}
             currentLocation={true}
             onPress={(data, details = null) => {
               // setAddress(details?.formatted_address);

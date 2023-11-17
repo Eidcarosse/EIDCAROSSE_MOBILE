@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { selectChatRooms } from "../../../redux/slices/user";
 
 export default function ChatList({ navigation, route }) {
+
   const data = useSelector(selectChatRooms);
   return (
     <ScreenWrapper

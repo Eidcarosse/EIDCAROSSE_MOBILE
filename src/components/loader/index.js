@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, Text, View ,Image} from "react-native";
+import { ActivityIndicator, Text, View, Image } from "react-native";
 import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import { selectLoader } from "../../redux/slices/config";
@@ -16,13 +16,17 @@ export default function Loader() {
       animationIn={"lightSpeedIn"}
       animationOut={"lightSpeedOut"}
       isVisible={appLoader}
-      backdropOpacity={.9}
+      backdropOpacity={0.9}
       backdropColor={AppColors.white}
     >
       <View style={styles.container}>
         <Image
-        style={styles.image}
-        source={Icons.loder}
+          style={{
+            width: width(20),
+            height: width(20),
+            borderRadius: width(10),
+          }}
+          source={Icons.loder}
         />
       </View>
     </Modal>

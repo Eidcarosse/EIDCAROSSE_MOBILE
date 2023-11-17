@@ -120,12 +120,15 @@ export default function Login({ navigation, route }) {
             }}
           />
           <View style={styles.forget}>
-            <Text>{t("login.cannotLogin")} {"  "}</Text>
-            <TouchableOpacity>
-              <Text style={styles.text}>
-
-              {t("login.forgetPassword")}
-              </Text>
+            <Text>
+              {t("login.cannotLogin")} {"  "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(ScreenNames.FORGET);
+              }}
+            >
+              <Text style={styles.text}>{t("login.forgetPassword")}</Text>
             </TouchableOpacity>
           </View>
           <View style={{ height: height(10) }} />
@@ -137,7 +140,10 @@ export default function Login({ navigation, route }) {
               flexDirection: "row",
             }}
           >
-            <Text>{t("login.donothaveaccount")}{"   "}</Text>
+            <Text>
+              {t("login.donothaveaccount")}
+              {"   "}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate(ScreenNames.SIGNUP);

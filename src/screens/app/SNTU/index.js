@@ -25,7 +25,7 @@ export default function SNTU({ navigation, route }) {
         <View style={styles.container}>
           <Text style={styles.description}>{t("SNTU.data")}</Text>
         </View>
-        <Button containerStyle={styles.button} title={"Sell now to us"} />
+        <Button containerStyle={styles.button} title={"SNTU.sntu"} />
       </View>
     </ScreenWrapper>
   );

@@ -36,6 +36,7 @@ import styles from "./styles";
 import { setAppLoader } from "../../../redux/slices/config";
 import { useTranslation } from "react-i18next";
 import categories from "../../../svgcomponents";
+import { kilometers, sortList } from "../../../utills/Data";
 
 export default function ListData({ navigation, route }) {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ export default function ListData({ navigation, route }) {
   const [model, setModel] = React.useState("");
   const [category, setCategory] = React.useState(cat);
   const [searchString, setSearchString] = useState("");
-
+  const [km, setKm] = React.useState("");
   const [refreshing, onRefresh] = React.useState(false);
   const [empty, setempty] = React.useState(false);
 
@@ -85,6 +86,7 @@ export default function ListData({ navigation, route }) {
     minPrice: priceto,
     maxPrice: pricefrom,
     sortBy: sortby || "",
+    km: km,
     page: pageNumber, // Adjust the page number as needed
   };
 
@@ -188,12 +190,19 @@ export default function ListData({ navigation, route }) {
       label: t("condition.Recondition"),
     },
   ];
-  const sortdata = [
-    "A to Z (title)",
-    "Z to A (title)",
-    "Price (low to high)",
-    "Price (high to low)",
-  ];
+  const showKM = (x) => {
+    return (
+      x === "Autos" ||
+      x === "Bikes" ||
+      x === "Boats" ||
+      x === "Construction Machine" ||
+      x === "Trucks" ||
+      x === "Vans" ||
+      x === "Trailers" ||
+      x === "Busses"
+    );
+  };
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -525,12 +534,11 @@ export default function ListData({ navigation, route }) {
                     </View>
                   )}
                   <View style={{ alignSelf: "center" }}>
-                    <Text style={styles.title}>{t("allData.storeby")}</Text>
+                    <Text style={styles.title}>{t("allData.sortby")}</Text>
                     <SelectDropdown
-                      data={sortdata}
+                      data={sortList}
                       defaultButtonText={t("allData.defaultValueDropdown")}
                       searchPlaceHolder={t("allData.phsearchHere")}
-                      search={true}
                       defaultValue={sortby}
                       buttonStyle={styles.searchbox}
                       selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -541,16 +549,49 @@ export default function ListData({ navigation, route }) {
                       }}
                       dropdownStyle={styles.dropdown}
                       onSelect={(selectedItem, index) => {
-                        setSortby(selectedItem);
+                        setSortby(selectedItem.title);
                       }}
                       buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem;
+                        return t(selectedItem.show);
                       }}
                       rowTextForSelection={(item, index) => {
-                        return item;
+                        return t(item.show);
                       }}
                     />
                   </View>
+                  {showKM(category) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.km")}</Text>
+                      <SelectDropdown
+                        data={kilometers}
+                        defaultButtonText={t("addPost.defaultValueDropdown")}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setKm(selectedItem.value);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.value);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.value);
+                        }}
+                      />
+                    </View>
+                  )}
                   {/* <View style={{ paddingVertical: width(1) }}>
                     <Text style={styles.title}>Title</Text>
                     <Input

@@ -10,7 +10,8 @@ import {
   MessageText,
   Time,
 } from "react-native-gifted-chat";
-import database from "../../../../index";
+import { decode } from "base-64";
+import { getDatabase } from "firebase/database";
 import { get, onValue, push, ref, set } from "firebase/database";
 import {
   Image,
@@ -29,16 +30,17 @@ import {
   uploadBytesResumable,
   uploadBytes,
 } from "@firebase/storage";
+import * as FileSystem from "expo-file-system";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import Modal from "react-native-modal";
 import { getDataofAdByID } from "../../../backend/api";
 import { Button, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
-import axios from "axios";
 import ScreenNames from "../../../routes/routes";
 
 function ChatView({ route }) {
+  const database = getDatabase();
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState();
   const [roomID, setRoomID] = useState(route?.params.userRoom, roomID);
@@ -384,80 +386,83 @@ function ChatView({ route }) {
     }
   }, []);
 
-  const getBlobFromUri = async (uri) => {
-    console.log("Executing Blob");
+  const getBlobFromFile = async (filePath) => {
     try {
-      const response =fetch(uri);
-      const blob = await response.data;
-      console.log("Blob Created");
-      return blob;
+      console.log(filePath);
+      const fileInfo = await FileSystem.getInfoAsync(filePath);
+      console.log("====================================");
+      console.log(fileInfo);
+      console.log("====================================");
+      if (fileInfo.exists) {
+        const data = await FileSystem.readAsStringAsync(filePath, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+
+        // Use base-64 library to decode the base64-encoded string
+        const byteCharacters = decode(data);
+        const byteArray = new Uint8Array(byteCharacters);
+
+        // Create a Blob from the byte array
+        const blob = new Blob([byteArray], { type: "image/jpeg" });
+        return blob;
+      } else {
+        throw new Error("Not a regular file");
+      }
     } catch (error) {
-      console.error("Error fetching and creating blob:", error);
+      console.error("Error reading file:", error);
       throw error;
     }
   };
-
   const saveImages = async () => {
     const imageUrls = [];
+
     const storage = getStorage();
-    const newMessageRef = push(ref(database, `chatrooms/${roomID}/messages`));
-    console.log(newMessageRef);
+    const newMessageRef = push(
+      ref(database, `chatrooms/${route.params?.userRoom}/messages`)
+    );
+
     for (const imageUri of image) {
-      try {
-        const split = imageUri.split("/");
-        const name = split.pop();
-        const imageRef = storageRef(
-          storage,
-          `chatrooms/${roomID}/images/${name}`
-        );
+      const split = imageUri.split("/");
+      const name = split.pop();
+      const imageRef = storageRef(
+        storage,
+        `chatrooms/${route.params?.userRoom}/images/${name}`
+      );
 
-        const metadata = {
-          contentType: "image/jpeg/jpg/png",
-        };
+      const metadata = {
+        contentType: "image/jpeg",
+      };
 
-        // Get the blob from the image URI
-        console.log("Getting Blob", imageUri);
-        const imageBlob = await getBlobFromUri(imageUri);
+      // Get the blob from the image URI
+      const imageBlob = await getBlobFromFile(imageUri);
 
-        // Use uploadBytesResumable to upload the blob
-        console.log("Blob Received", imageBlob);
-        const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
+      // Use uploadBytesResumable to upload the blob
+      const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
 
-        // Wait for the upload task to complete
-        console.log("Image Uploading");
-        const snapshot = await uploadTask;
+      // Wait for the upload task to complete
+      const snapshot = await uploadTask;
 
-        if (snapshot.state === "success") {
-          console.log("Image Uploaded");
-          const downloadUrl = await getDownloadURL(imageRef);
-          if (downloadUrl) {
-            imageUrls.push(downloadUrl);
-          }
+      if (snapshot.state === "success") {
+        const downloadUrl = await getDownloadURL(imageRef);
+        console.log("image uploded",downloadUrl);
+        if (downloadUrl) {
+          imageUrls.push(downloadUrl);
         }
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        // Handle the error appropriately, e.g., show an error message to the user.
       }
     }
 
     if (imageUrls.length > 0) {
-      const messageData = {
+      set(newMessageRef, {
         images: imageUrls,
         timestamp: Date.now(),
         senderId: user?._id,
-      };
-
-      try {
-        await set(newMessageRef, messageData);
-      } catch (error) {
-        console.error("Error setting new message:", error);
-        // Handle the error appropriately, e.g., show an error message to the user.
-      }
+      });
     }
 
     setImageModal(false);
     setImage([]);
   };
+
   // const saveImages = async () => {
   //   const imageUrls = [];
   //   const storage = getStorage();
@@ -596,7 +601,7 @@ function ChatView({ route }) {
             hasBackdrop={true}
           >
             <View style={styles.modalContainer}>
-              <Button title="Close" onPress={closeModal} />
+              {/* <Button title="Close" onPress={closeModal} /> */}
               <TouchableOpacity
                 onPress={closeModal}
                 style={{ margin: width(5) }}
@@ -604,9 +609,10 @@ function ChatView({ route }) {
                 <MaterialIcons name="close" size={width(7)} color="white" />
               </TouchableOpacity>
               {image &&
-                image.map((img) => {
+                image.map((img, index) => {
                   return (
                     <Image
+                      key={index}
                       source={{
                         uri: img,
                         width: width(90),
@@ -618,7 +624,7 @@ function ChatView({ route }) {
                   );
                 })}
 
-              {/* <Button title="Send" onPress={saveImages} /> */}
+              <Button title="Send" onPress={saveImages} />
             </View>
           </Modal>
         </View>
@@ -666,8 +672,8 @@ const styles = StyleSheet.create({
     width: width(13),
     height: height(6),
     borderRadius: width(20),
-    borderWidth:width(.3),
-    borderColor:AppColors.primary
+    borderWidth: width(0.3),
+    borderColor: AppColors.primary,
   },
   account_Text: {
     marginLeft: width(5),

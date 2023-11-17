@@ -7,6 +7,10 @@ export default {
     lastNamePlaceholder: "Geben Sie Ihren Nachnamen ein",
     phoneNumberTitle: "Kontaktnummer",
     phoneNumberPlaceholder: "Geben Sie Ihre Telefonnummer ein",
+    whatsappTitle: "Whatsapp",
+    whatsappPlaceholder: "Geben Sie Ihre Whatsapp-Nummer ein",
+    viberTitle: "Viber",
+    viberPlaceholder: "Geben Sie Ihre Viber-Nummer ein",    
     userNameTitle: "Benutzername",
     usernamePlaceholder: "Geben Sie Ihren Benutzernamen ein",
     emailTitle: "E-Mail",
@@ -210,7 +214,7 @@ export default {
   },
   category: {
     Autos: "Autos",
-    Bikes: "Fahrräder",
+    Bikes: "Motorräderr",
     Boats: "Boote",
     Drones: "Drohnen",
     ConstructionMachines: "Baumaschinen",
@@ -488,13 +492,18 @@ export default {
     Spanish: "Spanisch",
     French: "Französisch",
   },
+  searchpage: {
+    title: "Suche nach Standort",
+    search: "Suche",
+  },
+
   allData: {
     title: "Suchdaten",
     totalresult: "Gesamtergebnis",
     filter: "Filter",
     brand: "Marke",
     sub: "Unterkategorie",
-    storeby: "Speichern nach",
+    sortby: "Sortieren nach",
     address: "Adresse",
     pricerang: "Preisspanne (CHF)",
     condition: "Zustand",
@@ -520,5 +529,13 @@ export default {
     markassold: "Als verkauft markieren",
     republish: "Erneut veröffentlichen",
     sold: "Verkauft",
+    unsold:"Ungesetzt"
+  },
+  sortList: {
+    latest: "Neueste",
+    atoz: "A bis Z (Titel)",
+    ztoa: "Z bis A (Titel)",
+    lowtohigh: "Günstigste",
+    hightolow: "Teuerste",
   },
 };

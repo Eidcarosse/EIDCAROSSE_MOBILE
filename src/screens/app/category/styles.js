@@ -11,22 +11,23 @@ const styles = StyleSheet.create({
   },
   card: {
     width: width(30),
-    height: height(18),
+    height: height(14),
     margin: width(1),
     borderRadius: width(2),
     alignSelf: "center",
     backgroundColor: AppColors.white,
     padding: width(2),
-    justifyContent: "space-between",
+    justifyContent: 'space-evenly',
   },
   greybackground: {
     backgroundColor: AppColors.white,
     elevation: 0,
+
   },
   textStyle: {
     width: width(30),
     textAlign: "center",
-    fontSize: width(4),
+    fontSize: width(3),
   },
 });
 export default styles;
