@@ -1,6 +1,6 @@
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import RadioButtonRN from "radio-buttons-react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
@@ -19,6 +19,7 @@ import {
   Button,
   FilePickerModal,
   Head,
+  IconButton,
   Input,
   ScreenWrapper,
 } from "../../../components";
@@ -84,7 +85,8 @@ export default function AddPost({ navigation, route }) {
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vCategory, setVCategory] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
-
+  const [addWhatsapp, setAddWhatsapp] = useState(false);
+  const [addViber, setAddViber] = useState(false);
   useEffect(() => {
     getvehicleMake();
     if (sub == undefined) {
@@ -176,9 +178,9 @@ export default function AddPost({ navigation, route }) {
       formData.append("latitude", latitude);
       formData.append("longitude", longitude);
       formData.append("address", address);
-      formData.append("viber", viber);
+      addViber && formData.append("viber", viber);
       formData.append("website", website);
-      formData.append("whatsapp", whatsapp);
+      addWhatsapp && formData.append("whatsapp", whatsapp);
       // Append each selected image to the form data
       image.forEach((img, index) => {
         formData.append("file", {
@@ -843,12 +845,10 @@ export default function AddPost({ navigation, route }) {
         </View>
         {/* --------owner infomartio---- */}
         <View>
-          <Text
-            style={[styles.title, { fontSize: width(5), margin: width(2) }]}
-          >
+          <Text style={[styles.title, { fontSize: width(5) }]}>
             {t("addPost.contactdetail")}
           </Text>
-          <View style={{ alignSelf: "center", marginBottom: height(3) }}>
+          {/* <View style={{ alignSelf: "center", marginBottom: height(3) }}>
             <Text style={styles.title}>{t("addPost.htc")}</Text>
             <SelectDropdown
               data={cdata}
@@ -873,8 +873,38 @@ export default function AddPost({ navigation, route }) {
                 return item;
               }}
             />
-          </View>
-          {htc == "Whatsapp" && (
+          </View> */}
+          <IconButton
+            onPress={() => {
+              setAddWhatsapp(!addWhatsapp);
+            }}
+            title={"Add Whatsapp"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            iconright={
+              <AntDesign
+                name={!addWhatsapp ? "checkcircleo" : "checkcircle"}
+                color={!addWhatsapp ? "black" : AppColors.primary}
+                size={width(6)}
+              />
+            }
+          />
+          <IconButton
+            onPress={() => {
+              setAddViber(!addViber);
+            }}
+            title={"Add Viber"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            iconright={
+              <AntDesign
+                name={!addViber ? "checkcircleo" : "checkcircle"}
+                color={!addViber ? "black" : AppColors.primary}
+                size={width(6)}
+              />
+            }
+          />
+          {addWhatsapp && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
               <Input
@@ -886,7 +916,7 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {htc == "Viber" && (
+          {addViber && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.viber")}</Text>
               <Input

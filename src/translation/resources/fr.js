@@ -560,4 +560,8 @@ export default {
     lowtohigh: "Prix (bas à élevé)",
     hightolow: "Prix (élevé à bas)",
   },
+  chat: {
+    placeholder: "Envoyez un message..."
+  },
+  
 };

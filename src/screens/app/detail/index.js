@@ -46,7 +46,9 @@ import {
   gearBoxList,
   interiorColorList,
   kilometers,
+  rdata,
 } from "../../../utills/Data";
+import { WebLink } from "../../../utills/Constants";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
@@ -130,14 +132,14 @@ export default function Detail({ navigation, route }) {
     // dispatch(setAppLoader(false));
     setload(false);
   };
-
+  console.log(data?.subCategory);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
         <DetailHeader
           onPressBack={() => navigation.goBack()}
           onPressShare={() =>
-            GlobalMethods.onPressShare("this is about to share")
+            GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
           }
         />
       )}
@@ -324,9 +326,7 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement2}>
                     {/* {data?.condition} */}
                     {t(
-                      categories?.find(
-                        (category) => category.title === data?.category
-                      )?.show
+                      rdata?.find((con) => con?.key === data?.condition)?.label
                     )}
                   </Text>
                 </View>
@@ -585,7 +585,7 @@ export default function Detail({ navigation, route }) {
               />
             </MapView>
           </View>
-          {/* <RelatedAd category={data?.category} /> */}
+          <RelatedAd category={data?.category} />
         </View>
       )}
     </ScreenWrapper>

@@ -49,13 +49,19 @@ export default function Home({}) {
   // }, [navigation]);
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
   const data = useSelector(selectTopAds);
   const [refreshing, setRefreshing] = useState(false);
   const [searchString, setSearchString] = useState("");
   const onRefresh = async () => {
-    setRefreshing(true);
+    // setRefreshing(true);
+    dispatch(setAppLoader(true));
     getData();
-    setRefreshing(false);
+    setTimeout(() => {
+      dispatch(setAppLoader(false));
+    }, 1000);
+
+    // setRefreshing(false);
     toastMessage("Refresh");
   };
   useFocusEffect(
@@ -75,7 +81,7 @@ export default function Home({}) {
       dispatch(setAppLoader(false));
     } catch (error) {
       console.log("Error:", error);
-      // dispatch(setAppLoader(false));
+      dispatch(setAppLoader(false));
     }
   });
 

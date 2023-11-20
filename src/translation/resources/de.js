@@ -538,4 +538,7 @@ export default {
     lowtohigh: "Günstigste",
     hightolow: "Teuerste",
   },
+  chat:{
+    placeholder:"Sende eine Nachricht.."
+  }
 };

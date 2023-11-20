@@ -27,6 +27,7 @@ import { ImageSlider } from "react-native-image-slider-banner";
 import categories from "../../svgcomponents";
 import { useTranslation } from "react-i18next";
 import { selectCurrentLanguage } from "../../redux/slices/language";
+import { WebLink } from "../../utills/Constants";
 export default function Card({ data }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -125,7 +126,7 @@ export default function Card({ data }) {
               }}
             >
               <TouchableOpacity
-                onPress={() => GlobalMethods.onPressShare("share")}
+                onPress={() => GlobalMethods.onPressShare(`${WebLink}${data?._id}`,data?.title)}
               >
                 <Entypo size={width(5)} name="share" color={"grey"} />
               </TouchableOpacity>

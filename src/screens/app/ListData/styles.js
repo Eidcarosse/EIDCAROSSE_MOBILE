@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     padding: width(2),
-    paddingBottom: height(2),
+    paddingBottom: height(10),
   },
   search: {
     width: width(98),

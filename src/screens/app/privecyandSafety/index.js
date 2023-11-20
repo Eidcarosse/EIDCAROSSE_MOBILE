@@ -1,20 +1,13 @@
+import { Fontisto } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Text, View } from "react-native";
-import { AntDesign, Fontisto } from "@expo/vector-icons";
+import { View } from "react-native";
 
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
-import SelectDropdown from "react-native-select-dropdown";
-import { useTranslation } from "react-i18next";
-import i18next from "i18next";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectCurrentLanguage,
-  setLanguage,
-} from "../../../redux/slices/language";
-import { storelangData } from "../../../utills/Methods";
 
 export default function PrivacySafety({ navigation, route }) {
   const dispatch = useDispatch();

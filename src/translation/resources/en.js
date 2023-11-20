@@ -557,4 +557,7 @@ export default {
     lowtohigh: "Price (low to high)",
     hightolow: "Price (high to low)",
   },
+  chat:{
+    placeholder:"Type a message.."
+  }
 };

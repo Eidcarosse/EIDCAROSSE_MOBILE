@@ -27,7 +27,7 @@ export default function ScreenWrapper({
   imageBackgroundColor = AppColors.primary,
   barStyle = "dark-content",
   onTouchEnd,
-  refreshing,
+  refreshing = false,
   onRefresh,
   scrollViewRef,
 }) {

@@ -14,6 +14,7 @@ import { width } from "../../utills/Dimension";
 import GlobalMethods, { infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
+import { WebLink } from "../../utills/Constants";
 export default function ListingView({ data }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
@@ -131,7 +132,7 @@ export default function ListingView({ data }) {
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => GlobalMethods.onPressShare("share")}>
+          <TouchableOpacity onPress={() => GlobalMethods.onPressShare(`${WebLink}${data?._id}`,data?.title)}>
             <Entypo size={width(4)} name="share" />
           </TouchableOpacity>
           <AntDesign size={width(4)} name="eye" color={"grey"} />

@@ -275,3 +275,17 @@ export const Parts = [
   { title: "Busses", show: "partscategory.Busses" },
   { title: "Others", show: "partscategory.Others" },
 ];
+export const rdata = [
+  {
+    key: "new",
+    label: "condition.new",
+  },
+  {
+    key: "used",
+    label: "condition.used",
+  },
+  {
+    key: "recondition",
+    label: "condition.Recondition",
+  },
+];

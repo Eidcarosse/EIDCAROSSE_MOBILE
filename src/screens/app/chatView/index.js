@@ -8,6 +8,7 @@ import {
   Bubble,
   GiftedChat,
   MessageText,
+  Send,
   Time,
 } from "react-native-gifted-chat";
 import { decode } from "base-64";
@@ -38,8 +39,10 @@ import { getDataofAdByID } from "../../../backend/api";
 import { Button, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import ScreenNames from "../../../routes/routes";
-
+import { useTranslation } from "react-i18next";
+import { fromByteArray } from "base64-js";
 function ChatView({ route }) {
+  const { t } = useTranslation();
   const database = getDatabase();
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState();
@@ -191,9 +194,11 @@ function ChatView({ route }) {
       {...props}
       containerStyle={{
         position: "absolute",
-        right: width(20),
-        bottom: width(1),
+        right: width(17),
+        bottom: width(0.7),
         zIndex: 9999,
+        width: width(7),
+        height: width(7),
       }}
       onPressActionButton={() => {
         setImgModal(true);
@@ -204,6 +209,13 @@ function ChatView({ route }) {
     />
   );
 
+  const renderSend = (props) => (
+    <Send
+      {...props}
+      containerStyle={{ paddingRight: width(4) }}
+      label={<Ionicons name="send" color={AppColors.primary} size={width(6)} />}
+    />
+  );
   const renderMessageImage = (props) => {
     if (props.currentMessage.image) {
       return (
@@ -216,12 +228,13 @@ function ChatView({ route }) {
           }}
         >
           {props.currentMessage.image &&
-            props.currentMessage.image.map((item) => {
+            props.currentMessage.image.map((item, index) => {
               return (
                 <View
                   style={{ width: 72, height: 72, backgroundColor: "white" }}
                 >
                   <Image
+                    key={index}
                     source={{
                       uri: item,
                     }}
@@ -386,33 +399,47 @@ function ChatView({ route }) {
     }
   }, []);
 
-  const getBlobFromFile = async (filePath) => {
-    try {
-      console.log(filePath);
-      const fileInfo = await FileSystem.getInfoAsync(filePath);
-      console.log("====================================");
-      console.log(fileInfo);
-      console.log("====================================");
-      if (fileInfo.exists) {
-        const data = await FileSystem.readAsStringAsync(filePath, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
+  // const getBlobFromFile = async (filePath) => {
+  //   try {
+  //     console.log(filePath);
+  //     const fileInfo = await FileSystem.getInfoAsync(filePath);
+  //     console.log("====================================");
+  //     console.log(fileInfo);
+  //     console.log("====================================");
+  //     if (fileInfo.exists) {
+  //       const data = await FileSystem.readAsStringAsync(filePath, {
+  //         encoding: FileSystem.EncodingType.Base64,
+  //       });
 
-        // Use base-64 library to decode the base64-encoded string
-        const byteCharacters = decode(data);
-        const byteArray = new Uint8Array(byteCharacters);
+  //       // Use base-64 library to decode the base64-encoded string
+  //       const byteCharacters = decode(data);
+  //       const byteArray = new Uint8Array(byteCharacters);
 
-        // Create a Blob from the byte array
-        const blob = new Blob([byteArray], { type: "image/jpeg" });
-        return blob;
-      } else {
-        throw new Error("Not a regular file");
-      }
-    } catch (error) {
-      console.error("Error reading file:", error);
-      throw error;
+  //       // Create a Blob from the byte array
+  //       const blob = new Blob([byteArray], { type: "image/jpeg" });
+  //       return blob;
+  //     } else {
+  //       throw new Error("Not a regular file");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error reading file:", error);
+  //     throw error;
+  //   }
+  // };
+  async function getBlobFromFile(imageUri) {
+    if (imageUri.startsWith("file:/")) {
+      const fileContents = await FileSystem.readAsStringAsync(imageUri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      // Use base64-js to decode the base64 string
+      const byteArray = fromByteArray(fileContents);
+      return new Blob([byteArray], { type: "image/jpeg" });
+    } else {
+      // Handle other types of URIs as needed
+      return null;
     }
-  };
+  }
   const saveImages = async () => {
     const imageUrls = [];
 
@@ -430,7 +457,7 @@ function ChatView({ route }) {
       );
 
       const metadata = {
-        contentType: "image/jpeg",
+        contentType:"image/jpeg",
       };
 
       // Get the blob from the image URI
@@ -438,13 +465,15 @@ function ChatView({ route }) {
 
       // Use uploadBytesResumable to upload the blob
       const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
-
       // Wait for the upload task to complete
       const snapshot = await uploadTask;
+      console.log("====================================");
+      console.log(snapshot);
+      console.log("====================================");
 
       if (snapshot.state === "success") {
         const downloadUrl = await getDownloadURL(imageRef);
-        console.log("image uploded",downloadUrl);
+        console.log("image uploded", downloadUrl);
         if (downloadUrl) {
           imageUrls.push(downloadUrl);
         }
@@ -579,7 +608,9 @@ function ChatView({ route }) {
 
         <GiftedChat
           onSend={onSend}
+          renderSend={renderSend}
           messages={messages}
+          placeholder={t("chat.placeholder")}
           user={{
             _id: user?._id, // Use a unique user ID here
           }}
@@ -604,9 +635,13 @@ function ChatView({ route }) {
               {/* <Button title="Close" onPress={closeModal} /> */}
               <TouchableOpacity
                 onPress={closeModal}
-                style={{ margin: width(5) }}
+                style={{
+                  margin: width(5),
+                  width: width(90),
+                  alignItems: "flex-end",
+                }}
               >
-                <MaterialIcons name="close" size={width(7)} color="white" />
+                <MaterialIcons name="close" size={width(8)} color="white" />
               </TouchableOpacity>
               {image &&
                 image.map((img, index) => {
@@ -624,7 +659,11 @@ function ChatView({ route }) {
                   );
                 })}
 
-              <Button title="Send" onPress={saveImages} />
+              <Button
+                containerStyle={{ marginTop: height(3) }}
+                title="Send"
+                onPress={saveImages}
+              />
             </View>
           </Modal>
         </View>
@@ -739,5 +778,7 @@ const styles = StyleSheet.create({
     height: height(100),
     backgroundColor: "black",
     justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
 });

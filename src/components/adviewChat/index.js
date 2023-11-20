@@ -20,13 +20,17 @@ const AdView = ({ detail, onPressView }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{ uri: detail?.images[0] }}
-        resizeMode="cover"
-      />
+      {detail?.images && (
+        <Image
+          style={styles.image}
+          source={{ uri: detail?.images[0] }}
+          resizeMode="cover"
+        />
+      )}
       <View style={styles.textview}>
-        <Text style={styles.title} numberOfLines={1}>{detail?.title}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {detail?.title}
+        </Text>
         <Text style={styles.price}>CHF {detail?.price} </Text>
       </View>
       <Button

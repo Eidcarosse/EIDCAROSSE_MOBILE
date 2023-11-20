@@ -1,18 +1,18 @@
-import { Platform, StyleSheet } from 'react-native';
-import { height, width } from '../../../utills/Dimension';
-import AppColors from '../../../utills/AppColors';
+import { Platform, StyleSheet } from "react-native";
+import { height, width } from "../../../utills/Dimension";
+import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    alignItems: 'center',
-    padding:width(5),
-    backgroundColor:AppColors.white,
-    flexBasis:'auto'
+    alignItems: "center",
+    padding: width(5),
+    backgroundColor: AppColors.white,
+    flexBasis: "auto",
   },
   title: {
     fontSize: width(3.5),
     paddingVertical: width(2),
-    paddingLeft:width(2),
+    paddingLeft: width(2),
     fontWeight: "bold",
   },
   searchbox: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     // borderWidth: 0,
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowColor: "rgba(0, 0, 0, 0.2)",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
@@ -35,7 +35,34 @@ const styles = StyleSheet.create({
   price: {
     backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,
-    borderRadius:width(1)
+    borderRadius: width(1),
+  },
+  container: {
+    backgroundColor: AppColors.white,
+    width: width(90),
+    justifyContent: "flex-start",
+    paddingVertical: width(3),
+    borderRadius: width(0),
+    alignSelf: "center",
+    paddingHorizontal: height(0),
+
+    ...Platform.select({
+      ios: {
+        shadowColor: "rgba(0, 0, 0, 0.2)",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0,
+        shadowRadius: 0,
+      },
+      android: {
+        elevation: 0,
+      },
+    }),
+  },
+  texticon: {
+    color: "black",
+    width: width(80),
+    alignSelf: "flex-start",
+    fontWeight: "normal",
   },
 });
 export default styles;

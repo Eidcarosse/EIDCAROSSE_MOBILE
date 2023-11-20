@@ -15,6 +15,7 @@ import GlobalMethods, { infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
+import { WebLink } from "../../utills/Constants";
 export default function MapAdCard({ data, onPress }) {
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
@@ -143,7 +144,7 @@ export default function MapAdCard({ data, onPress }) {
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => GlobalMethods.onPressShare("share")}>
+          <TouchableOpacity onPress={() => GlobalMethods.onPressShare(`${WebLink}${data?._id}`,data?.title)}>
             <Entypo size={width(4)} name="share" />
           </TouchableOpacity>
           <AntDesign size={width(4)} name="eye" color={"grey"} />

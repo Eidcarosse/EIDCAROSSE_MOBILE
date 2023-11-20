@@ -22,4 +22,4 @@ export { default as SellUsScreen } from "./SNTU";
 export { default as RepairSreen } from "./repairnow";
 export { default as MapAdView } from "./MapView";
 export { default as AppSetting } from "./AppSetting";
-export { default as PrivacySafety } from "./privacyandSafety";
+export { default as PrivacySafety } from "./privecyandSafety";

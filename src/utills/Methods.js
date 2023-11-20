@@ -144,10 +144,14 @@ const onPressEmail = (email) => {
     })
     .catch((error) => console.error("Error opening email app:", error));
 };
-const onPressShare = async (message) => {
+const onPressShare = async (message, title) => {
   try {
     const result = await Share.share({
-      message: message,
+      message: `${title}\n${message}`,
+      title: "Eidcarosse",
+      url: message,
+      dialogTitle: "Eidcarosse ",
+      subject: title,
     });
 
     if (result.action === Share.sharedAction) {

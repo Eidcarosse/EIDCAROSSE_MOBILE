@@ -16,6 +16,7 @@ import GlobalMethods, { infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
+import { WebLink } from "../../utills/Constants";
 export default function CardView({ data }) {
   const [slideNo, setSlideNo] = useState(0);
   const introRef = useRef(null);
@@ -167,7 +168,7 @@ export default function CardView({ data }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            onPress={() => GlobalMethods.onPressShare("Share")}
+            onPress={() => GlobalMethods.onPressShare(`${WebLink}${data?._id}`,data?.title)}
           >
             <Entypo size={width(4)} name="share" />
           </TouchableOpacity>
