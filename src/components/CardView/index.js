@@ -133,7 +133,7 @@ export default function CardView({ data }) {
           )}
         </View>
       </TouchableOpacity>
-      {!(data?.userId === loginuser?._id) ? (
+      {!(data?.userId?._id === loginuser?._id) ? (
         <View style={styles.icons}>
           <TouchableOpacity onPress={onpressfav} style={styles.space}>
             <AntDesign
@@ -150,25 +150,21 @@ export default function CardView({ data }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            // onPress={() => {
-            //   navigation.navigate(ScreenNames.CHAT, data);
-            // }}
-            // onPress={() => {
-            //   // console.log('====================================');
-            //   // console.log("product detail in chat ",data);
-            //   // console.log('====================================');
-            //   navigation.navigate(ScreenNames.CHAT, {
-            //     room: null,
-            //     ownerID: data?.userId,
-            //     productInfo:data
-            //   });
-            // }}
+            onPress={() => {
+              navigation.navigate(ScreenNames.CHAT, {
+                userRoom: null,
+                usr: data?.userId,
+                userItem: data?._id,
+              });
+            }}
           >
             <Ionicons size={width(4)} name="chatbubble-ellipses" />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            onPress={() => GlobalMethods.onPressShare(`${WebLink}${data?._id}`,data?.title)}
+            onPress={() =>
+              GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
+            }
           >
             <Entypo size={width(4)} name="share" />
           </TouchableOpacity>

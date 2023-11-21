@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     color: "black",
     width: width(80),
     alignSelf: "flex-start",
-    fontWeight: "normal",
   },
 });
 export default styles;

@@ -80,4 +80,39 @@ const getFavAds = async (id) => {
     return []; // or some default value as needed
   }
 };
-export { signupApi, loginApi, getOwneAd, getFavAds, updateProfile ,getUserByID};
+const changePasswordAPI = async (id, data) => {
+  try {
+    const response = await ApiManager.post(`auth/change-password/${id}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    errorMessage("Network error");
+    console.error("change Password crashed", error);
+  }
+};
+const getShowNumber = async (id) => {
+  try {
+    const response = await ApiManager.put(`auth/showNumber/${id}`);
+    return response;
+  } catch (error) {}
+};
+const getShowAds = async (id) => {
+  try {
+    const response = await ApiManager.put(`auth/showAds/${id}`);
+    return response;
+  } catch (error) {}
+};
+export {
+  signupApi,
+  loginApi,
+  getOwneAd,
+  getFavAds,
+  updateProfile,
+  getUserByID,
+  changePasswordAPI,
+  getShowNumber,
+  getShowAds,
+};

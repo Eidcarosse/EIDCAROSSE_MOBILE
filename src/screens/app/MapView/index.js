@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Head, MapAdCard, ScreenWrapper } from "../../../components";
+import { Card, Head, MapAdCard, ScreenWrapper } from "../../../components";
 import { selectFavAds, selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import * as Location from "expo-location";
@@ -45,7 +45,7 @@ export default function MapAdView({ navigation, route }) {
   const getData = async () => {
     let d = await getAllData(queryParams);
     if (d) {
-      setData(d);
+      setData(d?.ad);
     } else {
       setData([]);
     }
@@ -205,11 +205,23 @@ export default function MapAdView({ navigation, route }) {
                     }, 500);
                   }}
                 >
-                  <MyIcon
-                    height={width(5)}
-                    width={width(5)}
-                    tintColor={AppColors.primary}
-                  />
+                  <View
+                    style={{
+                      backgroundColor: "white",
+                      height: width(10),
+                      width: width(10),
+                      borderRadius: width(10),
+                      alignContent: "center",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <MyIcon
+                      height={width(7)}
+                      width={width(7)}
+                      tintColor={AppColors.primary}
+                    />
+                  </View>
                 </Marker>
               )
             );
@@ -221,14 +233,21 @@ export default function MapAdView({ navigation, route }) {
         closeOnDragDown={true}
         closeOnPressMask={true}
         closeOnPressBack={true}
-        height={height(50)}
+        height={height(55)}
         customStyles={styles.bs}
       >
-        <MapAdCard
+        {/* <MapAdCard
           data={selectData}
           onPress={() => {
             refRBSheet.current.close();
           }}
+        /> */}
+        <Card
+          data={selectData}
+          onPresshide={() => {
+            refRBSheet.current.close();
+          }}
+          map={true}
         />
       </RBSheet>
     </ScreenWrapper>

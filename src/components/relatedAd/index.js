@@ -9,6 +9,7 @@ import styles from "./styles";
 import { useTranslation } from "react-i18next";
 
 export default function RelatedAd({ category }) {
+
   const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [refreshing, onRefresh] = useState(false);
@@ -23,7 +24,7 @@ export default function RelatedAd({ category }) {
     onRefresh(true);
     let d = await getAllData(queryParams);
     if (d) {
-      setData(d);
+      setData(d?.ad);
     } else {
       setData([]);
     }

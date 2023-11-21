@@ -305,9 +305,9 @@ export default {
     contactdetail: "Detalles de Contacto",
     htc: "Cómo Contactar",
     whatsapp: "Whatsapp",
-    phwhatsapp: "0313456789",
+    phwhatsapp: "xxxxxxxxxx",
     viber: "Viber",
-    phviber: "0313456789",
+    phviber: "xxxxxxxxxx",
     email: "Correo Electrónico",
     phoneNumber: "Número de Teléfono",
     website: "Sitio Web",
@@ -453,6 +453,8 @@ export default {
   },
   changePassword: {
     title: "Cambiar Contraseña",
+    oldPassword: "Contraseña Antigua",
+    pholdPassword: "Ingrese la Contraseña Antigua",
     newPassword: "Nueva Contraseña",
     phnewPassword: "Ingrese una nueva Contraseña",
     confirmpassword: "Confirmar Contraseña",
@@ -538,6 +540,7 @@ export default {
     unsold: "No vendido",
   },
   sortList: {
+    old:"El más antiguo",
     latest: "Último",
     atoz: "A a Z (título)",
     ztoa: "Z a A (título)",
@@ -545,7 +548,6 @@ export default {
     hightolow: "Precio (de alto a bajo)",
   },
   chat: {
-    placeholder: "Enviar un mensaje..."
+    placeholder: "Enviar un mensaje...",
   },
-  
 };

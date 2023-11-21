@@ -25,8 +25,10 @@ export const getAllData = async (queryParams) => {
     // if (!response.success) {
     //   throw new Error("Network error getAll data");
     // }
-
-    return response?.data?.ad;
+    // console.log('====================================');
+    // console.log(response?.data?.ad[0].userId);
+    // console.log('====================================');
+    return response?.data;
   } catch (error) {
     console.log(error);
     alert("all data api crashed");
@@ -124,7 +126,7 @@ export const adView = async (adId) => {
   try {
     const response = await ApiManager.patch(`ad/addView?id=${adId}`);
   } catch (error) {
-    alert("fav api");
+    alert("ad viw api");
     console.log(error);
     return []; // or some default value as needed
   }

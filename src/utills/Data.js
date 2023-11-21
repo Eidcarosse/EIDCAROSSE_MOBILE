@@ -145,112 +145,6 @@ export const interiorColorList = [
   { key: "interiorColorList.Orange", value: "Orange" },
   { key: "interiorColorList.Other", value: "Other" },
 ];
-// export const fuelTypelist = [
-//   "Gasoline",
-//   "Diesel",
-//   "Ethanol",
-//   "Electric",
-//   "Hydrogen",
-//   "LPG",
-//   "CNG",
-//   "Hybrid (Electric/Gasoline)",
-//   "Hybrid (Electric/Diesel)",
-//   "Others",
-// ];
-
-// export const truckaxelType = ["1", "2", "3", ">3"];
-
-// export const bikeBodyShape = [
-//   "Supersport",
-//   "Sport Touring",
-//   "Chopper/Cruiser",
-//   "Touring Enduro",
-//   "Streetfighter",
-//   "Enduro Bike",
-//   "Motocrosser",
-//   "Sidecar",
-//   "Classic",
-//   "Three Wheeler",
-//   "Scooter",
-//   "Moped",
-//   "Super Moto",
-//   "Minibike",
-//   "Naked Bike",
-//   "Quad",
-//   "Rally",
-//   "Trials Bike",
-//   "Racing",
-//   "Tourer",
-//   "Other",
-// ];
-
-// export const BikeFuelType = [
-//   "Gasoline",
-//   "Diesel",
-//   "Electric",
-//   "LPG",
-//   "Hybrid (Electric/Gasoline)",
-//   "Others",
-// ];
-
-// export const bodyShapeList = [
-//   "Convertible",
-//   "Compact",
-//   "Coupe",
-//   "SUV/Off-Road/Pick-up",
-//   "Station Wagon",
-//   "Sedan",
-//   "Van",
-//   "Transporter",
-//   "Other",
-// ];
-
-// export const gearBoxList = ["Automatic", "Manual", "Semi-automatic"];
-
-// export const exteriorColorList = [
-//   "Blue",
-//   "Brown",
-//   "Bronze",
-//   "Yellow",
-//   "Grey",
-//   "Green",
-//   "Red",
-//   "White",
-//   "Black",
-//   "Silver",
-//   "Violet",
-//   "Gold",
-//   "Other",
-// ];
-
-// export const bikeExteriorColor = [
-//   "Beige",
-//   "Brown",
-//   "Bronze",
-//   "Yellow",
-//   "Green",
-//   "Red",
-//   "Black",
-//   "Silver",
-//   "Violet",
-//   "Orange",
-//   "Gold",
-//   "Paintwork (Metallic)",
-//   "White",
-//   "Other",
-// ];
-
-// export const interiorColorList = [
-//   "Beige",
-//   "Black",
-//   "Grey",
-//   "White",
-//   "Brown",
-//   "Red",
-//   "Yellow",
-//   "Orange",
-//   "Other",
-// ];
 export const bikedata = [
   { title: "E-bikes", show: "bikecategory.Ebikes" },
   { title: "Bicycles", show: "bikecategory.Bicycles" },
@@ -288,4 +182,12 @@ export const rdata = [
     key: "recondition",
     label: "condition.Recondition",
   },
+];
+export const sortList = [
+  { value: "Latest", key: "sortList.latest" },
+  { value: "Old", key: "sortList.old" },
+  { value: "Price (low to high)", key: "sortList.lowtohigh" },
+  { value: "Price (high to low)", key: "sortList.hightolow" },
+  { value: "A to Z (title)", key: "sortList.atoz" },
+  { value: "Z to A (title)", key: "sortList.ztoa" },
 ];

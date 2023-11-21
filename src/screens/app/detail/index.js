@@ -107,36 +107,40 @@ export default function Detail({ navigation, route }) {
 
   //  }
   // }, [isEnd]);
+
   const getData = async () => {
-    // dispatch(setAppLoader(true));
-    setload(true);
-    let d = await getDataofAdByID(dat?._id);
-    setload(false);
-    if (d) {
-      setDat(d);
-      if (d.userId._id != loginuser?._id) {
-        await adView(dat?._id);
-      }
-      if (mapRef?.current) {
-        mapRef?.current.animateToRegion(
-          {
-            latitude: d?.latitude || 0,
-            longitude: d?.longitude || 0,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          },
-          3 * 1000
-        );
-      }
-    } else setDat({});
+    try {
+      setload(true);
+      let d = await getDataofAdByID(dat?._id);
+      setload(false);
+      if (d) {
+        setDat(d);
+        if (d.userId._id != loginuser?._id) {
+          await adView(dat?._id);
+        }
+        if (mapRef?.current) {
+          mapRef?.current.animateToRegion(
+            {
+              latitude: d?.latitude || 0,
+              longitude: d?.longitude || 0,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            },
+            3 * 1000
+          );
+        }
+      } else setDat({});
+    } catch (error) {
+      setload(false);
+    }
+
     // dispatch(setAppLoader(false));
-    setload(false);
   };
-  console.log(data?.subCategory);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
         <DetailHeader
+          user={data?.userId}
           onPressBack={() => navigation.goBack()}
           onPressShare={() =>
             GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
@@ -146,7 +150,7 @@ export default function Detail({ navigation, route }) {
       footerUnScrollable={() =>
         !(data?.userId?._id == loginuser?._id || load) && (
           <DetailFooter
-            onPressCall={() => GlobalMethods.onPressCall(data?.phoneNumber)}
+            onPressCall={() => GlobalMethods.onPressCall(data?.phone)}
             onPressChat={() => {
               navigation.navigate(ScreenNames.CHAT, {
                 userRoom: null,
@@ -511,14 +515,16 @@ export default function Detail({ navigation, route }) {
                     {data?.userId?.userName}
                   </Text>
                 </View>
-                <IconButton
-                  title={"detail.seeAllAds"}
-                  onPress={() => {
-                    navigation.navigate(ScreenNames.OTHERPROFILE, {
-                      user: data?.userId,
-                    });
-                  }}
-                />
+                {!data?.userId?.showAds && (
+                  <IconButton
+                    title={"detail.seeAllAds"}
+                    onPress={() => {
+                      navigation.navigate(ScreenNames.OTHERPROFILE, {
+                        user: data?.userId,
+                      });
+                    }}
+                  />
+                )}
               </View>
             </Pressable>
           )}

@@ -81,10 +81,11 @@ export default function AddPost({ navigation, route }) {
   const [website, setWebsite] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [htc, setHtc] = React.useState("");
-  ///api data
+
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vCategory, setVCategory] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
+  const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
   const [addWhatsapp, setAddWhatsapp] = useState(false);
   const [addViber, setAddViber] = useState(false);
   useEffect(() => {
@@ -164,6 +165,7 @@ export default function AddPost({ navigation, route }) {
       formData.append("subCategory", subCategory);
       formData.append("price", price);
       formData.append("km", km);
+
       formData.append("condition", condition);
       formData.append("brand", brand);
       formData.append("year", year);
@@ -181,6 +183,7 @@ export default function AddPost({ navigation, route }) {
       addViber && formData.append("viber", viber);
       formData.append("website", website);
       addWhatsapp && formData.append("whatsapp", whatsapp);
+      addPhone && formData.append("phone", phone);
       // Append each selected image to the form data
       image.forEach((img, index) => {
         formData.append("file", {
@@ -190,13 +193,16 @@ export default function AddPost({ navigation, route }) {
         });
       });
       const resp = await addPostAd(formData);
+      console.log("====================================");
+      console.log(resp);
+      console.log("====================================");
       if (resp?.success) {
         successMessage("Ad successfuly posted");
       } else {
-        errorMessage("Something went wrong");
+        errorMessage("Something went wrong to post ad");
       }
       dispatch(setAppLoader(false));
-      navigation.navigate("title1");
+      navigation.navigate("StackHome");
       const userAd = await getOwneAd(userInfo?._id);
       dispatch(setUserAds(userAd));
     } catch (error) {
@@ -848,6 +854,42 @@ export default function AddPost({ navigation, route }) {
           <Text style={[styles.title, { fontSize: width(5) }]}>
             {t("addPost.contactdetail")}
           </Text>
+          <View style={{ paddingVertical: width(1) }}>
+            <Text style={styles.title}>{t("addPost.email")}</Text>
+            <Input
+              value={email}
+              setvalue={setEmail}
+              containerStyle={[styles.price, { width: width(90) }]}
+              editable={false}
+            />
+          </View>
+          <IconButton
+            onPress={() => {
+              setAddPhone(!addPhone);
+            }}
+            title={"Add Phone Number"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            iconright={
+              <AntDesign
+                name={!addPhone ? "checkcircleo" : "checkcircle"}
+                color={!addPhone ? "black" : AppColors.primary}
+                size={width(6)}
+              />
+            }
+          />
+          {/* {htc == "Phone" && ( */}
+          {addPhone && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
+              <Input
+                value={phone}
+                setvalue={setPhone}
+                containerStyle={[styles.price, { width: width(90) }]}
+                editable={false}
+              />
+            </View>
+          )}
           {/* <View style={{ alignSelf: "center", marginBottom: height(3) }}>
             <Text style={styles.title}>{t("addPost.htc")}</Text>
             <SelectDropdown
@@ -889,6 +931,19 @@ export default function AddPost({ navigation, route }) {
               />
             }
           />
+
+          {addWhatsapp && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
+              <Input
+                value={whatsapp}
+                setvalue={setWhatsapp}
+                placeholder={t("addPost.phwhatsapp")}
+                containerStyle={[styles.price, { width: width(90) }]}
+                keyboardType="phone-pad"
+              />
+            </View>
+          )}
           <IconButton
             onPress={() => {
               setAddViber(!addViber);
@@ -904,18 +959,6 @@ export default function AddPost({ navigation, route }) {
               />
             }
           />
-          {addWhatsapp && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
-              <Input
-                value={whatsapp}
-                setvalue={setWhatsapp}
-                placeholder={t("addPost.phwhatsapp")}
-                containerStyle={[styles.price, { width: width(90) }]}
-                keyboardType="phone-pad"
-              />
-            </View>
-          )}
           {addViber && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.viber")}</Text>
@@ -928,26 +971,7 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>{t("addPost.email")}</Text>
-            <Input
-              value={email}
-              setvalue={setEmail}
-              containerStyle={[styles.price, { width: width(90) }]}
-              editable={false}
-            />
-          </View>
 
-          {/* {htc == "Phone" && ( */}
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
-            <Input
-              value={phone}
-              setvalue={setPhone}
-              containerStyle={[styles.price, { width: width(90) }]}
-              editable={false}
-            />
-          </View>
           {/* )} */}
           {/* <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>{t("addPost.website")}</Text>

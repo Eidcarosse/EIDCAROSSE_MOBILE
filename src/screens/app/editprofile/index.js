@@ -27,6 +27,7 @@ import { updateProfile } from "../../../backend/auth";
 import { errorMessage } from "../../../utills/Methods";
 
 export default function EditProfile({ navigation, route }) {
+  
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const imageRef = useRef(null);
@@ -36,6 +37,8 @@ export default function EditProfile({ navigation, route }) {
 
   const [userName, setUserName] = React.useState(userdata?.userName || null);
   const [email, setEmail] = React.useState(userdata?.email || null);
+  const [whatsapp, setWhatsapp] = React.useState(userdata?.whatsapp || "");
+  const [viber, setViber] = React.useState(userdata?.viber || "");
   const [phoneNumber, setPhoneNumber] = React.useState(
     userdata?.phoneNumber || null
   );
@@ -47,6 +50,8 @@ export default function EditProfile({ navigation, route }) {
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
       formData.append("phoneNumber", phoneNumber);
+      formData.append("viber", viber);
+      formData.append("whatsapp", whatsapp);
 
       formData.append("file", {
         name: `image`,
@@ -68,7 +73,7 @@ export default function EditProfile({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
-
+  console.log(userdata);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -160,6 +165,18 @@ export default function EditProfile({ navigation, route }) {
             placeholder={"editprofile.phoneNumberPlaceholder"}
             value={phoneNumber}
             setvalue={setPhoneNumber}
+          />
+          <Input
+            title={"editprofile.whatsappTitle"}
+            placeholder={"editprofile.whatsappPlaceholder"}
+            value={whatsapp}
+            setvalue={setWhatsapp}
+          />
+          <Input
+            title={"editprofile.viberTitle"}
+            placeholder={"editprofile.viberPlaceholder"}
+            value={viber}
+            setvalue={setViber}
           />
           <Button
             containerStyle={styles.button}

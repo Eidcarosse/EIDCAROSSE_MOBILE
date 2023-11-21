@@ -274,7 +274,7 @@ export default {
     personalInformation: "Personal Information",
     password: "Password",
     privacy: "Privacy & Safety",
-    appSetting: "App Setting",
+    appSetting: "App Settings",
     manageAccount: "Manage Account",
   },
   home: {
@@ -317,9 +317,9 @@ export default {
     contactdetail: "Contact Detail",
     htc: "How to Contact",
     whatsapp: "Whatsapp",
-    phwhatsapp: "0313456789",
+    phwhatsapp: "xxxxxxxxxxxx",
     viber: "Viber",
-    phviber: "0313456789",
+    phviber: "xxxxxxxxxxxx",
     email: "Email",
     phoneNumber: "Phone Number",
     website: "Website",
@@ -454,6 +454,10 @@ export default {
     lastNamePlaceholder: "Enter your last name",
     phoneNumberTitle: "Contact Number",
     phoneNumberPlaceholder: "Enter your phone number",
+    whatsappTitle: "Whatsapp",
+    whatsappPlaceholder: "Enter your Whatsapp",
+    viberTitle: "Viber",
+    viberPlaceholder: "Enter your Viber",
     userNameTitle: "User Name",
     usernamePlaceholder: "Enter your username",
     emailTitle: "Email",
@@ -467,6 +471,8 @@ export default {
   },
   changePassword: {
     title: "Change Password",
+    oldPassword: "Old Password",
+    pholdPassword: "Enter old Password",
     newPassword: "New Password",
     phnewPassword: "Enter a new Password",
     confirmpassword: "Confirm Password",
@@ -551,13 +557,14 @@ export default {
     unsold: "UnSold",
   },
   sortList: {
+    old:"Oldest",
     latest: "Latest",
     atoz: "A to Z (title)",
     ztoa: "Z to A (title)",
     lowtohigh: "Price (low to high)",
     hightolow: "Price (high to low)",
   },
-  chat:{
-    placeholder:"Type a message.."
-  }
+  chat: {
+    placeholder: "Type a message..",
+  },
 };

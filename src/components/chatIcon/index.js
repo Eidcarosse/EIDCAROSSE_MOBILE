@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { width } from "../../utills/Dimension";
 import styles from "./styles";
@@ -11,18 +11,20 @@ import { selectUserMeta } from "../../redux/slices/user";
 export default function ChatIcon({ navigation, data, onPress }) {
   const loginuser = useSelector(selectUserMeta);
   const [user, setUser] = useState();
-  
-  useEffect(() => {
-    getdata();
-  }, []);
-  const getdata = async () => {
+
+  const fetchData = useCallback(async () => {
     let search;
     loginuser._id == data.split("_")[0]
       ? (search = data.split("_")[1])
       : (search = data.split("_")[0]);
     let user = await getUserByID(search);
     setUser(user);
-  };
+  }, [loginuser, data]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   // console.log("indata", data);
   return (
     <TouchableOpacity

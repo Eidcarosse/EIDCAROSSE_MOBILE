@@ -10,7 +10,7 @@ export default {
     whatsappTitle: "Whatsapp",
     whatsappPlaceholder: "Geben Sie Ihre Whatsapp-Nummer ein",
     viberTitle: "Viber",
-    viberPlaceholder: "Geben Sie Ihre Viber-Nummer ein",    
+    viberPlaceholder: "Geben Sie Ihre Viber-Nummer ein",
     userNameTitle: "Benutzername",
     usernamePlaceholder: "Geben Sie Ihren Benutzernamen ein",
     emailTitle: "E-Mail",
@@ -295,9 +295,9 @@ export default {
     contactdetail: "Kontaktdaten",
     htc: "Wie kontaktieren",
     whatsapp: "WhatsApp",
-    phwhatsapp: "0313456789",
+    phwhatsapp: "xxxxxxxxx",
     viber: "Viber",
-    phviber: "0313456789",
+    phviber: "xxxxxxxxxx",
     email: "E-Mail",
     phoneNumber: "Telefonnummer",
     website: "Website",
@@ -498,8 +498,8 @@ export default {
   },
 
   allData: {
-    title: "Suchdaten",
-    totalresult: "Gesamtergebnis",
+    title: "Alle Inserate",
+    totalresult: "Resultate",
     filter: "Filter",
     brand: "Marke",
     sub: "Unterkategorie",
@@ -529,16 +529,17 @@ export default {
     markassold: "Als verkauft markieren",
     republish: "Erneut veröffentlichen",
     sold: "Verkauft",
-    unsold:"Ungesetzt"
+    unsold: "Ungesetzt",
   },
   sortList: {
+    old:"Älteste",
     latest: "Neueste",
     atoz: "A bis Z (Titel)",
     ztoa: "Z bis A (Titel)",
     lowtohigh: "Günstigste",
     hightolow: "Teuerste",
   },
-  chat:{
-    placeholder:"Sende eine Nachricht.."
-  }
+  chat: {
+    placeholder: "Sende eine Nachricht..",
+  },
 };

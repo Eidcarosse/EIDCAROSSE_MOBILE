@@ -74,7 +74,9 @@ export default function ListData({ navigation, route }) {
   const [vCategory, setVCategory] = React.useState();
   const [filter, setFilter] = React.useState(false);
   const [data, setData] = useState([]);
-  const [columnumber, setcolumnumber] = useState(2);
+  const [totalAds, setTotalAds] = useState(0);
+
+  // const [columnumber, setcolumnumber] = useState(2);
 
   const queryParams = {
     address: address || "",
@@ -164,11 +166,13 @@ export default function ListData({ navigation, route }) {
   const getData = async () => {
     onRefresh(true);
     let d = await getAllData(queryParams);
+
     if (d.length == 0) {
       setempty(true);
     }
     if (d) {
-      setData((prevData) => [...prevData, ...d]);
+      setTotalAds(d?.totalAds);
+      setData((prevData) => [...prevData, ...d?.ad]);
       setPageNumber(pageNumber + 1);
     } else {
       setData([]);
@@ -234,12 +238,7 @@ export default function ListData({ navigation, route }) {
         />
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
-            {t("allData.totalresult")} :{" "}
-            {data.filter((item) => {
-              return item.title
-                .toLowerCase()
-                .includes(searchString.toLowerCase());
-            }).length || 0}
+            {t("allData.totalresult")} : {totalAds}
           </Text>
           <View style={styles.iconview}>
             {/* <TouchableOpacity
@@ -549,13 +548,13 @@ export default function ListData({ navigation, route }) {
                       }}
                       dropdownStyle={styles.dropdown}
                       onSelect={(selectedItem, index) => {
-                        setSortby(selectedItem.title);
+                        setSortby(selectedItem.value);
                       }}
                       buttonTextAfterSelection={(selectedItem, index) => {
-                        return t(selectedItem.show);
+                        return t(selectedItem.key);
                       }}
                       rowTextForSelection={(item, index) => {
-                        return t(item.show);
+                        return t(item.key);
                       }}
                     />
                   </View>
@@ -584,6 +583,12 @@ export default function ListData({ navigation, route }) {
                           // if data array is an array of objects then return selectedItem.property to render after item is selected
                           return t(selectedItem.value);
                         }}
+                        // rowTextForSelection={(item, index) => {
+                        //   console.log("xbuisxwixbuw",item);
+                        //   // text represented for each item in dropdown
+                        //   // if data array is an array of objects then return item.property to represent item in dropdown
+                        //   return t(item.value);
+                        // }}
                         rowTextForSelection={(item, index) => {
                           // text represented for each item in dropdown
                           // if data array is an array of objects then return item.property to represent item in dropdown

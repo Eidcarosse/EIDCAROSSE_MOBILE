@@ -79,7 +79,7 @@ export default function ListingView({ data }) {
                 </Text>
               </View>
             )}
-            {!(data?.userId === loginuser?._id) ? (
+            {!(data?.userId?._id === loginuser?._id) ? (
               <View>
                 <TouchableOpacity onPress={onpressfav}>
                   <AntDesign

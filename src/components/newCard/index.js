@@ -28,7 +28,7 @@ import categories from "../../svgcomponents";
 import { useTranslation } from "react-i18next";
 import { selectCurrentLanguage } from "../../redux/slices/language";
 import { WebLink } from "../../utills/Constants";
-export default function Card({ data }) {
+export default function Card({ data, onPresshide, map = false }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const language = useSelector(selectCurrentLanguage);
@@ -71,6 +71,7 @@ export default function Card({ data }) {
     return (
       <Pressable
         onPress={() => {
+          map&&onPresshide();
           navigation.navigate(ScreenNames.DETAIL, data);
         }}
         style={{ paddingHorizontal: width(0.5) }}
@@ -90,6 +91,7 @@ export default function Card({ data }) {
         <Pressable
           style={styles.detail}
           onPress={() => {
+            map&&onPresshide();
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
@@ -126,11 +128,16 @@ export default function Card({ data }) {
               }}
             >
               <TouchableOpacity
-                onPress={() => GlobalMethods.onPressShare(`${WebLink}${data?._id}`,data?.title)}
+                onPress={() =>
+                  GlobalMethods.onPressShare(
+                    `${WebLink}${data?._id}`,
+                    data?.title
+                  )
+                }
               >
                 <Entypo size={width(5)} name="share" color={"grey"} />
               </TouchableOpacity>
-              {!(data?.userId === loginuser?._id) ? (
+              {!(data?.userId?._id === loginuser?._id) ? (
                 <View>
                   <TouchableOpacity onPress={onpressfav}>
                     <AntDesign
@@ -165,6 +172,7 @@ export default function Card({ data }) {
         <Pressable
           style={styles.detail}
           onPress={() => {
+            map&&onPresshide();
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
@@ -219,7 +227,7 @@ export default function Card({ data }) {
             {data?.address}
           </Text>
         </View>
-        {!(data?.userId === loginuser?._id) ? (
+        {!(data?.userId?._id === loginuser?._id) ? (
           <View
             style={{
               flexDirection: "row",
@@ -233,9 +241,13 @@ export default function Card({ data }) {
               <Ionicons size={width(5)} name="call" color={"grey"} />
             </TouchableOpacity>
             <TouchableOpacity
-            // onPress={() => {
-            //   navigation.navigate(ScreenNames.CHAT, data);
-            // }}
+              onPress={() => {
+                navigation.navigate(ScreenNames.CHAT, {
+                  userRoom: null,
+                  usr: data?.userId,
+                  userItem: data?._id,
+                });
+              }}
             >
               <Entypo size={width(5)} name="chat" color={"grey"} />
             </TouchableOpacity>

@@ -3,23 +3,52 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
+import { getShowAds, getShowNumber } from "../../../backend/auth";
+import { setAppLoader } from "../../../redux/slices/config";
 
 export default function PrivacySafety({ navigation, route }) {
   const dispatch = useDispatch();
-  const [showNumber, setShowNumber] = useState(false);
-  const [showAds, setShowAds] = useState(false);
+  const user = useSelector(selectUserMeta);
+  const [showNumber, setShowNumber] = useState(user?.showNumber);
+  const [showAds, setShowAds] = useState(user?.showAds);
 
   const { t, i18n } = useTranslation();
-
+  const getNumber = async () => {
+    dispatch(setAppLoader(true));
+    const res = await getShowNumber(user?._id);
+    if (res) {
+      console.log("====================================");
+      console.log(res?.user?.showNumber);
+      console.log("====================================");
+      dispatch(setUserMeta(res?.user));
+      dispatch(setAppLoader(false));
+    } else {
+      dispatch(setAppLoader(false));
+    }
+  };
+  const getAds = async () => {
+    dispatch(setAppLoader(true));
+    const res = await getShowAds(user?._id);
+    if (res) {
+      console.log("====================================");
+      console.log(res?.user?.showAds);
+      console.log("====================================");
+      dispatch(setUserMeta(res?.user));
+      dispatch(setAppLoader(false));
+    } else {
+      dispatch(setAppLoader(false));
+    }
+  };
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"appseting.title"} navigation={navigation} />
+        <Head headtitle={"privacy and Safety"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}
@@ -28,31 +57,27 @@ export default function PrivacySafety({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <IconButton
-          onPress={() => {
-            setShowNumber(!showNumber);
-          }}
-          title={"Don't Show my Number"}
+          onPress={getNumber}
+          title={"Don't show my number"}
           containerStyle={styles.container}
           textStyle={styles.texticon}
           iconright={
             <Fontisto
-              name={!showNumber ? "toggle-off" : "toggle-on"}
-              color={!showNumber ? "black" : AppColors.primary}
+              name={!user?.showNumber ? "toggle-off" : "toggle-on"}
+              color={!user?.showNumber ? "black" : AppColors.primary}
               size={width(6)}
             />
           }
         />
         <IconButton
-          onPress={() => {
-            setShowAds(!showAds);
-          }}
-          title={"public see my all ads?"}
+          onPress={getAds}
+          title={"Don't allow public to see my all ads?"}
           containerStyle={styles.container}
           textStyle={styles.texticon}
           iconright={
             <Fontisto
-              name={!showAds ? "toggle-off" : "toggle-on"}
-              color={!showAds ? "black" : AppColors.primary}
+              name={!user?.showAds ? "toggle-off" : "toggle-on"}
+              color={!user?.showAds ? "black" : AppColors.primary}
               size={width(6)}
             />
           }
