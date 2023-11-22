@@ -12,7 +12,7 @@ export default function Category({ navigation, route, value }) {
     <ScreenWrapper
       headerUnScrollable={() =>
         route?.params ? (
-          <Head headtitle={"Categories"} navigation={navigation} />
+          <Head headtitle={"categorylist.categories"} navigation={navigation} />
         ) : (
           <Header navigation={navigation} />
         )

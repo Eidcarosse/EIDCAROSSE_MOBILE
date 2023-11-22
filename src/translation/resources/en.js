@@ -311,21 +311,28 @@ export default {
     km: "KM Driven",
     phkm: "2222",
     description: "Description",
-    phdescription: "This is y descripton about ad",
+    phdescription: "Describe what you are selling.",
     videourl: "Video Url",
-    phurl: "http//abc/xyz",
+    phurl: "https://example.com",
     contactdetail: "Contact Detail",
     htc: "How to Contact",
+
     whatsapp: "Whatsapp",
     phwhatsapp: "xxxxxxxxxxxx",
+
+    addWhatsapp: "Add whatsapp",
+    addViber: "Add viber",
+    addNumber: "Add phone number",
+
     viber: "Viber",
     phviber: "xxxxxxxxxxxx",
     email: "Email",
+
     phoneNumber: "Phone Number",
     website: "Website",
     phwebsite: "www.google.com",
     location: "Location",
-    phlocation: "Rawalpindi",
+    phlocation: "select location",
     TandC1: "I have read and agree to the Eidcarosse",
     TandC2: "Terms and Conditions",
     post: "Add Post",
@@ -557,7 +564,7 @@ export default {
     unsold: "UnSold",
   },
   sortList: {
-    old:"Oldest",
+    old: "Oldest",
     latest: "Latest",
     atoz: "A to Z (title)",
     ztoa: "Z to A (title)",
@@ -566,5 +573,10 @@ export default {
   },
   chat: {
     placeholder: "Type a message..",
+  },
+  privacySafety: {
+    title:"Privacy and Safety",
+    number: "Don't show my number",
+    ads: "Don't allow public to see my all ads?",
   },
 };

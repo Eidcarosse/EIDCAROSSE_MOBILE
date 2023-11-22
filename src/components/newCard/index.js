@@ -85,6 +85,7 @@ export default function Card({ data, onPresshide, map = false }) {
       </Pressable>
     );
   };
+
   return (
     <View style={styles.main}>
       <View style={{ borderBottomWidth: width(0.1) }}>
@@ -236,9 +237,10 @@ export default function Card({ data, onPresshide, map = false }) {
             }}
           >
             <TouchableOpacity
-              onPress={() => GlobalMethods.onPressCall("12345678")}
+            disabled={data?.phone?false:true}
+              onPress={() => GlobalMethods.onPressCall(data?.phone)}
             >
-              <Ionicons size={width(5)} name="call" color={"grey"} />
+              <Ionicons size={width(5)} name="call" color={data?.phone?"grey":"lightgrey"} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {

@@ -25,6 +25,7 @@ import { toastMessage } from "../../../utills/Methods";
 import styles from "./styles";
 import { Card } from "../../../components";
 import { useScrollToTop } from "@react-navigation/native";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
 export default function Home({}) {
   const scrollViewRef = useRef(null);
   const navigation = useNavigation();
@@ -67,7 +68,7 @@ export default function Home({}) {
   useFocusEffect(
     useCallback(() => {
       getData();
-    }, [])
+    }, [selectCurrentLanguage])
   );
   const getData = useCallback(async () => {
     // dispatch(setAppLoader(true));

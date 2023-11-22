@@ -179,23 +179,36 @@ const openWhatsApp = (phoneNumber) => {
       errorMessage("Whatsapp not exist");
     });
 };
-const openViber = (phoneNumber) => {
-  const message = "Hello, I saw your ad on Eidcarosse!"; // Replace with your desired message
+// const openViber = (phoneNumber) => {
+//   const message = "Hello, I saw your ad on Eidcarosse!"; // Replace with your desired message
 
-  // Construct the Viber URL
-  const viberURL = `viber://forward?text=${encodeURIComponent(
-    message
-  )}&phone=${phoneNumber}`;
+//   // Construct the Viber URL
+//   const viberURL = `viber://forward?text=${encodeURIComponent(
+//     message
+//   )}&phone=${phoneNumber}`;
 
-  // Open Viber with the constructed URL
-  Linking.openURL(viberURL)
-    .then(() => {
-      console.log("Viber opened successfully");
-    })
-    .catch((error) => {
-      console.error("Error opening Viber:", error);
-      errorMessage("Viber not exist");
-    });
+//   // Open Viber with the constructed URL
+//   Linking.openURL(viberURL)
+//     .then(() => {
+//       console.log("Viber opened successfully");
+//     })
+//     .catch((error) => {
+//       console.error("Error opening Viber:", error);
+//       errorMessage("Viber App not exist in phone");
+//     });
+// };
+export const openViber = (phoneNumber) => {
+try {
+  const viberDeepLink = `viber://chat?number=${phoneNumber}`;
+
+  // Attempt to open the Viber chat using the deep link
+  Linking.openURL(viberDeepLink).catch((err) =>
+  errorMessage("Viber not found")
+  );
+} catch (error) {
+  
+}
+
 };
 const calculateTimeDifference = (createdAt, l) => {
   let locale;

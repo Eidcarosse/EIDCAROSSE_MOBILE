@@ -13,19 +13,16 @@ export default function DetailFooter({
   onPressCall,
   onPressMail,
   onPressChat,
-  user,
+  pNumber,
 }) {
   return (
     <View style={styles.container}>
-      {!user?.showNumber && (
-        <IconButton
-          onPress={onPressCall}
-          icon={
-            <Ionicons size={width(4)} name="call" color={AppColors.white} />
-          }
-          title={"Call"}
-        />
-      )}
+      <IconButton
+        disabled={pNumber ? false : true}
+        onPress={onPressCall}
+        icon={<Ionicons size={width(4)} name="call" color={AppColors.white} />}
+        title={"Call"}
+      />
       <IconButton
         onPress={onPressMail}
         icon={<AntDesign size={width(4)} name="mail" color={AppColors.white} />}

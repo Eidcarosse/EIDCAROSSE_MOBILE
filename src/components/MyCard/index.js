@@ -7,7 +7,7 @@ import { Menu, MenuItem } from "react-native-material-menu";
 
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import { deleteAdById } from "../../backend/api";
+import { deleteAdById, refreshApi } from "../../backend/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
@@ -15,8 +15,11 @@ import { getOwneAd } from "../../backend/auth";
 import GlobalMethods from "../../utills/Methods";
 import { useTranslation } from "react-i18next";
 import { selectCurrentLanguage } from "../../redux/slices/language";
+import { useNavigation } from "@react-navigation/native";
+import ScreenNames from "../../routes/routes";
 
 export default function MyCard({ data }) {
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
@@ -45,6 +48,19 @@ export default function MyCard({ data }) {
       dispatch(setAppLoader(false));
     }
   };
+  const refreshAd = async () => {
+    dispatch(setAppLoader(true));
+    try {
+      const data = await refreshApi(data?._id);
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setAppLoader(false));
+    }
+  };
+// console.log('====================================');
+// console.log(data?._id);
+// console.log('====================================');
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
@@ -141,8 +157,22 @@ export default function MyCard({ data }) {
         )}
       </View>
       <Menu visible={isModalVisible} onRequestClose={hideMenu}>
-        <MenuItem onPress={hideMenu}>{t("myad.edit")}</MenuItem>
-        <MenuItem onPress={hideMenu}>{t("myad.refresh")}</MenuItem>
+        <MenuItem
+          onPress={() => {
+            hideMenu();
+            // navigation.navigate(ScreenNames.ADDPOST);
+          }}
+        >
+          {t("myad.edit")}
+        </MenuItem>
+        <MenuItem
+          onPress={() => {
+            hideMenu();
+            // refreshAd();
+          }}
+        >
+          {t("myad.refresh")}
+        </MenuItem>
         <MenuItem
           onPress={() => {
             hideMenu(), deleteAd(data._id);

@@ -2,6 +2,7 @@ import { AntDesign, Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
   Image,
+  Linking,
   SafeAreaView,
   Share,
   StyleSheet,
@@ -101,6 +102,7 @@ const CustomDrawer = ({ navigation }) => {
           title={"drawr.contactUs"}
           containerStyle={styles.container}
           textStyle={styles.text}
+          onPress={() => Linking.openURL("https://eidcarosse.ch/contact-us")}
           icon={
             <AntDesign name="contacts" style={styles.icon} size={width(4)} />
           }

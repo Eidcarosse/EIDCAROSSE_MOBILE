@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Linking, Text, View } from "react-native";
 import Icons from "../../../asset/images";
 import { Button, Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
@@ -25,7 +25,11 @@ export default function Repair({ navigation, route }) {
         <View style={styles.container}>
           <Text style={styles.description}>{t("RN.data")}</Text>
         </View>
-        <Button containerStyle={styles.button} title={"RN.rn"} />
+        <Button
+          containerStyle={styles.button}
+          title={"RN.rn"}
+          onPress={() => Linking.openURL("https://eidcarosse.ch/repair-now")}
+        />
       </View>
     </ScreenWrapper>
   );

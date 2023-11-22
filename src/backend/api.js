@@ -131,6 +131,16 @@ export const adView = async (adId) => {
     return []; // or some default value as needed
   }
 };
+export const refreshApi=async(id)=>{
+  try {
+    const response=await ApiManager.put(`ad/refreshAd/${id}`);
+    console.log('====================================');
+    console.log("Refresh API",response);
+    console.log('====================================');
+  } catch (error) {
+    
+  }
+}
 // export const chatRooms=async({ userId, productId, productUserId })=>{
 //   try {
 //     const response=await ApiManager.post(`chatroom/`)

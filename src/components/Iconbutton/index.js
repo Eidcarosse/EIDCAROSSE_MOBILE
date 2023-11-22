@@ -3,6 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
+import AppColors from "../../utills/AppColors";
 
 const IconButton = ({
   title,
@@ -20,7 +21,11 @@ const IconButton = ({
       onPress={onPress}
       disabled={disabled}
       activeOpacity={activeOpacity}
-      style={[styles.container, containerStyle]}
+      style={[
+        styles.container,
+        containerStyle,
+        disabled && { backgroundColor: "grey" },
+      ]}
     >
       {icon}
       <Text style={[styles.text, textStyle]}>{t(title)}</Text>

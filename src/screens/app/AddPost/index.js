@@ -48,6 +48,7 @@ export default function AddPost({ navigation, route }) {
   const category = route?.params?.category;
   const find = route?.params?.find;
   const sub = route?.params?.subcategory;
+  const edit=route?.params?.edit
 
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
@@ -85,7 +86,7 @@ export default function AddPost({ navigation, route }) {
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vCategory, setVCategory] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
-  const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
+  const [addPhone, setAddPhone] = useState(!userInfo?.showNumber);
   const [addWhatsapp, setAddWhatsapp] = useState(false);
   const [addViber, setAddViber] = useState(false);
   useEffect(() => {
@@ -867,7 +868,7 @@ export default function AddPost({ navigation, route }) {
             onPress={() => {
               setAddPhone(!addPhone);
             }}
-            title={"Add Phone Number"}
+            title={"addPost.addNumber"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={
@@ -920,7 +921,7 @@ export default function AddPost({ navigation, route }) {
             onPress={() => {
               setAddWhatsapp(!addWhatsapp);
             }}
-            title={"Add Whatsapp"}
+            title={"addPost.addWhatsapp"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={
@@ -948,7 +949,7 @@ export default function AddPost({ navigation, route }) {
             onPress={() => {
               setAddViber(!addViber);
             }}
-            title={"Add Viber"}
+            title={"addPost.addViber"}
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={

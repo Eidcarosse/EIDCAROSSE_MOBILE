@@ -48,7 +48,7 @@ export default function PrivacySafety({ navigation, route }) {
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"privacy and Safety"} navigation={navigation} />
+        <Head headtitle={"privacySafety.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       backgroundColor={AppColors.white}
@@ -58,7 +58,7 @@ export default function PrivacySafety({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <IconButton
           onPress={getNumber}
-          title={"Don't show my number"}
+          title={"privacySafety.number"}
           containerStyle={styles.container}
           textStyle={styles.texticon}
           iconright={
@@ -71,7 +71,7 @@ export default function PrivacySafety({ navigation, route }) {
         />
         <IconButton
           onPress={getAds}
-          title={"Don't allow public to see my all ads?"}
+          title={"privacySafety.ads"}
           containerStyle={styles.container}
           textStyle={styles.texticon}
           iconright={

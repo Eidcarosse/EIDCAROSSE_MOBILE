@@ -16,8 +16,10 @@ import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebLink } from "../../utills/Constants";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 export default function MapAdCard({ data, onPress }) {
   const dispatch = useDispatch();
+  const language = useSelector(selectCurrentLanguage);
   const favAdIds = useSelector(selectFavAds);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
@@ -124,7 +126,10 @@ export default function MapAdCard({ data, onPress }) {
             <View style={styles.categoryview}>
               <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
               <Text numberOfLines={1} style={styles.categorytext}>
-                {GlobalMethods.calculateTimeDifference(data?.createdAt)}
+                {GlobalMethods.calculateTimeDifference(
+                  data?.createdAt,
+                  language
+                )}
               </Text>
             </View>
           </View>
@@ -133,9 +138,10 @@ export default function MapAdCard({ data, onPress }) {
       {!(data?.userId?._id === loginuser?._id) ? (
         <View style={styles.icons}>
           <TouchableOpacity
-            onPress={() => GlobalMethods.onPressCall("12345678")}
+            disabled={data?.phone ? false : true}
+            onPress={() => GlobalMethods.onPressCall(data?.phone)}
           >
-            <Ionicons size={width(4)} name="call" />
+            <Ionicons size={width(4)} name="call" color={data?.phone?"grey":"lightgrey"}/>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {

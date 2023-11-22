@@ -24,7 +24,6 @@ import {
 import { getOwneAd } from "../../../backend/auth";
 import GlobalMethods from "../../../utills/Methods";
 export default function OtherProfile({ navigation, route }) {
-
   const userdata = route?.params?.user;
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -47,12 +46,11 @@ export default function OtherProfile({ navigation, route }) {
       headerUnScrollable={() => <Head navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground
           source={Icons.bglogo}
-          style={{ width: width(100), flex:1}}
+          style={{ width: width(100), flex: 1 }}
         >
           <View style={styles.imageiner}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -95,7 +93,6 @@ export default function OtherProfile({ navigation, route }) {
                 >
                   {userdata?.phoneNumber}
                 </Text>
-
               </View>
             </View>
             <View style={styles.wishlistview}>
@@ -141,17 +138,26 @@ export default function OtherProfile({ navigation, route }) {
             </View>
           </View>
         </ImageBackground>
-        <View style={{ width: width(100),flex:2,paddingVertical:height(1) }}>
-          <ScrollView>
-            {data?.map((item, index) => (
-              <View
-                key={index}
-                style={{ width: width(100), alignItems: "center" }}
-              >
-                <CardView data={item} />
-              </View>
-            ))}
-          </ScrollView>
+        <View
+          style={{ width: width(100), flex: 2, paddingVertical: height(1) }}
+        >
+          {!userdata.showAds && (
+            <ScrollView>
+              {data?.map((item, index) => (
+                <View
+                  key={index}
+                  style={{ width: width(100), alignItems: "center" }}
+                >
+                  <CardView data={item} />
+                </View>
+              ))}
+            </ScrollView>
+          )}
+          {userdata.showAds && (
+            <Text style={{ alignSelf:'center',marginVertical:height(20),fontWeight:'bold' }}>
+              Don't want to show my ads
+            </Text>
+          )}
         </View>
       </View>
     </ScreenWrapper>

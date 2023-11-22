@@ -17,10 +17,11 @@ import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebLink } from "../../utills/Constants";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 export default function CardView({ data }) {
   const [slideNo, setSlideNo] = useState(0);
   const introRef = useRef(null);
-
+  const language = useSelector(selectCurrentLanguage);
   const dispatch = useDispatch();
   const favAdIds = useSelector(selectFavAds);
   function isInArray(element, arr) {
@@ -111,7 +112,10 @@ export default function CardView({ data }) {
             <View style={styles.categoryview}>
               <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
               <Text numberOfLines={1} style={styles.detailtext}>
-                {GlobalMethods.calculateTimeDifference(data?.createdAt)}
+                {GlobalMethods.calculateTimeDifference(
+                  data?.createdAt,
+                  language
+                )}
               </Text>
             </View>
           </View>
@@ -144,9 +148,10 @@ export default function CardView({ data }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}
-            onPress={() => GlobalMethods.onPressCall("234567890")}
+            disabled={data?.phone ? false : true}
+            onPress={() => GlobalMethods.onPressCall(data?.phone)}
           >
-            <Ionicons size={width(4)} name="call" />
+            <Ionicons size={width(4)} name="call" color={data?.phone?"grey":"lightgrey"} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.space}

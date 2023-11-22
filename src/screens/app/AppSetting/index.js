@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { AntDesign, Fontisto } from "@expo/vector-icons";
 
@@ -18,61 +18,23 @@ import { storelangData } from "../../../utills/Methods";
 
 export default function AppSetting({ navigation, route }) {
   const dispatch = useDispatch();
+  const [show, setShow] = useState();
   const countries = [
-    { key: "appseting.English", value: "English" },
-    { key: "appseting.German", value: "German" },
-    { key: "appseting.Italian", value: "Italian" },
-    { key: "appseting.Spanish", value: "Spanish" },
-    { key: "appseting.French", value: "French" },
+    { key: "appseting.English", value: "en" },
+    { key: "appseting.German", value: "de" },
+    { key: "appseting.Italian", value: "it" },
+    { key: "appseting.Spanish", value: "es" },
+    { key: "appseting.French", value: "fr" },
   ];
   const { t, i18n } = useTranslation();
   const lang = useSelector(selectCurrentLanguage);
 
   const changeAppLanguage = async (newLanguage) => {
-    let value;
-
-    switch (newLanguage) {
-      case "English":
-        value = "en";
-        break;
-      case "German":
-        value = "de";
-        break;
-      case "Italian":
-        value = "it";
-        break;
-      case "Spanish":
-        value = "es";
-        break;
-      case "French":
-        value = "fr";
-        break;
-      default:
-        value = "en";
-    }
-
     // store.dispatch(changeLanguage(value)); // If you're using Redux
-    await storelangData(value);
-    i18n.changeLanguage(value);
+    await storelangData(newLanguage);
+    i18n.changeLanguage(newLanguage);
   };
-  const defaultvalue = (v) => {
-    switch (v) {
-      case "en":
-        return "English";
-      case "de":
-        return "German";
-      case "it":
-        return "Italian";
-      case "es":
-        return "Spanish";
 
-      case "fr":
-        return "French";
-    }
-  };
-  const show = countries.find((item) => {
-    return item.value == defaultvalue(lang);
-  })?.key;
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -91,7 +53,11 @@ export default function AppSetting({ navigation, route }) {
         </Text>
         <SelectDropdown
           data={countries}
-          defaultButtonText={t(show)}
+          defaultButtonText={t(
+            countries.find((item) => {
+              return item.value == lang;
+            })?.key
+          )}
           searchPlaceHolder={t("addPost.phsearchHere")}
           buttonStyle={styles.searchbox}
           selectedRowStyle={{ backgroundColor: AppColors.primary }}

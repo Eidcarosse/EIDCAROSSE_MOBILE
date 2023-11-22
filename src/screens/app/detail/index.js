@@ -136,11 +136,11 @@ export default function Detail({ navigation, route }) {
 
     // dispatch(setAppLoader(false));
   };
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
         <DetailHeader
-          user={data?.userId}
           onPressBack={() => navigation.goBack()}
           onPressShare={() =>
             GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
@@ -150,6 +150,7 @@ export default function Detail({ navigation, route }) {
       footerUnScrollable={() =>
         !(data?.userId?._id == loginuser?._id || load) && (
           <DetailFooter
+            pNumber={data?.phone}
             onPressCall={() => GlobalMethods.onPressCall(data?.phone)}
             onPressChat={() => {
               navigation.navigate(ScreenNames.CHAT, {
@@ -515,16 +516,15 @@ export default function Detail({ navigation, route }) {
                     {data?.userId?.userName}
                   </Text>
                 </View>
-                {!data?.userId?.showAds && (
-                  <IconButton
-                    title={"detail.seeAllAds"}
-                    onPress={() => {
-                      navigation.navigate(ScreenNames.OTHERPROFILE, {
-                        user: data?.userId,
-                      });
-                    }}
-                  />
-                )}
+
+                <IconButton
+                  title={"detail.seeAllAds"}
+                  onPress={() => {
+                    navigation.navigate(ScreenNames.OTHERPROFILE, {
+                      user: data?.userId,
+                    });
+                  }}
+                />
               </View>
             </Pressable>
           )}

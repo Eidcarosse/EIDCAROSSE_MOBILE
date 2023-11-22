@@ -301,11 +301,15 @@ export default {
     description: "Descripción",
     phdescription: "Esta es mi descripción del anuncio",
     videourl: "URL del Video",
-    phurl: "http//abc/xyz",
+    phurl: "https://example.com",
     contactdetail: "Detalles de Contacto",
     htc: "Cómo Contactar",
     whatsapp: "Whatsapp",
     phwhatsapp: "xxxxxxxxxx",
+    addWhatsapp: "Agregar Whatsapp",
+    addViber: "Agregar Viber",
+    addNumber: "Agregar número de teléfono",
+
     viber: "Viber",
     phviber: "xxxxxxxxxx",
     email: "Correo Electrónico",
@@ -313,7 +317,7 @@ export default {
     website: "Sitio Web",
     phwebsite: "www.google.com",
     location: "Ubicación",
-    phlocation: "Rawalpindi",
+    phlocation: "Seleccionar ubicación",
     TandC1: "He leído y acepto los",
     TandC2: "Términos y Condiciones de Eidcarosse",
     post: "Agregar Anuncio",
@@ -540,7 +544,7 @@ export default {
     unsold: "No vendido",
   },
   sortList: {
-    old:"El más antiguo",
+    old: "El más antiguo",
     latest: "Último",
     atoz: "A a Z (título)",
     ztoa: "Z a A (título)",
@@ -550,4 +554,10 @@ export default {
   chat: {
     placeholder: "Enviar un mensaje...",
   },
+  privacySafety: {
+    title:"Privacidad y Seguridad",
+    number: "No mostrar mi número",
+    ads: "¿No permitir que el público vea todos mis anuncios?",
+  },
+  
 };
