@@ -96,19 +96,21 @@ export default function OtherProfile({ navigation, route }) {
               </View>
             </View>
             <View style={styles.wishlistview}>
-              <IconButton
-                onPress={GlobalMethods.onPressCall}
-                title={"Phone"}
-                containerStyle={styles.wcontainer}
-                textStyle={styles.wtexticon}
-                icon={
-                  <FontAwesome
-                    name="phone"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
-                }
-              />
+              {!userdata?.showNumber && (
+                <IconButton
+                  onPress={GlobalMethods.onPressCall}
+                  title={"Phone"}
+                  containerStyle={styles.wcontainer}
+                  textStyle={styles.wtexticon}
+                  icon={
+                    <FontAwesome
+                      name="phone"
+                      size={width(4)}
+                      color={AppColors.primary}
+                    />
+                  }
+                />
+              )}
               <IconButton
                 onPress={GlobalMethods.onPressEmail}
                 title={"Email"}
@@ -154,8 +156,14 @@ export default function OtherProfile({ navigation, route }) {
             </ScrollView>
           )}
           {userdata.showAds && (
-            <Text style={{ alignSelf:'center',marginVertical:height(20),fontWeight:'bold' }}>
-              Don't want to show my ads
+            <Text
+              style={{
+                alignSelf: "center",
+                marginVertical: height(20),
+                fontWeight: "bold",
+              }}
+            >
+              Private Account
             </Text>
           )}
         </View>

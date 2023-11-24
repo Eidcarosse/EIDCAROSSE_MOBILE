@@ -26,6 +26,7 @@ import {
   CategoryScreen,
   ChatViewScreen,
   DetailScreen,
+  EditAdScreen,
   EditProfile,
   FAQScreen,
   HTSFScreen,
@@ -204,6 +205,7 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.REPAIR} component={RepairSreen} />
         <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
         <Stack.Screen name={ScreenNames.PANDS} component={PrivacySafety} />
+        <Stack.Screen name={ScreenNames.EDITAD} component={EditAdScreen} />
         
       </Stack.Navigator>
     </NavigationContainer>

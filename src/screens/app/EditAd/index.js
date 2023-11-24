@@ -10,6 +10,7 @@ import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addPostAd,
+  editAdApi,
   geVehicleCategory,
   geVehicleMakes,
   getModel,
@@ -43,46 +44,46 @@ import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
 import ScreenNames from "../../../routes/routes";
 
-export default function AddPost({ navigation, route }) {
+export default function EditAd({ navigation, route }) {
   const { t } = useTranslation();
-  const category = route?.params?.category;
-  const find = route?.params?.find;
-  const sub = route?.params?.subcategory;
-  const edit=route?.params?.data
-console.log('====================================');
-console.log("edit data",route?.params?.data);
-console.log('====================================');
+  const edit = route?.params?.data;
+  const category = edit?.category;
+  const find = !(edit?.category == "Bikes" || edit?.category == "Parts")
+    ? edit?.category
+    : edit?.subCategory;
+  const sub = edit?.subCategory;
+
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
   const mapRef = useRef(null);
   const modelRef = useRef();
   const imageRef = useRef(null);
-  const [image, setImage] = React.useState([]);
+  const [image, setImage] = React.useState(edit?.images);
   const [subCategory, setSubCategory] = React.useState(sub);
-  const [title, setTitle] = React.useState("");
-  const [pricing, setPricing] = React.useState("");
-  const [url, setUrl] = React.useState("");
-  const [km, setKm] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const [title, setTitle] = React.useState(edit?.title);
+  const [pricing, setPricing] = React.useState(edit?.price && "Price");
+  const [url, setUrl] = React.useState(edit?.videoUrl);
+  const [km, setKm] = React.useState(edit?.km);
+  const [description, setDescription] = React.useState(edit?.description);
   const [check, setCheck] = React.useState(false);
-  const [year, setYear] = React.useState("");
-  const [price, setPrice] = React.useState("");
-  const [condition, setCondition] = React.useState("");
-  const [brand, setBrand] = React.useState("");
-  const [model, setModel] = React.useState("");
-  const [bodyshape, setBodyshap] = React.useState("");
-  const [gearbox, setGearbox] = React.useState("");
-  const [fueltype, setFueltype] = React.useState("");
-  const [exterior, setExterior] = React.useState("");
-  const [interior, setInterior] = React.useState("");
-  const [latitude, setLatiitude] = React.useState(37.78825);
-  const [longitude, setLongitude] = React.useState(-122.4324);
+  const [year, setYear] = React.useState(edit?.year);
+  const [price, setPrice] = React.useState(edit?.price);
+  const [condition, setCondition] = React.useState(edit?.condition);
+  const [brand, setBrand] = React.useState(edit?.brand);
+  const [model, setModel] = React.useState(edit?.model);
+  const [bodyshape, setBodyshap] = React.useState(edit?.bodyShape);
+  const [gearbox, setGearbox] = React.useState(edit?.gearBox);
+  const [fueltype, setFueltype] = React.useState(edit?.fuelType);
+  const [exterior, setExterior] = React.useState(edit?.exteriorColor);
+  const [interior, setInterior] = React.useState(edit?.interiorColor);
+  const [latitude, setLatiitude] = React.useState(edit?.latitude);
+  const [longitude, setLongitude] = React.useState(edit?.longitude);
   const [email, setEmail] = React.useState(userInfo?.email);
   const [phone, setPhone] = React.useState(userInfo?.phoneNumber);
-  const [whatsapp, setWhatsapp] = React.useState(userInfo?.whatsapp);
-  const [viber, setViber] = React.useState(userInfo?.viber);
-  const [website, setWebsite] = React.useState("");
-  const [address, setAddress] = React.useState("");
+  const [whatsapp, setWhatsapp] = React.useState(edit?.whatsapp);
+  const [viber, setViber] = React.useState(edit?.viber);
+  const [website, setWebsite] = React.useState();
+  const [address, setAddress] = React.useState(edit.address);
   const [htc, setHtc] = React.useState("");
 
   const [vcompanies, setVcompanies] = React.useState([]);
@@ -154,13 +155,13 @@ console.log('====================================');
 
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
-      if (isAnyFieldEmpty) {
-        dispatch(setAppLoader(false));
-        // Show an alert if any required field is empty
-        errorMessage("requierd feilds are empty");
+      // if (isAnyFieldEmpty) {
+      //   dispatch(setAppLoader(false));
+      //   // Show an alert if any required field is empty
+      //   errorMessage("requierd feilds are empty");
 
-        return;
-      }
+      //   return;
+      // }
       const formData = new FormData();
       formData.append("userId", userInfo?._id);
       formData.append("title", title);
@@ -184,7 +185,7 @@ console.log('====================================');
       formData.append("longitude", longitude);
       formData.append("address", address);
       addViber && formData.append("viber", viber);
-      formData.append("website", website);
+      // formData.append("website", website);
       addWhatsapp && formData.append("whatsapp", whatsapp);
       addPhone && formData.append("phone", phone);
       // Append each selected image to the form data
@@ -195,19 +196,17 @@ console.log('====================================');
           uri: img,
         });
       });
-      const resp = await addPostAd(formData);
-      console.log("====================================");
-      console.log(resp);
-      console.log("====================================");
-      if (resp?.success) {
-        successMessage("Ad successfuly posted");
-      } else {
-        errorMessage("Something went wrong to post ad");
-      }
+      const resp = await editAdApi(edit?._id, formData);
+      console.log("caled",resp);
+      // if (resp?.success) {
+      //   successMessage("Ad successfuly posted");
+      // } else {
+      //   errorMessage("Something went wrong to post ad");
+      // }
       dispatch(setAppLoader(false));
-      navigation.navigate("StackHome");
-      const userAd = await getOwneAd(userInfo?._id);
-      dispatch(setUserAds(userAd));
+      // navigation.navigate("StackHome");
+      // const userAd = await getOwneAd(userInfo?._id);
+      // dispatch(setUserAds(userAd));
     } catch (error) {
       console.error("Image upload error:", error);
       dispatch(setAppLoader(false));
@@ -485,7 +484,7 @@ console.log('====================================');
               <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
               <Input
-                value={price}
+                value={price + ""}
                 setvalue={setPrice}
                 placeholder={t("addPost.phprice")}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -515,7 +514,7 @@ console.log('====================================');
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <SelectDropdown
-                defaultButtonText={t("addPost.defaultValueDropdown")}
+                defaultButtonText={subCategory}
                 data={vCategory}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 search={true}
@@ -539,7 +538,7 @@ console.log('====================================');
                 }}
               />
             </View>
-          ) : sub ? (
+          ) : sub != "Undefined" ? (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <Input
@@ -555,7 +554,7 @@ console.log('====================================');
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.title}>{t("addPost.brand")}</Text>
             <SelectDropdown
-              defaultButtonText={t("addPost.defaultValueDropdown")}
+              defaultButtonText={brand}
               data={vcompanies}
               search={true}
               searchPlaceHolder={t("addPost.phsearchHere")}
@@ -586,7 +585,7 @@ console.log('====================================');
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={model}
                     ref={modelRef}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     data={apimodel}
@@ -621,7 +620,7 @@ console.log('====================================');
                 <View style={{ paddingVertical: width(1) }}>
                   <Text style={styles.title}>{t("addPost.year")}</Text>
                   <Input
-                    value={year}
+                    value={year + ""}
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
                     placeholder={t("addPost.phyear")}
@@ -633,7 +632,7 @@ console.log('====================================');
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={bodyshape}
                     data={category == "Bikes" ? bikeBodyShape : bodyShapeList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -664,7 +663,7 @@ console.log('====================================');
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={gearbox}
                     data={gearBoxList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -695,7 +694,7 @@ console.log('====================================');
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={fueltype}
                     data={category == "Bikes" ? BikeFuelType : fuelTypelist}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -726,7 +725,7 @@ console.log('====================================');
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={exterior}
                     data={
                       category == "Bikes"
                         ? bikeExteriorColor
@@ -761,7 +760,7 @@ console.log('====================================');
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={interior}
                     data={interiorColorList}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
@@ -793,7 +792,7 @@ console.log('====================================');
                   <Text style={styles.title}>{t("addPost.km")}</Text>
                   <SelectDropdown
                     data={kilometers}
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={km}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -992,7 +991,7 @@ console.log('====================================');
             <GooglePlacesAutocomplete
               fetchDetails={true}
               autoFillOnNotFound={true}
-              placeholder={t("addPost.phlocation")}
+              placeholder={address}
               currentLocation={true}
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
@@ -1082,7 +1081,7 @@ console.log('====================================');
           <Button
             disabled={!check}
             onPress={addPost}
-            title={"addPost.post"}
+            title={"Edit Confirm"}
             containerStyle={{
               width: width(80),
               borderRadius: width(2),

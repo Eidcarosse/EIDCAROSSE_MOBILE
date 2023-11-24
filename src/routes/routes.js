@@ -28,6 +28,7 @@ const ScreenNames = {
   MAP: "Map",
   SETTING: "Setting",
   FORGET: "ForgetPassord",
-  PANDS:"PANDS"
+  PANDS:"PandS",
+  EDITAD:"EditAd"
 };
 export default ScreenNames;

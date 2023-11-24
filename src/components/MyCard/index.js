@@ -40,9 +40,10 @@ export default function MyCard({ data }) {
     dispatch(setAppLoader(true));
     try {
       const data = await deleteAdById(id);
+      await getData(userid);
       dispatch(setAppLoader(false));
 
-      await getData(userid);
+     
     } catch (error) {
       console.log("Error:", error);
       dispatch(setAppLoader(false));
@@ -51,16 +52,14 @@ export default function MyCard({ data }) {
   const refreshAd = async () => {
     dispatch(setAppLoader(true));
     try {
-      const data = await refreshApi(data?._id);
+      const d = await refreshApi(data?._id);
+      await getData(userid);
       dispatch(setAppLoader(false));
     } catch (error) {
       console.log("Error:", error);
       dispatch(setAppLoader(false));
     }
   };
-// console.log('====================================');
-// console.log(data?._id);
-// console.log('====================================');
   return (
     <View style={styles.main}>
       <View style={styles.imageview}>
@@ -160,7 +159,7 @@ export default function MyCard({ data }) {
         <MenuItem
           onPress={() => {
             hideMenu();
-            // navigation.navigate(ScreenNames.ADDPOST);
+            navigation.navigate(ScreenNames.EDITAD,{data:data});
           }}
         >
           {t("myad.edit")}
@@ -168,7 +167,7 @@ export default function MyCard({ data }) {
         <MenuItem
           onPress={() => {
             hideMenu();
-            // refreshAd();
+            refreshAd();
           }}
         >
           {t("myad.refresh")}

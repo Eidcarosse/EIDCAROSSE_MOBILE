@@ -71,7 +71,7 @@ export default function Card({ data, onPresshide, map = false }) {
     return (
       <Pressable
         onPress={() => {
-          map&&onPresshide();
+          map && onPresshide();
           navigation.navigate(ScreenNames.DETAIL, data);
         }}
         style={{ paddingHorizontal: width(0.5) }}
@@ -92,7 +92,7 @@ export default function Card({ data, onPresshide, map = false }) {
         <Pressable
           style={styles.detail}
           onPress={() => {
-            map&&onPresshide();
+            map && onPresshide();
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
@@ -173,7 +173,7 @@ export default function Card({ data, onPresshide, map = false }) {
         <Pressable
           style={styles.detail}
           onPress={() => {
-            map&&onPresshide();
+            map && onPresshide();
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
@@ -237,18 +237,32 @@ export default function Card({ data, onPresshide, map = false }) {
             }}
           >
             <TouchableOpacity
-            disabled={data?.phone?false:true}
-              onPress={() => GlobalMethods.onPressCall(data?.phone)}
+              disabled={data?.phone ? false : true}
+              onPress={() => {
+                if (!loginuser) {
+                  infoMessage("Login to ad Favotite", "Authentication");
+                } else {
+                  GlobalMethods.onPressCall(data?.phone);
+                }
+              }}
             >
-              <Ionicons size={width(5)} name="call" color={data?.phone?"grey":"lightgrey"} />
+              <Ionicons
+                size={width(5)}
+                name="call"
+                color={data?.phone ? "grey" : "lightgrey"}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate(ScreenNames.CHAT, {
-                  userRoom: null,
-                  usr: data?.userId,
-                  userItem: data?._id,
-                });
+                if (!loginuser) {
+                  infoMessage("Login to ad Favotite", "Authentication");
+                } else {
+                  navigation.navigate(ScreenNames.CHAT, {
+                    userRoom: null,
+                    usr: data?.userId,
+                    userItem: data?._id,
+                  });
+                }
               }}
             >
               <Entypo size={width(5)} name="chat" color={"grey"} />
