@@ -50,7 +50,9 @@ export default function EditAd({ navigation, route }) {
   const category = edit?.category;
   const find = !(edit?.category == "Bikes" || edit?.category == "Parts")
     ? edit?.category
-    : edit?.subCategory;
+    : edit?.category == "Bikes"
+    ? edit?.subCategory
+    : edit?.subCategory.split(" ")[0] + "s";
   const sub = edit?.subCategory;
 
   const dispatch = useDispatch();
@@ -90,8 +92,8 @@ export default function EditAd({ navigation, route }) {
   const [vCategory, setVCategory] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
   const [addPhone, setAddPhone] = useState(!userInfo?.showNumber);
-  const [addWhatsapp, setAddWhatsapp] = useState(false);
-  const [addViber, setAddViber] = useState(false);
+  const [addWhatsapp, setAddWhatsapp] = useState(edit?.whatsapp ? true : false);
+  const [addViber, setAddViber] = useState(edit?.viber ? true : false);
   useEffect(() => {
     getvehicleMake();
     if (sub == undefined) {
@@ -167,7 +169,7 @@ export default function EditAd({ navigation, route }) {
       formData.append("title", title);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
-      formData.append("price", price);
+      formData.append("price", pricing == "Price" ? price : 0);
       formData.append("km", km);
 
       formData.append("condition", condition);
@@ -196,13 +198,17 @@ export default function EditAd({ navigation, route }) {
           uri: img,
         });
       });
+      console.log("====================================");
+      console.log("form data ", formData);
+      console.log("====================================");
       const resp = await editAdApi(edit?._id, formData);
-      console.log("caled",resp);
-      // if (resp?.success) {
-      //   successMessage("Ad successfuly posted");
-      // } else {
-      //   errorMessage("Something went wrong to post ad");
-      // }
+      console.log("caled", resp);
+      if (resp?.success) {
+        successMessage("Ad successfuly Edit");
+        navigation.navigate(ScreenNames.MYADS);
+      } else {
+        errorMessage("Something went wrong to Edit ad");
+      }
       dispatch(setAppLoader(false));
       // navigation.navigate("StackHome");
       // const userAd = await getOwneAd(userInfo?._id);
@@ -222,7 +228,7 @@ export default function EditAd({ navigation, route }) {
       label: t("condition.used"),
     },
     {
-      key: "Recondition",
+      key: "recondition",
       label: t("condition.Recondition"),
     },
   ];
@@ -237,18 +243,7 @@ export default function EditAd({ navigation, route }) {
     },
   ];
   const cdata = ["Whatsapp", "Viber"];
-  // console.log(
-  //   title,
-  //   category,
-  //   condition,
-  //   brand,
-  //   year,
-  //   model,
-  //   description,
-  //   latitude,
-  //   longitude,
-  //   address
-  // );
+
   const showYear = (x) => {
     return (
       x === "Autos" ||
@@ -324,6 +319,10 @@ export default function EditAd({ navigation, route }) {
       x === "Busses"
     );
   };
+  console.log("====================================");
+  console.log("subcategory", edit?.subCategory);
+  console.log("====================================");
+
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -464,7 +463,7 @@ export default function EditAd({ navigation, route }) {
             <RadioButtonRN
               data={pdata}
               circleSize={width(3)}
-              initial={1}
+              initial={price ? 1 : 2}
               boxStyle={{
                 width: width(90),
                 borderWidth: 0,
@@ -497,7 +496,9 @@ export default function EditAd({ navigation, route }) {
 
             <RadioButtonRN
               data={rdata}
-              initial={1}
+              initial={
+                rdata.findIndex((item) => item.key == edit?.condition) + 1 || 0
+              }
               circleSize={width(3)}
               boxStyle={{
                 width: width(90),
@@ -538,7 +539,12 @@ export default function EditAd({ navigation, route }) {
                 }}
               />
             </View>
-          ) : sub != "Undefined" ? (
+          ) : !(
+              sub == "undefined" ||
+              sub == undefined ||
+              sub == null ||
+              sub == "null"
+            ) ? (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <Input

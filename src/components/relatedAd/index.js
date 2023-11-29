@@ -8,8 +8,7 @@ import CardView from "../CardView";
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
 
-export default function RelatedAd({ category }) {
-
+export default function RelatedAd({ category, id }) {
   const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [refreshing, onRefresh] = useState(false);
@@ -59,7 +58,7 @@ export default function RelatedAd({ category }) {
       >
         <FlatList
           scrollEnabled={false}
-          data={data}
+          data={data.filter((item) => item?._id != id)}
           renderItem={renderItem}
           ListEmptyComponent={emptyView}
           keyExtractor={(item, index) => index}

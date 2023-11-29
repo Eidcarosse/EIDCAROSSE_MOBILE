@@ -42,8 +42,6 @@ export default function MyCard({ data }) {
       const data = await deleteAdById(id);
       await getData(userid);
       dispatch(setAppLoader(false));
-
-     
     } catch (error) {
       console.log("Error:", error);
       dispatch(setAppLoader(false));
@@ -88,13 +86,31 @@ export default function MyCard({ data }) {
             </Text>
           </View>
         </View>
-        <View>
+        {/* <View>
           <Text numberOfLines={1} style={styles.chf}>
             CHF {data?.price}
           </Text>
           <Text numberOfLines={1} style={styles.eur}>
             EUR {data?.price}
           </Text>
+        </View> */}
+        <View style={styles.detailinerview}>
+          {data?.price ? (
+            <View>
+              <Text numberOfLines={1} style={styles.chf}>
+                CHF {data?.price}
+              </Text>
+              <Text numberOfLines={1} style={styles.eur}>
+                EUR {data?.price}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.cfpview}>
+              <Text numberOfLines={1} style={styles.cfp}>
+                Disabled Price
+              </Text>
+            </View>
+          )}
         </View>
       </View>
 
@@ -159,7 +175,7 @@ export default function MyCard({ data }) {
         <MenuItem
           onPress={() => {
             hideMenu();
-            navigation.navigate(ScreenNames.EDITAD,{data:data});
+            navigation.navigate(ScreenNames.EDITAD, { data: data });
           }}
         >
           {t("myad.edit")}

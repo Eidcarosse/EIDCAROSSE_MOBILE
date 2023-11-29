@@ -190,7 +190,7 @@ export default function ListData({ navigation, route }) {
       label: t("condition.used"),
     },
     {
-      key: "Recondition",
+      key: "recondition",
       label: t("condition.Recondition"),
     },
   ];

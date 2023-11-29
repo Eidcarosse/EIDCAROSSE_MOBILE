@@ -18,7 +18,7 @@ export const getDataofHomePage = async () => {
 };
 
 export const getAllData = async (queryParams) => {
-  console.log("params",queryParams)
+  console.log("params", queryParams);
   try {
     const response = await ApiManager.get(`ad/`, queryParams);
 
@@ -131,36 +131,34 @@ export const adView = async (adId) => {
     return []; // or some default value as needed
   }
 };
-export const refreshApi=async(id)=>{
+export const refreshApi = async (id) => {
   try {
-    const response=await ApiManager.put(`ad/refreshAd/${id}`);
-    return response
-  } catch (error) {
-    
-  }
-}
-export const editAdApi=async(id,formData)=>{
+    const response = await ApiManager.put(`ad/refreshAd/${id}`);
+    return response;
+  } catch (error) {}
+};
+export const editAdApi = async (id, formData) => {
   try {
     const requestOptions = {
-      method: 'PATCH',
+      method: "PATCH",
       body: formData,
       headers: {
         "Content-Type": "multipart/form-data",
       },
     };
 
-    const resp = await fetch(BaseUrl + `ad/edit-ad/${id}`, requestOptions);
+    const resp = await fetch(BaseUrl + `ad/edit-ad-mobile/${id}`, requestOptions);
     let response = await resp.json();
     return response;
   } catch (error) {
     console.error("crashed", error);
     throw error; // Re-throw the error to handle it at a higher level if necessary
   }
-}
+};
 // export const chatRooms=async({ userId, productId, productUserId })=>{
 //   try {
 //     const response=await ApiManager.post(`chatroom/`)
 //   } catch (error) {
-    
+
 //   }
 // }

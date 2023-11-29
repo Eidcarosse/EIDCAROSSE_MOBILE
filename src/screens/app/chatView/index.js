@@ -1,19 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { height, width } from "../../../utills/Dimension";
-import { AdView, DropDownMenu } from "../../../components";
-import { selectUserMeta, setChatRooms } from "../../../redux/slices/user";
+import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Actions,
-  Bubble,
-  GiftedChat,
-  MessageText,
-  Send,
-  Time,
-} from "react-native-gifted-chat";
-import { decode } from "base-64";
-import { getDatabase } from "firebase/database";
-import { get, onValue, push, ref, set } from "firebase/database";
 import {
   Image,
   Platform,
@@ -22,6 +8,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import {
+  Actions,
+  Bubble,
+  GiftedChat,
+  MessageText,
+  Send,
+  Time,
+} from "react-native-gifted-chat";
+import { useDispatch, useSelector } from "react-redux";
+import { AdView, DropDownMenu } from "../../../components";
+import { selectUserMeta, setChatRooms } from "../../../redux/slices/user";
+import { height, width } from "../../../utills/Dimension";
 
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import {
@@ -31,16 +29,16 @@ import {
   uploadBytesResumable,
   uploadBytes,
 } from "@firebase/storage";
-import * as FileSystem from "expo-file-system";
 import { useNavigation } from "@react-navigation/native";
+import { fromByteArray } from "base64-js";
+import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
+import { useTranslation } from "react-i18next";
 import Modal from "react-native-modal";
 import { getDataofAdByID } from "../../../backend/api";
 import { Button, ScreenWrapper } from "../../../components";
-import AppColors from "../../../utills/AppColors";
 import ScreenNames from "../../../routes/routes";
-import { useTranslation } from "react-i18next";
-import { fromByteArray } from "base64-js";
+import AppColors from "../../../utills/AppColors";
 function ChatView({ route }) {
   const { t } = useTranslation();
   const database = getDatabase();
@@ -398,40 +396,14 @@ function ChatView({ route }) {
       }
     }
   }, []);
-
-  // const getBlobFromFile = async (filePath) => {
-  //   try {
-  //     console.log(filePath);
-  //     const fileInfo = await FileSystem.getInfoAsync(filePath);
-  //     console.log("====================================");
-  //     console.log(fileInfo);
-  //     console.log("====================================");
-  //     if (fileInfo.exists) {
-  //       const data = await FileSystem.readAsStringAsync(filePath, {
-  //         encoding: FileSystem.EncodingType.Base64,
-  //       });
-
-  //       // Use base-64 library to decode the base64-encoded string
-  //       const byteCharacters = decode(data);
-  //       const byteArray = new Uint8Array(byteCharacters);
-
-  //       // Create a Blob from the byte array
-  //       const blob = new Blob([byteArray], { type: "image/jpeg" });
-  //       return blob;
-  //     } else {
-  //       throw new Error("Not a regular file");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error reading file:", error);
-  //     throw error;
-  //   }
-  // };
   async function getBlobFromFile(imageUri) {
     if (imageUri.startsWith("file:/")) {
       const fileContents = await FileSystem.readAsStringAsync(imageUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-
+      console.log("====================================");
+      console.log(fileContents);
+      console.log("====================================");
       // Use base64-js to decode the base64 string
       const byteArray = fromByteArray(fileContents);
       return new Blob([byteArray], { type: "image/jpeg" });
@@ -457,28 +429,40 @@ function ChatView({ route }) {
       );
 
       const metadata = {
-        contentType:"image/jpeg",
+        contentType: "image/jpeg",
       };
 
-      // Get the blob from the image URI
+      // // Get the blob from the image URI
+      try {
       const imageBlob = await getBlobFromFile(imageUri);
-
+      // console.log("====================================");
+      // console.log("created blob", imageBlob);
+      // console.log("====================================");
       // Use uploadBytesResumable to upload the blob
-      const uploadTask = uploadBytesResumable(imageRef, imageBlob, metadata);
+      const uploadTask = await uploadBytes(imageRef, imageBlob, metadata).catch(
+        (err) => {
+          console.log("Error uploading images:", err);
+        }
+      );
+      // const uploadTask =uploadBytesResumable(imageRef, imageBlob, metadata);
       // Wait for the upload task to complete
       const snapshot = await uploadTask;
       console.log("====================================");
-      console.log(snapshot);
+      console.log("task ", uploadTask);
       console.log("====================================");
 
-      if (snapshot.state === "success") {
+      if (snapshot) {
         const downloadUrl = await getDownloadURL(imageRef);
         console.log("image uploded", downloadUrl);
         if (downloadUrl) {
           imageUrls.push(downloadUrl);
         }
       }
+     }catch (error) {
+        console.log("Error uploading images:", error);
+      }
     }
+  
 
     if (imageUrls.length > 0) {
       set(newMessageRef, {
@@ -491,50 +475,6 @@ function ChatView({ route }) {
     setImageModal(false);
     setImage([]);
   };
-
-  // const saveImages = async () => {
-  //   const imageUrls = [];
-  //   const storage = getStorage();
-  //   for (const img of image) {
-  //     // Create image storage
-  //     const split = img.split("/");
-  //     const name = split.pop();
-  //     const imageRef = storageRef(
-  //       storage,
-  //       `chatrooms/${roomID}/images/${name}`
-  //     );
-
-  //     // upload image
-  //     await uploadBytes(imageRef, img).catch((err) => {
-  //       console.log("Error uploading images:", err);
-  //     });
-
-  //     // get the download url
-  //     const downloadURL = await getDownloadURL(imageRef).catch((err) => {
-  //       console.log("Error getting download URL:", err);
-  //     });
-
-  //     if (downloadURL) {
-  //       imageUrls.push(downloadURL);
-  //     }
-
-  //     if (image.length === imageUrls.length) {
-  //       // // dbref for the database reference
-  //       const messageRef = ref(database, `chatrooms/${roomID}/messages`);
-
-  //       const newMessageRef = push(messageRef);
-  //       set(newMessageRef, {
-  //         senderId: user?._id,
-  //         images: imageUrls,
-  //         timestamps: Date.now(),
-  //       });
-  //     }
-  //     setImageModal(false);
-  //     // // Clear the selected images after sending
-  //     setImage([]);
-  //   }
-  // };
-
   const getItems = async () => {
     const response = await getDataofAdByID(route.params?.userItem);
     setSelectedItem(response);

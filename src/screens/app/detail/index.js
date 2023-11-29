@@ -112,7 +112,7 @@ export default function Detail({ navigation, route }) {
     try {
       setload(true);
       let d = await getDataofAdByID(dat?._id);
-      setload(false);
+      // setload(false);
       if (d) {
         setDat(d);
         if (d.userId._id != loginuser?._id) {
@@ -130,6 +130,7 @@ export default function Detail({ navigation, route }) {
           );
         }
       } else setDat({});
+      setload(false);
     } catch (error) {
       setload(false);
     }
@@ -591,7 +592,7 @@ export default function Detail({ navigation, route }) {
               />
             </MapView>
           </View>
-          <RelatedAd category={data?.category} />
+          <RelatedAd category={data?.category} id={data?._id}/>
         </View>
       )}
     </ScreenWrapper>
