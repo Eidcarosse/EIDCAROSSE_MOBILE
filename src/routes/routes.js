@@ -29,6 +29,6 @@ const ScreenNames = {
   SETTING: "Setting",
   FORGET: "ForgetPassord",
   PANDS:"PandS",
-  EDITAD:"EditAd"
+  CPF:"CPForget"
 };
 export default ScreenNames;

@@ -11,7 +11,7 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { infoMessage } from "../../utills/Methods";
+import GlobalMethods, { checkPrice, infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import { WebLink } from "../../utills/Constants";
@@ -65,7 +65,7 @@ export default function ListingView({ data }) {
         </View>
         <View style={styles.detail}>
           <View style={styles.detailinerview}>
-            {data?.price ? (
+            {checkPrice(data?.price)? (
               <View>
                 <Text numberOfLines={1} style={styles.chf}>
                   CHF {data?.price}

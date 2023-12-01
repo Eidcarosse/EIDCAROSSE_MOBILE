@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   emptyimage: { height: width(50), width: width(60) },
   bs: {
     wrapper: {
-      backgroundColor: "transparent",
+      backgroundColor: "rgba(0,0,0,.3)",
     },
     container: {
       borderTopLeftRadius: width(2),
@@ -116,6 +116,11 @@ const styles = StyleSheet.create({
   dropdown: { borderRadius: width(1), width: width(90) },
   price: {
     width: width(40),
+    backgroundColor: AppColors.greybackground,
+    borderBottomWidth: 0,
+    borderRadius: width(1),
+  },
+  sub:  {
     backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,
     borderRadius: width(1),

@@ -145,44 +145,6 @@ export const interiorColorList = [
   { key: "interiorColorList.Orange", value: "Orange" },
   { key: "interiorColorList.Other", value: "Other" },
 ];
-export const bikedata = [
-  { title: "E-bikes", show: "bikecategory.Ebikes" },
-  { title: "Bicycles", show: "bikecategory.Bicycles" },
-  { title: "E-scooter", show: "bikecategory.Escooter" },
-  { title: "Motorcycle", show: "bikecategory.Motorcycle" },
-];
-export const Parts = [
-  { title: "Autos", show: "partscategory.Autos" },
-  { title: "E-bikes", show: "partscategory.Ebikes" },
-  { title: "Bicycles", show: "partscategory.Bicycles" },
-  { title: "E-scooter", show: "partscategory.Escooter" },
-  { title: "Motorcycle", show: "partscategory.Motorcycle" },
-  { title: "Boats", show: "partscategory.Boats" },
-  { title: "Drones", show: "partscategory.Drones" },
-  {
-    title: "Construction Machines",
-    show: "partscategory.ConstructionMachines",
-  },
-  { title: "Trucks", show: "partscategory.Trucks" },
-  { title: "Vans", show: "partscategory.Vans" },
-  { title: "Trailers", show: "partscategory.Trailers" },
-  { title: "Busses", show: "partscategory.Busses" },
-  { title: "Others", show: "partscategory.Others" },
-];
-export const rdata = [
-  {
-    key: "new",
-    label: "condition.new",
-  },
-  {
-    key: "used",
-    label: "condition.used",
-  },
-  {
-    key: "recondition",
-    label: "condition.Recondition",
-  },
-];
 export const sortList = [
   { value: "Latest", key: "sortList.latest" },
   { value: "Old", key: "sortList.old" },

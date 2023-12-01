@@ -1,14 +1,17 @@
 import React from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import { selectCategoryList } from "../../redux/slices/config";
 import ScreenNames from "../../routes/routes";
-import categories from "../../svgcomponents/index";
 import { width } from "../../utills/Dimension";
 import CategoryIcon from "../categories";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
 
 export default function CategoryList({ navigation }) {
-  const {t}=useTranslation();
+  const { t } = useTranslation();
+  const data = useSelector(selectCategoryList);
+
   return (
     <View style={styles.main}>
       <View style={styles.titleview}>
@@ -26,37 +29,42 @@ export default function CategoryList({ navigation }) {
         showsHorizontalScrollIndicator={false}
         style={styles.listicon}
       >
-        {categories.map(({ show, title, Icon }, index) => {
+        {data.map(({ image, name, subCategories }, index) => {
           return (
             <CategoryIcon
               navigation={navigation}
               key={index}
-              title={show}
+              title={name}
               onPress={() => {
                 // if (title == "Bikes") {
                 //   navigation.navigate(ScreenNames.BIKECATEGORY);
                 // } else {
                 //   navigation.navigate(ScreenNames.LISTDATA);
                 // }
-                if (title == "Bikes" || title == "Parts") {
+                if (name == "Bikes" || name == "Parts") {
                   navigation.navigate(ScreenNames.BIKECATEGORY, {
-                    category: title,
-                    find: title,
+                    category: name,
+                    find: name,
+                    subCategories: subCategories,
                     show: true,
                   });
                 } else {
                   navigation.navigate(ScreenNames.LISTDATA, {
-                    category: title,
-                    find: title,
+                    category: name,
+                    find: name,
                   });
                 }
               }}
             >
-              <Icon
+              {/* <Icon
                 height={width(15)}
                 width={width(15)}
                 tintColor="black"
                 fill="black"
+              /> */}
+              <Image
+                style={{ height: width(10), width: width(10) }}
+                source={{ uri: image }}
               />
             </CategoryIcon>
           );

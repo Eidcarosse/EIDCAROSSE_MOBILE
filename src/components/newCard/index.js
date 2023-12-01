@@ -1,16 +1,19 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FlatList,
   Image,
   Pressable,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { toggleFavorite } from "../../backend/api";
+import { selectCategoryList } from "../../redux/slices/config";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 import {
   selectFavAds,
   selectUserMeta,
@@ -18,16 +21,10 @@ import {
 } from "../../redux/slices/user";
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
-import GlobalMethods, { infoMessage } from "../../utills/Methods";
-import styles from "./styles";
-import { toggleFavorite } from "../../backend/api";
-import SwiperFlatList from "react-native-swiper-flatlist";
-import { ImageSlider } from "react-native-image-slider-banner";
-import categories from "../../svgcomponents";
-import { useTranslation } from "react-i18next";
-import { selectCurrentLanguage } from "../../redux/slices/language";
 import { WebLink } from "../../utills/Constants";
+import { width } from "../../utills/Dimension";
+import GlobalMethods, { checkPrice, infoMessage } from "../../utills/Methods";
+import styles from "./styles";
 export default function Card({ data, onPresshide, map = false }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -112,11 +109,7 @@ export default function Card({ data, onPresshide, map = false }) {
                 <Text numberOfLines={1} style={styles.categorytext}>
                   {/* {data?.category}
                    */}
-                  {t(
-                    categories.find(
-                      (category) => category.title === data?.category
-                    )?.show
-                  )}
+                  {t(`category.${data?.category}`)}
                 </Text>
               </View>
             </View>
@@ -178,7 +171,7 @@ export default function Card({ data, onPresshide, map = false }) {
           }}
         >
           <View style={styles.detailinerview}>
-            {data?.price ? (
+            {checkPrice(data?.price) ? (
               <View>
                 <Text numberOfLines={1} style={styles.chf}>
                   CHF {data?.price}

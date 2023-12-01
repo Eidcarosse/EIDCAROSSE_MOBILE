@@ -1,15 +1,15 @@
 import React from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
 import { Head, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
-import { Parts, bikedata, data } from "../../../utills/Data";
-import { useTranslation } from "react-i18next";
+import { width } from "../../../utills/Dimension";
 
 export default function BikeCategory({ navigation, route }) {
+  const subCategories = route?.params?.subCategories;
   const { t } = useTranslation();
-
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -27,7 +27,7 @@ export default function BikeCategory({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <FlatList
-          data={route?.params?.category == "Parts" ? Parts : bikedata}
+          data={subCategories}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             return (
@@ -38,18 +38,24 @@ export default function BikeCategory({ navigation, route }) {
                   if (!route?.params?.show) {
                     navigation.navigate(ScreenNames.ADDPOST, {
                       category: route?.params?.category,
-                      find: item?.title,
-                      subcategory: item?.title,
+                      find: item.name,
+                      subcategory: item.name,
                     });
                   } else
                     navigation.navigate(ScreenNames.LISTDATA, {
                       category: route?.params?.category,
-                      find: item?.title,
-                      subcategory: item?.title,
+                      find: item.name,
+                      subcategory: item.name,
                     });
                 }}
               >
-                <Text>{t(item.show)}</Text>
+                <Image
+                  source={{ uri: item.image }}
+                  style={{ width: width(5), height: width(5) }}
+                />
+                <Text style={{ marginLeft: width(5) }}>
+                  {t(`subList.${item.name}`)}
+                </Text>
               </TouchableOpacity>
             );
           }}

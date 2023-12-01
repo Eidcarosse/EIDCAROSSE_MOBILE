@@ -1,33 +1,30 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { Card, Head, MapAdCard, ScreenWrapper } from "../../../components";
-import { selectFavAds, selectUserMeta } from "../../../redux/slices/user";
-import AppColors from "../../../utills/AppColors";
 import * as Location from "expo-location";
-import { getFavAds } from "../../../backend/auth";
-import styles from "./styles";
+import React, { useEffect, useRef, useState } from "react";
+import { Image, TouchableOpacity, View } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker } from "react-native-maps";
+import { useDispatch, useSelector } from "react-redux";
+import { Card, Head, ScreenWrapper } from "../../../components";
+import { selectUserMeta } from "../../../redux/slices/user";
+import AppColors from "../../../utills/AppColors";
+import styles from "./styles";
 
-import { height, width } from "../../../utills/Dimension";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Apikey } from "../../../utills/Constants";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import Icons from "../../../asset/images";
-import categories from "../../../svgcomponents";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { getAllData } from "../../../backend/api";
-import { useTranslation } from "react-i18next";
+import { selectCategoryList } from "../../../redux/slices/config";
+import { Apikey } from "../../../utills/Constants";
+import { height, width } from "../../../utills/Dimension";
 
 export default function MapAdView({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const mapRef = useRef();
   const refRBSheet = useRef();
-
+  const categories = useSelector(selectCategoryList);
   const userInfo = useSelector(selectUserMeta);
-  const userFav = useSelector(selectFavAds);
   const id = userInfo?._id;
 
   const [data, setData] = useState([]);
@@ -187,11 +184,11 @@ export default function MapAdView({ navigation, route }) {
           zoomControlEnabled={true}
         >
           {data.map((item, index) => {
-            let MyIcon = categories.find(
-              (category) => category.title === item?.category
-            )?.Icon;
+            let imag = categories.find(
+              (category) => category.name === item?.category
+            )?.image;
             return (
-              MyIcon && (
+              imag && (
                 <Marker
                   key={index}
                   coordinate={{
@@ -216,10 +213,14 @@ export default function MapAdView({ navigation, route }) {
                       justifyContent: "center",
                     }}
                   >
-                    <MyIcon
+                    {/* <MyIcon
                       height={width(7)}
                       width={width(7)}
                       tintColor={AppColors.primary}
+                    /> */}
+                    <Image
+                      style={{ height: width(10), width: width(10) }}
+                      source={{ uri: imag }}
                     />
                   </View>
                 </Marker>

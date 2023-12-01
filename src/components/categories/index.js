@@ -24,7 +24,7 @@ export default function CategoryIcon({
       <View disabled={disabled}>
         <View style={[styles.container, greybackground]}>{children}</View>
       </View>
-      <Text style={[styles.text, textStyle]}>{t(title)}</Text>
+      <Text style={[styles.text, textStyle]}>{t(`category.${title}`)}</Text>
     </TouchableOpacity>
   );
 }

@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataofHomePage } from "../backend/api";
 import { getOwneAd, loginApi } from "../backend/auth";
 import { Loader } from "../components";
-import { setAppLoader, setTopAds } from "../redux/slices/config";
+import {
+  setAppLoader,
+  setCategoryList,
+  setTopAds,
+} from "../redux/slices/config";
 import {
   selectIsLoggedIn,
   setAdsFav,
@@ -26,7 +30,6 @@ import {
   CategoryScreen,
   ChatViewScreen,
   DetailScreen,
-  EditAdScreen,
   EditProfile,
   FAQScreen,
   HTSFScreen,
@@ -44,11 +47,18 @@ import {
   TNCScreen,
   WishScreen,
 } from "../screens/app";
-import { ForgetPasswordScreen, LoginScreen, OnBoardingScreen, SignUpScreen } from "../screens/auth";
+import {
+  CPFscreen,
+  ForgetPasswordScreen,
+  LoginScreen,
+  OnBoardingScreen,
+  SignUpScreen,
+} from "../screens/auth";
 import { errorMessage, getAuthData, getlangData } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
 import { setLanguage } from "../redux/slices/language";
+import { getCategory } from "../backend/common";
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
@@ -107,31 +117,14 @@ export default function Routes() {
       // dispatch(setAppLoader(false));
     }
   };
-  // const fetchRoomsData = async (id) => {
-  //   let roomRef;
-  //   try {
-  //     console.log(id);
-  //     roomRef = ref(db, `RoomLists/${id}/rooms`);
+  useEffect(() => {
+    getCategorylist();
+  }, []);
 
-  //     const handleRoomUpdate = (snapshot) => {
-  //       const room = snapshot.val() || [];
-  //       console.log('====================================');
-  //       console.log(room);
-  //       console.log('====================================');
-  //     };
-
-  //     onValue(roomRef, handleRoomUpdate);
-
-  //     // Clean up the listener when the component is unmounted or the user logs out
-  //     return () => {
-  //       if (roomRef) {
-  //         off(roomRef, handleRoomUpdate);
-  //       }
-  //     };
-  //   } catch (error) {
-  //     console.error("Error fetching room data:", error);
-  //   }
-  // };
+  async function getCategorylist() {
+    const d = await getCategory();
+    if (d) dispatch(setCategoryList(d));
+  }
   const fetchRoomsData = async (userId) => {
     console.log(userId);
     try {
@@ -174,7 +167,10 @@ export default function Routes() {
           component={OnBoardingScreen}
         />
         <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />
-        <Stack.Screen name={ScreenNames.FORGET} component={ForgetPasswordScreen} />
+        <Stack.Screen
+          name={ScreenNames.FORGET}
+          component={ForgetPasswordScreen}
+        />
         <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
         <Stack.Screen name={ScreenNames.DETAIL} component={DetailScreen} />
         <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
@@ -205,8 +201,8 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.REPAIR} component={RepairSreen} />
         <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
         <Stack.Screen name={ScreenNames.PANDS} component={PrivacySafety} />
-        <Stack.Screen name={ScreenNames.EDITAD} component={EditAdScreen} />
-        
+
+        <Stack.Screen name={ScreenNames.CPF} component={CPFscreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

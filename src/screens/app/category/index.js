@@ -1,13 +1,15 @@
 import React from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, Image, View } from "react-native";
+import { useSelector } from "react-redux";
 import { CategoryIcon, Head, Header, ScreenWrapper } from "../../../components";
+import { selectCategoryList } from "../../../redux/slices/config";
 import ScreenNames from "../../../routes/routes";
-import categories from "../../../svgcomponents";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
 export default function Category({ navigation, route, value }) {
+  const data = useSelector(selectCategoryList);
   return (
     <ScreenWrapper
       headerUnScrollable={() =>
@@ -27,7 +29,7 @@ export default function Category({ navigation, route, value }) {
         ]}
       >
         <FlatList
-          data={categories}
+          data={data}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             Icon = item.Icon;
@@ -37,36 +39,42 @@ export default function Category({ navigation, route, value }) {
                 disabled={true}
                 cardStyle={styles.card}
                 greybackground={styles.greybackground}
-                title={item?.show}
+                title={item?.name}
                 textStyle={styles.textStyle}
                 onPress={() => {
                   if (value == "ADD") {
-                    if (item.title == "Bikes" || item.title == "Parts") {
+                    if (item.name == "Bikes" || item.name == "Parts") {
                       navigation.navigate(ScreenNames.BIKECATEGORY, {
-                        category: item?.title,
-                        find: item?.title,
+                        category: item?.name,
+                        find: item?.name,
+                        subCategories: item?.subCategories,
                       });
                     } else {
                       navigation.navigate(ScreenNames.ADDPOST, {
-                        category: item?.title,
-                        find: item?.title,
+                        category: item?.name,
+                        find: item?.name,
                       });
                     }
-                  } else if (item.title == "Bikes" || item.title == "Parts") {
+                  } else if (item.name == "Bikes" || item.name == "Parts") {
                     navigation.navigate(ScreenNames.BIKECATEGORY, {
-                      category: item?.title,
-                      find: item?.title,
+                      category: item?.name,
+                      find: item?.name,
                       show: true,
+                      subCategories: item?.subCategories,
                     });
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
-                      category: item?.title,
-                      find: item?.title,
+                      category: item?.name,
+                      find: item?.name,
                     });
                   }
                 }}
               >
-                <Icon height={width(17)} width={width(17)} />
+                {/* <Icon height={width(17)} width={width(17)} /> */}
+                <Image
+                  style={{ height: width(10), width: width(10) }}
+                  source={{ uri: item?.image }}
+                />
               </CategoryIcon>
             );
           }}

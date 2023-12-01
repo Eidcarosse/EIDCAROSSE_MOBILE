@@ -9,17 +9,18 @@ const initialState = {
     model: null,
     maxPrice: null,
     minPrice: null,
-    title:''
+    title: "",
   },
-  appColor:{
-    primary:'#FF0100',
-    white: '#ffffff',
-    black: 'black',
-    red: 'red',
-    transparent:'transparent',
-    grey:'#E5E8E8',
-    greybackground:'#EFEFEF'
-  }
+  appColor: {
+    primary: "#FF0100",
+    white: "#ffffff",
+    black: "black",
+    red: "red",
+    transparent: "transparent",
+    grey: "#E5E8E8",
+    greybackground: "#EFEFEF",
+  },
+  categoryList: [],
 };
 
 const configSlice = createSlice({
@@ -32,29 +33,8 @@ const configSlice = createSlice({
     setTopAds: (state, action) => {
       state.topads = action.payload;
     },
-    setFilter: (state, action) => {
-      state.filter = action.payload;
-    },
-    setCategoryFilter: (state, action) => {
-      state.filter.category = action.payload;
-    },
-    setBrandFilter: (state, action) => {
-      state.filter.brand = action.payload;
-    },
-    setModelFilter: (state, action) => {
-      state.filter.model = action.payload;
-    },
-    setMaxPriceFilter: (state, action) => {
-      state.filter.maxPrice = action.payload;
-    },
-    setMinPriceFilter: (state, action) => {
-      state.filter.minPrice = action.payload;
-    },
-    setTitleFilter: (state, action) => {
-      state.filter.title = action.payload;
-    },
-    setWhiteColor: (state, action) => {
-      state.appColor.white = action.payload;
+    setCategoryList: (state, action) => {
+      state.categoryList = action.payload;
     },
   },
 });

@@ -1,4 +1,4 @@
-import { BaseUrl } from "../utills/Constants";
+import { BaseUrl, BaseUrl1 } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 export const getDataofHomePage = async () => {
@@ -57,7 +57,7 @@ export async function addPostAd(formData) {
         "Content-Type": "multipart/form-data",
       },
     };
-    const resp = await fetch(BaseUrl + "ad/adPost", requestOptions);
+    const resp = await fetch(BaseUrl+ "ad/adPost", requestOptions);
     let response = await resp.json();
     return response;
   } catch (error) {
@@ -147,7 +147,10 @@ export const editAdApi = async (id, formData) => {
       },
     };
 
-    const resp = await fetch(BaseUrl + `ad/edit-ad-mobile/${id}`, requestOptions);
+    const resp = await fetch(
+      BaseUrl + `ad/edit-ad-mobile/${id}`,
+      requestOptions
+    );
     let response = await resp.json();
     return response;
   } catch (error) {
@@ -155,10 +158,9 @@ export const editAdApi = async (id, formData) => {
     throw error; // Re-throw the error to handle it at a higher level if necessary
   }
 };
-// export const chatRooms=async({ userId, productId, productUserId })=>{
-//   try {
-//     const response=await ApiManager.post(`chatroom/`)
-//   } catch (error) {
-
-//   }
-// }
+export const backEndDataAPi = async (data) => {
+  try {
+    const res = await ApiManager.get(`ad/get-postAd-data`, data);
+    return res?.data;
+  } catch (error) {}
+};

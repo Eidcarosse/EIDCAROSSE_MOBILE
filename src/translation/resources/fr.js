@@ -243,7 +243,7 @@ export default {
     Bikes: "Vélos",
     Boats: "Bateaux",
     Drones: "Drones",
-    ConstructionMachines: "Engins de construction",
+    "Construction Machines": "Engins de construction",
     Trucks: "Camions",
     Vans: "Fourgonnettes",
     Trailers: "Remorques",
@@ -251,27 +251,23 @@ export default {
     Parts: "Pièces",
     Others: "Autres",
   },
-  bikecategory: {
-    Ebikes: "Vélos électriques",
+  subList: {
+    "E-bikes": "Vélos électriques",
     Bicycles: "Vélos",
-    Escooter: "Trottinettes électriques",
-    Motorcycle: "Motos",
-  },
-  partscategory: {
+    "E-scooters": "Trottinettes électriques",
+    Motorcycles: "Motos",
     Autos: "Pièces d'Auto",
-    Ebikes: "Pièces de Vélo Électrique",
-    Bicycles: "Pièces de Vélo",
-    Escooter: "Pièces de Trottinette Électrique",
-    Motorcycle: "Pièces de Moto",
+    Bikes: "Vélos",
     Boats: "Pièces de Bateau",
     Drones: "Pièces de Drone",
-    ConstructionMachines: "Pièces de Machines de Construction",
+    "Construction Machines": "Pièces de Machines de Construction",
     Trucks: "Pièces de Camion",
     Vans: "Pièces de Fourgonnettes",
     Trailers: "Pièces de Remorque",
     Busses: "Pièces d'Autobus",
-    Others: "Autres Pièces",
+    "Other Parts": "Autres Pièces",
   },
+
   profile: {
     wish: "Ma Liste de Souhaits",
     listing: "Mes Annonces",
@@ -571,9 +567,8 @@ export default {
     placeholder: "Envoyez un message...",
   },
   privacySafety: {
-    title:"Confidentialité et Sécurité",
+    title: "Confidentialité et Sécurité",
     number: "Ne pas afficher mon numéro",
     ads: "Ne pas permettre au public de voir tous mes annonces ?",
   },
-  
 };

@@ -23,4 +23,3 @@ export { default as RepairSreen } from "./repairnow";
 export { default as MapAdView } from "./MapView";
 export { default as AppSetting } from "./AppSetting";
 export { default as PrivacySafety } from "./privecyandSafety";
-export { default as EditAdScreen } from "./EditAd";

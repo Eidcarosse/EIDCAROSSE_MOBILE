@@ -105,6 +105,41 @@ const getShowAds = async (id) => {
     return response;
   } catch (error) {}
 };
+const forgetPasswordAPI = async (mail) => {
+  try {
+    const response = await ApiManager.post("auth/forgot-password", {
+      email: mail,
+    });
+
+    // Handle the response here
+    return response;
+  } catch (error) {
+    // Handle errors here
+    console.error("Error:", error.response.data);
+  }
+};
+const verifyCodeAPI = async (code) => {
+  try {
+    const response = await ApiManager.get(`auth//verify-code/${code}`);
+
+    // Handle the response here
+    return response;
+  } catch (error) {
+    // Handle errors here
+    console.error("Error:", error.response.data);
+  }
+};
+const resetPasswordAPI = async (p) => {
+  try {
+    const response = await ApiManager.post("auth/reset-password", p);
+
+    // Handle the response here
+    return response;
+  } catch (error) {
+    // Handle errors here
+    console.error("Error:", error.response.data);
+  }
+};
 export {
   signupApi,
   loginApi,
@@ -115,4 +150,7 @@ export {
   changePasswordAPI,
   getShowNumber,
   getShowAds,
+  forgetPasswordAPI,
+  verifyCodeAPI,
+  resetPasswordAPI,
 };

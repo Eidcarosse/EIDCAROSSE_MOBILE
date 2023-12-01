@@ -162,12 +162,8 @@ const onPressShare = async (message, title) => {
   }
 };
 const openWhatsApp = (phoneNumber) => {
-  const message = "Hello,I saw your ad on Eidcarosse!"; // Replace with your desired message
-
   // Construct the WhatsApp URL
-  const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(
-    message
-  )}`;
+  const whatsappURL = `whatsapp://send?phone=${phoneNumber}`;
 
   // Open WhatsApp with the constructed URL
   Linking.openURL(whatsappURL)
@@ -179,37 +175,18 @@ const openWhatsApp = (phoneNumber) => {
       errorMessage("Whatsapp not exist");
     });
 };
-// const openViber = (phoneNumber) => {
-//   const message = "Hello, I saw your ad on Eidcarosse!"; // Replace with your desired message
-
-//   // Construct the Viber URL
-//   const viberURL = `viber://forward?text=${encodeURIComponent(
-//     message
-//   )}&phone=${phoneNumber}`;
-
-//   // Open Viber with the constructed URL
-//   Linking.openURL(viberURL)
-//     .then(() => {
-//       console.log("Viber opened successfully");
-//     })
-//     .catch((error) => {
-//       console.error("Error opening Viber:", error);
-//       errorMessage("Viber App not exist in phone");
-//     });
-// };
 export const openViber = (phoneNumber) => {
-try {
-  const viberDeepLink = `viber://chat?number=${phoneNumber}`;
+  const formattedPhoneNumber =
+    Platform.OS === "android" ? phoneNumber.replace(/\+/g, "") : phoneNumber;
 
-  // Attempt to open the Viber chat using the deep link
-  Linking.openURL(viberDeepLink).catch((err) =>
-  errorMessage("Viber not found")
-  );
-} catch (error) {
-  
-}
+  const viberDeepLink = `viber://chat?number=${formattedPhoneNumber}`;
 
+  Linking.openURL(viberDeepLink).catch((err) => {
+    console.error("Error opening Viber:", err);
+    // Handle the error or display a message to the user
+  });
 };
+
 const calculateTimeDifference = (createdAt, l) => {
   let locale;
   switch (l) {
@@ -236,6 +213,112 @@ const calculateTimeDifference = (createdAt, l) => {
     addSuffix: true,
   });
   return distance;
+};
+export function checkPrice(data) {
+  // Check if data is not null or undefined
+  if (data !== null && data !== undefined) {
+    // Check if price is greater than 0 and not an array
+    if (typeof data === "number" && data > 0) {
+      return true; // The condition is met
+    }
+  }
+  return false; // The condition is not met
+}
+export const showType = (x) => {
+  return (
+    x === "Construction Machines" ||
+    x === "Trucks" ||
+    x === "Vans" ||
+    x === "Trailers" ||
+    x === "Busses"
+  );
+};
+export const showBrand = (x) => {
+  return (
+    x === "Autos" ||
+    x === "Bikes" ||
+    x === "Boats" ||
+    x === "Drones" ||
+    x === "Construction Machines" ||
+    x === "Trucks" ||
+    x === "Vans" ||
+    x === "Trailers" ||
+    x === "Busses"
+  );
+};
+export const showYear = (x) => {
+  return (
+    x === "Autos" ||
+    x === "Bikes" ||
+    x === "Boats" ||
+    x === "Drones" ||
+    x === "Construction Machines" ||
+    x === "Trucks" ||
+    x === "Vans" ||
+    x === "Trailers" ||
+    x === "Busses"
+  );
+};
+export const showbodyShape = (x) => {
+  return x === "Autos" || x === "Motorcycles";
+};
+export const showGearBox = (x) => {
+  return (
+    x === "Autos"
+    // x === "Construction Machines" ||
+    // x === "Trucks" ||
+    // x === "Vans" ||
+    // x === "Trailers" ||
+    // x === "Busses"
+  );
+};
+export const showFuletype = (x) => {
+  return (
+    x === "Autos" || x === "Motorcycles"
+    // x === "Boats" ||
+    // x === "Construction Machines" ||
+    // x === "Trucks" ||
+    // x === "Vans" ||
+    // x === "Trailers" ||
+    // x === "Busses"
+  );
+};
+export const showExteriorColor = (x) => {
+  return (
+    x === "Autos"
+    // x === "Bikes" ||
+    // x === "Boats" ||
+    // x === "Drones" ||
+    // x === "Construction Machines" ||
+    // x === "Trucks" ||
+    // x === "Vans" ||
+    // x === "Trailers" ||
+    // x === "Busses"
+  );
+};
+export const showInteriorColor = (x) => {
+  return (
+    x === "Autos"
+
+    // x === "Boats" ||
+    // x === "Construction Machines" ||
+    // x === "Trucks" ||
+    // x === "Vans" ||
+    // x === "Trailers" ||
+    // x === "Busses"
+  );
+};
+export const showKM = (x) => {
+  return (
+    x === "Autos" ||
+    x === "Bikes" ||
+    x === "Boats" ||
+    x === "Construction Machines" ||
+    x === "Trucks" ||
+    x === "Vans" ||
+    x === "Trailers" ||
+    x === "Busses"
+  );
 };
 const onPressFavorite = () => {};
 const GlobalMethods = {

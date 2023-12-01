@@ -1,18 +1,17 @@
-import { Entypo, Fontisto, Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
+  ActivityIndicator,
   Image,
-  Linking,
   Pressable,
   Text,
-  View,
   TouchableOpacity,
-  ActivityIndicator,
+  View,
 } from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
-import Icons from "../../../asset/images";
 import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
 import {
   DetailFooter,
@@ -21,38 +20,34 @@ import {
   RelatedAd,
   ScreenWrapper,
 } from "../../../components";
-import GlobalMethods, { infoMessage } from "../../../utills/Methods";
-import { setAppLoader } from "../../../redux/slices/config";
-import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
-import ScreenNames from "../../../routes/routes";
+import { selectCategoryList } from "../../../redux/slices/config";
 import {
   selectFavAds,
   selectUserMeta,
   setAdsFav,
 } from "../../../redux/slices/user";
-import { useTranslation } from "react-i18next";
-import categories from "../../../svgcomponents";
+import ScreenNames from "../../../routes/routes";
+import AppColors from "../../../utills/AppColors";
+import { WebLink } from "../../../utills/Constants";
 import {
   BikeFuelType,
-  Parts,
   bikeBodyShape,
   bikeExteriorColor,
-  bikedata,
   bodyShapeList,
   exteriorColorList,
   fuelTypelist,
   gearBoxList,
   interiorColorList,
   kilometers,
-  rdata,
 } from "../../../utills/Data";
-import { WebLink } from "../../../utills/Constants";
+import { height, width } from "../../../utills/Dimension";
+import GlobalMethods, { infoMessage } from "../../../utills/Methods";
+import styles from "./styles";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
   const loginuser = useSelector(selectUserMeta);
+  const categories = useSelector(selectCategoryList);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
   const [data, setDat] = useState([]);
@@ -276,11 +271,7 @@ export default function Detail({ navigation, route }) {
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.category")}</Text>
                   <Text style={styles.cardelement2}>
-                    {t(
-                      categories.find(
-                        (category) => category.title === data?.category
-                      )?.show
-                    )}
+                    {t(`category.${data?.category}`)}
                   </Text>
                 </View>
               )}
@@ -290,20 +281,14 @@ export default function Detail({ navigation, route }) {
                     {t("detail.subcategory")}
                   </Text>
                   <Text style={styles.cardelement2}>
-                    {data?.category == "Bikes"
-                      ? t(
-                          bikedata.find(
-                            (category) => category.title === data?.subCategory
-                          )?.show
-                        )
-                      : data?.category == "Parts"
-                      ? t(
-                          Parts.find(
-                            (category) => category.title === data?.subCategory
-                          )?.show
-                        )
-                      : data?.subCategory}
+                    {t(`subList.${data?.subCategory}`)}
                   </Text>
+                </View>
+              )}
+              {!isNullOrNullOrEmpty(data?.type) && (
+                <View style={styles.cardrow}>
+                  <Text style={styles.cardelement}>{t("detail.type")}</Text>
+                  <Text style={styles.cardelement2}>{data?.type}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.brand) && (
@@ -331,9 +316,7 @@ export default function Detail({ navigation, route }) {
                   </Text>
                   <Text style={styles.cardelement2}>
                     {/* {data?.condition} */}
-                    {t(
-                      rdata?.find((con) => con?.key === data?.condition)?.label
-                    )}
+                    {t(`condition.${data?.condition}`)}
                   </Text>
                 </View>
               )}
@@ -466,12 +449,6 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement2}>{data?.minPrice}</Text>
                 </View>
               )} */}
-              {!isNullOrNullOrEmpty(data?.price) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.price")}</Text>
-                  <Text style={styles.cardelement2}>{data?.price}</Text>
-                </View>
-              )}
               {!isNullOrNullOrEmpty(data?.videoUrl) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.videourl")}</Text>
@@ -592,7 +569,7 @@ export default function Detail({ navigation, route }) {
               />
             </MapView>
           </View>
-          <RelatedAd category={data?.category} id={data?._id}/>
+          <RelatedAd category={data?.category} id={data?._id} />
         </View>
       )}
     </ScreenWrapper>

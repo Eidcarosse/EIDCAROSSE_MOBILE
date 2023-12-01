@@ -1,4 +1,4 @@
-import { FontAwesome, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,30 +13,41 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import {
   Button,
   Card,
-  CardView,
   Head,
   Input,
-  ListingView,
   ScreenWrapper,
   SearchBar,
 } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
 import RadioButtonRN from "radio-buttons-react-native";
+import { useTranslation } from "react-i18next";
 import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import {
+  backEndDataAPi,
   geVehicleCategory,
   geVehicleMakes,
   getAllData,
+  getModel,
 } from "../../../backend/api";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
 import { setAppLoader } from "../../../redux/slices/config";
-import { useTranslation } from "react-i18next";
-import categories from "../../../svgcomponents";
-import { kilometers, sortList } from "../../../utills/Data";
+
+import { height, width } from "../../../utills/Dimension";
+import {
+  showBrand,
+  showExteriorColor,
+  showFuletype,
+  showGearBox,
+  showInteriorColor,
+  showKM,
+  showYear,
+  showType,
+  showbodyShape,
+} from "../../../utills/Methods";
+import styles from "./styles";
+import { sortList } from "../../../utills/Data";
 
 export default function ListData({ navigation, route }) {
   const { t } = useTranslation();
@@ -45,6 +56,7 @@ export default function ListData({ navigation, route }) {
   const sub = route?.params?.subcategory;
   const ti = route?.params?.search;
   const refRBSheet = useRef();
+  const [feild, setFeild] = useState();
   const dispatch = useDispatch();
   const [findValue, setFindValue] = useState(find);
   const modelRef = useRef();
@@ -63,18 +75,21 @@ export default function ListData({ navigation, route }) {
   const [km, setKm] = React.useState("");
   const [refreshing, onRefresh] = React.useState(false);
   const [empty, setempty] = React.useState(false);
-
-  // const [gearbox, setGearbox] = React.useState("");
-  // const [fueltype, setFueltype] = React.useState("");
-  // const [exterior, setExterior] = React.useState("");
-  // const [interior, setInterior] = React.useState("");
-
+  /////new add
+  const [year, setYear] = React.useState("");
+  const [bodyshape, setBodyshap] = React.useState("");
+  const [gearbox, setGearbox] = React.useState("");
+  const [fueltype, setFueltype] = React.useState("");
+  const [exterior, setExterior] = React.useState("");
+  const [interior, setInterior] = React.useState("");
+  const [type, setType] = useState();
   const [loder, setLoder] = React.useState(false);
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vCategory, setVCategory] = React.useState();
   const [filter, setFilter] = React.useState(false);
   const [data, setData] = useState([]);
   const [totalAds, setTotalAds] = useState(0);
+  const [apimodel, setapiModel] = React.useState([]);
 
   // const [columnumber, setcolumnumber] = useState(2);
 
@@ -85,11 +100,41 @@ export default function ListData({ navigation, route }) {
     condition: condition || "",
     title: title || "",
     brand: brand || "",
-    minPrice: priceto,
-    maxPrice: pricefrom,
+    model: model || "",
+    year: year || "",
+    type: type || "",
+    minPrice: priceto || "",
+    maxPrice: pricefrom || "",
     sortBy: sortby || "",
-    km: km,
+    km: km || "",
+    bodyShape: bodyshape || "",
+    gearBox: gearbox || "",
+    fuelType: fueltype || "",
     page: pageNumber, // Adjust the page number as needed
+  };
+  const clearAll = () => {
+    console.log("clearall");
+    setTitle("");
+    setAddress("");
+    setBrand("");
+    setModel("");
+    setYear("");
+    setPricefrom("");
+    setPriceto("");
+    setSortby("");
+    setKm("");
+    setBodyshap("");
+    setGearbox("");
+    setFueltype("");
+    setCondition("");
+    setData([]);
+    setempty(false);
+
+    if (pageNumber != 0) {
+      setPageNumber(1);
+    }
+    refRBSheet.current.close();
+    setFilter(filter + 1);
   };
 
   useEffect(() => {
@@ -97,34 +142,41 @@ export default function ListData({ navigation, route }) {
     getData();
     dispatch(setAppLoader(false));
   }, []);
+  useEffect(() => {
+    if (brand) getmodel(find, brand);
+  }, [brand]);
+  const getmodel = async (a, b) => {
+    dispatch(setAppLoader(true));
+    let cardata = await getModel(a, b);
 
+    if (cardata) {
+      setapiModel(cardata);
+      dispatch(setAppLoader(false));
+    } else {
+      setapiModel(false);
+      dispatch(setAppLoader(false));
+    }
+    dispatch(setAppLoader(false));
+  };
   useEffect(() => {
     if (filter) getData();
   }, [filter]);
   const handleEndReached = () => {
     getData();
   };
-  // useEffect(() => {
-  //   if (category != "Bike") {
-  //     setFindValue(category);
-  //   } else {
-  //     setFindValue(subCategory);
-  //   }
-  // });
-  // useEffect(() => {
-  //   if (route?.params?.find) {
-  //     dispatch(setCategoryFilter(route?.params?.find));
-  //   } else {
-  //     dispatch(setCategoryFilter(null));
-  //   }
-  // }, []);
-  //console.log("find value fo :", findValue, find);
   useEffect(() => {
     getvehicleMake();
-    if (subCategory == undefined) {
+    if (showType(category)) {
       getvehicleSubCategory();
     }
+    getFeilds();
   }, [category]);
+  const getFeilds = async () => {
+    let data = await backEndDataAPi({
+      type: findValue,
+    });
+    setFeild(data);
+  };
   const getvehicleMake = async () => {
     setLoder(true);
     let vehicledata = await geVehicleMakes(findValue);
@@ -138,11 +190,9 @@ export default function ListData({ navigation, route }) {
     setLoder(false);
   };
   const getvehicleSubCategory = async () => {
-    if (sub == undefined) {
-      let vehicledata = await geVehicleCategory(findValue);
-      if (vehicledata) {
-        setVCategory(vehicledata);
-      }
+    let vehicledata = await geVehicleCategory(findValue);
+    if (vehicledata) {
+      setVCategory(vehicledata);
     } else {
       setVCategory([]);
     }
@@ -194,28 +244,12 @@ export default function ListData({ navigation, route }) {
       label: t("condition.Recondition"),
     },
   ];
-  const showKM = (x) => {
-    return (
-      x === "Autos" ||
-      x === "Bikes" ||
-      x === "Boats" ||
-      x === "Construction Machine" ||
-      x === "Trucks" ||
-      x === "Vans" ||
-      x === "Trailers" ||
-      x === "Busses"
-    );
-  };
 
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
         <Head
-          headtitle={
-            category
-              ? t(categories?.find((cat) => cat.title === category)?.show)
-              : "allData.title"
-          }
+          headtitle={category ? t(`category.${category}`) : "allData.title"}
           navigation={navigation}
         />
       )}
@@ -357,7 +391,7 @@ export default function ListData({ navigation, route }) {
         <View>
           <RBSheet
             ref={refRBSheet}
-            closeOnDragDown={true}
+            closeOnDragDown={false}
             closeOnPressMask={true}
             closeOnPressBack={true}
             height={height(75)}
@@ -383,155 +417,22 @@ export default function ListData({ navigation, route }) {
                   >
                     {t("allData.filter")}
                   </Text>
-                  {/* <Text
-                    style={{
-                      fontSize: width(3),
-                      color: AppColors.primary,
-                    }}
-                  >
-                    close
-                  </Text> */}
+                  <TouchableOpacity onPress={() => refRBSheet.current.close()}>
+                    <Text
+                      style={{
+                        fontSize: width(4),
+                        color: AppColors.primary,
+                      }}
+                    >
+                      close
+                    </Text>
+                  </TouchableOpacity>
                 </View>
 
                 <ScrollView
                   style={{ height: height(57) }}
                   showsVerticalScrollIndicator={false}
                 >
-                  {/* <View style={{ alignSelf: "center" }}>
-                    <Text style={styles.title}>Category</Text>
-                    <SelectDropdown
-                      data={categories.map((i) => i.title)}
-                      searchPlaceHolder={"Search here"}
-                      search={true}
-                      defaultValue={category}
-                      buttonStyle={styles.searchbox}
-                      selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                      selectedRowTextStyle={{ color: AppColors.white }}
-                      buttonTextStyle={{
-                        textAlign: "left",
-                        fontSize: width(3.5),
-                      }}
-                      dropdownStyle={styles.dropdown}
-                      onSelect={(selectedItem, index) => {
-                        setCategory(selectedItem);
-                      }}
-                      buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem;
-                      }}
-                      rowTextForSelection={(item, index) => {
-                        return item;
-                      }}
-                    />
-                  </View> */}
-                  {!(vCategory == undefined || vCategory == []) ? (
-                    <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>{t("allData.sub")}</Text>
-                      <SelectDropdown
-                        data={vCategory}
-                        defaultButtonText={t("allData.defaultValueDropdown")}
-                        defaultValue={subCategory}
-                        searchPlaceHolder={t("allData.phsearchHere")}
-                        search={true}
-                        buttonStyle={styles.searchbox}
-                        selectedRowStyle={{
-                          backgroundColor: AppColors.primary,
-                        }}
-                        selectedRowTextStyle={{ color: AppColors.white }}
-                        buttonTextStyle={{
-                          textAlign: "left",
-                          fontSize: width(3.5),
-                        }}
-                        dropdownStyle={styles.dropdown}
-                        onSelect={(selectedItem, index) => {
-                          setSubCategory(selectedItem);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return selectedItem;
-                        }}
-                        rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return item;
-                        }}
-                      />
-                    </View>
-                  ) : (
-                    // ) : sub ? (
-                    //   <View style={{ alignSelf: "center" }}>
-                    //     <Text style={styles.title}>Sub bike Category</Text>
-                    //     <SelectDropdown
-                    //       data={
-                    //         route?.params?.category == "Parts"
-                    //           ? Parts.map((i) => i.title)
-                    //           : bikedata.map((i) => i.title)
-                    //       }
-                    //       searchPlaceHolder={"Search here"}
-                    //       search={true}
-                    //       defaultValue={sub}
-                    //       buttonStyle={styles.searchbox}
-                    //       selectedRowStyle={{
-                    //         backgroundColor: AppColors.primary,
-                    //       }}
-                    //       selectedRowTextStyle={{ color: AppColors.white }}
-                    //       buttonTextStyle={{
-                    //         textAlign: "left",
-                    //         fontSize: width(3.5),
-                    //       }}
-                    //       dropdownStyle={styles.dropdown}
-                    //       onSelect={(selectedItem, index) => {
-                    //         console.log(selectedItem);
-                    //         setFindValue(selectedItem)
-                    //         setSubCategory(selectedItem);
-                    //       }}
-                    //       buttonTextAfterSelection={(selectedItem, index) => {
-                    //         return selectedItem;
-                    //       }}
-                    //       rowTextForSelection={(item, index) => {
-                    //         return item;
-                    //       }}
-                    //     />
-                    //   </View>
-                    // ) :
-                    <></>
-                  )}
-                  {category && (
-                    <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>{t("allData.brand")}</Text>
-                      <SelectDropdown
-                        defaultButtonText={t("allData.defaultValueDropdown")}
-                        data={vcompanies}
-                        search={true}
-                        defaultValue={brand}
-                        searchPlaceHolder={t("allData.phsearchHere")}
-                        buttonStyle={styles.searchbox}
-                        selectedRowStyle={{
-                          backgroundColor: AppColors.primary,
-                        }}
-                        selectedRowTextStyle={{ color: AppColors.white }}
-                        buttonTextStyle={{
-                          textAlign: "left",
-                          fontSize: width(3.5),
-                        }}
-                        dropdownStyle={styles.dropdown}
-                        onSelect={(selectedItem, index) => {
-                          // if (model) modelRef.current.reset();
-                          setBrand(selectedItem);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return selectedItem;
-                        }}
-                        rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return item;
-                        }}
-                      />
-                    </View>
-                  )}
                   <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>{t("allData.sortby")}</Text>
                     <SelectDropdown
@@ -558,61 +459,7 @@ export default function ListData({ navigation, route }) {
                       }}
                     />
                   </View>
-                  {showKM(category) && (
-                    <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>{t("addPost.km")}</Text>
-                      <SelectDropdown
-                        data={kilometers}
-                        defaultButtonText={t("addPost.defaultValueDropdown")}
-                        searchPlaceHolder={t("addPost.phsearchHere")}
-                        buttonStyle={styles.searchbox}
-                        selectedRowStyle={{
-                          backgroundColor: AppColors.primary,
-                        }}
-                        selectedRowTextStyle={{ color: AppColors.white }}
-                        buttonTextStyle={{
-                          textAlign: "left",
-                          fontSize: width(3.5),
-                        }}
-                        dropdownStyle={styles.dropdown}
-                        onSelect={(selectedItem, index) => {
-                          setKm(selectedItem.value);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return t(selectedItem.value);
-                        }}
-                        // rowTextForSelection={(item, index) => {
-                        //   console.log("xbuisxwixbuw",item);
-                        //   // text represented for each item in dropdown
-                        //   // if data array is an array of objects then return item.property to represent item in dropdown
-                        //   return t(item.value);
-                        // }}
-                        rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return t(item.value);
-                        }}
-                      />
-                    </View>
-                  )}
-                  {/* <View style={{ paddingVertical: width(1) }}>
-                    <Text style={styles.title}>Title</Text>
-                    <Input
-                      value={title}
-                      setvalue={setTitle}
-                      placeholder={"Title of Vahicel"}
-                      containerStyle={[
-                        {
-                          width: width(90),
-                          backgroundColor: AppColors.greybackground,
-                          borderBottomWidth: 0,
-                          borderRadius: width(1),
-                        },
-                      ]}
-                    />
-                  </View> */}
+
                   <View style={{ paddingVertical: width(1) }}>
                     <Text style={styles.title}>{t("allData.address")}</Text>
                     <Input
@@ -651,12 +498,385 @@ export default function ListData({ navigation, route }) {
                       />
                     </View>
                   </View>
+                  {!(vCategory == undefined || vCategory == []) &&
+                    showType(category) && (
+                      <View style={{ alignSelf: "center" }}>
+                        <Text style={styles.title}>{t("Type")}</Text>
+
+                        <SelectDropdown
+                          defaultButtonText={t("addPost.defaultValueDropdown")}
+                          data={vCategory}
+                          searchPlaceHolder={t("addPost.phsearchHere")}
+                          search={true}
+                          buttonStyle={styles.searchbox}
+                          selectedRowStyle={{
+                            backgroundColor: AppColors.primary,
+                          }}
+                          selectedRowTextStyle={{ color: AppColors.white }}
+                          buttonTextStyle={{
+                            textAlign: "left",
+                            fontSize: width(3.5),
+                          }}
+                          dropdownStyle={styles.dropdown}
+                          onSelect={(selectedItem, index) => {
+                            setType(selectedItem);
+                          }}
+                          buttonTextAfterSelection={(selectedItem, index) => {
+                            // text represented after item is selected
+                            // if data array is an array of objects then return selectedItem.property to render after item is selected
+                            return selectedItem;
+                          }}
+                          rowTextForSelection={(item, index) => {
+                            // text represented for each item in dropdown
+                            // if data array is an array of objects then return item.property to represent item in dropdown
+                            return item;
+                          }}
+                        />
+                      </View>
+                    )}
+                  {!(
+                    sub == "undefined" ||
+                    sub == undefined ||
+                    sub == null ||
+                    sub == "null"
+                  ) && (
+                    <View style={{ paddingVertical: width(1) }}>
+                      <Text style={styles.title}>
+                        {t("addPost.subcategory")}
+                      </Text>
+                      <Input
+                        value={subCategory}
+                        setvalue={setSubCategory}
+                        containerStyle={[styles.sub]}
+                        editable={false}
+                      />
+                    </View>
+                  )}
+                  {showBrand(category) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.brand")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          brand || t("addPost.defaultValueDropdown")
+                        }
+                        data={vcompanies}
+                        search={true}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          if (model) modelRef.current.reset();
+                          setBrand(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return selectedItem;
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return item;
+                        }}
+                      />
+                    </View>
+                  )}
+                  {brand && (
+                    <View>
+                      {apimodel ? (
+                        <View style={{ alignSelf: "center" }}>
+                          <Text style={styles.title}>{t("addPost.model")}</Text>
+                          <SelectDropdown
+                            defaultButtonText={
+                              model || t("addPost.defaultValueDropdown")
+                            }
+                            ref={modelRef}
+                            searchPlaceHolder={t("addPost.phsearchHere")}
+                            data={apimodel}
+                            search={true}
+                            buttonStyle={styles.searchbox}
+                            selectedRowStyle={{
+                              backgroundColor: AppColors.primary,
+                            }}
+                            selectedRowTextStyle={{ color: AppColors.white }}
+                            buttonTextStyle={{
+                              textAlign: "left",
+                              fontSize: width(3.5),
+                            }}
+                            dropdownStyle={styles.dropdown}
+                            onSelect={(selectedItem, index) => {
+                              setModel(selectedItem);
+                            }}
+                            buttonTextAfterSelection={(selectedItem, index) => {
+                              // text represented after item is selected
+                              // if data array is an array of objects then return selectedItem.property to render after item is selected
+                              return selectedItem;
+                            }}
+                            rowTextForSelection={(item, index) => {
+                              // text represented for each item in dropdown
+                              // if data array is an array of objects then return item.property to represent item in dropdown
+                              return item;
+                            }}
+                          />
+                        </View>
+                      ) : (
+                        <></>
+                      )}
+                    </View>
+                  )}
+                  {showYear(category) && (
+                    <View style={{ paddingVertical: width(1) }}>
+                      <Text style={styles.title}>{t("addPost.year")}</Text>
+                      <Input
+                        value={year + ""}
+                        setvalue={setYear}
+                        containerStyle={[styles.price, { width: width(90) }]}
+                        placeholder={t("addPost.phyear")}
+                        keyboardType="number-pad"
+                      />
+                    </View>
+                  )}
+                  {showbodyShape(find) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          bodyshape || t("addPost.defaultValueDropdown")
+                        }
+                        data={
+                          category == "Bikes"
+                            ? feild?.bikeBodyShape
+                            : feild?.AutosBodyShape
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setBodyshap(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showGearBox(find) && feild?.gearBox && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.gearbox")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          gearbox || t("addPost.defaultValueDropdown")
+                        }
+                        data={feild.gearBox}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setGearbox(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showFuletype(find) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.fueltype")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          fueltype || t("addPost.defaultValueDropdown")
+                        }
+                        data={
+                          category == "Bikes"
+                            ? feild?.BikeFuelType
+                            : feild?.fuelType
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setFueltype(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showExteriorColor(category) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>
+                        {t("addPost.exteriorcolor")}
+                      </Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          exterior || t("addPost.defaultValueDropdown")
+                        }
+                        data={
+                          category == "Bikes"
+                            ? feild?.bikeColor
+                            : feild?.exteriorColor
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setExterior(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showInteriorColor(category) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>
+                        {t("addPost.interiorcolor")}
+                      </Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          interior || t("addPost.defaultValueDropdown")
+                        }
+                        data={feild?.interiorColor}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setInterior(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showKM(category) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.km")}</Text>
+                      <SelectDropdown
+                        data={feild?.kilometers}
+                        defaultButtonText={
+                          km || t("addPost.defaultValueDropdown")
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: width(3.5),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setKm(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          // text represented after item is selected
+                          // if data array is an array of objects then return selectedItem.property to render after item is selected
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          // text represented for each item in dropdown
+                          // if data array is an array of objects then return item.property to represent item in dropdown
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+
                   <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>{t("allData.condition")}</Text>
 
                     <RadioButtonRN
                       data={rdata}
-                      initial={1}
+                      initial={0}
                       circleSize={width(3)}
                       boxStyle={{
                         width: width(90),
@@ -669,39 +889,6 @@ export default function ListData({ navigation, route }) {
                       }}
                     />
                   </View>
-
-                  {/* {apimodel.length != 0 && (
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.title}>Model</Text>
-            <SelectDropdown
-              ref={modelRef}
-              searchPlaceHolder={"Search here"}
-              data={apimodel}
-              search={true}
-              buttonStyle={styles.searchbox}
-              selectedRowStyle={{ backgroundColor: AppColors.primary }}
-              selectedRowTextStyle={{ color: AppColors.white }}
-              buttonTextStyle={{
-                textAlign: "left",
-                fontSize: width(3.5),
-              }}
-              dropdownStyle={styles.dropdown}
-              onSelect={(selectedItem, index) => {
-                setModel(selectedItem);
-              }}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                // text represented after item is selected
-                // if data array is an array of objects then return selectedItem.property to render after item is selected
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                // text represented for each item in dropdown
-                // if data array is an array of objects then return item.property to represent item in dropdown
-                return item;
-              }}
-            />
-          </View>
-        )} */}
                 </ScrollView>
                 <View
                   style={{
@@ -716,7 +903,10 @@ export default function ListData({ navigation, route }) {
                       borderRadius: width(1),
                       backgroundColor: "grey",
                     }}
-                    onPressClear={() => refRBSheet.current.close()}
+                    onPress={() => {
+                      refRBSheet.current.close();
+                      clearAll();
+                    }}
                   />
                   <Button
                     title={"allData.search"}

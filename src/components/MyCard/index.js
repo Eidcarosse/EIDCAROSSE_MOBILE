@@ -175,7 +175,7 @@ export default function MyCard({ data }) {
         <MenuItem
           onPress={() => {
             hideMenu();
-            navigation.navigate(ScreenNames.EDITAD, { data: data });
+            navigation.navigate(ScreenNames.ADDPOST, { data: data });
           }}
         >
           {t("myad.edit")}

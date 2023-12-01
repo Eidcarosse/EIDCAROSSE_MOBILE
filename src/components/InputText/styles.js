@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: width(0.2),
     margin:width(1),
-    padding:width(1)
+    padding:width(1),
+    
   },
   innerview: {
     flexDirection: "row",

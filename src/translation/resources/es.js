@@ -227,7 +227,7 @@ export default {
     Bikes: "Bicicletas",
     Boats: "Barcos",
     Drones: "Drones",
-    ConstructionMachines: "Máquinas de construcción",
+    "Construction Machines": "Máquinas de construcción",
     Trucks: "Camiones",
     Vans: "Furgonetas",
     Trailers: "Remolques",
@@ -235,26 +235,21 @@ export default {
     Parts: "Piezas",
     Others: "Otros",
   },
-  bikecategory: {
-    Ebikes: "Bicicletas eléctricas",
+  subList: {
+    "E-bikes": "Bicicletas eléctricas",
     Bicycles: "Bicicletas",
-    Escooter: "Patinetes eléctricos",
-    Motorcycle: "Motocicletas",
-  },
-  partscategory: {
+    "E-scooters": "Patinetes eléctricos",
+    Motorcycles: "Motocicletas",
     Autos: "Repuestos de Autos",
-    Ebikes: "Repuestos de Bicicletas Eléctricas",
-    Bicycles: "Repuestos de Bicicletas",
-    Escooter: "Repuestos de Patinetes Eléctricos",
-    Motorcycle: "Repuestos de Motocicletas",
+    Bikes: "Bicicletas",
     Boats: "Repuestos de Barcos",
     Drones: "Repuestos de Drones",
-    ConstructionMachines: "Repuestos de Maquinaria de Construcción",
+    "Construction Machines": "Repuestos de Maquinaria de Construcción",
     Trucks: "Repuestos de Camiones",
     Vans: "Repuestos de Furgonetas",
     Trailers: "Repuestos de Remolques",
     Busses: "Repuestos de Autobuses",
-    Others: "Otros Repuestos",
+    "Other Parts": "Otros Repuestos",
   },
   profile: {
     wish: "Mi Lista de Deseos",
@@ -555,9 +550,8 @@ export default {
     placeholder: "Enviar un mensaje...",
   },
   privacySafety: {
-    title:"Privacidad y Seguridad",
+    title: "Privacidad y Seguridad",
     number: "No mostrar mi número",
     ads: "¿No permitir que el público vea todos mis anuncios?",
   },
-  
 };
