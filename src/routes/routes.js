@@ -29,6 +29,7 @@ const ScreenNames = {
   SETTING: "Setting",
   FORGET: "ForgetPassord",
   PANDS:"PandS",
-  CPF:"CPForget"
+  CPF:"CPForget",
+  justifyContent: "center",
 };
 export default ScreenNames;

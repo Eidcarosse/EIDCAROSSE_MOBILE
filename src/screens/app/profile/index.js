@@ -1,6 +1,6 @@
 import { Entypo, Fontisto, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import React, { useRef } from "react";
-import { Image, ImageBackground, Text, View } from "react-native";
+import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
 import styles from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,6 @@ export default function Profile({ navigation, route }) {
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground
@@ -99,76 +98,82 @@ export default function Profile({ navigation, route }) {
             </View>
           </View>
         </ImageBackground>
-        <View style={{ padding: width(5) }}>
-          <IconButton
-            onPress={() => {
-              navigation.navigate(ScreenNames.EDITPROFILE);
-            }}
-            title={"profile.personalInformation"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            icon={
-              <Entypo name="user" color={AppColors.primary} size={width(4)} />
-            }
-            iconright={<Ionicons name="chevron-forward" size={width(4)} />}
-          />
-          <IconButton
-            onPress={() => {
-              navigation.navigate(ScreenNames.PASSWORD);
-            }}
-            title={"profile.password"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            icon={
-              <Entypo name="key" color={AppColors.primary} size={width(4)} />
-            }
-            iconright={<Ionicons name="chevron-forward" size={width(4)} />}
-          />
-          <IconButton
-            title={"profile.privacy"}
-            onPress={() => {
-              navigation.navigate(ScreenNames.PANDS);
-            }}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            icon={
-              <Entypo name="shield" color={AppColors.primary} size={width(4)} />
-            }
-            iconright={<Ionicons name="chevron-forward" size={width(4)} />}
-          />
-          <IconButton
-            onPress={() => {
-              navigation.navigate(ScreenNames.SETTING);
-            }}
-            title={"profile.appSetting"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            icon={
-              <Fontisto
-                name="player-settings"
-                color={AppColors.primary}
-                size={width(4)}
-              />
-            }
-            iconright={<Ionicons name="chevron-forward" size={width(4)} />}
-          />
-          <IconButton
-            onPress={() => {
-              navigation.navigate(ScreenNames.ACCOUNT);
-            }}
-            title={"profile.manageAccount"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            icon={
-              <MaterialIcons
-                name="account-tree"
-                color={AppColors.primary}
-                size={width(4)}
-              />
-            }
-            iconright={<Ionicons name="chevron-forward" size={width(4)} />}
-          />
-        </View>
+        <ScrollView>
+          <View style={{ padding: width(5) }}>
+            <IconButton
+              onPress={() => {
+                navigation.navigate(ScreenNames.EDITPROFILE);
+              }}
+              title={"profile.personalInformation"}
+              containerStyle={styles.container}
+              textStyle={styles.texticon}
+              icon={
+                <Entypo name="user" color={AppColors.primary} size={width(4)} />
+              }
+              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+            />
+            <IconButton
+              onPress={() => {
+                navigation.navigate(ScreenNames.PASSWORD);
+              }}
+              title={"profile.password"}
+              containerStyle={styles.container}
+              textStyle={styles.texticon}
+              icon={
+                <Entypo name="key" color={AppColors.primary} size={width(4)} />
+              }
+              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+            />
+            <IconButton
+              title={"profile.privacy"}
+              onPress={() => {
+                navigation.navigate(ScreenNames.PANDS);
+              }}
+              containerStyle={styles.container}
+              textStyle={styles.texticon}
+              icon={
+                <Entypo
+                  name="shield"
+                  color={AppColors.primary}
+                  size={width(4)}
+                />
+              }
+              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+            />
+            <IconButton
+              onPress={() => {
+                navigation.navigate(ScreenNames.SETTING);
+              }}
+              title={"profile.appSetting"}
+              containerStyle={styles.container}
+              textStyle={styles.texticon}
+              icon={
+                <Fontisto
+                  name="player-settings"
+                  color={AppColors.primary}
+                  size={width(4)}
+                />
+              }
+              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+            />
+            <IconButton
+              onPress={() => {
+                navigation.navigate(ScreenNames.ACCOUNT);
+              }}
+              title={"profile.manageAccount"}
+              containerStyle={styles.container}
+              textStyle={styles.texticon}
+              icon={
+                <MaterialIcons
+                  name="account-tree"
+                  color={AppColors.primary}
+                  size={width(4)}
+                />
+              }
+              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+            />
+          </View>
+        </ScrollView>
       </View>
     </ScreenWrapper>
   );

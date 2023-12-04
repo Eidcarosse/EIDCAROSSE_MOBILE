@@ -183,7 +183,7 @@ export default function Card({ data, onPresshide, map = false }) {
             ) : (
               <View style={styles.cfpview}>
                 <Text numberOfLines={1} style={styles.cfp}>
-                  Contact for Price
+                {t("detail.CFP")}
                 </Text>
               </View>
             )}

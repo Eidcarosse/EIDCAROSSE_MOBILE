@@ -107,7 +107,7 @@ export default function MyCard({ data }) {
           ) : (
             <View style={styles.cfpview}>
               <Text numberOfLines={1} style={styles.cfp}>
-                Disabled Price
+                {t("detail.DP")}
               </Text>
             </View>
           )}

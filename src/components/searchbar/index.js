@@ -32,8 +32,8 @@ export default function SearchBar({
     <View style={styles.container}>
       <View
         style={[
-          search?styles.main:containerstyle,
-          { borderColor: search ? AppColors.primary : "black", },
+          search ? styles.main : containerstyle,
+          { borderColor: search ? AppColors.primary : "black" },
         ]}
       >
         <Ionicons
@@ -46,7 +46,7 @@ export default function SearchBar({
           placeholder={t("searchbar.phsearch")}
           value={search}
           onChangeText={setSearch}
-          style={{ width: width(50) }}
+          style={{ width: width(55) }}
           onSubmitEditing={handleInputSubmit}
         />
         {search && (
@@ -54,7 +54,7 @@ export default function SearchBar({
             onPress={handleInputSubmit}
             title={"searchbar.search"}
             containerStyle={{
-              width: width(15),
+              flex: 1,
               padding: width(0.1),
               paddingVertical: width(1.5),
               backgroundColor: AppColors.primary,
@@ -69,7 +69,7 @@ export default function SearchBar({
           />
         )}
       </View>
-      {next && (
+      {next && search == "" ? (
         <View>
           <TouchableOpacity
             style={{ marginLeft: height(2) }}
@@ -78,19 +78,23 @@ export default function SearchBar({
             <Feather name="globe" size={width(7)} color={AppColors.primary} />
           </TouchableOpacity>
         </View>
-      )}
-      {!next && search != "" && (
-        <View>
-          <TouchableOpacity style={{ marginLeft: height(2) }}
-          onPress={()=>{setSearch(""),onPress()}}
-          >
-            <AntDesign
-              name="closesquare"
-              size={width(8)}
-              color={AppColors.primary}
-            />
-          </TouchableOpacity>
-        </View>
+      ) : (
+        search != "" && (
+          <View>
+            <TouchableOpacity
+              style={{ marginLeft: height(2) }}
+              onPress={() => {
+                setSearch(""), !next && onPress();
+              }}
+            >
+              <AntDesign
+                name="closesquare"
+                size={width(8)}
+                color={AppColors.primary}
+              />
+            </TouchableOpacity>
+          </View>
+        )
       )}
     </View>
   );

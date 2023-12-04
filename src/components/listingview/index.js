@@ -77,7 +77,7 @@ export default function ListingView({ data }) {
             ) : (
               <View style={styles.cfpview}>
                 <Text numberOfLines={1} style={styles.cfp}>
-                  Contact for Price
+                {t("detail.CFP")}
                 </Text>
               </View>
             )}

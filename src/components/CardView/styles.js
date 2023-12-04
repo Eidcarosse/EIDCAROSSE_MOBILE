@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   cfpview:{
     backgroundColor:AppColors.grey,
     padding:width(2),
-    borderRadius:width(1)
+    borderRadius:width(1),
+    width:width(45)
   },
   cfp: {
     fontSize: width(3),

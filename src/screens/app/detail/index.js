@@ -29,17 +29,6 @@ import {
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { WebLink } from "../../../utills/Constants";
-import {
-  BikeFuelType,
-  bikeBodyShape,
-  bikeExteriorColor,
-  bodyShapeList,
-  exteriorColorList,
-  fuelTypelist,
-  gearBoxList,
-  interiorColorList,
-  kilometers,
-} from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import GlobalMethods, { infoMessage } from "../../../utills/Methods";
 import styles from "./styles";
@@ -325,20 +314,9 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.bodyshape")}
                   </Text>
-                  <Text style={styles.cardelement2}>
-                    {/* {data?.bodyShape} */}
-                    {data?.category == "Bikes"
-                      ? t(
-                          bikeBodyShape.find(
-                            (category) => category.value === data?.bodyShape
-                          )?.key
-                        )
-                      : t(
-                          bodyShapeList.find(
-                            (category) => category.value === data?.bodyShape
-                          )?.key
-                        )}
-                  </Text>
+                  <Text
+                    style={styles.cardelement2}
+                  >{t(`bodyShapeList.${data?.bodyShape}`)}</Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.engineCapacity) && (
@@ -355,20 +333,7 @@ export default function Detail({ navigation, route }) {
                     {t("detail.exteriorcolor")}
                   </Text>
                   <Text style={styles.cardelement2}>
-                    {/* {data?.exteriorColor} */}
-                    {data?.category == "Bikes"
-                      ? t(
-                          bikeExteriorColor.find(
-                            (category) =>
-                              category?.value === data?.exteriorColor
-                          )?.key
-                        )
-                      : t(
-                          exteriorColorList.find(
-                            (category) =>
-                              category?.value === data?.exteriorColor
-                          )?.key
-                        )}
+                    {t(`colorList.${data?.exteriorColor}`)}
                   </Text>
                 </View>
               )}
@@ -378,12 +343,7 @@ export default function Detail({ navigation, route }) {
                     {t("detail.interiorcolor")}
                   </Text>
                   <Text style={styles.cardelement2}>
-                    {/* {data?.interiorColor} */}
-                    {t(
-                      interiorColorList.find(
-                        (category) => category?.value === data?.interiorColor
-                      )?.key
-                    )}
+                    {t(`colorList.${data?.interiorColor}`)}
                   </Text>
                 </View>
               )}
@@ -391,18 +351,7 @@ export default function Detail({ navigation, route }) {
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.fueltype")}</Text>
                   <Text style={styles.cardelement2}>
-                    {/* {data?.fuelType} */}
-                    {data?.category == "Bikes"
-                      ? t(
-                          BikeFuelType.find(
-                            (category) => category?.value === data?.fuelType
-                          )?.key
-                        )
-                      : t(
-                          fuelTypelist.find(
-                            (category) => category?.value === data?.fuelType
-                          )?.key
-                        )}
+                    {t(`fuelTypelist.${data?.fuelType}`)}
                   </Text>
                 </View>
               )}
@@ -410,45 +359,16 @@ export default function Detail({ navigation, route }) {
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.gearbox")}</Text>
                   <Text style={styles.cardelement2}>
-                    {/* {data?.gearBox} */}
-                    {t(
-                      gearBoxList.find(
-                        (category) => category.value === data?.gearBox
-                      )?.key
-                    )}
+                    {t(`gearBoxList.${data?.gearBox}`)}
                   </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.km) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.km")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {/* {data?.gearBox} */}
-                    {t(
-                      kilometers.find((category) => category.value === data?.km)
-                        ?.value
-                    )}
-                  </Text>
+                  <Text style={styles.cardelement2}>{t(data?.km)}</Text>
                 </View>
               )}
-              {/* {!isNullOrNullOrEmpty(data?.km) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.km")}</Text>
-                  <Text style={styles.cardelement2}>{data?.km}</Text>
-                </View>
-              )} */}
-              {/* {!isNullOrNullOrEmpty(data?.maxPrice) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Max Price</Text>
-                  <Text style={styles.cardelement2}>{data?.maxPrice}</Text>
-                </View>
-              )}
-              {!isNullOrNullOrEmpty(data?.minPrice) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>Min Price</Text>
-                  <Text style={styles.cardelement2}>{data?.minPrice}</Text>
-                </View>
-              )} */}
               {!isNullOrNullOrEmpty(data?.videoUrl) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.videourl")}</Text>

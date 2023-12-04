@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   main: {
     justifyContent: "center",
     alignItems: "center",
-    height: height(20),
+    flex:1
   },
   categorytext: {
     fontSize: width(4),

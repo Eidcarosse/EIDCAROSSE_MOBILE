@@ -26,7 +26,7 @@ export default function ForgetPassword({ navigation, route }) {
       setToken(d?.data);
       successMessage("Code send at your given Email");
       setTimeout(() => setModel(true), 600);
-    }
+    } else errorMessage(d?.message, "Authentication");
   }
   async function checkPassword(code) {
     const d = await verifyCodeAPI(code);
@@ -43,7 +43,6 @@ export default function ForgetPassword({ navigation, route }) {
     <ScreenWrapper
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      scrollEnabled
       headerUnScrollable={() => <Head navigation={navigation} />}
     >
       <View style={styles.mainViewContainer}>
@@ -73,7 +72,7 @@ export default function ForgetPassword({ navigation, route }) {
           />
         </View>
       </View>
-      <Modal isVisible={modal}>
+      <Modal isVisible={modal} backdropOpacity={0.2}>
         <View
           style={{
             backgroundColor: AppColors.white,
@@ -114,9 +113,13 @@ export default function ForgetPassword({ navigation, route }) {
             />
             <Button
               containerStyle={{ width: width(60), margin: width(3) }}
-              title={"Submit"}
+              title={"Verify"}
               onPress={() => {
-                checkPassword(code);
+                if (code) {
+                  checkPassword(code);
+                } else {
+                  errorMessage("Enter pin code");
+                }
                 //setModel(false);
               }}
             />

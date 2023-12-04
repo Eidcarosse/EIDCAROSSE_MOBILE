@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignContent: "center",
     flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
   text: { color: AppColors.primary, fontWeight: "bold" },
 });

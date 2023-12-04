@@ -1,6 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import {
+  ImageBackground,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
@@ -76,138 +82,136 @@ export default function SignUp({ navigation, route }) {
   };
 
   return (
-    <ScreenWrapper
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
-      scrollEnabled
-    >
+    <ScreenWrapper statusBarColor={AppColors.primary} barStyle="light-content">
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.image}>
           <View style={styles.imageiner}>
             <Text style={styles.logintext}>{t("signup.signup")}</Text>
           </View>
         </ImageBackground>
-        <View style={{ paddingVertical: width(10) }}>
-          <Input
-            value={firstName}
-            setvalue={setFirstName}
-            title={"signup.firstNameTitle"}
-            placeholder={"signup.firstNamePlaceholder"}
-          />
-          <Input
-            value={lastName}
-            setvalue={setLastName}
-            title={"signup.lastNameTitle"}
-            placeholder={"signup.lastNamePlaceholder"}
-          />
-          <Input
-            value={userName}
-            setvalue={setUserName}
-            title={"signup.userNameTitle"}
-            placeholder={"signup.usernamePlaceholder"}
-          />
-          <Input
-            value={email}
-            setvalue={setEmail}
-            title={"signup.emailTitle"}
-            placeholder={"signup.emailPlaceholder"}
-          />
-          <Input
-            value={password}
-            setvalue={setPassword}
-            title={"signup.passwordTitle"}
-            placeholder={"signup.passwordPlaceholder"}
-            secure={true}
-          />
-          <Input
-            value={phoneNumber}
-            setvalue={setPhoneNumber}
-            title={"signup.phoneNumberTitle"}
-            placeholder={"signup.phoneNumberPlaceholder"}
-          />
-          <Input
-            value={whatsapp}
-            setvalue={SetWhatsapp}
-            title={"signup.whatsappTitle"}
-            placeholder={"signup.whatsappPlaceholder"}
-          />
-          <Input
-            value={viber}
-            setvalue={setViber}
-            title={"signup.viberTitle"}
-            placeholder={"signup.viberPlaceholder"}
-          />
-          <View style={styles.checkview}>
-            <CheckBox
-              style={{ paddingRight: width(2) }}
-              onClick={() => {
-                setCheck(!check);
-              }}
-              checkedCheckBoxColor={AppColors.primary}
-              isChecked={check}
+        <ScrollView>
+          <View style={{ paddingVertical: width(10) }}>
+            <Input
+              value={firstName}
+              setvalue={setFirstName}
+              title={"signup.firstNameTitle"}
+              placeholder={"signup.firstNamePlaceholder"}
             />
-            <View>
-              <Text>{t("signup.checkBoxText")}</Text>
+            <Input
+              value={lastName}
+              setvalue={setLastName}
+              title={"signup.lastNameTitle"}
+              placeholder={"signup.lastNamePlaceholder"}
+            />
+            <Input
+              value={userName}
+              setvalue={setUserName}
+              title={"signup.userNameTitle"}
+              placeholder={"signup.usernamePlaceholder"}
+            />
+            <Input
+              value={email}
+              setvalue={setEmail}
+              title={"signup.emailTitle"}
+              placeholder={"signup.emailPlaceholder"}
+            />
+            <Input
+              value={password}
+              setvalue={setPassword}
+              title={"signup.passwordTitle"}
+              placeholder={"signup.passwordPlaceholder"}
+              secure={true}
+            />
+            <Input
+              value={phoneNumber}
+              setvalue={setPhoneNumber}
+              title={"signup.phoneNumberTitle"}
+              placeholder={"signup.phoneNumberPlaceholder"}
+            />
+            <Input
+              value={whatsapp}
+              setvalue={SetWhatsapp}
+              title={"signup.whatsappTitle"}
+              placeholder={"signup.whatsappPlaceholder"}
+            />
+            <Input
+              value={viber}
+              setvalue={setViber}
+              title={"signup.viberTitle"}
+              placeholder={"signup.viberPlaceholder"}
+            />
+            <View style={styles.checkview}>
+              <CheckBox
+                style={{ paddingRight: width(2) }}
+                onClick={() => {
+                  setCheck(!check);
+                }}
+                checkedCheckBoxColor={AppColors.primary}
+                isChecked={check}
+              />
+              <View>
+                <Text>{t("signup.checkBoxText")}</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(ScreenNames.TNC)}
+                >
+                  <Text style={styles.tandc}>
+                    {" "}
+                    {t("signup.termAndCondition")}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <Button
+              disabled={!check}
+              onPress={() => {
+                if (!firstName) {
+                  errorMessage("First Name require");
+                } else if (!lastName) {
+                  errorMessage("Last Name require");
+                } else if (!userName) {
+                  errorMessage("User Name require");
+                } else if (!email) {
+                  errorMessage("email require");
+                } else if (!isValidEmail(email)) {
+                  errorMessage("Email incorect formate");
+                } else if (!phoneNumber) {
+                  errorMessage("Password require");
+                } else if (!isValidPassword(password)) {
+                  errorMessage(
+                    "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
+                  );
+                } else if (!phoneNumber) {
+                  errorMessage("Phone Number require");
+                } else signup(userData);
+              }}
+              containerStyle={check ? styles.button : styles.dbutton}
+              title={"signup.signupButton"}
+            />
+            <Button
+              containerStyle={styles.button}
+              title={"signup.continueWithGoogle"}
+              onPress={() => {
+                // dispatch(setIsLoggedIn(true));
+                // navigation.navigate(ScreenNames.BUTTOM);
+              }}
+            />
+            <View style={{ height: height(5) }} />
+
+            <View style={styles.already}>
+              <Text>
+                {t("signup.alreadyHaveAccount")}
+                {"  "}
+              </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate(ScreenNames.TNC)}
+                onPress={() => {
+                  navigation.goBack();
+                }}
               >
-                <Text style={styles.tandc}>
-                  {" "}
-                  {t("signup.termAndCondition")}
-                </Text>
+                <Text style={styles.signin}>{t("signup.signin")}</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <Button
-            disabled={!check}
-            onPress={() => {
-              if (!firstName) {
-                errorMessage("First Name require");
-              } else if (!lastName) {
-                errorMessage("Last Name require");
-              } else if (!userName) {
-                errorMessage("User Name require");
-              } else if (!email) {
-                errorMessage("email require");
-              } else if (!isValidEmail(email)) {
-                errorMessage("Email incorect formate");
-              } else if (!phoneNumber) {
-                errorMessage("Password require");
-              } else if (!isValidPassword(password)) {
-                errorMessage(
-                  "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
-                );
-              } else if (!phoneNumber) {
-                errorMessage("Phone Number require");
-              } else signup(userData);
-            }}
-            containerStyle={check ? styles.button : styles.dbutton}
-            title={"signup.signupButton"}
-          />
-          <Button
-            containerStyle={styles.button}
-            title={"signup.continueWithGoogle"}
-            onPress={() => {
-              // dispatch(setIsLoggedIn(true));
-              // navigation.navigate(ScreenNames.BUTTOM);
-            }}
-          />
-          <View style={{ height: height(5) }} />
-
-          <View style={styles.already}>
-            <Text>
-              {t("signup.alreadyHaveAccount")}
-              {"  "}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Text style={styles.signin}>{t("signup.signin")}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        </ScrollView>
       </View>
     </ScreenWrapper>
   );

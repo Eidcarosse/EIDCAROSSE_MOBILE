@@ -18,7 +18,9 @@ import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebLink } from "../../utills/Constants";
 import { selectCurrentLanguage } from "../../redux/slices/language";
+import { useTranslation } from "react-i18next";
 export default function CardView({ data }) {
+  const { t } = useTranslation();
   const [slideNo, setSlideNo] = useState(0);
   const introRef = useRef(null);
   const language = useSelector(selectCurrentLanguage);
@@ -131,7 +133,7 @@ export default function CardView({ data }) {
           ) : (
             <View style={styles.cfpview}>
               <Text numberOfLines={1} style={styles.cfp}>
-                Contact for Price
+                {t("detail.CFP")}
               </Text>
             </View>
           )}
@@ -146,35 +148,6 @@ export default function CardView({ data }) {
               name={fav ? "heart" : "hearto"}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.space}
-            disabled={data?.phone ? false : true}
-            onPress={() => GlobalMethods.onPressCall(data?.phone)}
-          >
-            <Ionicons size={width(4)} name="call" color={data?.phone?"grey":"lightgrey"} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.space}
-            onPress={() => {
-              navigation.navigate(ScreenNames.CHAT, {
-                userRoom: null,
-                usr: data?.userId,
-                userItem: data?._id,
-              });
-            }}
-          >
-            <Ionicons size={width(4)} name="chatbubble-ellipses" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.space}
-            onPress={() =>
-              GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
-            }
-          >
-            <Entypo size={width(4)} name="share" />
-          </TouchableOpacity>
-          <AntDesign size={width(4)} name="eye" color={"grey"} />
-          <Text style={{ fontSize: width(2) }}>{data?.views}</Text>
         </View>
       ) : (
         <></>

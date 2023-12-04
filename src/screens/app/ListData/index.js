@@ -1,4 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -94,11 +94,11 @@ export default function ListData({ navigation, route }) {
   // const [columnumber, setcolumnumber] = useState(2);
 
   const queryParams = {
-    address: address || "",
+    address: address.trim() || "",
     category: category || "",
     subCategory: subCategory || "",
     condition: condition || "",
-    title: title || "",
+    title: title.trim() || "",
     brand: brand || "",
     model: model || "",
     year: year || "",
@@ -197,22 +197,6 @@ export default function ListData({ navigation, route }) {
       setVCategory([]);
     }
   };
-  // useEffect(() => {
-  //   if (brand) getmodel(find, brand);
-  // }, [brand]);
-  // const getmodel = async (a, b) => {
-  //   dispatch(setAppLoader(true));
-  //   let cardata = await getModel(a, b);
-
-  //   if (cardata) {
-  //     setapiModel(cardata);
-  //     dispatch(setAppLoader(false));
-  //   } else {
-  //     setapiModel(false);
-  //     dispatch(setAppLoader(false));
-  //   }
-  //   dispatch(setAppLoader(false));
-  // };
   const getData = async () => {
     onRefresh(true);
     let d = await getAllData(queryParams);
@@ -418,14 +402,19 @@ export default function ListData({ navigation, route }) {
                     {t("allData.filter")}
                   </Text>
                   <TouchableOpacity onPress={() => refRBSheet.current.close()}>
-                    <Text
+                    {/* <Text
                       style={{
                         fontSize: width(4),
                         color: AppColors.primary,
                       }}
                     >
-                      close
-                    </Text>
+                      Close
+                    </Text> */}
+                    <AntDesign
+                      name="closesquare"
+                      size={width(8)}
+                      color={AppColors.primary}
+                    />
                   </TouchableOpacity>
                 </View>
 
@@ -522,13 +511,9 @@ export default function ListData({ navigation, route }) {
                             setType(selectedItem);
                           }}
                           buttonTextAfterSelection={(selectedItem, index) => {
-                            // text represented after item is selected
-                            // if data array is an array of objects then return selectedItem.property to render after item is selected
                             return selectedItem;
                           }}
                           rowTextForSelection={(item, index) => {
-                            // text represented for each item in dropdown
-                            // if data array is an array of objects then return item.property to represent item in dropdown
                             return item;
                           }}
                         />
@@ -577,13 +562,9 @@ export default function ListData({ navigation, route }) {
                           setBrand(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
                           return selectedItem;
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
                           return item;
                         }}
                       />
@@ -616,13 +597,9 @@ export default function ListData({ navigation, route }) {
                               setModel(selectedItem);
                             }}
                             buttonTextAfterSelection={(selectedItem, index) => {
-                              // text represented after item is selected
-                              // if data array is an array of objects then return selectedItem.property to render after item is selected
                               return selectedItem;
                             }}
                             rowTextForSelection={(item, index) => {
-                              // text represented for each item in dropdown
-                              // if data array is an array of objects then return item.property to represent item in dropdown
                               return item;
                             }}
                           />
@@ -671,14 +648,10 @@ export default function ListData({ navigation, route }) {
                           setBodyshap(selectedItem.name);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return t(selectedItem.name);
+                          return t(`bodyShapeList.${selectedItem.name}`);
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return t(item.name);
+                          return t(`bodyShapeList.${item.name}`);
                         }}
                       />
                     </View>
@@ -706,14 +679,10 @@ export default function ListData({ navigation, route }) {
                           setGearbox(selectedItem.name);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return t(selectedItem.name);
+                          return t(`gearBoxList.${selectedItem.name}`);
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return t(item.name);
+                          return t(`gearBoxList.${item.name}`);
                         }}
                       />
                     </View>
@@ -745,19 +714,15 @@ export default function ListData({ navigation, route }) {
                           setFueltype(selectedItem.name);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return t(selectedItem.name);
+                          return t(`fuelTypelist.${selectedItem.name}`);
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return t(item.name);
+                          return t(`fuelTypelist.${item.name}`);
                         }}
                       />
                     </View>
                   )}
-                  {showExteriorColor(category) && (
+                  {/* {showExteriorColor(category) && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>
                         {t("addPost.exteriorcolor")}
@@ -786,14 +751,10 @@ export default function ListData({ navigation, route }) {
                           setExterior(selectedItem.name);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return t(selectedItem.name);
+                          return t(`colorList.${selectedItem.name}`);
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return t(item.name);
+                          return t(`colorList.${item.name}`);
                         }}
                       />
                     </View>
@@ -823,18 +784,14 @@ export default function ListData({ navigation, route }) {
                           setInterior(selectedItem.name);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
-                          return t(selectedItem.name);
+                          return t(`colorList.${selectedItem.name}`);
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
-                          return t(item.name);
+                          return t(`colorList.${item.name}`);
                         }}
                       />
                     </View>
-                  )}
+                  )} */}
                   {showKM(category) && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.km")}</Text>
@@ -858,20 +815,18 @@ export default function ListData({ navigation, route }) {
                           setKm(selectedItem.name);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          // text represented after item is selected
-                          // if data array is an array of objects then return selectedItem.property to render after item is selected
                           return t(selectedItem.name);
                         }}
                         rowTextForSelection={(item, index) => {
-                          // text represented for each item in dropdown
-                          // if data array is an array of objects then return item.property to represent item in dropdown
                           return t(item.name);
                         }}
                       />
                     </View>
                   )}
 
-                  <View style={{ alignSelf: "center" }}>
+                  <View
+                    style={{ alignSelf: "center", paddingBottom: height(2) }}
+                  >
                     <Text style={styles.title}>{t("allData.condition")}</Text>
 
                     <RadioButtonRN

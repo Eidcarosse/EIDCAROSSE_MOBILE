@@ -1,6 +1,12 @@
 import { AntDesign } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
+import {
+  ImageBackground,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { loginApi } from "../../../backend/auth";
@@ -77,7 +83,6 @@ export default function Login({ navigation, route }) {
     <ScreenWrapper
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      scrollEnabled
       headerUnScrollable={() => <Head navigation={navigation} />}
     >
       <View style={styles.mainViewContainer}>
@@ -86,73 +91,80 @@ export default function Login({ navigation, route }) {
             <Text style={styles.logintext}>{t("login.login")}</Text>
           </View>
         </ImageBackground>
-        <View style={{ height: height(70), paddingTop: width(10) }}>
-          <Input
-            value={email}
-            setvalue={setEmail}
-            title={"login.emailTitle"}
-            placeholder={"login.yourEmailAddress"}
-          />
-          <Input
-            value={password}
-            setvalue={setPassword}
-            title={"login.passwordTitle"}
-            placeholder={"login.yourPassword"}
-            secure={true}
-          />
-          <Button
-            containerStyle={styles.button}
-            title={"login.loginButton"}
-            onPress={() => {
-              if (!isValidEmail(email)) {
-                errorMessage("Email is require or may incorect formate");
-              } else if (!isValidPassword(password)) {
-                errorMessage("Password must be requied or may incorect");
-              } else login(userData);
-            }}
-          />
-          <Button
-            containerStyle={styles.button}
-            title={"login.continueWithGoogle"}
-            onPress={() => {
-              dispatch(setIsLoggedIn(true));
-              navigation.navigate(ScreenNames.BUTTOM);
-            }}
-          />
-          <View style={styles.forget}>
-            <Text>
-              {t("login.cannotLogin")} {"  "}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate(ScreenNames.FORGET);
-              }}
-            >
-              <Text style={styles.text}>{t("login.forgetPassword")}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{ height: height(10) }} />
-
+        <ScrollView>
           <View
             style={{
-              alignSelf: "center",
-              alignContent: "center",
-              flexDirection: "row",
+              height: height(70),
+              paddingTop: width(5),
+              padding: width(5),
             }}
           >
-            <Text>
-              {t("login.donothaveaccount")}
-              {"   "}
-            </Text>
-            <TouchableOpacity
+            <Input
+              value={email}
+              setvalue={setEmail}
+              title={"login.emailTitle"}
+              placeholder={"login.yourEmailAddress"}
+            />
+            <Input
+              value={password}
+              setvalue={setPassword}
+              title={"login.passwordTitle"}
+              placeholder={"login.yourPassword"}
+              secure={true}
+            />
+            <Button
+              containerStyle={styles.button}
+              title={"login.loginButton"}
               onPress={() => {
-                navigation.navigate(ScreenNames.SIGNUP);
+                if (!isValidEmail(email)) {
+                  errorMessage("Email is require or may incorect formate");
+                } else if (!isValidPassword(password)) {
+                  errorMessage("Password must be requied or may incorect");
+                } else login(userData);
+              }}
+            />
+            <Button
+              containerStyle={styles.button}
+              title={"login.continueWithGoogle"}
+              onPress={() => {}}
+            />
+            <View style={styles.forget}>
+              <Text>
+                {t("login.cannotLogin")} {"  "}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate(ScreenNames.FORGET);
+                }}
+              >
+                <Text style={styles.text}>{t("login.forgetPassword")}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{ height: height(6) }} />
+
+            <View
+              style={{
+                alignSelf: "center",
+                justifyContent: "center",
+                alignContent: "center",
+                flexDirection: "row",
+                flexWrap: "wrap",
               }}
             >
-              <Text style={styles.text}> {t("login.registerNow")}</Text>
-            </TouchableOpacity>
+              <Text>
+                {t("login.donothaveaccount")}
+                {"   "}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate(ScreenNames.SIGNUP);
+                }}
+              >
+                <Text style={styles.text}> {t("login.registerNow")}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
     </ScreenWrapper>
   );

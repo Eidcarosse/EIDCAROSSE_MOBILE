@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   mainViewContainer: {
     flex:1,
     backgroundColor: AppColors.white,
-    paddingBottom:height(10)
+    paddingBottom:height(7)
   },
   imageiner: {
     height: height(28),

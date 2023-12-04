@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   main: {
-    width: width(80),
+    width: width(85),
     borderRadius: width(2),
     padding: width(1),
     flexDirection: "row",

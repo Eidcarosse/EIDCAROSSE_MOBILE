@@ -698,12 +698,12 @@ export default function AddPost({ navigation, route }) {
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return t(selectedItem.name);
+                      return t(`bodyShapeList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return t(item.name);
+                      return t(`bodyShapeList.${item.name}`);
                     }}
                   />
                 </View>
@@ -731,12 +731,12 @@ export default function AddPost({ navigation, route }) {
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return t(selectedItem.name);
+                      return t(`gearBoxList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return t(item.name);
+                      return t(`gearBoxList.${item.name}`);
                     }}
                   />
                 </View>
@@ -768,12 +768,12 @@ export default function AddPost({ navigation, route }) {
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return t(selectedItem.name);
+                      return t(`fuelTypelist.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return t(item.name);
+                      return t(`fuelTypelist.${item.name}`);
                     }}
                   />
                 </View>
@@ -805,12 +805,12 @@ export default function AddPost({ navigation, route }) {
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return t(selectedItem.name);
+                      return t(`colorList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return t(item.name);
+                      return t(`colorList.${item.name}`);
                     }}
                   />
                 </View>
@@ -838,12 +838,12 @@ export default function AddPost({ navigation, route }) {
                     buttonTextAfterSelection={(selectedItem, index) => {
                       // text represented after item is selected
                       // if data array is an array of objects then return selectedItem.property to render after item is selected
-                      return t(selectedItem.name);
+                      return t(`colorList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
                       // text represented for each item in dropdown
                       // if data array is an array of objects then return item.property to represent item in dropdown
-                      return t(item.name);
+                      return t(`colorList.${item.name}`);
                     }}
                   />
                 </View>

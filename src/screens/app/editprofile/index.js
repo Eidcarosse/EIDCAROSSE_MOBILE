@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import styles from "./styles";
 
@@ -27,7 +28,6 @@ import { updateProfile } from "../../../backend/auth";
 import { errorMessage } from "../../../utills/Methods";
 
 export default function EditProfile({ navigation, route }) {
-  
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const imageRef = useRef(null);
@@ -81,7 +81,6 @@ export default function EditProfile({ navigation, route }) {
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground
@@ -133,57 +132,59 @@ export default function EditProfile({ navigation, route }) {
             </View>
           </View>
         </ImageBackground>
-        <View style={{ paddingVertical: width(10) }}>
-          <Input
-            title={"editprofile.firstNameTitle"}
-            placeholder={"editprofile.firstNamePlaceholder"}
-            value={firstName}
-            setvalue={setFirstName}
-          />
-          <Input
-            title={"editprofile.lastNameTitle"}
-            placeholder={"editprofile.lastNamePlaceholder"}
-            value={lastName}
-            setvalue={setLastName}
-          />
-          <Input
-            title={"editprofile.userNameTitle"}
-            placeholder={"editprofile.usernamePlaceholder"}
-            value={userName}
-            setvalue={setUserName}
-            editable={false}
-          />
-          <Input
-            title={"editprofile.emailTitle"}
-            placeholder={"editprofile.emailPlaceholder"}
-            value={email}
-            setvalue={setEmail}
-            editable={false}
-          />
-          <Input
-            title={"editprofile.phoneNumberTitle"}
-            placeholder={"editprofile.phoneNumberPlaceholder"}
-            value={phoneNumber}
-            setvalue={setPhoneNumber}
-          />
-          <Input
-            title={"editprofile.whatsappTitle"}
-            placeholder={"editprofile.whatsappPlaceholder"}
-            value={whatsapp}
-            setvalue={setWhatsapp}
-          />
-          <Input
-            title={"editprofile.viberTitle"}
-            placeholder={"editprofile.viberPlaceholder"}
-            value={viber}
-            setvalue={setViber}
-          />
-          <Button
-            containerStyle={styles.button}
-            onPress={update}
-            title={"editprofile.update"}
-          />
-        </View>
+        <ScrollView>
+          <View style={{ paddingVertical: width(10) }}>
+            <Input
+              title={"editprofile.firstNameTitle"}
+              placeholder={"editprofile.firstNamePlaceholder"}
+              value={firstName}
+              setvalue={setFirstName}
+            />
+            <Input
+              title={"editprofile.lastNameTitle"}
+              placeholder={"editprofile.lastNamePlaceholder"}
+              value={lastName}
+              setvalue={setLastName}
+            />
+            <Input
+              title={"editprofile.userNameTitle"}
+              placeholder={"editprofile.usernamePlaceholder"}
+              value={userName}
+              setvalue={setUserName}
+              editable={false}
+            />
+            <Input
+              title={"editprofile.emailTitle"}
+              placeholder={"editprofile.emailPlaceholder"}
+              value={email}
+              setvalue={setEmail}
+              editable={false}
+            />
+            <Input
+              title={"editprofile.phoneNumberTitle"}
+              placeholder={"editprofile.phoneNumberPlaceholder"}
+              value={phoneNumber}
+              setvalue={setPhoneNumber}
+            />
+            <Input
+              title={"editprofile.whatsappTitle"}
+              placeholder={"editprofile.whatsappPlaceholder"}
+              value={whatsapp}
+              setvalue={setWhatsapp}
+            />
+            <Input
+              title={"editprofile.viberTitle"}
+              placeholder={"editprofile.viberPlaceholder"}
+              value={viber}
+              setvalue={setViber}
+            />
+            <Button
+              containerStyle={styles.button}
+              onPress={update}
+              title={"editprofile.update"}
+            />
+          </View>
+        </ScrollView>
       </View>
       <FilePickerModal
         ref={imageRef}
