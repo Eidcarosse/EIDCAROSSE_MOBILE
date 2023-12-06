@@ -240,15 +240,15 @@ export default {
     Bicycles: "Bicicletas",
     "E-scooters": "Patinetes eléctricos",
     Motorcycles: "Motocicletas",
-    Autos: "Repuestos de Autos",
-    Bikes: "Bicicletas",
-    Boats: "Repuestos de Barcos",
-    Drones: "Repuestos de Drones",
-    "Construction Machines": "Repuestos de Maquinaria de Construcción",
-    Trucks: "Repuestos de Camiones",
-    Vans: "Repuestos de Furgonetas",
-    Trailers: "Repuestos de Remolques",
-    Busses: "Repuestos de Autobuses",
+    Auto: "Repuestos de Autos",
+    Bike: "Bicicletas",
+    Boat: "Repuestos de Barcos",
+    Drone: "Repuestos de Drones",
+    "Construction Machine": "Repuestos de Maquinaria de Construcción",
+    Truck: "Repuestos de Camiones",
+    Van: "Repuestos de Furgonetas",
+    Trailer: "Repuestos de Remolques",
+    Buss: "Repuestos de Autobuses",
     "Other Parts": "Otros Repuestos",
   },
   profile: {
@@ -260,6 +260,13 @@ export default {
     appSetting: "Configuración de la Aplicación",
     manageAccount: "Gestionar Cuenta",
   },
+  wishList: {
+    title: "Ma Liste de Souhaits",
+  },
+  otherProfile: {
+    op: "Cuenta privada",
+  },
+
   home: {
     letest: "Anuncios Recientes",
     seeAll: "Ver Todo",
@@ -271,7 +278,7 @@ export default {
   addPost: {
     title: "Agregar Anuncio",
     attachImage1: "Adjuntar Imagen",
-    attachImage2: "Puedes cargar hasta 5 imágenes.",
+    attachImage2: "Puedes cargar hasta 7 imágenes.",
     attachImage3:
       "La primera imagen es la imagen principal. Mantén presionado para arrastrar y ordenar las imágenes.",
     productInformation: "Información del Producto",
@@ -319,6 +326,8 @@ export default {
     post: "Agregar Anuncio",
     phsearchHere: "Buscar aquí",
     defaultValueDropdown: "Seleccionar una opción",
+    takephoto: "Tomar foto",
+    choosefromgallery: "Elegir de la biblioteca",
   },
   fuelTypelist: {
     Gasoline: "Gasolina",
@@ -411,6 +420,10 @@ export default {
     emailTitle: "Correo Electrónico",
     emailPlaceholder: "Ingrese su dirección de correo electrónico",
     update: "Actualizar",
+    whatsappTitle: "Whatsapp",
+    whatsappPlaceholder: "Ingresa tu número de Whatsapp",
+    viberTitle: "Viber",
+    viberPlaceholder: "Ingresa tu número de Viber",
   },
   manageAccount: {
     title: "Gestionar Cuenta",
@@ -440,6 +453,7 @@ export default {
     subcategory: "Subcategoría",
     brand: "Marca",
     model: "Modelo",
+    type: "Tipo",
     year: "Año",
     bodyshape: "Forma de Carrocería",
     gearbox: "Caja de Cambios",
@@ -505,6 +519,10 @@ export default {
     republish: "Volver a publicar",
     sold: "Vendido",
     unsold: "No vendido",
+    deletetitle: "Eliminar Anuncio",
+    deletealertmsg:
+      "¿Quieres eliminar este anuncio? No puedes deshacer esta acción.",
+      cancel: "Cancelar",
   },
   sortList: {
     old: "El más antiguo",
@@ -516,10 +534,14 @@ export default {
   },
   chat: {
     placeholder: "Enviar un mensaje...",
+    viewad:"Ver Anuncio"
   },
   privacySafety: {
     title: "Privacidad y Seguridad",
-    number: "No mostrar mi número",
-    ads: "¿No permitir que el público vea todos mis anuncios?",
+    number: "Mostrar mi número de teléfono",
+    viber: "Mostrar mi número de Viber",
+    whatsapp: "Mostrar mi número de Whatsapp",
+    ads: "¿Permitir que el público vea todos mis anuncios?",
   },
+  
 };

@@ -30,9 +30,6 @@ export default function ForgetPassword({ navigation, route }) {
   }
   async function checkPassword(code) {
     const d = await verifyCodeAPI(code);
-    console.log("====================================");
-    console.log("check", d);
-    console.log("====================================");
     if (d?.success) {
       navigation.navigate(ScreenNames.CPF, { token, email });
     } else {

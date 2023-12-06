@@ -59,8 +59,6 @@ export default function EditProfile({ navigation, route }) {
         uri: image[0],
       });
 
-      console.log(formData);
-
       let d = await updateProfile(userdata?._id, formData);
       if (d) {
         dispatch(setUserMeta(d)), navigation.goBack();
@@ -73,7 +71,6 @@ export default function EditProfile({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
-  console.log(userdata);
   return (
     <ScreenWrapper
       headerUnScrollable={() => (

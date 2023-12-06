@@ -1,4 +1,9 @@
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import {
+  AntDesign,
+  FontAwesome,
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -14,6 +19,7 @@ import {
   Button,
   Card,
   Head,
+  IconButton,
   Input,
   ScreenWrapper,
   SearchBar,
@@ -23,7 +29,7 @@ import AppColors from "../../../utills/AppColors";
 import RadioButtonRN from "radio-buttons-react-native";
 import { useTranslation } from "react-i18next";
 import SelectDropdown from "react-native-select-dropdown";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import {
   backEndDataAPi,
@@ -32,22 +38,21 @@ import {
   getAllData,
   getModel,
 } from "../../../backend/api";
-import { setAppLoader } from "../../../redux/slices/config";
+import { selectCategoryList, setAppLoader } from "../../../redux/slices/config";
 
+import { sortList } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import {
   showBrand,
-  showExteriorColor,
   showFuletype,
   showGearBox,
-  showInteriorColor,
   showKM,
-  showYear,
   showType,
+  showYear,
   showbodyShape,
 } from "../../../utills/Methods";
 import styles from "./styles";
-import { sortList } from "../../../utills/Data";
+import ScreenNames from "../../../routes/routes";
 
 export default function ListData({ navigation, route }) {
   const { t } = useTranslation();
@@ -56,6 +61,7 @@ export default function ListData({ navigation, route }) {
   const sub = route?.params?.subcategory;
   const ti = route?.params?.search;
   const refRBSheet = useRef();
+  const s = useSelector(selectCategoryList);
   const [feild, setFeild] = useState();
   const dispatch = useDispatch();
   const [findValue, setFindValue] = useState(find);
@@ -63,6 +69,9 @@ export default function ListData({ navigation, route }) {
   const [sortby, setSortby] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [subCategory, setSubCategory] = React.useState(sub);
+
+  console.log("sssssss", s);
+
   const [title, setTitle] = React.useState(ti || "");
   const [pageNumber, setPageNumber] = React.useState(1);
   const [pricefrom, setPricefrom] = React.useState();
@@ -113,7 +122,6 @@ export default function ListData({ navigation, route }) {
     page: pageNumber, // Adjust the page number as needed
   };
   const clearAll = () => {
-    console.log("clearall");
     setTitle("");
     setAddress("");
     setBrand("");
@@ -133,7 +141,6 @@ export default function ListData({ navigation, route }) {
     if (pageNumber != 0) {
       setPageNumber(1);
     }
-    refRBSheet.current.close();
     setFilter(filter + 1);
   };
 
@@ -197,10 +204,21 @@ export default function ListData({ navigation, route }) {
       setVCategory([]);
     }
   };
+  const getSubcategoriesByName = (categories, categoryName) => {
+    const matchedCategory = categories.find(
+      (category) => category.name === categoryName
+    );
+
+    if (matchedCategory) {
+      return matchedCategory.subCategories;
+    }
+
+    // Return an empty array if no match is found
+    return [];
+  };
   const getData = async () => {
     onRefresh(true);
     let d = await getAllData(queryParams);
-
     if (d.length == 0) {
       setempty(true);
     }
@@ -422,10 +440,43 @@ export default function ListData({ navigation, route }) {
                   style={{ height: height(57) }}
                   showsVerticalScrollIndicator={false}
                 >
+                  <IconButton
+                    onPress={() => {
+                      navigation.replace(ScreenNames.CATEGORY);
+                    }}
+                    title={
+                      category ? t(`category.${category}`) : "Select Category"
+                    }
+                    containerStyle={styles.containerb}
+                    textStyle={styles.texticon}
+                    iconright={
+                      <Ionicons name="chevron-forward" size={width(4)} />
+                    }
+                  />
+
+                  {subCategory && (
+                    <IconButton
+                      onPress={() => {
+                        navigation.replace(ScreenNames.BIKECATEGORY, {
+                          category: category,
+                          find: category,
+                          subCategories: getSubcategoriesByName(s, category),
+                          show:true
+                        });
+                      }}
+                      title={t(`subList.${subCategory}`)}
+                      containerStyle={styles.containerb}
+                      textStyle={styles.texticon}
+                      iconright={
+                        <Ionicons name="chevron-forward" size={width(4)} />
+                      }
+                    />
+                  )}
                   <View style={{ alignSelf: "center" }}>
                     <Text style={styles.title}>{t("allData.sortby")}</Text>
                     <SelectDropdown
                       data={sortList}
+                      defaultValueByIndex={0}
                       defaultButtonText={t("allData.defaultValueDropdown")}
                       searchPlaceHolder={t("allData.phsearchHere")}
                       defaultValue={sortby}
@@ -859,7 +910,6 @@ export default function ListData({ navigation, route }) {
                       backgroundColor: "grey",
                     }}
                     onPress={() => {
-                      refRBSheet.current.close();
                       clearAll();
                     }}
                   />

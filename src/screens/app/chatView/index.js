@@ -63,7 +63,6 @@ function ChatView({ route }) {
   }, [roomID]);
   useEffect(() => {
     if (!(route?.params?.userRoom == null)) {
-      console.log("set room id", route?.params?.userRoom);
       setRoomID(route?.params?.userRoom);
     }
     getItems();
@@ -253,7 +252,6 @@ function ChatView({ route }) {
       let result = await ImagePicker.launchCameraAsync({})
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
-            console.log("Image", imageUri);
             if (image?.length < 5) {
               return Platform.OS === "android"
                 ? imageUri.uri
@@ -347,9 +345,6 @@ function ChatView({ route }) {
           route.params?.userRoom == undefined) &&
         roomID == null
       ) {
-        console.log("====================================");
-        console.log("room created");
-        console.log("====================================");
         let roomNew = `${user?._id}_${route.params.usr?._id}_${route.params?.userItem}`;
         setRoomID(roomNew);
         const newMessageRef = push(
@@ -376,9 +371,6 @@ function ChatView({ route }) {
         await setRooms(roomNew, route.params.usr?._id);
         await setRooms(roomNew, user?._id);
       } else {
-        console.log("====================================");
-        console.log("else runing", roomID);
-        console.log("====================================");
         const newMessageRef = push(
           ref(database, `chatrooms/${roomID}/messages`)
         );
@@ -401,9 +393,6 @@ function ChatView({ route }) {
       const fileContents = await FileSystem.readAsStringAsync(imageUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-      console.log("====================================");
-      console.log(fileContents);
-      console.log("====================================");
       // Use base64-js to decode the base64 string
       const byteArray = fromByteArray(fileContents);
       return new Blob([byteArray], { type: "image/jpeg" });
@@ -434,35 +423,29 @@ function ChatView({ route }) {
 
       // // Get the blob from the image URI
       try {
-      const imageBlob = await getBlobFromFile(imageUri);
-      // console.log("====================================");
-      // console.log("created blob", imageBlob);
-      // console.log("====================================");
-      // Use uploadBytesResumable to upload the blob
-      const uploadTask = await uploadBytes(imageRef, imageBlob, metadata).catch(
-        (err) => {
-          console.log("Error uploading images:", err);
-        }
-      );
-      // const uploadTask =uploadBytesResumable(imageRef, imageBlob, metadata);
-      // Wait for the upload task to complete
-      const snapshot = await uploadTask;
-      console.log("====================================");
-      console.log("task ", uploadTask);
-      console.log("====================================");
+        const imageBlob = await getBlobFromFile(imageUri);
 
-      if (snapshot) {
-        const downloadUrl = await getDownloadURL(imageRef);
-        console.log("image uploded", downloadUrl);
-        if (downloadUrl) {
-          imageUrls.push(downloadUrl);
+        const uploadTask = await uploadBytes(
+          imageRef,
+          imageBlob,
+          metadata
+        ).catch((err) => {
+          console.log("Error uploading images:", err);
+        });
+        // const uploadTask =uploadBytesResumable(imageRef, imageBlob, metadata);
+        // Wait for the upload task to complete
+        const snapshot = await uploadTask;
+
+        if (snapshot) {
+          const downloadUrl = await getDownloadURL(imageRef);
+          if (downloadUrl) {
+            imageUrls.push(downloadUrl);
+          }
         }
-      }
-     }catch (error) {
+      } catch (error) {
         console.log("Error uploading images:", error);
       }
     }
-  
 
     if (imageUrls.length > 0) {
       set(newMessageRef, {
@@ -542,9 +525,11 @@ function ChatView({ route }) {
             )}
           </View>
         </View>
-        <View>
-          <AdView detail={selectedItem} />
-        </View>
+        {selectedItem && (
+          <View>
+            <AdView detail={selectedItem} />
+          </View>
+        )}
 
         <GiftedChat
           onSend={onSend}
@@ -609,8 +594,8 @@ function ChatView({ route }) {
         </View>
         <DropDownMenu
           isVisible={imgModal}
-          firstBtnText="Take Photo"
-          secondBtnText="Choose from Library"
+          firstBtnText={t("addPost.takephoto")}
+          secondBtnText={t("addPost.choosefromgallery")}
           onPressFirstBtn={() => {
             openPicker(0);
           }}

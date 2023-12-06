@@ -314,9 +314,9 @@ export default function Detail({ navigation, route }) {
                   <Text style={styles.cardelement}>
                     {t("detail.bodyshape")}
                   </Text>
-                  <Text
-                    style={styles.cardelement2}
-                  >{t(`bodyShapeList.${data?.bodyShape}`)}</Text>
+                  <Text style={styles.cardelement2}>
+                    {t(`bodyShapeList.${data?.bodyShape}`)}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.engineCapacity) && (
@@ -396,18 +396,35 @@ export default function Detail({ navigation, route }) {
           </View>
           {/* user profile */}
           {!(data?.userId?._id == loginuser?._id) && (
-            <Pressable style={styles.profileview}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate(ScreenNames.OTHERPROFILE, {
+                  user: data?.userId,
+                });
+              }}
+              style={styles.profileview}
+            >
               <View style={styles.profilecard}>
+                <Image
+                  source={{ uri: data?.userId?.image }}
+                  style={styles.profileimage}
+                />
                 <View style={styles.profilecardin}>
-                  <Image
-                    source={{ uri: data?.userId?.image }}
-                    style={styles.profileimage}
-                  />
                   <Text
                     style={{
                       marginHorizontal: width(2),
                       fontSize: width(4),
                       fontWeight: "bold",
+                      width:width(50),
+                      color: AppColors.black,
+                    }}
+                  >
+                    {data?.userId?.firstName}{' '}{data?.userId?.lastName}
+                  </Text>
+                  <Text
+                    style={{
+                      marginHorizontal: width(2),
+                      fontSize: width(3),
                       color: AppColors.black,
                     }}
                   >
@@ -415,14 +432,12 @@ export default function Detail({ navigation, route }) {
                   </Text>
                 </View>
 
-                <IconButton
+                {/* <IconButton
+                textStyle={{fontSize: width(2.5),}}
                   title={"detail.seeAllAds"}
-                  onPress={() => {
-                    navigation.navigate(ScreenNames.OTHERPROFILE, {
-                      user: data?.userId,
-                    });
-                  }}
-                />
+                 
+                /> */}
+                <Entypo name="chevron-right" size={width(10)} />
               </View>
             </Pressable>
           )}

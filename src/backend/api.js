@@ -18,16 +18,8 @@ export const getDataofHomePage = async () => {
 };
 
 export const getAllData = async (queryParams) => {
-  console.log("params", queryParams);
   try {
     const response = await ApiManager.get(`ad/`, queryParams);
-
-    // if (!response.success) {
-    //   throw new Error("Network error getAll data");
-    // }
-    // console.log('====================================');
-    // console.log(response?.data?.ad[0].userId);
-    // console.log('====================================');
     return response?.data;
   } catch (error) {
     console.log(error);

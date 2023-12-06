@@ -33,7 +33,6 @@ export default function CardView({ data }) {
     }
     return false; // Return false if arr is not defined or not an array
   }
-  //console.log("indata", data);
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
@@ -102,7 +101,7 @@ export default function CardView({ data }) {
             <View style={styles.categoryview}>
               <MaterialIcons name="category" color={"grey"} size={width(4)} />
               <Text numberOfLines={1} style={styles.detailtext}>
-                {data?.category}
+                {t(`category.${data?.category}`)}
               </Text>
             </View>
             <View style={styles.categoryview}>

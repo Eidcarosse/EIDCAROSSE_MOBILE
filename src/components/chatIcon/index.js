@@ -24,15 +24,10 @@ export default function ChatIcon({ navigation, data, onPress }) {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-
-  // console.log("indata", data);
   return (
     <TouchableOpacity
       style={styles.main}
       onPress={() => {
-        console.log("====================================");
-        console.log("All Chatroom id ", data);
-        console.log("====================================");
         navigation.navigate(ScreenNames.CHAT, {
           usr: user,
           userRoom: data,

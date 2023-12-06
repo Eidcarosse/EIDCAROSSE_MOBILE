@@ -17,10 +17,6 @@ export default function ChangePassword({ navigation, route }) {
   const token = route?.params?.token;
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  console.log("====================================");
-  console.log(email, token);
-  console.log("====================================");
   const isValidPassword = (password) => {
     return password.length >= 6;
   };
@@ -32,9 +28,6 @@ export default function ChangePassword({ navigation, route }) {
         email: email,
         token: token,
       });
-      console.log("====================================");
-      console.log("pasword response", r);
-      console.log("====================================");
       if (!r?.success) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message);

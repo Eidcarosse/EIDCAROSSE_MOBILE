@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from "react-native";
 import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   main: {
@@ -67,13 +67,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingBottom: width(1),
   },
-  cfpview:{
-    backgroundColor:AppColors.grey,
-    padding:width(2),
-    borderRadius:width(1)
+  cfpview: {
+    backgroundColor: AppColors.grey,
+    padding: width(2),
+    borderRadius: width(1),
+    width:width(32)
   },
   cfp: {
-    fontSize: width(3),
+    fontSize: width(2.5),
     color: AppColors.primary,
     fontWeight: "bold",
   },

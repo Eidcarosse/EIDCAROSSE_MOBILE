@@ -25,7 +25,11 @@ import {
   Input,
   ScreenWrapper,
 } from "../../../components";
-import { setAppLoader } from "../../../redux/slices/config";
+import {
+  selectShowViber,
+  selectShowWhatsapp,
+  setAppLoader,
+} from "../../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
@@ -52,12 +56,10 @@ export default function AddPost({ navigation, route }) {
   const category = route?.params?.category || edit?.category;
   const find = route?.params?.find || edit?.category;
   const sub = route?.params?.subcategory || edit?.subCategory;
-
-  console.log("====================================");
-  console.log("edit ", edit);
-  console.log("====================================");
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
+  const v = useSelector(selectShowViber);
+  const w = useSelector(selectShowWhatsapp);
   const mapRef = useRef(null);
   const modelRef = useRef();
   const imageRef = useRef(null);
@@ -94,9 +96,9 @@ export default function AddPost({ navigation, route }) {
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vtype, setVtype] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
-  const [addPhone, setAddPhone] = useState(!userInfo?.showNumber);
-  const [addWhatsapp, setAddWhatsapp] = useState(edit?.whatsapp ? true : false);
-  const [addViber, setAddViber] = useState(edit?.viber ? true : false);
+  const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
+  const [addWhatsapp, setAddWhatsapp] = useState(edit?.whatsapp ? true : w);
+  const [addViber, setAddViber] = useState(edit?.viber ? true : v);
   const [feild, setFeild] = useState();
   useEffect(() => {
     getvehicleMake();
@@ -126,9 +128,6 @@ export default function AddPost({ navigation, route }) {
   };
   const getvehicleCategory = async () => {
     let vehicledata = await geVehicleCategory(find);
-    console.log("====================================");
-    console.log("cons machine", vehicledata);
-    console.log("====================================");
     if (vehicledata) {
       setVtype(vehicledata);
     } else {
@@ -202,12 +201,8 @@ export default function AddPost({ navigation, route }) {
       formData.append("website", website);
       addWhatsapp && formData.append("whatsapp", whatsapp);
       addPhone && formData.append("phone", true);
-      console.log("====================================");
-      console.log("all value");
-      console.log("====================================");
       // Append each selected image to the form data
       image.forEach((img, index) => {
-        console.log(img);
         formData.append("file", {
           name: `image${index}`,
           type: "image/jpeg", // Adjust the type if needed
@@ -215,9 +210,6 @@ export default function AddPost({ navigation, route }) {
         });
       });
       const resp = await addPostAd(formData);
-      console.log("====================================");
-      console.log("ad posted", resp);
-      console.log("====================================");
       if (resp?.success) {
         successMessage("Ad successfuly posted");
       } else {
@@ -249,13 +241,13 @@ export default function AddPost({ navigation, route }) {
 
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
-      // if (isAnyFieldEmpty) {
-      //   dispatch(setAppLoader(false));
-      //   // Show an alert if any required field is empty
-      //   errorMessage("requierd feilds are empty");
+      if (isAnyFieldEmpty) {
+        dispatch(setAppLoader(false));
+        // Show an alert if any required field is empty
+        errorMessage("requierd feilds are empty");
 
-      //   return;
-      // }
+        return;
+      }
       const formData = new FormData();
       formData.append("userId", userInfo?._id);
       formData.append("title", title);
@@ -291,11 +283,7 @@ export default function AddPost({ navigation, route }) {
           uri: img,
         });
       });
-      console.log("====================================");
-      console.log("form data ", formData);
-      console.log("====================================");
       const resp = await editAdApi(edit?._id, formData);
-      console.log("caled", resp);
       if (resp?.success) {
         successMessage("Ad successfuly Edit");
         navigation.navigate(ScreenNames.MYADS);
@@ -335,19 +323,6 @@ export default function AddPost({ navigation, route }) {
       label: t("condition.disable"),
     },
   ];
-  const cdata = ["Whatsapp", "Viber"];
-  // console.log(
-  //   title,
-  //   category,
-  //   condition,
-  //   brand,
-  //   year,
-  //   model,
-  //   description,
-  //   latitude,
-  //   longitude,
-  //   address
-  // );
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -499,8 +474,8 @@ export default function AddPost({ navigation, route }) {
               }}
               activeColor={AppColors.primary}
               selectedBtn={(e) => {
-                e.label == "Disable" ? setPrice("") : "";
-                setPricing(e.label);
+                e.key == "Disable" ? setPrice("") : "";
+                setPricing(e.key);
               }}
             />
           </View>
@@ -562,13 +537,9 @@ export default function AddPost({ navigation, route }) {
                   setType(selectedItem);
                 }}
                 buttonTextAfterSelection={(selectedItem, index) => {
-                  // text represented after item is selected
-                  // if data array is an array of objects then return selectedItem.property to render after item is selected
                   return selectedItem;
                 }}
                 rowTextForSelection={(item, index) => {
-                  // text represented for each item in dropdown
-                  // if data array is an array of objects then return item.property to represent item in dropdown
                   return item;
                 }}
               />
@@ -583,7 +554,7 @@ export default function AddPost({ navigation, route }) {
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
               <Input
-                value={subCategory}
+                value={t(`subList.${subCategory}`)}
                 setvalue={setSubCategory}
                 containerStyle={[styles.price]}
                 editable={false}
@@ -608,13 +579,9 @@ export default function AddPost({ navigation, route }) {
                   setBrand(selectedItem);
                 }}
                 buttonTextAfterSelection={(selectedItem, index) => {
-                  // text represented after item is selected
-                  // if data array is an array of objects then return selectedItem.property to render after item is selected
                   return selectedItem;
                 }}
                 rowTextForSelection={(item, index) => {
-                  // text represented for each item in dropdown
-                  // if data array is an array of objects then return item.property to represent item in dropdown
                   return item;
                 }}
               />
@@ -645,13 +612,9 @@ export default function AddPost({ navigation, route }) {
                       setModel(selectedItem);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return selectedItem;
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return item;
                     }}
                   />
@@ -696,13 +659,9 @@ export default function AddPost({ navigation, route }) {
                       setBodyshap(selectedItem.name);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return t(`bodyShapeList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return t(`bodyShapeList.${item.name}`);
                     }}
                   />
@@ -729,13 +688,9 @@ export default function AddPost({ navigation, route }) {
                       setGearbox(selectedItem.name);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return t(`gearBoxList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return t(`gearBoxList.${item.name}`);
                     }}
                   />
@@ -766,13 +721,9 @@ export default function AddPost({ navigation, route }) {
                       setFueltype(selectedItem.name);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return t(`fuelTypelist.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return t(`fuelTypelist.${item.name}`);
                     }}
                   />
@@ -803,13 +754,9 @@ export default function AddPost({ navigation, route }) {
                       setExterior(selectedItem.name);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return t(`colorList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return t(`colorList.${item.name}`);
                     }}
                   />
@@ -836,13 +783,9 @@ export default function AddPost({ navigation, route }) {
                       setInterior(selectedItem.name);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return t(`colorList.${selectedItem.name}`);
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return t(`colorList.${item.name}`);
                     }}
                   />
@@ -867,13 +810,9 @@ export default function AddPost({ navigation, route }) {
                       setKm(selectedItem.name);
                     }}
                     buttonTextAfterSelection={(selectedItem, index) => {
-                      // text represented after item is selected
-                      // if data array is an array of objects then return selectedItem.property to render after item is selected
                       return t(selectedItem.name);
                     }}
                     rowTextForSelection={(item, index) => {
-                      // text represented for each item in dropdown
-                      // if data array is an array of objects then return item.property to represent item in dropdown
                       return t(item.name);
                     }}
                   />
@@ -881,17 +820,6 @@ export default function AddPost({ navigation, route }) {
               )}
             </View>
           )}
-          {/* {showKM(category) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.km")}</Text>
-              <Input
-                value={km}
-                setvalue={setKm}
-                placeholder={t("addPost.phkm")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )} */}
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>{t("addPost.description")}</Text>
             <Input
@@ -953,32 +881,6 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {/* <View style={{ alignSelf: "center", marginBottom: height(3) }}>
-            <Text style={styles.title}>{t("addPost.htc")}</Text>
-            <SelectDropdown
-              data={cdata}
-              defaultButtonText={t("addPost.defaultValueDropdown")}
-              searchPlaceHolder={t("addPost.phsearchHere")}
-              buttonStyle={styles.searchbox}
-              selectedRowStyle={{ backgroundColor: AppColors.primary }}
-              selectedRowTextStyle={{ color: AppColors.white }}
-              buttonTextStyle={{ textAlign: "left", fontSize: width(3.5) }}
-              dropdownStyle={styles.dropdown}
-              onSelect={(selectedItem, index) => {
-                setHtc(selectedItem);
-              }}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                // text represented after item is selected
-                // if data array is an array of objects then return selectedItem.property to render after item is selected
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                // text represented for each item in dropdown
-                // if data array is an array of objects then return item.property to represent item in dropdown
-                return item;
-              }}
-            />
-          </View> */}
           <IconButton
             onPress={() => {
               setAddWhatsapp(!addWhatsapp);
@@ -994,7 +896,6 @@ export default function AddPost({ navigation, route }) {
               />
             }
           />
-
           {addWhatsapp && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
@@ -1034,17 +935,6 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-
-          {/* )} */}
-          {/* <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>{t("addPost.website")}</Text>
-            <Input
-              value={website}
-              setvalue={setWebsite}
-              placeholder={t("addPost.phwebsite")}
-              containerStyle={[styles.price, { width: width(90) }]}
-            />
-          </View> */}
         </View>
         <View style={{ paddingVertical: width(1), flexDirection: "row" }}>
           <View style={{ paddingVertical: width(1), flex: 1 }}>

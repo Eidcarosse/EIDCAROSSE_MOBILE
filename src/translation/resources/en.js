@@ -249,15 +249,15 @@ export default {
     Bicycles: "Bicycles",
     "E-scooters": "E-scooters",
     Motorcycles: "Motorcycles",
-    Autos: "Autos",
-    Bikes: "Bikes",
-    Boats: "Boats",
-    Drones: "Drones ",
-    "Construction Machines": "Construction Machines",
-    Trucks: "Trucks ",
-    Vans: "Vans ",
-    Trailers: "Trailers ",
-    Busses: "Busses ",
+    Auto: "Autos",
+    Bike: "Bikes",
+    Boat: "Boats",
+    Drone: "Drones ",
+    "Construction Machine": "Construction Machines",
+    Truck: "Trucks ",
+    Van: "Vans ",
+    Trailer: "Trailers ",
+    Buss: "Busses ",
     "Other Parts": "Other Parts",
   },
   profile: {
@@ -268,6 +268,12 @@ export default {
     privacy: "Privacy & Safety",
     appSetting: "App Settings",
     manageAccount: "Manage Account",
+  },
+  wishList: {
+    title: "My Wish List",
+  },
+  otherProfile: {
+    op: "Private Account",
   },
   home: {
     letest: "Latest Ads",
@@ -280,7 +286,7 @@ export default {
   addPost: {
     title: "Add Post",
     attachImage1: "Attach Image",
-    attachImage2: "You can upload up to 5 images.",
+    attachImage2: "You can upload up to 7 images.",
     attachImage3:
       "First picture is the title picture. Long press to drag and sortimages.",
     productInformation: "Product Information",
@@ -293,7 +299,7 @@ export default {
     subcategory: "Sub Category",
     brand: "Brand",
     model: "Model",
-    type:"Type",
+    type: "Type",
     year: "Year",
     phyear: "1999",
     bodyshape: "Body Shape",
@@ -327,6 +333,8 @@ export default {
     post: "Add Post",
     phsearchHere: "Search here",
     defaultValueDropdown: "Select an Option",
+    takephoto: "Take Photo",
+    choosefromgallery: "Choose from Library",
   },
   fuelTypelist: {
     Gasoline: "Gasoline",
@@ -444,7 +452,7 @@ export default {
   detail: {
     detailword: "Details",
     CFP: "Contact for Price",
-    DP:"Disabled Price",
+    DP: "Disabled Price",
     price: "Price",
     condition: "Condition",
     category: "Category",
@@ -458,6 +466,7 @@ export default {
     exteriorcolor: "Exterior Color",
     interiorcolor: "Interior Color",
     km: "Km Driven",
+    type: "Type",
     description: "Description",
     videourl: "Video Url",
     website: "Website",
@@ -515,6 +524,11 @@ export default {
     republish: "Re-publish",
     sold: "Sold",
     unsold: "UnSold",
+    deletetitle: "Delete Ad",
+    cancel: "cancel",
+    deletealertmsg:
+      "Do you want to delete this Ad? You cannot undo this action.",
+    cancel: "cancel",
   },
   sortList: {
     old: "Oldest",
@@ -526,10 +540,13 @@ export default {
   },
   chat: {
     placeholder: "Type a message..",
+    viewad: "View Ad",
   },
   privacySafety: {
     title: "Privacy and Safety",
-    number: "Don't show my number",
-    ads: "Don't allow public to see my all ads?",
+    number: "Show my phone number",
+    viber: "Show my viber number",
+    whatsapp: "Show my whatsapp number",
+    ads: "Allow public to see my all ads?",
   },
 };

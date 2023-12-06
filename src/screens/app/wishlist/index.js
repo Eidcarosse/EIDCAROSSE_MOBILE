@@ -26,16 +26,16 @@ export default function WishList({ navigation, route }) {
     getData(id);
   }, []);
   const getData = useCallback(async (id) => {
-    setLoader(true)
+    setLoader(true);
     let d = await getFavAds(id);
     if (d) setData(d);
     else setData([]);
-    setLoader(false)
+    setLoader(false);
   });
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
-        <Head headtitle={"My Wish List"} navigation={navigation} />
+        <Head headtitle={"wishList.title"} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -45,12 +45,12 @@ export default function WishList({ navigation, route }) {
         <View style={{ width: width(100), alignItems: "center" }}>
           {data?.length === 0 ? (
             loader ? (
-              <ActivityIndicator  color={AppColors.primary} size={'large'}/>
+              <ActivityIndicator color={AppColors.primary} size={"large"} />
             ) : (
               <View style={{ height: height(100) }}>
                 <Image
                   source={Icons.empty}
-                  style={{ height: width(50), width: width(60) }}
+                  style={{ height: width(30), width: width(30) }}
                 />
               </View>
             )

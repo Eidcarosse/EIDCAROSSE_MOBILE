@@ -43,13 +43,16 @@ export default function RelatedAd({ category, id }) {
       )}
     </View>
   );
+  console.log(data.length<0);
   return (
     <View style={styles.main}>
-      <View style={styles.titleview}>
-        <Text style={{ fontSize: width(4), fontWeight: "bold" }}>
-          {t("detail.relatedAds")}
-        </Text>
-      </View>
+      {data.length>0 && (
+        <View style={styles.titleview}>
+          <Text style={{ fontSize: width(4), fontWeight: "bold" }}>
+            {t("detail.relatedAds")}
+          </Text>
+        </View>
+      )}
       <View
         style={{
           width: width(100),

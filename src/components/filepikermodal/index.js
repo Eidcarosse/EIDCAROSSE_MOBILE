@@ -9,14 +9,16 @@ import React, {
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import DropDownMenu from "../dorpdownmenu";
+import { useTranslation } from "react-i18next";
 
 const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
+  const { t } = useTranslation();
   const [isVisible, setVisible] = useState(false);
 
   const requestPermissions = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-     await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-     await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
+    await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+    await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
     if (status !== "granted") {
       alert("Permission to access camera or camera roll denied!");
     }
@@ -40,29 +42,6 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
         .catch(console.log);
     },
   }));
-  // async function openCamera() {
-  //  await launchCamera({
-
-  //     mediaType: 'photo',
-  //     multiple:true,
-  //     height: 400,
-  //     width: 400,
-  //   }).then(onFilesSelected);
-  // }
-  // async function openGallery() {
-  //   try {
-  //     await launchImageLibrary({
-
-  //       mediaType: 'photo',
-  //       multiple:true,
-  //       height: 400,
-  //       width: 400,
-  //     }).then(onFilesSelected);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // }
   const openCamera = async () => {
     try {
       await ImagePicker.launchCameraAsync({})
@@ -89,8 +68,8 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
   return (
     <DropDownMenu
       isVisible={isVisible}
-      firstBtnText="Take Photo"
-      secondBtnText="Choose from Library"
+      firstBtnText={t("addPost.takephoto")}
+      secondBtnText={t("addPost.choosefromgallery")}
       onPressFirstBtn={() => openPicker(0)}
       onPressSecondBtn={() => openPicker(1)}
       onClose={() => setVisible(false)}

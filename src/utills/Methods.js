@@ -19,6 +19,7 @@ export function debounce(func, wait, immediate) {
 import { showMessage } from "react-native-flash-message";
 import AppColors from "./AppColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { height, width } from "./Dimension";
 export const toastMessage = (message) => {
   ToastAndroid.show(message, ToastAndroid.SHORT);
 };
@@ -35,6 +36,8 @@ export const errorMessage = (description = "", message = "error") => {
     description: description,
     type: "danger",
     position: "top",
+    statusBarHeight: height(4),
+    floating: true,
   });
 };
 export const infoMessage = (description = "", message = "info") => {
@@ -69,22 +72,36 @@ export const getAuthData = async () => {
     // error reading value
   }
 };
-// export const setLangData = async (value) => {
-//   try {
-//     const jsonValue = JSON.stringify(value);
-//     await AsyncStorage.setItem("lang", jsonValue);
-//   } catch (e) {
-//     // saving error
-//   }
-// };
-// export const getLangData = async () => {
-//   try {
-//     const jsonValue = await AsyncStorage.getItem("lang");
-//     return jsonValue != null ? JSON.parse(jsonValue) : null;
-//   } catch (e) {
-//     // error reading value
-//   }
-// };
+export const setDataw = async (value) => {
+  try {
+    let a = await AsyncStorage.setItem("whatsapp", JSON.stringify(value));
+  } catch (e) {
+    alert("wh");
+  }
+};
+export const setDatav = async (value) => {
+  try {
+    let a = await AsyncStorage.setItem("viber", JSON.stringify(value));
+  } catch (e) {
+    alert("vi");
+  }
+};
+export const getDataw = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("whatsapp");
+    return jsonValue;
+  } catch (e) {
+    // error reading value
+  }
+};
+export const getDatav = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("viber");
+    return jsonValue;
+  } catch (e) {
+    // error reading value
+  }
+};
 export const storelangData = async (value) => {
   try {
     await AsyncStorage.setItem("language", value);

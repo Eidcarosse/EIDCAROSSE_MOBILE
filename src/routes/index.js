@@ -1,17 +1,20 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useCallback, useEffect } from "react";
-import i18n from "../translation";
 import { getDatabase, off, onValue, ref } from "firebase/database";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataofHomePage } from "../backend/api";
 import { getOwneAd, loginApi } from "../backend/auth";
+import { getCategory } from "../backend/common";
 import { Loader } from "../components";
 import {
   setAppLoader,
   setCategoryList,
+  setShowViber,
+  setShowWhatsapp,
   setTopAds,
 } from "../redux/slices/config";
+import { setLanguage } from "../redux/slices/language";
 import {
   selectIsLoggedIn,
   setAdsFav,
@@ -33,7 +36,6 @@ import {
   EditProfile,
   FAQScreen,
   HTSFScreen,
-  HomeScreen,
   ListData,
   MapAdView,
   MyListingScreen,
@@ -54,11 +56,16 @@ import {
   OnBoardingScreen,
   SignUpScreen,
 } from "../screens/auth";
-import { errorMessage, getAuthData, getlangData } from "../utills/Methods";
+import i18n from "../translation";
+import {
+  errorMessage,
+  getAuthData,
+  getDatav,
+  getDataw,
+  getlangData,
+} from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
-import { setLanguage } from "../redux/slices/language";
-import { getCategory } from "../backend/common";
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
@@ -93,6 +100,12 @@ export default function Routes() {
     if (data) {
       login(data);
     }
+    const w = await getDataw();
+    const v = await getDatav();
+    if (w) {
+      dispatch(setShowWhatsapp(w == 1 ? true : false));
+    }
+    if (v) dispatch(setShowViber(v == 1 ? true : false));
   };
   const login = async (data) => {
     try {
@@ -126,14 +139,11 @@ export default function Routes() {
     if (d) dispatch(setCategoryList(d));
   }
   const fetchRoomsData = async (userId) => {
-    console.log(userId);
     try {
-      console.log("Updating rooms list");
       roomRef = ref(db, `users/${userId}/rooms`);
 
       const handleRoomUpdate = (snapshot) => {
         const room = snapshot.val() || [];
-        console.log(room);
         dispatch(setChatRooms(room));
       };
 

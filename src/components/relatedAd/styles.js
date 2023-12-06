@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   emptyview: {
     alignItems: "center",
   },
-  emptyimage: { height: width(50), width: width(60) },
+  emptyimage: { height: width(30), width: width(30) },
 });
 export default styles;

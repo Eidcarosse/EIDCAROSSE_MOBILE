@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: height(25),
   },
-  emptyimage: { height: width(50), width: width(60) },
+  emptyimage: { height: width(70), width: width(70) },
   bs: {
     wrapper: {
       backgroundColor: "rgba(0,0,0,.3)",
@@ -90,6 +90,19 @@ const styles = StyleSheet.create({
     padding: width(4),
     paddingBottom: height(15),
     justifyContent:"space-between"
+  },
+  containerb: {
+    backgroundColor: AppColors.greybackground,
+    width: width(90),
+    justifyContent: "flex-start",
+    paddingVertical: width(5),
+    marginVertical: width(2),
+    borderRadius: width(1),
+  },
+  texticon: {
+    color: "black",
+    width: width(70),
+    alignSelf: "flex-start",
   },
   title: {
     fontSize: width(3.5),

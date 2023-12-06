@@ -55,7 +55,7 @@ export default function MyListing({ navigation, route }) {
             <View style={{ height: height(100) }}>
               <Image
                 source={Icons.empty}
-                style={{ height: width(50), width: width(60) }}
+                style={{ height: width(30), width: width(30) }}
               />
             </View>
           ) : (

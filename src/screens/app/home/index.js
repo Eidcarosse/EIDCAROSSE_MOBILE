@@ -30,24 +30,6 @@ export default function Home({}) {
   const scrollViewRef = useRef(null);
   const navigation = useNavigation();
   useScrollToTop(scrollViewRef);
-  // useEffect(() => {
-  //   const handleScrollToTop = () => {
-  //     if (scrollViewRef.current) {
-  //       console.log("====================================");
-  //       console.log("running");
-  //       console.log("====================================");
-  //       scrollViewRef.current?.scrollToPosition(0, 0, true);
-  //     }
-  //   };
-
-  //   // Add a listener for the event (e.g., a button press or navigation event)
-  //   const unsubscribe = navigation.addListener("tabPress", handleScrollToTop);
-
-  //   // Clean up the listener when the component is unmounted
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [navigation]);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -126,7 +108,7 @@ export default function Home({}) {
             <View style={styles.notfoundview}>
               <Image
                 source={Icons.empty}
-                style={{ height: width(50), width: width(60) }}
+                style={{ height: width(30), width: width(30) }}
               />
             </View>
           ) : (

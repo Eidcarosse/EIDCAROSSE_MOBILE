@@ -14,12 +14,16 @@ import Button from "../button";
 import Icons from "../../asset/images";
 import { width } from "../../utills/Dimension";
 import ScreenNames from "../../routes/routes";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
 
 const AdView = ({ detail, onPressView }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(ScreenNames.DETAIL, detail)}
+      style={styles.container}
+    >
       {detail?.images && (
         <Image
           style={styles.image}
@@ -31,16 +35,17 @@ const AdView = ({ detail, onPressView }) => {
         <Text style={styles.title} numberOfLines={1}>
           {detail?.title}
         </Text>
-        <Text style={styles.price}>CHF {detail?.price} </Text>
+        {detail?.subCategory ? (
+          <Text style={styles.price}>{detail?.subCategory} </Text>
+        ) : (
+          <Text style={styles.price}>{detail?.category} </Text>
+        )}
+       
       </View>
-      <Button
-        title={"View Ad"}
-        containerStyle={styles.button}
-        onPress={() => {
-          navigation.navigate(ScreenNames.DETAIL, detail);
-        }}
+      <Entypo name="chevron-right" 
+      size={width(10)}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 

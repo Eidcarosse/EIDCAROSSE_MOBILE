@@ -11,16 +11,16 @@ const styles = StyleSheet.create({
   imageview: {
     width: width(100),
     backgroundColor: AppColors.transparent,
-    flexDirection:'row'
+    flexDirection: "row",
   },
   image: {
     width: width(95),
     height: height(30),
   },
-  cfpview:{
-    backgroundColor:AppColors.grey,
-    padding:width(2),
-    borderRadius:width(1)
+  cfpview: {
+    backgroundColor: AppColors.grey,
+    padding: width(2),
+    borderRadius: width(1),
   },
   cfp: {
     fontSize: width(3.5),
@@ -52,24 +52,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-
-    elevation: 3,
+    elevation: 1,
     shadowColor: "red",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
   profilecardin: {
-    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    alignItems:'flex-start'
   },
   profileimage: {
-    width: width(12),
-    height: width(12),
+    width: width(15),
+    height: width(15),
     borderRadius: width(10),
     borderColor: AppColors.black,
-    borderWidth: width(1),
+    borderWidth: width(0.5),
   },
   map: {
     height: height(25),

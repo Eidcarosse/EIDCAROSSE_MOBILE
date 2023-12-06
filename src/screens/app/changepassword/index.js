@@ -24,9 +24,7 @@ export default function ChangePassword({ navigation, route }) {
         newPassword,
         confirmPassword,
       });
-      console.log("====================================");
-      console.log("pasword response", r);
-      console.log("====================================");
+  
       if (!r?.success) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message);

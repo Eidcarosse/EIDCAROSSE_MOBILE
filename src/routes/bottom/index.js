@@ -62,11 +62,6 @@ export default function BottomNav({ navigation }) {
             itemId: 86,
             otherParam: "anything you want here",
           });
-          console.log("button pressed");
-          // if (Home?.scrollViewRef?.current) {
-          //   console.log("ref found");
-          //   Home.scrollViewRef.current.scrollToTop();
-          // }
         }}
         style={styles.tabbarItem}
       >

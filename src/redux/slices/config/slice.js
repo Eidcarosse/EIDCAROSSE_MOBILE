@@ -3,24 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   appLoader: false,
   topads: [],
-  filter: {
-    category: null,
-    brand: null,
-    model: null,
-    maxPrice: null,
-    minPrice: null,
-    title: "",
-  },
-  appColor: {
-    primary: "#FF0100",
-    white: "#ffffff",
-    black: "black",
-    red: "red",
-    transparent: "transparent",
-    grey: "#E5E8E8",
-    greybackground: "#EFEFEF",
-  },
   categoryList: [],
+  showWhatsapp: false,
+  showViber: false,
 };
 
 const configSlice = createSlice({
@@ -35,6 +20,12 @@ const configSlice = createSlice({
     },
     setCategoryList: (state, action) => {
       state.categoryList = action.payload;
+    },
+    setShowWhatsapp: (state, action) => {
+      state.showWhatsapp = action.payload;
+    },
+    setShowViber: (state, action) => {
+      state.showViber = action.payload;
     },
   },
 });

@@ -6522,6 +6522,11 @@ react-native-curved-bottom-bar@^3.2.6:
     d3-shape "^3.2.0"
     react-native-size-scaling "^0.5.1"
 
+react-native-dialog@^9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-dialog/-/react-native-dialog-9.3.0.tgz#9d745cc51653a1e2ae08076b46f11d99723c47f6"
+  integrity sha512-JEOJY/0AzTM9grIl0BL8o/IJPIJru7k5MPj9POTE9RRezUEtgn0YSvCpTlBtG0obWgOdzg2otMz1OQvMXS0wMQ==
+
 react-native-dotenv@^3.3.1:
   version "3.4.9"
   resolved "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-3.4.9.tgz"

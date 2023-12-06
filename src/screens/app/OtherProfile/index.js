@@ -23,11 +23,12 @@ import {
 } from "../../../redux/slices/user";
 import { getOwneAd } from "../../../backend/auth";
 import GlobalMethods from "../../../utills/Methods";
+import { useTranslation } from "react-i18next";
 export default function OtherProfile({ navigation, route }) {
   const userdata = route?.params?.user;
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
+  const { t } = useTranslation();
   const onRefresh = () => {
     setRefreshing(true);
     myAdsFunction();
@@ -96,7 +97,7 @@ export default function OtherProfile({ navigation, route }) {
               </View>
             </View>
             <View style={styles.wishlistview}>
-              {!userdata?.showNumber && (
+              {userdata?.showNumber && (
                 <IconButton
                   onPress={GlobalMethods.onPressCall}
                   title={"Phone"}
@@ -163,7 +164,7 @@ export default function OtherProfile({ navigation, route }) {
                 fontWeight: "bold",
               }}
             >
-              Private Account
+              {t("otherProfile.op")}
             </Text>
           )}
         </View>

@@ -1,8 +1,13 @@
-import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import React, { useCallback, useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
-
+import Dialog from "react-native-dialog";
 import { Menu, MenuItem } from "react-native-material-menu";
 
 import AppColors from "../../utills/AppColors";
@@ -25,12 +30,12 @@ export default function MyCard({ data }) {
   const userInfo = useSelector(selectUserMeta);
   const language = useSelector(selectCurrentLanguage);
   const userid = userInfo?._id;
+  const [visible, setVisible] = useState(false);
   const getData = useCallback(async (id) => {
     let d = await getOwneAd(id);
     if (d) dispatch(setUserAds(d));
     else dispatch(setUserAds([]));
   });
-  const [sold, setSold] = useState(false);
   const [publish, setPublish] = useState(true);
   const [isModalVisible, setModalVisible] = useState(false);
   const hideMenu = () => setModalVisible(false);
@@ -107,7 +112,7 @@ export default function MyCard({ data }) {
           ) : (
             <View style={styles.cfpview}>
               <Text numberOfLines={1} style={styles.cfp}>
-                {t("detail.DP")}
+                {t("detail.CFP")}
               </Text>
             </View>
           )}
@@ -125,51 +130,28 @@ export default function MyCard({ data }) {
         >
           <Entypo size={width(4)} name="dots-three-vertical" />
         </TouchableOpacity>
-        {sold ? (
-          <TouchableOpacity
+
+        <TouchableOpacity
+          style={{
+            borderWidth: 1,
+            borderColor: publish ? AppColors.grey : AppColors.primary,
+            paddingHorizontal: width(3),
+            padding: width(1),
+            borderRadius: width(5),
+            backgroundColor: publish ? AppColors.green : AppColors.primary,
+          }}
+          disabled={true}
+        >
+          <Text
             style={{
-              borderWidth: 1,
-              borderColor: AppColors.primary,
-              paddingHorizontal: width(3),
-              padding: width(1),
-              borderRadius: width(5),
-              backgroundColor: AppColors.primary,
+              fontSize: width(2.5),
+              color: AppColors.white,
+              fontWeight: publish ? "600" : "bold",
             }}
-            disabled={true}
           >
-            <Text
-              style={{
-                fontSize: width(2),
-                color: AppColors.white,
-                fontWeight: "bold",
-              }}
-            >
-              {t("myad.sold")}
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={{
-              borderWidth: 1,
-              borderColor: publish ? AppColors.grey : AppColors.primary,
-              paddingHorizontal: width(3),
-              padding: width(1),
-              borderRadius: width(5),
-              backgroundColor: publish ? AppColors.green : AppColors.primary,
-            }}
-            disabled={true}
-          >
-            <Text
-              style={{
-                fontSize: width(2.5),
-                color: AppColors.white,
-                fontWeight: publish ? "600" : "bold",
-              }}
-            >
-              {publish ? t("myad.published") : t("myad.mute")}
-            </Text>
-          </TouchableOpacity>
-        )}
+            {publish ? t("myad.published") : t("myad.mute")}
+          </Text>
+        </TouchableOpacity>
       </View>
       <Menu visible={isModalVisible} onRequestClose={hideMenu}>
         <MenuItem
@@ -178,64 +160,76 @@ export default function MyCard({ data }) {
             navigation.navigate(ScreenNames.ADDPOST, { data: data });
           }}
         >
-          {t("myad.edit")}
+          <AntDesign name="edit" size={width(4)} />
+          <Text> {t("myad.edit")}</Text>
         </MenuItem>
-        <MenuItem
-          onPress={() => {
-            hideMenu();
-            refreshAd();
-          }}
-        >
-          {t("myad.refresh")}
-        </MenuItem>
-        <MenuItem
-          onPress={() => {
-            hideMenu(), deleteAd(data._id);
-          }}
-        >
-          {t("myad.delete")}
-        </MenuItem>
-        {!sold && (
+        {publish && (
           <MenuItem
             onPress={() => {
               hideMenu();
-              setSold(true);
+              refreshAd();
             }}
           >
-            {t("myad.markassold")}
+            <FontAwesome name="refresh" size={width(4)} />
+            <Text> {t("myad.refresh")}</Text>
           </MenuItem>
         )}
-        {!sold ? (
-          publish ? (
-            <MenuItem
-              onPress={() => {
-                hideMenu();
-                setPublish(false);
-              }}
-            >
-              {t("myad.mute")}
-            </MenuItem>
-          ) : (
-            <MenuItem
-              onPress={() => {
-                hideMenu();
-                setPublish(true);
-              }}
-            >
-              {t("myad.republish")}
-            </MenuItem>
-          )
+        <MenuItem
+          onPress={() => {
+            hideMenu(),
+              setTimeout(() => {
+                setVisible(true);
+              }, 600);
+          }}
+        >
+          <AntDesign name="delete" size={width(4)} color={"red"} />
+          <Text style={{ color: "red" }}> {t("myad.delete")}</Text>
+        </MenuItem>
+
+        {/* {publish ? (
+          <MenuItem
+            onPress={() => {
+              hideMenu();
+              setPublish(false);
+            }}
+          >
+            <FontAwesome name="pause" size={width(4)} />
+            <Text> {t("myad.mute")}</Text>
+          </MenuItem>
         ) : (
           <MenuItem
             onPress={() => {
               hideMenu();
-              setSold(false);
+              setPublish(true);
             }}
           >
-            {t("myad.unsold")}
+            <Entypo name="publish" size={width(4)} />
+            <Text> {t("myad.republish")}</Text>
           </MenuItem>
-        )}
+        )} */}
       </Menu>
+      <View>
+        <Dialog.Container visible={visible}>
+          <Dialog.Title> {t("myad.deletetitle")}</Dialog.Title>
+          <Dialog.Description>
+            <Text style={{ fontSize: width(3) }}>
+              {t("myad.deletealertmsg")}
+            </Text>
+          </Dialog.Description>
+          <Dialog.Button
+            label={t("myad.cancel")}
+            onPress={() => setVisible(false)}
+          />
+          <Dialog.Button
+            color={"red"}
+            label={t("myad.delete")}
+            onPress={() => {
+              deleteAd(data._id);
+              setVisible(false);
+            }}
+          />
+        </Dialog.Container>
+      </View>
     </View>
   );
 }
