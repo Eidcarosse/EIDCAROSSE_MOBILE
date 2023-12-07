@@ -70,8 +70,6 @@ export default function ListData({ navigation, route }) {
   const [address, setAddress] = React.useState("");
   const [subCategory, setSubCategory] = React.useState(sub);
 
-  console.log("sssssss", s);
-
   const [title, setTitle] = React.useState(ti || "");
   const [pageNumber, setPageNumber] = React.useState(1);
   const [pricefrom, setPricefrom] = React.useState();
@@ -216,10 +214,11 @@ export default function ListData({ navigation, route }) {
     // Return an empty array if no match is found
     return [];
   };
+
   const getData = async () => {
     onRefresh(true);
     let d = await getAllData(queryParams);
-    if (d.length == 0) {
+    if (d?.ad.length == 0) {
       setempty(true);
     }
     if (d) {
@@ -442,7 +441,10 @@ export default function ListData({ navigation, route }) {
                 >
                   <IconButton
                     onPress={() => {
-                      navigation.replace(ScreenNames.CATEGORY);
+                      navigation.pop();
+                      navigation.navigate(ScreenNames.CATEGORY, {
+                        search: title,
+                      });
                     }}
                     title={
                       category ? t(`category.${category}`) : "Select Category"
@@ -457,11 +459,13 @@ export default function ListData({ navigation, route }) {
                   {subCategory && (
                     <IconButton
                       onPress={() => {
-                        navigation.replace(ScreenNames.BIKECATEGORY, {
+                        navigation.pop();
+                        navigation.navigate(ScreenNames.BIKECATEGORY, {
                           category: category,
                           find: category,
+                          search: title,
                           subCategories: getSubcategoriesByName(s, category),
-                          show:true
+                          show: true,
                         });
                       }}
                       title={t(`subList.${subCategory}`)}

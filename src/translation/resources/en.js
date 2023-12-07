@@ -549,4 +549,42 @@ export default {
     whatsapp: "Show my whatsapp number",
     ads: "Allow public to see my all ads?",
   },
+  flashmsg: {
+    authentication: "Authentication",
+    success: "Success",
+    error: "Error",
+    require: "Required",
+    password: "Password",
+    emptyfield: "Empty field",
+    loginfavorite: "Login to add favorite",
+    wrong: "Somthing went wrong re-try",
+    adPosterrormsg: "Something went wrong to post ad",
+    requiremsg: "Fields are empty",
+    editerrormsg: "Something went wrong to edit ad",
+    oldpaserror: "Old password field empty",
+    confirmerrormsg: "Confirm Password not match",
+    passwordlengtherrormsg:
+      "Confirm Password not match or less than 6 characters",
+    profileupdateerrormsg: "Something went wrong while updating profile",
+    updatepassworderrormsg: "Something went wrong while changing password",
+    wrongpinerrormsg: "Wrong Pin code",
+    emailrequireerrormsg: "Enter your registered Email to forget Password",
+    emailmsg: "Email is required or may be incorrect format",
+    password: "Password must be required or may be incorrect",
+
+    entercode: "Enter code to confirm",
+    signuperrormsg: "Something went wrong to Signup",
+
+    adPostsussessmsg: "Ad successfully posted",
+    editadsussessmsg: "Ad successfully edited",
+    passwordchangemsg: "Successfully Changed",
+    emailsussesssendmsg: "Code sent to your given Email",
+    sussessloginmsg: "Login successfully",
+
+    "Invalid email or password.": "Invalid email or password",
+    "Account is registered but not verified":"Account is registered but not verified",
+    "Alert! email already exists please enter someother email.":"Alert! email already exists please enter someother email.",
+    "Unable to create user! please try again.":"Unable to create user! please try again.",
+
+  },
 };

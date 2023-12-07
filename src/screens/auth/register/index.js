@@ -37,6 +37,14 @@ export default function SignUp({ navigation, route }) {
   const [whatsapp, SetWhatsapp] = useState("");
   const [viber, setViber] = useState("");
 
+  const [firstNamer, setFirstNamer] = useState("");
+  const [lastNamer, setLastNamer] = useState("");
+  const [userNamer, setUserNamer] = useState("");
+  const [emailr, setEmailr] = useState("");
+  const [passwordr, setPasswordr] = useState("");
+  const [phoneNumberr, setPhoneNumberr] = useState("");
+ 
+
   const userData = {
     firstName,
     lastName,
@@ -64,16 +72,16 @@ export default function SignUp({ navigation, route }) {
       let r = await signupApi(data);
       if (!r?.success) {
         dispatch(setAppLoader(false));
-        errorMessage(r?.message);
+        errorMessage(t(`flashmsg.${r?.message}`));
       } else if (r) {
-        successMessage("Saved");
+        successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(r?.data?.userDetails));
         dispatch(setToken(r?.data?.token));
         dispatch(setAppLoader(false));
         navigation.goBack();
       } else {
-        errorMessage("some issu");
+        errorMessage(t(`flashmsg.signuperrormsg`), t(`flashmsg.success`));
       }
     } catch (error) {
       dispatch(setAppLoader(false));
@@ -96,24 +104,28 @@ export default function SignUp({ navigation, route }) {
               setvalue={setFirstName}
               title={"signup.firstNameTitle"}
               placeholder={"signup.firstNamePlaceholder"}
+              require={firstNamer}
             />
             <Input
               value={lastName}
               setvalue={setLastName}
               title={"signup.lastNameTitle"}
               placeholder={"signup.lastNamePlaceholder"}
+              require={lastNamer}
             />
             <Input
               value={userName}
               setvalue={setUserName}
               title={"signup.userNameTitle"}
               placeholder={"signup.usernamePlaceholder"}
+              require={userNamer}
             />
             <Input
               value={email}
               setvalue={setEmail}
               title={"signup.emailTitle"}
               placeholder={"signup.emailPlaceholder"}
+              require={emailr}
             />
             <Input
               value={password}
@@ -121,14 +133,16 @@ export default function SignUp({ navigation, route }) {
               title={"signup.passwordTitle"}
               placeholder={"signup.passwordPlaceholder"}
               secure={true}
+              require={passwordr}
             />
             <Input
               value={phoneNumber}
               setvalue={setPhoneNumber}
               title={"signup.phoneNumberTitle"}
               placeholder={"signup.phoneNumberPlaceholder"}
+              require={phoneNumberr}
             />
-            <Input
+            {/* <Input
               value={whatsapp}
               setvalue={SetWhatsapp}
               title={"signup.whatsappTitle"}
@@ -139,7 +153,7 @@ export default function SignUp({ navigation, route }) {
               setvalue={setViber}
               title={"signup.viberTitle"}
               placeholder={"signup.viberPlaceholder"}
-            />
+            /> */}
             <View style={styles.checkview}>
               <CheckBox
                 style={{ paddingRight: width(2) }}
@@ -165,23 +179,23 @@ export default function SignUp({ navigation, route }) {
               disabled={!check}
               onPress={() => {
                 if (!firstName) {
-                  errorMessage("First Name require");
+                  setFirstNamer("require feild");
                 } else if (!lastName) {
-                  errorMessage("Last Name require");
+                  setLastNamer("require feild");
                 } else if (!userName) {
-                  errorMessage("User Name require");
+                  setUserNamer("require feild");
                 } else if (!email) {
-                  errorMessage("email require");
+                  setEmailr("require feild");
                 } else if (!isValidEmail(email)) {
-                  errorMessage("Email incorect formate");
-                } else if (!phoneNumber) {
-                  errorMessage("Password require");
+                  setEmailr("Email incorect formate");
+                } else if (!password) {
+                  setPasswordr("require feild");
                 } else if (!isValidPassword(password)) {
-                  errorMessage(
+                  setPasswordr(
                     "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
                   );
                 } else if (!phoneNumber) {
-                  errorMessage("Phone Number require");
+                  setPhoneNumberr("Phone Number require");
                 } else signup(userData);
               }}
               containerStyle={check ? styles.button : styles.dbutton}

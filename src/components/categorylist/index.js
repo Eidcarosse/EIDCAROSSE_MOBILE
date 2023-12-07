@@ -8,7 +8,7 @@ import { width } from "../../utills/Dimension";
 import CategoryIcon from "../categories";
 import styles from "./styles";
 
-export default function CategoryList({ navigation }) {
+export default function CategoryList({ navigation,search }) {
   const { t } = useTranslation();
   const data = useSelector(selectCategoryList);
 
@@ -18,7 +18,7 @@ export default function CategoryList({ navigation }) {
         <Text style={styles.categorytext}>{t("categorylist.categories")}</Text>
         <Pressable
           onPress={() => {
-            navigation.navigate(ScreenNames.CATEGORY, "see");
+            navigation.navigate(ScreenNames.CATEGORY, {search:search});
           }}
         >
           {<Text style={styles.textseeall}>{t("categorylist.seeAll")}</Text>}

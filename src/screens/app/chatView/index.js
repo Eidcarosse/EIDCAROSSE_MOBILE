@@ -525,11 +525,9 @@ function ChatView({ route }) {
             )}
           </View>
         </View>
-        {selectedItem && (
-          <View>
-            <AdView detail={selectedItem} />
-          </View>
-        )}
+      {selectedItem&&  <View>
+          <AdView detail={selectedItem} />
+        </View>}
 
         <GiftedChat
           onSend={onSend}

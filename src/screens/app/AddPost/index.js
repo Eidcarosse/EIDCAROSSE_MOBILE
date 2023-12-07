@@ -170,7 +170,7 @@ export default function AddPost({ navigation, route }) {
       if (isAnyFieldEmpty) {
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage("requierd feilds are empty");
+        errorMessage(t(`flashmsg.emptyfield`),t(`flashmsg.require`));
 
         return;
       }
@@ -211,9 +211,9 @@ export default function AddPost({ navigation, route }) {
       });
       const resp = await addPostAd(formData);
       if (resp?.success) {
-        successMessage("Ad successfuly posted");
+        successMessage(t(`flashmsg.adPostsussessmsg`),t(`flashmsg.success`));
       } else {
-        errorMessage("Something went wrong to post ad");
+        errorMessage(t(`flashmsg.adPosterrormsg`),t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
       navigation.navigate("StackHome");
@@ -244,7 +244,7 @@ export default function AddPost({ navigation, route }) {
       if (isAnyFieldEmpty) {
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage("requierd feilds are empty");
+        errorMessage(t(`flashmsg.requiremsg`),t(`flashmsg.require`));
 
         return;
       }
@@ -285,10 +285,10 @@ export default function AddPost({ navigation, route }) {
       });
       const resp = await editAdApi(edit?._id, formData);
       if (resp?.success) {
-        successMessage("Ad successfuly Edit");
+        successMessage(t(`flashmsg.editadsussessmsg`),t(`flashmsg.success`));
         navigation.navigate(ScreenNames.MYADS);
       } else {
-        errorMessage("Something went wrong to Edit ad");
+        errorMessage(t(`flashmsg.editerrormsg`),t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
       // navigation.navigate("StackHome");

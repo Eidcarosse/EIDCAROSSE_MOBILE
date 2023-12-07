@@ -28,6 +28,9 @@ export const successMessage = (description = "", message = "success") => {
     message: message,
     description: description,
     type: "success",
+    position: "top",
+    statusBarHeight: height(4),
+    floating: true,
   });
 };
 export const errorMessage = (description = "", message = "error") => {
@@ -46,6 +49,8 @@ export const infoMessage = (description = "", message = "info") => {
     description: description,
     type: "info",
     position: "top",
+    statusBarHeight: height(4),
+    floating: true,
   });
 };
 // export const toastMessage = (description = "", message = "Info", type = "info") => {
@@ -193,6 +198,9 @@ const openWhatsApp = (phoneNumber) => {
     });
 };
 export const openViber = (phoneNumber) => {
+  try {
+    
+
   const formattedPhoneNumber =
     Platform.OS === "android" ? phoneNumber.replace(/\+/g, "") : phoneNumber;
 
@@ -202,6 +210,9 @@ export const openViber = (phoneNumber) => {
     console.error("Error opening Viber:", err);
     // Handle the error or display a message to the user
   });
+} catch (error) {
+  errorMessage("Viber not exist");
+}
 };
 
 const calculateTimeDifference = (createdAt, l) => {

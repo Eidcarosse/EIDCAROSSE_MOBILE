@@ -24,16 +24,16 @@ export default function ForgetPassword({ navigation, route }) {
     const d = await forgetPasswordAPI(email);
     if (d?.success) {
       setToken(d?.data);
-      successMessage("Code send at your given Email");
+      successMessage(t(`flashmsg.emailsussesssendmsg`),t(`flashmsg.success`));
       setTimeout(() => setModel(true), 600);
-    } else errorMessage(d?.message, "Authentication");
+    } else errorMessage(d?.message, t(`flashmsg.authentication`));
   }
   async function checkPassword(code) {
     const d = await verifyCodeAPI(code);
     if (d?.success) {
       navigation.navigate(ScreenNames.CPF, { token, email });
     } else {
-      errorMessage("Wrong Pin code");
+      errorMessage(t(`flashmsg.wrongpinerrormsg`),t(`flashmsg.error`));
     }
   }
   return (
@@ -63,7 +63,7 @@ export default function ForgetPassword({ navigation, route }) {
               if (email) {
                 forgetpassword();
               } else {
-                errorMessage("Enter your register Email to forget Password");
+                errorMessage(t(`flashmsg.emailrequireerrormsg`),t(`flashmsg.error`));
               }
             }}
           />
@@ -115,7 +115,7 @@ export default function ForgetPassword({ navigation, route }) {
                 if (code) {
                   checkPassword(code);
                 } else {
-                  errorMessage("Enter pin code");
+                  errorMessage(t(`flashmsg.entercode`),t(`flashmsg.error`));
                 }
                 //setModel(false);
               }}

@@ -34,6 +34,8 @@ export default function Login({ navigation, route }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailr, setEmailr] = useState("");
+  const [passwordr, setPasswordr] = useState("");
 
   // const isValidEmail = (email) => {
   //   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -47,7 +49,7 @@ export default function Login({ navigation, route }) {
     return email.length > 0;
   };
   const isValidPassword = (password) => {
-    return password.length >= 6;
+    return password.length > 0;
   };
   const userData = {
     email: email.trim(),
@@ -60,7 +62,10 @@ export default function Login({ navigation, route }) {
       let res = await loginApi(data);
       if (!res?.success) {
         dispatch(setAppLoader(false));
-        errorMessage(res?.message);
+        errorMessage(
+          t(`flashmsg.${res?.message}`),
+          t("flashmsg.authentication")
+        );
       } else if (res?.success) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(res?.data?.userDetails));
@@ -68,10 +73,11 @@ export default function Login({ navigation, route }) {
         dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
         setAuthData(data);
         dispatch(setAppLoader(false));
-        successMessage("saved");
+        successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
         navigation.navigate(ScreenNames.BUTTOM);
       } else {
-        alert("Somthing wrong in Login"), dispatch(setAppLoader(false));
+        errorMessage(t(`flashmsg.wrong`), t("flashmsg.error")),
+          dispatch(setAppLoader(false));
       }
     } catch (error) {
       errorMessage("Network error");
@@ -96,7 +102,6 @@ export default function Login({ navigation, route }) {
             style={{
               height: height(70),
               paddingTop: width(5),
-              padding: width(5),
             }}
           >
             <Input
@@ -104,6 +109,7 @@ export default function Login({ navigation, route }) {
               setvalue={setEmail}
               title={"login.emailTitle"}
               placeholder={"login.yourEmailAddress"}
+              require={emailr}
             />
             <Input
               value={password}
@@ -111,15 +117,16 @@ export default function Login({ navigation, route }) {
               title={"login.passwordTitle"}
               placeholder={"login.yourPassword"}
               secure={true}
+              require={passwordr}
             />
             <Button
               containerStyle={styles.button}
               title={"login.loginButton"}
               onPress={() => {
                 if (!isValidEmail(email)) {
-                  errorMessage("Email is require or may incorect formate");
+                  setEmailr("email require");
                 } else if (!isValidPassword(password)) {
-                  errorMessage("Password must be requied or may incorect");
+                  setPasswordr("password require");
                 } else login(userData);
               }}
             />

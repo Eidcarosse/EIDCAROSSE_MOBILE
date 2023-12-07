@@ -172,10 +172,6 @@ export default function Routes() {
       <Loader />
       <Stack.Navigator screenOptions={{ header: () => false }}>
         <Stack.Screen name={"drawr"} component={MyDrawer} />
-        <Stack.Screen
-          name={ScreenNames.ONBOARDING}
-          component={OnBoardingScreen}
-        />
         <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />
         <Stack.Screen
           name={ScreenNames.FORGET}

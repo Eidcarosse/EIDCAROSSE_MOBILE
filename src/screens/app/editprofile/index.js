@@ -63,7 +63,7 @@ export default function EditProfile({ navigation, route }) {
       if (d) {
         dispatch(setUserMeta(d)), navigation.goBack();
       } else {
-        errorMessage("Not update");
+        errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
     } catch (error) {

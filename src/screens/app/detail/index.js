@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Image,
+  Linking,
   Pressable,
   Text,
   TouchableOpacity,
@@ -50,7 +51,10 @@ export default function Detail({ navigation, route }) {
       setFav(false);
     }
   });
-
+  const handlePress = () => {
+    // You can replace the URL with the link you want to open
+    Linking.openURL(data?.videoUrl);
+  };
   function isInArray(element, arr) {
     // Check if arr is defined and not null
     if (arr && Array.isArray(arr)) {
@@ -60,7 +64,7 @@ export default function Detail({ navigation, route }) {
   }
   const onpressfav = async () => {
     if (!loginuser) {
-      infoMessage("Login to ad Favotite", "Authentication");
+      infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
       let fav = await toggleFavorite(data?._id, loginuser?._id);
       if (isInArray(data._id, fav)) {
@@ -372,7 +376,12 @@ export default function Detail({ navigation, route }) {
               {!isNullOrNullOrEmpty(data?.videoUrl) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.videourl")}</Text>
-                  <Text style={styles.cardelement2}>{data?.videoUrl}</Text>
+                  <TouchableOpacity
+                    style={styles.cardelement2}
+                    onPress={handlePress}
+                  >
+                    <Text style={{ color: "blue" }}>{data?.videoUrl}</Text>
+                  </TouchableOpacity>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.website) && (
@@ -415,11 +424,11 @@ export default function Detail({ navigation, route }) {
                       marginHorizontal: width(2),
                       fontSize: width(4),
                       fontWeight: "bold",
-                      width:width(50),
+                      width: width(50),
                       color: AppColors.black,
                     }}
                   >
-                    {data?.userId?.firstName}{' '}{data?.userId?.lastName}
+                    {data?.userId?.firstName} {data?.userId?.lastName}
                   </Text>
                   <Text
                     style={{

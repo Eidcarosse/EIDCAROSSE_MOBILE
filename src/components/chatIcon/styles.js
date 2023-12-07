@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     width: width(23),
   },
   image: {
-    width: width(20),
-    height: width(20),
+    width: width(17),
+    height: width(17),
     borderRadius: width(10),
     borderWidth:width(.3),
     borderColor:AppColors.primary

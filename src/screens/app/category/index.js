@@ -9,7 +9,11 @@ import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
 export default function Category({ navigation, route, value }) {
+  console.log('====================================');
+  console.log("loggggggg",route?.params);
+  console.log('====================================');
   const data = useSelector(selectCategoryList);
+  const search = route?.params?.search;
   return (
     <ScreenWrapper
       headerUnScrollable={() =>
@@ -22,12 +26,7 @@ export default function Category({ navigation, route, value }) {
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
-      <View
-        style={[
-          styles.mainViewContainer,
-          { paddingBottom: route?.params ? height(2) : height(7) },
-        ]}
-      >
+      <View style={[styles.mainViewContainer, { paddingBottom: height(7) }]}>
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
@@ -61,11 +60,13 @@ export default function Category({ navigation, route, value }) {
                       find: item?.name,
                       show: true,
                       subCategories: item?.subCategories,
+                      search: search||'',
                     });
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
                       category: item?.name,
                       find: item?.name,
+                      search: search||'',
                     });
                   }
                 }}

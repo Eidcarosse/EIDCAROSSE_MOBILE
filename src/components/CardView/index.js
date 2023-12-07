@@ -47,7 +47,7 @@ export default function CardView({ data }) {
 
   const onpressfav = async () => {
     if (!loginuser) {
-      infoMessage("Login to ad Favotite", "Authentication");
+      infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       dispatch(setAdsFav(fav));

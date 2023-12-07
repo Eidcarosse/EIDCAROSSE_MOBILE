@@ -16,8 +16,10 @@ import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import { WebLink } from "../../utills/Constants";
 import { selectCurrentLanguage } from "../../redux/slices/language";
+import { useTranslation } from "react-i18next";
 export default function ListingView({ data }) {
   const dispatch = useDispatch();
+  const {t}=useTranslation()
   const language = useSelector(selectCurrentLanguage);
   const favAdIds = useSelector(selectFavAds);
   const loginuser = useSelector(selectUserMeta);
@@ -41,7 +43,7 @@ export default function ListingView({ data }) {
   }
   const onpressfav = async () => {
     if (!loginuser) {
-      infoMessage("Login to ad Favotite", "Authentication");
+      infoMessage(t(`flashmsg.loginfavorite`),t(`flashmsg.authentication`));
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {

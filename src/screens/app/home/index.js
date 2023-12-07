@@ -85,7 +85,7 @@ export default function Home({}) {
           containerstyle={styles.search}
           next={true}
         />
-        <CategoryList navigation={navigation} />
+        <CategoryList navigation={navigation} search={searchString} />
         <View style={styles.titleview}>
           <Text style={{ fontSize: width(3.5), fontWeight: "bold" }}>
             {t("home.letest")}

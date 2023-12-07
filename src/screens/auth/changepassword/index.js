@@ -11,8 +11,10 @@ import { height, width } from "../../../utills/Dimension";
 import ScreenNames from "../../../routes/routes";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import { resetPasswordAPI } from "../../../backend/auth";
+import { useTranslation } from "react-i18next";
 export default function ChangePassword({ navigation, route }) {
   const dispatch = useDispatch();
+  const {t}=useTranslation()
   const email = route?.params?.email;
   const token = route?.params?.token;
   const [newPassword, setNewPassword] = useState("");
@@ -32,11 +34,11 @@ export default function ChangePassword({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message);
       } else if (r) {
-        successMessage("Succusfuly Change", "Password");
+        successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
         navigation.navigate(ScreenNames.LOGIN);
       } else {
-        errorMessage("some isseu");
+       // errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.password`));
       }
       // dispatch(setAppLoader(false));
     } catch (error) {
@@ -77,11 +79,10 @@ export default function ChangePassword({ navigation, route }) {
                 isValidPassword(newPassword)
               ) {
                 errorMessage(
-                  "confirm Password not match or lessthan 6 characters",
-                  "Password"
+                  t(`flashmsg.confirmerrormsg`),t(`flashmsg.password`)
                 );
               } else if (newPassword == "" || confirmPassword == "") {
-                errorMessage("Empaty feild", "Password");
+                errorMessage(t(`flashmsg.emptyfield`),t(`flashmsg.password`));
               } else chngePassword();
             }}
           />

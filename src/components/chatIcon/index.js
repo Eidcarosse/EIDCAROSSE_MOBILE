@@ -28,6 +28,9 @@ export default function ChatIcon({ navigation, data, onPress }) {
     <TouchableOpacity
       style={styles.main}
       onPress={() => {
+        console.log("====================================");
+        console.log("All Chatroom id ", data);
+        console.log("====================================");
         navigation.navigate(ScreenNames.CHAT, {
           usr: user,
           userRoom: data,

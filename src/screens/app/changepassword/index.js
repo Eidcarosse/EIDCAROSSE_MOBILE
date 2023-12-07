@@ -29,11 +29,11 @@ export default function ChangePassword({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message);
       } else if (r) {
-        successMessage("Succusfuly Change", "Password");
+        successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
         navigation.goBack();
       } else {
-        errorMessage("some isseu");
+       // errorMessage(t(`flashmsg.editerrormsg`),t(`flashmsg.error`));
       }
       // dispatch(setAppLoader(false));
     } catch (error) {
@@ -76,9 +76,9 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.savebutton"}
             onPress={() => {
               if (!oldPassword)
-                errorMessage("old password not exist", "Password");
+                errorMessage(t(`flashmsg.oldpaserror`),t(`flashmsg.password`));
               else if (newPassword !== confirmPassword)
-                errorMessage("confirm Password not match", "Password");
+                errorMessage(t(`flashmsg.confirmerrormsg`),t(`flashmsg.password`));
               else chngePassword();
             }}
           />

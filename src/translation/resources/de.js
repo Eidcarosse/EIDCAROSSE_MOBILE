@@ -533,4 +533,37 @@ export default {
     viber: "Meine Viber-Nummer anzeigen?",
     whatsapp: "Meine Whatsapp-Nummer anzeigen?",
   },
+  flashmsg: {
+    authentication: "Authentifizierung",
+    success: "Erfolg",
+    error: "Fehler",
+    require: "Erforderlich",
+    password: "Passwort",
+    emptyfield: "Leeres Feld",
+    loginfavorite: "Einloggen, um zu den Favoriten hinzuzufügen",
+    adPosterrormsg:
+      "Etwas ist schief gelaufen beim Veröffentlichen der Anzeige",
+    requiremsg: "Felder sind leer",
+    editerrormsg: "Etwas ist schief gelaufen beim Bearbeiten der Anzeige",
+    oldpaserror: "Altes Passwortfeld leer",
+    confirmerrormsg: "Passwortbestätigung stimmt nicht überein",
+    passwordlengtherrormsg:
+      "Passwortbestätigung stimmt nicht überein oder ist kürzer als 6 Zeichen",
+    profileupdateerrormsg:
+      "Etwas ist schief gelaufen beim Aktualisieren des Profils",
+    updatepassworderrormsg:
+      "Etwas ist schief gelaufen beim Ändern des Passworts",
+    wrongpinerrormsg: "Falscher Pin-Code",
+    emailrequireerrormsg:
+      "Geben Sie Ihre registrierte E-Mail ein, um das Passwort zu vergessen",
+    emailmsg: "E-Mail ist erforderlich oder möglicherweise im falschen Format",
+    password: "Passwort ist erforderlich oder möglicherweise falsch",
+    whatsapperror: "WhatsApp existiert nicht",
+    vibererror: "Viber existiert nicht",
+    adPostsussessmsg: "Anzeige erfolgreich veröffentlicht",
+    editadsussessmsg: "Anzeige erfolgreich bearbeitet",
+    passwordchangemsg: "Erfolgreich geändert",
+    emailsussesssendmsg: "Code an Ihre angegebene E-Mail gesendet",
+    sussessloginmsg: "Anmeldung erfolgreich",
+  },
 };

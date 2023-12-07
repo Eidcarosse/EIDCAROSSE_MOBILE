@@ -9,6 +9,7 @@ import { width } from "../../../utills/Dimension";
 
 export default function BikeCategory({ navigation, route }) {
   const subCategories = route?.params?.subCategories;
+  const search=route?.params?.search
   const { t } = useTranslation();
   return (
     <ScreenWrapper
@@ -46,6 +47,7 @@ export default function BikeCategory({ navigation, route }) {
                       category: route?.params?.category,
                       find: item.name,
                       subcategory: item.name,
+                      search:search||''
                     });
                 }}
               >

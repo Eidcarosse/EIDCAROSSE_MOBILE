@@ -5,8 +5,6 @@ import { store } from "./redux/index";
 import FlashMessage from "react-native-flash-message";
 import { LogBox } from "react-native";
 import i18n from "./translation";
-import { getlangData } from "./utills/Methods";
-import { setLanguage } from "./redux/slices/language";
 LogBox.ignoreAllLogs(true);
 
 // import { initReactI18next } from "react-i18next";
@@ -21,8 +19,6 @@ LogBox.ignoreAllLogs(true);
 //   fallbackLng: "en",
 // });
 export default function App() {
- 
-
   return (
     <Provider store={store}>
       <Routes />
