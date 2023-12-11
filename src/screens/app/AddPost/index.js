@@ -301,15 +301,15 @@ export default function AddPost({ navigation, route }) {
   };
   const rdata = [
     {
-      key: feild?.conditionList[0]?.value || "New",
+      key: feild?.conditionList[0]?.value,
       label: t("condition.new"),
     },
     {
-      key: feild?.conditionList[1]?.value || "Used",
+      key: feild?.conditionList[1]?.value,
       label: t("condition.used"),
     },
     {
-      key: feild?.conditionList[2]?.value || "Recondition",
+      key: feild?.conditionList[2]?.value,
       label: t("condition.Recondition"),
     },
   ];

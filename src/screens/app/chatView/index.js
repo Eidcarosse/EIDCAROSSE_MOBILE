@@ -18,7 +18,11 @@ import {
 } from "react-native-gifted-chat";
 import { useDispatch, useSelector } from "react-redux";
 import { AdView, DropDownMenu } from "../../../components";
-import { selectUserMeta, setChatRooms } from "../../../redux/slices/user";
+import {
+  selectChatRooms,
+  selectUserMeta,
+  setChatRooms,
+} from "../../../redux/slices/user";
 import { height, width } from "../../../utills/Dimension";
 
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -44,7 +48,7 @@ function ChatView({ route }) {
   const database = getDatabase();
   const [messages, setMessages] = useState([]);
   const [receiver, setReceiver] = useState();
-  const [roomID, setRoomID] = useState(route?.params.userRoom, roomID);
+  const [roomID, setRoomID] = useState(route?.params.userRoom);
   const [items, setItems] = useState();
   const [selectedItem, setSelectedItem] = useState();
   const [online, setOnline] = useState();
@@ -58,12 +62,18 @@ function ChatView({ route }) {
 
   const usrData = route.params?.usr;
   const user = useSelector(selectUserMeta);
+  const data = useSelector(selectChatRooms);
+
   useEffect(() => {
     myfuntion();
   }, [roomID]);
   useEffect(() => {
     if (!(route?.params?.userRoom == null)) {
       setRoomID(route?.params?.userRoom);
+    } else {
+      setRoomID(
+        `${user?._id}_${route.params.usr?._id}_${route.params?.userItem}`
+      );
     }
     getItems();
     setReceiver(route.params?.usr);
@@ -525,9 +535,11 @@ function ChatView({ route }) {
             )}
           </View>
         </View>
-      {selectedItem&&  <View>
-          <AdView detail={selectedItem} />
-        </View>}
+        {selectedItem && (
+          <View>
+            <AdView detail={selectedItem} />
+          </View>
+        )}
 
         <GiftedChat
           onSend={onSend}
