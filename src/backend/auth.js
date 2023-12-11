@@ -140,6 +140,29 @@ const resetPasswordAPI = async (p) => {
     console.error("Error:", error.response.data);
   }
 };
+const verifycode = async (data) => {
+  try {
+    const response = await ApiManager.post("auth/resend-code", data);
+
+    // Handle the response here
+    return response;
+  } catch (error) {
+    // Handle errors here
+    console.error("Error:", error.response.data);
+  }
+};
+const verifyAccount = async (data) => {
+  try {
+    const response = await ApiManager.post("auth/verify-account", data);
+
+    // Handle the response here
+    return response;
+  } catch (error) {
+    // Handle errors here
+    console.error("Error:", error.response.data);
+  }
+};
+
 export {
   signupApi,
   loginApi,
@@ -153,4 +176,6 @@ export {
   forgetPasswordAPI,
   verifyCodeAPI,
   resetPasswordAPI,
+  verifycode,
+  verifyAccount
 };

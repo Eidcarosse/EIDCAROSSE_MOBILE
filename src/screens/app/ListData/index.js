@@ -441,10 +441,13 @@ export default function ListData({ navigation, route }) {
                 >
                   <IconButton
                     onPress={() => {
-                      navigation.pop();
-                      navigation.navigate(ScreenNames.CATEGORY, {
-                        search: title,
-                      });
+                      refRBSheet.current.close();
+                      setTimeout(() => {
+                        navigation.pop();
+                        navigation.navigate(ScreenNames.CATEGORY, {
+                          search: title,
+                        });
+                      }, 600);
                     }}
                     title={
                       category ? t(`category.${category}`) : "Select Category"
@@ -459,14 +462,17 @@ export default function ListData({ navigation, route }) {
                   {subCategory && (
                     <IconButton
                       onPress={() => {
-                        navigation.pop();
-                        navigation.navigate(ScreenNames.BIKECATEGORY, {
-                          category: category,
-                          find: category,
-                          search: title,
-                          subCategories: getSubcategoriesByName(s, category),
-                          show: true,
-                        });
+                        refRBSheet.current.close();
+                        setTimeout(() => {
+                          navigation.pop();
+                          navigation.navigate(ScreenNames.BIKECATEGORY, {
+                            category: category,
+                            find: category,
+                            search: title,
+                            subCategories: getSubcategoriesByName(s, category),
+                            show: true,
+                          });
+                        }, 600);
                       }}
                       title={t(`subList.${subCategory}`)}
                       containerStyle={styles.containerb}
@@ -574,24 +580,7 @@ export default function ListData({ navigation, route }) {
                         />
                       </View>
                     )}
-                  {!(
-                    sub == "undefined" ||
-                    sub == undefined ||
-                    sub == null ||
-                    sub == "null"
-                  ) && (
-                    <View style={{ paddingVertical: width(1) }}>
-                      <Text style={styles.title}>
-                        {t("addPost.subcategory")}
-                      </Text>
-                      <Input
-                        value={subCategory}
-                        setvalue={setSubCategory}
-                        containerStyle={[styles.sub]}
-                        editable={false}
-                      />
-                    </View>
-                  )}
+
                   {showBrand(category) && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.brand")}</Text>

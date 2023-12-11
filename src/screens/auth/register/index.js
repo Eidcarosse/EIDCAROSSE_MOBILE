@@ -43,7 +43,6 @@ export default function SignUp({ navigation, route }) {
   const [emailr, setEmailr] = useState("");
   const [passwordr, setPasswordr] = useState("");
   const [phoneNumberr, setPhoneNumberr] = useState("");
- 
 
   const userData = {
     firstName,
@@ -75,11 +74,8 @@ export default function SignUp({ navigation, route }) {
         errorMessage(t(`flashmsg.${r?.message}`));
       } else if (r) {
         successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
-        dispatch(setIsLoggedIn(true));
-        dispatch(setUserMeta(r?.data?.userDetails));
-        dispatch(setToken(r?.data?.token));
         dispatch(setAppLoader(false));
-        navigation.goBack();
+        navigation.navigate(ScreenNames.VERIFY, { data: r?.data });
       } else {
         errorMessage(t(`flashmsg.signuperrormsg`), t(`flashmsg.success`));
       }
@@ -201,14 +197,7 @@ export default function SignUp({ navigation, route }) {
               containerStyle={check ? styles.button : styles.dbutton}
               title={"signup.signupButton"}
             />
-            <Button
-              containerStyle={styles.button}
-              title={"signup.continueWithGoogle"}
-              onPress={() => {
-                // dispatch(setIsLoggedIn(true));
-                // navigation.navigate(ScreenNames.BUTTOM);
-              }}
-            />
+        
             <View style={{ height: height(5) }} />
 
             <View style={styles.already}>

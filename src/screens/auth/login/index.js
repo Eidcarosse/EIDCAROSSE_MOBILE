@@ -23,6 +23,7 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
+  infoMessage,
   setAuthData,
   successMessage,
 } from "../../../utills/Methods";
@@ -60,6 +61,9 @@ export default function Login({ navigation, route }) {
     try {
       dispatch(setAppLoader(true));
       let res = await loginApi(data);
+      console.log("====================================");
+      console.log(res);
+      console.log("====================================");
       if (!res?.success) {
         dispatch(setAppLoader(false));
         errorMessage(
@@ -67,14 +71,20 @@ export default function Login({ navigation, route }) {
           t("flashmsg.authentication")
         );
       } else if (res?.success) {
-        dispatch(setIsLoggedIn(true));
-        dispatch(setUserMeta(res?.data?.userDetails));
-        dispatch(setToken(res?.data?.token));
-        dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
-        setAuthData(data);
-        dispatch(setAppLoader(false));
-        successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
-        navigation.navigate(ScreenNames.BUTTOM);
+        if (!res?.data?.userDetails?.verified) {
+          dispatch(setAppLoader(false));
+          infoMessage("Account not verified");
+          navigation.navigate(ScreenNames.VERIFY, { data: res?.data });
+        } else {
+          dispatch(setIsLoggedIn(true));
+          dispatch(setUserMeta(res?.data?.userDetails));
+          dispatch(setToken(res?.data?.token));
+          dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
+          setAuthData(data);
+          dispatch(setAppLoader(false));
+          successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
+          navigation.navigate(ScreenNames.BUTTOM);
+        }
       } else {
         errorMessage(t(`flashmsg.wrong`), t("flashmsg.error")),
           dispatch(setAppLoader(false));

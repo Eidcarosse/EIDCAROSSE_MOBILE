@@ -55,6 +55,7 @@ import {
   LoginScreen,
   OnBoardingScreen,
   SignUpScreen,
+  verifyScreen,
 } from "../screens/auth";
 import i18n from "../translation";
 import {
@@ -177,6 +178,7 @@ export default function Routes() {
           name={ScreenNames.FORGET}
           component={ForgetPasswordScreen}
         />
+        <Stack.Screen name={ScreenNames.VERIFY} component={verifyScreen} />
         <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
         <Stack.Screen name={ScreenNames.DETAIL} component={DetailScreen} />
         <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />

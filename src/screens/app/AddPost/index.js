@@ -29,6 +29,8 @@ import {
   selectShowViber,
   selectShowWhatsapp,
   setAppLoader,
+  setShowViber,
+  setShowWhatsapp,
 } from "../../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
@@ -88,18 +90,24 @@ export default function AddPost({ navigation, route }) {
   );
   const [email, setEmail] = React.useState(userInfo?.email);
   const [phone, setPhone] = React.useState(userInfo?.phoneNumber);
-  const [whatsapp, setWhatsapp] = React.useState(userInfo?.whatsapp);
-  const [viber, setViber] = React.useState(userInfo?.viber);
-  const [website, setWebsite] = React.useState("");
+  const [whatsapp, setWhatsapp] = React.useState(
+    edit?.whatsapp || userInfo?.whatsapp
+  );
+  const [viber, setViber] = React.useState(edit?.viber || userInfo?.viber);
   const [address, setAddress] = React.useState(edit?.address || "");
 
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vtype, setVtype] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
   const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
-  const [addWhatsapp, setAddWhatsapp] = useState(edit?.whatsapp ? true : w);
-  const [addViber, setAddViber] = useState(edit?.viber ? true : v);
+
+  const [addWhatsapp, setAddWhatsapp] = useState(w);
+  const [addViber, setAddViber] = useState(v);
   const [feild, setFeild] = useState();
+  useEffect(() => {
+    setAddViber(edit?.viber ? true : false);
+    setAddWhatsapp(edit?.whatsapp ? true : false);
+  }, [edit]);
   useEffect(() => {
     getvehicleMake();
     if (showType(category)) {
@@ -155,9 +163,7 @@ export default function AddPost({ navigation, route }) {
     try {
       const requiredFields = [
         title,
-        category,
         condition,
-        brand,
         description,
         latitude,
         longitude,
@@ -170,7 +176,7 @@ export default function AddPost({ navigation, route }) {
       if (isAnyFieldEmpty) {
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage(t(`flashmsg.emptyfield`),t(`flashmsg.require`));
+        errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.require`));
 
         return;
       }
@@ -198,7 +204,6 @@ export default function AddPost({ navigation, route }) {
       formData.append("longitude", longitude);
       formData.append("address", address);
       addViber && formData.append("viber", viber);
-      formData.append("website", website);
       addWhatsapp && formData.append("whatsapp", whatsapp);
       addPhone && formData.append("phone", true);
       // Append each selected image to the form data
@@ -211,9 +216,9 @@ export default function AddPost({ navigation, route }) {
       });
       const resp = await addPostAd(formData);
       if (resp?.success) {
-        successMessage(t(`flashmsg.adPostsussessmsg`),t(`flashmsg.success`));
+        successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
       } else {
-        errorMessage(t(`flashmsg.adPosterrormsg`),t(`flashmsg.error`));
+        errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
       navigation.navigate("StackHome");
@@ -229,10 +234,7 @@ export default function AddPost({ navigation, route }) {
     try {
       const requiredFields = [
         title,
-        category,
         condition,
-        brand,
-        description,
         latitude,
         longitude,
         address,
@@ -244,7 +246,7 @@ export default function AddPost({ navigation, route }) {
       if (isAnyFieldEmpty) {
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage(t(`flashmsg.requiremsg`),t(`flashmsg.require`));
+        errorMessage(t(`flashmsg.requiremsg`), t(`flashmsg.require`));
 
         return;
       }
@@ -271,11 +273,9 @@ export default function AddPost({ navigation, route }) {
       formData.append("latitude", latitude);
       formData.append("longitude", longitude);
       formData.append("address", address);
-      addViber && formData.append("viber", viber);
-      // formData.append("website", website);
-      addWhatsapp && formData.append("whatsapp", whatsapp);
+      formData.append("viber", addViber == true ? viber : "");
+      formData.append("whatsapp", addWhatsapp == true ? whatsapp : "");
       addPhone && formData.append("phone", phone);
-      // Append each selected image to the form data
       image.forEach((img, index) => {
         formData.append("file", {
           name: `image${index}`,
@@ -285,10 +285,10 @@ export default function AddPost({ navigation, route }) {
       });
       const resp = await editAdApi(edit?._id, formData);
       if (resp?.success) {
-        successMessage(t(`flashmsg.editadsussessmsg`),t(`flashmsg.success`));
+        successMessage(t(`flashmsg.editadsussessmsg`), t(`flashmsg.success`));
         navigation.navigate(ScreenNames.MYADS);
       } else {
-        errorMessage(t(`flashmsg.editerrormsg`),t(`flashmsg.error`));
+        errorMessage(t(`flashmsg.editerrormsg`), t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
       // navigation.navigate("StackHome");
@@ -301,15 +301,15 @@ export default function AddPost({ navigation, route }) {
   };
   const rdata = [
     {
-      key: feild?.conditionList[0]?.name || "New",
+      key: feild?.conditionList[0]?.value || "New",
       label: t("condition.new"),
     },
     {
-      key: feild?.conditionList[1]?.name || "Used",
+      key: feild?.conditionList[1]?.value || "Used",
       label: t("condition.used"),
     },
     {
-      key: feild?.conditionList[2]?.name || "Recondition",
+      key: feild?.conditionList[2]?.value || "Recondition",
       label: t("condition.Recondition"),
     },
   ];
@@ -371,7 +371,7 @@ export default function AddPost({ navigation, route }) {
               showsHorizontalScrollIndicator={false}
               style={{ marginHorizontal: width(2) }}
             >
-              {image.length <= 5 && (
+              {image.length < 7 && (
                 <TouchableOpacity
                   style={{
                     backgroundColor: AppColors.primary,
@@ -501,8 +501,13 @@ export default function AddPost({ navigation, route }) {
               <RadioButtonRN
                 data={rdata}
                 initial={
-                  rdata.findIndex((item) => item.key == edit?.condition) + 1 ||
-                  0
+                  edit?.condition
+                    ? rdata.findIndex(
+                        (item) =>
+                          item.key.toLowerCase() ===
+                          (edit?.condition || "").toLowerCase()
+                      ) + 1
+                    : 0
                 }
                 circleSize={width(3)}
                 boxStyle={{
@@ -549,7 +554,9 @@ export default function AddPost({ navigation, route }) {
             sub == "undefined" ||
             sub == undefined ||
             sub == null ||
-            sub == "null"
+            sub == "null" ||
+            sub == " " ||
+            sub == ""
           ) && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.subcategory")}</Text>
@@ -591,11 +598,11 @@ export default function AddPost({ navigation, route }) {
             <View>
               {apimodel ? (
                 <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>
-                    {model || t("addPost.model")}
-                  </Text>
+                  <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
-                    defaultButtonText={t("addPost.defaultValueDropdown")}
+                    defaultButtonText={
+                      model || t("addPost.defaultValueDropdown")
+                    }
                     ref={modelRef}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     data={apimodel}
@@ -942,7 +949,7 @@ export default function AddPost({ navigation, route }) {
             <GooglePlacesAutocomplete
               fetchDetails={true}
               autoFillOnNotFound={true}
-              placeholder={t("addPost.phlocation")}
+              placeholder={edit?.address || t("addPost.phlocation")}
               currentLocation={true}
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
@@ -1048,13 +1055,17 @@ export default function AddPost({ navigation, route }) {
         multi={true}
         onFilesSelected={(img) => {
           const selectedImages = img.map((imageUri) => {
-            if (image.length < 5) {
-              return Platform.OS === "android"
-                ? imageUri.uri
-                : imageUri.uri.replace("file://", "");
-            }
+            return Platform.OS === "android"
+              ? imageUri.uri
+              : imageUri.uri.replace("file://", "");
           });
-          setImage([...image, ...selectedImages]);
+          const combinedImages = [...image, ...selectedImages];
+
+          // If the total number of images exceeds 7, slice the array to keep only the first 7
+          const limitedImages = combinedImages.slice(0, 7);
+
+          // Update the state with the limited images
+          setImage(limitedImages);
         }}
       />
     </ScreenWrapper>

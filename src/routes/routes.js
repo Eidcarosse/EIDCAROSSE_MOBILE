@@ -30,6 +30,6 @@ const ScreenNames = {
   FORGET: "ForgetPassord",
   PANDS:"PandS",
   CPF:"CPForget",
-  justifyContent: "center",
+  VERIFY:"Verify"
 };
 export default ScreenNames;
