@@ -140,7 +140,7 @@ export default function Detail({ navigation, route }) {
         !(data?.userId?._id == loginuser?._id || load) && (
           <DetailFooter
             pNumber={data?.phone}
-            onPressCall={() => GlobalMethods.onPressCall(data?.phone)}
+            onPressCall={() => GlobalMethods.onPressCall(data?.userId?.phoneNumber)}
             onPressChat={() => {
               navigation.navigate(ScreenNames.CHAT, {
                 userRoom: null,

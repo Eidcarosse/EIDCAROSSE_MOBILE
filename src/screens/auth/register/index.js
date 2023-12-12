@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
@@ -93,7 +95,7 @@ export default function SignUp({ navigation, route }) {
             <Text style={styles.logintext}>{t("signup.signup")}</Text>
           </View>
         </ImageBackground>
-        <ScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ paddingVertical: width(10) }}>
             <Input
               value={firstName}
@@ -197,7 +199,7 @@ export default function SignUp({ navigation, route }) {
               containerStyle={check ? styles.button : styles.dbutton}
               title={"signup.signupButton"}
             />
-        
+
             <View style={{ height: height(5) }} />
 
             <View style={styles.already}>
@@ -214,7 +216,7 @@ export default function SignUp({ navigation, route }) {
               </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </ScreenWrapper>
   );

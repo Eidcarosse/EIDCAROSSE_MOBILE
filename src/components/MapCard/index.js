@@ -141,7 +141,7 @@ export default function MapAdCard({ data, onPress }) {
         <View style={styles.icons}>
           <TouchableOpacity
             disabled={data?.phone ? false : true}
-            onPress={() => GlobalMethods.onPressCall(data?.phone)}
+            onPress={() => GlobalMethods.onPressCall(data?.userId?.phoneNumber)}
           >
             <Ionicons
               size={width(4)}

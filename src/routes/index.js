@@ -163,6 +163,7 @@ export default function Routes() {
   useEffect(() => {
     languageset();
   }, []);
+
   const languageset = async () => {
     let lang = await getlangData();
     i18n.changeLanguage(lang);

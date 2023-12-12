@@ -3,31 +3,25 @@ import { height, width } from "../../../utills/Dimension";
 import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
-  mainViewContainer: {
-    alignContent: "center",
-    alignItems: "center",
-    padding: width(2),
-    paddingBottom: width(17),
-  },
   card: {
-    width: width(30),
-    height: height(14),
-    margin: width(1),
-    borderRadius: width(2),
+    flexDirection: "row",
+    width: width(90),
+    borderRadius: height(0.5),
+    paddingHorizontal: height(2),
+    paddingVertical: height(0.5),
+    margin: height(1),
+    alignItems: "center",
     alignSelf: "center",
-    backgroundColor: AppColors.white,
-    padding: width(2),
-    justifyContent: 'space-evenly',
   },
-  greybackground: {
-    backgroundColor: AppColors.white,
-    elevation: 0,
-
+  imageStyle: {
+    width: width(10),
+    height: width(10),
   },
-  textStyle: {
-    width: width(30),
-    textAlign: "center",
-    fontSize: width(3),
-  },
+  textStyle:{
+    fontSize:width(3.8),
+    fontWeight:'500',
+    paddingHorizontal:width(8),
+    width:width(67)
+  }
 });
 export default styles;

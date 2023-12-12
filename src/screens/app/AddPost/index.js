@@ -99,14 +99,18 @@ export default function AddPost({ navigation, route }) {
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vtype, setVtype] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
+
   const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
 
   const [addWhatsapp, setAddWhatsapp] = useState(w);
   const [addViber, setAddViber] = useState(v);
   const [feild, setFeild] = useState();
   useEffect(() => {
-    setAddViber(edit?.viber ? true : false);
-    setAddWhatsapp(edit?.whatsapp ? true : false);
+    if (edit) {
+      setAddViber(edit?.viber ? true : false);
+      setAddWhatsapp(edit?.whatsapp ? true : false);
+      setAddPhone(edit?.phone ? true : false);
+    }
   }, [edit]);
   useEffect(() => {
     getvehicleMake();
@@ -180,6 +184,10 @@ export default function AddPost({ navigation, route }) {
 
         return;
       }
+      if (image.length < 1) {
+        errorMessage("Image require ", "Error");
+        return;
+      }
       const formData = new FormData();
       formData.append("userId", userInfo?._id);
       formData.append("title", title);
@@ -216,14 +224,17 @@ export default function AddPost({ navigation, route }) {
       });
       const resp = await addPostAd(formData);
       if (resp?.success) {
+        navigation.navigate("StackHome");
+        const userAd = await getOwneAd(userInfo?._id);
+        dispatch(setUserAds(userAd));
         successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
       } else {
+        console.log("====================================");
+        console.log("response of add ad", resp);
+        console.log("====================================");
         errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
-      navigation.navigate("StackHome");
-      const userAd = await getOwneAd(userInfo?._id);
-      dispatch(setUserAds(userAd));
     } catch (error) {
       console.error("Image upload error:", error);
       dispatch(setAppLoader(false));
@@ -275,7 +286,7 @@ export default function AddPost({ navigation, route }) {
       formData.append("address", address);
       formData.append("viber", addViber == true ? viber : "");
       formData.append("whatsapp", addWhatsapp == true ? whatsapp : "");
-      addPhone && formData.append("phone", phone);
+      formData.append("phone", addPhone == true ? true : false);
       image.forEach((img, index) => {
         formData.append("file", {
           name: `image${index}`,
@@ -327,7 +338,7 @@ export default function AddPost({ navigation, route }) {
     <ScreenWrapper
       headerUnScrollable={() => (
         <Head
-          headtitle={edit ? "Edit Ad" : "addPost.title"}
+          headtitle={edit ? "editAd.title" : "addPost.title"}
           navigation={navigation}
         />
       )}
@@ -528,7 +539,9 @@ export default function AddPost({ navigation, route }) {
 
               <SelectDropdown
                 defaultButtonText={
-                  edit?.type || t("addPost.defaultValueDropdown")
+                  edit?.type
+                    ? t(`type.${edit?.type}`)
+                    : t("addPost.defaultValueDropdown")
                 }
                 data={vtype}
                 searchPlaceHolder={t("addPost.phsearchHere")}
@@ -542,10 +555,10 @@ export default function AddPost({ navigation, route }) {
                   setType(selectedItem);
                 }}
                 buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem;
+                  return t(`type.${selectedItem}`);
                 }}
                 rowTextForSelection={(item, index) => {
-                  return item;
+                  return t(`type.${item}`);
                 }}
               />
             </View>
@@ -646,7 +659,9 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
                     defaultButtonText={
-                      bodyshape || t("addPost.defaultValueDropdown")
+                      bodyshape
+                        ? t(`bodyShapeList.${bodyshape}`)
+                        : t("addPost.defaultValueDropdown")
                     }
                     data={
                       category == "Bikes"
@@ -679,7 +694,9 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
                     defaultButtonText={
-                      gearbox || t("addPost.defaultValueDropdown")
+                      gearbox
+                        ? t(`gearBoxList.${gearbox}`)
+                        : t("addPost.defaultValueDropdown")
                     }
                     data={feild.gearBox}
                     searchPlaceHolder={t("addPost.phsearchHere")}
@@ -708,7 +725,9 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
                     defaultButtonText={
-                      fueltype || t("addPost.defaultValueDropdown")
+                      fueltype
+                        ? t(`fuelTypelist.${fueltype}`)
+                        : t("addPost.defaultValueDropdown")
                     }
                     data={
                       category == "Bikes"
@@ -741,7 +760,9 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
                   <SelectDropdown
                     defaultButtonText={
-                      exterior || t("addPost.defaultValueDropdown")
+                      exterior
+                        ? t(`colorList.${exterior}`)
+                        : t("addPost.defaultValueDropdown")
                     }
                     data={
                       category == "Bikes"
@@ -774,7 +795,9 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
                     defaultButtonText={
-                      interior || t("addPost.defaultValueDropdown")
+                      interior
+                        ? t(`colorList.${interior}`)
+                        : t("addPost.defaultValueDropdown")
                     }
                     data={feild?.interiorColor}
                     searchPlaceHolder={t("addPost.phsearchHere")}
@@ -1041,7 +1064,7 @@ export default function AddPost({ navigation, route }) {
             onPress={() => {
               edit ? editPost() : addPost();
             }}
-            title={edit ? "Edit" : "addPost.post"}
+            title={edit ? "editAd.edit" : "addPost.post"}
             containerStyle={{
               width: width(80),
               borderRadius: width(2),

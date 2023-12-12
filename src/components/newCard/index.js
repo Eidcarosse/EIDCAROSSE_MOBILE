@@ -235,7 +235,7 @@ export default function Card({ data, onPresshide, map = false }) {
                 if (!loginuser) {
                   infoMessage(t(`flashmsg.loginfavorite`),t(`flashmsg.authentication`));
                 } else {
-                  GlobalMethods.onPressCall(data?.phone);
+                  GlobalMethods.onPressCall(loginuser?.phoneNumber);
                 }
               }}
             >

@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { loginApi } from "../../../backend/auth";
@@ -61,9 +63,6 @@ export default function Login({ navigation, route }) {
     try {
       dispatch(setAppLoader(true));
       let res = await loginApi(data);
-      console.log("====================================");
-      console.log(res);
-      console.log("====================================");
       if (!res?.success) {
         dispatch(setAppLoader(false));
         errorMessage(
@@ -107,7 +106,7 @@ export default function Login({ navigation, route }) {
             <Text style={styles.logintext}>{t("login.login")}</Text>
           </View>
         </ImageBackground>
-        <ScrollView>
+        <KeyboardAwareScrollView>
           <View
             style={{
               height: height(70),
@@ -181,7 +180,7 @@ export default function Login({ navigation, route }) {
               </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </ScreenWrapper>
   );

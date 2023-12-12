@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     padding: width(2),
-    paddingBottom: width(15),
   },
   card: {
     width: width(93),

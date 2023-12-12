@@ -2,6 +2,7 @@ import { Entypo, Fontisto, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import React, { useRef } from "react";
 import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
 import styles from "./styles";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
@@ -98,7 +99,7 @@ export default function Profile({ navigation, route }) {
             </View>
           </View>
         </ImageBackground>
-        <ScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ padding: width(5) }}>
             <IconButton
               onPress={() => {
@@ -173,7 +174,7 @@ export default function Profile({ navigation, route }) {
               iconright={<Ionicons name="chevron-forward" size={width(4)} />}
             />
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </ScreenWrapper>
   );

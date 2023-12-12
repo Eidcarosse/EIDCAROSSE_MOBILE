@@ -5,11 +5,11 @@ import { Head, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import styles from "./styles";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 
 export default function BikeCategory({ navigation, route }) {
   const subCategories = route?.params?.subCategories;
-  const search=route?.params?.search
+  const search = route?.params?.search;
   const { t } = useTranslation();
   return (
     <ScreenWrapper
@@ -26,7 +26,12 @@ export default function BikeCategory({ navigation, route }) {
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
-      <View style={styles.mainViewContainer}>
+      <View
+        style={[
+          styles.mainViewContainer,
+          { paddingBottom: !route?.params?.show ? 0 : height(8) },
+        ]}
+      >
         <FlatList
           data={subCategories}
           showsVerticalScrollIndicator={false}
@@ -47,13 +52,13 @@ export default function BikeCategory({ navigation, route }) {
                       category: route?.params?.category,
                       find: item.name,
                       subcategory: item.name,
-                      search:search||''
+                      search: search || "",
                     });
                 }}
               >
                 <Image
                   source={{ uri: item.image }}
-                  style={{ width: width(5), height: width(5) }}
+                  style={{ width: width(8), height: width(8) }}
                 />
                 <Text style={{ marginLeft: width(5) }}>
                   {t(`subList.${item.name}`)}

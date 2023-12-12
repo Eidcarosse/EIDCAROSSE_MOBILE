@@ -7,11 +7,12 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Category({ navigation, route, value }) {
-  console.log('====================================');
-  console.log("loggggggg",route?.params);
-  console.log('====================================');
+  console.log("====================================");
+  console.log("loggggggg", route?.params);
+  console.log("====================================");
   const data = useSelector(selectCategoryList);
   const search = route?.params?.search;
   return (
@@ -26,20 +27,19 @@ export default function Category({ navigation, route, value }) {
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
-      <View style={[styles.mainViewContainer, { paddingBottom: height(7) }]}>
+      <View style={[{ paddingBottom: height(7), margin: width(3) }]}>
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
-            Icon = item.Icon;
             return (
               <CategoryIcon
                 navigation={navigation}
-                disabled={true}
                 cardStyle={styles.card}
-                greybackground={styles.greybackground}
                 title={item?.name}
+                image={item?.image}
                 textStyle={styles.textStyle}
+                imageStyle={styles.imageStyle}
                 onPress={() => {
                   if (value == "ADD") {
                     if (item.name == "Bikes" || item.name == "Parts") {
@@ -60,26 +60,20 @@ export default function Category({ navigation, route, value }) {
                       find: item?.name,
                       show: true,
                       subCategories: item?.subCategories,
-                      search: search||'',
+                      search: search || "",
                     });
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
                       category: item?.name,
                       find: item?.name,
-                      search: search||'',
+                      search: search || "",
                     });
                   }
                 }}
-              >
-                {/* <Icon height={width(17)} width={width(17)} /> */}
-                <Image
-                  style={{ height: width(10), width: width(10) }}
-                  source={{ uri: item?.image }}
-                />
-              </CategoryIcon>
+              />
             );
           }}
-          numColumns={3}
+          numColumns={1}
           keyExtractor={(item, index) => index}
         />
       </View>

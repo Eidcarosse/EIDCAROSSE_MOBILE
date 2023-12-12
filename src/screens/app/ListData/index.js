@@ -450,7 +450,7 @@ export default function ListData({ navigation, route }) {
                       }, 600);
                     }}
                     title={
-                      category ? t(`category.${category}`) : "Select Category"
+                      category ? t(`category.${category}`) : "filter.selectCategory"
                     }
                     containerStyle={styles.containerb}
                     textStyle={styles.texticon}
@@ -572,7 +572,7 @@ export default function ListData({ navigation, route }) {
                             setType(selectedItem);
                           }}
                           buttonTextAfterSelection={(selectedItem, index) => {
-                            return selectedItem;
+                            return t(selectedItem);
                           }}
                           rowTextForSelection={(item, index) => {
                             return item;

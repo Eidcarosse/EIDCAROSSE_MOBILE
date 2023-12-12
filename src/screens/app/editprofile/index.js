@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import styles from "./styles";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
@@ -63,7 +64,7 @@ export default function EditProfile({ navigation, route }) {
       if (d) {
         dispatch(setUserMeta(d)), navigation.goBack();
       } else {
-        errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.error`));
+        errorMessage(t(`flashmsg.profileupdateerrormsg`), t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
     } catch (error) {
@@ -129,7 +130,7 @@ export default function EditProfile({ navigation, route }) {
             </View>
           </View>
         </ImageBackground>
-        <ScrollView>
+        <KeyboardAwareScrollView>
           <View style={{ paddingVertical: width(10) }}>
             <Input
               title={"editprofile.firstNameTitle"}
@@ -181,7 +182,7 @@ export default function EditProfile({ navigation, route }) {
               title={"editprofile.update"}
             />
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
       <FilePickerModal
         ref={imageRef}

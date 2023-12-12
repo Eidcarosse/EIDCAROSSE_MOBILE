@@ -50,7 +50,7 @@ export default function ChatIcon({ navigation, data }) {
   }, [fetchData]);
   useEffect(() => {
     myfuntion();
-  }, []);
+  }, [msg]);
   return (
     <TouchableOpacity
       style={styles.main}

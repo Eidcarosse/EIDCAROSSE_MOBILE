@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   main: {
     justifyContent: "center",
     alignItems: "center",
-    flex:1
+    flex: 1,
   },
   categorytext: {
     fontSize: width(4),
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: width(1),
     flexDirection: "row",
-    width: width(90),
+    width: width(95),
   },
   listicon: {
     borderRadius: width(2),
