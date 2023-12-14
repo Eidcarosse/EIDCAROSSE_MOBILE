@@ -17,7 +17,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
 import { getOwneAd } from "../../backend/auth";
-import GlobalMethods, { errorMessage, successMessage } from "../../utills/Methods";
+import GlobalMethods, {
+  errorMessage,
+  successMessage,
+} from "../../utills/Methods";
 import { useTranslation } from "react-i18next";
 import { selectCurrentLanguage } from "../../redux/slices/language";
 import { useNavigation } from "@react-navigation/native";
@@ -58,9 +61,9 @@ export default function MyCard({ data }) {
       const d = await refreshApi(data?._id);
       if (d?.success) {
         await getData(userid);
-        successMessage(t("flashmsg.Ad Refresh"),t("flashmsg.ref_success"))
+        successMessage(t("flashmsg.Ad Refresh"), t("flashmsg.ref_success"));
       } else {
-        // errorMessage(d.message, t("myad.refresh"));
+        errorMessage(t("flashmsg.refreshAdMsg"), t("flashmsg.error"));
       }
 
       dispatch(setAppLoader(false));

@@ -266,7 +266,7 @@ export default {
     seeAll: "Alle Kategorien",
   },
   addPost: {
-    require:"Pflichtfeld",
+    require: "Pflichtfeld",
     title: "Inserat hinzufügen",
     attachImage1: "Bild anhängen",
     attachImage2: "Sie können bis zu 7 Bilder hochladen.",
@@ -535,10 +535,10 @@ export default {
     whatsapp: "Meine Whatsapp-Nummer anzeigen?",
   },
   flashmsg: {
-    "Ad Refresh":"Aktualisierung nach 3 std. wieder möglich!",
+    "Ad Refresh": "Aktualisierung nach 3 std. wieder möglich!",
     authentication: "Authentifizierung",
     success: "Erfolg",
-    ref_success:"Erfolgreich aktualisiert!",
+    ref_success: "Erfolgreich aktualisiert!",
     error: "Fehler",
     require: "Erforderlich",
     password: "Passwort",
@@ -570,9 +570,10 @@ export default {
     sussessloginmsg: "Anmeldung erfolgreich",
     "Please fill all required fields":
       "Bitte füllen Sie alle erforderlichen Felder aus",
+    refreshAdMsg:
+      "Bitte warten Sie mindestens 3 Stunden, bevor Sie aktualisieren.",
   },
   type: {
-
     "Articulated bus": "Gelenkbus",
     "City bus": "Stadtbus",
     Coach: "Reisebus",

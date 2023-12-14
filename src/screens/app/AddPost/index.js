@@ -64,6 +64,8 @@ export default function AddPost({ navigation, route }) {
   const w = useSelector(selectShowWhatsapp);
   const mapRef = useRef(null);
   const modelRef = useRef();
+  const brandRef = useRef();
+  const typeRef = useRef();
   const imageRef = useRef(null);
   const [image, setImage] = React.useState(edit?.images || []);
   const [subCategory, setSubCategory] = React.useState(sub);
@@ -74,6 +76,8 @@ export default function AddPost({ navigation, route }) {
   const [km, setKm] = React.useState(edit?.km || "");
   const [description, setDescription] = React.useState(edit?.description || "");
   const [check, setCheck] = React.useState(false);
+  const [otherBrand, setOtherBrand] = React.useState(false);
+  const [otherType, setOtherType] = React.useState(false);
   const [year, setYear] = React.useState(edit?.year || "");
   const [price, setPrice] = React.useState(edit?.price || "");
   const [priceRequire, setPriceRequire] = React.useState(null);
@@ -114,6 +118,8 @@ export default function AddPost({ navigation, route }) {
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
       setPricing(edit?.price ? "Price" : "");
+      edit?.brand == "Others" && setOtherBrand(true);
+      edit?.type == "Others" && setOtherType(true);
     }
   }, [edit]);
   useEffect(() => {
@@ -150,6 +156,7 @@ export default function AddPost({ navigation, route }) {
       setVtype(false);
     }
   };
+  console.log("brand", brand);
   useEffect(() => {
     if (brand) getmodel(find, brand);
   }, [brand]);
@@ -198,7 +205,10 @@ export default function AddPost({ navigation, route }) {
 
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage(t(`flashmsg.Please fill all required fields`), t(`flashmsg.require`));
+        errorMessage(
+          t(`flashmsg.Please fill all required fields`),
+          t(`flashmsg.require`)
+        );
 
         return;
       }
@@ -242,9 +252,9 @@ export default function AddPost({ navigation, route }) {
         });
       });
       const resp = await addPostAd(formData);
-      console.log('====================================');
-      console.log("add ad",resp);
-      console.log('====================================');
+      console.log("====================================");
+      console.log("add ad", resp);
+      console.log("====================================");
       if (resp?.success) {
         navigation.navigate("StackHome");
         const userAd = await getOwneAd(userInfo?._id);
@@ -512,7 +522,9 @@ export default function AddPost({ navigation, route }) {
                 titleRequire && styles.required,
               ]}
             />
-            {titleRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
+            {titleRequire && (
+              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+            )}
           </View>
 
           <View style={{ alignSelf: "center" }}>
@@ -521,7 +533,7 @@ export default function AddPost({ navigation, route }) {
             <RadioButtonRN
               data={pdata}
               circleSize={width(3)}
-              initial={pricing=="Price" ? 1 : 2}
+              initial={pricing == "Price" ? 1 : 2}
               boxStyle={{
                 width: width(90),
                 borderWidth: 0,
@@ -551,7 +563,9 @@ export default function AddPost({ navigation, route }) {
                 ]}
                 keyboardType="number-pad"
               />
-              {priceRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
+              {priceRequire && (
+                <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+              )}
             </View>
           )}
           {feild?.conditionList && (
@@ -587,14 +601,14 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.type")}</Text>
 
               <SelectDropdown
+                ref={typeRef}
                 defaultButtonText={
-                  edit?.type
-                    ? t(`type.${edit?.type}`)
-                    : t("addPost.defaultValueDropdown")
+                  type ? t(`type.${type}`) : t("addPost.defaultValueDropdown")
                 }
                 data={vtype}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 search={true}
+                disabled={otherType}
                 buttonStyle={styles.searchbox}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
                 selectedRowTextStyle={{ color: AppColors.white }}
@@ -610,6 +624,29 @@ export default function AddPost({ navigation, route }) {
                   return t(`type.${item}`);
                 }}
               />
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  paddingVertical: width(4),
+                  alignSelf: "flex-start",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  if (type) {
+                    typeRef.current.reset();
+                  }
+                  setType("Others");
+                  setOtherType(!otherType);
+                }}
+              >
+                <CheckBox
+                  style={{ paddingRight: width(2) }}
+                  checkedCheckBoxColor={AppColors.primary}
+                  isChecked={otherType}
+                  onClick={() => {}}
+                />
+                <Text>{t("category.Others")}</Text>
+              </TouchableOpacity>
             </View>
           )}
           {!(
@@ -634,8 +671,16 @@ export default function AddPost({ navigation, route }) {
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.brand")}</Text>
               <SelectDropdown
-                defaultButtonText={brand || t("addPost.defaultValueDropdown")}
+                ref={brandRef}
+                defaultButtonText={
+                  brand
+                    ? brand === "Others"
+                      ? t("category.Others")
+                      : brand
+                    : t("addPost.defaultValueDropdown")
+                }
                 data={vcompanies}
+                disabled={otherBrand}
                 search={true}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 buttonStyle={[
@@ -647,7 +692,10 @@ export default function AddPost({ navigation, route }) {
                 buttonTextStyle={{ textAlign: "left", fontSize: width(3.5) }}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
-                  if (model) modelRef.current.reset();
+                  if (model) {
+                    modelRef.current.reset();
+                    setModel("");
+                  }
                   setBrand(selectedItem);
                 }}
                 buttonTextAfterSelection={(selectedItem, index) => {
@@ -657,10 +705,40 @@ export default function AddPost({ navigation, route }) {
                   return item;
                 }}
               />
-              {brandRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
+              {brandRequire && (
+                <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+              )}
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  paddingVertical: width(4),
+                  alignSelf: "flex-start",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  if (model) {
+                    modelRef.current.reset();
+                    setModel("");
+                  }
+                  if (brand) {
+                    brandRef.current.reset();
+                  }
+                  setBrand("Others");
+                  setOtherBrand(!otherBrand);
+                }}
+              >
+                <CheckBox
+                  style={{ paddingRight: width(2) }}
+                  checkedCheckBoxColor={AppColors.primary}
+                  isChecked={otherBrand}
+                  onClick={() => {}}
+                />
+                <Text>{t("category.Others")}</Text>
+              </TouchableOpacity>
             </View>
           )}
-          {brand && (
+
+          {brand && brand != "Others" && (
             <View>
               {apimodel ? (
                 <View style={{ alignSelf: "center" }}>
@@ -1053,7 +1131,9 @@ export default function AddPost({ navigation, route }) {
                 language: "en",
               }}
             />
-            {addressRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
+            {addressRequire && (
+              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+            )}
           </View>
         </View>
         <View

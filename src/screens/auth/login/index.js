@@ -106,7 +106,13 @@ export default function Login({ navigation, route }) {
             <Text style={styles.logintext}>{t("login.login")}</Text>
           </View>
         </ImageBackground>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView
+         keyboardShouldPersistTaps="handled"
+         enableAutomaticScroll={true}
+         enableResetScrollToCoords={false}
+         extraScrollHeight={height(8)}
+         showsVerticalScrollIndicator={false}
+        >
           <View
             style={{
               height: height(70),
@@ -139,11 +145,12 @@ export default function Login({ navigation, route }) {
                 } else login(userData);
               }}
             />
-            <Button
+            {/* <Button
               containerStyle={styles.button}
               title={"login.continueWithGoogle"}
               onPress={() => {}}
-            />
+            /> */}
+            <View style={{ height: height(2) }} />
             <View style={styles.forget}>
               <Text>
                 {t("login.cannotLogin")} {"  "}

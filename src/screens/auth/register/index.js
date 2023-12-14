@@ -95,7 +95,13 @@ export default function SignUp({ navigation, route }) {
             <Text style={styles.logintext}>{t("signup.signup")}</Text>
           </View>
         </ImageBackground>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView
+          keyboardShouldPersistTaps="handled"
+          enableAutomaticScroll={true}
+          enableResetScrollToCoords={false}
+          extraScrollHeight={height(8)}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={{ paddingVertical: width(10) }}>
             <Input
               value={firstName}

@@ -62,7 +62,7 @@ export default function Input({
             paddingLeft: width(5),
           }}
         >
-          {require}
+          {t("addPost.require")}
         </Text>
       )}
     </View>

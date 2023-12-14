@@ -284,7 +284,7 @@ export default {
     seeAll: "See all",
   },
   addPost: {
-    require:"require",
+    require: "require",
     title: "Add Post",
     attachImage1: "Attach Image",
     attachImage2: "You can upload up to 7 images.",
@@ -552,7 +552,7 @@ export default {
     ads: "Allow public to see my all ads?",
   },
   flashmsg: {
-    "Ad Refresh":"Ad Refresh",
+    "Ad Refresh": "Ad Refresh",
     authentication: "Authentication",
     success: "Success",
     error: "Error",
@@ -592,6 +592,7 @@ export default {
     "Unable to create user! please try again.":
       "Unable to create user! please try again.",
     "Please fill all required fields": "Please fill all required fields",
+    refreshAdMsg: "Please wait for at least 3 hours before refreshing.",
   },
   type: {
     "Articulated bus": "Articulated bus",

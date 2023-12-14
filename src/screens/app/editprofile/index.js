@@ -132,7 +132,13 @@ export default function EditProfile({ navigation, route }) {
             </View>
           </View>
         </ImageBackground>
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView
+         keyboardShouldPersistTaps="handled"
+         enableAutomaticScroll={true}
+         enableResetScrollToCoords={false}
+         extraScrollHeight={height(8)}
+         showsVerticalScrollIndicator={false}
+        >
           <View style={{ paddingVertical: width(10) }}>
             <Input
               title={"editprofile.firstNameTitle"}

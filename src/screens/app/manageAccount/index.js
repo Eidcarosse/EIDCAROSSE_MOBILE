@@ -43,7 +43,7 @@ export default function ManageAccount({ navigation, route }) {
               />
             }
           />
-          <IconButton
+          {/* <IconButton
             title={"manageAccount.deleteaccount"}
             containerStyle={styles.deletecontainer}
             icon={
@@ -53,7 +53,7 @@ export default function ManageAccount({ navigation, route }) {
                 color={AppColors.white}
               />
             }
-          />
+          /> */}
         </View>
       </View>
     </ScreenWrapper>

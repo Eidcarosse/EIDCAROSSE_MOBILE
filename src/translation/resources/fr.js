@@ -293,7 +293,7 @@ export default {
     seeAll: "Voir Tout",
   },
   addPost: {
-    require:"nécessiter",
+    require: "nécessiter",
     title: "Ajouter une Annonce",
     attachImage1: "Joindre une Image",
     attachImage2: "Vous pouvez télécharger jusqu'à 7 images.",
@@ -561,7 +561,7 @@ export default {
     ads: "Autoriser le public à voir tous mes annonces ?",
   },
   flashmsg: {
-    "Ad Refresh":"Actualisation de l'annonce",
+    "Ad Refresh": "Actualisation de l'annonce",
     authentication: "Authentification",
     success: "Succès",
     error: "Erreur",
@@ -596,9 +596,9 @@ export default {
     sussessloginmsg: "Connexion réussie",
     "Please fill all required fields":
       "Veuillez remplir tous les champs obligatoires.",
+    refreshAdMsg: "Veuillez attendre au moins 3 heures avant de rafraîchir.",
   },
   type: {
- 
     "Articulated bus": "Autobus articulé",
     "City bus": "Autobus urbain",
     Coach: "Autocar",

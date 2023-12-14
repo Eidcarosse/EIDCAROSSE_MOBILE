@@ -284,20 +284,30 @@ export default function Detail({ navigation, route }) {
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.type")}</Text>
                   <Text style={styles.cardelement2}>
-                    {t(`type.${data?.type}`)}
+                    {data?.type === "Others"
+                      ? t("category.Others")
+                      : t(`type.${data?.type}`)}
                   </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.brand) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.brand")}</Text>
-                  <Text style={styles.cardelement2}>{data?.brand}</Text>
+                  <Text style={styles.cardelement2}>
+                    {data?.brand === "Others"
+                      ? t("category.Others")
+                      : data?.brand}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.model) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.model")}</Text>
-                  <Text style={styles.cardelement2}>{data?.model}</Text>
+                  <Text style={styles.cardelement2}>
+                    {data?.model === "Others"
+                      ? t("category.Others")
+                      : data?.model}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.year) && (

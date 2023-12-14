@@ -276,7 +276,7 @@ export default {
     seeAll: "Ver Todo",
   },
   addPost: {
-    require:"necesitar",
+    require: "necesitar",
     title: "Agregar Anuncio",
     attachImage1: "Adjuntar Imagen",
     attachImage2: "Puedes cargar hasta 7 imágenes.",
@@ -545,7 +545,7 @@ export default {
     ads: "¿Permitir que el público vea todos mis anuncios?",
   },
   flashmsg: {
-    "Ad Refresh":"Actualización de anuncio",
+    "Ad Refresh": "Actualización de anuncio",
     authentication: "Autenticación",
     success: "Éxito",
     error: "Error",
@@ -575,10 +575,11 @@ export default {
     passwordchangemsg: "Cambios realizados con éxito",
     emailsussesssendmsg: "Código enviado a su correo electrónico proporcionado",
     sussessloginmsg: "Inicio de sesión exitoso",
-    "Please fill all required fields": "Por favor, complete todos los campos obligatorios.",
+    "Please fill all required fields":
+      "Por favor, complete todos los campos obligatorios.",
+    refreshAdMsg: "Espere al menos 3 horas antes de actualizar, por favor.",
   },
   type: {
-
     "Articulated bus": "Autobús articulad",
     "City bus": "Autobús urbano",
     Coach: "Autocar",
