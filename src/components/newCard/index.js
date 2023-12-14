@@ -161,6 +161,7 @@ export default function Card({ data, onPresshide, map = false }) {
             horizontal
             data={img}
             renderItem={renderItem}
+            keyExtractor={(item, index) => index}
           />
         </View>
         <Pressable
@@ -177,13 +178,13 @@ export default function Card({ data, onPresshide, map = false }) {
                   CHF {data?.price}
                 </Text>
                 <Text numberOfLines={1} style={styles.eur}>
-                  EUR {data?.price}
+                  EUR {Math.round(data?.price * 1.06)}
                 </Text>
               </View>
             ) : (
               <View style={styles.cfpview}>
                 <Text numberOfLines={1} style={styles.cfp}>
-                {t("detail.CFP")}
+                  {t("detail.CFP")}
                 </Text>
               </View>
             )}
@@ -206,10 +207,11 @@ export default function Card({ data, onPresshide, map = false }) {
                 )}
               </Text>
             </View>
-            <Text style={{ fontSize: width(3), color: "grey" }}>
-              {data?.views}
+            <AntDesign name="eye" color={"grey"} size={width(3)} >  {data?.views}</AntDesign>
+            {/* <Text style={{ fontSize: width(3), color: "grey" }}>
+            
               {"  Views"}
-            </Text>
+            </Text> */}
           </View>
         </Pressable>
       </View>
@@ -233,7 +235,10 @@ export default function Card({ data, onPresshide, map = false }) {
               disabled={data?.phone ? false : true}
               onPress={() => {
                 if (!loginuser) {
-                  infoMessage(t(`flashmsg.loginfavorite`),t(`flashmsg.authentication`));
+                  infoMessage(
+                    t(`flashmsg.loginfavorite`),
+                    t(`flashmsg.authentication`)
+                  );
                 } else {
                   GlobalMethods.onPressCall(loginuser?.phoneNumber);
                 }
@@ -248,7 +253,10 @@ export default function Card({ data, onPresshide, map = false }) {
             <TouchableOpacity
               onPress={() => {
                 if (!loginuser) {
-                  infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
+                  infoMessage(
+                    t(`flashmsg.loginfavorite`),
+                    t(`flashmsg.authentication`)
+                  );
                 } else {
                   navigation.navigate(ScreenNames.CHAT, {
                     userRoom: null,

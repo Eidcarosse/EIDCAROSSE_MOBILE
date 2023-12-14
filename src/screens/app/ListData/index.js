@@ -450,7 +450,9 @@ export default function ListData({ navigation, route }) {
                       }, 600);
                     }}
                     title={
-                      category ? t(`category.${category}`) : "filter.selectCategory"
+                      category
+                        ? t(`category.${category}`)
+                        : "filter.selectCategory"
                     }
                     containerStyle={styles.containerb}
                     textStyle={styles.texticon}
@@ -551,7 +553,7 @@ export default function ListData({ navigation, route }) {
                   {!(vCategory == undefined || vCategory == []) &&
                     showType(category) && (
                       <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>{t("Type")}</Text>
+                        <Text style={styles.title}>{t("addPost.type")}</Text>
 
                         <SelectDropdown
                           defaultButtonText={t("addPost.defaultValueDropdown")}
@@ -572,10 +574,10 @@ export default function ListData({ navigation, route }) {
                             setType(selectedItem);
                           }}
                           buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(selectedItem);
+                            return t(`type.${selectedItem}`);
                           }}
                           rowTextForSelection={(item, index) => {
-                            return item;
+                            return t(`type.${item}`);
                           }}
                         />
                       </View>
@@ -875,7 +877,15 @@ export default function ListData({ navigation, route }) {
 
                     <RadioButtonRN
                       data={rdata}
-                      initial={0}
+                      initial={
+                        condition
+                          ? rdata.findIndex(
+                              (item) =>
+                                item?.key.toLowerCase() ===
+                                (condition || "").toLowerCase()
+                            ) + 1
+                          : 0
+                      }
                       circleSize={width(3)}
                       boxStyle={{
                         width: width(90),
@@ -884,7 +894,7 @@ export default function ListData({ navigation, route }) {
                       }}
                       activeColor={AppColors.primary}
                       selectedBtn={(e) => {
-                        setCondition(e.key);
+                        setCondition(e?.key);
                       }}
                     />
                   </View>

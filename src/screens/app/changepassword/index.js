@@ -8,9 +8,11 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { changePasswordAPI } from "../../../backend/auth";
 import { setAppLoader } from "../../../redux/slices/config";
-import { errorMessage } from "../../../utills/Methods";
+import { errorMessage, successMessage } from "../../../utills/Methods";
 import { selectUserMeta } from "../../../redux/slices/user";
+import { useTranslation } from "react-i18next";
 export default function ChangePassword({ navigation, route }) {
+  const { t } = useTranslation();
   const user = useSelector(selectUserMeta);
   const dispatch = useDispatch();
   const [oldPassword, setOldPassword] = useState("");
@@ -24,16 +26,14 @@ export default function ChangePassword({ navigation, route }) {
         newPassword,
         confirmPassword,
       });
-  
+      console.log("change password", r);
       if (!r?.success) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message);
-      } else if (r) {
+      } else if (r.success) {
         successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
         navigation.goBack();
-      } else {
-       // errorMessage(t(`flashmsg.editerrormsg`),t(`flashmsg.error`));
       }
       // dispatch(setAppLoader(false));
     } catch (error) {
@@ -76,9 +76,12 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.savebutton"}
             onPress={() => {
               if (!oldPassword)
-                errorMessage(t(`flashmsg.oldpaserror`),t(`flashmsg.password`));
+                errorMessage(t(`flashmsg.oldpaserror`), t(`flashmsg.password`));
               else if (newPassword !== confirmPassword)
-                errorMessage(t(`flashmsg.confirmerrormsg`),t(`flashmsg.password`));
+                errorMessage(
+                  t(`flashmsg.confirmerrormsg`),
+                  t(`flashmsg.password`)
+                );
               else chngePassword();
             }}
           />

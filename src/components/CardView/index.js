@@ -126,7 +126,7 @@ export default function CardView({ data }) {
                 CHF {data?.price}
               </Text>
               <Text numberOfLines={1} style={styles.eur}>
-                EUR {data?.price}
+                EUR {Math.round(data?.price * 1.06)}
               </Text>
             </View>
           ) : (

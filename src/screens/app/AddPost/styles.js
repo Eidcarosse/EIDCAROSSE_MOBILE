@@ -63,5 +63,15 @@ const styles = StyleSheet.create({
     width: width(80),
     alignSelf: "flex-start",
   },
+  require: {
+    color: "red",
+    fontSize: width(2.5),
+    paddingHorizontal: width(4),
+  },
+  required: {
+    borderWidth: 1,
+    borderColor: "red",
+    borderBottomWidth: 1,
+  },
 });
 export default styles;

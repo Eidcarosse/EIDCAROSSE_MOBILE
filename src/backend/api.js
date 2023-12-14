@@ -31,7 +31,7 @@ export const getDataofAdByID = async (id) => {
   try {
     const response = await ApiManager.get("ad/getSpecific/" + id);
     if (!response.success) {
-      throw new Error("Network error home APi");
+      return false;
     }
     return response.data;
   } catch (error) {
@@ -49,7 +49,7 @@ export async function addPostAd(formData) {
         "Content-Type": "multipart/form-data",
       },
     };
-    const resp = await fetch(BaseUrl+ "ad/adPost", requestOptions);
+    const resp = await fetch(BaseUrl + "ad/adPost", requestOptions);
     let response = await resp.json();
     return response;
   } catch (error) {

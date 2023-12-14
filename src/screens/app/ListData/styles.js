@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
     padding: width(1),
     flexDirection: "row",
-    borderWidth: width(.1),
+    borderWidth: width(0.1),
     alignItems: "center",
   },
   card: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     padding: width(4),
     paddingBottom: height(15),
-    justifyContent:"space-between"
+    justifyContent: "space-between",
   },
   containerb: {
     backgroundColor: AppColors.greybackground,
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     fontSize: width(3.5),
     paddingVertical: width(2),
     fontWeight: "bold",
+    marginLeft: width(1),
   },
   searchbox: {
     width: width(90),
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     borderRadius: width(1),
   },
-  sub:  {
+  sub: {
     backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,
     borderRadius: width(1),

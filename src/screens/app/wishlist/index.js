@@ -24,7 +24,7 @@ export default function WishList({ navigation, route }) {
 
   useEffect(() => {
     getData(id);
-  }, []);
+  }, [userFav]);
   const getData = useCallback(async (id) => {
     setLoader(true);
     let d = await getFavAds(id);

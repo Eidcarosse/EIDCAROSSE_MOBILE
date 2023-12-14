@@ -470,6 +470,7 @@ function ChatView({ route }) {
   };
   const getItems = async () => {
     const response = await getDataofAdByID(route.params?.userItem);
+    if(!response)alert("Ad deleted")
     setSelectedItem(response);
   };
 
@@ -497,7 +498,6 @@ function ChatView({ route }) {
     setImageModal(false);
     setImage([]);
   };
-
   return (
     <ScreenWrapper statusBarColor={AppColors.white} barStyle="dark-content">
       <View style={styles.container}>
@@ -547,10 +547,10 @@ function ChatView({ route }) {
           messages={messages}
           placeholder={t("chat.placeholder")}
           user={{
-            _id: user?._id, // Use a unique user ID here
+            _id: user?._id, 
           }}
           renderAvatar={renderAvatar}
-          renderActions={renderActions}
+          // renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}
           renderTime={renderTime}

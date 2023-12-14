@@ -10,9 +10,6 @@ import styles from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 
 export default function Category({ navigation, route, value }) {
-  console.log("====================================");
-  console.log("loggggggg", route?.params);
-  console.log("====================================");
   const data = useSelector(selectCategoryList);
   const search = route?.params?.search;
   return (

@@ -11,13 +11,13 @@ import Dialog from "react-native-dialog";
 import { Menu, MenuItem } from "react-native-material-menu";
 
 import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import { deleteAdById, refreshApi } from "../../backend/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
 import { getOwneAd } from "../../backend/auth";
-import GlobalMethods, { errorMessage } from "../../utills/Methods";
+import GlobalMethods, { errorMessage, successMessage } from "../../utills/Methods";
 import { useTranslation } from "react-i18next";
 import { selectCurrentLanguage } from "../../redux/slices/language";
 import { useNavigation } from "@react-navigation/native";
@@ -58,8 +58,9 @@ export default function MyCard({ data }) {
       const d = await refreshApi(data?._id);
       if (d?.success) {
         await getData(userid);
+        successMessage(t("flashmsg.Ad Refresh"),t("flashmsg.ref_success"))
       } else {
-        errorMessage(d.message, "Refresh");
+        // errorMessage(d.message, t("myad.refresh"));
       }
 
       dispatch(setAppLoader(false));
@@ -111,7 +112,7 @@ export default function MyCard({ data }) {
                 CHF {data?.price}
               </Text>
               <Text numberOfLines={1} style={styles.eur}>
-                EUR {data?.price}
+                EUR {Math.round(data?.price * 1.06)}
               </Text>
             </View>
           ) : (
@@ -143,6 +144,7 @@ export default function MyCard({ data }) {
             paddingHorizontal: width(3),
             padding: width(1),
             borderRadius: width(5),
+            marginTop: height(5),
             backgroundColor: publish ? AppColors.green : AppColors.primary,
           }}
           disabled={true}

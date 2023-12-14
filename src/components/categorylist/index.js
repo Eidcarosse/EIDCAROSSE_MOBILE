@@ -61,7 +61,7 @@ export default function CategoryList({ navigation, search }) {
         data={data}
         renderItem={renderItem}
         numColumns={3}
-        keyExtractor={({ item, index }) => index}
+        keyExtractor={(item, index) => index}
       />
     </View>
   );

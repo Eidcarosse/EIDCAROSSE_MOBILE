@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   icons: {
     paddingVertical: width(2),
     width: width(20),
-    justifyContent: "space-between",
     alignItems: "flex-end",
   },
   titletext: {
@@ -71,10 +70,10 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.grey,
     padding: width(2),
     borderRadius: width(1),
-    width:width(32)
+    width: width(32),
   },
   cfp: {
-    fontSize: width(2.5),
+    fontSize: width(3),
     color: AppColors.primary,
     fontWeight: "bold",
   },

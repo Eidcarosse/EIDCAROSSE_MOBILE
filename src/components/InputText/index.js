@@ -28,11 +28,14 @@ export default function Input({
         <View style={styles.innerview}>
           <TextInput
             editable={editable}
-            style={{
-              paddingVertical: width(2.5),
-              width: width(80),
-              fontSize: width(4),
-            }}
+            style={[
+              {
+                paddingVertical: width(2.5),
+                width: width(80),
+                fontSize: width(4),
+              },
+              !editable && { color: "grey" },
+            ]}
             keyboardType={keyboardType}
             placeholder={t(placeholder)}
             secureTextEntry={secureText}

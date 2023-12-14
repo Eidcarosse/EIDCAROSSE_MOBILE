@@ -92,8 +92,8 @@ export default function EditProfile({ navigation, route }) {
                 <View
                   style={{
                     position: "absolute",
-                    top: height(12),
-                    left: width(29),
+                    top: height(10),
+                    left: width(25),
                     backgroundColor: AppColors.primary,
                     padding: width(2),
                     borderRadius: width(5),
@@ -106,21 +106,23 @@ export default function EditProfile({ navigation, route }) {
                   />
                 </View>
               </TouchableOpacity>
-              <View style={{ paddingLeft: width(5) }}>
+              <View style={{ paddingLeft: width(3) }}>
                 <Text
                   style={{
-                    fontSize: width(5),
+                    fontSize: width(4.2),
                     fontWeight: "bold",
                     color: AppColors.white,
+                    width: width(55),
                   }}
                 >
-                  {userdata?.email}
+                  {userdata?.firstName}{" "}{userdata?.lastName}
                 </Text>
 
                 <Text
                   style={{
-                    fontSize: width(3),
+                    fontSize: width(4),
                     fontWeight: "bold",
+                    marginTop:height(1),
                     color: AppColors.white,
                   }}
                 >

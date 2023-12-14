@@ -92,7 +92,7 @@ export default function MapAdCard({ data, onPress }) {
                 CHF {data?.price}
               </Text>
               <Text numberOfLines={1} style={styles.eur}>
-                EUR {data?.price}
+                EUR {Math.round(data?.price * 1.06)}
               </Text>
             </View>
             {!(data?.userId?._id === loginuser?._id) ? (

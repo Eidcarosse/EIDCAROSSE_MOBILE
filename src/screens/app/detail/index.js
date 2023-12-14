@@ -140,7 +140,9 @@ export default function Detail({ navigation, route }) {
         !(data?.userId?._id == loginuser?._id || load) && (
           <DetailFooter
             pNumber={data?.phone}
-            onPressCall={() => GlobalMethods.onPressCall(data?.userId?.phoneNumber)}
+            onPressCall={() =>
+              GlobalMethods.onPressCall(data?.userId?.phoneNumber)
+            }
             onPressChat={() => {
               navigation.navigate(ScreenNames.CHAT, {
                 userRoom: null,
@@ -210,7 +212,7 @@ export default function Detail({ navigation, route }) {
                       fontWeight: "bold",
                     }}
                   >
-                    EUR {data?.price}
+                    EUR {Math.round(data?.price * 1.06)}
                   </Text>
                 </View>
               ) : (
@@ -281,7 +283,9 @@ export default function Detail({ navigation, route }) {
               {!isNullOrNullOrEmpty(data?.type) && (
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.type")}</Text>
-                  <Text style={styles.cardelement2}>{data?.type}</Text>
+                  <Text style={styles.cardelement2}>
+                    {t(`type.${data?.type}`)}
+                  </Text>
                 </View>
               )}
               {!isNullOrNullOrEmpty(data?.brand) && (

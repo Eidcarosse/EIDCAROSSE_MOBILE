@@ -139,13 +139,13 @@ const CustomDrawer = ({ navigation }) => {
             <FontAwesome name="wrench" style={styles.icon} size={width(4)} />
           }
         />
-        <IconButton
+        {/* <IconButton
           title={"drawr.share"}
           onPress={shareContent}
           containerStyle={styles.container}
           textStyle={styles.text}
           icon={<Entypo name="share" style={styles.icon} size={width(4)} />}
-        />
+        /> */}
         <View style={styles.bottomview}>
           <Text style={styles.textbuttom}>
             2023@ All reserved by

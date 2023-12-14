@@ -236,22 +236,6 @@ export default {
     Buss: "Ricambi Autobus",
     "Other Parts": "Altri Ricambi",
   },
-  subList: {
-    "E-bikes": "E-bikes",
-    Bicycles: "Bicycles",
-    "E-scooter": "E-scooter",
-    Motorcycle: "Motorcycle",
-    Autos: "Autos Parts",
-    Bikes: "Bikes",
-    Boats: "Boats Parts",
-    Drones: "Drones Parts",
-    "Construction Machines": "Construction Machines Parts",
-    Trucks: "Trucks Parts",
-    Vans: "Vans Parts",
-    Trailers: "Trailers Parts",
-    Busses: "Busses Parts",
-    "Other Parts": "Others Parts",
-  },
   profile: {
     wish: "La Mia Lista dei Desideri",
     listing: "Le Mie Pubblicazioni",
@@ -277,6 +261,7 @@ export default {
     seeAll: "Vedi Tutti",
   },
   addPost: {
+    require:"richiedere",
     title: "Aggiungi Pubblicazione",
     attachImage1: "Allega Immagine",
     attachImage2: "Puoi caricare fino a 7 immagini.",
@@ -545,6 +530,7 @@ export default {
     ads: "Permetti al pubblico di vedere tutti i miei annunci?",
   },
   flashmsg: {
+    "Ad Refresh":"Aggiornamento annuncio",
     authentication: "Autenticazione",
     success: "Successo",
     error: "Errore",
@@ -574,8 +560,10 @@ export default {
     passwordchangemsg: "Cambiata con successo",
     emailsussesssendmsg: "Codice inviato alla tua email fornita",
     sussessloginmsg: "Accesso riuscito",
+    "Please fill all required fields": "Si prega di compilare tutti i campi obbligatori",
   },
   type: {
+
     "Articulated bus": "Autobus articolato",
     "City bus": "Autobus urban",
     Coach: "Pullman",

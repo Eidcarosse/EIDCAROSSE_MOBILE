@@ -68,15 +68,18 @@ export default function AddPost({ navigation, route }) {
   const [image, setImage] = React.useState(edit?.images || []);
   const [subCategory, setSubCategory] = React.useState(sub);
   const [title, setTitle] = React.useState(edit?.title || "");
-  const [pricing, setPricing] = React.useState(edit?.price ? "Price" : "");
+  const [titleRequire, setTitleRequire] = React.useState(null);
+  const [pricing, setPricing] = React.useState("Price");
   const [url, setUrl] = React.useState(edit?.videoUrl || "");
   const [km, setKm] = React.useState(edit?.km || "");
   const [description, setDescription] = React.useState(edit?.description || "");
   const [check, setCheck] = React.useState(false);
   const [year, setYear] = React.useState(edit?.year || "");
   const [price, setPrice] = React.useState(edit?.price || "");
+  const [priceRequire, setPriceRequire] = React.useState(null);
   const [condition, setCondition] = React.useState(edit?.condition || "");
   const [brand, setBrand] = React.useState(edit?.brand || "");
+  const [brandRequire, setBrandRequire] = React.useState(null);
   const [model, setModel] = React.useState(edit?.model || "");
   const [type, setType] = React.useState(edit?.type || "");
   const [bodyshape, setBodyshap] = React.useState(edit?.bodyShape || "");
@@ -95,7 +98,7 @@ export default function AddPost({ navigation, route }) {
   );
   const [viber, setViber] = React.useState(edit?.viber || userInfo?.viber);
   const [address, setAddress] = React.useState(edit?.address || "");
-
+  const [addressRequire, setAddressRequire] = React.useState(null);
   const [vcompanies, setVcompanies] = React.useState([]);
   const [vtype, setVtype] = React.useState();
   const [apimodel, setapiModel] = React.useState([]);
@@ -110,6 +113,7 @@ export default function AddPost({ navigation, route }) {
       setAddViber(edit?.viber ? true : false);
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
+      setPricing(edit?.price ? "Price" : "");
     }
   }, [edit]);
   useEffect(() => {
@@ -165,27 +169,42 @@ export default function AddPost({ navigation, route }) {
   const addPost = async () => {
     dispatch(setAppLoader(true));
     try {
-      const requiredFields = [
-        title,
-        condition,
-        description,
-        latitude,
-        longitude,
-        address,
-        image,
-      ];
-
+      const requiredFields = [title, latitude, longitude, address, image];
+      showBrand(category) && requiredFields.push(brand);
+      pricing == "Price" && requiredFields.push(price);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
       if (isAnyFieldEmpty) {
+        if (!title) {
+          setTitleRequire(true);
+        } else {
+          setTitleRequire(false);
+        }
+        if (!brand) {
+          setBrandRequire(true);
+        } else {
+          setBrandRequire(false);
+        }
+        if (!address) {
+          setAddressRequire(true);
+        } else {
+          setAddressRequire(false);
+        }
+        if (!price) {
+          setPriceRequire(true);
+        } else {
+          setPriceRequire(false);
+        }
+
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.require`));
+        errorMessage(t(`flashmsg.Please fill all required fields`), t(`flashmsg.require`));
 
         return;
       }
       if (image.length < 1) {
         errorMessage("Image require ", "Error");
+        dispatch(setAppLoader(false));
         return;
       }
       const formData = new FormData();
@@ -223,15 +242,15 @@ export default function AddPost({ navigation, route }) {
         });
       });
       const resp = await addPostAd(formData);
+      console.log('====================================');
+      console.log("add ad",resp);
+      console.log('====================================');
       if (resp?.success) {
         navigation.navigate("StackHome");
         const userAd = await getOwneAd(userInfo?._id);
         dispatch(setUserAds(userAd));
         successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
       } else {
-        console.log("====================================");
-        console.log("response of add ad", resp);
-        console.log("====================================");
         errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
       }
       dispatch(setAppLoader(false));
@@ -243,22 +262,42 @@ export default function AddPost({ navigation, route }) {
   const editPost = async () => {
     dispatch(setAppLoader(true));
     try {
-      const requiredFields = [
-        title,
-        condition,
-        latitude,
-        longitude,
-        address,
-        image,
-      ];
-
+      const requiredFields = [title, latitude, longitude, address, image];
+      showBrand(category) && requiredFields.push(brand);
+      pricing == "Price" && requiredFields.push(price);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
       if (isAnyFieldEmpty) {
+        if (!title) {
+          setTitleRequire(true);
+        } else {
+          setTitleRequire(false);
+        }
+        if (!brand) {
+          setBrandRequire(true);
+        } else {
+          setBrandRequire(false);
+        }
+        if (!address) {
+          setAddressRequire(true);
+        } else {
+          setAddressRequire(false);
+        }
+        if (!price) {
+          setPriceRequire(true);
+        } else {
+          setPriceRequire(false);
+        }
+
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage(t(`flashmsg.requiremsg`), t(`flashmsg.require`));
+        errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.require`));
 
+        return;
+      }
+      if (image.length < 1) {
+        errorMessage("Image require ", "Error");
+        dispatch(setAppLoader(false));
         return;
       }
       const formData = new FormData();
@@ -401,7 +440,7 @@ export default function AddPost({ navigation, route }) {
                 </TouchableOpacity>
               )}
               {image.map((item, index) => (
-                <View style={{ flexDirection: "row" }}>
+                <View key={index} style={{ flexDirection: "row" }}>
                   <Image
                     key={index}
                     style={{
@@ -442,7 +481,7 @@ export default function AddPost({ navigation, route }) {
           <Text style={{ fontSize: width(2.5), padding: width(1) }}>
             {t("addPost.attachImage2")}
           </Text>
-          <Text
+          {/* <Text
             style={{
               fontSize: width(2.5),
               padding: width(1),
@@ -451,7 +490,7 @@ export default function AddPost({ navigation, route }) {
             }}
           >
             {t("addPost.attachImage3")}
-          </Text>
+          </Text> */}
         </View>
         {/* --------product infomartio---- */}
         <View>
@@ -467,8 +506,13 @@ export default function AddPost({ navigation, route }) {
               value={title}
               setvalue={setTitle}
               placeholder={t("addPost.phtitleWord")}
-              containerStyle={[styles.price, { width: width(90) }]}
+              containerStyle={[
+                styles.price,
+                { width: width(90) },
+                titleRequire && styles.required,
+              ]}
             />
+            {titleRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
           </View>
 
           <View style={{ alignSelf: "center" }}>
@@ -477,7 +521,7 @@ export default function AddPost({ navigation, route }) {
             <RadioButtonRN
               data={pdata}
               circleSize={width(3)}
-              initial={price ? 1 : 2}
+              initial={pricing=="Price" ? 1 : 2}
               boxStyle={{
                 width: width(90),
                 borderWidth: 0,
@@ -500,9 +544,14 @@ export default function AddPost({ navigation, route }) {
                 value={price + ""}
                 setvalue={setPrice}
                 placeholder={t("addPost.phprice")}
-                containerStyle={[styles.price, { width: width(90) }]}
+                containerStyle={[
+                  styles.price,
+                  { width: width(90) },
+                  priceRequire && styles.required,
+                ]}
                 keyboardType="number-pad"
               />
+              {priceRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
             </View>
           )}
           {feild?.conditionList && (
@@ -589,7 +638,10 @@ export default function AddPost({ navigation, route }) {
                 data={vcompanies}
                 search={true}
                 searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
+                buttonStyle={[
+                  styles.searchbox,
+                  brandRequire && styles.required,
+                ]}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
                 selectedRowTextStyle={{ color: AppColors.white }}
                 buttonTextStyle={{ textAlign: "left", fontSize: width(3.5) }}
@@ -605,6 +657,7 @@ export default function AddPost({ navigation, route }) {
                   return item;
                 }}
               />
+              {brandRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
             </View>
           )}
           {brand && (
@@ -990,13 +1043,17 @@ export default function AddPost({ navigation, route }) {
               }}
               disableScroll={true}
               styles={{
-                textInput: { backgroundColor: AppColors.greybackground },
+                textInput: [
+                  { backgroundColor: AppColors.greybackground },
+                  addressRequire && styles.required,
+                ],
               }}
               query={{
                 key: Apikey,
                 language: "en",
               }}
             />
+            {addressRequire && <Text style={styles.require}>*{t(`addPost.require`)}</Text>}
           </View>
         </View>
         <View

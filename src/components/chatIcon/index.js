@@ -1,22 +1,27 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
-
+import Dialog from "react-native-dialog";
 import { getUserByID } from "../../backend/auth";
 import { useNavigation } from "@react-navigation/native";
 import ScreenNames from "../../routes/routes";
 import { useSelector } from "react-redux";
 import { selectUserMeta } from "../../redux/slices/user";
+import { getDataofAdByID } from "../../backend/api";
+import { useTranslation } from "react-i18next";
 
 export default function ChatIcon({ navigation, data }) {
+  const { t } = useTranslation();
   const loginuser = useSelector(selectUserMeta);
   const [user, setUser] = useState();
   const database = getDatabase();
-
+  const [visible, setVisible] = useState(false);
   const [date, setDate] = useState("");
   const [msg, setMsg] = useState("");
+
+  const [selectedItem, setSelectedItem] = useState("");
 
   const fetchData = useCallback(async () => {
     let search;
@@ -44,40 +49,70 @@ export default function ChatIcon({ navigation, data }) {
       }
     });
   };
+  const getItems = async () => {
+    const response = await getDataofAdByID(data.split("_")[2]);
 
+    setSelectedItem(!response);
+  };
   useEffect(() => {
     fetchData();
+    getItems();
   }, [fetchData]);
   useEffect(() => {
     myfuntion();
   }, [msg]);
+
   return (
-    <TouchableOpacity
-      style={styles.main}
-      onPress={() => {
-        navigation.navigate(ScreenNames.CHAT, {
-          usr: user,
-          userRoom: data,
-          userItem: data.split("_")[2],
-        });
-      }}
-    >
-      <View style={styles.main}>
+    <Fragment>
+      <TouchableOpacity
+        style={styles.main}
+        onPress={() => {
+          navigation.navigate(ScreenNames.CHAT, {
+            usr: user,
+            userRoom: data,
+            userItem: data.split("_")[2],
+          });
+        }}
+      >
         <View style={styles.imageview}>
           <Image
             resizeMode="contain"
-            style={styles.image}
+            style={[styles.image, selectedItem && { borderColor: "lightgrey" }]}
             source={{ uri: user?.image }}
           />
+          {selectedItem && (
+            <View
+              style={{
+                width: width(17),
+                height: width(17),
+                borderRadius: width(10),
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                position: "absolute",
+              }}
+            />
+          )}
         </View>
         <View style={styles.detail}>
           <Text
             numberOfLines={1}
-            style={{ fontWeight: "bold", fontSize: width(3.5) }}
+            style={[
+              {
+                fontWeight: "bold",
+                fontSize: width(3.5),
+                paddingTop: height(1),
+              },
+              selectedItem && { color: "lightgrey" },
+            ]}
           >
             {user?.firstName} {user?.lastName}
           </Text>
-          <Text numberOfLines={1} style={{ fontSize: width(2.5) }}>
+          <Text
+            numberOfLines={1}
+            style={[
+              { paddingTop: height(1), fontSize: width(2.5) },
+              selectedItem && { color: "lightgrey" },
+            ]}
+          >
             {msg}
           </Text>
           <Text />
@@ -86,11 +121,14 @@ export default function ChatIcon({ navigation, data }) {
         <View style={styles.icons}>
           <Text
             numberOfLines={1}
-            style={{
-              fontWeight: "bold",
-              fontSize: width(2.5),
-              width: width(15),
-            }}
+            style={[
+              {
+                fontWeight: "bold",
+                fontSize: width(2.5),
+                width: width(15),
+              },
+              selectedItem && { color: "lightgrey" },
+            ]}
           >
             {`${new Date(date).getDate()}/${
               new Date(date).getMonth() + 1
@@ -98,7 +136,28 @@ export default function ChatIcon({ navigation, data }) {
           </Text>
           <Text />
         </View>
+      </TouchableOpacity>
+      <View>
+        <Dialog.Container visible={visible}>
+          <Dialog.Title> {t("Delete Chat")}</Dialog.Title>
+          <Dialog.Description>
+            <Text style={{ fontSize: width(3) }}>
+              {t("Do you want to delete the caht")}
+            </Text>
+          </Dialog.Description>
+          <Dialog.Button
+            label={t("myad.cancel")}
+            onPress={() => setVisible(false)}
+          />
+          <Dialog.Button
+            color={"red"}
+            label={t("myad.delete")}
+            onPress={() => {
+              setVisible(false);
+            }}
+          />
+        </Dialog.Container>
       </View>
-    </TouchableOpacity>
+    </Fragment>
   );
 }

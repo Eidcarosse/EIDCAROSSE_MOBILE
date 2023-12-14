@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
+import { he } from "date-fns/locale";
 
 const styles = StyleSheet.create({
   main: {
     flexDirection: "row",
     width: width(93),
-
     borderRadius: width(2),
     alignItems:'center',
-    marginVertical: width(1),
+    marginVertical:height(.2),
   },
   imageview: {
     width: width(23),
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   detail: {
     width: width(47),
     alignItems: "flex-start",
-    justifyContent:'space-evenly',
-    height:width(15),
+    justifyContent:"center",
+    marginTop:height(1)
   },
   icons: {
     paddingVertical: width(2),

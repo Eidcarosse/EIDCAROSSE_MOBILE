@@ -266,6 +266,7 @@ export default {
     seeAll: "Alle Kategorien",
   },
   addPost: {
+    require:"Pflichtfeld",
     title: "Inserat hinzufügen",
     attachImage1: "Bild anhängen",
     attachImage2: "Sie können bis zu 7 Bilder hochladen.",
@@ -508,9 +509,9 @@ export default {
     republish: "Erneut veröffentlichen",
     sold: "Verkauft",
     unsold: "Nochmals verkaufen",
-    deletetitle: "Anzeige löschen",
+    deletetitle: "Inserat löschen",
     deletealertmsg:
-      "Möchten Sie diese Anzeige löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+      "Möchten Sie dieses Inserat löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
     cancel: "Abbrechen",
   },
   sortList: {
@@ -534,8 +535,10 @@ export default {
     whatsapp: "Meine Whatsapp-Nummer anzeigen?",
   },
   flashmsg: {
+    "Ad Refresh":"Aktualisierung nach 3 std. wieder möglich!",
     authentication: "Authentifizierung",
     success: "Erfolg",
+    ref_success:"Erfolgreich aktualisiert!",
     error: "Fehler",
     require: "Erforderlich",
     password: "Passwort",
@@ -565,8 +568,11 @@ export default {
     passwordchangemsg: "Erfolgreich geändert",
     emailsussesssendmsg: "Code an Ihre angegebene E-Mail gesendet",
     sussessloginmsg: "Anmeldung erfolgreich",
+    "Please fill all required fields":
+      "Bitte füllen Sie alle erforderlichen Felder aus",
   },
   type: {
+
     "Articulated bus": "Gelenkbus",
     "City bus": "Stadtbus",
     Coach: "Reisebus",
@@ -666,7 +672,7 @@ export default {
     "Working platform (special)": "Arbeitsbühne (speziell)",
   },
   editAd: {
-    title: "Anzeige bearbeiten",
+    title: "Inserat bearbeiten",
     edit: "Bearbeiten",
   },
   filter: {

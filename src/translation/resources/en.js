@@ -284,6 +284,7 @@ export default {
     seeAll: "See all",
   },
   addPost: {
+    require:"require",
     title: "Add Post",
     attachImage1: "Attach Image",
     attachImage2: "You can upload up to 7 images.",
@@ -551,6 +552,7 @@ export default {
     ads: "Allow public to see my all ads?",
   },
   flashmsg: {
+    "Ad Refresh":"Ad Refresh",
     authentication: "Authentication",
     success: "Success",
     error: "Error",
@@ -589,6 +591,7 @@ export default {
       "Alert! email already exists please enter someother email.",
     "Unable to create user! please try again.":
       "Unable to create user! please try again.",
+    "Please fill all required fields": "Please fill all required fields",
   },
   type: {
     "Articulated bus": "Articulated bus",
