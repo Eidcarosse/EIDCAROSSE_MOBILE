@@ -62,6 +62,7 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.newPassword"}
             placeholder={"changePassword.phnewPassword"}
             value={newPassword}
+            secure={true}
             setvalue={setNewPassword}
           />
 
@@ -69,6 +70,7 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.confirmpassword"}
             placeholder={"changePassword.phconfirmpassword"}
             value={confirmPassword}
+            secure={true}
             setvalue={setConfirmPassword}
           />
           <Button

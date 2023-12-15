@@ -1,17 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Pressable, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { selectCategoryList } from "../../redux/slices/config";
 import ScreenNames from "../../routes/routes";
-import { width } from "../../utills/Dimension";
 import CategoryIcon from "../categories";
 import styles from "./styles";
 
@@ -61,6 +53,7 @@ export default function CategoryList({ navigation, search }) {
         data={data}
         renderItem={renderItem}
         numColumns={3}
+        scrollEnabled={false}
         keyExtractor={(item, index) => index}
       />
     </View>

@@ -55,8 +55,9 @@ import styles from "./styles";
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
   const edit = route?.params?.data;
+
   const category = route?.params?.category || edit?.category;
-  const find = route?.params?.find || edit?.category;
+  const f = route?.params?.find;
   const sub = route?.params?.subcategory || edit?.subCategory;
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
@@ -65,8 +66,9 @@ export default function AddPost({ navigation, route }) {
   const mapRef = useRef(null);
   const modelRef = useRef();
   const brandRef = useRef();
-  const typeRef = useRef();
   const imageRef = useRef(null);
+
+  const [find, setFind] = useState(f);
   const [image, setImage] = React.useState(edit?.images || []);
   const [subCategory, setSubCategory] = React.useState(sub);
   const [title, setTitle] = React.useState(edit?.title || "");
@@ -77,7 +79,7 @@ export default function AddPost({ navigation, route }) {
   const [description, setDescription] = React.useState(edit?.description || "");
   const [check, setCheck] = React.useState(false);
   const [otherBrand, setOtherBrand] = React.useState(false);
-  const [otherType, setOtherType] = React.useState(false);
+  const [otherModel, setOtherModel] = React.useState(false);
   const [year, setYear] = React.useState(edit?.year || "");
   const [price, setPrice] = React.useState(edit?.price || "");
   const [priceRequire, setPriceRequire] = React.useState(null);
@@ -118,8 +120,13 @@ export default function AddPost({ navigation, route }) {
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
       setPricing(edit?.price ? "Price" : "");
-      edit?.brand == "Others" && setOtherBrand(true);
-      edit?.type == "Others" && setOtherType(true);
+      setBrand(edit?.brand);
+      setModel(edit?.model);
+      edit?.brand === "Others" && setOtherBrand(true);
+      edit?.model === "Others" && setOtherModel(true);
+      edit?.category == "Bikes"
+        ? setFind(edit?.subCategory)
+        : setFind(edit?.category);
     }
   }, [edit]);
   useEffect(() => {
@@ -128,7 +135,7 @@ export default function AddPost({ navigation, route }) {
       getvehicleCategory();
     }
     getFeilds();
-  }, []);
+  }, [find]);
   const getFeilds = async () => {
     let data = await backEndDataAPi({
       type: find,
@@ -156,14 +163,13 @@ export default function AddPost({ navigation, route }) {
       setVtype(false);
     }
   };
-  console.log("brand", brand);
+
   useEffect(() => {
     if (brand) getmodel(find, brand);
-  }, [brand]);
+  }, [brand, find]);
   const getmodel = async (a, b) => {
     dispatch(setAppLoader(true));
     let cardata = await getModel(a, b);
-
     if (cardata) {
       setapiModel(cardata);
       dispatch(setAppLoader(false));
@@ -383,6 +389,36 @@ export default function AddPost({ navigation, route }) {
       label: t("condition.disable"),
     },
   ];
+  const otherModelFuntion = () => {
+    if (!otherModel) {
+      if (model) {
+        setModel("");
+      }
+      setModel("Others");
+      setOtherModel(!otherModel);
+    } else {
+      if (model) {
+        setModel("");
+      }
+      setOtherModel(!otherModel);
+    }
+  };
+  const otherBrandFuntion = () => {
+    if (!otherBrand) {
+      if (model) {
+        setModel("");
+        setOtherModel(false);
+      }
+      setBrand("Others");
+      setOtherBrand(!otherBrand);
+    } else {
+      if (brand) {
+        setModel("");
+        setBrand("");
+      }
+      setOtherBrand(!otherBrand);
+    }
+  };
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -555,7 +591,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={price + ""}
                 setvalue={setPrice}
-                placeholder={t("addPost.phprice")}
+                placeholder={t("XXXXXXXXXX")}
                 containerStyle={[
                   styles.price,
                   { width: width(90) },
@@ -601,18 +637,15 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.type")}</Text>
 
               <SelectDropdown
-                ref={typeRef}
                 defaultButtonText={
                   type ? t(`type.${type}`) : t("addPost.defaultValueDropdown")
                 }
                 data={vtype}
                 searchPlaceHolder={t("addPost.phsearchHere")}
-                search={true}
-                disabled={otherType}
                 buttonStyle={styles.searchbox}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
                 selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{ textAlign: "left", fontSize: width(3.5) }}
+                buttonTextStyle={[{ textAlign: "left", fontSize: width(3.5) }]}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
                   setType(selectedItem);
@@ -624,29 +657,6 @@ export default function AddPost({ navigation, route }) {
                   return t(`type.${item}`);
                 }}
               />
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  paddingVertical: width(4),
-                  alignSelf: "flex-start",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  if (type) {
-                    typeRef.current.reset();
-                  }
-                  setType("Others");
-                  setOtherType(!otherType);
-                }}
-              >
-                <CheckBox
-                  style={{ paddingRight: width(2) }}
-                  checkedCheckBoxColor={AppColors.primary}
-                  isChecked={otherType}
-                  onClick={() => {}}
-                />
-                <Text>{t("category.Others")}</Text>
-              </TouchableOpacity>
             </View>
           )}
           {!(
@@ -689,7 +699,10 @@ export default function AddPost({ navigation, route }) {
                 ]}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
                 selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{ textAlign: "left", fontSize: width(3.5) }}
+                buttonTextStyle={[
+                  { textAlign: "left", fontSize: width(3.5) },
+                  otherBrand && { color: "grey" },
+                ]}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
                   if (model) {
@@ -715,49 +728,44 @@ export default function AddPost({ navigation, route }) {
                   alignSelf: "flex-start",
                   alignItems: "center",
                 }}
-                onPress={() => {
-                  if (model) {
-                    modelRef.current.reset();
-                    setModel("");
-                  }
-                  if (brand) {
-                    brandRef.current.reset();
-                  }
-                  setBrand("Others");
-                  setOtherBrand(!otherBrand);
-                }}
+                onPress={otherBrandFuntion}
               >
                 <CheckBox
                   style={{ paddingRight: width(2) }}
                   checkedCheckBoxColor={AppColors.primary}
                   isChecked={otherBrand}
-                  onClick={() => {}}
+                  onClick={otherBrandFuntion}
                 />
                 <Text>{t("category.Others")}</Text>
               </TouchableOpacity>
             </View>
           )}
 
-          {brand && brand != "Others" && (
+          {brand && (
             <View>
-              {apimodel ? (
+              {apimodel && brand != "Others" ? (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.model")}</Text>
                   <SelectDropdown
                     defaultButtonText={
-                      model || t("addPost.defaultValueDropdown")
+                      model
+                        ? model === "Others"
+                          ? t("category.Others")
+                          : model
+                        : t("addPost.defaultValueDropdown")
                     }
                     ref={modelRef}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     data={apimodel}
+                    disabled={otherModel}
                     search={true}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: width(3.5),
-                    }}
+                    buttonTextStyle={[
+                      { textAlign: "left", fontSize: width(3.5) },
+                      otherModel && { color: "grey" },
+                    ]}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
                       setModel(selectedItem);
@@ -769,6 +777,23 @@ export default function AddPost({ navigation, route }) {
                       return item;
                     }}
                   />
+                  <TouchableOpacity
+                    style={{
+                      flexDirection: "row",
+                      paddingVertical: width(4),
+                      alignSelf: "flex-start",
+                      alignItems: "center",
+                    }}
+                    onPress={otherModelFuntion}
+                  >
+                    <CheckBox
+                      style={{ paddingRight: width(2) }}
+                      checkedCheckBoxColor={AppColors.primary}
+                      isChecked={otherModel}
+                      onClick={otherModelFuntion}
+                    />
+                    <Text>{t("category.Others")}</Text>
+                  </TouchableOpacity>
                 </View>
               ) : (
                 <></>
@@ -780,7 +805,7 @@ export default function AddPost({ navigation, route }) {
                     value={year + ""}
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
-                    placeholder={t("addPost.phyear")}
+                    placeholder={t("xxxxxxx")}
                     keyboardType="number-pad"
                   />
                 </View>
@@ -1063,7 +1088,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={whatsapp}
                 setvalue={setWhatsapp}
-                placeholder={t("addPost.phwhatsapp")}
+                placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
                 keyboardType="phone-pad"
               />
@@ -1090,7 +1115,7 @@ export default function AddPost({ navigation, route }) {
               <Input
                 value={viber}
                 setvalue={setViber}
-                placeholder={t("addPost.phviber")}
+                placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
                 keyboardType="phone-pad"
               />

@@ -31,6 +31,7 @@ export const successMessage = (description = "", message = "success") => {
     position: "top",
     statusBarHeight: height(4),
     floating: true,
+    duration: 5000,
   });
 };
 export const errorMessage = (description = "", message = "error") => {
@@ -41,6 +42,7 @@ export const errorMessage = (description = "", message = "error") => {
     position: "top",
     statusBarHeight: height(4),
     floating: true,
+    duration: 5000,
   });
 };
 export const infoMessage = (description = "", message = "info") => {
@@ -51,6 +53,7 @@ export const infoMessage = (description = "", message = "info") => {
     position: "top",
     statusBarHeight: height(4),
     floating: true,
+    duration: 5000,
   });
 };
 // export const toastMessage = (description = "", message = "Info", type = "info") => {
@@ -199,20 +202,18 @@ const openWhatsApp = (phoneNumber) => {
 };
 export const openViber = (phoneNumber) => {
   try {
-    
+    const formattedPhoneNumber =
+      Platform.OS === "android" ? phoneNumber.replace(/\+/g, "") : phoneNumber;
 
-  const formattedPhoneNumber =
-    Platform.OS === "android" ? phoneNumber.replace(/\+/g, "") : phoneNumber;
+    const viberDeepLink = `viber://chat?number=${formattedPhoneNumber}`;
 
-  const viberDeepLink = `viber://chat?number=${formattedPhoneNumber}`;
-
-  Linking.openURL(viberDeepLink).catch((err) => {
-    console.error("Error opening Viber:", err);
-    // Handle the error or display a message to the user
-  });
-} catch (error) {
-  errorMessage("Viber not exist");
-}
+    Linking.openURL(viberDeepLink).catch((err) => {
+      console.error("Error opening Viber:", err);
+      // Handle the error or display a message to the user
+    });
+  } catch (error) {
+    errorMessage("Viber not exist");
+  }
 };
 
 const calculateTimeDifference = (createdAt, l) => {

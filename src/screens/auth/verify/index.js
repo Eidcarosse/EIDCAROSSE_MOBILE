@@ -46,6 +46,7 @@ export default function Verify({ navigation, route }) {
   async function verifyfuntion(code) {
     const data = await verifyAccount({ code, email, token1 });
     if (data?.success) {
+      setModel(false);
       successMessage("Verified login now","Success")
       navigation.navigate(ScreenNames.LOGIN);
     }

@@ -43,7 +43,9 @@ export default function EditProfile({ navigation, route }) {
   const [phoneNumber, setPhoneNumber] = React.useState(
     userdata?.phoneNumber || null
   );
-
+console.log('====================================');
+console.log(whatsapp,viber);
+console.log('====================================');
   const update = async () => {
     try {
       dispatch(setAppLoader(true));
@@ -165,24 +167,28 @@ export default function EditProfile({ navigation, route }) {
               value={email}
               setvalue={setEmail}
               editable={false}
+              keyboardType="email-address"
             />
             <Input
               title={"editprofile.phoneNumberTitle"}
-              placeholder={"editprofile.phoneNumberPlaceholder"}
+              placeholder={"+41 XX XXX XX XX"}
               value={phoneNumber}
               setvalue={setPhoneNumber}
+              keyboardType="phone-pad"
             />
             <Input
               title={"editprofile.whatsappTitle"}
-              placeholder={"editprofile.whatsappPlaceholder"}
+              placeholder={"+41 XX XXX XX XX"}
               value={whatsapp}
               setvalue={setWhatsapp}
+              keyboardType="phone-pad"
             />
             <Input
               title={"editprofile.viberTitle"}
-              placeholder={"editprofile.viberPlaceholder"}
+              placeholder={"+41 XX XXX XX XX"}
               value={viber}
               setvalue={setViber}
+              keyboardType="phone-pad"
             />
             <Button
               containerStyle={styles.button}

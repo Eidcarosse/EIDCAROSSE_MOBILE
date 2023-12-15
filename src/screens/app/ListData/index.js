@@ -53,6 +53,7 @@ import {
 } from "../../../utills/Methods";
 import styles from "./styles";
 import ScreenNames from "../../../routes/routes";
+import CheckBox from "react-native-check-box";
 
 export default function ListData({ navigation, route }) {
   const { t } = useTranslation();
@@ -98,7 +99,8 @@ export default function ListData({ navigation, route }) {
   const [totalAds, setTotalAds] = useState(0);
   const [apimodel, setapiModel] = React.useState([]);
 
-  // const [columnumber, setcolumnumber] = useState(2);
+  const [otherBrand, setOtherBrand] = React.useState(false);
+  const [otherModel, setOtherModel] = React.useState(false);
 
   const queryParams = {
     address: address.trim() || "",
@@ -245,6 +247,36 @@ export default function ListData({ navigation, route }) {
       label: t("condition.Recondition"),
     },
   ];
+  const otherModelFuntion = () => {
+    if (!otherModel) {
+      if (model) {
+        setModel("");
+      }
+      setModel("Others");
+      setOtherModel(!otherModel);
+    } else {
+      if (model) {
+        setModel("");
+      }
+      setOtherModel(!otherModel);
+    }
+  };
+  const otherBrandFuntion = () => {
+    if (!otherBrand) {
+      if (model) {
+        setModel("");
+        setOtherModel(false);
+      }
+      setBrand("Others");
+      setOtherBrand(!otherBrand);
+    } else {
+      if (brand) {
+        setModel("");
+        setBrand("");
+      }
+      setOtherBrand(!otherBrand);
+    }
+  };
 
   return (
     <ScreenWrapper
@@ -504,7 +536,7 @@ export default function ListData({ navigation, route }) {
                         setSortby(selectedItem.value);
                       }}
                       buttonTextAfterSelection={(selectedItem, index) => {
-                        return t(selectedItem.key);
+                        return t(`${selectedItem.key}`);
                       }}
                       rowTextForSelection={(item, index) => {
                         return t(item.key);
@@ -559,7 +591,6 @@ export default function ListData({ navigation, route }) {
                           defaultButtonText={t("addPost.defaultValueDropdown")}
                           data={vCategory}
                           searchPlaceHolder={t("addPost.phsearchHere")}
-                          search={true}
                           buttonStyle={styles.searchbox}
                           selectedRowStyle={{
                             backgroundColor: AppColors.primary,
@@ -588,10 +619,15 @@ export default function ListData({ navigation, route }) {
                       <Text style={styles.title}>{t("addPost.brand")}</Text>
                       <SelectDropdown
                         defaultButtonText={
-                          brand || t("addPost.defaultValueDropdown")
+                          brand
+                          ? brand === "Others"
+                            ? t("category.Others")
+                            : brand
+                          : t("addPost.defaultValueDropdown") || t("addPost.defaultValueDropdown")
                         }
                         data={vcompanies}
                         search={true}
+                        disabled={otherBrand}
                         searchPlaceHolder={t("addPost.phsearchHere")}
                         buttonStyle={styles.searchbox}
                         selectedRowStyle={{
@@ -608,26 +644,48 @@ export default function ListData({ navigation, route }) {
                           setBrand(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          return selectedItem;
+                          return t(selectedItem);
                         }}
                         rowTextForSelection={(item, index) => {
-                          return item;
+                          return t(item);
                         }}
                       />
+                      <TouchableOpacity
+                        style={{
+                          flexDirection: "row",
+                          paddingVertical: width(4),
+                          alignSelf: "flex-start",
+                          alignItems: "center",
+                        }}
+                        onPress={otherBrandFuntion}
+                      >
+                        <CheckBox
+                          style={{ paddingRight: width(2) }}
+                          checkedCheckBoxColor={AppColors.primary}
+                          isChecked={otherBrand}
+                          onClick={otherBrandFuntion}
+                        />
+                        <Text>{t("category.Others")}</Text>
+                      </TouchableOpacity>
                     </View>
                   )}
                   {brand && (
                     <View>
-                      {apimodel ? (
+                      {apimodel && brand != "Others" ? (
                         <View style={{ alignSelf: "center" }}>
                           <Text style={styles.title}>{t("addPost.model")}</Text>
                           <SelectDropdown
                             defaultButtonText={
-                              model || t("addPost.defaultValueDropdown")
+                              model
+                              ? model === "Others"
+                                ? t("category.Others")
+                                : model
+                              : t("addPost.defaultValueDropdown")
                             }
                             ref={modelRef}
                             searchPlaceHolder={t("addPost.phsearchHere")}
                             data={apimodel}
+                            disabled={otherModel}
                             search={true}
                             buttonStyle={styles.searchbox}
                             selectedRowStyle={{
@@ -649,6 +707,23 @@ export default function ListData({ navigation, route }) {
                               return item;
                             }}
                           />
+                          <TouchableOpacity
+                            style={{
+                              flexDirection: "row",
+                              paddingVertical: width(4),
+                              alignSelf: "flex-start",
+                              alignItems: "center",
+                            }}
+                            onPress={otherModelFuntion}
+                          >
+                            <CheckBox
+                              style={{ paddingRight: width(2) }}
+                              checkedCheckBoxColor={AppColors.primary}
+                              isChecked={otherModel}
+                              onClick={otherModelFuntion}
+                            />
+                            <Text>{t("category.Others")}</Text>
+                          </TouchableOpacity>
                         </View>
                       ) : (
                         <></>

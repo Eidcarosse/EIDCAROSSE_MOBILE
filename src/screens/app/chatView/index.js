@@ -218,6 +218,7 @@ function ChatView({ route }) {
 
   const renderSend = (props) => (
     <Send
+      disabled={!selectedItem}
       {...props}
       containerStyle={{ paddingRight: width(4) }}
       label={<Ionicons name="send" color={AppColors.primary} size={width(6)} />}
@@ -355,6 +356,9 @@ function ChatView({ route }) {
           route.params?.userRoom == undefined) &&
         roomID == null
       ) {
+        console.log("====================================");
+        console.log("rinhing if");
+        console.log("====================================");
         let roomNew = `${user?._id}_${route.params.usr?._id}_${route.params?.userItem}`;
         setRoomID(roomNew);
         const newMessageRef = push(
@@ -395,6 +399,8 @@ function ChatView({ route }) {
           `chatrooms/${roomID}/lastRead/${user?._id}`
         );
         await set(lastReadRef, Date.now());
+        await setRooms(roomID, route.params.usr?._id);
+        await setRooms(roomID, user?._id);
       }
     }
   }, []);
@@ -470,7 +476,7 @@ function ChatView({ route }) {
   };
   const getItems = async () => {
     const response = await getDataofAdByID(route.params?.userItem);
-    if(!response)alert("Ad deleted")
+    if (!response) alert("Ad deleted");
     setSelectedItem(response);
   };
 
@@ -505,13 +511,7 @@ function ChatView({ route }) {
           <TouchableOpacity style={styles.icon_Style} onPress={handleBack}>
             <MaterialIcons name="arrow-back-ios" size={width(7)} />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate(ScreenNames.OTHERPROFILE, {
-                user: usrData,
-              });
-            }}
-          >
+          <TouchableOpacity>
             <Image
               source={{ uri: usrData?.image }}
               style={styles.image_Style}
@@ -547,10 +547,10 @@ function ChatView({ route }) {
           messages={messages}
           placeholder={t("chat.placeholder")}
           user={{
-            _id: user?._id, 
+            _id: user?._id,
           }}
           renderAvatar={renderAvatar}
-          // renderActions={renderActions}
+          renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}
           renderTime={renderTime}

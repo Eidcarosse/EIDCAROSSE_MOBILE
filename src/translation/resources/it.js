@@ -328,12 +328,23 @@ export default {
     Others: "Altro",
   },
   bodyShapeList: {
+    "ATV / Quad": "ATV / Quad",
+    Cabin: "Cabina",
+    Chopper: "Chopper",
+    Enduro: "Enduro",
+    Street: "Stradale",
+    Supermoto: "Supermoto",
+    Touring: "Touring",
+    Trike: "Trike",
     Convertible: "Cabriolet",
     Compact: "Compatto",
     Coupe: "Coupé",
     "SUV/Off-Road/Pick-up": "SUV/Fuoristrada/Pick-up",
     "Station Wagon": "Station Wagon",
     Sedan: "Sedan",
+    suv: "SUV/Fuoristrada/Pick-up",
+    Station: "Station Wagon",
+    Sedan: "Berlina",
     Van: "Furgone",
     Transporter: "Trasportatore",
     Supersport: "Supersportiva",
@@ -357,6 +368,7 @@ export default {
     Racing: "Corsa",
     Tourer: "Tourer",
     Other: "Altro",
+    Transporter: "Transporter",
   },
   gearBoxList: {
     Automatic: "Automatico",
@@ -672,4 +684,9 @@ export default {
   filter: {
     selectCategory: "Seleziona Categoria",
   },
+  frogeyPassword: {
+    title: "Password dimenticata",
+    button: "Dimenticare",
+  },
+  Others: "Altros",
 };

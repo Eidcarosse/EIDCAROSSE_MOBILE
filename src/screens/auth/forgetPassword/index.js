@@ -31,6 +31,8 @@ export default function ForgetPassword({ navigation, route }) {
   async function checkPassword(code) {
     const d = await verifyCodeAPI(code);
     if (d?.success) {
+      setModel(false);
+      setToken("");
       navigation.navigate(ScreenNames.CPF, { token, email });
     } else {
       errorMessage(t(`flashmsg.wrongpinerrormsg`),t(`flashmsg.error`));
@@ -45,7 +47,7 @@ export default function ForgetPassword({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.bg}>
           <View style={styles.imageiner}>
-            <Text style={styles.logintext}>{t("Forget Password")}</Text>
+            <Text style={styles.logintext}>{t("frogeyPassword.title")}</Text>
           </View>
         </ImageBackground>
         <View style={{ paddingTop: width(10) }}>
@@ -58,7 +60,7 @@ export default function ForgetPassword({ navigation, route }) {
           <Button
             disabled={token ? true : false}
             containerStyle={styles.button}
-            title={"Forget"}
+            title={"frogeyPassword.button"}
             onPress={() => {
               if (email) {
                 forgetpassword();

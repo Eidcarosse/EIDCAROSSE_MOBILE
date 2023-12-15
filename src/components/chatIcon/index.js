@@ -22,15 +22,18 @@ export default function ChatIcon({ navigation, data }) {
   const [msg, setMsg] = useState("");
 
   const [selectedItem, setSelectedItem] = useState("");
+  // useEffect(() => {
+  //   fetchData();
+  // }, [loginuser, data]);
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     let search;
     loginuser._id == data.split("_")[0]
       ? (search = data.split("_")[1])
       : (search = data.split("_")[0]);
     let user = await getUserByID(search);
     setUser(user);
-  }, [loginuser, data]);
+  };
 
   const myfuntion = async () => {
     const messagesRef = ref(database, `chatrooms/${data}/messages`);
@@ -40,7 +43,6 @@ export default function ChatIcon({ navigation, data }) {
       if (messageData) {
         // Convert the message data to an array and sort it in descending order
         const messageList = Object.values(messageData);
-
         messageList.map((message) => {
           setDate(message?.timestamp);
           setMsg(message?.text);
@@ -51,16 +53,16 @@ export default function ChatIcon({ navigation, data }) {
   };
   const getItems = async () => {
     const response = await getDataofAdByID(data.split("_")[2]);
-
     setSelectedItem(!response);
   };
   useEffect(() => {
     fetchData();
     getItems();
-  }, [fetchData]);
-  useEffect(() => {
     myfuntion();
-  }, [msg]);
+  }, [msg,data]);
+  // useEffect(() => {
+  
+  // }, []);
 
   return (
     <Fragment>

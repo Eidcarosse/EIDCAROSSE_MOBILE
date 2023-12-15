@@ -130,6 +130,7 @@ export default function SignUp({ navigation, route }) {
               title={"signup.emailTitle"}
               placeholder={"signup.emailPlaceholder"}
               require={emailr}
+              keyboardType="email-address"
             />
             <Input
               value={password}
@@ -145,6 +146,7 @@ export default function SignUp({ navigation, route }) {
               title={"signup.phoneNumberTitle"}
               placeholder={"signup.phoneNumberPlaceholder"}
               require={phoneNumberr}
+              keyboardType="phone-pad"
             />
             {/* <Input
               value={whatsapp}

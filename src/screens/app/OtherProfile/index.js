@@ -85,7 +85,7 @@ export default function OtherProfile({ navigation, route }) {
                 >
                   {userdata?.email}
                 </Text>
-                <Text
+                {/* <Text
                   style={{
                     fontSize: width(3),
                     fontWeight: "bold",
@@ -93,7 +93,7 @@ export default function OtherProfile({ navigation, route }) {
                   }}
                 >
                   {userdata?.phoneNumber}
-                </Text>
+                </Text> */}
               </View>
             </View>
             <View style={styles.wishlistview}>

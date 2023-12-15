@@ -1,6 +1,7 @@
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Modal from "react-native-modal";
 import {
   ActivityIndicator,
   Image,
@@ -33,6 +34,7 @@ import { WebLink } from "../../../utills/Constants";
 import { height, width } from "../../../utills/Dimension";
 import GlobalMethods, { infoMessage } from "../../../utills/Methods";
 import styles from "./styles";
+import { ScrollView } from "react-native-gesture-handler";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
@@ -44,6 +46,8 @@ export default function Detail({ navigation, route }) {
   const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
   const [load, setload] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectefImage, setSelectefImage] = useState();
   useEffect(() => {
     if (isInArray(data?._id, favAdIds)) {
       setFav(true);
@@ -179,8 +183,14 @@ export default function Detail({ navigation, route }) {
               autoPlay={false}
               caroselImageStyle={{ resizeMode: "contain" }}
               activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
-              closeIconColor={AppColors.white}
-              preview={true}
+              closeIconColor={AppColors.primary}
+              blurRadius={100}
+              preview={false}
+              onClick={(c) => {
+                setSelectefImage(c.img);
+                console.log("presed button", c);
+                setShowModal(true);
+              }}
             />
           </View>
           <View style={styles.nameview}>
@@ -284,9 +294,7 @@ export default function Detail({ navigation, route }) {
                 <View style={styles.cardrow}>
                   <Text style={styles.cardelement}>{t("detail.type")}</Text>
                   <Text style={styles.cardelement2}>
-                    {data?.type === "Others"
-                      ? t("category.Others")
-                      : t(`type.${data?.type}`)}
+                    {t(`type.${data?.type}`)}
                   </Text>
                 </View>
               )}
@@ -530,6 +538,45 @@ export default function Detail({ navigation, route }) {
           <RelatedAd category={data?.category} id={data?._id} />
         </View>
       )}
+      <Modal
+        animationInTiming={300}
+        animationOutTiming={600}
+        animationIn={"lightSpeedIn"}
+        animationOut={"lightSpeedOut"}
+        isVisible={showModal}
+        backdropOpacity={1}
+        swipeDirection="down"
+        backdropColor={AppColors.black}
+        onBackButtonPress={() => {
+          setShowModal(false);
+        }}
+        onSwipeComplete={() => {
+          setShowModal(false);
+        }}
+        onBackdropPress={() => {
+          setShowModal(false);
+        }}
+      >
+        <View
+          style={{
+            borderRadius: width(10),
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            backgroundColor: "black",
+          }}
+        >
+          {/* <Ionicons name="close" color={'red'} size={width(7)}/> */}
+          <Image
+            style={{
+              width: width(95),
+              resizeMode: "contain",
+              height: height(70),
+            }}
+            source={{ uri: selectefImage }}
+          />
+        </View>
+      </Modal>
     </ScreenWrapper>
   );
 }

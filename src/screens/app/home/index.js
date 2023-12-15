@@ -21,7 +21,7 @@ import {
   setTopAds,
 } from "../../../redux/slices/config";
 import { width } from "../../../utills/Dimension";
-import { toastMessage } from "../../../utills/Methods";
+
 import styles from "./styles";
 import { Card } from "../../../components";
 import { useScrollToTop } from "@react-navigation/native";
@@ -43,9 +43,6 @@ export default function Home({}) {
     setTimeout(() => {
       dispatch(setAppLoader(false));
     }, 1000);
-
-    // setRefreshing(false);
-    toastMessage("Refresh");
   };
   useFocusEffect(
     useCallback(() => {

@@ -4,8 +4,6 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-//import ImagePicker from 'react-native-image-crop-picker';
-//import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import DropDownMenu from "../dorpdownmenu";

@@ -274,7 +274,7 @@ export default {
       "Das erste Bild ist das Titelbild. Langes drücken, um Bilder zu ziehen und zu sortieren.",
     productInformation: "Produktinformationen",
     titleWord: "Titel",
-    phtitleWord: "Fahrzeugtitel",
+    phtitleWord: "Wie lautet der Titel deines Inserats?",
     pricing: "Preisgestaltung",
     price: "Preis",
     phprice: "12345",
@@ -334,10 +334,27 @@ export default {
   },
   bodyShapeList: {
     Convertible: "Cabriolet",
+    "ATV / Quad": "ATV / Quad",
+    Cabin: "Kabine",
+    Chopper: "Chopper",
+    Enduro: "Enduro",
+    Moped: "Moped",
+    Motocross: "Motocross",
+    "Naked Bike": "Naked Bike",
+    Scooter: "Roller",
+    Sidecar: "Beiwagen",
+    Street: "Straße",
+    Supermoto: "Supermoto",
+    Touring: "Touring",
+    Trike: "Trike",
+    Others: "Andere",
+    Convertible: "Cabrio",
     Compact: "Kompakt",
     Coupe: "Coupé",
     "SUV/Off-Road/Pick-up": "SUV/Off-Road/Pick-up",
     "Station Wagon": "Kombi",
+    suv: "SUV/Geländewagen/Pick-up",
+    Station: "Kombi",
     Sedan: "Limousine",
     Van: "Van",
     Transporter: "Transporter",
@@ -394,7 +411,7 @@ export default {
     Used: "Gebraucht",
     Recondition: "Sonstiges",
     recondition: "Sonstiges",
-    price: "Preis",
+    price: "Fixpreis",
     disable: "Auf Anfrage",
   },
   editprofile: {
@@ -413,7 +430,7 @@ export default {
     usernamePlaceholder: "Geben Sie Ihren Benutzernamen ein",
     emailTitle: "E-Mail",
     emailPlaceholder: "Geben Sie Ihre E-Mail-Adresse ein",
-    update: "Aktualisieren",
+    update: "Speichern",
   },
   manageAccount: {
     title: "Konto verwalten",
@@ -495,7 +512,7 @@ export default {
     to: "bis",
   },
   subcategory: {
-    titleBike: "Fahrräder",
+    titleBike: "Motorräder",
     titleParts: "Ersatzteile",
   },
   myad: {
@@ -564,14 +581,14 @@ export default {
     whatsapperror: "WhatsApp existiert nicht",
     vibererror: "Viber existiert nicht",
     adPostsussessmsg: "Anzeige erfolgreich veröffentlicht",
-    editadsussessmsg: "Anzeige erfolgreich bearbeitet",
+    editadsussessmsg: "Inserat erfolgreich veröffentlicht",
     passwordchangemsg: "Erfolgreich geändert",
     emailsussesssendmsg: "Code an Ihre angegebene E-Mail gesendet",
     sussessloginmsg: "Anmeldung erfolgreich",
     "Please fill all required fields":
       "Bitte füllen Sie alle erforderlichen Felder aus",
     refreshAdMsg:
-      "Bitte warten Sie mindestens 3 Stunden, bevor Sie aktualisieren.",
+      "Bitte warten Sie mindestens 3 Stunden, bevor Sie es nochmals aktualisieren.",
   },
   type: {
     "Articulated bus": "Gelenkbus",
@@ -674,9 +691,14 @@ export default {
   },
   editAd: {
     title: "Inserat bearbeiten",
-    edit: "Bearbeiten",
+    edit: "Speichern",
   },
   filter: {
     selectCategory: "Kategorie auswählen",
   },
+  frogeyPassword: {
+    title: "Passwort vergessen",
+    button: "Vergessen",
+  },
+  Others: "Andere",
 };
