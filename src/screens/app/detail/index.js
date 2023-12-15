@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Swiper from "react-native-swiper";
+import { SliderBox } from "react-native-image-slider-box";
 import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,6 +50,12 @@ export default function Detail({ navigation, route }) {
   const [load, setload] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectefImage, setSelectefImage] = useState();
+  const images = [
+    "https://source.unsplash.com/1024x768/?nature",
+    "https://source.unsplash.com/1024x768/?water",
+    "https://source.unsplash.com/1024x768/?girl",
+    "https://source.unsplash.com/1024x768/?tree",
+  ];
   useEffect(() => {
     if (isInArray(data?._id, favAdIds)) {
       setFav(true);
@@ -79,9 +87,13 @@ export default function Detail({ navigation, route }) {
       dispatch(setAdsFav(fav));
     }
   };
-  const img = data?.images?.map((item) => {
-    return { img: item };
-  });
+  // const img = data?.images?.map((item) => {
+  //   return { img: item };
+  // });
+  const img =
+    data?.images?.map((item) => {
+      return item;
+    }) || [];
   function isNullOrNullOrEmpty(value) {
     return (
       value === null ||
@@ -94,11 +106,6 @@ export default function Detail({ navigation, route }) {
   useEffect(() => {
     getData();
   }, [dat?._id != data?._id]);
-  // useEffect(() => {
-  //  if(isEnabled){
-
-  //  }
-  // }, [isEnd]);
 
   const getData = async () => {
     try {
@@ -176,7 +183,7 @@ export default function Detail({ navigation, route }) {
       ) : (
         <View style={styles.mainViewContainer}>
           <View style={styles.imageview}>
-            <ImageSlider
+            {/* <ImageSlider
               showIndicator
               data={img}
               indicatorContainerStyle={{ color: AppColors.primary }}
@@ -184,14 +191,59 @@ export default function Detail({ navigation, route }) {
               caroselImageStyle={{ resizeMode: "contain" }}
               activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
               closeIconColor={AppColors.primary}
-              blurRadius={100}
               preview={false}
               onClick={(c) => {
                 setSelectefImage(c.img);
                 console.log("presed button", c);
                 setShowModal(true);
               }}
-            />
+            /> */}
+            {/* <SliderBox
+              images={img || []}
+              sliderBoxHeight={height(35)}
+              onCurrentImagePressed={(index) => {
+                console.log(`image ${index} pressed`);
+                setSelectefImage(img[index]);
+                setShowModal(true);
+              }}
+              dotColor={AppColors.primary}
+              inactiveDotColor={AppColors.white}
+              circleLoop={true}
+            /> */}
+            <Swiper
+              style={{ height: height(30)}}
+              activeDotColor={AppColors.primary}
+              automaticallyAdjustContentInsets={true}
+            >
+              {img.map((image, index) => (
+                <Pressable
+                  key={index}
+                  style={{
+                    width: width(100),
+                    height: height(32),
+                    // backgroundColor: AppColor.lightGrey,
+                  }}
+                  onPress={() => {
+                    setSelectefImage(img[index]);
+                    setTimeout(() => {
+                      setShowModal(true);
+                    }, 600);
+                  }}
+                >
+                  <Image
+                    source={{ uri: image }}
+                    resizeMode="contain"
+                    style={{
+                      width: width(100),
+                      height: height(32),
+                      marginTop:height(1)
+                      // alignSelf: "center",
+                    }}
+                    // style={{ flex: 1, resizeMode: "cover" }}
+                  />
+                </Pressable>
+              ))}
+            </Swiper>
           </View>
           <View style={styles.nameview}>
             <View
