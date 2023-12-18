@@ -18,7 +18,10 @@ import { setAppLoader } from "../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../redux/slices/user";
 import { getOwneAd } from "../../backend/auth";
 import GlobalMethods, {
+  checkPrice,
   errorMessage,
+  formatPrice,
+  formatPriceE,
   successMessage,
 } from "../../utills/Methods";
 import { useTranslation } from "react-i18next";
@@ -109,13 +112,13 @@ export default function MyCard({ data }) {
           </Text>
         </View> */}
         <View style={styles.detailinerview}>
-          {data?.price ? (
+          {checkPrice(data?.price) ? (
             <View>
               <Text numberOfLines={1} style={styles.chf}>
-                CHF {data?.price}
+                CHF {formatPrice(data?.price)}
               </Text>
               <Text numberOfLines={1} style={styles.eur}>
-                EUR {Math.round(data?.price * 1.06)}
+                EUR {formatPriceE(Math.round(data?.price * 1.06))}
               </Text>
             </View>
           ) : (

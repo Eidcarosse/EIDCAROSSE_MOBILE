@@ -155,7 +155,10 @@ export default function MapAdView({ navigation, route }) {
             query={{
               key: Apikey,
               language: "en",
+              components: "country:ch",
             }}
+            nearbyPlacesAPI="GooglePlacesSearch"
+            debounce={300}
           />
         </View>
         <View>

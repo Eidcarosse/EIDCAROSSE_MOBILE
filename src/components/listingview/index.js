@@ -11,7 +11,7 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { checkPrice, infoMessage } from "../../utills/Methods";
+import GlobalMethods, { checkPrice, formatPrice, formatPriceE, infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import { WebLink } from "../../utills/Constants";
@@ -19,7 +19,7 @@ import { selectCurrentLanguage } from "../../redux/slices/language";
 import { useTranslation } from "react-i18next";
 export default function ListingView({ data }) {
   const dispatch = useDispatch();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const language = useSelector(selectCurrentLanguage);
   const favAdIds = useSelector(selectFavAds);
   const loginuser = useSelector(selectUserMeta);
@@ -43,7 +43,7 @@ export default function ListingView({ data }) {
   }
   const onpressfav = async () => {
     if (!loginuser) {
-      infoMessage(t(`flashmsg.loginfavorite`),t(`flashmsg.authentication`));
+      infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {
@@ -67,19 +67,19 @@ export default function ListingView({ data }) {
         </View>
         <View style={styles.detail}>
           <View style={styles.detailinerview}>
-            {checkPrice(data?.price)? (
+            {checkPrice(data?.price) ? (
               <View>
                 <Text numberOfLines={1} style={styles.chf}>
-                  CHF {data?.price}
+                  CHF {formatPrice(data?.price)}
                 </Text>
                 <Text numberOfLines={1} style={styles.eur}>
-                  EUR {Math.round(data?.price * 1.06)}
+                  EUR {formatPriceE(Math.round(data?.price * 1.06))}
                 </Text>
               </View>
             ) : (
               <View style={styles.cfpview}>
                 <Text numberOfLines={1} style={styles.cfp}>
-                {t("detail.CFP")}
+                  {t("detail.CFP")}
                 </Text>
               </View>
             )}
@@ -128,10 +128,14 @@ export default function ListingView({ data }) {
       {!(data?.userId === loginuser?._id) ? (
         <View style={styles.icons}>
           <TouchableOpacity
-           disabled={data?.phone?false:true}
-           onPress={() => GlobalMethods.onPressCall(data?.userId?.phoneNumber)}
+            disabled={data?.phone ? false : true}
+            onPress={() => GlobalMethods.onPressCall(data?.userId?.phoneNumber)}
           >
-            <Ionicons size={width(4)} name="call" color={data?.phone?"grey":"lightgrey"} />
+            <Ionicons
+              size={width(4)}
+              name="call"
+              color={data?.phone ? "grey" : "lightgrey"}
+            />
           </TouchableOpacity>
           <TouchableOpacity
           // onPress={() => {

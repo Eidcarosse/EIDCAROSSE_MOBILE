@@ -304,7 +304,7 @@ export default {
     phtitleWord: "Titre du Véhicule",
     pricing: "Tarification",
     price: "Prix",
-    phprice: "12345",
+    phprice: "Prix",
     condition: "État",
     subcategory: "Sous-Catégorie",
     brand: "Marque",
@@ -614,6 +614,7 @@ export default {
     "Please fill all required fields":
       "Veuillez remplir tous les champs obligatoires.",
     refreshAdMsg: "Veuillez attendre au moins 3 heures avant de rafraîchir.",
+    locationRequire: "Veuillez saisir une adresse valide située en Suisse",
   },
   type: {
     "Articulated bus": "Autobus articulé",

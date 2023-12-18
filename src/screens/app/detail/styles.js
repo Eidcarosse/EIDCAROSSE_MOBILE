@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   profilecardin: {
     justifyContent: "space-between",
     alignItems: "center",
-    alignItems:'flex-start'
+    alignItems: "flex-start",
   },
   profileimage: {
     width: width(15),
@@ -77,6 +77,20 @@ const styles = StyleSheet.create({
   contact: {
     paddingLeft: width(4),
     flexDirection: "row",
+  },
+  modelImage: {
+    width: width(90),
+    height: height(60),
+    marginTop: height(1),
+    // alignSelf: "center",
+  },
+  modelView: {
+    width: width(90),
+    height: height(80),
+    backgroundColor: AppColors.lightGrey,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
 });
 export default styles;

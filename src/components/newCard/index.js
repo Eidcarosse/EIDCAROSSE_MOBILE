@@ -23,7 +23,12 @@ import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { WebLink } from "../../utills/Constants";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { checkPrice, infoMessage } from "../../utills/Methods";
+import GlobalMethods, {
+  checkPrice,
+  formatPrice,
+  formatPriceE,
+  infoMessage,
+} from "../../utills/Methods";
 import styles from "./styles";
 export default function Card({ data, onPresshide, map = false }) {
   const { t } = useTranslation();
@@ -175,10 +180,10 @@ export default function Card({ data, onPresshide, map = false }) {
             {checkPrice(data?.price) ? (
               <View>
                 <Text numberOfLines={1} style={styles.chf}>
-                  CHF {data?.price}
+                  CHF {formatPrice(data?.price)}
                 </Text>
                 <Text numberOfLines={1} style={styles.eur}>
-                  EUR {Math.round(data?.price * 1.06)}
+                  EUR {formatPriceE(Math.round(data?.price * 1.06))}
                 </Text>
               </View>
             ) : (
@@ -207,7 +212,10 @@ export default function Card({ data, onPresshide, map = false }) {
                 )}
               </Text>
             </View>
-            <AntDesign name="eye" color={"grey"} size={width(3)} >  {data?.views}</AntDesign>
+            <AntDesign name="eye" color={"grey"} size={width(3)}>
+              {" "}
+              {data?.views}
+            </AntDesign>
             {/* <Text style={{ fontSize: width(3), color: "grey" }}>
             
               {"  Views"}

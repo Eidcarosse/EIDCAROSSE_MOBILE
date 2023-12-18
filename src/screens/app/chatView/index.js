@@ -356,9 +356,6 @@ function ChatView({ route }) {
           route.params?.userRoom == undefined) &&
         roomID == null
       ) {
-        console.log("====================================");
-        console.log("rinhing if");
-        console.log("====================================");
         let roomNew = `${user?._id}_${route.params.usr?._id}_${route.params?.userItem}`;
         setRoomID(roomNew);
         const newMessageRef = push(

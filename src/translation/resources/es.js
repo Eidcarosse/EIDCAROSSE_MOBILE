@@ -287,7 +287,7 @@ export default {
     phtitleWord: "Título del Vehículo",
     pricing: "Tarifas",
     price: "Precio",
-    phprice: "12345",
+    phprice: "Precio",
     condition: "Condición",
     subcategory: "Subcategoría",
     brand: "Marca",
@@ -596,6 +596,7 @@ export default {
     "Please fill all required fields":
       "Por favor, complete todos los campos obligatorios.",
     refreshAdMsg: "Espere al menos 3 horas antes de actualizar, por favor.",
+    locationRequire:"Por favor, introduzca una dirección válida ubicada dentro de Suiza"
   },
   type: {
     "Articulated bus": "Autobús articulad",

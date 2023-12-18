@@ -12,8 +12,8 @@ import {
   View,
 } from "react-native";
 import Swiper from "react-native-swiper";
-import { SliderBox } from "react-native-image-slider-box";
-import { ImageSlider } from "react-native-image-slider-banner";
+// import { SliderBox } from "react-native-image-slider-box";
+// import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
 import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
@@ -34,7 +34,12 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { WebLink } from "../../../utills/Constants";
 import { height, width } from "../../../utills/Dimension";
-import GlobalMethods, { infoMessage } from "../../../utills/Methods";
+import GlobalMethods, {
+  checkPrice,
+  formatPrice,
+  formatPriceE,
+  infoMessage,
+} from "../../../utills/Methods";
 import styles from "./styles";
 import { ScrollView } from "react-native-gesture-handler";
 export default function Detail({ navigation, route }) {
@@ -49,13 +54,7 @@ export default function Detail({ navigation, route }) {
   const [fav, setFav] = useState(false);
   const [load, setload] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [selectefImage, setSelectefImage] = useState();
-  const images = [
-    "https://source.unsplash.com/1024x768/?nature",
-    "https://source.unsplash.com/1024x768/?water",
-    "https://source.unsplash.com/1024x768/?girl",
-    "https://source.unsplash.com/1024x768/?tree",
-  ];
+
   useEffect(() => {
     if (isInArray(data?._id, favAdIds)) {
       setFav(true);
@@ -211,8 +210,9 @@ export default function Detail({ navigation, route }) {
               circleLoop={true}
             /> */}
             <Swiper
-              style={{ height: height(30)}}
+              style={{ height: height(30) }}
               activeDotColor={AppColors.primary}
+              dotColor="white"
               automaticallyAdjustContentInsets={true}
             >
               {img.map((image, index) => (
@@ -224,10 +224,7 @@ export default function Detail({ navigation, route }) {
                     // backgroundColor: AppColor.lightGrey,
                   }}
                   onPress={() => {
-                    setSelectefImage(img[index]);
-                    setTimeout(() => {
-                      setShowModal(true);
-                    }, 600);
+                    setShowModal(true);
                   }}
                 >
                   <Image
@@ -236,7 +233,7 @@ export default function Detail({ navigation, route }) {
                     style={{
                       width: width(100),
                       height: height(32),
-                      marginTop:height(1)
+                      marginTop: height(1),
                       // alignSelf: "center",
                     }}
                     // style={{ flex: 1, resizeMode: "cover" }}
@@ -254,7 +251,7 @@ export default function Detail({ navigation, route }) {
                 alignItems: "center",
               }}
             >
-              {!isNullOrNullOrEmpty(data?.price) ? (
+              {checkPrice(data?.price) ? (
                 <View style={{}}>
                   <Text
                     numberOfLines={1}
@@ -264,7 +261,7 @@ export default function Detail({ navigation, route }) {
                       fontWeight: "bold",
                     }}
                   >
-                    CHF {data?.price}
+                    CHF {formatPrice(data?.price)}
                   </Text>
                   <Text
                     numberOfLines={1}
@@ -274,7 +271,7 @@ export default function Detail({ navigation, route }) {
                       fontWeight: "bold",
                     }}
                   >
-                    EUR {Math.round(data?.price * 1.06)}
+                    EUR {formatPriceE(Math.round(data?.price * 1.06))}
                   </Text>
                 </View>
               ) : (
@@ -466,17 +463,17 @@ export default function Detail({ navigation, route }) {
               )}
             </View>
           </View>
-          {
-            /////task uper/////
-          }
-          <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
-            <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
-              {t("detail.description")}
-            </Text>
-            <Text style={{ fontSize: width(3), paddingVertical: width(2) }}>
-              {data?.description}
-            </Text>
-          </View>
+
+          {!isNullOrNullOrEmpty(data?.description) && (
+            <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
+              <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
+                {t("detail.description")}
+              </Text>
+              <Text style={{ fontSize: width(3), paddingVertical: width(2) }}>
+                {data?.description}
+              </Text>
+            </View>
+          )}
           {/* user profile */}
           {!(data?.userId?._id == loginuser?._id) && (
             <Pressable
@@ -559,34 +556,38 @@ export default function Detail({ navigation, route }) {
               )}
             </View>
           )}
-          <View style={{ paddingLeft: width(4) }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: width(5),
-                marginVertical: width(2),
-              }}
-            >
-              {t("detail.location")}
-            </Text>
-          </View>
-          <View style={styles.map}>
-            <MapView
-              ref={mapRef}
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: width(3),
-              }}
-            >
-              <Marker
-                coordinate={{
-                  latitude: dat?.latitude || 0,
-                  longitude: dat?.longitude || 0,
+          {!isNullOrNullOrEmpty(data?.address) && (
+            <View style={{ paddingLeft: width(4) }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: width(5),
+                  marginVertical: width(2),
                 }}
-              />
-            </MapView>
-          </View>
+              >
+                {t("detail.location")}
+              </Text>
+            </View>
+          )}
+          {!isNullOrNullOrEmpty(data?.address) && (
+            <View style={styles.map}>
+              <MapView
+                ref={mapRef}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: width(3),
+                }}
+              >
+                <Marker
+                  coordinate={{
+                    latitude: dat?.latitude || 0,
+                    longitude: dat?.longitude || 0,
+                  }}
+                />
+              </MapView>
+            </View>
+          )}
           <RelatedAd category={data?.category} id={data?._id} />
         </View>
       )}
@@ -609,25 +610,56 @@ export default function Detail({ navigation, route }) {
           setShowModal(false);
         }}
       >
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            setShowModal(false);
+          }}
           style={{
-            borderRadius: width(10),
-            alignItems: "center",
-            justifyContent: "center",
-            alignSelf: "center",
-            backgroundColor: "black",
+            marginTop: width(10),
+            alignSelf: "flex-end",
+            backgroundColor: "rgba(0, 0, 0,.6)",
           }}
         >
-          {/* <Ionicons name="close" color={'red'} size={width(7)}/> */}
-          <Image
-            style={{
-              width: width(95),
-              resizeMode: "contain",
-              height: height(70),
-            }}
-            source={{ uri: selectefImage }}
-          />
-        </View>
+          <Ionicons name="close" size={width(8)} color={AppColors.white} />
+        </TouchableOpacity>
+        <Swiper
+          showsButtons={true}
+          nextButton={
+            <View
+              style={{ backgroundColor: "rgba(0, 0, 0,.2)", padding: width(1) }}
+            >
+              <AntDesign
+                name="caretright"
+                size={width(5)}
+                color={AppColors.white}
+              />
+            </View>
+          }
+          prevButton={
+            <View
+              style={{ backgroundColor: "rgba(0, 0, 0,.2)", padding: width(1) }}
+            >
+              <AntDesign
+                name="caretleft"
+                size={width(5)}
+                color={AppColors.white}
+              />
+            </View>
+          }
+          activeDotColor={AppColors.primary}
+          dotColor="white"
+          automaticallyAdjustContentInsets={true}
+        >
+          {img.map((image, index) => (
+            <Pressable key={index} style={styles.modelView}>
+              <Image
+                source={{ uri: image }}
+                resizeMode="contain"
+                style={styles.modelImage}
+              />
+            </Pressable>
+          ))}
+        </Swiper>
       </Modal>
     </ScreenWrapper>
   );

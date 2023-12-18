@@ -56,13 +56,14 @@ export default function ChatIcon({ navigation, data }) {
     setSelectedItem(!response);
   };
   useEffect(() => {
-    fetchData();
     getItems();
-    myfuntion();
-  }, [msg,data]);
-  // useEffect(() => {
-  
-  // }, []);
+  }, [msg, data]);
+  useEffect(() => {
+    if (!selectedItem) {
+      fetchData();
+      myfuntion();
+    }
+  }, [selectedItem]);
 
   return (
     <Fragment>

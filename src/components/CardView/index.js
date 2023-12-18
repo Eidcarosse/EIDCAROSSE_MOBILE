@@ -12,7 +12,12 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { checkPrice, infoMessage } from "../../utills/Methods";
+import GlobalMethods, {
+  checkPrice,
+  formatPrice,
+  formatPriceE,
+  infoMessage,
+} from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -123,10 +128,10 @@ export default function CardView({ data }) {
           {checkPrice(data?.price) ? (
             <View>
               <Text numberOfLines={1} style={styles.chf}>
-                CHF {data?.price}
+                CHF {formatPrice(data?.price)}
               </Text>
               <Text numberOfLines={1} style={styles.eur}>
-                EUR {Math.round(data?.price * 1.06)}
+                EUR {formatPriceE(Math.round(data?.price * 1.06))}
               </Text>
             </View>
           ) : (

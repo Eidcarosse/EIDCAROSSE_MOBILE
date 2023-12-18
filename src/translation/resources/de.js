@@ -277,7 +277,7 @@ export default {
     phtitleWord: "Wie lautet der Titel deines Inserats?",
     pricing: "Preisgestaltung",
     price: "Preis",
-    phprice: "12345",
+    phprice: "Preis",
     condition: "Zustand",
     subcategory: "Unterkategorie",
     brand: "Marke",
@@ -589,6 +589,7 @@ export default {
       "Bitte füllen Sie alle erforderlichen Felder aus",
     refreshAdMsg:
       "Bitte warten Sie mindestens 3 Stunden, bevor Sie es nochmals aktualisieren.",
+    locationRequire: "Bitte geben Sie eine gültige Adresse innerhalb der Schweiz ein",
   },
   type: {
     "Articulated bus": "Gelenkbus",

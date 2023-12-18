@@ -39,6 +39,7 @@ import { Apikey } from "../../../utills/Constants";
 import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
+  infoMessage,
   showBrand,
   showExteriorColor,
   showFuletype,
@@ -211,10 +212,18 @@ export default function AddPost({ navigation, route }) {
 
         dispatch(setAppLoader(false));
         // Show an alert if any required field is empty
-        errorMessage(
-          t(`flashmsg.Please fill all required fields`),
-          t(`flashmsg.require`)
-        );
+        if (!title && !address && !price)
+          errorMessage(
+            t(`flashmsg.Please fill all required fields`),
+            t(`flashmsg.require`)
+          );
+        else if (!address)
+          infoMessage(t(`flashmsg.locationRequire`), t("flashmsg.require"));
+        else
+          errorMessage(
+            t(`flashmsg.Please fill all required fields`),
+            t(`flashmsg.require`)
+          );
 
         return;
       }
@@ -419,6 +428,13 @@ export default function AddPost({ navigation, route }) {
       setOtherBrand(!otherBrand);
     }
   };
+  const handleInputChange = (text) => {
+    // Use regex to allow only integer values
+    const regex = /^[0-9]*$/;
+    if (regex.test(text)) {
+      setPrice(text);
+    }
+  };
   return (
     <ScreenWrapper
       headerUnScrollable={() => (
@@ -590,8 +606,8 @@ export default function AddPost({ navigation, route }) {
 
               <Input
                 value={price + ""}
-                setvalue={setPrice}
-                placeholder={t("XXXXXXXXXX")}
+                setvalue={handleInputChange}
+                placeholder={t("addPost.phprice")}
                 containerStyle={[
                   styles.price,
                   { width: width(90) },
@@ -1154,7 +1170,10 @@ export default function AddPost({ navigation, route }) {
               query={{
                 key: Apikey,
                 language: "en",
+                components: "country:ch",
               }}
+              nearbyPlacesAPI="GooglePlacesSearch"
+              debounce={300}
             />
             {addressRequire && (
               <Text style={styles.require}>*{t(`addPost.require`)}</Text>

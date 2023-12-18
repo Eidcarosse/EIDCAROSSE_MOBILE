@@ -295,7 +295,7 @@ export default {
     phtitleWord: "Title of vehicle",
     pricing: "Pricing",
     price: "Price",
-    phprice: "12345",
+    phprice: "price",
     condition: "Condition",
     subcategory: "Sub Category",
     brand: "Brand",
@@ -615,6 +615,7 @@ export default {
       "Unable to create user! please try again.",
     "Please fill all required fields": "Please fill all required fields",
     refreshAdMsg: "Please wait for at least 3 hours before refreshing.",
+    locationRequire:"Please enter a valid address located within Switzerland"
   },
   type: {
     "Articulated bus": "Articulated bus",

@@ -11,7 +11,7 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { infoMessage } from "../../utills/Methods";
+import GlobalMethods, { formatPrice, formatPriceE, infoMessage } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -89,10 +89,10 @@ export default function MapAdCard({ data, onPress }) {
           <View style={styles.detailinerview}>
             <View>
               <Text numberOfLines={1} style={styles.chf}>
-                CHF {data?.price}
+                CHF {formatPrice(data?.price)}
               </Text>
               <Text numberOfLines={1} style={styles.eur}>
-                EUR {Math.round(data?.price * 1.06)}
+                EUR {formatPriceE(Math.round(data?.price * 1.06))}
               </Text>
             </View>
             {!(data?.userId?._id === loginuser?._id) ? (

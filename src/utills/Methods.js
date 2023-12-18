@@ -349,6 +349,25 @@ export const showKM = (x) => {
     x === "Busses"
   );
 };
+export const formatPrice = (price) => {
+  const priceString = price.toString();
+  const groups = [];
+  let remainingDigits = priceString.length;
+
+  while (remainingDigits > 0) {
+    const groupSize = Math.min(3, remainingDigits);
+    const group = priceString.substr(remainingDigits - groupSize, groupSize);
+    groups.unshift(group);
+    remainingDigits -= groupSize;
+  }
+
+  const formattedPrice = groups.join("'");
+
+  return formattedPrice + ".-";
+};
+export const formatPriceE = (price) => {
+  return price.toLocaleString("en-US");
+};
 const onPressFavorite = () => {};
 const GlobalMethods = {
   toastMessage,
