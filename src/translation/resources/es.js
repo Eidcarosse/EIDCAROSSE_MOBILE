@@ -294,7 +294,7 @@ export default {
     model: "Modelo",
     type: "Tipo",
     year: "Año",
-    phyear: "1999",
+    phyear: "Año",
     bodyshape: "Forma de la Carrocería",
     gearbox: "Caja de Cambios",
     fueltype: "Tipo de Combustible",
@@ -596,7 +596,10 @@ export default {
     "Please fill all required fields":
       "Por favor, complete todos los campos obligatorios.",
     refreshAdMsg: "Espere al menos 3 horas antes de actualizar, por favor.",
-    locationRequire:"Por favor, introduzca una dirección válida ubicada dentro de Suiza"
+    locationRequire:"Por favor, introduzca una dirección válida ubicada dentro de Suiza",
+    alert: "Alerta",
+    "Ad deleted":"Anuncio eliminado",
+    reloginMsg:"Puede cerrar sesión o cambiar la contraseña. Por favor, inicie sesión nuevamente."
   },
   type: {
     "Articulated bus": "Autobús articulad",

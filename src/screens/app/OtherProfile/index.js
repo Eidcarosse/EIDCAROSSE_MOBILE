@@ -44,6 +44,7 @@ export default function OtherProfile({ navigation, route }) {
 
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => <Head navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

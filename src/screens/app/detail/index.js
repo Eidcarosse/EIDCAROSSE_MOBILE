@@ -138,6 +138,7 @@ export default function Detail({ navigation, route }) {
 
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <DetailHeader
           onPressBack={() => navigation.goBack()}

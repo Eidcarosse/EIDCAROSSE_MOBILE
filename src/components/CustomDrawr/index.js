@@ -34,7 +34,7 @@ const CustomDrawer = ({ navigation }) => {
         source={require("../../../assets/splash.png")}
         style={{
           width: width(70),
-          height: width(40),
+          height: width(60),
           tintColor: AppColors.primary,
         }}
       />

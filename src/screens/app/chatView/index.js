@@ -1,6 +1,7 @@
 import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  Alert,
   Image,
   Platform,
   StyleSheet,
@@ -473,7 +474,12 @@ function ChatView({ route }) {
   };
   const getItems = async () => {
     const response = await getDataofAdByID(route.params?.userItem);
-    if (!response) alert("Ad deleted");
+    if (!response)
+      Alert.alert(t("flashmsg.alert"), t("flashmsg.Ad deleted"), [
+        { text: "OK", onPress: () => {} },
+      ]);
+
+    // alert(t("flashmsg.Ad deleted"));
     setSelectedItem(response);
   };
 
@@ -502,7 +508,9 @@ function ChatView({ route }) {
     setImage([]);
   };
   return (
-    <ScreenWrapper statusBarColor={AppColors.white} barStyle="dark-content">
+    <ScreenWrapper
+    showStatusBar={false}
+    statusBarColor={AppColors.white} barStyle="dark-content">
       <View style={styles.container}>
         <View style={styles.account_View}>
           <TouchableOpacity style={styles.icon_Style} onPress={handleBack}>
@@ -547,7 +555,7 @@ function ChatView({ route }) {
             _id: user?._id,
           }}
           renderAvatar={renderAvatar}
-          renderActions={renderActions}
+          // renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}
           renderTime={renderTime}

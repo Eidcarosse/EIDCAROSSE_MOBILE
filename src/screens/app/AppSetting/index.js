@@ -37,6 +37,7 @@ export default function AppSetting({ navigation, route }) {
 
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"appseting.title"} navigation={navigation} />
       )}

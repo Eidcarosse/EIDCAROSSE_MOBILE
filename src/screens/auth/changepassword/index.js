@@ -48,6 +48,7 @@ export default function ChangePassword({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}

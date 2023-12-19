@@ -11,7 +11,6 @@ export const getDataofHomePage = async () => {
       return data?.data;
     })
     .catch((error) => {
-      alert("home data api crashed");
       // Handle errors
       throw error; // Re-throw the error so that it can be caught by the caller
     });
@@ -23,7 +22,6 @@ export const getAllData = async (queryParams) => {
     return response?.data;
   } catch (error) {
     console.log(error);
-    alert("all data api crashed");
     return []; // or some default value as needed
   }
 };
@@ -35,7 +33,6 @@ export const getDataofAdByID = async (id) => {
     }
     return response.data;
   } catch (error) {
-    alert("data by id");
     console.log(error);
     return []; // or some default value as needed
   }
@@ -64,7 +61,6 @@ export const geVehicleMakes = async (type) => {
     if (response?.data?.make) return response?.data?.make;
     return [];
   } catch (error) {
-    alert("make company name");
     return []; // or some default value as needed
   }
 };
@@ -100,7 +96,6 @@ export const deleteAdById = async (id) => {
   try {
     const response = await ApiManager.delete(`ad/deleteAd/${id}`);
   } catch (error) {
-    alert("delete api");
     return []; // or some default value as needed
   }
 };
@@ -109,7 +104,6 @@ export const toggleFavorite = async (id, userId) => {
     const response = await ApiManager.put(`ad/setFavorite/${id}/${userId}`);
     return response?.data?.favAdIds;
   } catch (error) {
-    alert("fav api");
     console.log(error);
     return []; // or some default value as needed
   }
@@ -118,7 +112,6 @@ export const adView = async (adId) => {
   try {
     const response = await ApiManager.patch(`ad/addView?id=${adId}`);
   } catch (error) {
-    alert("ad viw api");
     console.log(error);
     return []; // or some default value as needed
   }

@@ -90,6 +90,7 @@ export default function TnC({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"terms.tandc"} navigation={navigation} />
       )}

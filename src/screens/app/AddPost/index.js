@@ -437,6 +437,7 @@ export default function AddPost({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head
           headtitle={edit ? "editAd.title" : "addPost.title"}
@@ -821,7 +822,7 @@ export default function AddPost({ navigation, route }) {
                     value={year + ""}
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
-                    placeholder={t("xxxxxxx")}
+                    placeholder={t("addPost.phyear")}
                     keyboardType="number-pad"
                   />
                 </View>

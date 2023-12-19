@@ -62,6 +62,7 @@ export default function PP({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"privacy.privacy"} navigation={navigation} />
       )}

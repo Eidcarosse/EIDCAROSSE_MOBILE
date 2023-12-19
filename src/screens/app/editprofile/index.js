@@ -76,6 +76,7 @@ console.log('====================================');
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
       )}

@@ -13,6 +13,7 @@ export default function BikeCategory({ navigation, route }) {
   const { t } = useTranslation();
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head
           headtitle={

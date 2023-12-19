@@ -311,7 +311,7 @@ export default {
     model: "Modèle",
     type: "Type",
     year: "Année",
-    phyear: "1999",
+    phyear: "Année",
     bodyshape: "Forme de la Carrosserie",
     gearbox: "Boîte de Vitesse",
     fueltype: "Type de Carburant",
@@ -615,6 +615,10 @@ export default {
       "Veuillez remplir tous les champs obligatoires.",
     refreshAdMsg: "Veuillez attendre au moins 3 heures avant de rafraîchir.",
     locationRequire: "Veuillez saisir une adresse valide située en Suisse",
+    alert: "Alerte",
+    "Ad deleted": "Annonce supprimée",
+    reloginMsg:
+      "Vous pouvez vous déconnecter ou changer de mot de passe. Veuillez vous connecter à nouveau.",
   },
   type: {
     "Articulated bus": "Autobus articulé",

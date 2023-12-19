@@ -70,6 +70,7 @@ export default function AboutUs({ navigation, route }) {
       backgroundColor={AppColors.white}
       barStyle="light-content"
       scrollEnabled
+      showStatusBar={false}
     >
       <View style={styles.mainViewContainer}>
         {/* <View style={styles.imageview}>

@@ -14,17 +14,7 @@ export default function DetailHeader({
   like = true,
   loginuser = false,
 }) {
-  const {t}=useTranslation();
-  const [fav, setFav] = useState(false);
-  const setMyFav = () => {
-    if (!loginuser) {
-      alert("Please login first");
-    } else setFav(!fav);
-  };
-  const [isModalVisible, setModalVisible] = useState(false);
-  const hideMenu = () => setModalVisible(false);
-
-  const showMenu = () => setModalVisible(true);
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.menuicon}>

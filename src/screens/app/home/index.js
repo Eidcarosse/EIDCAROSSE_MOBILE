@@ -67,6 +67,7 @@ export default function Home({}) {
 
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

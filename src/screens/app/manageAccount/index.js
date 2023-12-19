@@ -13,6 +13,7 @@ export default function ManageAccount({ navigation, route }) {
   const dispatch = useDispatch();
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"manageAccount.title"} navigation={navigation} />
       )}

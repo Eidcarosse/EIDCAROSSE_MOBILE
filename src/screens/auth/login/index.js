@@ -96,6 +96,7 @@ export default function Login({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
       headerUnScrollable={() => <Head navigation={navigation} />}

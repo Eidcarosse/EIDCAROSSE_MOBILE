@@ -18,7 +18,15 @@ import { Entypo, FontAwesome } from "@expo/vector-icons";
 
 const AdView = ({ detail, onPressView }) => {
   const navigation = useNavigation();
-
+  function isNullOrNullOrEmpty(value) {
+    return (
+      value === null ||
+      value === "" ||
+      value === "null" ||
+      value === undefined ||
+      value === "undefined"
+    );
+  }
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(ScreenNames.DETAIL, detail)}
@@ -35,16 +43,13 @@ const AdView = ({ detail, onPressView }) => {
         <Text style={styles.title} numberOfLines={1}>
           {detail?.title}
         </Text>
-        {detail?.subCategory ? (
+        {!isNullOrNullOrEmpty(detail?.subCategory) ? (
           <Text style={styles.price}>{detail?.subCategory} </Text>
         ) : (
           <Text style={styles.price}>{detail?.category} </Text>
         )}
-       
       </View>
-      <Entypo name="chevron-right" 
-      size={width(10)}
-      />
+      <Entypo name="chevron-right" size={width(10)} />
     </TouchableOpacity>
   );
 };

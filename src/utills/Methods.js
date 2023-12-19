@@ -84,14 +84,14 @@ export const setDataw = async (value) => {
   try {
     let a = await AsyncStorage.setItem("whatsapp", JSON.stringify(value));
   } catch (e) {
-    alert("wh");
+
   }
 };
 export const setDatav = async (value) => {
   try {
     let a = await AsyncStorage.setItem("viber", JSON.stringify(value));
   } catch (e) {
-    alert("vi");
+
   }
 };
 export const getDataw = async () => {
@@ -366,7 +366,21 @@ export const formatPrice = (price) => {
   return formattedPrice + ".-";
 };
 export const formatPriceE = (price) => {
-  return price.toLocaleString("en-US");
+  const priceString = price.toString();
+  const groups = [];
+  let remainingDigits = priceString.length;
+
+  while (remainingDigits > 0) {
+    const groupSize = Math.min(3, remainingDigits);
+    const group = priceString.substr(remainingDigits - groupSize, groupSize);
+    groups.unshift(group);
+    remainingDigits -= groupSize;
+  }
+
+  const formattedPrice = groups.join("'");
+
+  return formattedPrice + ".-";
+  return price.toLocaleString("en-US")+ ".-";
 };
 const onPressFavorite = () => {};
 const GlobalMethods = {

@@ -29,6 +29,7 @@ export default function ScreenWrapper({
   onTouchEnd,
   refreshing = false,
   onRefresh,
+  showStatusBar = false,
   scrollViewRef,
 }) {
   if (backgroundImage) {
@@ -36,7 +37,7 @@ export default function ScreenWrapper({
   }
   function FocusAwareStatusBar(props) {
     const isFocused = useIsFocused();
-    return isFocused ? <StatusBar {...props} /> : null;
+    return isFocused ? <StatusBar {...props} hidden={showStatusBar} /> : null;
   }
   const content = () => {
     return (

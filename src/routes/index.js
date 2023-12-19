@@ -7,6 +7,7 @@ import { getDataofHomePage } from "../backend/api";
 import { getOwneAd, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
+import { Alert } from "react-native";
 import {
   setAppLoader,
   setCategoryList,
@@ -67,10 +68,12 @@ import {
 } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
+import { useTranslation } from "react-i18next";
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   const db = getDatabase();
+  const { t } = useTranslation();
   const isLogin = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
@@ -110,25 +113,24 @@ export default function Routes() {
   };
   const login = async (data) => {
     try {
-      // dispatch(setAppLoader(true));
       const response = await loginApi(data);
       if (response?.data) {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.userDetails));
         dispatch(setToken(response?.data?.token));
         const userAd = await getOwneAd(response?.data?.userDetails?._id);
-        //const userFav=await getFavAds(response?.data?.userDetails?._id)
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds));
         dispatch(setAppLoader(false));
         fetchRoomsData(response?.data?.userDetails?._id);
       } else {
-        alert("Re-login");
-        //  dispatch(setAppLoader(false));
+        Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
+          { text: "OK", onPress: () => {} },
+        ]);
       }
     } catch (error) {
       errorMessage("Network error");
-      // dispatch(setAppLoader(false));
+      dispatch(setAppLoader(false));
     }
   };
   useEffect(() => {

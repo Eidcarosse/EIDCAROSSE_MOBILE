@@ -14,6 +14,7 @@ export default function Category({ navigation, route, value }) {
   const search = route?.params?.search;
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() =>
         route?.params ? (
           <Head headtitle={"categorylist.categories"} navigation={navigation} />

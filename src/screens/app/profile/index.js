@@ -29,6 +29,7 @@ export default function Profile({ navigation, route }) {
   const token = useSelector(selectToken);
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

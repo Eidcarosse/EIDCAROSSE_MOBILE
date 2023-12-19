@@ -34,6 +34,7 @@ export default function WishList({ navigation, route }) {
   });
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"wishList.title"} navigation={navigation} />
       )}

@@ -13,6 +13,7 @@ export default function PreLogin({ navigation, route }) {
   const {t}=useTranslation()
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

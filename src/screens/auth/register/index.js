@@ -88,7 +88,9 @@ export default function SignUp({ navigation, route }) {
   };
 
   return (
-    <ScreenWrapper statusBarColor={AppColors.primary} barStyle="light-content">
+    <ScreenWrapper
+    showStatusBar={false}
+    statusBarColor={AppColors.primary} barStyle="light-content">
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.image}>
           <View style={styles.imageiner}>

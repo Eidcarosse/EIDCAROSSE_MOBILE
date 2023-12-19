@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -82,6 +83,7 @@ export default function ListData({ navigation, route }) {
   const [searchString, setSearchString] = useState("");
   const [km, setKm] = React.useState("");
   const [refreshing, onRefresh] = React.useState(false);
+  const [refresh, setRefreshing] = useState(false);
   const [empty, setempty] = React.useState(false);
   /////new add
   const [year, setYear] = React.useState("");
@@ -137,7 +139,8 @@ export default function ListData({ navigation, route }) {
     setCondition("");
     setData([]);
     setempty(false);
-
+    setCategory("");
+    setSubCategory("");
     if (pageNumber != 0) {
       setPageNumber(1);
     }
@@ -277,15 +280,30 @@ export default function ListData({ navigation, route }) {
       setOtherBrand(!otherBrand);
     }
   };
-
+  const Refresh = async () => {
+    // setRefreshing(true);
+    dispatch(setAppLoader(true));
+    setData([]);
+    setempty(false);
+    if (pageNumber != 0) {
+      setPageNumber(1);
+    }
+    setFilter(filter + 1);
+    setTimeout(() => {
+      dispatch(setAppLoader(false));
+    }, 1000);
+  };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head
           headtitle={category ? t(`category.${category}`) : "allData.title"}
           navigation={navigation}
         />
       )}
+      refreshing={refresh}
+      onRefresh={Refresh}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
@@ -406,6 +424,13 @@ export default function ListData({ navigation, route }) {
               )}
             </View>
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refresh}
+              onRefresh={Refresh}
+              colors={[AppColors.primary]}
+            />
+          }
           numColumns={1}
           onEndReached={() => {
             if (!empty) handleEndReached();
@@ -620,10 +645,11 @@ export default function ListData({ navigation, route }) {
                       <SelectDropdown
                         defaultButtonText={
                           brand
-                          ? brand === "Others"
-                            ? t("category.Others")
-                            : brand
-                          : t("addPost.defaultValueDropdown") || t("addPost.defaultValueDropdown")
+                            ? brand === "Others"
+                              ? t("category.Others")
+                              : brand
+                            : t("addPost.defaultValueDropdown") ||
+                              t("addPost.defaultValueDropdown")
                         }
                         data={vcompanies}
                         search={true}
@@ -677,10 +703,10 @@ export default function ListData({ navigation, route }) {
                           <SelectDropdown
                             defaultButtonText={
                               model
-                              ? model === "Others"
-                                ? t("category.Others")
-                                : model
-                              : t("addPost.defaultValueDropdown")
+                                ? model === "Others"
+                                  ? t("category.Others")
+                                  : model
+                                : t("addPost.defaultValueDropdown")
                             }
                             ref={modelRef}
                             searchPlaceHolder={t("addPost.phsearchHere")}

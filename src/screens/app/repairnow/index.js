@@ -10,6 +10,7 @@ export default function Repair({ navigation, route }) {
   const { t } = useTranslation();
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"RN.rn"} navigation={navigation} />
       )}

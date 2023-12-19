@@ -34,7 +34,6 @@ const getOwneAd = async (id) => {
     const response = await ApiManager.get(`auth/getUserAds/${id}`);
     return response?.data;
   } catch (error) {
-    alert("my own data ");
     return []; // or some default value as needed
   }
 };
@@ -43,7 +42,6 @@ const getUserByID = async (id) => {
     const response = await ApiManager.get(`auth/getUser/${id}`);
     return response?.data;
   } catch (error) {
-    alert("my own data ");
     return []; // or some default value as needed
   }
 };
@@ -76,7 +74,6 @@ const getFavAds = async (id) => {
     // }
     return response?.data;
   } catch (error) {
-    alert("my own data ");
     return []; // or some default value as needed
   }
 };
@@ -177,5 +174,5 @@ export {
   verifyCodeAPI,
   resetPasswordAPI,
   verifycode,
-  verifyAccount
+  verifyAccount,
 };

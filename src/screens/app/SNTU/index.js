@@ -10,6 +10,7 @@ export default function SNTU({ navigation, route }) {
   const { t } = useTranslation();
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"SNTU.sntu"} navigation={navigation} />
       )}

@@ -110,6 +110,7 @@ export default function MapAdView({ navigation, route }) {
 
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"searchpage.title"} navigation={navigation} />
       )}

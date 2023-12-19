@@ -37,6 +37,7 @@ export default function FAQ({ navigation, route }) {
   ];
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"FAQ.title"} navigation={navigation} />
       )}

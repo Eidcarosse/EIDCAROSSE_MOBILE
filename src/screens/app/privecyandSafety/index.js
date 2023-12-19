@@ -48,6 +48,7 @@ export default function PrivacySafety({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"privacySafety.title"} navigation={navigation} />
       )}

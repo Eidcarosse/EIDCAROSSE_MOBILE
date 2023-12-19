@@ -39,6 +39,7 @@ export default function HTSF({ navigation, route }) {
   };
   return (
     <ScreenWrapper
+    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"HTSF.htsf"} navigation={navigation} />
       )}
