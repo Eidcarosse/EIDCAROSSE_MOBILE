@@ -159,6 +159,13 @@ const verifyAccount = async (data) => {
     console.error("Error:", error.response.data);
   }
 };
+const deleteAccountAPI = async (id, data) => {
+  try {
+    const response = await ApiManager.delete(`auth/delete-account/${id}`, data);
+    // Handle the response here
+    return response;
+  } catch (error) {}
+};
 
 export {
   signupApi,
@@ -175,4 +182,5 @@ export {
   resetPasswordAPI,
   verifycode,
   verifyAccount,
+  deleteAccountAPI,
 };

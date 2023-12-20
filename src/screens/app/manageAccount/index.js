@@ -1,19 +1,56 @@
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import React from "react";
-import { View } from "react-native";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 import styles from "./styles";
-
-import { useDispatch } from "react-redux";
+import Dialog from "react-native-dialog";
+import { useDispatch, useSelector } from "react-redux";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
-import { setAdsFav, setIsLoggedIn, setUserAds, setUserMeta } from "../../../redux/slices/user";
+import {
+  selectUserMeta,
+  setAdsFav,
+  setIsLoggedIn,
+  setUserAds,
+  setUserMeta,
+} from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
-import { setAuthData } from "../../../utills/Methods";
+import { errorMessage, setAuthData } from "../../../utills/Methods";
+import { deleteAccountAPI } from "../../../backend/auth";
+import { useTranslation } from "react-i18next";
+import { setAppLoader } from "../../../redux/slices/config";
 export default function ManageAccount({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+  const [code, setCode] = useState("");
+
+  const user = useSelector(selectUserMeta);
+  const deleteAccount = async (password) => {
+    dispatch(setAppLoader(true));
+    try {
+      const formData = new FormData();
+      formData.append("password", password);
+      const data = await deleteAccountAPI(user._id, formData);
+      if (data?.success) {
+        dispatch(setIsLoggedIn(false));
+        dispatch(setUserMeta(null));
+        dispatch(setUserAds(null));
+        dispatch(setAdsFav([]));
+        setAuthData(null), navigation.goBack();
+      } else {
+        console.log("====================================");
+        console.log(data);
+        console.log("====================================");
+      }
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setAppLoader(false));
+    }
+  };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"manageAccount.title"} navigation={navigation} />
       )}
@@ -25,13 +62,11 @@ export default function ManageAccount({ navigation, route }) {
         <View style={{ paddingVertical: width(10) }}>
           <IconButton
             onPress={() => {
-              dispatch(setIsLoggedIn(false))
-              dispatch(setUserMeta(null))
-              dispatch(setUserAds(null))
-              dispatch(setAdsFav([]))
-              setAuthData(null)
-
-              , navigation.goBack();
+              dispatch(setIsLoggedIn(false));
+              dispatch(setUserMeta(null));
+              dispatch(setUserAds(null));
+              dispatch(setAdsFav([]));
+              setAuthData(null), navigation.goBack();
             }}
             title={"manageAccount.logout"}
             containerStyle={styles.logoutcontainer}
@@ -44,7 +79,10 @@ export default function ManageAccount({ navigation, route }) {
               />
             }
           />
-          {/* <IconButton
+          <IconButton
+            onPress={() => {
+              setVisible(true);
+            }}
             title={"manageAccount.deleteaccount"}
             containerStyle={styles.deletecontainer}
             icon={
@@ -54,7 +92,32 @@ export default function ManageAccount({ navigation, route }) {
                 color={AppColors.white}
               />
             }
-          /> */}
+          />
+        </View>
+        <View>
+          <Dialog.Container visible={visible}>
+            <Dialog.Title> {t("myad.deletetitle")}</Dialog.Title>
+            <Dialog.Description>
+              <Text style={{ fontSize: width(3) }}>
+                {t("myad.deletealertmsg")}
+              </Text>
+            </Dialog.Description>
+            <Dialog.Input value={code} onChangeText={setCode} />
+            <Dialog.Button
+              label={t("myad.cancel")}
+              onPress={() => setVisible(false)}
+            />
+            <Dialog.Button
+              color={"red"}
+              label={t("myad.delete")}
+              onPress={() => {
+                setVisible(false);
+                if (code) deleteAccount(code);
+                else errorMessage("Enter Code");
+                setCode("");
+              }}
+            />
+          </Dialog.Container>
         </View>
       </View>
     </ScreenWrapper>

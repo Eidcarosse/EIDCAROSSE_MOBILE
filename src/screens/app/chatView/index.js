@@ -172,10 +172,14 @@ function ChatView({ route }) {
   };
   const renderAvatar = (props) => {
     return (
-      <View>
+      <View {...props}>
         <Image
           source={{ uri: receiver?.image }}
-          style={{ width: 40, height: 40, borderRadius: 20 }}
+          style={{
+            width: width(10),
+            height: width(10),
+            borderRadius: width(10),
+          }}
         />
       </View>
     );
@@ -230,8 +234,6 @@ function ChatView({ route }) {
       return (
         <View
           style={{
-            borderRadius: 15,
-            padding: 2,
             flexWrap: "wrap",
             flexDirection: "row",
           }}
@@ -240,14 +242,23 @@ function ChatView({ route }) {
             props.currentMessage.image.map((item, index) => {
               return (
                 <View
-                  style={{ width: 72, height: 72, backgroundColor: "white" }}
+                  style={{
+                    width: width(47),
+                    height: width(47),
+                    borderRadius: width(2),
+                    padding: width(1),
+                  }}
                 >
                   <Image
                     key={index}
                     source={{
                       uri: item,
                     }}
-                    style={{ width: 70, height: 70, marginRight: 2 }}
+                    style={{
+                      flex: 1,
+                      borderRadius: width(2),
+                      backgroundColor: "white",
+                    }}
                     resizeMode="contain"
                   />
                 </View>
@@ -261,7 +272,11 @@ function ChatView({ route }) {
 
   const openCamera = async () => {
     try {
-      let result = await ImagePicker.launchCameraAsync({})
+      let result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
             if (image?.length < 5) {
@@ -285,6 +300,10 @@ function ChatView({ route }) {
       await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
+        allowsEditing: true,
+        aspect: [4, 3],
+        selectionLimit: 1,
+        quality: 1,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -403,17 +422,6 @@ function ChatView({ route }) {
     }
   }, []);
   async function getBlobFromFile(imageUri) {
-    // if (imageUri.startsWith("file:/")) {
-    //   const fileContents = await FileSystem.readAsStringAsync(imageUri, {
-    //     encoding: FileSystem.EncodingType.Base64,
-    //   });
-    //   // Use base64-js to decode the base64 string
-    //   const byteArray = fromByteArray(fileContents);
-    //   return new Blob([byteArray], { type: "image/jpeg" });
-    // } else {
-    //   // Handle other types of URIs as needed
-    //   return null;
-    // }
     return (await fetch(imageUri)).blob();
   }
   const saveImages = async () => {

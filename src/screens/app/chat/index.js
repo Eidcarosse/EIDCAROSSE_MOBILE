@@ -33,7 +33,6 @@ export default function ChatList({ navigation, route }) {
         const room = snapshot.val() || [];
         dispatch(setChatRooms(room));
       };
-
       onValue(roomRef, handleRoomUpdate);
 
       // Clean up the listener when the component is unmounted or the user logs out
