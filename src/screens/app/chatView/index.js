@@ -403,17 +403,18 @@ function ChatView({ route }) {
     }
   }, []);
   async function getBlobFromFile(imageUri) {
-    if (imageUri.startsWith("file:/")) {
-      const fileContents = await FileSystem.readAsStringAsync(imageUri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      // Use base64-js to decode the base64 string
-      const byteArray = fromByteArray(fileContents);
-      return new Blob([byteArray], { type: "image/jpeg" });
-    } else {
-      // Handle other types of URIs as needed
-      return null;
-    }
+    // if (imageUri.startsWith("file:/")) {
+    //   const fileContents = await FileSystem.readAsStringAsync(imageUri, {
+    //     encoding: FileSystem.EncodingType.Base64,
+    //   });
+    //   // Use base64-js to decode the base64 string
+    //   const byteArray = fromByteArray(fileContents);
+    //   return new Blob([byteArray], { type: "image/jpeg" });
+    // } else {
+    //   // Handle other types of URIs as needed
+    //   return null;
+    // }
+    return (await fetch(imageUri)).blob();
   }
   const saveImages = async () => {
     const imageUrls = [];
@@ -509,8 +510,10 @@ function ChatView({ route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
-    statusBarColor={AppColors.white} barStyle="dark-content">
+      showStatusBar={false}
+      statusBarColor={AppColors.white}
+      barStyle="dark-content"
+    >
       <View style={styles.container}>
         <View style={styles.account_View}>
           <TouchableOpacity style={styles.icon_Style} onPress={handleBack}>
@@ -555,7 +558,7 @@ function ChatView({ route }) {
             _id: user?._id,
           }}
           renderAvatar={renderAvatar}
-          // renderActions={renderActions}
+          renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}
           renderTime={renderTime}
