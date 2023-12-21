@@ -1,79 +1,45 @@
-import React, { Fragment, useEffect, useState, useMemo, useCallback } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { get, getDatabase, onValue, ref } from "firebase/database";
-import Dialog from "react-native-dialog";
-import { getUserByID } from "../../backend/auth";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import ScreenNames from "../../routes/routes";
-import { useSelector } from "react-redux";
-import { selectUserMeta } from "../../redux/slices/user";
-import { getDataofAdByID } from "../../backend/api";
+import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import Dialog from "react-native-dialog";
+import ScreenNames from "../../routes/routes";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 
 export default function ChatIcon({ data }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const loginuser = useSelector(selectUserMeta);
-
-  const [user, setUser] = useState();
   const [visible, setVisible] = useState(false);
-  const [date, setDate] = useState("");
-  const [msg, setMsg] = useState("");
-  const [selectedItem, setSelectedItem] = useState("");
-
-  const database = useMemo(() => getDatabase(), []);
-
-  const fetchData = useCallback(async () => {
-    const search = loginuser._id === data.split("_")[0] ? data.split("_")[1] : data.split("_")[0];
-    const fetchedUser = await getUserByID(search);
-    setUser(fetchedUser);
-  }, [loginuser._id, data]);
-
-  const myFunction = useCallback(async () => {
-    const messagesRef = ref(database, `chatrooms/${data}/messages`);
-    onValue(messagesRef, (snapshot) => {
-      const messageData = snapshot.val();
-
-      if (messageData) {
-        const messageList = Object.values(messageData);
-        messageList.forEach((message) => {
-          setDate(message?.timestamp);
-          setMsg(message?.text);
-        });
-      }
-    });
-  }, [database, data]);
-
-  const getItems = useCallback(async () => {
-    const response = await getDataofAdByID(data.split("_")[2]);
-    setSelectedItem(!response);
-  }, [data]);
-
+  const [selectedItem, setSelectedItem] = useState(
+    !data?.product || !data?.user ? true : false
+  );
   const handlePress = useCallback(() => {
     navigation.navigate(ScreenNames.CHAT, {
-      usr: user,
-      userRoom: data,
-      userItem: data.split("_")[2],
+      usr: data.user,
+      userRoom: data.roomId,
+      userItem: data.product,
     });
-  }, [navigation, user, data]);
-
-  useEffect(() => {
-    const fetchDataAndItems = async () => {
-      await fetchData();
-      await getItems();
-      myFunction();
-    };
-
-    fetchDataAndItems();
-  }, [fetchData, getItems, myFunction]);
-
+  });
   return (
     <Fragment>
       <TouchableOpacity style={styles.main} onPress={handlePress}>
-        <View style={[styles.imageview, selectedItem && { borderColor: "lightgrey" }]}>
-          <Image resizeMode="contain" style={[styles.image]} source={{ uri: user?.image }} />
+        <View
+          style={[
+            styles.imageview,
+            selectedItem && { borderColor: "lightgrey" },
+          ]}
+        >
+          <Image
+            resizeMode="contain"
+            style={[styles.image]}
+            source={{
+              uri:
+                data?.user?.image ||
+                "https://res.cloudinary.com/dlkuyfwzu/image/upload/v1695709555/profile_logo_pcsium.png",
+            }}
+          />
           {selectedItem && (
             <View
               style={{
@@ -90,11 +56,17 @@ export default function ChatIcon({ data }) {
           <Text
             numberOfLines={1}
             style={[
-              { fontWeight: "bold", fontSize: width(3.5), paddingTop: height(1) },
+              {
+                fontWeight: "bold",
+                fontSize: width(3.5),
+                paddingTop: height(1),
+              },
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {`${user?.firstName} ${user?.lastName}`}
+            {data?.user
+              ? `${data?.user?.firstName} ${data?.user?.lastName}`
+              : "Eidcarosse user"}
           </Text>
           <Text
             numberOfLines={1}
@@ -103,7 +75,10 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {msg}
+            {data?.lastmsg.message}
+            {data?.lastmsg.image && (
+              <Ionicons name="image" size={width(4)} color={"grey"} />
+            )}
           </Text>
           <Text />
         </View>
@@ -119,7 +94,11 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {`${new Date(date).getDate()}/${new Date(date).getMonth() + 1}/${new Date(date).getFullYear()}`}
+            {data?.lastmsg.date
+              ? `${new Date(data?.lastmsg.date).getDate()}/${
+                  new Date(data?.lastmsg.date).getMonth() + 1
+                }/${new Date(data?.lastmsg.date).getFullYear()}`
+              : "00/00/0000"}
           </Text>
           <Text />
         </View>
@@ -128,9 +107,14 @@ export default function ChatIcon({ data }) {
         <Dialog.Container visible={visible}>
           <Dialog.Title> {t("Delete Chat")}</Dialog.Title>
           <Dialog.Description>
-            <Text style={{ fontSize: width(3) }}>{t("Do you want to delete the chat")}</Text>
+            <Text style={{ fontSize: width(3) }}>
+              {t("Do you want to delete the chat")}
+            </Text>
           </Dialog.Description>
-          <Dialog.Button label={t("myad.cancel")} onPress={() => setVisible(false)} />
+          <Dialog.Button
+            label={t("myad.cancel")}
+            onPress={() => setVisible(false)}
+          />
           <Dialog.Button
             color={"red"}
             label={t("myad.delete")}

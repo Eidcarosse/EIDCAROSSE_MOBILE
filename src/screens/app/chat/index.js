@@ -1,31 +1,38 @@
-import React, { useCallback, useEffect } from "react";
-import { FlatList, View } from "react-native";
 import { getDatabase, off, onValue, ref } from "firebase/database";
+import React, { useCallback, useEffect, useState } from "react";
+import { FlatList, View } from "react-native";
 
+import { useFocusEffect } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 import { ChatIcon, ScreenWrapper } from "../../../components";
 import Header from "../../../components/header";
-import AppColors from "../../../utills/AppColors";
-import styles from "./styles";
-import { useDispatch, useSelector } from "react-redux";
 import {
+  selectChatRedux,
   selectChatRooms,
   selectUserMeta,
+  setChatRedux,
   setChatRooms,
 } from "../../../redux/slices/user";
-import { useFocusEffect } from "@react-navigation/native";
+import AppColors from "../../../utills/AppColors";
 
+import styles from "./styles";
+import { getUserByID } from "../../../backend/auth";
+import { getDataofAdByID } from "../../../backend/api";
+import { setAppLoader } from "../../../redux/slices/config";
 export default function ChatList({ navigation, route }) {
   const dispatch = useDispatch();
   const db = getDatabase();
-  const data = useSelector(selectChatRooms);
   const user = useSelector(selectUserMeta);
+  const allRooms = useSelector(selectChatRooms);
+  const Chat = useSelector(selectChatRedux);
 
   useFocusEffect(
     useCallback(() => {
-      fetchRoomsData(user?._id);
+      fetchRooms(user?._id);
     }, [])
   );
-  const fetchRoomsData = async (userId) => {
+  const fetchRooms = async (userId) => {
+    var msgs = [];
     try {
       let roomRef = ref(db, `users/${userId}/rooms`);
 
@@ -34,8 +41,6 @@ export default function ChatList({ navigation, route }) {
         dispatch(setChatRooms(room));
       };
       onValue(roomRef, handleRoomUpdate);
-
-      // Clean up the listener when the component is unmounted or the user logs out
       return () => {
         if (roomRef) {
           off(roomRef, handleRoomUpdate);
@@ -45,9 +50,61 @@ export default function ChatList({ navigation, route }) {
       console.error("Error fetching room data:", error);
     }
   };
+
+  const fetchData = useCallback(async (data) => {
+    const search =
+      user._id === data.split("_")[0] ? data.split("_")[1] : data.split("_")[0];
+    const fetchedUser = await getUserByID(search);
+    return fetchedUser;
+  });
+  const myFunction = useCallback(async (data) => {
+    let lastmsg = {};
+    const messagesRef = ref(database, `chatrooms/${data}/messages`);
+    onValue(messagesRef, (snapshot) => {
+      const messageData = snapshot.val();
+
+      if (messageData) {
+        const messageList = Object.values(messageData);
+        messageList.forEach((message) => {
+          lastmsg = {
+            message: message?.text,
+            date: message?.timestamp,
+            image: message?.images,
+          };
+        });
+      }
+    });
+    return lastmsg;
+  });
+
+  const getItems = useCallback(async (data) => {
+    const response = await getDataofAdByID(data.split("_")[2]);
+    return response;
+  });
+  const promisFuntion = async () => {
+    try {
+      const promises = allRooms.map(async (element) => {
+        let u = await fetchData(element);
+        let l = await myFunction(element);
+        let i = await getItems(element);
+        return {
+          roomId: element,
+          user: u,
+          lastmsg: l,
+          product: i,
+        };
+      });
+
+      const newData = await Promise.all(promises);
+      dispatch(setChatRedux(newData));
+    } catch (e) {}
+  };
+  useEffect(() => {
+    promisFuntion();
+  }, [allRooms]);
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -55,7 +112,7 @@ export default function ChatList({ navigation, route }) {
       <View style={styles.mainViewContainer}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={data}
+          data={Chat}
           renderItem={({ item }) => (
             <ChatIcon data={item} navigation={navigation} />
           )}

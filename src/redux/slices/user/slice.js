@@ -7,6 +7,7 @@ const initialState = {
   myAds:[],
   myFav:[],
   chatRooms:[],
+  chat:[]
 };
 
 const userSlice = createSlice({
@@ -30,6 +31,9 @@ const userSlice = createSlice({
     },
     setChatRooms:(state, action) => {
       state.chatRooms = action.payload;
+    },
+    setChatRedux:(state, action) => {
+      state.chat = action.payload;
     },
   },
 });

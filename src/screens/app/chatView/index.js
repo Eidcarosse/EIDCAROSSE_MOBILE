@@ -31,18 +31,13 @@ import {
   getDownloadURL,
   getStorage,
   ref as storageRef,
-  uploadBytesResumable,
   uploadBytes,
 } from "@firebase/storage";
 import { useNavigation } from "@react-navigation/native";
-import { fromByteArray } from "base64-js";
-import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useTranslation } from "react-i18next";
 import Modal from "react-native-modal";
-import { getDataofAdByID } from "../../../backend/api";
 import { Button, ScreenWrapper } from "../../../components";
-import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 function ChatView({ route }) {
   const { t } = useTranslation();
@@ -51,7 +46,7 @@ function ChatView({ route }) {
   const [receiver, setReceiver] = useState();
   const [roomID, setRoomID] = useState(route?.params.userRoom);
   const [items, setItems] = useState();
-  const [selectedItem, setSelectedItem] = useState();
+  const [selectedItem, setSelectedItem] = useState(route?.params.userItem);
   const [online, setOnline] = useState();
   const [image, setImage] = useState([]);
   const [imageModal, setImageModal] = useState(false);
@@ -73,13 +68,10 @@ function ChatView({ route }) {
       setRoomID(route?.params?.userRoom);
     } else {
       setRoomID(
-        `${user?._id}_${route.params.usr?._id}_${route.params?.userItem}`
+        `${user?._id}_${route.params.usr?._id}_${route.params?.userItem._id}`
       );
     }
-    getItems();
     setReceiver(route.params?.usr);
-    getStatus(route.params.usr?._id);
-    // getItems();
   }, []);
   useEffect(() => {
     const userStatusRef = ref(
@@ -92,6 +84,13 @@ function ChatView({ route }) {
     });
   }, [user?._id]);
 
+  useEffect(() => {
+    if (!selectedItem) {
+      Alert.alert(t("flashmsg.alert"), t("flashmsg.Ad deleted"), [
+        { text: "OK", onPress: () => {} },
+      ]);
+    }
+  });
   const myfuntion = async () => {
     if (roomID) {
       const messagesRef = ref(
@@ -275,7 +274,6 @@ function ChatView({ route }) {
       let result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 3],
-        quality: 1,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -301,9 +299,7 @@ function ChatView({ route }) {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
         allowsEditing: true,
-        aspect: [4, 3],
         selectionLimit: 1,
-        quality: 1,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -376,7 +372,7 @@ function ChatView({ route }) {
           route.params?.userRoom == undefined) &&
         roomID == null
       ) {
-        let roomNew = `${user?._id}_${route.params.usr?._id}_${route.params?.userItem}`;
+        let roomNew = `${user?._id}_${route.params.usr?._id}_${route.params?.userItem?._id}`;
         setRoomID(roomNew);
         const newMessageRef = push(
           ref(database, `chatrooms/${roomNew}/messages`)
@@ -426,18 +422,22 @@ function ChatView({ route }) {
   }
   const saveImages = async () => {
     const imageUrls = [];
-
+    if (
+      (route.params?.userRoom == null || route.params?.userRoom == undefined) &&
+      roomID == null
+    ) {
+      let roomNew = `${user?._id}_${route.params.usr?._id}_${route.params?.userItem?._id}`;
+      setRoomID(roomNew);
+    }
     const storage = getStorage();
-    const newMessageRef = push(
-      ref(database, `chatrooms/${route.params?.userRoom}/messages`)
-    );
+    const newMessageRef = push(ref(database, `chatrooms/${roomID}/messages`));
 
     for (const imageUri of image) {
       const split = imageUri.split("/");
       const name = split.pop();
       const imageRef = storageRef(
         storage,
-        `chatrooms/${route.params?.userRoom}/images/${name}`
+        `chatrooms/${roomID}/images/${name}`
       );
 
       const metadata = {
@@ -455,8 +455,6 @@ function ChatView({ route }) {
         ).catch((err) => {
           console.log("Error uploading images:", err);
         });
-        // const uploadTask =uploadBytesResumable(imageRef, imageBlob, metadata);
-        // Wait for the upload task to complete
         const snapshot = await uploadTask;
 
         if (snapshot) {
@@ -476,38 +474,13 @@ function ChatView({ route }) {
         timestamp: Date.now(),
         senderId: user?._id,
       });
+      await setRooms(roomID, route.params.usr?._id);
+      await setRooms(roomID, user?._id);
     }
 
     setImageModal(false);
     setImage([]);
   };
-  const getItems = async () => {
-    const response = await getDataofAdByID(route.params?.userItem);
-    if (!response)
-      Alert.alert(t("flashmsg.alert"), t("flashmsg.Ad deleted"), [
-        { text: "OK", onPress: () => {} },
-      ]);
-
-    // alert(t("flashmsg.Ad deleted"));
-    setSelectedItem(response);
-  };
-
-  const getStatus = async (receiverId) => {
-    const dataRef = ref(database, `users/${receiverId}/online`);
-    await get(dataRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          setOnline(data);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error("Error getting data:", error);
-      });
-  };
-
   const handleBack = () => {
     navigation.goBack();
   };

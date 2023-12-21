@@ -183,7 +183,7 @@ export default function AddPost({ navigation, route }) {
   const addPost = async () => {
     dispatch(setAppLoader(true));
     try {
-      const requiredFields = [title, latitude, longitude, address, image];
+      const requiredFields = [title, latitude, longitude, address, image,userInfo];
       showBrand(category) && requiredFields.push(brand);
       pricing == "Price" && requiredFields.push(price);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);

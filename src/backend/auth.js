@@ -161,8 +161,17 @@ const verifyAccount = async (data) => {
 };
 const deleteAccountAPI = async (id, data) => {
   try {
-    const response = await ApiManager.delete(`auth/delete-account/${id}`, data);
-    // Handle the response here
+    var requestOptions = {
+      method: "DELETE",
+      body: data,
+      redirect: "follow",
+    };
+
+    let resp = await fetch(
+      `${BaseUrl}auth/delete-account/${id}`,
+      requestOptions
+    );
+    let response = await resp.json();
     return response;
   } catch (error) {}
 };

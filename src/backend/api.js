@@ -25,6 +25,15 @@ export const getAllData = async (queryParams) => {
     return []; // or some default value as needed
   }
 };
+export const getAllDataByLocation = async (queryParams) => {
+  try {
+    const response = await ApiManager.get(`ad/location`, queryParams);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    return []; // or some default value as needed
+  }
+};
 export const getDataofAdByID = async (id) => {
   try {
     const response = await ApiManager.get("ad/getSpecific/" + id);

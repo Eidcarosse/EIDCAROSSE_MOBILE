@@ -27,9 +27,6 @@ export default function Verify({ navigation, route }) {
   const { t } = useTranslation();
   const data = route?.params?.data;
   const dispatch = useDispatch();
-  console.log("====================================");
-  console.log("data in route", data);
-  console.log("====================================");
 
   const [email, setEmail] = useState(data?.userDetails?.email);
   const [code, setCode] = useState("");
@@ -49,6 +46,9 @@ export default function Verify({ navigation, route }) {
       setModel(false);
       successMessage("Verified login now","Success")
       navigation.navigate(ScreenNames.LOGIN);
+    }
+    else{
+      errorMessage("Invalid Code")
     }
   }
   async function sendverifycode() {

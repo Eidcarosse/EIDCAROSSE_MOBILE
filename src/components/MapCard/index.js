@@ -154,7 +154,7 @@ export default function MapAdCard({ data, onPress }) {
               navigation.navigate(ScreenNames.CHAT, {
                 userRoom: null,
                 usr: data?.userId,
-                userItem: data?._id,
+                userItem: data,
               });
             }}
           >

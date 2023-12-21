@@ -266,10 +266,11 @@ export default function Card({ data, onPresshide, map = false }) {
                     t(`flashmsg.authentication`)
                   );
                 } else {
+                  map && onPresshide();
                   navigation.navigate(ScreenNames.CHAT, {
                     userRoom: null,
                     usr: data?.userId,
-                    userItem: data?._id,
+                    userItem: data,
                   });
                 }
               }}

@@ -158,7 +158,7 @@ export default function Detail({ navigation, route }) {
               navigation.navigate(ScreenNames.CHAT, {
                 userRoom: null,
                 usr: data?.userId,
-                userItem: data?._id,
+                userItem: data,
               });
             }}
             onPressMail={() => GlobalMethods.onPressEmail(data?.email)}

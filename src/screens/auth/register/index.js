@@ -65,7 +65,7 @@ export default function SignUp({ navigation, route }) {
   //   return passwordRegex.test(password);
   // };
   const isValidPassword = (password) => {
-    return password.length >= 6;
+    return password.length >= 8;
   };
   const signup = async (data) => {
     try {

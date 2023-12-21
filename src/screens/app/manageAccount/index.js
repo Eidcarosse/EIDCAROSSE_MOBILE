@@ -14,7 +14,11 @@ import {
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { width } from "../../../utills/Dimension";
-import { errorMessage, setAuthData } from "../../../utills/Methods";
+import {
+  errorMessage,
+  setAuthData,
+  successMessage,
+} from "../../../utills/Methods";
 import { deleteAccountAPI } from "../../../backend/auth";
 import { useTranslation } from "react-i18next";
 import { setAppLoader } from "../../../redux/slices/config";
@@ -32,15 +36,14 @@ export default function ManageAccount({ navigation, route }) {
       formData.append("password", password);
       const data = await deleteAccountAPI(user._id, formData);
       if (data?.success) {
+        successMessage("Account Deleted", "Success");
         dispatch(setIsLoggedIn(false));
         dispatch(setUserMeta(null));
         dispatch(setUserAds(null));
         dispatch(setAdsFav([]));
         setAuthData(null), navigation.goBack();
       } else {
-        console.log("====================================");
-        console.log(data);
-        console.log("====================================");
+        errorMessage("Wrong Password");
       }
       dispatch(setAppLoader(false));
     } catch (error) {
@@ -96,10 +99,19 @@ export default function ManageAccount({ navigation, route }) {
         </View>
         <View>
           <Dialog.Container visible={visible}>
-            <Dialog.Title> {t("myad.deletetitle")}</Dialog.Title>
+            <Dialog.Title> {t("Delete Account")}</Dialog.Title>
             <Dialog.Description>
               <Text style={{ fontSize: width(3) }}>
-                {t("myad.deletealertmsg")}
+                {t(
+                  "Do you want to delete your account? This action will delete all your details, ads, wishlist, and chats. You cannot undo this action or recover the deleted data."
+                )}
+              </Text>
+            </Dialog.Description>
+            <Dialog.Description>
+              <Text style={{ fontSize: width(3),fontWeight:'bold' }}>
+                {t(
+                  "Enter the Password to continue"
+                )}
               </Text>
             </Dialog.Description>
             <Dialog.Input value={code} onChangeText={setCode} />
@@ -113,7 +125,7 @@ export default function ManageAccount({ navigation, route }) {
               onPress={() => {
                 setVisible(false);
                 if (code) deleteAccount(code);
-                else errorMessage("Enter Code");
+                else errorMessage("Enter Password");
                 setCode("");
               }}
             />

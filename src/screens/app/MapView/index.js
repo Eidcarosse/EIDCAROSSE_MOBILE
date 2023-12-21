@@ -13,8 +13,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import RBSheet from "react-native-raw-bottom-sheet";
-import { getAllData } from "../../../backend/api";
-import { selectCategoryList } from "../../../redux/slices/config";
+import { getAllDataByLocation } from "../../../backend/api";
+import { selectCategoryList, setAppLoader } from "../../../redux/slices/config";
 import { Apikey } from "../../../utills/Constants";
 import { height, width } from "../../../utills/Dimension";
 
@@ -34,17 +34,25 @@ export default function MapAdView({ navigation, route }) {
 
   const queryParams = {
     address: address || "",
-    page: 1,
   };
   useEffect(() => {
     getData();
   }, [address]);
   const getData = async () => {
-    let d = await getAllData(queryParams);
-    if (d) {
-      setData(d?.ad);
-    } else {
-      setData([]);
+    try {
+      dispatch(setAppLoader(true));
+      let d = await getAllDataByLocation(queryParams);
+      if (d) {
+        setData(d?.ad);
+        setTimeout(() => {
+          dispatch(setAppLoader(false));
+        }, 1000);
+      } else {
+        setData([]);
+        dispatch(setAppLoader(false));
+      }
+    } catch (error) {
+      dispatch(setAppLoader(false));
     }
   };
 
@@ -85,6 +93,7 @@ export default function MapAdView({ navigation, route }) {
       },
       3 * 1000
     );
+
     // reverseGeocodeLocation(location.coords);
     getPlaceName(location.coords.latitude, location.coords.longitude);
   };
@@ -99,7 +108,7 @@ export default function MapAdView({ navigation, route }) {
         const parts = placeName.split(", "); // Split the address string by commas and create an array
 
         // Get the last part, which should be "Pakistan"
-        const lastPart = parts[parts.length - 2];
+        const lastPart = parts[parts.length - 1];
 
         setAddresss(lastPart);
       }
@@ -110,7 +119,7 @@ export default function MapAdView({ navigation, route }) {
 
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"searchpage.title"} navigation={navigation} />
       )}
@@ -209,12 +218,16 @@ export default function MapAdView({ navigation, route }) {
                   <View
                     style={{
                       backgroundColor: "white",
-                      height: width(10),
-                      width: width(10),
+                      borderColor: AppColors.primary,
+                      borderWidth: width(0.5),
+                      height: width(15),
+                      width: width(15),
                       borderRadius: width(10),
                       alignContent: "center",
                       alignItems: "center",
                       justifyContent: "center",
+                      padding: width(1),
+                      margin: width(1),
                     }}
                   >
                     {/* <MyIcon
@@ -223,7 +236,7 @@ export default function MapAdView({ navigation, route }) {
                       tintColor={AppColors.primary}
                     /> */}
                     <Image
-                      style={{ height: width(10), width: width(10) }}
+                      style={{ height: width(9), width: width(9) }}
                       source={{ uri: imag }}
                     />
                   </View>
