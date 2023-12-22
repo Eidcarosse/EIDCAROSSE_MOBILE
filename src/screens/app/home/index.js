@@ -16,8 +16,10 @@ import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
 import { useRoute } from "@react-navigation/native";
 import {
+  selectCategoryList,
   selectTopAds,
   setAppLoader,
+  setCategoryList,
   setTopAds,
 } from "../../../redux/slices/config";
 import { width } from "../../../utills/Dimension";
@@ -26,6 +28,7 @@ import styles from "./styles";
 import { Card } from "../../../components";
 import { useScrollToTop } from "@react-navigation/native";
 import { selectCurrentLanguage } from "../../../redux/slices/language";
+import { getCategory } from "../../../backend/common";
 export default function Home({}) {
   const scrollViewRef = useRef(null);
   const navigation = useNavigation();
@@ -34,11 +37,13 @@ export default function Home({}) {
   const dispatch = useDispatch();
 
   const data = useSelector(selectTopAds);
+  const category = useSelector(selectCategoryList);
   const [refreshing, setRefreshing] = useState(false);
   const [searchString, setSearchString] = useState("");
   const onRefresh = async () => {
     // setRefreshing(true);
     dispatch(setAppLoader(true));
+    if (!category) getCategorylist();
     getData();
     setTimeout(() => {
       dispatch(setAppLoader(false));
@@ -49,6 +54,10 @@ export default function Home({}) {
       getData();
     }, [selectCurrentLanguage])
   );
+  async function getCategorylist() {
+    const d = await getCategory();
+    if (d) dispatch(setCategoryList(d));
+  }
   const getData = useCallback(async () => {
     // dispatch(setAppLoader(true));
     try {
@@ -67,7 +76,7 @@ export default function Home({}) {
 
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
