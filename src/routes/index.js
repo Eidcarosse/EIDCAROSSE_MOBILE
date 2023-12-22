@@ -66,6 +66,7 @@ import {
   getDatav,
   getDataw,
   getlangData,
+  setAuthData,
 } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
@@ -138,6 +139,15 @@ export default function Routes() {
         setUser(response?.data?.userDetails);
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds));
+      } else if (response?.data?.success == false && isConnected) {
+        dispatch(setIsLoggedIn(false));
+        dispatch(setUserMeta(null));
+        dispatch(setUserAds(null));
+        dispatch(setAdsFav([]));
+        await setAuthData(null),
+          Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
+            { text: "OK", onPress: () => {} },
+          ]);
       } else {
         Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
           { text: "OK", onPress: () => {} },

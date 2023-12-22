@@ -32,13 +32,32 @@ export default function ChatList({ navigation, route }) {
       fetchRooms(user?._id);
     }, [])
   );
+  function compareArrays(array1, array2) {
+    // Check if the arrays have the same length
+    if (array1.length !== array2.length) {
+      return false;
+    }
+
+    // Sort the arrays to ensure order doesn't affect the comparison
+    const sortedArray1 = array1.slice().sort();
+    const sortedArray2 = array2.slice().sort();
+
+    // Compare each element in the sorted arrays
+    for (let i = 0; i < sortedArray1.length; i++) {
+      if (sortedArray1[i] !== sortedArray2[i]) {
+        return false; // Arrays are different
+      }
+    }
+
+    return true; // Arrays are the same
+  }
   const fetchRooms = async (userId) => {
     try {
       let roomRef = ref(db, `users/${userId}/rooms`);
 
       const handleRoomUpdate = (snapshot) => {
         const room = snapshot.val() || [];
-        dispatch(setChatRooms(room));
+        if (!compareArrays(room, allRooms)) dispatch(setChatRooms(room));
       };
       onValue(roomRef, handleRoomUpdate);
       return () => {
