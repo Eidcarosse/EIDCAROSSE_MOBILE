@@ -13,13 +13,14 @@ export default function ChatIcon({ data }) {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(
-    !data?.product || !data?.user ? true : false
+    !data?.product || !data?.user
   );
+
   const handlePress = useCallback(() => {
     navigation.navigate(ScreenNames.CHAT, {
-      usr: data.user,
-      userRoom: data.roomId,
-      userItem: data.product,
+      usr: data?.user,
+      userRoom: data?.roomId,
+      userItem: data?.product,
     });
   });
   return (
@@ -75,8 +76,8 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {data?.lastmsg.message}
-            {data?.lastmsg.image && (
+            {data?.lastmsg?.message}
+            {data?.lastmsg?.image && (
               <Ionicons name="image" size={width(4)} color={"grey"} />
             )}
           </Text>
@@ -94,10 +95,10 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {data?.lastmsg.date
-              ? `${new Date(data?.lastmsg.date).getDate()}/${
-                  new Date(data?.lastmsg.date).getMonth() + 1
-                }/${new Date(data?.lastmsg.date).getFullYear()}`
+            {data?.lastmsg?.date
+              ? `${new Date(data?.lastmsg?.date).getDate()}/${
+                  new Date(data?.lastmsg?.date).getMonth() + 1
+                }/${new Date(data?.lastmsg?.date).getFullYear()}`
               : "00/00/0000"}
           </Text>
           <Text />

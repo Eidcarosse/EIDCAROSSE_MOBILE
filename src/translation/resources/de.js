@@ -436,6 +436,9 @@ export default {
     title: "Konto verwalten",
     logout: "Abmelden",
     deleteaccount: "Konto löschen",
+    deleteconfirmmsg:
+      "Möchten Sie Ihr Konto wirklich löschen? Diese Aktion löscht alle Ihre Details, Anzeigen, Wunschliste und Chats. Sie können diese Aktion nicht rückgängig machen oder die gelöschten Daten wiederherstellen.",
+    enterpassword: "Geben Sie das Passwort ein, um fortzufahren.",
   },
   changePassword: {
     title: "Passwort ändern",
@@ -589,10 +592,13 @@ export default {
       "Bitte füllen Sie alle erforderlichen Felder aus",
     refreshAdMsg:
       "Bitte warten Sie mindestens 3 Stunden, bevor Sie es nochmals aktualisieren.",
-    locationRequire: "Bitte geben Sie eine gültige Adresse innerhalb der Schweiz ein",
-    alert:"Achtung",
-    "Ad deleted":"Inserat gelöscht",
-    reloginMsg:"Sie können sich abmelden oder das Passwort ändern. Bitte melden Sie sich erneut an."
+    locationRequire:
+      "Bitte geben Sie eine gültige Adresse innerhalb der Schweiz ein",
+    alert: "Achtung",
+    "Ad deleted": "Inserat gelöscht",
+    reloginMsg:
+      "Sie können sich abmelden oder das Passwort ändern. Bitte melden Sie sich erneut an.",
+    sussessdeleteAccount: "Konto erfolgreich gelöscht.",
   },
   type: {
     "Articulated bus": "Gelenkbus",

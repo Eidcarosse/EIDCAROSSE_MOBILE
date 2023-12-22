@@ -448,6 +448,9 @@ export default {
     title: "Gestionar Cuenta",
     logout: "Cerrar Sesión",
     deleteaccount: "Eliminar Cuenta",
+    deleteconfirmmsg:
+      "¿Quieres eliminar tu cuenta? Esta acción eliminará todos tus detalles, anuncios, lista de deseos y chats. No puedes deshacer esta acción ni recuperar los datos eliminados.",
+    enterpassword: "Ingrese la contraseña para continuar.",
   },
   changePassword: {
     title: "Cambiar Contraseña",
@@ -596,10 +599,13 @@ export default {
     "Please fill all required fields":
       "Por favor, complete todos los campos obligatorios.",
     refreshAdMsg: "Espere al menos 3 horas antes de actualizar, por favor.",
-    locationRequire:"Por favor, introduzca una dirección válida ubicada dentro de Suiza",
+    locationRequire:
+      "Por favor, introduzca una dirección válida ubicada dentro de Suiza",
     alert: "Alerta",
-    "Ad deleted":"Anuncio eliminado",
-    reloginMsg:"Puede cerrar sesión o cambiar la contraseña. Por favor, inicie sesión nuevamente."
+    "Ad deleted": "Anuncio eliminado",
+    reloginMsg:
+      "Puede cerrar sesión o cambiar la contraseña. Por favor, inicie sesión nuevamente.",
+    sussessdeleteAccount: "Cuenta eliminada exitosamente.",
   },
   type: {
     "Articulated bus": "Autobús articulad",

@@ -273,7 +273,7 @@ function ChatView({ route }) {
     try {
       let result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [4, 4],
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -544,6 +544,7 @@ function ChatView({ route }) {
           renderMessageText={renderMessageText}
           renderTime={renderTime}
           renderBubble={renderBubble}
+          textInputProps={{ editable: selectedItem && usrData ? true : false }}
         />
 
         <View>

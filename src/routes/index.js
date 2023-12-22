@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getDatabase, off, onValue, ref } from "firebase/database";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataofHomePage } from "../backend/api";
-import { getOwneAd, loginApi } from "../backend/auth";
+import { getDataofAdByID, getDataofHomePage } from "../backend/api";
+import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
 import { Alert } from "react-native";
@@ -19,6 +19,7 @@ import { setLanguage } from "../redux/slices/language";
 import {
   selectIsLoggedIn,
   setAdsFav,
+  setChatRedux,
   setChatRooms,
   setIsLoggedIn,
   setToken,
@@ -69,22 +70,33 @@ import {
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
 import { useTranslation } from "react-i18next";
+import * as Network from "expo-network";
+
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
   const db = getDatabase();
   const { t } = useTranslation();
-  const isLogin = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
-
+  const [isConnected, setIsConnected] = useState(true);
+  const [user, setUser] = useState();
   useEffect(() => {
-    getuser();
-  }, []);
-  useEffect(() => {
-    getData();
-  }, []);
-  const getData = useCallback(async () => {
     dispatch(setAppLoader(true));
+    getNetwork();
+    languageset();
+  }, []);
+  useEffect(() => {
+    if (isConnected) {
+      getuser();
+      getData();
+      getCategorylist();
+    } else {
+      dispatch(setAppLoader(true));
+      alert("Check internet conection");
+    }
+  }, [isConnected]);
+
+  const getData = useCallback(async () => {
     try {
       const data = await getDataofHomePage();
 
@@ -93,12 +105,15 @@ export default function Routes() {
       } else {
         dispatch(setTopAds([]));
       }
-      dispatch(setAppLoader(false));
     } catch (error) {
       console.log("Error:", error);
       dispatch(setAppLoader(false));
     }
   });
+  const getNetwork = async () => {
+    let a = await Network.getNetworkStateAsync();
+    setIsConnected(a);
+  };
   const getuser = async () => {
     let data = await getAuthData();
     if (data) {
@@ -118,11 +133,11 @@ export default function Routes() {
         dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.userDetails));
         dispatch(setToken(response?.data?.token));
+        await fetchRoomsData(response?.data?.userDetails?._id);
         const userAd = await getOwneAd(response?.data?.userDetails?._id);
+        setUser(response?.data?.userDetails);
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds));
-        dispatch(setAppLoader(false));
-        fetchRoomsData(response?.data?.userDetails?._id);
       } else {
         Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
           { text: "OK", onPress: () => {} },
@@ -133,9 +148,39 @@ export default function Routes() {
       dispatch(setAppLoader(false));
     }
   };
-  useEffect(() => {
-    getCategorylist();
-  }, []);
+
+  const fetchData = useCallback(async (data) => {
+    const search =
+      user?._id === data.split("_")[0]
+        ? data.split("_")[1]
+        : data.split("_")[0];
+    const fetchedUser = await getUserByID(search);
+    return fetchedUser;
+  });
+  const myFunction = useCallback(async (data) => {
+    let lastmsg = {};
+    const messagesRef = ref(db, `chatrooms/${data}/messages`);
+    onValue(messagesRef, (snapshot) => {
+      const messageData = snapshot.val();
+
+      if (messageData) {
+        const messageList = Object.values(messageData);
+        messageList.forEach((message) => {
+          lastmsg = {
+            message: message?.text,
+            date: message?.timestamp,
+            image: message?.images,
+          };
+        });
+      }
+    });
+    return lastmsg;
+  });
+
+  const getItems = useCallback(async (data) => {
+    const response = await getDataofAdByID(data.split("_")[2]);
+    return response;
+  });
 
   async function getCategorylist() {
     const d = await getCategory();
@@ -145,8 +190,9 @@ export default function Routes() {
     try {
       roomRef = ref(db, `users/${userId}/rooms`);
 
-      const handleRoomUpdate = (snapshot) => {
+      const handleRoomUpdate = async (snapshot) => {
         const room = snapshot.val() || [];
+        await promisFuntion(room);
         dispatch(setChatRooms(room));
       };
 
@@ -162,10 +208,28 @@ export default function Routes() {
       console.error("Error fetching room data:", error);
     }
   };
-  useEffect(() => {
-    languageset();
-  }, []);
+  const promisFuntion = async (allRooms) => {
+    try {
+      const promises = allRooms.map(async (element) => {
+        let u = await fetchData(element);
+        let l = await myFunction(element);
+        let i = await getItems(element);
+        return {
+          roomId: element,
+          user: u,
+          lastmsg: l,
+          product: i,
+        };
+      });
 
+      const newData = await Promise.all(promises);
+
+      dispatch(setChatRedux(newData));
+      dispatch(setAppLoader(false));
+    } catch (e) {
+      dispatch(setAppLoader(false));
+    }
+  };
   const languageset = async () => {
     let lang = await getlangData();
     i18n.changeLanguage(lang);

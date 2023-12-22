@@ -459,6 +459,9 @@ export default {
     title: "Manage Account",
     logout: "LogOut",
     deleteaccount: "Delete Account",
+    deleteconfirmmsg:
+      "Do you want to delete your account? This action will delete all your details, ads, wishlist, and chats. You cannot undo this action or recover the deleted data.",
+    enterpassword: "Enter the Password to continue",
   },
   changePassword: {
     title: "Change Password",
@@ -619,6 +622,7 @@ export default {
     alert: "Alert",
     "Ad deleted": "Ad deleted",
     reloginMsg: "You may Logout or change Password please login again",
+    sussessdeleteAccount: "Account deleted successfully.",
   },
   type: {
     "Articulated bus": "Articulated bus",

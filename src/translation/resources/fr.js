@@ -463,6 +463,9 @@ export default {
     title: "Gérer le Compte",
     logout: "Déconnexion",
     deleteaccount: "Supprimer le Compte",
+    deleteconfirmmsg:
+      "Voulez-vous supprimer votre compte ? Cette action supprimera tous vos détails, annonces, liste de souhaits et chats. Vous ne pouvez pas annuler cette action ni récupérer les données supprimées.",
+    enterpassword: "Entrez le mot de passe pour continuer.",
   },
   changePassword: {
     title: "Changer le Mot de Passe",
@@ -619,6 +622,7 @@ export default {
     "Ad deleted": "Annonce supprimée",
     reloginMsg:
       "Vous pouvez vous déconnecter ou changer de mot de passe. Veuillez vous connecter à nouveau.",
+    sussessdeleteAccount: "Compte supprimé avec succès.",
   },
   type: {
     "Articulated bus": "Autobus articulé",

@@ -427,6 +427,9 @@ export default {
     title: "Gestisci Account",
     logout: "Esci",
     deleteaccount: "Elimina Account",
+    deleteconfirmmsg:
+      "Vuoi eliminare il tuo account? Questa azione cancellerà tutti i tuoi dettagli, annunci, lista dei desideri e chat. Non puoi annullare questa azione o recuperare i dati eliminati.",
+    enterpassword: "Inserisci la password per continuare.",
   },
   changePassword: {
     title: "Cambia Password",
@@ -575,10 +578,13 @@ export default {
     "Please fill all required fields":
       "Si prega di compilare tutti i campi obbligatori",
     refreshAdMsg: "Si prega di attendere almeno 3 ore prima di aggiornare.",
-    locationRequire:"Si prega di inserire un indirizzo valido situato in Svizzera",
+    locationRequire:
+      "Si prega di inserire un indirizzo valido situato in Svizzera",
     alert: "Avviso",
-    "Ad deleted":"Annuncio eliminato",
-    reloginMsg:"Puoi disconnetterti o cambiare la password. Per favore, accedi di nuovo"
+    "Ad deleted": "Annuncio eliminato",
+    reloginMsg:
+      "Puoi disconnetterti o cambiare la password. Per favore, accedi di nuovo",
+    sussessdeleteAccount: "Account eliminato con successo.",
   },
   type: {
     "Articulated bus": "Autobus articolato",

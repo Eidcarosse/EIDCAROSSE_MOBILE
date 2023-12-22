@@ -36,14 +36,17 @@ export default function ManageAccount({ navigation, route }) {
       formData.append("password", password);
       const data = await deleteAccountAPI(user._id, formData);
       if (data?.success) {
-        successMessage("Account Deleted", "Success");
+        successMessage(
+          t("flashmsg.sussessdeleteAccount"),
+          t("flashmsg.success")
+        );
         dispatch(setIsLoggedIn(false));
         dispatch(setUserMeta(null));
         dispatch(setUserAds(null));
         dispatch(setAdsFav([]));
         setAuthData(null), navigation.goBack();
       } else {
-        errorMessage("Wrong Password");
+        errorMessage(t("flashmsg.password"), t("flashmsg.error"));
       }
       dispatch(setAppLoader(false));
     } catch (error) {
@@ -99,19 +102,19 @@ export default function ManageAccount({ navigation, route }) {
         </View>
         <View>
           <Dialog.Container visible={visible}>
-            <Dialog.Title> {t("Delete Account")}</Dialog.Title>
+            <Dialog.Title>
+              <Text style={{ fontSize: width(4), color: "red" }}>
+                {t("manageAccount.deleteaccount")}
+              </Text>
+            </Dialog.Title>
             <Dialog.Description>
               <Text style={{ fontSize: width(3) }}>
-                {t(
-                  "Do you want to delete your account? This action will delete all your details, ads, wishlist, and chats. You cannot undo this action or recover the deleted data."
-                )}
+                {t("manageAccount.deleteconfirmmsg")}
               </Text>
             </Dialog.Description>
             <Dialog.Description>
-              <Text style={{ fontSize: width(3),fontWeight:'bold' }}>
-                {t(
-                  "Enter the Password to continue"
-                )}
+              <Text style={{ fontSize: width(3), fontWeight: "bold" }}>
+                {t("manageAccount.enterpassword")}
               </Text>
             </Dialog.Description>
             <Dialog.Input value={code} onChangeText={setCode} />
@@ -125,7 +128,8 @@ export default function ManageAccount({ navigation, route }) {
               onPress={() => {
                 setVisible(false);
                 if (code) deleteAccount(code);
-                else errorMessage("Enter Password");
+                else
+                  errorMessage(t("flashmsg.requiremsg"), t("flashmsg.error"));
                 setCode("");
               }}
             />

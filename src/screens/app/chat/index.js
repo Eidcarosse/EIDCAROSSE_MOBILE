@@ -1,6 +1,6 @@
 import { getDatabase, off, onValue, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, Image, View } from "react-native";
 
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,24 +15,24 @@ import {
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 
-import styles from "./styles";
-import { getUserByID } from "../../../backend/auth";
+import Icons from "../../../asset/images";
 import { getDataofAdByID } from "../../../backend/api";
-import { setAppLoader } from "../../../redux/slices/config";
+import { getUserByID } from "../../../backend/auth";
+import { width } from "../../../utills/Dimension";
+import styles from "./styles";
 export default function ChatList({ navigation, route }) {
   const dispatch = useDispatch();
   const db = getDatabase();
   const user = useSelector(selectUserMeta);
   const allRooms = useSelector(selectChatRooms);
   const Chat = useSelector(selectChatRedux);
-
+  const [loading, setLoading] = useState(false);
   useFocusEffect(
     useCallback(() => {
       fetchRooms(user?._id);
     }, [])
   );
   const fetchRooms = async (userId) => {
-    var msgs = [];
     try {
       let roomRef = ref(db, `users/${userId}/rooms`);
 
@@ -59,7 +59,7 @@ export default function ChatList({ navigation, route }) {
   });
   const myFunction = useCallback(async (data) => {
     let lastmsg = {};
-    const messagesRef = ref(database, `chatrooms/${data}/messages`);
+    const messagesRef = ref(db, `chatrooms/${data}/messages`);
     onValue(messagesRef, (snapshot) => {
       const messageData = snapshot.val();
 
@@ -83,6 +83,7 @@ export default function ChatList({ navigation, route }) {
   });
   const promisFuntion = async () => {
     try {
+      setLoading(true);
       const promises = allRooms.map(async (element) => {
         let u = await fetchData(element);
         let l = await myFunction(element);
@@ -97,10 +98,13 @@ export default function ChatList({ navigation, route }) {
 
       const newData = await Promise.all(promises);
       dispatch(setChatRedux(newData));
-    } catch (e) {}
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+    }
   };
   useEffect(() => {
-    promisFuntion();
+    if (allRooms) promisFuntion();
   }, [allRooms]);
   return (
     <ScreenWrapper
@@ -108,15 +112,32 @@ export default function ChatList({ navigation, route }) {
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
+      refreshing={loading}
+      scrollEnabled
     >
+      {/* {loading && (
+        <View>
+          <ActivityIndicator color={AppColors.primary} size={"large"} />
+        </View>
+      )} */}
+
       <View style={styles.mainViewContainer}>
         <FlatList
+          scrollEnabled={false}
           showsVerticalScrollIndicator={false}
           data={Chat}
           renderItem={({ item }) => (
             <ChatIcon data={item} navigation={navigation} />
           )}
           keyExtractor={(item, index) => index}
+          ListEmptyComponent={() => (
+            <View style={{ flex: 1 }}>
+              <Image
+                source={Icons.empty}
+                style={{ height: width(40), width: width(50) }}
+              />
+            </View>
+          )}
         />
       </View>
     </ScreenWrapper>

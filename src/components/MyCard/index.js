@@ -223,7 +223,9 @@ export default function MyCard({ data }) {
       </Menu>
       <View>
         <Dialog.Container visible={visible}>
-          <Dialog.Title> {t("myad.deletetitle")}</Dialog.Title>
+          <Dialog.Title>
+            <Text style={{ fontSize: width(4),color:'red' }}>{t("myad.deletetitle")}</Text>
+          </Dialog.Title>
           <Dialog.Description>
             <Text style={{ fontSize: width(3) }}>
               {t("myad.deletealertmsg")}

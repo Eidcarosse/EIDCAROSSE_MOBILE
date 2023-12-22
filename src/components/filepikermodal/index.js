@@ -57,7 +57,7 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
       allowsMultipleSelection: multi,
       selectionLimit: 7,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [4, 4],
       quality: 1,
     })
       .then((a) => onFilesSelected(a.assets))
