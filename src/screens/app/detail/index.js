@@ -113,10 +113,10 @@ export default function Detail({ navigation, route }) {
       // setload(false);
       if (d) {
         setDat(d);
-        if (d.userId._id != loginuser?._id) {
-          await adView(dat?._id);
-        }
         if (mapRef?.current) {
+          console.log('====================================');
+          console.log("running map");
+          console.log('====================================');
           mapRef?.current.animateToRegion(
             {
               latitude: d?.latitude || 0,
@@ -126,6 +126,9 @@ export default function Detail({ navigation, route }) {
             },
             3 * 1000
           );
+        }
+        if (d.userId._id != loginuser?._id) {
+          await adView(dat?._id);
         }
       } else setDat({});
       setload(false);
@@ -138,7 +141,7 @@ export default function Detail({ navigation, route }) {
 
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <DetailHeader
           onPressBack={() => navigation.goBack()}

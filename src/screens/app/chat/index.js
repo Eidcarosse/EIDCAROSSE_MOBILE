@@ -18,7 +18,7 @@ import AppColors from "../../../utills/AppColors";
 import Icons from "../../../asset/images";
 import { getDataofAdByID } from "../../../backend/api";
 import { getUserByID } from "../../../backend/auth";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 export default function ChatList({ navigation, route }) {
   const dispatch = useDispatch();
@@ -150,10 +150,14 @@ export default function ChatList({ navigation, route }) {
           )}
           keyExtractor={(item, index) => index}
           ListEmptyComponent={() => (
-            <View style={{ flex: 1 }}>
+            <View>
               <Image
-                source={Icons.empty}
-                style={{ height: width(40), width: width(50) }}
+                source={Icons.emptyChat}
+                style={{
+                  height: width(50),
+                  width: width(50),
+                  marginTop: height(20),
+                }}
               />
             </View>
           )}

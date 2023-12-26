@@ -46,7 +46,7 @@ export default function ManageAccount({ navigation, route }) {
         dispatch(setAdsFav([]));
         setAuthData(null), navigation.goBack();
       } else {
-        errorMessage(t("flashmsg.password"), t("flashmsg.error"));
+        errorMessage(t("flashmsg.passwordmsg"), t("flashmsg.error"));
       }
       dispatch(setAppLoader(false));
     } catch (error) {

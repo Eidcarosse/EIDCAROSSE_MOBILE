@@ -83,16 +83,12 @@ export const getAuthData = async () => {
 export const setDataw = async (value) => {
   try {
     let a = await AsyncStorage.setItem("whatsapp", JSON.stringify(value));
-  } catch (e) {
-
-  }
+  } catch (e) {}
 };
 export const setDatav = async (value) => {
   try {
     let a = await AsyncStorage.setItem("viber", JSON.stringify(value));
-  } catch (e) {
-
-  }
+  } catch (e) {}
 };
 export const getDataw = async () => {
   try {
@@ -328,7 +324,6 @@ export const showExteriorColor = (x) => {
 export const showInteriorColor = (x) => {
   return (
     x === "Autos"
-
     // x === "Boats" ||
     // x === "Construction Machines" ||
     // x === "Trucks" ||
@@ -380,7 +375,23 @@ export const formatPriceE = (price) => {
   const formattedPrice = groups.join("'");
 
   return formattedPrice + ".-";
-  return price.toLocaleString("en-US")+ ".-";
+  return price.toLocaleString("en-US") + ".-";
+};
+export const setAuthAllData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem("dataUser", jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+export const getAuthAllData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem("dataUser");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (e) {
+    // error reading value
+  }
 };
 const onPressFavorite = () => {};
 const GlobalMethods = {

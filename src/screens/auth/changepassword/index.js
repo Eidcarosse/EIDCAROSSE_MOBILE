@@ -14,19 +14,19 @@ import { resetPasswordAPI } from "../../../backend/auth";
 import { useTranslation } from "react-i18next";
 export default function ChangePassword({ navigation, route }) {
   const dispatch = useDispatch();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const email = route?.params?.email;
   const token = route?.params?.token;
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const isValidPassword = (password) => {
-    return password.length >= 6;
+    return password.length >= 8;
   };
   const chngePassword = async () => {
     try {
       dispatch(setAppLoader(true));
       let r = await resetPasswordAPI({
-        password: newPassword,
+        password: newPassword.trim(),
         email: email,
         token: token,
       });
@@ -38,7 +38,7 @@ export default function ChangePassword({ navigation, route }) {
         dispatch(setAppLoader(false));
         navigation.navigate(ScreenNames.LOGIN);
       } else {
-       // errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.password`));
+        // errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.password`));
       }
       // dispatch(setAppLoader(false));
     } catch (error) {
@@ -48,7 +48,7 @@ export default function ChangePassword({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}
@@ -62,6 +62,7 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.newPassword"}
             placeholder={"changePassword.phnewPassword"}
             value={newPassword}
+            secure
             setvalue={setNewPassword}
           />
 
@@ -69,21 +70,27 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.confirmpassword"}
             placeholder={"changePassword.phconfirmpassword"}
             value={confirmPassword}
+            secure
             setvalue={setConfirmPassword}
           />
           <Button
             containerStyle={styles.button}
             title={"changePassword.savebutton"}
             onPress={() => {
-              if (
-                newPassword !== confirmPassword &&
-                isValidPassword(newPassword)
-              ) {
+              if (newPassword.trim() !== confirmPassword.trim()) {
                 errorMessage(
-                  t(`flashmsg.confirmerrormsg`),t(`flashmsg.password`)
+                  t(`flashmsg.confirmerrormsg`),
+                  t(`flashmsg.password`)
                 );
-              } else if (newPassword == "" || confirmPassword == "") {
-                errorMessage(t(`flashmsg.emptyfield`),t(`flashmsg.password`));
+              }
+              else if (!isValidPassword(newPassword.trim())){
+                errorMessage(
+                  t("Atlest 8 character"),
+                  t(`flashmsg.password`)
+                );
+              }
+              else if (newPassword.trim() == "" || confirmPassword.trim() == "") {
+                errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.password`));
               } else chngePassword();
             }}
           />

@@ -26,6 +26,7 @@ import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
   infoMessage,
+  setAuthAllData,
   setAuthData,
   successMessage,
 } from "../../../utills/Methods";
@@ -80,6 +81,7 @@ export default function Login({ navigation, route }) {
           dispatch(setToken(res?.data?.token));
           dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
           setAuthData(data);
+          setAuthAllData(res?.data?.userDetails)
           dispatch(setAppLoader(false));
           successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
           navigation.navigate(ScreenNames.BUTTOM);
@@ -87,7 +89,7 @@ export default function Login({ navigation, route }) {
       } else {
         errorMessage(t(`flashmsg.wrong`), t("flashmsg.error")),
           dispatch(setAppLoader(false));
-      }
+      } 
     } catch (error) {
       errorMessage("Network error");
       console.log(error);

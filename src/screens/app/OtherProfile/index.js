@@ -1,29 +1,15 @@
-import { FontAwesome, AntDesign } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
 import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
 import styles from "./styles";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Icons from "../../../asset/images";
-import {
-  CardView,
-  FilePickerModal,
-  Head,
-  Header,
-  IconButton,
-  ScreenWrapper,
-} from "../../../components";
-import ScreenNames from "../../../routes/routes";
+import { getOwneAd } from "../../../backend/auth";
+import { CardView, Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import {
-  selectToken,
-  selectUserAds,
-  selectUserMeta,
-} from "../../../redux/slices/user";
-import { getOwneAd } from "../../../backend/auth";
 import GlobalMethods from "../../../utills/Methods";
-import { useTranslation } from "react-i18next";
 export default function OtherProfile({ navigation, route }) {
   const userdata = route?.params?.user;
   const [data, setData] = useState([]);
@@ -44,7 +30,7 @@ export default function OtherProfile({ navigation, route }) {
 
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => <Head navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

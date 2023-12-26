@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, Image, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CategoryIcon, Head, Header, ScreenWrapper } from "../../../components";
-import { selectCategoryList } from "../../../redux/slices/config";
+import {
+  selectCategoryList,
+  setAppLoader,
+  setCategoryList,
+} from "../../../redux/slices/config";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { AntDesign } from "@expo/vector-icons";
+import { getCategory } from "../../../backend/common";
 
 export default function Category({ navigation, route, value }) {
   const data = useSelector(selectCategoryList);
   const search = route?.params?.search;
+  const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    async function getCategorylist() {
+      const d = await getCategory();
+      if (d) dispatch(setCategoryList(d));
+    }
+    // setRefreshing(true);
+    try {
+      if (!data || data.length < 1) {
+        dispatch(setAppLoader(true));
+        getCategorylist();
+        setTimeout(() => {
+          dispatch(setAppLoader(false));
+        }, 1000);
+      }
+    } catch (error) {}
+  };
+
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() =>
         route?.params ? (
           <Head headtitle={"categorylist.categories"} navigation={navigation} />
@@ -22,6 +46,9 @@ export default function Category({ navigation, route, value }) {
           <Header navigation={navigation} />
         )
       }
+      scrollEnabled
+      refreshing={refreshing}
+      onRefresh={onRefresh}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
@@ -29,6 +56,7 @@ export default function Category({ navigation, route, value }) {
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
           renderItem={({ item }) => {
             return (
               <CategoryIcon

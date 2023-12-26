@@ -62,6 +62,7 @@ import {
 import i18n from "../translation";
 import {
   errorMessage,
+  getAuthAllData,
   getAuthData,
   getDatav,
   getDataw,
@@ -116,16 +117,20 @@ export default function Routes() {
     setIsConnected(a);
   };
   const getuser = async () => {
-    let data = await getAuthData();
-    if (data) {
-      login(data);
+    try {
+      let data = await getAuthData();
+      if (data) {
+        login(data);
+      }
+      const w = await getDataw();
+      const v = await getDatav();
+      if (w) {
+        dispatch(setShowWhatsapp(w == 1 ? true : false));
+      }
+      if (v) dispatch(setShowViber(v == 1 ? true : false));
+    } catch (error) {
+      dispatch(setAppLoader(false));
     }
-    const w = await getDataw();
-    const v = await getDatav();
-    if (w) {
-      dispatch(setShowWhatsapp(w == 1 ? true : false));
-    }
-    if (v) dispatch(setShowViber(v == 1 ? true : false));
   };
   const login = async (data) => {
     try {
@@ -149,7 +154,18 @@ export default function Routes() {
             { text: "OK", onPress: () => {} },
           ]);
       } else {
-        Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
+        let userData = await getAuthAllData();
+        if (userData) {
+          dispatch(setIsLoggedIn(true));
+          dispatch(setUserMeta(userData));
+
+          await fetchRoomsData(userData?._id);
+          const userAd = await getOwneAd(userData?._id);
+          setUser(userData);
+          dispatch(setUserAds(userAd));
+          dispatch(setAdsFav(userData?.favAdIds));
+        }
+        Alert.alert(t("flashmsg.alert"), t("Check the Internet connection"), [
           { text: "OK", onPress: () => {} },
         ]);
       }

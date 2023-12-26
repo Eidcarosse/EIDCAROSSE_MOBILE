@@ -1,35 +1,28 @@
-import { Entypo, Fontisto, MaterialIcons, Ionicons } from "@expo/vector-icons";
-import React, { useRef } from "react";
-import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
-import styles from "./styles";
+import { Entypo, Fontisto, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import React from "react";
+import { Image, ImageBackground, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import styles from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
-import {
-  FilePickerModal,
-  Header,
-  IconButton,
-  ScreenWrapper,
-} from "../../../components";
-import ScreenNames from "../../../routes/routes";
-import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
+import { Header, IconButton, ScreenWrapper } from "../../../components";
 import {
   selectFavAds,
-  selectToken,
   selectUserAds,
   selectUserMeta,
 } from "../../../redux/slices/user";
+import ScreenNames from "../../../routes/routes";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
 export default function Profile({ navigation, route }) {
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
   const userFav = useSelector(selectFavAds);
-  const token = useSelector(selectToken);
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"

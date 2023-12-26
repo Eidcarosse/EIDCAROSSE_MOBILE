@@ -580,7 +580,7 @@ export default {
     emailrequireerrormsg:
       "Geben Sie Ihre registrierte E-Mail ein, um das Passwort zu vergessen",
     emailmsg: "E-Mail ist erforderlich oder möglicherweise im falschen Format",
-    password: "Passwort ist erforderlich oder möglicherweise falsch",
+    passwordmsg: "Passwort ist erforderlich oder möglicherweise falsch",
     whatsapperror: "WhatsApp existiert nicht",
     vibererror: "Viber existiert nicht",
     adPostsussessmsg: "Inserat erfolgreich veröffentlicht",

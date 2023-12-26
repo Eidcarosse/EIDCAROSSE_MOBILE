@@ -79,6 +79,9 @@ const getFavAds = async (id) => {
 };
 const changePasswordAPI = async (id, data) => {
   try {
+    console.log('====================================');
+    console.log("[pass",data);
+    console.log('====================================');
     const response = await ApiManager.post(`auth/change-password/${id}`, data, {
       headers: {
         "Content-Type": "application/json",

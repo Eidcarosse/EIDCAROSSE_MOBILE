@@ -11,6 +11,7 @@ const Icons = {
     sellnow:require('./sellnow.png'),
     repairnow:require('./repairnow.png'),
     loder:require('./newloder.gif'),
-    empty:require('./empty.png')
+    empty:require('./empty.png'),
+    emptyChat:require('./chatNotFound.png')
   };
   export default Icons

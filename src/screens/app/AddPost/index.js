@@ -26,6 +26,7 @@ import {
   ScreenWrapper,
 } from "../../../components";
 import {
+  selectCategoryList,
   selectShowViber,
   selectShowWhatsapp,
   setAppLoader,
@@ -68,7 +69,8 @@ export default function AddPost({ navigation, route }) {
   const modelRef = useRef();
   const brandRef = useRef();
   const imageRef = useRef(null);
-
+  const cat = useSelector(selectCategoryList);
+  const [selectedCategory, setSelectedCategory] = useState();
   const [find, setFind] = useState(f);
   const [image, setImage] = React.useState(edit?.images || []);
   const [subCategory, setSubCategory] = React.useState(sub);
@@ -137,6 +139,16 @@ export default function AddPost({ navigation, route }) {
     }
     getFeilds();
   }, [find]);
+  useEffect(() => {
+    cat.map((i) => {
+      if (i.name == category) {
+        console.log("====================================");
+        console.log(i, category);
+        console.log("====================================");
+        setSelectedCategory(i);
+      }
+    });
+  }, []);
   const getFeilds = async () => {
     let data = await backEndDataAPi({
       type: find,
@@ -183,7 +195,14 @@ export default function AddPost({ navigation, route }) {
   const addPost = async () => {
     dispatch(setAppLoader(true));
     try {
-      const requiredFields = [title, latitude, longitude, address, image,userInfo];
+      const requiredFields = [
+        title,
+        latitude,
+        longitude,
+        address,
+        image,
+        userInfo,
+      ];
       showBrand(category) && requiredFields.push(brand);
       pricing == "Price" && requiredFields.push(price);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
@@ -437,12 +456,38 @@ export default function AddPost({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head
-          headtitle={edit ? "editAd.title" : "addPost.title"}
+          // headtitle={edit ? "editAd.title" : "addPost.title"}
           navigation={navigation}
-        />
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
+            <View>
+              <Image
+                tintColor={"white"}
+                style={{ width: width(9), height: width(9) }}
+                source={{ uri: selectedCategory?.image }}
+              />
+            </View>
+            <Text
+              style={{
+                color: "white",
+                fontSize: width(5),
+                paddingHorizontal: width(5),
+                fontWeight:'bold'
+              }}
+            >
+              {t(`category.${selectedCategory?.name}`)}
+            </Text>
+          </View>
+        </Head>
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -555,10 +600,14 @@ export default function AddPost({ navigation, route }) {
             {t("addPost.attachImage3")}
           </Text> */}
         </View>
+
         {/* --------product infomartio---- */}
         <View>
           <Text
-            style={[styles.title, { fontSize: width(5), margin: width(2) }]}
+            style={[
+              styles.title,
+              { fontSize: width(5), marginVertical: width(2) },
+            ]}
           >
             {t("addPost.productInformation")}
           </Text>

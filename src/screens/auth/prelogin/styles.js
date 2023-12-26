@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
     backgroundColor: AppColors.primary,
   },
-  image: { width: width(85), alignSelf: "center", height: height(30) },
+  image: { width: width(75), alignSelf: "center", height: width(70) },
   text: { fontSize: 18, margin: width(10), fontWeight: "bold" },
 });
 export default styles;

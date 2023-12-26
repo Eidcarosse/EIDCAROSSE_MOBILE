@@ -43,7 +43,9 @@ export default function Home({}) {
   const onRefresh = async () => {
     // setRefreshing(true);
     dispatch(setAppLoader(true));
-    if (!category) getCategorylist();
+    if (!category || category.length < 1) {
+      getCategorylist();
+    }
     getData();
     setTimeout(() => {
       dispatch(setAppLoader(false));
@@ -115,7 +117,7 @@ export default function Home({}) {
             <View style={styles.notfoundview}>
               <Image
                 source={Icons.empty}
-                style={{ height: width(30), width: width(30) }}
+                style={{ height: width(40), width: width(40) }}
               />
             </View>
           ) : (

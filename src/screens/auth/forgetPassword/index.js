@@ -21,10 +21,10 @@ export default function ForgetPassword({ navigation, route }) {
   const [token, setToken] = useState("");
 
   async function forgetpassword() {
-    const d = await forgetPasswordAPI(email);
+    const d = await forgetPasswordAPI(email.trim());
     if (d?.success) {
       setToken(d?.data);
-      successMessage(t(`flashmsg.emailsussesssendmsg`),t(`flashmsg.success`));
+      successMessage(t(`flashmsg.emailsussesssendmsg`), t(`flashmsg.success`));
       setTimeout(() => setModel(true), 600);
     } else errorMessage(d?.message, t(`flashmsg.authentication`));
   }
@@ -35,12 +35,13 @@ export default function ForgetPassword({ navigation, route }) {
       setToken("");
       navigation.navigate(ScreenNames.CPF, { token, email });
     } else {
-      errorMessage(t(`flashmsg.wrongpinerrormsg`),t(`flashmsg.error`));
+      setCode("");
+      errorMessage(t(`flashmsg.wrongpinerrormsg`), t(`flashmsg.error`));
     }
   }
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
       headerUnScrollable={() => <Head navigation={navigation} />}
@@ -66,7 +67,10 @@ export default function ForgetPassword({ navigation, route }) {
               if (email) {
                 forgetpassword();
               } else {
-                errorMessage(t(`flashmsg.emailrequireerrormsg`),t(`flashmsg.error`));
+                errorMessage(
+                  t(`flashmsg.emailrequireerrormsg`),
+                  t(`flashmsg.error`)
+                );
               }
             }}
           />
@@ -105,6 +109,7 @@ export default function ForgetPassword({ navigation, route }) {
               value={code}
               setvalue={setCode}
               placeholder={"Enter Code"}
+              keyboardType="numeric"
               containerStyle={{
                 width: width(60),
                 borderWidth: width(0.2),
@@ -116,9 +121,9 @@ export default function ForgetPassword({ navigation, route }) {
               title={"Verify"}
               onPress={() => {
                 if (code) {
-                  checkPassword(code);
+                  checkPassword(code.trim());
                 } else {
-                  errorMessage(t(`flashmsg.entercode`),t(`flashmsg.error`));
+                  errorMessage(t(`flashmsg.entercode`), t(`flashmsg.error`));
                 }
                 //setModel(false);
               }}

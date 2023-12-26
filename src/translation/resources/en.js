@@ -598,7 +598,7 @@ export default {
     wrongpinerrormsg: "Wrong Pin code",
     emailrequireerrormsg: "Enter your registered Email to forget Password",
     emailmsg: "Email is required or may be incorrect format",
-    password: "Password must be required or may be incorrect",
+    passwordmsg: "Password must be required or may be incorrect",
 
     entercode: "Enter code to confirm",
     signuperrormsg: "Something went wrong to Signup",
@@ -730,7 +730,7 @@ export default {
   },
   editAd: {
     title: "Edit Ad",
-    edit: "Edit",
+    edit: "Save",
   },
   filter: {
     selectCategory: "Select Category",

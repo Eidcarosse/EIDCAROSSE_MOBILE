@@ -18,6 +18,11 @@ export default function ChangePassword({ navigation, route }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const isValidPassword = (password) => {
+    return password.length >= 8;
+  };
+
   const chngePassword = async () => {
     try {
       dispatch(setAppLoader(true));
@@ -37,13 +42,16 @@ export default function ChangePassword({ navigation, route }) {
       }
       // dispatch(setAppLoader(false));
     } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
       dispatch(setAppLoader(false));
       errorMessage("Network error");
     }
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}
@@ -57,6 +65,7 @@ export default function ChangePassword({ navigation, route }) {
             title={"changePassword.oldPassword"}
             placeholder={"changePassword.pholdPassword"}
             value={oldPassword}
+            secure
             setvalue={setOldPassword}
           />
           <Input
@@ -80,11 +89,18 @@ export default function ChangePassword({ navigation, route }) {
             onPress={() => {
               if (!oldPassword)
                 errorMessage(t(`flashmsg.oldpaserror`), t(`flashmsg.password`));
-              else if (newPassword !== confirmPassword)
+              else if (
+                !isValidPassword(newPassword.trim()) ||
+                !isValidPassword(oldPassword.trim())
+              ) {
+                errorMessage(t("Atlest 8 character"), t(`flashmsg.password`));
+              } else if (newPassword.trim() !== confirmPassword.trim())
                 errorMessage(
                   t(`flashmsg.confirmerrormsg`),
                   t(`flashmsg.password`)
                 );
+              else if (newPassword.trim() === oldPassword.trim())
+                errorMessage(t(`same password`), t(`flashmsg.password`));
               else chngePassword();
             }}
           />

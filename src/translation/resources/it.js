@@ -567,7 +567,7 @@ export default {
     emailrequireerrormsg:
       "Inserisci la tua email registrata per dimenticare la password",
     emailmsg: "L'email è richiesta o potrebbe essere nel formato incorretto",
-    password: "La password è richiesta o potrebbe essere incorretta",
+    passwordmsg: "La password è richiesta o potrebbe essere incorretta",
     whatsapperror: "WhatsApp non esiste",
     vibererror: "Viber non esiste",
     adPostsussessmsg: "Annuncio pubblicato con successo",
@@ -689,7 +689,7 @@ export default {
   },
   editAd: {
     title: "Modifica Annuncio",
-    edit: "Modifica",
+    edit: "Salva",
   },
   filter: {
     selectCategory: "Seleziona Categoria",

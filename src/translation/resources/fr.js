@@ -606,7 +606,7 @@ export default {
     emailrequireerrormsg:
       "Entrez votre e-mail enregistré pour oublier le mot de passe",
     emailmsg: "L'email est requis ou peut être incorrect",
-    password: "Le mot de passe est requis ou peut être incorrect",
+    passwordmsg: "Le mot de passe est requis ou peut être incorrect",
     whatsapperror: "WhatsApp n'existe pas",
     vibererror: "Viber n'existe pas",
     adPostsussessmsg: "Annonce publiée avec succès",
@@ -731,7 +731,7 @@ export default {
   },
   editAd: {
     title: "Modifier l'annonce",
-    edit: "Modifier",
+    edit: "Enregistrer",
   },
   filter: {
     selectCategory: "Sélectionner la catégorie",
