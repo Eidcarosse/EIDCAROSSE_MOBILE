@@ -1,9 +1,11 @@
-import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Icons from "../../asset/images";
+import { toggleFavorite } from "../../backend/api";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 import {
   selectFavAds,
   selectUserMeta,
@@ -19,11 +21,6 @@ import GlobalMethods, {
   infoMessage,
 } from "../../utills/Methods";
 import styles from "./styles";
-import { toggleFavorite } from "../../backend/api";
-import SwiperFlatList from "react-native-swiper-flatlist";
-import { WebLink } from "../../utills/Constants";
-import { selectCurrentLanguage } from "../../redux/slices/language";
-import { useTranslation } from "react-i18next";
 export default function CardView({ data }) {
   const { t } = useTranslation();
   const [slideNo, setSlideNo] = useState(0);
@@ -63,16 +60,6 @@ export default function CardView({ data }) {
       }
     }
   };
-  const renderItem = ({ item }) => {
-    return (
-      <Image
-        resizeMode="cover"
-        style={styles.image}
-        // source={{ uri: data?.image[0] }}
-        source={{ uri: item ? item : Icons.car }}
-      />
-    );
-  };
   return (
     <View style={styles.main}>
       <TouchableOpacity
@@ -87,7 +74,7 @@ export default function CardView({ data }) {
             resizeMode="cover"
             style={styles.image}
             // source={{ uri: data?.image[0] }}
-            source={{ uri: data?.images ? data?.images[0] : Icons.car }}
+            source={{ uri: data?.images[0] }}
           />
           {/* <SwiperFlatList
             // ref={introRef}

@@ -3,13 +3,13 @@ import {
   Image,
   ImageBackground,
   Text,
-  View,
   TouchableOpacity,
-  ScrollView,
+  View,
 } from "react-native";
-import styles from "./styles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import styles from "./styles";
 
+import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import {
@@ -19,13 +19,12 @@ import {
   Input,
   ScreenWrapper,
 } from "../../../components";
-import { FontAwesome } from "@expo/vector-icons";
 
+import { updateProfile } from "../../../backend/auth";
+import { setAppLoader } from "../../../redux/slices/config";
+import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
-import { setAppLoader } from "../../../redux/slices/config";
-import { updateProfile } from "../../../backend/auth";
 import { errorMessage } from "../../../utills/Methods";
 
 export default function EditProfile({ navigation, route }) {
@@ -43,9 +42,6 @@ export default function EditProfile({ navigation, route }) {
   const [phoneNumber, setPhoneNumber] = React.useState(
     userdata?.phoneNumber || null
   );
-console.log('====================================');
-console.log(whatsapp,viber);
-console.log('====================================');
   const update = async () => {
     try {
       dispatch(setAppLoader(true));
@@ -76,7 +72,7 @@ console.log('====================================');
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
       )}
@@ -118,14 +114,14 @@ console.log('====================================');
                     width: width(55),
                   }}
                 >
-                  {userdata?.firstName}{" "}{userdata?.lastName}
+                  {userdata?.firstName} {userdata?.lastName}
                 </Text>
 
                 <Text
                   style={{
                     fontSize: width(4),
                     fontWeight: "bold",
-                    marginTop:height(1),
+                    marginTop: height(1),
                     color: AppColors.white,
                   }}
                 >
@@ -136,11 +132,11 @@ console.log('====================================');
           </View>
         </ImageBackground>
         <KeyboardAwareScrollView
-         keyboardShouldPersistTaps="handled"
-         enableAutomaticScroll={true}
-         enableResetScrollToCoords={false}
-         extraScrollHeight={height(8)}
-         showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          enableAutomaticScroll={true}
+          enableResetScrollToCoords={false}
+          extraScrollHeight={height(8)}
+          showsVerticalScrollIndicator={false}
         >
           <View style={{ paddingVertical: width(10) }}>
             <Input

@@ -1,6 +1,6 @@
 import { getDatabase, off, onValue, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Image, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,13 +14,13 @@ import {
   setChatRooms,
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
-
-import Icons from "../../../asset/images";
 import { getDataofAdByID } from "../../../backend/api";
 import { getUserByID } from "../../../backend/auth";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 export default function ChatList({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const db = getDatabase();
   const user = useSelector(selectUserMeta);
@@ -151,14 +151,15 @@ export default function ChatList({ navigation, route }) {
           keyExtractor={(item, index) => index}
           ListEmptyComponent={() => (
             <View>
-              <Image
-                source={Icons.emptyChat}
+              <Text
                 style={{
-                  height: width(50),
-                  width: width(50),
-                  marginTop: height(20),
+                  fontWeight: "bold",
+                  fontSize: width(4),
+                  paddingTop: height(40),
                 }}
-              />
+              >
+                {t("commmon.nothingtoshow")}
+              </Text>
             </View>
           )}
         />

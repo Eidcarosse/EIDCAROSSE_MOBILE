@@ -11,7 +11,12 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { checkPrice, formatPrice, formatPriceE, infoMessage } from "../../utills/Methods";
+import GlobalMethods, {
+  checkPrice,
+  formatPrice,
+  formatPriceE,
+  infoMessage,
+} from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import { WebLink } from "../../utills/Constants";
@@ -146,7 +151,10 @@ export default function ListingView({ data }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
+              GlobalMethods.onPressShare(
+                `${WebLink}${data?._id}`,
+                data?.title,
+              )
             }
           >
             <Entypo size={width(4)} name="share" />

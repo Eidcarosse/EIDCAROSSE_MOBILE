@@ -1,13 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as Network from "expo-network";
 import { getDatabase, off, onValue, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Alert } from "react-native";
+import { useDispatch } from "react-redux";
 import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
-import { Alert } from "react-native";
 import {
   setAppLoader,
   setCategoryList,
@@ -17,7 +19,6 @@ import {
 } from "../redux/slices/config";
 import { setLanguage } from "../redux/slices/language";
 import {
-  selectIsLoggedIn,
   setAdsFav,
   setChatRedux,
   setChatRooms,
@@ -55,7 +56,6 @@ import {
   CPFscreen,
   ForgetPasswordScreen,
   LoginScreen,
-  OnBoardingScreen,
   SignUpScreen,
   verifyScreen,
 } from "../screens/auth";
@@ -71,8 +71,6 @@ import {
 } from "../utills/Methods";
 import MyDrawer from "./drawr";
 import ScreenNames from "./routes";
-import { useTranslation } from "react-i18next";
-import * as Network from "expo-network";
 
 const Stack = createNativeStackNavigator();
 

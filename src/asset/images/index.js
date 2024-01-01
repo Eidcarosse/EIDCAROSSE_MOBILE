@@ -1,8 +1,7 @@
 const Icons = {
-    car:require('./car.png'),
     login:require('./log.png'),
     bglogo:require('./bg.png'),
-    accountbg:require('./account_bg.png'),
+    accountbg:require('./account_bg.jpeg'),
     htsf1:require('./htsf1.png'),
     htsf2:require('./htsf2.png'),
     htsf3:require('./htsf3.png'),
@@ -12,6 +11,6 @@ const Icons = {
     repairnow:require('./repairnow.png'),
     loder:require('./newloder.gif'),
     empty:require('./empty.png'),
-    emptyChat:require('./chatNotFound.png')
+    emptyChat:require('./chatNotFound.png'),
   };
   export default Icons

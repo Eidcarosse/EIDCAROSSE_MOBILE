@@ -150,10 +150,13 @@ const onPressMessage = (phoneNumber) => {
     })
     .catch((error) => console.error("Error opening messaging app:", error));
 };
-const onPressEmail = (email) => {
-  const subject = "Eidcaross"; // Optional: Replace with the subject of your email
+const onPressEmail = (email, mymail, message = "") => {
+  const subject = `Eidcaross \n ${message}`; // Optional: Replace with the subject of your email
 
   const url = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+  `mailto:${email}?subject=${encodeURIComponent(
+    subject
+  )}&cc=${encodeURIComponent(mymail)}`;
 
   Linking.openURL(url)
     .then((result) => {
@@ -170,9 +173,6 @@ const onPressShare = async (message, title) => {
     const result = await Share.share({
       message: `${title}\n${message}`,
       title: "Eidcarosse",
-      url: message,
-      dialogTitle: "Eidcarosse ",
-      subject: title,
     });
 
     if (result.action === Share.sharedAction) {

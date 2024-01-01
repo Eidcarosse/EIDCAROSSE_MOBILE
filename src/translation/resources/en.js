@@ -739,5 +739,9 @@ export default {
     title: "Forget Password",
     button: "Forget",
   },
+  commmon:{
+    nothingtoshow:"Nothing to show",
+    checkNet:"Check the Internet connection"
+  },
   Others: "Others",
 };

@@ -10,8 +10,11 @@ import { CardView, Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import GlobalMethods from "../../../utills/Methods";
+import { useSelector } from "react-redux";
+import { selectUserMeta } from "../../../redux/slices/user";
 export default function OtherProfile({ navigation, route }) {
   const userdata = route?.params?.user;
+  const loginuser = useSelector(selectUserMeta);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const { t } = useTranslation();
@@ -100,7 +103,13 @@ export default function OtherProfile({ navigation, route }) {
                 />
               )}
               <IconButton
-                onPress={GlobalMethods.onPressEmail}
+                onPress={() =>
+                  GlobalMethods.onPressEmail(
+                    userdata?.email,
+                    loginuser?.email,
+                    ""
+                  )
+                }
                 title={"Email"}
                 containerStyle={styles.wcontainer}
                 textStyle={styles.wtexticon}

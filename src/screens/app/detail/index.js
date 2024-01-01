@@ -1,7 +1,6 @@
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Modal from "react-native-modal";
 import {
   ActivityIndicator,
   Image,
@@ -11,10 +10,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Swiper from "react-native-swiper";
-// import { SliderBox } from "react-native-image-slider-box";
-// import { ImageSlider } from "react-native-image-slider-banner";
 import MapView, { Marker } from "react-native-maps";
+import Modal from "react-native-modal";
+import Swiper from "react-native-swiper";
 import { useDispatch, useSelector } from "react-redux";
 import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
 import {
@@ -41,7 +39,6 @@ import GlobalMethods, {
   infoMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
-import { ScrollView } from "react-native-gesture-handler";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
@@ -105,7 +102,19 @@ export default function Detail({ navigation, route }) {
   useEffect(() => {
     getData();
   }, [dat?._id != data?._id]);
-
+  useEffect(() => {
+    if (data && mapRef?.current) {
+      mapRef?.current.animateToRegion(
+        {
+          latitude: data?.latitude || 0,
+          longitude: data?.longitude || 0,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        3 * 1000
+      );
+    }
+  }, [data, mapRef?.current]);
   const getData = async () => {
     try {
       setload(true);
@@ -113,20 +122,6 @@ export default function Detail({ navigation, route }) {
       // setload(false);
       if (d) {
         setDat(d);
-        if (mapRef?.current) {
-          console.log('====================================');
-          console.log("running map");
-          console.log('====================================');
-          mapRef?.current.animateToRegion(
-            {
-              latitude: d?.latitude || 0,
-              longitude: d?.longitude || 0,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            },
-            3 * 1000
-          );
-        }
         if (d.userId._id != loginuser?._id) {
           await adView(dat?._id);
         }
@@ -138,7 +133,6 @@ export default function Detail({ navigation, route }) {
 
     // dispatch(setAppLoader(false));
   };
-
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -164,7 +158,13 @@ export default function Detail({ navigation, route }) {
                 userItem: data,
               });
             }}
-            onPressMail={() => GlobalMethods.onPressEmail(data?.email)}
+            onPressMail={() =>
+              GlobalMethods.onPressEmail(
+                data?.userId?.email,
+                loginuser?.email,
+                data?.title + `${WebLink}${data?._id}`
+              )
+            }
           />
         )
       }
@@ -186,33 +186,6 @@ export default function Detail({ navigation, route }) {
       ) : (
         <View style={styles.mainViewContainer}>
           <View style={styles.imageview}>
-            {/* <ImageSlider
-              showIndicator
-              data={img}
-              indicatorContainerStyle={{ color: AppColors.primary }}
-              autoPlay={false}
-              caroselImageStyle={{ resizeMode: "contain" }}
-              activeIndicatorStyle={{ backgroundColor: AppColors.primary }}
-              closeIconColor={AppColors.primary}
-              preview={false}
-              onClick={(c) => {
-                setSelectefImage(c.img);
-                console.log("presed button", c);
-                setShowModal(true);
-              }}
-            /> */}
-            {/* <SliderBox
-              images={img || []}
-              sliderBoxHeight={height(35)}
-              onCurrentImagePressed={(index) => {
-                console.log(`image ${index} pressed`);
-                setSelectefImage(img[index]);
-                setShowModal(true);
-              }}
-              dotColor={AppColors.primary}
-              inactiveDotColor={AppColors.white}
-              circleLoop={true}
-            /> */}
             <Swiper
               style={{ height: height(30) }}
               activeDotColor={AppColors.primary}
@@ -577,6 +550,12 @@ export default function Detail({ navigation, route }) {
             <View style={styles.map}>
               <MapView
                 ref={mapRef}
+                initialRegion={{
+                  latitude: data?.latitude || 0,
+                  longitude: data?.longitude || 0,
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.01,
+                }}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -585,8 +564,10 @@ export default function Detail({ navigation, route }) {
               >
                 <Marker
                   coordinate={{
-                    latitude: dat?.latitude || 0,
-                    longitude: dat?.longitude || 0,
+                    latitude: data?.latitude || 0,
+                    longitude: data?.longitude || 0,
+                    latitudeDelta: 0.01,
+                    longitudeDelta: 0.01,
                   }}
                 />
               </MapView>

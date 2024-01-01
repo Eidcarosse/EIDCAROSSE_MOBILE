@@ -31,7 +31,7 @@ export default function ChangePassword({ navigation, route }) {
         newPassword,
         confirmPassword,
       });
-      console.log("change password", r);
+
       if (!r?.success) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message);
@@ -42,9 +42,6 @@ export default function ChangePassword({ navigation, route }) {
       }
       // dispatch(setAppLoader(false));
     } catch (error) {
-      console.log("====================================");
-      console.log(error);
-      console.log("====================================");
       dispatch(setAppLoader(false));
       errorMessage("Network error");
     }

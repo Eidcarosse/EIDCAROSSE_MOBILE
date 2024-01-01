@@ -1,8 +1,7 @@
-import React, { useCallback, useRef, useState, useEffect } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { ScreenWrapper } from "../../../components";
-import CardView from "../../../components/CardView";
 import CategoryList from "../../../components/categorylist";
 import Header from "../../../components/header";
 import SearchBar from "../../../components/searchbar";
@@ -10,11 +9,9 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useIsFocused } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
-import { useRoute } from "@react-navigation/native";
 import {
   selectCategoryList,
   selectTopAds,
@@ -24,11 +21,11 @@ import {
 } from "../../../redux/slices/config";
 import { width } from "../../../utills/Dimension";
 
-import styles from "./styles";
-import { Card } from "../../../components";
 import { useScrollToTop } from "@react-navigation/native";
-import { selectCurrentLanguage } from "../../../redux/slices/language";
 import { getCategory } from "../../../backend/common";
+import { Card } from "../../../components";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
+import styles from "./styles";
 export default function Home({}) {
   const scrollViewRef = useRef(null);
   const navigation = useNavigation();
@@ -112,12 +109,12 @@ export default function Home({}) {
             </Text>
           </Pressable>
         </View>
-        <View style={{ width: width(100), alignItems: "center" }}>
+        <View style={{ salignItems: "center" }}>
           {data?.length === 0 ? (
             <View style={styles.notfoundview}>
               <Image
                 source={Icons.empty}
-                style={{ height: width(40), width: width(40) }}
+                style={{ height: width(60), width: width(60) }}
               />
             </View>
           ) : (

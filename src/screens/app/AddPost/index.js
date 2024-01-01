@@ -142,9 +142,6 @@ export default function AddPost({ navigation, route }) {
   useEffect(() => {
     cat.map((i) => {
       if (i.name == category) {
-        console.log("====================================");
-        console.log(i, category);
-        console.log("====================================");
         setSelectedCategory(i);
       }
     });
@@ -286,9 +283,6 @@ export default function AddPost({ navigation, route }) {
         });
       });
       const resp = await addPostAd(formData);
-      console.log("====================================");
-      console.log("add ad", resp);
-      console.log("====================================");
       if (resp?.success) {
         navigation.navigate("StackHome");
         const userAd = await getOwneAd(userInfo?._id);
@@ -481,7 +475,7 @@ export default function AddPost({ navigation, route }) {
                 color: "white",
                 fontSize: width(5),
                 paddingHorizontal: width(5),
-                fontWeight:'bold'
+                fontWeight: "bold",
               }}
             >
               {t(`category.${selectedCategory?.name}`)}

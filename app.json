@@ -1,29 +1,30 @@
 {
   "expo": {
     "name": "Eidcarosse",
-    "slug": "Sell-It-Search-It-Buy-It",
+    "slug": "Eidcarosse",
     "version": "1.0.0",
     "permissions": [
-    "INTERNET", 
-    "CAMERA",
-    "CAMERA_ROLL",
-    "MEDIA_LIBRARY",
-    "READ_EXTERNAL_STORAGE",
-    "WRITE_EXTERNAL_STORAGE",
-    "RECORD_AUDIO",
-    "READ_PHONE_STATE",
-    "READ_CONTACTS",
-    "LOCATION",
-    "ACCESS_COARSE_LOCATION",
-    "ACCESS_FINE_LOCATION",
-    "RECEIVE_BOOT_COMPLETED",
-    "android.permission.INTERNET",
-    "POST_NOTIFICATIONS"],
+      "INTERNET",
+      "CAMERA",
+      "CAMERA_ROLL",
+      "MEDIA_LIBRARY",
+      "READ_EXTERNAL_STORAGE",
+      "WRITE_EXTERNAL_STORAGE",
+      "RECORD_AUDIO",
+      "READ_PHONE_STATE",
+      "READ_CONTACTS",
+      "LOCATION",
+      "ACCESS_COARSE_LOCATION",
+      "ACCESS_FINE_LOCATION",
+      "RECEIVE_BOOT_COMPLETED",
+      "android.permission.INTERNET",
+      "POST_NOTIFICATIONS"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png", 
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#FF0100"
     },
@@ -35,7 +36,8 @@
       "infoPlist": {
         "UIStatusBarHidden": true,
         "UIViewControllerBasedStatusBarAppearance": false
-      }
+      },
+      "bundleIdentifier": "com.eidcarosse.Eidcarosse"
     },
     "androidStatusBar": {
       "hidden": true
@@ -47,16 +49,16 @@
         }
       },
       "adaptiveIcon": {
-        "foregroundImage":"./assets/icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eidcarosse.Eidcarosse"
+      "package": "com.eidcarosse.Eidcarosse",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-   
       [
         "expo-build-properties",
         {

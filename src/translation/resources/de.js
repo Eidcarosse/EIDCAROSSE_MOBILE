@@ -710,5 +710,9 @@ export default {
     title: "Passwort vergessen",
     button: "Vergessen",
   },
+  commmon: {
+    nothingtoshow: "Nichts zu zeigen",
+    checkNet: "Überprüfen Sie die Internetverbindung",
+  },
   Others: "Andere",
 };

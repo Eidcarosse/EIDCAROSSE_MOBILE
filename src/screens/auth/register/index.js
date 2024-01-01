@@ -89,8 +89,10 @@ export default function SignUp({ navigation, route }) {
 
   return (
     <ScreenWrapper
-    showStatusBar={false}
-    statusBarColor={AppColors.primary} barStyle="light-content">
+      showStatusBar={false}
+      statusBarColor={AppColors.primary}
+      barStyle="light-content"
+    >
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.image}>
           <View style={styles.imageiner}>
@@ -205,6 +207,23 @@ export default function SignUp({ navigation, route }) {
                 } else if (!phoneNumber) {
                   setPhoneNumberr("Phone Number require");
                 } else signup(userData);
+
+                if (firstName) {
+                  setFirstNamer("");
+                }
+                if (lastName) {
+                  setLastNamer("");
+                }
+
+                if (userName) {
+                  setUserNamer("");
+                }
+                if (email && isValidEmail(email)) {
+                  setEmailr("");
+                }
+                if (password && isValidPassword(password)) {
+                  setPasswordr("");
+                }
               }}
               containerStyle={check ? styles.button : styles.dbutton}
               title={"signup.signupButton"}

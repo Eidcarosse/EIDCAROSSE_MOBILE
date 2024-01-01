@@ -43,7 +43,6 @@ export default function RelatedAd({ category, id }) {
       )}
     </View>
   );
-  console.log(data.length<0);
   return (
     <View style={styles.main}>
       {data.length>0 && (

@@ -740,5 +740,9 @@ export default {
     title: "Mot de passe oublié",
     button: "Oublier",
   },
+  commmon: {
+    nothingtoshow: "Rien à afficher",
+    checkNet: "Vérifiez la connexion Internet.",
+  },
   Others: "Autres",
 };

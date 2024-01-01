@@ -82,7 +82,7 @@ export default function Card({ data, onPresshide, map = false }) {
           resizeMode="cover"
           style={styles.image}
           // source={{ uri: data?.image[0] }}
-          source={{ uri: item ? item?.img : Icons.car }}
+          source={{ uri: item?.img }}
         />
       </Pressable>
     );

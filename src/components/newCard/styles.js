@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.transparent,
     flexDirection: "row",
     alignSelf: "center",
-    borderRadius: width(5),
+    borderRadius: width(3),
   },
   image: {
     width: width(87),
     height: width(50),
-    borderRadius: width(5),
+    borderRadius: width(3),
     resizeMode: "cover",
   },
   detail: {

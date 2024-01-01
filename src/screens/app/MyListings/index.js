@@ -1,7 +1,9 @@
+import { useFocusEffect } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Image, TouchableOpacity, View, Text } from "react-native";
+import { useTranslation } from "react-i18next";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Icons from "../../../asset/images";
+import { getOwneAd } from "../../../backend/auth";
 import { MyListingView, ScreenWrapper } from "../../../components";
 import Header from "../../../components/header";
 import {
@@ -13,9 +15,6 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
-import { getOwneAd } from "../../../backend/auth";
-import { useFocusEffect } from "@react-navigation/native";
-import { useTranslation } from "react-i18next";
 export default function MyListing({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ export default function MyListing({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -53,11 +52,16 @@ export default function MyListing({ navigation, route }) {
         </View>
         <View style={{ width: width(100), alignItems: "center" }}>
           {data?.length === 0 ? (
-            <View style={{ height: height(100) }}>
-              <Image
-                source={Icons.empty}
-                style={{ height: width(30), width: width(30) }}
-              />
+            <View>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: width(4),
+                  paddingTop: height(40),
+                }}
+              >
+                {t("commmon.nothingtoshow")}
+              </Text>
             </View>
           ) : (
             data?.map((item, index) => (

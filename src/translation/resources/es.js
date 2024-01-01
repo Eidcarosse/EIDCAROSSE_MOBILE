@@ -588,7 +588,7 @@ export default {
       "Ingrese su correo electrónico registrado para olvidar la contraseña",
     emailmsg:
       "Se requiere el correo electrónico o puede estar en un formato incorrecto",
-      passwordmsg: "Se requiere la contraseña o puede ser incorrecta",
+    passwordmsg: "Se requiere la contraseña o puede ser incorrecta",
     whatsapperror: "WhatsApp no existe",
     vibererror: "Viber no existe",
     adPostsussessmsg: "Anuncio publicado con éxito",
@@ -723,6 +723,10 @@ export default {
   frogeyPassword: {
     title: "Olvidé mi contraseña",
     button: "Olvidar",
+  },
+  commmon: {
+    nothingtoshow: "Nada que mostrar",
+    checkNet: "Verifica la conexión a Internet.",
   },
   Others: "Otro",
 };

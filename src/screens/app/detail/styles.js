@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     height: height(25),
     width: width(90),
     alignSelf: "center",
+    borderRadius: width(3),
   },
   contact: {
     paddingLeft: width(4),

@@ -698,5 +698,9 @@ export default {
     title: "Password dimenticata",
     button: "Dimenticare",
   },
+  commmon: {
+    nothingtoshow: "Niente da mostrare",
+    checkNet: "Controlla la connessione Internet.",
+  },
   Others: "Altros",
 };

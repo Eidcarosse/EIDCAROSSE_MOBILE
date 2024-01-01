@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Image, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Head, ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
@@ -7,13 +7,12 @@ import { selectFavAds, selectUserMeta } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
+import { getFavAds } from "../../../backend/auth";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
-import { useFocusEffect } from "@react-navigation/native";
-import { setAppLoader } from "../../../redux/slices/config";
-import { getFavAds } from "../../../backend/auth";
-import Icons from "../../../asset/images";
+import { useTranslation } from "react-i18next";
 export default function WishList({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
   const userFav = useSelector(selectFavAds);
@@ -34,7 +33,7 @@ export default function WishList({ navigation, route }) {
   });
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"wishList.title"} navigation={navigation} />
       )}
@@ -48,11 +47,16 @@ export default function WishList({ navigation, route }) {
             loader ? (
               <ActivityIndicator color={AppColors.primary} size={"large"} />
             ) : (
-              <View style={{ height: height(100) }}>
-                <Image
-                  source={Icons.empty}
-                  style={{ height: width(30), width: width(30) }}
-                />
+              <View>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: width(4),
+                    paddingTop: height(40),
+                  }}
+                >
+                  {t("commmon.nothingtoshow")}
+                </Text>
               </View>
             )
           ) : (

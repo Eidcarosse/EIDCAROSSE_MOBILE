@@ -11,7 +11,11 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { width } from "../../utills/Dimension";
-import GlobalMethods, { formatPrice, formatPriceE, infoMessage } from "../../utills/Methods";
+import GlobalMethods, {
+  formatPrice,
+  formatPriceE,
+  infoMessage,
+} from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -61,7 +65,7 @@ export default function MapAdCard({ data, onPress }) {
         resizeMode="cover"
         style={styles.image}
         // source={{ uri: data?.image[0] }}
-        source={{ uri: item ? item : Icons.car }}
+        source={{ uri: item }}
       />
     );
   };
