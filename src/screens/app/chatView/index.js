@@ -618,7 +618,7 @@ const styles = StyleSheet.create({
   },
   account_View: {
     width: width(90),
-    height: height(6),
+    height: width(13),
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -634,7 +634,7 @@ const styles = StyleSheet.create({
   },
   image_Style: {
     width: width(13),
-    height: height(6),
+    height: width(13),
     borderRadius: width(20),
     borderWidth: width(0.3),
     borderColor: AppColors.primary,

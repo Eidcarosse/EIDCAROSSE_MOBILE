@@ -41,6 +41,8 @@ import {
 } from "../../../backend/api";
 import { selectCategoryList, setAppLoader } from "../../../redux/slices/config";
 
+import CheckBox from "react-native-check-box";
+import ScreenNames from "../../../routes/routes";
 import { sortList } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import {
@@ -53,8 +55,6 @@ import {
   showbodyShape,
 } from "../../../utills/Methods";
 import styles from "./styles";
-import ScreenNames from "../../../routes/routes";
-import CheckBox from "react-native-check-box";
 
 export default function ListData({ navigation, route }) {
   const { t } = useTranslation();
@@ -295,7 +295,7 @@ export default function ListData({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head
           headtitle={category ? t(`category.${category}`) : "allData.title"}
@@ -326,30 +326,6 @@ export default function ListData({ navigation, route }) {
             {t("allData.totalresult")} : {totalAds}
           </Text>
           <View style={styles.iconview}>
-            {/* <TouchableOpacity
-              style={{ paddingHorizontal: width(3) }}
-              onPress={() => {
-                setcolumnumber(2);
-              }}
-            >
-              <Ionicons
-                name="grid"
-                size={width(4)}
-                color={columnumber == 2 ? AppColors.primary : "black"}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ paddingHorizontal: width(3) }}
-              onPress={() => {
-                setcolumnumber(1);
-              }}
-            >
-              <FontAwesome5
-                name="th-list"
-                size={width(4)}
-                color={columnumber == 1 ? AppColors.primary : "black"}
-              />
-            </TouchableOpacity> */}
             <TouchableOpacity
               style={{ marginLeft: height(2) }}
               onPress={() => refRBSheet.current.open()}
@@ -362,43 +338,6 @@ export default function ListData({ navigation, route }) {
             </TouchableOpacity>
           </View>
         </View>
-        {/* {columnumber == 2 ? (
-          <FlatList
-            key={"colum2"}
-            data={data.filter((item) => {
-              return item.title
-                .toLowerCase()
-                .includes(searchString.toLowerCase());
-            })}
-            showsVerticalScrollIndicator={false}
-            style={styles.flatlist}
-            renderItem={({ item }) => {
-              return <ListingView data={item} />;
-            }}
-            ListEmptyComponent={({ item }) => (
-              <View style={styles.emptyview}>
-                {refreshing ? (
-                  <ActivityIndicator size={"large"} color={AppColors.primary} />
-                ) : (
-                  <Image source={Icons.empty} style={styles.emptyimage} />
-                )}
-              </View>
-            )}
-            onEndReached={() => {
-              if (!empty) handleEndReached();
-            }} // Callback when the end is reached
-            onEndReachedThreshold={0.1}
-            numColumns={2}
-            ListFooterComponent={() =>
-              !loder && !empty ? (
-                <ActivityIndicator size={"large"} color={AppColors.primary} />
-              ) : (
-                <></>
-              )
-            }
-            keyExtractor={(item, index) => index}
-          />
-        ) : ( */}
         <FlatList
           key={"coloum1"}
           data={data.filter((item) => {
@@ -406,7 +345,6 @@ export default function ListData({ navigation, route }) {
               .toLowerCase()
               .includes(searchString.toLowerCase());
           })}
-          showsVerticalScrollIndicator={false}
           style={styles.flatlist}
           renderItem={({ item }) => {
             return (
@@ -686,12 +624,27 @@ export default function ListData({ navigation, route }) {
                         onPress={otherBrandFuntion}
                       >
                         <CheckBox
+                          checkedImage={
+                            <MaterialIcons
+                              name="check-box"
+                              size={width(4)}
+                              color={AppColors.primary}
+                            />
+                          }
+                          unCheckedImage={
+                            <MaterialIcons
+                              name="check-box-outline-blank"
+                              size={width(4)}
+                            />
+                          }
                           style={{ paddingRight: width(2) }}
                           checkedCheckBoxColor={AppColors.primary}
                           isChecked={otherBrand}
                           onClick={otherBrandFuntion}
                         />
-                        <Text>{t("category.Others")}</Text>
+                        <Text style={{ fontSize: width(3) }}>
+                          {t("category.Others")}
+                        </Text>
                       </TouchableOpacity>
                     </View>
                   )}
@@ -743,12 +696,27 @@ export default function ListData({ navigation, route }) {
                             onPress={otherModelFuntion}
                           >
                             <CheckBox
+                              checkedImage={
+                                <MaterialIcons
+                                  name="check-box"
+                                  size={width(4)}
+                                  color={AppColors.primary}
+                                />
+                              }
+                              unCheckedImage={
+                                <MaterialIcons
+                                  name="check-box-outline-blank"
+                                  size={width(4)}
+                                />
+                              }
                               style={{ paddingRight: width(2) }}
                               checkedCheckBoxColor={AppColors.primary}
                               isChecked={otherModel}
                               onClick={otherModelFuntion}
                             />
-                            <Text>{t("category.Others")}</Text>
+                            <Text style={{ fontSize: width(3) }}>
+                              {t("category.Others")}
+                            </Text>
                           </TouchableOpacity>
                         </View>
                       ) : (
@@ -869,76 +837,6 @@ export default function ListData({ navigation, route }) {
                       />
                     </View>
                   )}
-                  {/* {showExteriorColor(category) && (
-                    <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>
-                        {t("addPost.exteriorcolor")}
-                      </Text>
-                      <SelectDropdown
-                        defaultButtonText={
-                          exterior || t("addPost.defaultValueDropdown")
-                        }
-                        data={
-                          category == "Bikes"
-                            ? feild?.bikeColor
-                            : feild?.exteriorColor
-                        }
-                        searchPlaceHolder={t("addPost.phsearchHere")}
-                        buttonStyle={styles.searchbox}
-                        selectedRowStyle={{
-                          backgroundColor: AppColors.primary,
-                        }}
-                        selectedRowTextStyle={{ color: AppColors.white }}
-                        buttonTextStyle={{
-                          textAlign: "left",
-                          fontSize: width(3.5),
-                        }}
-                        dropdownStyle={styles.dropdown}
-                        onSelect={(selectedItem, index) => {
-                          setExterior(selectedItem.name);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                          return t(`colorList.${selectedItem.name}`);
-                        }}
-                        rowTextForSelection={(item, index) => {
-                          return t(`colorList.${item.name}`);
-                        }}
-                      />
-                    </View>
-                  )}
-                  {showInteriorColor(category) && (
-                    <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>
-                        {t("addPost.interiorcolor")}
-                      </Text>
-                      <SelectDropdown
-                        defaultButtonText={
-                          interior || t("addPost.defaultValueDropdown")
-                        }
-                        data={feild?.interiorColor}
-                        searchPlaceHolder={t("addPost.phsearchHere")}
-                        buttonStyle={styles.searchbox}
-                        selectedRowStyle={{
-                          backgroundColor: AppColors.primary,
-                        }}
-                        selectedRowTextStyle={{ color: AppColors.white }}
-                        buttonTextStyle={{
-                          textAlign: "left",
-                          fontSize: width(3.5),
-                        }}
-                        dropdownStyle={styles.dropdown}
-                        onSelect={(selectedItem, index) => {
-                          setInterior(selectedItem.name);
-                        }}
-                        buttonTextAfterSelection={(selectedItem, index) => {
-                          return t(`colorList.${selectedItem.name}`);
-                        }}
-                        rowTextForSelection={(item, index) => {
-                          return t(`colorList.${item.name}`);
-                        }}
-                      />
-                    </View>
-                  )} */}
                   {showKM(category) && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.km")}</Text>
@@ -993,6 +891,7 @@ export default function ListData({ navigation, route }) {
                         borderWidth: 0,
                         paddingVertical: width(1),
                       }}
+                      textStyle={{ fontSize: width(3) }}
                       activeColor={AppColors.primary}
                       selectedBtn={(e) => {
                         setCondition(e?.key);

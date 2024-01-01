@@ -56,13 +56,13 @@ export default function PP({ navigation, route }) {
         {data?.paraTitle && (
           <Text style={styles.title}>{t(data?.paraTitle)}</Text>
         )}
-        <Text style={styles.content}>{t(data?.paraDetail)}</Text>
+        <Text style={styles.description}>{t(data?.paraDetail)}</Text>
       </View>
     );
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"privacy.privacy"} navigation={navigation} />
       )}

@@ -96,7 +96,7 @@ export default {
   },
   RN: {
     rn: "Jetzt reparieren",
-    data: "Jetzt können Sie Ihr Fahrzeug und Ihre Maschinen an Eidcarosse verkaufen. Wir bieten einen unkomplizierten Prozess und wettbewerbsfähige Preise für Ihr Fahrzeug. Egal, ob Sie aufrüsten möchten oder Ihr Fahrzeug und Ihre Dinge schnell verkaufen müssen, wir haben Sie abgedeckt. Verkaufen Sie jetzt und erleben Sie ein reibungsloses Verkaufserlebnis mit uns!",
+    data: "Erleben Sie eine unkomplizierte Fahrzeugreparatur mit unseren geschulten Technikern von Eidcarosse. Von routinemäßiger Wartung bis hin zu größeren Reparaturen - wir halten Ihre Fahrzeuge reibungslos und zuverlässig am Laufen. Fahren Sie mit Vertrauen, in dem Wissen, dass Ihre Fahrzeuge in den Händen von Experten sind.",
   },
   privacy: {
     privacy: "Datenschutzrichtlinie",

@@ -18,22 +18,27 @@ export default function Input({
   editable = true,
   require = false,
   keyboardType = "default",
+  inputTextStyle,
 }) {
   const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);
   return (
     <View>
       <View style={[styles.container, containerStyle]}>
-        {title && <Text style={[titlestyle]}>{t(title)}</Text>}
+        {title && (
+          <Text style={[titlestyle, { fontSize: width(3.5) }]}>{t(title)}</Text>
+        )}
         <View style={styles.innerview}>
           <TextInput
+            cursorColor={AppColors.primary}
             editable={editable}
             style={[
               {
-                paddingVertical: width(2.5),
+                paddingVertical: width(2),
                 width: width(80),
-                fontSize: width(4),
+                fontSize: width(3.5),
               },
+              inputTextStyle,
               !editable && { color: "grey" },
             ]}
             keyboardType={keyboardType}

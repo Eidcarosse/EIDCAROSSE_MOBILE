@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     marginLeft: width(10),
   },
   logintext: {
-    fontSize: 30,
+    fontSize: width(7),
     color: AppColors.white,
     fontWeight: "bold",
   },
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   },
   image: { width: width(100), height: height(28) },
   checkview: { flexDirection: "row", padding: width(4) },
-  tandc: { color: AppColors.primary, fontWeight: "bold" },
+  tandc: { color: AppColors.primary, fontWeight: "bold",fontSize:width(2.5) },
   already: {
     alignSelf: "center",
     alignContent: "center",
     flexDirection: "row",
   },
-  signin: { color: AppColors.primary, fontWeight: "bold" },
+  signin: { color: AppColors.primary, fontWeight: "bold",fontSize:width(2.5) },
 });
 export default styles;

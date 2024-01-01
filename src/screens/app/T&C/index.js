@@ -84,13 +84,13 @@ export default function TnC({ navigation, route }) {
         {data?.paraTitle && (
           <Text style={styles.title}>{t(data?.paraTitle)}</Text>
         )}
-        <Text style={styles.content}>{t(data?.paraData)}</Text>
+        <Text style={styles.description}>{t(data?.paraData)}</Text>
       </View>
     );
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"terms.tandc"} navigation={navigation} />
       )}

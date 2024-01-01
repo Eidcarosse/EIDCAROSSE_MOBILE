@@ -93,11 +93,21 @@ const BottomNav = ({ navigation }) => {
 
             // Return your custom icon component
             return (
-              <Ionicons
-                name={iconName}
-                size={width(6)}
-                color={focused ? AppColors.primary : "gray"}
-              />
+              <View
+                style={{
+                  height: width(7),
+                  width: width(7),
+                  alignContent: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name={iconName}
+                  size={width(6)}
+                  color={focused ? AppColors.primary : "gray"}
+                />
+              </View>
             );
           },
           tabBarLabel: () => null, // Hide tab names

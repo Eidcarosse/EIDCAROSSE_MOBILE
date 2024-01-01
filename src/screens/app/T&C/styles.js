@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     height: height(18),
     resizeMode: "contain",
     marginVertical: width(5),
+    alignSelf:'center'
   },
   title: {
     fontSize: width(4),

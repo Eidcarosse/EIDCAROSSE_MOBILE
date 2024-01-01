@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.greybackground,
     width: width(90),
     justifyContent: "flex-start",
-    paddingVertical: width(5),
+    paddingVertical: width(3),
     marginVertical: width(2),
     borderRadius: width(1),
   },
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   searchbox: {
     width: width(90),
     borderRadius: width(1),
+    height: height(6),
     // borderWidth: 0,
     ...Platform.select({
       ios: {

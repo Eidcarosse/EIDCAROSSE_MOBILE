@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
   image:{
     height:height(18),
     resizeMode:'contain',
-    marginVertical:width(5)
+    marginVertical:width(5),
+    alignSelf:'center'
   },
   title:{
     fontSize:width(4),

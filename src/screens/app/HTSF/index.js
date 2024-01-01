@@ -33,7 +33,7 @@ export default function HTSF({ navigation, route }) {
       <View style={styles.container}>
         <Image style={styles.image} source={data?.image} />
         <Text style={styles.title}>{t(data?.title)}</Text>
-        <Text style={styles.content}>{t(data?.detail)}</Text>
+        <Text style={styles.description}>{t(data?.detail)}</Text>
       </View>
     );
   };

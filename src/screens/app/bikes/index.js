@@ -13,7 +13,7 @@ export default function BikeCategory({ navigation, route }) {
   const { t } = useTranslation();
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head
           headtitle={
@@ -61,7 +61,7 @@ export default function BikeCategory({ navigation, route }) {
                   source={{ uri: item.image }}
                   style={{ width: width(8), height: width(8) }}
                 />
-                <Text style={{ marginLeft: width(5) }}>
+                <Text style={{ marginLeft: width(5), fontSize: width(3.8) }}>
                   {t(`subList.${item.name}`)}
                 </Text>
               </TouchableOpacity>

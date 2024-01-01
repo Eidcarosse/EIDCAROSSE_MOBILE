@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   searchbox: {
     width: width(90),
     borderRadius: width(1),
+    height: height(6),
     // borderWidth: 0,
     ...Platform.select({
       ios: {

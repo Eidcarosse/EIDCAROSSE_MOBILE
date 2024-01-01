@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     marginLeft: width(10),
   },
   logintext: {
-    fontSize: 30,
+    fontSize: width(7),
     color: AppColors.white,
     fontWeight: "bold",
   },
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  text: { color: AppColors.primary, fontWeight: "bold" },
+  text: { color: AppColors.primary, fontWeight: "bold",fontSize:width(2.5) },
 });
 export default styles;

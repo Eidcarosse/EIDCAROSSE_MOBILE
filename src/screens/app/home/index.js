@@ -7,7 +7,6 @@ import Header from "../../../components/header";
 import SearchBar from "../../../components/searchbar";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
-//import { data } from "../../../utills/Data";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import Icons from "../../../asset/images";
@@ -99,7 +98,7 @@ export default function Home({}) {
           <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: width(2.5),
                 marginTop: 8,
                 color: "grey",
                 fontWeight: "bold",

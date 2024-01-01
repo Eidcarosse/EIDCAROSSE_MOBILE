@@ -1,4 +1,4 @@
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -466,7 +466,7 @@ export default function AddPost({ navigation, route }) {
             <View>
               <Image
                 tintColor={"white"}
-                style={{ width: width(9), height: width(9) }}
+                style={{ width: width(8), height: width(8), padding: width(1) }}
                 source={{ uri: selectedCategory?.image }}
               />
             </View>
@@ -474,7 +474,7 @@ export default function AddPost({ navigation, route }) {
               style={{
                 color: "white",
                 fontSize: width(5),
-                paddingHorizontal: width(5),
+                paddingHorizontal: width(4.5),
                 fontWeight: "bold",
               }}
             >
@@ -610,6 +610,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.titleWord")}</Text>
             <Input
               value={title}
+              inputTextStyle={{ paddingVertical: width(1) }}
               setvalue={setTitle}
               placeholder={t("addPost.phtitleWord")}
               containerStyle={[
@@ -628,6 +629,7 @@ export default function AddPost({ navigation, route }) {
 
             <RadioButtonRN
               data={pdata}
+              textStyle={{ fontSize: width(3) }}
               circleSize={width(3)}
               initial={pricing == "Price" ? 1 : 2}
               boxStyle={{
@@ -649,6 +651,7 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
               <Input
+                inputTextStyle={{ paddingVertical: width(1) }}
                 value={price + ""}
                 setvalue={handleInputChange}
                 placeholder={t("addPost.phprice")}
@@ -670,6 +673,7 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={rdata}
+                textStyle={{ fontSize: width(3) }}
                 initial={
                   edit?.condition
                     ? rdata.findIndex(
@@ -733,6 +737,7 @@ export default function AddPost({ navigation, route }) {
                 value={t(`subList.${subCategory}`)}
                 setvalue={setSubCategory}
                 containerStyle={[styles.price]}
+                inputTextStyle={{ paddingVertical: width(1) }}
                 editable={false}
               />
             </View>
@@ -791,12 +796,26 @@ export default function AddPost({ navigation, route }) {
                 onPress={otherBrandFuntion}
               >
                 <CheckBox
+                  checkedImage={
+                    <MaterialIcons
+                      name="check-box"
+                      size={width(4)}
+                      color={AppColors.primary}
+                    />
+                  }
+                  unCheckedImage={
+                    <MaterialIcons
+                      name="check-box-outline-blank"
+                      size={width(4)}
+                    />
+                  }
                   style={{ paddingRight: width(2) }}
-                  checkedCheckBoxColor={AppColors.primary}
                   isChecked={otherBrand}
                   onClick={otherBrandFuntion}
                 />
-                <Text>{t("category.Others")}</Text>
+                <Text style={{ fontSize: width(3) }}>
+                  {t("category.Others")}
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -847,12 +866,27 @@ export default function AddPost({ navigation, route }) {
                     onPress={otherModelFuntion}
                   >
                     <CheckBox
+                      checkedImage={
+                        <MaterialIcons
+                          name="check-box"
+                          size={width(4)}
+                          color={AppColors.primary}
+                        />
+                      }
+                      unCheckedImage={
+                        <MaterialIcons
+                          name="check-box-outline-blank"
+                          size={width(4)}
+                        />
+                      }
                       style={{ paddingRight: width(2) }}
                       checkedCheckBoxColor={AppColors.primary}
                       isChecked={otherModel}
                       onClick={otherModelFuntion}
                     />
-                    <Text>{t("category.Others")}</Text>
+                    <Text style={{ fontSize: width(3) }}>
+                      {t("category.Others")}
+                    </Text>
                   </TouchableOpacity>
                 </View>
               ) : (
@@ -863,6 +897,7 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.year")}</Text>
                   <Input
                     value={year + ""}
+                    inputTextStyle={{ paddingVertical: width(1) }}
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
                     placeholder={t("addPost.phyear")}
@@ -1070,6 +1105,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.description")}</Text>
             <Input
               value={description}
+              inputTextStyle={{ paddingVertical: width(1) }}
               multi
               setvalue={setDescription}
               placeholder={t("addPost.phdescription")}
@@ -1082,6 +1118,7 @@ export default function AddPost({ navigation, route }) {
           <Input
             value={url}
             setvalue={setUrl}
+            inputTextStyle={{ paddingVertical: width(1) }}
             placeholder={t("addPost.phurl")}
             containerStyle={[styles.price, { width: width(90) }]}
           />
@@ -1095,6 +1132,7 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.email")}</Text>
             <Input
               value={email}
+              inputTextStyle={{ paddingVertical: width(1) }}
               setvalue={setEmail}
               containerStyle={[styles.price, { width: width(90) }]}
               editable={false}
@@ -1120,6 +1158,7 @@ export default function AddPost({ navigation, route }) {
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
               <Input
+                inputTextStyle={{ paddingVertical: width(1) }}
                 value={phone}
                 setvalue={setPhone}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -1147,6 +1186,7 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
               <Input
                 value={whatsapp}
+                inputTextStyle={{ paddingVertical: width(1) }}
                 setvalue={setWhatsapp}
                 placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -1174,6 +1214,7 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.viber")}</Text>
               <Input
                 value={viber}
+                inputTextStyle={{ paddingVertical: width(1) }}
                 setvalue={setViber}
                 placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -1207,7 +1248,11 @@ export default function AddPost({ navigation, route }) {
               disableScroll={true}
               styles={{
                 textInput: [
-                  { backgroundColor: AppColors.greybackground },
+                  {
+                    backgroundColor: AppColors.greybackground,
+                    height: height(6),
+                    fontSize: width(2.5),
+                  },
                   addressRequire && styles.required,
                 ],
               }}
@@ -1256,6 +1301,17 @@ export default function AddPost({ navigation, route }) {
           }}
         >
           <CheckBox
+            checkedImage={
+              <MaterialIcons
+                name="check-box"
+                size={width(4)}
+                color={AppColors.primary}
+              />
+            }
+            unCheckedImage={
+              <MaterialIcons name="check-box-outline-blank" size={width(4)} />
+            }
+            size={width(5)}
             style={{ paddingRight: width(2) }}
             onClick={() => {
               setCheck(!check);
@@ -1264,13 +1320,19 @@ export default function AddPost({ navigation, route }) {
             isChecked={check}
           />
           <View>
-            <Text>{t("addPost.TandC1")}</Text>
+            <Text style={{ fontSize: width(2.5) }}>{t("addPost.TandC1")}</Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate(ScreenNames.TNC);
               }}
             >
-              <Text style={{ color: AppColors.primary, fontWeight: "bold" }}>
+              <Text
+                style={{
+                  color: AppColors.primary,
+                  fontWeight: "bold",
+                  fontSize: width(2.5),
+                }}
+              >
                 {" "}
                 {t("addPost.TandC2")}
               </Text>

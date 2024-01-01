@@ -166,7 +166,7 @@ export default function MyCard({ data }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <Menu visible={isModalVisible} onRequestClose={hideMenu}>
+      <Menu visible={isModalVisible} onRequestClose={hideMenu} style={{width:width(30)}}>
         <MenuItem
           onPress={() => {
             hideMenu();
@@ -174,7 +174,7 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="edit" size={width(4)} />
-          <Text> {t("myad.edit")}</Text>
+          <Text style={{ fontSize: width(3) }}> {t("myad.edit")}</Text>
         </MenuItem>
         {publish && (
           <MenuItem
@@ -184,7 +184,7 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="refresh" size={width(4)} />
-            <Text> {t("myad.refresh")}</Text>
+            <Text style={{ fontSize: width(3) }}> {t("myad.refresh")}</Text>
           </MenuItem>
         )}
         <MenuItem
@@ -196,7 +196,10 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="delete" size={width(4)} color={"red"} />
-          <Text style={{ color: "red" }}> {t("myad.delete")}</Text>
+          <Text style={{ color: "red", fontSize: width(3) }}>
+            {" "}
+            {t("myad.delete")}
+          </Text>
         </MenuItem>
 
         {/* {publish ? (
@@ -224,7 +227,9 @@ export default function MyCard({ data }) {
       <View>
         <Dialog.Container visible={visible}>
           <Dialog.Title>
-            <Text style={{ fontSize: width(4),color:'red' }}>{t("myad.deletetitle")}</Text>
+            <Text style={{ fontSize: width(4), color: "red" }}>
+              {t("myad.deletetitle")}
+            </Text>
           </Dialog.Title>
           <Dialog.Description>
             <Text style={{ fontSize: width(3) }}>

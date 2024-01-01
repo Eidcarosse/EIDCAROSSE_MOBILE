@@ -1,4 +1,4 @@
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
   ImageBackground,
@@ -166,6 +166,19 @@ export default function SignUp({ navigation, route }) {
             /> */}
             <View style={styles.checkview}>
               <CheckBox
+               checkedImage={
+                <MaterialIcons
+                  name="check-box"
+                  size={width(4)}
+                  color={AppColors.primary}
+                />
+              }
+              unCheckedImage={
+                <MaterialIcons
+                  name="check-box-outline-blank"
+                  size={width(4)}
+                />
+              }
                 style={{ paddingRight: width(2) }}
                 onClick={() => {
                   setCheck(!check);
@@ -174,7 +187,7 @@ export default function SignUp({ navigation, route }) {
                 isChecked={check}
               />
               <View>
-                <Text>{t("signup.checkBoxText")}</Text>
+                <Text style={{fontSize:width(2.5)}}>{t("signup.checkBoxText")}</Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(ScreenNames.TNC)}
                 >
@@ -232,7 +245,7 @@ export default function SignUp({ navigation, route }) {
             <View style={{ height: height(5) }} />
 
             <View style={styles.already}>
-              <Text>
+              <Text style={{fontSize:width(2.5)}}>
                 {t("signup.alreadyHaveAccount")}
                 {"  "}
               </Text>

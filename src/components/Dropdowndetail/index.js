@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 export default DropDownDetail = ({
   title,
   detail,
-  size = 4.5,
+  size = 4,
   textAlign,
   color = AppColors.black,
   textStyles,
@@ -76,7 +76,7 @@ export default DropDownDetail = ({
       </Pressable>
       {show && (
         <Text
-          style={{ fontSize: width(4), paddingVertical: width(3) }}
+          style={{ fontSize: width(3.5), paddingVertical: width(3) }}
           {...inertextProps}
         >
           {t(detail)}

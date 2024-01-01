@@ -107,7 +107,7 @@ export default {
   },
   RN: {
     rn: "Reparar ahora",
-    data: "Ahora puedes vender tu vehículo y máquinas a Eidcarosse. Ofrecemos un proceso sin complicaciones y precios competitivos para tu vehículo. Ya sea que estés buscando actualizar o necesitas vender tu vehículo y cosas rápidamente, ¡te tenemos cubierto! ¡Vende ahora y experimenta una experiencia de venta sin problemas con nosotros!",
+    data: "Experimenta reparaciones de vehículos sin complicaciones con los técnicos especializados de Eidcarosse. Desde el mantenimiento de rutina hasta reparaciones importantes, mantendremos sus vehículos funcionando de manera suave y confiable. Conduzca con confianza sabiendo que sus vehículos están en manos de expertos.",
   },
   privacy: {
     privacy: "Política de privacidad",

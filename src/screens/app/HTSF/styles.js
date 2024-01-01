@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     margin: width(5),
   },
   description: {
-    fontSize: width(3),
+    fontSize: width(2.5),
   },
 });
 export default styles;

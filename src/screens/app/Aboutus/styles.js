@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     margin: width(5),
   },
   description: {
-    fontSize: width(3),
+    fontSize: width(2.8),
   },
   dot: {
     width: width(2),

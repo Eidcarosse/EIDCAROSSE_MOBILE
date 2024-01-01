@@ -10,22 +10,18 @@ import styles from "./styles";
 import { useTranslation } from "react-i18next";
 export default function PreLogin({ navigation, route }) {
   const dispatch = useDispatch();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
+      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <Image
-          source={Icons.accountbg}
-          style={styles.image}
-        />
-        <Text style={styles.text}>
-         {t("prelogin.mustLogin")}
-        </Text>
+        <Image source={Icons.accountbg} style={styles.image} />
+        <Text style={styles.text}>{t("prelogin.mustLogin")}</Text>
         <Button
           title={"prelogin.loginSignupButton"}
           containerStyle={styles.containerStyle}

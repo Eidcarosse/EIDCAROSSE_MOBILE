@@ -92,7 +92,6 @@ export default function Routes() {
       getCategorylist();
     } else {
       dispatch(setAppLoader(true));
-      alert("Check internet conection");
     }
   }, [isConnected]);
 

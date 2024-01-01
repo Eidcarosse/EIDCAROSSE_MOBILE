@@ -46,7 +46,7 @@ export default function SearchBar({
           placeholder={t("searchbar.phsearch")}
           value={search}
           onChangeText={setSearch}
-          style={{ width: width(55) }}
+          style={{ width: width(55), fontSize: width(2.8) }}
           onSubmitEditing={handleInputSubmit}
         />
         {search && (

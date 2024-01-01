@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.grey,
     width: width(90),
     borderRadius: width(1),
+    height: height(6.5),
     // borderWidth: 0,
     ...Platform.select({
       ios: {

@@ -160,7 +160,11 @@ export default function MapAdView({ navigation, route }) {
             }}
             disableScroll={true}
             styles={{
-              textInput: { backgroundColor: AppColors.greybackground },
+              textInput: {
+                backgroundColor: AppColors.greybackground,
+                height: height(6),
+                fontSize:width(2.5)
+              },
             }}
             query={{
               key: Apikey,

@@ -92,7 +92,7 @@ export default function EditProfile({ navigation, route }) {
                   style={{
                     position: "absolute",
                     top: height(10),
-                    left: width(25),
+                    left: width(27),
                     backgroundColor: AppColors.primary,
                     padding: width(2),
                     borderRadius: width(5),

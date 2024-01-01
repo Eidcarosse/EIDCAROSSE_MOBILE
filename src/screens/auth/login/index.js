@@ -155,7 +155,7 @@ export default function Login({ navigation, route }) {
             /> */}
             <View style={{ height: height(2) }} />
             <View style={styles.forget}>
-              <Text>
+              <Text style={{fontSize:width(2.5)}}>
                 {t("login.cannotLogin")} {"  "}
               </Text>
               <TouchableOpacity
@@ -177,7 +177,7 @@ export default function Login({ navigation, route }) {
                 flexWrap: "wrap",
               }}
             >
-              <Text>
+              <Text style={{fontSize:width(2.5)}}>
                 {t("login.donothaveaccount")}
                 {"   "}
               </Text>

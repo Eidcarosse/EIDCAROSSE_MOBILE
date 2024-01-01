@@ -41,7 +41,7 @@ export default function AboutUs({ navigation, route }) {
           <Text style={styles.title}>{t(data?.paraTitle)}</Text>
         )}
         {data?.paraType == "para" && (
-          <Text style={styles.content}>{t(data?.paraDetail)}</Text>
+          <Text style={styles.description}>{t(data?.paraDetail)}</Text>
         )}
         {data?.paraType == "bullets" &&
           data.paraDetail.map((item) => (
@@ -53,7 +53,7 @@ export default function AboutUs({ navigation, route }) {
               }}
             >
               <View style={styles.dot} />
-              <Text style={{ margin: width(1), width: width(80) }}>
+              <Text style={{ margin: width(1), width: width(80),fontSize:width(2.5) }}>
                 {t(item)}
               </Text>
             </View>

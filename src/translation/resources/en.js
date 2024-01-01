@@ -106,7 +106,7 @@ export default {
   },
   RN: {
     rn: "Repair Now",
-    data: "You can now sell your vehicle and machines to Eidcarosse. We provide a hassle-free process and competitive prices for your vehicle. Whether you're looking to upgrade or need to sell your vehicle and things quickly, we've got you covered. Sell now and experience a seamless selling experience with us!",
+    data: "Experience hassle-free vehicle repairs with our Eidcarosse's skilled technicians. From routine maintenance to major fixes, we'll keep your vehicles running smoothly and reliably. Drive with confidence knowing your vehicles are in expert hands.",
   },
 
   privacy: {
@@ -739,9 +739,9 @@ export default {
     title: "Forget Password",
     button: "Forget",
   },
-  commmon:{
-    nothingtoshow:"Nothing to show",
-    checkNet:"Check the Internet connection"
+  commmon: {
+    nothingtoshow: "Nothing to show",
+    checkNet: "Check the Internet connection",
   },
   Others: "Others",
 };

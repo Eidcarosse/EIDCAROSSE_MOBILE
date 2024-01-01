@@ -11,4 +11,11 @@ const height = (number) => {
   else if (number <= 0) return 0;
   else return fullHeight * (number / 100);
 };
-export { height, width };
+const mix = (number) => {
+  let fullHeight = Dimensions.get("window").height;
+  let fullWidth = Dimensions.get("window").width;
+  if (number >= 100) return fullHeight;
+  else if (number <= 0) return 0;
+  else return (fullHeight + fullWidth) * (number / 100);
+};
+export { height, width, mix };
