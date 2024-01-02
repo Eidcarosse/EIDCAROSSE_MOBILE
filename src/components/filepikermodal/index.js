@@ -1,13 +1,13 @@
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 import React, {
   forwardRef,
   useEffect,
   useImperativeHandle,
   useState,
 } from "react";
-import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
-import DropDownMenu from "../dorpdownmenu";
 import { useTranslation } from "react-i18next";
+import DropDownMenu from "../dorpdownmenu";
 
 const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
   const { t } = useTranslation();
@@ -42,9 +42,7 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
   }));
   const openCamera = async () => {
     try {
-      await ImagePicker.launchCameraAsync({
-
-      })
+      await ImagePicker.launchCameraAsync({})
         .then((a) => onFilesSelected(a.assets))
         .catch((e) => console.log("my log", e));
     } catch (error) {
@@ -56,8 +54,7 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: multi,
       selectionLimit: 7,
-      allowsEditing: true,
-      aspect: [4, 4],
+      aspect: [4, 3],
       quality: 1,
     })
       .then((a) => onFilesSelected(a.assets))

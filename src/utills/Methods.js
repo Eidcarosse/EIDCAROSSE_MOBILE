@@ -196,6 +196,20 @@ const openWhatsApp = (phoneNumber) => {
       errorMessage("Whatsapp not exist");
     });
 };
+const openWhatsAppChannel = (link) => {
+  // Construct the WhatsApp URL
+  const whatsappURL = `whatsapp://send?phone=${link}`;
+
+  // Open WhatsApp with the constructed URL
+  Linking.openURL(link)
+    .then(() => {
+      console.log("WhatsApp opened successfully");
+    })
+    .catch((error) => {
+      console.error("Error opening WhatsApp:", error);
+      errorMessage("Whatsapp not exist");
+    });
+};
 export const openViber = (phoneNumber) => {
   try {
     const formattedPhoneNumber =
@@ -406,6 +420,7 @@ const GlobalMethods = {
   onPressFavorite,
   onPressEmail,
   openWhatsApp,
+  openWhatsAppChannel,
   openViber,
   calculateTimeDifference,
   storelangData,

@@ -446,7 +446,10 @@ export default function Detail({ navigation, route }) {
               <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
                 {t("detail.description")}
               </Text>
-              <Text style={{ fontSize: width(3), paddingVertical: width(2) }}>
+              <Text
+                selectable={true}
+                style={{ fontSize: width(3), paddingVertical: width(2) }}
+              >
                 {data?.description}
               </Text>
             </View>

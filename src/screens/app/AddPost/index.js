@@ -8,6 +8,9 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import MapView, { Marker } from "react-native-maps";
 import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch, useSelector } from "react-redux";
+import DraggableFlatList, {
+  ScaleDecorator,
+} from "react-native-draggable-flatlist";
 import {
   addPostAd,
   backEndDataAPi,
@@ -448,6 +451,39 @@ export default function AddPost({ navigation, route }) {
       setPrice(text);
     }
   };
+  const renderItem = ({ item, drag, isActive }) => (
+    <ScaleDecorator>
+      <TouchableOpacity
+        onLongPress={drag}
+        disabled={isActive}
+        style={{ flexDirection: "row" }}
+      >
+        <Image
+          style={{
+            height: width(15),
+            width: width(15),
+            borderRadius: width(3),
+            marginLeft: width(3),
+          }}
+          source={{ uri: item }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            let temp;
+            temp = image.filter((i) => i !== item);
+            setImage(temp);
+          }}
+          style={{ height: height(3) }}
+        >
+          <Entypo
+            name="squared-cross"
+            size={width(4)}
+            color={AppColors.primary}
+          />
+        </TouchableOpacity>
+      </TouchableOpacity>
+    </ScaleDecorator>
+  );
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -518,58 +554,36 @@ export default function AddPost({ navigation, route }) {
               </TouchableOpacity>
             </View>
           ) : (
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              style={{ marginHorizontal: width(2) }}
-            >
-              {image.length < 7 && (
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: AppColors.primary,
-                    borderRadius: width(2),
-                    padding: width(3),
+            <View style={{ flex: 1 }}>
+              <DraggableFlatList
+                data={image}
+                style={{ marginHorizontal: width(2) }}
+                ListHeaderComponent={
+                  image?.length < 7 && (
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: AppColors.primary,
+                        borderRadius: width(2),
+                        padding: width(3),
 
-                    alignSelf: "center",
-                  }}
-                  onPress={() => imageRef.current.show()}
-                >
-                  <Ionicons
-                    name="add"
-                    size={width(8)}
-                    color={AppColors.white}
-                  />
-                </TouchableOpacity>
-              )}
-              {image.map((item, index) => (
-                <View key={index} style={{ flexDirection: "row" }}>
-                  <Image
-                    key={index}
-                    style={{
-                      height: width(15),
-                      width: width(15),
-                      borderRadius: width(3),
-                      marginLeft: width(3),
-                    }}
-                    source={{ uri: item }}
-                  />
-                  <TouchableOpacity
-                    onPress={() => {
-                      let temp;
-                      temp = image.filter((i) => i !== item);
-                      setImage(temp);
-                    }}
-                    style={{ height: height(3) }}
-                  >
-                    <Entypo
-                      name="squared-cross"
-                      size={width(4)}
-                      color={AppColors.primary}
-                    />
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ScrollView>
+                        alignSelf: "center",
+                      }}
+                      onPress={() => imageRef.current.show()}
+                    >
+                      <Ionicons
+                        name="add"
+                        size={width(8)}
+                        color={AppColors.white}
+                      />
+                    </TouchableOpacity>
+                  )
+                }
+                horizontal
+                onDragEnd={({ data }) => setImage(data)}
+                keyExtractor={(item, index) => index}
+                renderItem={renderItem}
+              />
+            </View>
           )}
           <Text
             style={{

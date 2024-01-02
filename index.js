@@ -24,3 +24,7 @@ if (!getApps().length) {
   const db = getFirestore(app);
 }
 export default database = getDatabase();
+import 'react-native-gesture-handler';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens(); // Enable screens for better performance

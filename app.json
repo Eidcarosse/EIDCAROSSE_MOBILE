@@ -32,13 +32,15 @@
       "**/*"
     ],
     "ios": {
-      "bitcode":false,
+      "bitcode": false,
       "supportsTablet": true,
       "infoPlist": {
         "UIStatusBarHidden": true,
-        "UIViewControllerBasedStatusBarAppearance": false
-      },
-      "bundleIdentifier": "com.eidcarosse.Eidcarosse"
+        "UIViewControllerBasedStatusBarAppearance": false,
+        "NSCameraUsageDescription": "We require access to your device's camera to enhance your experience. Capture and upload photos for personalized content, such as profile pictures or moments to share with friends. Your photos will only be used within the app and will not be shared without your consent.",
+        "NSLocationWhenInUseUsageDescription": "To provide location-based features, we need access to your device's location when the app is in use. This information will be used to offer personalized services, such as finding nearby events or connecting with friends in your vicinity.",
+        "bundleIdentifier": "com.eidcarosse.Eidcarosse"
+      }
     },
     "androidStatusBar": {
       "hidden": true
