@@ -104,10 +104,10 @@ export default function OtherProfile({ navigation, route }) {
               )}
               <IconButton
                 onPress={() =>
-                  //   GlobalMethods.openWhatsAppChannel(
-                  //     "https://whatsapp.com/channel/0029VaEV37ODTkJz7cuKlR2K"
-                  //   );
-                  // }
+                    // GlobalMethods.openWhatsAppChannel(
+                    //   "https://whatsapp.com/channel/0029VaE64Xo77qVIatcGln1C"
+                    // )
+                  
                   GlobalMethods.onPressEmail(userdata?.email, loginuser?.email)
                 }
                 title={"Email"}

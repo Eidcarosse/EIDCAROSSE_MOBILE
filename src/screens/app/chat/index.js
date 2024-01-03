@@ -57,7 +57,7 @@ export default function ChatList({ navigation, route }) {
 
       const handleRoomUpdate = (snapshot) => {
         const room = snapshot.val() || [];
-        if (!compareArrays(room, allRooms)) dispatch(setChatRooms(room));
+        dispatch(setChatRooms(room));
       };
       onValue(roomRef, handleRoomUpdate);
       return () => {

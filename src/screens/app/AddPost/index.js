@@ -2,15 +2,15 @@ import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
+import DraggableFlatList, {
+  ScaleDecorator,
+} from "react-native-draggable-flatlist";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { Marker } from "react-native-maps";
 import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import DraggableFlatList, {
-  ScaleDecorator,
-} from "react-native-draggable-flatlist";
 import {
   addPostAd,
   backEndDataAPi,
@@ -33,8 +33,6 @@ import {
   selectShowViber,
   selectShowWhatsapp,
   setAppLoader,
-  setShowViber,
-  setShowWhatsapp,
 } from "../../../redux/slices/config";
 import { selectUserMeta, setUserAds } from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
@@ -60,7 +58,6 @@ import styles from "./styles";
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
   const edit = route?.params?.data;
-
   const category = route?.params?.category || edit?.category;
   const f = route?.params?.find;
   const sub = route?.params?.subcategory || edit?.subCategory;
@@ -120,6 +117,8 @@ export default function AddPost({ navigation, route }) {
   const [addWhatsapp, setAddWhatsapp] = useState(w);
   const [addViber, setAddViber] = useState(v);
   const [feild, setFeild] = useState();
+
+  const [renderNow, setRenderNow] = useState(false);
   useEffect(() => {
     if (edit) {
       setAddViber(edit?.viber ? true : false);
@@ -176,7 +175,6 @@ export default function AddPost({ navigation, route }) {
       setVtype(false);
     }
   };
-
   useEffect(() => {
     if (brand) getmodel(find, brand);
   }, [brand, find]);
@@ -451,6 +449,10 @@ export default function AddPost({ navigation, route }) {
       setPrice(text);
     }
   };
+  useEffect(() => {
+    if (image.length > 0) setRenderNow(true);
+    else setRenderNow(false);
+  }, [image]);
   const renderItem = ({ item, drag, isActive }) => (
     <ScaleDecorator>
       <TouchableOpacity
@@ -557,7 +559,13 @@ export default function AddPost({ navigation, route }) {
             <View style={{ flex: 1 }}>
               <DraggableFlatList
                 data={image}
+                horizontal
                 style={{ marginHorizontal: width(2) }}
+                onDragEnd={({ data }) => setImage(data)}
+                keyExtractor={(index, item) => {
+                  return `key-${index}`;
+                }}
+                renderItem={renderItem}
                 ListHeaderComponent={
                   image?.length < 7 && (
                     <TouchableOpacity
@@ -578,10 +586,6 @@ export default function AddPost({ navigation, route }) {
                     </TouchableOpacity>
                   )
                 }
-                horizontal
-                onDragEnd={({ data }) => setImage(data)}
-                keyExtractor={(item, index) => index}
-                renderItem={renderItem}
               />
             </View>
           )}
@@ -597,16 +601,18 @@ export default function AddPost({ navigation, route }) {
           <Text style={{ fontSize: width(2.5), padding: width(1) }}>
             {t("addPost.attachImage2")}
           </Text>
-          {/* <Text
-            style={{
-              fontSize: width(2.5),
-              padding: width(1),
-              width: width(60),
-              textAlign: "center",
-            }}
-          >
-            {t("addPost.attachImage3")}
-          </Text> */}
+          {renderNow && (
+            <Text
+              style={{
+                fontSize: width(2.5),
+                padding: width(1),
+                width: width(60),
+                textAlign: "center",
+              }}
+            >
+              {t("addPost.attachImage3")}
+            </Text>
+          )}
         </View>
 
         {/* --------product infomartio---- */}
@@ -1265,7 +1271,7 @@ export default function AddPost({ navigation, route }) {
                   {
                     backgroundColor: AppColors.greybackground,
                     height: height(6),
-                    fontSize: width(2.5),
+                    fontSize: width(3.3),
                   },
                   addressRequire && styles.required,
                 ],

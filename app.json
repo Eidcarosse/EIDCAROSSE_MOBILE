@@ -78,7 +78,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "We require access to your device's camera to enhance your experience. Capture and upload photos for personalized content, such as profile pictures or moments to share with friends. Your photos will only be used within the app and will not be shared without your consent.",
+          "cameraPermission":"We require access to your device's camera to enhance your experience. Capture and upload photos for personalized content, such as profile pictures or moments to share with friends. Your photos will only be used within the app and will not be shared without your consent."
         }
       ]
     ],
