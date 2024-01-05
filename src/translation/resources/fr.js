@@ -339,8 +339,9 @@ export default {
     phwebsite: "www.google.com",
     location: "Emplacement",
     phlocation: "Sélectionner l'emplacement",
-    TandC1: "J'ai lu et j'accepte les",
-    TandC2: "Conditions Générales d'Eidcarosse",
+    TandC1: "J'ai lu les ",
+    TandC2: "conditions générales ",
+    TandC3: "d'Eidcarosse et j'accepte",
     post: "Ajouter une Annonce",
     phsearchHere: "Rechercher ici",
     defaultValueDropdown: "Sélectionnez une option",
@@ -581,7 +582,7 @@ export default {
     ads: "Autoriser le public à voir tous mes annonces ?",
   },
   flashmsg: {
-    "Ad Refresh": "Actualisation de l'annonce",
+    "Ad Refresh": "Actualiser l'annonce",
     authentication: "Authentification",
     success: "Succès",
     error: "Erreur",
@@ -589,41 +590,54 @@ export default {
     password: "Mot de passe",
     emptyfield: "Champ vide",
     loginfavorite: "Connectez-vous pour ajouter aux favoris",
+    wrong: "Quelque chose s'est mal passé, réessayez",
     adPosterrormsg:
       "Quelque chose s'est mal passé lors de la publication de l'annonce",
     requiremsg: "Les champs sont vides",
     editerrormsg:
-      "Quelque chose s'est mal passé lors de l'édition de l'annonce",
+      "Quelque chose s'est mal passé lors de la modification de l'annonce",
     oldpaserror: "Champ ancien mot de passe vide",
-    confirmerrormsg: "Le mot de passe de confirmation ne correspond pas",
+    confirmerrormsg: "Mot de passe de confirmation ne correspond pas",
     passwordlengtherrormsg:
       "Le mot de passe de confirmation ne correspond pas ou est inférieur à 6 caractères",
     profileupdateerrormsg:
       "Quelque chose s'est mal passé lors de la mise à jour du profil",
     updatepassworderrormsg:
       "Quelque chose s'est mal passé lors du changement de mot de passe",
-    wrongpinerrormsg: "Code Pin incorrect",
+    wrongpinerrormsg: "Code PIN incorrect",
     emailrequireerrormsg:
-      "Entrez votre e-mail enregistré pour oublier le mot de passe",
-    emailmsg: "L'email est requis ou peut être incorrect",
+      "Entrez votre email enregistré pour oublier le mot de passe",
+    emailmsg: "L'email est requis ou peut être au format incorrect",
     passwordmsg: "Le mot de passe est requis ou peut être incorrect",
-    whatsapperror: "WhatsApp n'existe pas",
-    vibererror: "Viber n'existe pas",
+
+    entercode: "Entrez le code pour confirmer",
+    signuperrormsg: "Quelque chose s'est mal passé lors de l'inscription",
+
     adPostsussessmsg: "Annonce publiée avec succès",
     editadsussessmsg: "Annonce modifiée avec succès",
-    passwordchangemsg: "Changé avec succès",
-    emailsussesssendmsg: "Code envoyé à votre email fourni",
+    passwordchangemsg: "Changement de mot de passe réussi",
+    emailsussesssendmsg: "Code envoyé à votre email indiqué",
     sussessloginmsg: "Connexion réussie",
+
+    "Invalid email or password.": "Email ou mot de passe invalide",
+    "Account is registered but not verified":
+      "Le compte est enregistré mais non vérifié",
+    "Alert! email already exists please enter someother email.":
+      "Alerte ! L'email existe déjà, veuillez saisir une autre adresse email.",
+    "Unable to create user! please try again.":
+      "Impossible de créer l'utilisateur ! Veuillez réessayer.",
     "Please fill all required fields":
-      "Veuillez remplir tous les champs obligatoires.",
-    refreshAdMsg: "Veuillez attendre au moins 3 heures avant de rafraîchir.",
-    locationRequire: "Veuillez saisir une adresse valide située en Suisse",
+      "Veuillez remplir tous les champs requis",
+    refreshAdMsg:
+      "Veuillez patienter au moins 3 heures avant de rafraîchir à nouveau.",
+    locationRequire: "Veuillez entrer une adresse valide située en Suisse",
     alert: "Alerte",
     "Ad deleted": "Annonce supprimée",
     reloginMsg:
-      "Vous pouvez vous déconnecter ou changer de mot de passe. Veuillez vous connecter à nouveau.",
+      "Vous pouvez vous déconnecter ou changer de mot de passe. Veuillez vous reconnecter",
     sussessdeleteAccount: "Compte supprimé avec succès.",
   },
+
   type: {
     "Articulated bus": "Autobus articulé",
     "City bus": "Autobus urbain",
@@ -742,7 +756,7 @@ export default {
   },
   commmon: {
     nothingtoshow: "Rien à afficher",
-    nochatMsg:"Aucun message",
+    nochatMsg: "Aucun message",
     checkNet: "Vérifiez la connexion Internet.",
   },
   Others: "Autres",

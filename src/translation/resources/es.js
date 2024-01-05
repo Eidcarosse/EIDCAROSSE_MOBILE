@@ -322,8 +322,9 @@ export default {
     phwebsite: "www.google.com",
     location: "Ubicación",
     phlocation: "Seleccionar ubicación",
-    TandC1: "He leído y acepto los",
-    TandC2: "Términos y Condiciones de Eidcarosse",
+    TandC1: "He leído los",
+    TandC2: " términos y condiciones ",
+    TandC3: "de Eidcarosse y estoy de acuerdo",
     post: "Agregar Anuncio",
     phsearchHere: "Buscar aquí",
     defaultValueDropdown: "Seleccionar una opción",
@@ -566,14 +567,15 @@ export default {
     ads: "¿Permitir que el público vea todos mis anuncios?",
   },
   flashmsg: {
-    "Ad Refresh": "Actualización de anuncio",
+    "Ad Refresh": "Actualizar anuncio",
     authentication: "Autenticación",
     success: "Éxito",
     error: "Error",
     require: "Requerido",
     password: "Contraseña",
     emptyfield: "Campo vacío",
-    loginfavorite: "Inicia sesión para agregar a favoritos",
+    loginfavorite: "Iniciar sesión para agregar a favoritos",
+    wrong: "Algo salió mal, inténtalo de nuevo",
     adPosterrormsg: "Algo salió mal al publicar el anuncio",
     requiremsg: "Los campos están vacíos",
     editerrormsg: "Algo salió mal al editar el anuncio",
@@ -583,30 +585,40 @@ export default {
       "La contraseña de confirmación no coincide o tiene menos de 6 caracteres",
     profileupdateerrormsg: "Algo salió mal al actualizar el perfil",
     updatepassworderrormsg: "Algo salió mal al cambiar la contraseña",
-    wrongpinerrormsg: "Código Pin incorrecto",
+    wrongpinerrormsg: "Código PIN incorrecto",
     emailrequireerrormsg:
       "Ingrese su correo electrónico registrado para olvidar la contraseña",
     emailmsg:
-      "Se requiere el correo electrónico o puede estar en un formato incorrecto",
-    passwordmsg: "Se requiere la contraseña o puede ser incorrecta",
-    whatsapperror: "WhatsApp no existe",
-    vibererror: "Viber no existe",
+      "El correo electrónico es obligatorio o puede estar en un formato incorrecto",
+    passwordmsg: "La contraseña es obligatoria o puede estar incorrecta",
+
+    entercode: "Ingrese el código para confirmar",
+    signuperrormsg: "Algo salió mal al registrarse",
+
     adPostsussessmsg: "Anuncio publicado con éxito",
     editadsussessmsg: "Anuncio editado con éxito",
-    passwordchangemsg: "Cambios realizados con éxito",
+    passwordchangemsg: "Cambio de contraseña exitoso",
     emailsussesssendmsg: "Código enviado a su correo electrónico proporcionado",
     sussessloginmsg: "Inicio de sesión exitoso",
+
+    "Invalid email or password.": "Correo electrónico o contraseña no válidos",
+    "Account is registered but not verified":
+      "La cuenta está registrada pero no verificada",
+    "Alert! email already exists please enter someother email.":
+      "¡Alerta! El correo electrónico ya existe, por favor ingrese otro correo electrónico.",
+    "Unable to create user! please try again.":
+      "No se puede crear el usuario, por favor inténtelo de nuevo.",
     "Please fill all required fields":
-      "Por favor, complete todos los campos obligatorios.",
-    refreshAdMsg: "Espere al menos 3 horas antes de actualizar, por favor.",
-    locationRequire:
-      "Por favor, introduzca una dirección válida ubicada dentro de Suiza",
+      "Por favor llene todos los campos requeridos",
+    refreshAdMsg: "Espere al menos 3 horas antes de volver a actualizar.",
+    locationRequire: "Por favor ingrese una dirección válida ubicada en Suiza",
     alert: "Alerta",
     "Ad deleted": "Anuncio eliminado",
     reloginMsg:
-      "Puede cerrar sesión o cambiar la contraseña. Por favor, inicie sesión nuevamente.",
+      "Puede cerrar sesión o cambiar la contraseña. Por favor, inicie sesión nuevamente",
     sussessdeleteAccount: "Cuenta eliminada exitosamente.",
   },
+
   type: {
     "Articulated bus": "Autobús articulad",
     "City bus": "Autobús urbano",
@@ -726,7 +738,7 @@ export default {
   },
   commmon: {
     nothingtoshow: "Nada que mostrar",
-    nochatMsg:"No hay mensajes",
+    nochatMsg: "No hay mensajes",
     checkNet: "Verifica la conexión a Internet.",
   },
   Others: "Otro",

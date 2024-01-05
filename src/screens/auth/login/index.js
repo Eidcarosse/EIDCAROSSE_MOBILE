@@ -66,6 +66,7 @@ export default function Login({ navigation, route }) {
       let res = await loginApi(data);
       if (!res?.success) {
         dispatch(setAppLoader(false));
+        console.log(res?.message);
         errorMessage(
           t(`flashmsg.${res?.message}`),
           t("flashmsg.authentication")
@@ -91,7 +92,6 @@ export default function Login({ navigation, route }) {
           dispatch(setAppLoader(false));
       }
     } catch (error) {
-      errorMessage("Network error");
       console.log(error);
       dispatch(setAppLoader(false));
     }

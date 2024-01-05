@@ -300,7 +300,7 @@ export default {
     htc: "Wie kontaktieren",
     whatsapp: "WhatsApp",
     phwhatsapp: "xxxxxxxxx",
-    addWhatsapp: "Whatsapp hinzufügen",
+    addWhatsapp: "WhatsApp hinzufügen",
     addViber: "Viber hinzufügen",
     addNumber: "Telefonnummer hinzufügen",
 
@@ -312,8 +312,9 @@ export default {
     phwebsite: "www.google.com",
     location: "Ort",
     phlocation: "Standort auswählen",
-    TandC1: "Ich habe die Eidcarosse gelesen und stimme zu",
-    TandC2: "Allgemeine Geschäftsbedingungen",
+    TandC1: "Ich habe die Eidcarosse ",
+    TandC2: "Geschäftsbedingungen ",
+    TandC3: "gelesen und stimme zu",
     post: "Inserat hinzufügen",
     phsearchHere: "Hier suchen",
     defaultValueDropdown: "Option auswählen",
@@ -555,51 +556,61 @@ export default {
     whatsapp: "Meine Whatsapp-Nummer anzeigen?",
   },
   flashmsg: {
-    "Ad Refresh": "Aktualisierung nach 3 std. wieder möglich!",
+    "Ad Refresh": "Anzeige aktualisieren",
     authentication: "Authentifizierung",
     success: "Erfolg",
-    ref_success: "Erfolgreich aktualisiert!",
     error: "Fehler",
     require: "Erforderlich",
     password: "Passwort",
     emptyfield: "Leeres Feld",
-    loginfavorite: "Einloggen, um zu den Favoriten hinzuzufügen",
+    loginfavorite: "Einloggen, um Favoriten hinzuzufügen",
+    wrong: "Etwas ist schiefgelaufen, versuche es erneut",
     adPosterrormsg:
-      "Etwas ist schief gelaufen beim Veröffentlichen der Anzeige",
+      "Etwas ist schiefgelaufen, um eine Anzeige zu veröffentlichen",
     requiremsg: "Felder sind leer",
-    editerrormsg: "Etwas ist schief gelaufen beim Bearbeiten der Anzeige",
+    editerrormsg: "Etwas ist schiefgelaufen, um eine Anzeige zu bearbeiten",
     oldpaserror: "Altes Passwortfeld leer",
-    confirmerrormsg: "Passwortbestätigung stimmt nicht überein",
+    confirmerrormsg: "Passwort bestätigen stimmt nicht überein",
     passwordlengtherrormsg:
-      "Passwortbestätigung stimmt nicht überein oder ist kürzer als 6 Zeichen",
+      "Passwort bestätigen stimmt nicht überein oder weniger als 6 Zeichen",
     profileupdateerrormsg:
-      "Etwas ist schief gelaufen beim Aktualisieren des Profils",
+      "Etwas ist schiefgelaufen, beim Aktualisieren des Profils",
     updatepassworderrormsg:
-      "Etwas ist schief gelaufen beim Ändern des Passworts",
-    wrongpinerrormsg: "Falscher Pin-Code",
+      "Etwas ist schiefgelaufen, beim Ändern des Passworts",
+    wrongpinerrormsg: "Falscher PIN-Code",
     emailrequireerrormsg:
       "Geben Sie Ihre registrierte E-Mail ein, um das Passwort zu vergessen",
     emailmsg: "E-Mail ist erforderlich oder möglicherweise im falschen Format",
     passwordmsg: "Passwort ist erforderlich oder möglicherweise falsch",
-    whatsapperror: "WhatsApp existiert nicht",
-    vibererror: "Viber existiert nicht",
-    adPostsussessmsg: "Inserat erfolgreich veröffentlicht",
-    editadsussessmsg: "Inserat erfolgreich bearbeitet",
+
+    entercode: "Code eingeben, um zu bestätigen",
+    signuperrormsg: "Etwas ist schiefgelaufen, um sich anzumelden",
+
+    adPostsussessmsg: "Anzeige erfolgreich veröffentlicht",
+    editadsussessmsg: "Anzeige erfolgreich bearbeitet",
     passwordchangemsg: "Erfolgreich geändert",
     emailsussesssendmsg: "Code an Ihre angegebene E-Mail gesendet",
-    sussessloginmsg: "Anmeldung erfolgreich",
+    sussessloginmsg: "Erfolgreich eingeloggt",
+
+    "Invalid email or password.": "Ungültige E-Mail oder Passwort",
+    "Account is registered but not verified":
+      "Konto ist registriert, aber nicht verifiziert",
+    "Alert! email already exists please enter someother email.":
+      "Warnung! E-Mail existiert bereits, bitte eine andere E-Mail eingeben.",
+    "Unable to create user! please try again.":
+      "Benutzer kann nicht erstellt werden, bitte versuche es erneut.",
     "Please fill all required fields":
-      "Bitte füllen Sie alle erforderlichen Felder aus",
+      "Bitte fülle alle erforderlichen Felder aus",
     refreshAdMsg:
-      "Bitte warten Sie mindestens 3 Stunden, bevor Sie es nochmals aktualisieren.",
-    locationRequire:
-      "Bitte geben Sie eine gültige Adresse innerhalb der Schweiz ein",
-    alert: "Achtung",
-    "Ad deleted": "Inserat gelöscht",
+      "Bitte warte mindestens 3 Stunden, bevor du erneut aktualisierst.",
+    locationRequire: "Bitte gib eine gültige Adresse in der Schweiz ein",
+    alert: "Warnung",
+    "Ad deleted": "Anzeige gelöscht",
     reloginMsg:
-      "Sie können sich abmelden oder das Passwort ändern. Bitte melden Sie sich erneut an.",
+      "Du kannst dich ausloggen oder das Passwort ändern. Bitte logge dich erneut ein",
     sussessdeleteAccount: "Konto erfolgreich gelöscht.",
   },
+
   type: {
     "Articulated bus": "Gelenkbus",
     "City bus": "Stadtbus",
@@ -712,7 +723,7 @@ export default {
   },
   commmon: {
     nothingtoshow: "Keine Inserate",
-    nochatMsg:"Keine Nachrichten",
+    nochatMsg: "Keine Nachrichten",
     checkNet: "Überprüfen Sie die Internetverbindung",
   },
   Others: "Andere",

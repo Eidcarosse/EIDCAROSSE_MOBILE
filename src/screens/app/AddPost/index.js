@@ -245,7 +245,7 @@ export default function AddPost({ navigation, route }) {
         return;
       }
       if (image.length < 1) {
-        errorMessage("Image require ", "Error");
+        errorMessage("Image require ", t(`flashmsg.error`));
         dispatch(setAppLoader(false));
         return;
       }
@@ -335,7 +335,7 @@ export default function AddPost({ navigation, route }) {
         return;
       }
       if (image.length < 1) {
-        errorMessage("Image require ", "Error");
+        errorMessage("Image require ", t(`flashmsg.error`));
         dispatch(setAppLoader(false));
         return;
       }
@@ -630,7 +630,6 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.titleWord")}</Text>
             <Input
               value={title}
-              
               setvalue={setTitle}
               placeholder={t("addPost.phtitleWord")}
               containerStyle={[
@@ -671,7 +670,6 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
               <Input
-                
                 value={price + ""}
                 setvalue={handleInputChange}
                 placeholder={t("addPost.phprice")}
@@ -757,7 +755,6 @@ export default function AddPost({ navigation, route }) {
                 value={t(`subList.${subCategory}`)}
                 setvalue={setSubCategory}
                 containerStyle={[styles.price]}
-                
                 editable={false}
               />
             </View>
@@ -917,7 +914,6 @@ export default function AddPost({ navigation, route }) {
                   <Text style={styles.title}>{t("addPost.year")}</Text>
                   <Input
                     value={year + ""}
-                    
                     setvalue={setYear}
                     containerStyle={[styles.price, { width: width(90) }]}
                     placeholder={t("addPost.phyear")}
@@ -1125,7 +1121,6 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.description")}</Text>
             <Input
               value={description}
-              
               multi
               setvalue={setDescription}
               placeholder={t("addPost.phdescription")}
@@ -1138,7 +1133,6 @@ export default function AddPost({ navigation, route }) {
           <Input
             value={url}
             setvalue={setUrl}
-            
             placeholder={t("addPost.phurl")}
             containerStyle={[styles.price, { width: width(90) }]}
           />
@@ -1152,7 +1146,6 @@ export default function AddPost({ navigation, route }) {
             <Text style={styles.title}>{t("addPost.email")}</Text>
             <Input
               value={email}
-              
               setvalue={setEmail}
               containerStyle={[styles.price, { width: width(90) }]}
               editable={false}
@@ -1178,7 +1171,6 @@ export default function AddPost({ navigation, route }) {
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
               <Input
-                
                 value={phone}
                 setvalue={setPhone}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -1206,7 +1198,6 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
               <Input
                 value={whatsapp}
-                
                 setvalue={setWhatsapp}
                 placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -1234,7 +1225,6 @@ export default function AddPost({ navigation, route }) {
               <Text style={styles.title}>{t("addPost.viber")}</Text>
               <Input
                 value={viber}
-                
                 setvalue={setViber}
                 placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
@@ -1339,8 +1329,20 @@ export default function AddPost({ navigation, route }) {
             checkedCheckBoxColor={AppColors.primary}
             isChecked={check}
           />
-          <View>
-            <Text style={{ fontSize: width(3) }}>{t("addPost.TandC1")}</Text>
+          <View
+            style={{
+              width: width(90),
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: height(1.8),
+              }}
+            >
+              {t("addPost.TandC1")}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate(ScreenNames.TNC);
@@ -1350,13 +1352,19 @@ export default function AddPost({ navigation, route }) {
                 style={{
                   color: AppColors.primary,
                   fontWeight: "bold",
-                  fontSize: width(3.5),
+                  fontSize: height(1.8),
                 }}
               >
-                {" "}
                 {t("addPost.TandC2")}
               </Text>
             </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: height(1.8),
+              }}
+            >
+              {t("addPost.TandC3")}
+            </Text>
           </View>
         </View>
         {/* --------button infomartio---- */}

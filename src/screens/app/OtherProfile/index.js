@@ -113,7 +113,7 @@ export default function OtherProfile({ navigation, route }) {
                   <AntDesign name="mail" size={width(4)} color={"#364045"} />
                 }
               />
-              {/* {userdata?.whatsappChannel && (
+              {userdata?.whatsappChannel && (
                 <IconButton
                   onPress={() =>
                     GlobalMethods.openWhatsAppChannel(userdata?.whatsappChannel)
@@ -129,7 +129,7 @@ export default function OtherProfile({ navigation, route }) {
                     />
                   }
                 />
-              )} */}
+              )}
             </View>
           </View>
         </ImageBackground>

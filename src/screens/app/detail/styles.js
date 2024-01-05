@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     paddingLeft: width(5),
     flexDirection: "row",
     alignContent:'center',
-    alignItems:'center'
+    alignItems:'center',
   },
   modelImage: {
     width: width(90),

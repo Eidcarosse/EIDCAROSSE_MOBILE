@@ -1,22 +1,21 @@
-import {
-  AntDesign,
-  Entypo,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
-import React, { useCallback, useEffect, useState } from "react";
+import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
+import React, { useCallback, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import styles from "./styles";
 import Dialog from "react-native-dialog";
 import { Menu, MenuItem } from "react-native-material-menu";
+import styles from "./styles";
 
+import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAdById, refreshApi } from "../../backend/api";
+import { getOwneAd } from "../../backend/auth";
+import { setAppLoader } from "../../redux/slices/config";
+import { selectCurrentLanguage } from "../../redux/slices/language";
+import { selectUserMeta, setUserAds } from "../../redux/slices/user";
+import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
-import { deleteAdById, refreshApi } from "../../backend/api";
-import { useDispatch, useSelector } from "react-redux";
-import { setAppLoader } from "../../redux/slices/config";
-import { selectUserMeta, setUserAds } from "../../redux/slices/user";
-import { getOwneAd } from "../../backend/auth";
 import GlobalMethods, {
   checkPrice,
   errorMessage,
@@ -24,10 +23,6 @@ import GlobalMethods, {
   formatPriceE,
   successMessage,
 } from "../../utills/Methods";
-import { useTranslation } from "react-i18next";
-import { selectCurrentLanguage } from "../../redux/slices/language";
-import { useNavigation } from "@react-navigation/native";
-import ScreenNames from "../../routes/routes";
 
 export default function MyCard({ data }) {
   const navigation = useNavigation();
@@ -166,7 +161,11 @@ export default function MyCard({ data }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <Menu visible={isModalVisible} onRequestClose={hideMenu} style={{width:width(30)}}>
+      <Menu
+        visible={isModalVisible}
+        onRequestClose={hideMenu}
+        style={{ width: width(30) }}
+      >
         <MenuItem
           onPress={() => {
             hideMenu();

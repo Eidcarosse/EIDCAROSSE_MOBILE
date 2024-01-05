@@ -1,5 +1,4 @@
-import { BaseUrl, BaseUrl1 } from "../utills/Constants";
-import { errorMessage } from "../utills/Methods";
+import { BaseUrl } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 const signupApi = async (data) => {
@@ -11,7 +10,6 @@ const signupApi = async (data) => {
     });
     return response;
   } catch (error) {
-    errorMessage("Network error");
     console.error("Signup API crashed", error);
   }
 };
@@ -24,7 +22,6 @@ const loginApi = async (data) => {
     });
     return response;
   } catch (error) {
-    errorMessage("Network error");
     console.log(error);
     return false;
   }
@@ -79,9 +76,6 @@ const getFavAds = async (id) => {
 };
 const changePasswordAPI = async (id, data) => {
   try {
-    console.log('====================================');
-    console.log("[pass",data);
-    console.log('====================================');
     const response = await ApiManager.post(`auth/change-password/${id}`, data, {
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +83,6 @@ const changePasswordAPI = async (id, data) => {
     });
     return response;
   } catch (error) {
-    errorMessage("Network error");
     console.error("change Password crashed", error);
   }
 };

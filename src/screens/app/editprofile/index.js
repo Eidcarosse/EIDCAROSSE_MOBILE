@@ -183,12 +183,12 @@ export default function EditProfile({ navigation, route }) {
               setvalue={setWhatsapp}
               keyboardType="phone-pad"
             />
-            {/* <Input
+            <Input
               title={"Whatsapp Channel"}
               placeholder={"https://whatsapp.com/channel/xxxxx"}
               value={whatsappChannel}
               setvalue={setWhatsappChannel}
-            /> */}
+            />
             <Input
               title={"editprofile.viberTitle"}
               placeholder={"+41 XX XXX XX XX"}

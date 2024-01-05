@@ -32,7 +32,7 @@ export default function ChangePassword({ navigation, route }) {
       });
       if (!r?.success) {
         dispatch(setAppLoader(false));
-        errorMessage(r?.message);
+        errorMessage(r?.message, t(`flashmsg.error`));
       } else if (r) {
         successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
@@ -43,7 +43,6 @@ export default function ChangePassword({ navigation, route }) {
       // dispatch(setAppLoader(false));
     } catch (error) {
       dispatch(setAppLoader(false));
-      errorMessage("Network error");
     }
   };
   return (

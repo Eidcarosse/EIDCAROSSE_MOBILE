@@ -18,7 +18,6 @@ import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
 import {
   DetailFooter,
   DetailHeader,
-  IconButton,
   RelatedAd,
   ScreenWrapper,
 } from "../../../components";
@@ -502,29 +501,32 @@ export default function Detail({ navigation, route }) {
               </View>
             </Pressable>
           )}
-            {!(data?.userId?._id == loginuser?._id) && (
-              <View style={styles.contact}>
-                {!isNullOrNullOrEmpty(data?.whatsapp) && (
-                  <TouchableOpacity
-                    style={{ marginRight: height(2) }}
-                    onPress={() => GlobalMethods.openWhatsApp(data?.whatsapp)}
-                  >
-                    <Ionicons
-                      size={height(5)}
-                      name="logo-whatsapp"
-                      color={"#41C053"}
-                    />
-                  </TouchableOpacity>
-                )}
-                {!isNullOrNullOrEmpty(data?.viber) && (
-                  <TouchableOpacity
-                    onPress={() => GlobalMethods.openViber(data?.viber)}
-                  >
-                    <Fontisto size={height(4)} name="viber" color={"#59267c"} />
-                  </TouchableOpacity>
-                )}
-              </View>
-            )}
+          {!(data?.userId?._id == loginuser?._id) && (
+            <View style={styles.contact}>
+              {!isNullOrNullOrEmpty(data?.whatsapp) && (
+                <TouchableOpacity
+                  style={{ marginRight: height(2) }}
+                  onPress={() => GlobalMethods.openWhatsApp(data?.whatsapp)}
+                >
+                  <Ionicons
+                    size={height(5)}
+                    name="logo-whatsapp"
+                    color={"#41C053"}
+                  />
+                </TouchableOpacity>
+              )}
+              {!isNullOrNullOrEmpty(data?.viber) && (
+                <TouchableOpacity
+                  style={{ paddingTop: height(1) }}
+                  onPress={() => {
+                    let res = GlobalMethods.openViber(data?.viber);
+                  }}
+                >
+                  <Fontisto size={height(4.5)} name="viber" color={"#59267c"} />
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
           {!isNullOrNullOrEmpty(data?.address) && (
             <View style={{ paddingLeft: width(4) }}>
               <Text

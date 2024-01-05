@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { View } from "react-native";
 import styles from "./styles";
 
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { changePasswordAPI } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
+import { setAppLoader } from "../../../redux/slices/config";
+import { selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { changePasswordAPI } from "../../../backend/auth";
-import { setAppLoader } from "../../../redux/slices/config";
 import { errorMessage, successMessage } from "../../../utills/Methods";
-import { selectUserMeta } from "../../../redux/slices/user";
-import { useTranslation } from "react-i18next";
 export default function ChangePassword({ navigation, route }) {
   const { t } = useTranslation();
   const user = useSelector(selectUserMeta);
@@ -34,7 +34,7 @@ export default function ChangePassword({ navigation, route }) {
 
       if (!r?.success) {
         dispatch(setAppLoader(false));
-        errorMessage(r?.message);
+        errorMessage(r?.message, t(`flashmsg.error`));
       } else if (r.success) {
         successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
@@ -43,7 +43,6 @@ export default function ChangePassword({ navigation, route }) {
       // dispatch(setAppLoader(false));
     } catch (error) {
       dispatch(setAppLoader(false));
-      errorMessage("Network error");
     }
   };
   return (

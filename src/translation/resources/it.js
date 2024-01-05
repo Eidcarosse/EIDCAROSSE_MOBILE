@@ -307,8 +307,9 @@ export default {
     phwebsite: "www.google.com",
     location: "Posizione",
     phlocation: "Seleziona Posizione",
-    TandC1: "Ho letto e accetto i",
-    TandC2: "Termini e Condizioni di Eidcarosse",
+    TandC1: "Ho letto i ",
+    TandC2: "termini e le condizioni ",
+    TandC3: "di Eidcarosse e acconsento",
     post: "Aggiungi Pubblicazione",
     phsearchHere: "Cerca qui",
     defaultValueDropdown: "Seleziona un'opzione",
@@ -545,7 +546,7 @@ export default {
     ads: "Permetti al pubblico di vedere tutti i miei annunci?",
   },
   flashmsg: {
-    "Ad Refresh": "Aggiornamento annuncio",
+    "Ad Refresh": "Aggiorna annuncio",
     authentication: "Autenticazione",
     success: "Successo",
     error: "Errore",
@@ -553,39 +554,51 @@ export default {
     password: "Password",
     emptyfield: "Campo vuoto",
     loginfavorite: "Accedi per aggiungere ai preferiti",
-    adPosterrormsg: "Qualcosa è andato storto nel pubblicare l'annuncio",
+    wrong: "Qualcosa è andato storto, riprova",
+    adPosterrormsg:
+      "Qualcosa è andato storto durante la pubblicazione dell'annuncio",
     requiremsg: "I campi sono vuoti",
-    editerrormsg: "Qualcosa è andato storto nell'editare l'annuncio",
+    editerrormsg: "Qualcosa è andato storto durante la modifica dell'annuncio",
     oldpaserror: "Campo vecchia password vuoto",
-    confirmerrormsg: "La password di conferma non corrisponde",
+    confirmerrormsg: "La conferma della password non corrisponde",
     passwordlengtherrormsg:
-      "La password di conferma non corrisponde o è inferiore a 6 caratteri",
+      "La conferma della password non corrisponde o è inferiore a 6 caratteri",
     profileupdateerrormsg:
-      "Qualcosa è andato storto nell'aggiornare il profilo",
-    updatepassworderrormsg: "Qualcosa è andato storto nel cambiare la password",
-    wrongpinerrormsg: "Pin code errato",
+      "Qualcosa è andato storto durante l'aggiornamento del profilo",
+    updatepassworderrormsg:
+      "Qualcosa è andato storto durante la modifica della password",
+    wrongpinerrormsg: "Codice PIN errato",
     emailrequireerrormsg:
-      "Inserisci la tua email registrata per dimenticare la password",
+      "Inserisci la tua email registrata per recuperare la password",
     emailmsg: "L'email è richiesta o potrebbe essere nel formato incorretto",
-    passwordmsg: "La password è richiesta o potrebbe essere incorretta",
-    whatsapperror: "WhatsApp non esiste",
-    vibererror: "Viber non esiste",
+    passwordmsg: "La password è obbligatoria o potrebbe essere incorretta",
+
+    entercode: "Inserisci il codice per confermare",
+    signuperrormsg: "Qualcosa è andato storto durante la registrazione",
+
     adPostsussessmsg: "Annuncio pubblicato con successo",
     editadsussessmsg: "Annuncio modificato con successo",
-    passwordchangemsg: "Cambiata con successo",
-    emailsussesssendmsg: "Codice inviato alla tua email fornita",
+    passwordchangemsg: "Cambiamento password riuscito",
+    emailsussesssendmsg: "Codice inviato alla tua email",
     sussessloginmsg: "Accesso riuscito",
-    "Please fill all required fields":
-      "Si prega di compilare tutti i campi obbligatori",
-    refreshAdMsg: "Si prega di attendere almeno 3 ore prima di aggiornare.",
-    locationRequire:
-      "Si prega di inserire un indirizzo valido situato in Svizzera",
+
+    "Invalid email or password.": "Email o password non valide",
+    "Account is registered but not verified":
+      "Account registrato ma non verificato",
+    "Alert! email already exists please enter someother email.":
+      "Attenzione! L'email esiste già, inserisci un'altra email.",
+    "Unable to create user! please try again.":
+      "Impossibile creare l'utente. Riprova.",
+    "Please fill all required fields": "Compila tutti i campi obbligatori",
+    refreshAdMsg: "Attendi almeno 3 ore prima di aggiornare nuovamente.",
+    locationRequire: "Inserisci un indirizzo valido situato in Svizzera",
     alert: "Avviso",
     "Ad deleted": "Annuncio eliminato",
     reloginMsg:
-      "Puoi disconnetterti o cambiare la password. Per favore, accedi di nuovo",
+      "Puoi disconnetterti o cambiare la password. Effettua nuovamente il login",
     sussessdeleteAccount: "Account eliminato con successo.",
   },
+
   type: {
     "Articulated bus": "Autobus articolato",
     "City bus": "Autobus urban",
@@ -700,7 +713,7 @@ export default {
   },
   commmon: {
     nothingtoshow: "Niente da mostrare",
-    nochatMsg:"Nessun messaggio",
+    nochatMsg: "Nessun messaggio",
     checkNet: "Controlla la connessione Internet.",
   },
   Others: "Altros",

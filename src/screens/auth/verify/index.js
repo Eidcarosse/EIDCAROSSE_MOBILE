@@ -48,7 +48,7 @@ export default function Verify({ navigation, route }) {
       navigation.navigate(ScreenNames.LOGIN);
     }
     else{
-      errorMessage("Invalid Code")
+      errorMessage("Invalid Code", t(`flashmsg.error`))
     }
   }
   async function sendverifycode() {

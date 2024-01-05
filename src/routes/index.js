@@ -61,7 +61,6 @@ import {
 } from "../screens/auth";
 import i18n from "../translation";
 import {
-  errorMessage,
   getAuthAllData,
   getAuthData,
   getDatav,
@@ -150,6 +149,15 @@ export default function Routes() {
           Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
             { text: "OK", onPress: () => {} },
           ]);
+      } else if (response?.success == false) {
+        dispatch(setIsLoggedIn(false));
+        dispatch(setUserMeta(null));
+        dispatch(setUserAds(null));
+        dispatch(setAdsFav([]));
+        await setAuthData(null),
+          Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
+            { text: "OK", onPress: () => {} },
+          ]);
       } else {
         let userData = await getAuthAllData();
         if (userData) {
@@ -167,7 +175,6 @@ export default function Routes() {
         ]);
       }
     } catch (error) {
-      errorMessage("Network error");
       dispatch(setAppLoader(false));
     }
   };

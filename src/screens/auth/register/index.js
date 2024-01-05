@@ -13,7 +13,7 @@ import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { signupApi } from "../../../backend/auth";
-import { Button, Input, ScreenWrapper } from "../../../components";
+import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
 import {
   setIsLoggedIn,
@@ -73,7 +73,7 @@ export default function SignUp({ navigation, route }) {
       let r = await signupApi(data);
       if (!r?.success) {
         dispatch(setAppLoader(false));
-        errorMessage(t(`flashmsg.${r?.message}`));
+        errorMessage(t(`flashmsg.${r?.message}`), t(`flashmsg.error`));
       } else if (r) {
         successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
         dispatch(setAppLoader(false));
@@ -83,7 +83,6 @@ export default function SignUp({ navigation, route }) {
       }
     } catch (error) {
       dispatch(setAppLoader(false));
-      errorMessage("Network error");
     }
   };
 
@@ -92,6 +91,7 @@ export default function SignUp({ navigation, route }) {
       showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
+      headerUnScrollable={() => <Head navigation={navigation} />}
     >
       <View style={styles.mainViewContainer}>
         <ImageBackground source={Icons.bglogo} style={styles.image}>
@@ -166,19 +166,19 @@ export default function SignUp({ navigation, route }) {
             /> */}
             <View style={styles.checkview}>
               <CheckBox
-               checkedImage={
-                <MaterialIcons
-                  name="check-box"
-                  size={width(4)}
-                  color={AppColors.primary}
-                />
-              }
-              unCheckedImage={
-                <MaterialIcons
-                  name="check-box-outline-blank"
-                  size={width(4)}
-                />
-              }
+                checkedImage={
+                  <MaterialIcons
+                    name="check-box"
+                    size={width(4)}
+                    color={AppColors.primary}
+                  />
+                }
+                unCheckedImage={
+                  <MaterialIcons
+                    name="check-box-outline-blank"
+                    size={width(4)}
+                  />
+                }
                 style={{ paddingRight: width(2) }}
                 onClick={() => {
                   setCheck(!check);
@@ -187,7 +187,9 @@ export default function SignUp({ navigation, route }) {
                 isChecked={check}
               />
               <View>
-                <Text style={{fontSize:width(3)}}>{t("signup.checkBoxText")}</Text>
+                <Text style={{ fontSize: width(3) }}>
+                  {t("signup.checkBoxText")}
+                </Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(ScreenNames.TNC)}
                 >
@@ -244,7 +246,7 @@ export default function SignUp({ navigation, route }) {
             <View style={{ height: height(5) }} />
 
             <View style={styles.already}>
-              <Text style={{fontSize:width(3)}}>
+              <Text style={{ fontSize: width(3) }}>
                 {t("signup.alreadyHaveAccount")}
                 {"  "}
               </Text>

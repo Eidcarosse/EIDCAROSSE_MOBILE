@@ -192,7 +192,7 @@ const openWhatsApp = (phoneNumber) => {
       console.log("WhatsApp opened successfully");
     })
     .catch((error) => {
-      console.error("Error opening WhatsApp:", error);
+      console.error( "Error opening WhatsApp:", error);
       errorMessage("Whatsapp not exist");
     });
 };
@@ -218,7 +218,10 @@ export const openViber = (phoneNumber) => {
       // Handle the error or display a message to the user
     });
   } catch (error) {
-    errorMessage("Viber not exist");
+    console.log('====================================');
+    console.log(error);
+    console.log('====================================');
+   return error
   }
 };
 

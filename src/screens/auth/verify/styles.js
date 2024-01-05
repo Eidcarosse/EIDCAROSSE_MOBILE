@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     marginLeft: width(10),
   },
   logintext: {
-    fontSize: 30,
+    fontSize: width(7),
     color: AppColors.white,
     fontWeight: "bold",
   },
