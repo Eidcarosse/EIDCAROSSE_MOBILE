@@ -53,7 +53,7 @@ export default function AboutUs({ navigation, route }) {
               }}
             >
               <View style={styles.dot} />
-              <Text style={{ margin: width(1), width: width(80),fontSize:width(2.5) }}>
+              <Text style={{ margin: width(1), width: width(80),fontSize:width(3.5) }}>
                 {t(item)}
               </Text>
             </View>

@@ -39,6 +39,9 @@ export default function EditProfile({ navigation, route }) {
   const [email, setEmail] = React.useState(userdata?.email || null);
   const [whatsapp, setWhatsapp] = React.useState(userdata?.whatsapp || "");
   const [viber, setViber] = React.useState(userdata?.viber || "");
+  const [whatsappChannel, setWhatsappChannel] = React.useState(
+    userdata?.whatsappChannel || ""
+  );
   const [phoneNumber, setPhoneNumber] = React.useState(
     userdata?.phoneNumber || null
   );
@@ -51,7 +54,7 @@ export default function EditProfile({ navigation, route }) {
       formData.append("phoneNumber", phoneNumber);
       formData.append("viber", viber);
       formData.append("whatsapp", whatsapp);
-
+      formData.append("whatsappChannel", whatsappChannel);
       formData.append("file", {
         name: `image`,
         type: "image/jpeg", // Adjust the type if needed
@@ -180,6 +183,12 @@ export default function EditProfile({ navigation, route }) {
               setvalue={setWhatsapp}
               keyboardType="phone-pad"
             />
+            {/* <Input
+              title={"Whatsapp Channel"}
+              placeholder={"https://whatsapp.com/channel/xxxxx"}
+              value={whatsappChannel}
+              setvalue={setWhatsappChannel}
+            /> */}
             <Input
               title={"editprofile.viberTitle"}
               placeholder={"+41 XX XXX XX XX"}
@@ -187,6 +196,7 @@ export default function EditProfile({ navigation, route }) {
               setvalue={setViber}
               keyboardType="phone-pad"
             />
+
             <Button
               containerStyle={styles.button}
               onPress={update}

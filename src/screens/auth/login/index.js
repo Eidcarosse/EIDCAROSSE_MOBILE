@@ -81,15 +81,15 @@ export default function Login({ navigation, route }) {
           dispatch(setToken(res?.data?.token));
           dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
           setAuthData(data);
-          setAuthAllData(res?.data?.userDetails)
+          setAuthAllData(res?.data?.userDetails);
           dispatch(setAppLoader(false));
-          successMessage(t(`flashmsg.sussessloginmsg`), t(`flashmsg.success`));
+          successMessage("", t(`flashmsg.sussessloginmsg`));
           navigation.navigate(ScreenNames.BUTTOM);
         }
       } else {
         errorMessage(t(`flashmsg.wrong`), t("flashmsg.error")),
           dispatch(setAppLoader(false));
-      } 
+      }
     } catch (error) {
       errorMessage("Network error");
       console.log(error);
@@ -98,7 +98,7 @@ export default function Login({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
       headerUnScrollable={() => <Head navigation={navigation} />}
@@ -110,11 +110,11 @@ export default function Login({ navigation, route }) {
           </View>
         </ImageBackground>
         <KeyboardAwareScrollView
-         keyboardShouldPersistTaps="handled"
-         enableAutomaticScroll={true}
-         enableResetScrollToCoords={false}
-         extraScrollHeight={height(8)}
-         showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          enableAutomaticScroll={true}
+          enableResetScrollToCoords={false}
+          extraScrollHeight={height(8)}
+          showsVerticalScrollIndicator={false}
         >
           <View
             style={{
@@ -155,7 +155,7 @@ export default function Login({ navigation, route }) {
             /> */}
             <View style={{ height: height(2) }} />
             <View style={styles.forget}>
-              <Text style={{fontSize:width(2.5)}}>
+              <Text style={{ fontSize: width(3) }}>
                 {t("login.cannotLogin")} {"  "}
               </Text>
               <TouchableOpacity
@@ -177,7 +177,7 @@ export default function Login({ navigation, route }) {
                 flexWrap: "wrap",
               }}
             >
-              <Text style={{fontSize:width(2.5)}}>
+              <Text style={{ fontSize: width(3) }}>
                 {t("login.donothaveaccount")}
                 {"   "}
               </Text>

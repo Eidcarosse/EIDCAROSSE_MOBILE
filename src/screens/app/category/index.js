@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { FlatList, Image, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { getCategory } from "../../../backend/common";
 import { CategoryIcon, Head, Header, ScreenWrapper } from "../../../components";
 import {
   selectCategoryList,
@@ -11,14 +12,15 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
-import { AntDesign } from "@expo/vector-icons";
-import { getCategory } from "../../../backend/common";
 
 export default function Category({ navigation, route, value }) {
   const data = useSelector(selectCategoryList);
   const search = route?.params?.search;
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
+  useEffect(() => {
+    onRefresh();
+  }, []);
   const onRefresh = async () => {
     async function getCategorylist() {
       const d = await getCategory();

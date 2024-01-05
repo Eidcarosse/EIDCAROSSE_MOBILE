@@ -92,48 +92,44 @@ export default function OtherProfile({ navigation, route }) {
                   onPress={GlobalMethods.onPressCall}
                   title={"Phone"}
                   containerStyle={styles.wcontainer}
-                  textStyle={styles.wtexticon}
+                  textStyle={[styles.wtexticon, { color: "#3257a8" }]}
                   icon={
                     <FontAwesome
                       name="phone"
                       size={width(4)}
-                      color={AppColors.primary}
+                      color={"#3257a8"}
                     />
                   }
                 />
               )}
               <IconButton
                 onPress={() =>
-                    // GlobalMethods.openWhatsAppChannel(
-                    //   "https://whatsapp.com/channel/0029VaE64Xo77qVIatcGln1C"
-                    // )
-                  
                   GlobalMethods.onPressEmail(userdata?.email, loginuser?.email)
                 }
                 title={"Email"}
                 containerStyle={styles.wcontainer}
-                textStyle={styles.wtexticon}
+                textStyle={[styles.wtexticon, { color: "#364045" }]}
                 icon={
-                  <AntDesign
-                    name="mail"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
+                  <AntDesign name="mail" size={width(4)} color={"#364045"} />
                 }
               />
-              {/* <IconButton
-                onPress={GlobalMethods.onPressCall}
-                title={"Chat"}
-                containerStyle={styles.wcontainer}
-                textStyle={styles.wtexticon}
-                icon={
-                  <FontAwesome
-                    name="wechat"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
-                }
-              /> */}
+              {/* {userdata?.whatsappChannel && (
+                <IconButton
+                  onPress={() =>
+                    GlobalMethods.openWhatsAppChannel(userdata?.whatsappChannel)
+                  }
+                  title={"Channel"}
+                  containerStyle={styles.wcontainer}
+                  textStyle={[styles.wtexticon, { color: "#32a852" }]}
+                  icon={
+                    <FontAwesome
+                      name="whatsapp"
+                      size={width(4)}
+                      color={"#32a852"}
+                    />
+                  }
+                />
+              )} */}
             </View>
           </View>
         </ImageBackground>

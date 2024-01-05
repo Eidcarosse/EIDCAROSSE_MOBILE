@@ -197,10 +197,6 @@ const openWhatsApp = (phoneNumber) => {
     });
 };
 const openWhatsAppChannel = (link) => {
-  // Construct the WhatsApp URL
-  const whatsappURL = `whatsapp://send?phone=${link}`;
-
-  // Open WhatsApp with the constructed URL
   Linking.openURL(link)
     .then(() => {
       console.log("WhatsApp opened successfully");

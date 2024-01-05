@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     marginVertical: width(2),
   },
   textseeall: {
-    fontSize: width(2.8),
+    fontSize: width(3),
     fontWeight: "bold",
     marginTop: height(2),
     color: "grey",

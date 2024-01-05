@@ -273,7 +273,8 @@ export default function Detail({ navigation, route }) {
                 <></>
               )}
             </View>
-            <View>
+
+            <View style={{ width: width(70) }}>
               <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
                 {data?.title}
               </Text>
@@ -501,41 +502,29 @@ export default function Detail({ navigation, route }) {
               </View>
             </Pressable>
           )}
-          {!(data?.userId?._id == loginuser?._id) && (
-            <View style={styles.contact}>
-              {!isNullOrNullOrEmpty(data?.whatsapp) && (
-                <IconButton
-                  title={"WhatsApp"}
-                  icon={
+            {!(data?.userId?._id == loginuser?._id) && (
+              <View style={styles.contact}>
+                {!isNullOrNullOrEmpty(data?.whatsapp) && (
+                  <TouchableOpacity
+                    style={{ marginRight: height(2) }}
+                    onPress={() => GlobalMethods.openWhatsApp(data?.whatsapp)}
+                  >
                     <Ionicons
-                      size={width(4)}
+                      size={height(5)}
                       name="logo-whatsapp"
-                      color={AppColors.white}
+                      color={"#41C053"}
                     />
-                  }
-                  containerStyle={{ backgroundColor: "#41C053" }}
-                  onPress={() => GlobalMethods.openWhatsApp(data?.whatsapp)}
-                />
-              )}
-              {!isNullOrNullOrEmpty(data?.viber) && (
-                <IconButton
-                  title={"Viber"}
-                  icon={
-                    <Fontisto
-                      size={width(4)}
-                      name="viber"
-                      color={AppColors.white}
-                    />
-                  }
-                  containerStyle={{
-                    backgroundColor: "#7D3DAF",
-                    marginLeft: width(2),
-                  }}
-                  onPress={() => GlobalMethods.openViber(data?.viber)}
-                />
-              )}
-            </View>
-          )}
+                  </TouchableOpacity>
+                )}
+                {!isNullOrNullOrEmpty(data?.viber) && (
+                  <TouchableOpacity
+                    onPress={() => GlobalMethods.openViber(data?.viber)}
+                  >
+                    <Fontisto size={height(4)} name="viber" color={"#59267c"} />
+                  </TouchableOpacity>
+                )}
+              </View>
+            )}
           {!isNullOrNullOrEmpty(data?.address) && (
             <View style={{ paddingLeft: width(4) }}>
               <Text
@@ -608,7 +597,7 @@ export default function Detail({ navigation, route }) {
             backgroundColor: "rgba(0, 0, 0,.6)",
           }}
         >
-          <Ionicons name="close" size={width(8)} color={AppColors.white} />
+          <Ionicons name="close" size={height(5)} color={AppColors.white} />
         </TouchableOpacity>
         <Swiper
           showsButtons={true}
@@ -618,7 +607,7 @@ export default function Detail({ navigation, route }) {
             >
               <AntDesign
                 name="caretright"
-                size={width(5)}
+                size={height(3)}
                 color={AppColors.white}
               />
             </View>
@@ -629,7 +618,7 @@ export default function Detail({ navigation, route }) {
             >
               <AntDesign
                 name="caretleft"
-                size={width(5)}
+                size={height(3)}
                 color={AppColors.white}
               />
             </View>

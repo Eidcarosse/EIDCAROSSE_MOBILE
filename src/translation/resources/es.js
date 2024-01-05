@@ -726,6 +726,7 @@ export default {
   },
   commmon: {
     nothingtoshow: "Nada que mostrar",
+    nochatMsg:"No hay mensajes",
     checkNet: "Verifica la conexión a Internet.",
   },
   Others: "Otro",

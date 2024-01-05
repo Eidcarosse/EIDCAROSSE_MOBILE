@@ -76,8 +76,10 @@ const styles = StyleSheet.create({
     borderRadius: width(3),
   },
   contact: {
-    paddingLeft: width(4),
+    paddingLeft: width(5),
     flexDirection: "row",
+    alignContent:'center',
+    alignItems:'center'
   },
   modelImage: {
     width: width(90),

@@ -158,7 +158,7 @@ export default function ChatList({ navigation, route }) {
                   paddingTop: height(40),
                 }}
               >
-                {t("commmon.nothingtoshow")}
+                {t("commmon.nochatMsg")}
               </Text>
             </View>
           )}

@@ -187,12 +187,11 @@ export default function SignUp({ navigation, route }) {
                 isChecked={check}
               />
               <View>
-                <Text style={{fontSize:width(2.5)}}>{t("signup.checkBoxText")}</Text>
+                <Text style={{fontSize:width(3)}}>{t("signup.checkBoxText")}</Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate(ScreenNames.TNC)}
                 >
                   <Text style={styles.tandc}>
-                    {" "}
                     {t("signup.termAndCondition")}
                   </Text>
                 </TouchableOpacity>
@@ -245,7 +244,7 @@ export default function SignUp({ navigation, route }) {
             <View style={{ height: height(5) }} />
 
             <View style={styles.already}>
-              <Text style={{fontSize:width(2.5)}}>
+              <Text style={{fontSize:width(3)}}>
                 {t("signup.alreadyHaveAccount")}
                 {"  "}
               </Text>

@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   },
   image: { width: width(100), height: height(28) },
   checkview: { flexDirection: "row", padding: width(4) },
-  tandc: { color: AppColors.primary, fontWeight: "bold",fontSize:width(2.5) },
+  tandc: { color: AppColors.primary, fontWeight: "bold",fontSize:width(3.2) },
   already: {
     alignSelf: "center",
     alignContent: "center",
     flexDirection: "row",
   },
-  signin: { color: AppColors.primary, fontWeight: "bold",fontSize:width(2.5) },
+  signin: { color: AppColors.primary, fontWeight: "bold",fontSize:width(3) },
 });
 export default styles;

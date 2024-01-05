@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  text: { color: AppColors.primary, fontWeight: "bold",fontSize:width(2.5) },
+  text: { color: AppColors.primary, fontWeight: "bold",fontSize:width(3) },
 });
 export default styles;

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     margin: width(5),
   },
   description: {
-    fontSize: width(4),
+    fontSize: height(2),
   },
   button: {
     backgroundColor: AppColors.primary,
