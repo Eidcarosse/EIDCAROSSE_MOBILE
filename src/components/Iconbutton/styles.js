@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: AppColors.white,
-    fontSize: width(3.8),
+    fontSize: height(1.8),
     fontWeight: "bold",
     marginHorizontal: width(1),
   },

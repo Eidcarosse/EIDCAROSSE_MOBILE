@@ -154,7 +154,7 @@ export default function ChatList({ navigation, route }) {
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: width(4),
+                  fontSize: height(2),
                   paddingTop: height(40),
                 }}
               >

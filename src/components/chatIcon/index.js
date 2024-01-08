@@ -44,9 +44,9 @@ export default function ChatIcon({ data }) {
           {selectedItem && (
             <View
               style={{
-                width: width(17),
-                height: width(17),
-                borderRadius: width(10),
+                width: height(8),
+                height: height(8),
+                borderRadius: height(10),
                 backgroundColor: "rgba(0, 0, 0, 0.5)",
                 position: "absolute",
               }}
@@ -59,7 +59,7 @@ export default function ChatIcon({ data }) {
             style={[
               {
                 fontWeight: "bold",
-                fontSize: width(3.5),
+                fontSize: height(1.8),
                 paddingTop: height(1),
               },
               selectedItem && { color: "lightgrey" },
@@ -72,7 +72,7 @@ export default function ChatIcon({ data }) {
           <Text
             numberOfLines={1}
             style={[
-              { paddingTop: height(1), fontSize: width(2.5) },
+              { paddingTop: height(1), fontSize: height(1) },
               selectedItem && { color: "lightgrey" },
             ]}
           >
@@ -89,7 +89,7 @@ export default function ChatIcon({ data }) {
             style={[
               {
                 fontWeight: "bold",
-                fontSize: width(2.5),
+                fontSize: height(1.2),
                 width: width(15),
               },
               selectedItem && { color: "lightgrey" },

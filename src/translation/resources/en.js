@@ -1,6 +1,6 @@
 export default {
   signup: {
-    signup: "SignUp",
+    signup: "Sign Up",
     firstNameTitle: "First Name",
     firstNamePlaceholder: "Enter your first name",
     lastNameTitle: "Last Name",
@@ -92,12 +92,11 @@ export default {
     paraDetail3by1:
       "For sellers, Eidcarosse offers a convenient platform to showcase your vehicles to a large and diverse audience of potential buyers.",
     paraDetail3by2:
-      " List your vehicle with detailed descriptions, high-quality images, and competitive pricing, and connect directly with interested buyers.",
+      "List your vehicle with detailed descriptions, high-quality images, and competitive pricing, and connect directly with interested buyers.",
     paraDetail3by3:
       "Eidcarosse empowers sellers to reach a wider market and streamline the selling process, making it easier to find the right buyer for your vehicle.",
-
     paraDetail4:
-      "Eidcarosse prioritizes user experience and ensures a secure and transparent transaction process. The platform provides messaging capabilities, allowing buyers and sellers to communicate directly and negotiate terms. Additionally, Eidcarosse offers a range of verification and safety features to provide peace of mind to all users.",
+      "The platform provides messaging capabilities, allowing buyers and sellers to communicate directly and negotiate terms. Additionally, Eidcarosse offers a range of verification and safety features to provide peace of mind to all users.",
   },
 
   SNTU: {
@@ -329,9 +328,9 @@ export default {
     phwebsite: "www.google.com",
     location: "Location",
     phlocation: "select location",
-    TandC1: "I have read the Eidcarosse ",
-    TandC2: "Terms and Conditions",
-    TandC3:"and agree",
+    TandC1: "I have read and agree to the ",
+    TandC2: "Terms and Conditions ",
+    TandC3:"of Eidcarosse.",
     post: "Add Post",
     phsearchHere: "Search here",
     defaultValueDropdown: "Select an Option",

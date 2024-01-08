@@ -53,14 +53,14 @@ export default function TnC({ navigation, route }) {
       paraTitle: "terms.paraTitle11",
       paraData: "terms.paraData11",
     },
-    {
-      paraTitle: "terms.paraTitle12",
-      paraData: "terms.paraData12",
-    },
-    {
-      paraTitle: "terms.paraTitle13",
-      paraData: "terms.paraData13",
-    },
+    // {
+    //   paraTitle: "terms.paraTitle12",
+    //   paraData: "terms.paraData12",
+    // },
+    // {
+    //   paraTitle: "terms.paraTitle13",
+    //   paraData: "terms.paraData13",
+    // },
     {
       paraTitle: "terms.paraTitle14",
       paraData: "terms.paraData14",

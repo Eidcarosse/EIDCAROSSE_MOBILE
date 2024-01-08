@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,7 @@ export default function Header({ navigation, headtitle, children }) {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.goBack()} style={styles.menuicon}>
-        <Ionicons name="chevron-back" size={width(8)} color={AppColors.white} />
+        <Ionicons name="chevron-back" size={height(4)} color={AppColors.white} />
       </Pressable>
       <View style={styles.headview}>
         {children ? (

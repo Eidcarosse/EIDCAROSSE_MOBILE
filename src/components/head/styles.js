@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: width(5),
   },
   headview: { height: height(6), justifyContent: "center" },
-  headtext: { color: AppColors.white, fontSize: width(5), fontWeight: "bold" },
+  headtext: { color: AppColors.white, fontSize: height(2.3), fontWeight: "bold" },
 });
 export default styles;

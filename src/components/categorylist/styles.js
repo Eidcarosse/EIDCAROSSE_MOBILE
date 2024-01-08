@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   categorytext: {
-    fontSize: width(4),
+    fontSize: height(2),
     fontWeight: "bold",
     marginVertical: width(2),
   },
   textseeall: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     fontWeight: "bold",
     marginTop: height(2),
     color: "grey",

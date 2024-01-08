@@ -23,10 +23,10 @@ const styles = StyleSheet.create({
   },
   imageview: {
     width: width(42),
+    height: height(18),
   },
   image: {
-    width: width(42),
-    height: width(37),
+    flex: 1,
     borderRadius: width(2),
   },
   detail: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   titletext: {
     fontWeight: "bold",
-    fontSize: width(4),
+    fontSize: height(2),
     paddingBottom: width(3),
   },
   categoryview: {
@@ -51,17 +51,17 @@ const styles = StyleSheet.create({
     marginBottom: width(1),
   },
   textcategory: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     marginLeft: width(2),
     width: width(35),
   },
   eur: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     color: "grey",
     fontWeight: "bold",
   },
   chf: {
-    fontSize: width(4),
+    fontSize: height(2),
     color: AppColors.primary,
     fontWeight: "bold",
     paddingBottom: width(1),
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     width: width(32),
   },
   cfp: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     color: AppColors.primary,
     fontWeight: "bold",
   },

@@ -5,7 +5,7 @@ import {
 } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import IconButton from "../Iconbutton";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
@@ -20,19 +20,21 @@ export default function DetailFooter({
       <IconButton
         disabled={pNumber ? false : true}
         onPress={onPressCall}
-        icon={<Ionicons size={width(4)} name="call" color={AppColors.white} />}
+        icon={<Ionicons size={height(2)} name="call" color={AppColors.white} />}
         title={"Call"}
       />
       <IconButton
         onPress={onPressMail}
-        icon={<AntDesign size={width(4)} name="mail" color={AppColors.white} />}
+        icon={
+          <AntDesign size={height(2)} name="mail" color={AppColors.white} />
+        }
         title={"Email"}
       />
       <IconButton
         onPress={onPressChat}
         icon={
           <MaterialCommunityIcons
-            size={width(4)}
+            size={height(2)}
             name="chat-processing"
             color={AppColors.white}
           />

@@ -187,7 +187,7 @@ export default function SignUp({ navigation, route }) {
                 isChecked={check}
               />
               <View>
-                <Text style={{ fontSize: width(3) }}>
+                <Text style={{ fontSize: height(1.5) }}>
                   {t("signup.checkBoxText")}
                 </Text>
                 <TouchableOpacity
@@ -246,7 +246,7 @@ export default function SignUp({ navigation, route }) {
             <View style={{ height: height(5) }} />
 
             <View style={styles.already}>
-              <Text style={{ fontSize: width(3) }}>
+              <Text style={{ fontSize: height(1.5) }}>
                 {t("signup.alreadyHaveAccount")}
                 {"  "}
               </Text>

@@ -89,13 +89,14 @@ export default function EditProfile({ navigation, route }) {
         >
           <View style={styles.imageiner}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <TouchableOpacity onPress={() => imageRef.current.show()}>
+              <TouchableOpacity
+              onPress={() => imageRef.current.show()}>
                 <Image style={styles.avatar} source={{ uri: image[0] }} />
                 <View
                   style={{
                     position: "absolute",
-                    top: height(10),
-                    left: width(27),
+                    top: height(9),
+                    left: height(12),
                     backgroundColor: AppColors.primary,
                     padding: width(2),
                     borderRadius: width(5),
@@ -103,7 +104,7 @@ export default function EditProfile({ navigation, route }) {
                 >
                   <FontAwesome
                     name="camera"
-                    size={width(5)}
+                    size={height(2.5)}
                     color={AppColors.white}
                   />
                 </View>
@@ -111,7 +112,7 @@ export default function EditProfile({ navigation, route }) {
               <View style={{ paddingLeft: width(3) }}>
                 <Text
                   style={{
-                    fontSize: width(4.2),
+                    fontSize: height(2.5),
                     fontWeight: "bold",
                     color: AppColors.white,
                     width: width(55),
@@ -122,7 +123,7 @@ export default function EditProfile({ navigation, route }) {
 
                 <Text
                   style={{
-                    fontSize: width(4),
+                    fontSize: height(2),
                     fontWeight: "bold",
                     marginTop: height(1),
                     color: AppColors.white,

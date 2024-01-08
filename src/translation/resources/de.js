@@ -88,7 +88,7 @@ export default {
     paraDetail3by3:
       "Eidcarosse ermöglicht es Verkäufern, einen breiteren Markt zu erschließen und den Verkaufsprozess zu optimieren, um den richtigen Käufer für Ihr Fahrzeug zu finden",
     paraDetail4:
-      "Eidcarosse legt großen Wert auf die Benutzererfahrung und gewährleistet einen sicheren und transparenten Transaktionsprozess. Die Plattform bietet Messaging-Funktionen, mit denen Käufer und Verkäufer direkt kommunizieren und Verhandlungen führen können. Darüber hinaus bietet Eidcarosse eine Reihe von Verifizierungs- und Sicherheitsfunktionen, um allen Benutzern ein sicheres Gefühl zu vermitteln",
+      "Die Plattform bietet Messaging-Funktionen, mit denen Käufer und Verkäufer direkt kommunizieren und Verhandlungen führen können. Darüber hinaus bietet Eidcarosse eine Reihe von Verifizierungs- und Sicherheitsfunktionen, um allen Benutzern ein sicheres Gefühl zu vermitteln",
   },
   SNTU: {
     sntu: "Jetzt an uns verkaufen",

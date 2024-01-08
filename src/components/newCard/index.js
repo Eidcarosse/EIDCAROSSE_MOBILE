@@ -22,7 +22,7 @@ import {
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { WebLink } from "../../utills/Constants";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import GlobalMethods, {
   checkPrice,
   formatPrice,
@@ -110,7 +110,7 @@ export default function Card({ data, onPresshide, map = false }) {
                 {data?.title}
               </Text>
               <View style={styles.categoryview}>
-                <MaterialIcons name="category" color={"grey"} size={width(4)} />
+                <MaterialIcons name="category" color={"grey"} size={height(2)} />
                 <Text numberOfLines={1} style={styles.categorytext}>
                   {/* {data?.category}
                    */}
@@ -134,13 +134,13 @@ export default function Card({ data, onPresshide, map = false }) {
                   )
                 }
               >
-                <Entypo size={width(5)} name="share" color={"grey"} />
+                <Entypo size={height(2.5)} name="share" color={"grey"} />
               </TouchableOpacity>
               {!(data?.userId?._id === loginuser?._id) ? (
                 <View>
                   <TouchableOpacity onPress={onpressfav}>
                     <AntDesign
-                      size={width(5)}
+                      size={height(2.5)}
                       color={fav ? AppColors.primary : "grey"}
                       name={fav ? "heart" : "hearto"}
                     />
@@ -204,7 +204,7 @@ export default function Card({ data, onPresshide, map = false }) {
             }}
           >
             <View style={styles.categoryview}>
-              <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
+              <AntDesign name="clockcircleo" color={"grey"} size={height(1.6)} />
               <Text numberOfLines={1} style={styles.categorytext}>
                 {GlobalMethods.calculateTimeDifference(
                   data?.createdAt,
@@ -212,7 +212,7 @@ export default function Card({ data, onPresshide, map = false }) {
                 )}
               </Text>
             </View>
-            <AntDesign name="eye" color={"grey"} size={width(3)}>
+            <AntDesign name="eye" color={"grey"} size={height(1.5)}>
               {" "}
               {data?.views}
             </AntDesign>
@@ -226,7 +226,7 @@ export default function Card({ data, onPresshide, map = false }) {
 
       <View style={styles.icons}>
         <View style={styles.categoryview}>
-          <Entypo name="location-pin" color={"grey"} size={width(4)} />
+          <Entypo name="location-pin" color={"grey"} size={height(2)} />
           <Text numberOfLines={2} style={styles.categorytext}>
             {data?.address}
           </Text>
@@ -253,7 +253,7 @@ export default function Card({ data, onPresshide, map = false }) {
               }}
             >
               <Ionicons
-                size={width(5)}
+                size={height(2.5)}
                 name="call"
                 color={data?.phone ? "grey" : "lightgrey"}
               />
@@ -275,7 +275,7 @@ export default function Card({ data, onPresshide, map = false }) {
                 }
               }}
             >
-              <Entypo size={width(5)} name="chat" color={"grey"} />
+              <Entypo size={height(2.5)} name="chat" color={"grey"} />
             </TouchableOpacity>
           </View>
         ) : (

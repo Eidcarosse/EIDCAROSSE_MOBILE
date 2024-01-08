@@ -85,14 +85,14 @@ export default function MyCard({ data }) {
             {data?.title}
           </Text>
           <View style={styles.categoryview}>
-            <AntDesign name="clockcircleo" color={"grey"} size={width(4)} />
+            <AntDesign name="clockcircleo" color={"grey"} size={height(2)} />
             <Text numberOfLines={1} style={styles.textcategory}>
               {GlobalMethods.calculateTimeDifference(data?.createdAt, language)}
             </Text>
           </View>
 
           <View style={styles.categoryview}>
-            <AntDesign name="eye" color={"grey"} size={width(4)} />
+            <AntDesign name="eye" color={"grey"} size={height(2)} />
             <Text numberOfLines={2} style={styles.textcategory}>
               {data?.views} Views
             </Text>
@@ -130,12 +130,12 @@ export default function MyCard({ data }) {
         <TouchableOpacity
           style={{
             backgroundColor: AppColors.grey,
-            padding: width(2),
-            borderRadius: width(1),
+            padding: height(.8),
+            borderRadius: height(.5),
           }}
           onPress={showMenu}
         >
-          <Entypo size={width(4)} name="dots-three-vertical" />
+          <Entypo size={height(2)} name="dots-three-vertical" />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -152,7 +152,7 @@ export default function MyCard({ data }) {
         >
           <Text
             style={{
-              fontSize: width(2.5),
+              fontSize: height(1.3),
               color: AppColors.white,
               fontWeight: publish ? "600" : "bold",
             }}
@@ -172,8 +172,8 @@ export default function MyCard({ data }) {
             navigation.navigate(ScreenNames.ADDPOST, { data: data });
           }}
         >
-          <AntDesign name="edit" size={width(4)} />
-          <Text style={{ fontSize: width(3) }}> {t("myad.edit")}</Text>
+          <AntDesign name="edit" size={height(2)} />
+          <Text style={{ fontSize: height(1.5) }}> {t("myad.edit")}</Text>
         </MenuItem>
         {publish && (
           <MenuItem
@@ -182,8 +182,8 @@ export default function MyCard({ data }) {
               refreshAd();
             }}
           >
-            <FontAwesome name="refresh" size={width(4)} />
-            <Text style={{ fontSize: width(3) }}> {t("myad.refresh")}</Text>
+            <FontAwesome name="refresh" size={height(2)} />
+            <Text style={{ fontSize:  height(1.5) }}> {t("myad.refresh")}</Text>
           </MenuItem>
         )}
         <MenuItem
@@ -194,8 +194,8 @@ export default function MyCard({ data }) {
               }, 600);
           }}
         >
-          <AntDesign name="delete" size={width(4)} color={"red"} />
-          <Text style={{ color: "red", fontSize: width(3) }}>
+          <AntDesign name="delete" size={height(2)} color={"red"} />
+          <Text style={{ color: "red", fontSize: height(1.5) }}>
             {" "}
             {t("myad.delete")}
           </Text>
@@ -226,12 +226,12 @@ export default function MyCard({ data }) {
       <View>
         <Dialog.Container visible={visible}>
           <Dialog.Title>
-            <Text style={{ fontSize: width(4), color: "red" }}>
+            <Text style={{ fontSize: height(2), color: "red" }}>
               {t("myad.deletetitle")}
             </Text>
           </Dialog.Title>
           <Dialog.Description>
-            <Text style={{ fontSize: width(3) }}>
+            <Text style={{ fontSize: height(1.5) }}>
               {t("myad.deletealertmsg")}
             </Text>
           </Dialog.Description>

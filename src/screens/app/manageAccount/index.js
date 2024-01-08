@@ -13,7 +13,7 @@ import {
   setUserMeta,
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
   setAuthData,
@@ -65,7 +65,7 @@ export default function ManageAccount({ navigation, route }) {
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <View style={{ paddingVertical: width(10) }}>
+        <View style={{ paddingVertical: height(2) }}>
           <IconButton
             onPress={() => {
               dispatch(setIsLoggedIn(false));
@@ -80,7 +80,7 @@ export default function ManageAccount({ navigation, route }) {
             icon={
               <Entypo
                 name="log-out"
-                size={width(5)}
+                size={height(2.5)}
                 color={AppColors.primary}
               />
             }
@@ -94,7 +94,7 @@ export default function ManageAccount({ navigation, route }) {
             icon={
               <AntDesign
                 name="delete"
-                size={width(5)}
+                size={height(2.5)}
                 color={AppColors.white}
               />
             }

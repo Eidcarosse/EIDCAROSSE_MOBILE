@@ -162,8 +162,8 @@ export default function MapAdView({ navigation, route }) {
             styles={{
               textInput: {
                 backgroundColor: AppColors.greybackground,
-                height: height(6),
-                fontSize:width(2.5)
+                fontSize:height(1.5),
+                height:height(4)
               },
             }}
             query={{
@@ -182,7 +182,7 @@ export default function MapAdView({ navigation, route }) {
           >
             <MaterialIcons
               name="my-location"
-              size={width(7)}
+              size={height(3.5)}
               color={AppColors.primary}
             />
           </TouchableOpacity>

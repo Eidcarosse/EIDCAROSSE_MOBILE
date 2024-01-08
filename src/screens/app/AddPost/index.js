@@ -504,14 +504,18 @@ export default function AddPost({ navigation, route }) {
             <View>
               <Image
                 tintColor={"white"}
-                style={{ width: width(8), height: width(8), padding: width(1) }}
+                style={{
+                  width: height(4),
+                  height: height(4),
+                  padding: width(1),
+                }}
                 source={{ uri: selectedCategory?.image }}
               />
             </View>
             <Text
               style={{
                 color: "white",
-                fontSize: width(5),
+                fontSize: height(2.2),
                 paddingHorizontal: width(4.5),
                 fontWeight: "bold",
               }}
@@ -544,13 +548,13 @@ export default function AddPost({ navigation, route }) {
                 style={{
                   backgroundColor: AppColors.primary,
                   borderRadius: width(2),
-                  padding: width(3),
+                  padding: height(1),
                 }}
                 onPress={() => imageRef.current.show()}
               >
                 <Ionicons
                   name="camera"
-                  size={width(15)}
+                  size={height(7)}
                   color={AppColors.white}
                 />
               </TouchableOpacity>
@@ -592,19 +596,19 @@ export default function AddPost({ navigation, route }) {
           <Text
             style={{
               fontWeight: "bold",
-              fontSize: width(4),
+              fontSize: height(2),
               padding: width(3),
             }}
           >
             {t("addPost.attachImage1")}
           </Text>
-          <Text style={{ fontSize: width(2.5), padding: width(1) }}>
+          <Text style={{ fontSize: height(1.2), padding: width(1) }}>
             {t("addPost.attachImage2")}
           </Text>
           {renderNow && (
             <Text
               style={{
-                fontSize: width(2.5),
+                fontSize: height(1.2),
                 padding: width(1),
                 width: width(60),
                 textAlign: "center",
@@ -620,7 +624,7 @@ export default function AddPost({ navigation, route }) {
           <Text
             style={[
               styles.title,
-              { fontSize: width(5), marginVertical: width(2) },
+              { fontSize: height(2.5), marginVertical: width(2) },
             ]}
           >
             {t("addPost.productInformation")}
@@ -648,7 +652,7 @@ export default function AddPost({ navigation, route }) {
 
             <RadioButtonRN
               data={pdata}
-              textStyle={{ fontSize: width(3) }}
+              textStyle={{ fontSize: height(1.5) }}
               circleSize={width(3)}
               initial={pricing == "Price" ? 1 : 2}
               boxStyle={{
@@ -691,7 +695,7 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={rdata}
-                textStyle={{ fontSize: width(3) }}
+                textStyle={{ fontSize: height(1.5) }}
                 initial={
                   edit?.condition
                     ? rdata.findIndex(
@@ -727,7 +731,7 @@ export default function AddPost({ navigation, route }) {
                 buttonStyle={styles.searchbox}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
                 selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={[{ textAlign: "left", fontSize: width(3.5) }]}
+                buttonTextStyle={[{ textAlign: "left", fontSize: height(1.6) }]}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
                   setType(selectedItem);
@@ -782,7 +786,7 @@ export default function AddPost({ navigation, route }) {
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
                 selectedRowTextStyle={{ color: AppColors.white }}
                 buttonTextStyle={[
-                  { textAlign: "left", fontSize: width(3.5) },
+                  { textAlign: "left", fontSize: height(1.6) },
                   otherBrand && { color: "grey" },
                 ]}
                 dropdownStyle={styles.dropdown}
@@ -816,21 +820,21 @@ export default function AddPost({ navigation, route }) {
                   checkedImage={
                     <MaterialIcons
                       name="check-box"
-                      size={width(4)}
+                      size={height(2)}
                       color={AppColors.primary}
                     />
                   }
                   unCheckedImage={
                     <MaterialIcons
                       name="check-box-outline-blank"
-                      size={width(4)}
+                      size={height(2)}
                     />
                   }
                   style={{ paddingRight: width(2) }}
                   isChecked={otherBrand}
                   onClick={otherBrandFuntion}
                 />
-                <Text style={{ fontSize: width(3) }}>
+                <Text style={{ fontSize: height(1.5) }}>
                   {t("category.Others")}
                 </Text>
               </TouchableOpacity>
@@ -859,7 +863,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={[
-                      { textAlign: "left", fontSize: width(3.5) },
+                      { textAlign: "left", fontSize: height(1.6) },
                       otherModel && { color: "grey" },
                     ]}
                     dropdownStyle={styles.dropdown}
@@ -886,14 +890,14 @@ export default function AddPost({ navigation, route }) {
                       checkedImage={
                         <MaterialIcons
                           name="check-box"
-                          size={width(4)}
+                          size={height(2)}
                           color={AppColors.primary}
                         />
                       }
                       unCheckedImage={
                         <MaterialIcons
                           name="check-box-outline-blank"
-                          size={width(4)}
+                          size={height(2)}
                         />
                       }
                       style={{ paddingRight: width(2) }}
@@ -901,7 +905,7 @@ export default function AddPost({ navigation, route }) {
                       isChecked={otherModel}
                       onClick={otherModelFuntion}
                     />
-                    <Text style={{ fontSize: width(3) }}>
+                    <Text style={{ fontSize: height(1.5) }}>
                       {t("category.Others")}
                     </Text>
                   </TouchableOpacity>
@@ -941,7 +945,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
-                      fontSize: width(3.5),
+                      fontSize: height(1.6),
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -972,7 +976,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
-                      fontSize: width(3.5),
+                      fontSize: height(1.6),
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -1007,7 +1011,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
-                      fontSize: width(3.5),
+                      fontSize: height(1.6),
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -1042,7 +1046,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
-                      fontSize: width(3.5),
+                      fontSize: height(1.6),
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -1073,7 +1077,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
-                      fontSize: width(3.5),
+                      fontSize: height(1.6),
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -1100,7 +1104,7 @@ export default function AddPost({ navigation, route }) {
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
-                      fontSize: width(3.5),
+                      fontSize: height(1.6),
                     }}
                     dropdownStyle={styles.dropdown}
                     onSelect={(selectedItem, index) => {
@@ -1139,7 +1143,7 @@ export default function AddPost({ navigation, route }) {
         </View>
         {/* --------owner infomartio---- */}
         <View>
-          <Text style={[styles.title, { fontSize: width(5) }]}>
+          <Text style={[styles.title, { fontSize: height(2.5) }]}>
             {t("addPost.contactdetail")}
           </Text>
           <View style={{ paddingVertical: width(1) }}>
@@ -1162,7 +1166,7 @@ export default function AddPost({ navigation, route }) {
               <AntDesign
                 name={!addPhone ? "checkcircleo" : "checkcircle"}
                 color={!addPhone ? "black" : AppColors.primary}
-                size={width(6)}
+                size={height(3)}
               />
             }
           />
@@ -1189,7 +1193,7 @@ export default function AddPost({ navigation, route }) {
               <AntDesign
                 name={!addWhatsapp ? "checkcircleo" : "checkcircle"}
                 color={!addWhatsapp ? "black" : AppColors.primary}
-                size={width(6)}
+                size={height(3)}
               />
             }
           />
@@ -1216,7 +1220,7 @@ export default function AddPost({ navigation, route }) {
               <AntDesign
                 name={!addViber ? "checkcircleo" : "checkcircle"}
                 color={!addViber ? "black" : AppColors.primary}
-                size={width(6)}
+                size={height(3)}
               />
             }
           />
@@ -1233,8 +1237,8 @@ export default function AddPost({ navigation, route }) {
             </View>
           )}
         </View>
-        <View style={{ paddingVertical: width(1), flexDirection: "row" }}>
-          <View style={{ paddingVertical: width(1), flex: 1 }}>
+        <View style={{ paddingVertical: width(1), flexDirection: "row",width:width(90) }}>
+          <View style={{ flex: 1 }}>
             <Text style={styles.title}>{t("addPost.location")}</Text>
             <GooglePlacesAutocomplete
               fetchDetails={true}
@@ -1260,8 +1264,8 @@ export default function AddPost({ navigation, route }) {
                 textInput: [
                   {
                     backgroundColor: AppColors.greybackground,
-                    height: height(6),
-                    fontSize: width(3.3),
+                    fontSize: height(1.8),
+                    height:height(5)
                   },
                   addressRequire && styles.required,
                 ],
@@ -1314,14 +1318,13 @@ export default function AddPost({ navigation, route }) {
             checkedImage={
               <MaterialIcons
                 name="check-box"
-                size={width(4)}
+                size={height(2)}
                 color={AppColors.primary}
               />
             }
             unCheckedImage={
-              <MaterialIcons name="check-box-outline-blank" size={width(4)} />
+              <MaterialIcons name="check-box-outline-blank" size={height(2)} />
             }
-            size={width(5)}
             style={{ paddingRight: width(2) }}
             onClick={() => {
               setCheck(!check);

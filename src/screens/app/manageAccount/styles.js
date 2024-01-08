@@ -4,7 +4,6 @@ import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    height: height(100),
     backgroundColor: AppColors.white,
   },
 
@@ -21,14 +20,14 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderColor:AppColors.primary,
     borderRadius:width(1),
-    margin:width(2)
+    margin:height(1)
   },
   deletecontainer: {
     width: width(90),
     justifyContent: "center",
     borderColor:AppColors.primary,
     borderRadius:width(1),
-    paddingVertical:width(2.5),
+    paddingVertical:height(1),
     margin:width(2)
   },
 });

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Head, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
 export default function AboutUs({ navigation, route }) {
@@ -53,7 +53,7 @@ export default function AboutUs({ navigation, route }) {
               }}
             >
               <View style={styles.dot} />
-              <Text style={{ margin: width(1), width: width(80),fontSize:width(3.5) }}>
+              <Text style={{ margin: width(1), width: width(80),fontSize:height(1.8) }}>
                 {t(item)}
               </Text>
             </View>

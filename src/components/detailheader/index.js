@@ -1,7 +1,7 @@
 import { Entypo, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { Menu, MenuItem } from "react-native-material-menu";
@@ -21,7 +21,7 @@ export default function DetailHeader({
         <TouchableOpacity onPress={onPressBack}>
           <Ionicons
             name="chevron-back"
-            size={width(8)}
+            size={height(3.5)}
             color={AppColors.white}
           />
         </TouchableOpacity>
@@ -37,7 +37,7 @@ export default function DetailHeader({
           style={{ marginHorizontal: width(8) }}
           onPress={onPressShare}
         >
-          <Entypo size={width(6)} name="share" color={AppColors.white} />
+          <Entypo size={height(3)} name="share" color={AppColors.white} />
         </TouchableOpacity>
         {/* <TouchableOpacity
           style={{ marginHorizontal: width(3) }}

@@ -18,7 +18,7 @@ import {
   setCategoryList,
   setTopAds,
 } from "../../../redux/slices/config";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 
 import { useScrollToTop } from "@react-navigation/native";
 import { getCategory } from "../../../backend/common";
@@ -92,13 +92,13 @@ export default function Home({}) {
         />
         <CategoryList navigation={navigation} search={searchString} />
         <View style={styles.titleview}>
-          <Text style={{ fontSize: width(3.5), fontWeight: "bold" }}>
+          <Text style={{ fontSize: height(1.8), fontWeight: "bold" }}>
             {t("home.letest")}
           </Text>
           <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>
             <Text
               style={{
-                fontSize: width(2.5),
+                fontSize: height(1.5),
                 marginTop: 8,
                 color: "grey",
                 fontWeight: "bold",
@@ -111,6 +111,14 @@ export default function Home({}) {
         <View style={{ salignItems: "center" }}>
           {data?.length === 0 ? (
             <View style={styles.notfoundview}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: height(1.5),
+                }}
+              >
+                {t("commmon.nothingtoshow")}
+              </Text>
               <Image
                 source={Icons.empty}
                 style={{ height: width(60), width: width(60) }}

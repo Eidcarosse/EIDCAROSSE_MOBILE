@@ -332,7 +332,7 @@ export default function ListData({ navigation, route }) {
             >
               <FontAwesome
                 name="sliders"
-                size={width(7)}
+                size={height(3)}
                 color={AppColors.primary}
               />
             </TouchableOpacity>
@@ -358,7 +358,18 @@ export default function ListData({ navigation, route }) {
               {refreshing ? (
                 <ActivityIndicator size={"large"} color={AppColors.primary} />
               ) : (
-                <Image source={Icons.empty} style={styles.emptyimage} />
+                <View>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: height(1.5),
+                      alignSelf: "center",
+                    }}
+                  >
+                    {t("commmon.nothingtoshow")}
+                  </Text>
+                  <Image source={Icons.empty} style={styles.emptyimage} />
+                </View>
               )}
             </View>
           )}

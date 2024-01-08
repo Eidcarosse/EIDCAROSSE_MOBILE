@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
 import { getShowAds, getShowNumber } from "../../../backend/auth";
@@ -67,7 +67,7 @@ export default function PrivacySafety({ navigation, route }) {
             <Fontisto
               name={!user?.showNumber ? "toggle-off" : "toggle-on"}
               color={!user?.showNumber ? "black" : AppColors.primary}
-              size={width(6)}
+              size={height(3)}
             />
           }
         />
@@ -84,7 +84,7 @@ export default function PrivacySafety({ navigation, route }) {
             <Fontisto
               name={!whatsapp ? "toggle-off" : "toggle-on"}
               color={!whatsapp ? "black" : AppColors.primary}
-              size={width(6)}
+              size={height(3)}
             />
           }
         />
@@ -99,7 +99,7 @@ export default function PrivacySafety({ navigation, route }) {
             <Fontisto
               name={!viber ? "toggle-off" : "toggle-on"}
               color={!viber ? "black" : AppColors.primary}
-              size={width(6)}
+              size={height(3)}
             />
           }
         />
@@ -112,7 +112,7 @@ export default function PrivacySafety({ navigation, route }) {
             <Fontisto
               name={user?.showAds ? "toggle-off" : "toggle-on"}
               color={user?.showAds ? "black" : AppColors.primary}
-              size={width(6)}
+              size={height(3)}
             />
           }
         />

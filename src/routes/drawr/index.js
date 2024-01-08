@@ -20,11 +20,11 @@ function MyDrawer() {
         drawerInactiveBackgroundColor: AppColors.white,
         drawerActiveBackgroundColor: AppColors.white,
         drawerActiveTintColor: AppColors.primary,
-        overlayColor: AppColors.transparent,
+        // overlayColor: AppColors.transparent,
         drawerHideStatusBarOnOpen: true,
         drawerStyle: {
           backgroundColor: "#E5E8E8",
-          width: width(65),
+          width: width(80),
         },
         sceneContainerStyle: {
           backgroundColor: "#E5E8E8",

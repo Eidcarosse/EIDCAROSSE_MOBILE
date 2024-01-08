@@ -23,61 +23,60 @@ const styles = StyleSheet.create({
   },
   titletext: {
     fontWeight: "bold",
-    fontSize: width(4),
+    fontSize: height(2),
     paddingBottom: width(1),
   },
   categoryview: { flexDirection: "row", alignItems: "center" },
   detailtext: {
-    fontSize: width(3),
+    fontSize: height(1.3),
     marginLeft: width(2),
     width: width(34),
     marginVertical: width(0.5),
   },
   chf: {
-    fontSize: width(4),
+    fontSize: height(1.8),
     color: AppColors.primary,
     fontWeight: "bold",
   },
   eur: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     color: "grey",
     fontWeight: "bold",
   },
-  cfpview:{
-    backgroundColor:AppColors.grey,
-    padding:width(2),
-    borderRadius:width(1),
-    width:width(45)
+  cfpview: {
+    backgroundColor: AppColors.grey,
+    padding: width(2),
+    borderRadius: width(1),
+    width: width(45),
   },
   cfp: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     color: AppColors.primary,
     fontWeight: "bold",
   },
   space: { paddingVertical: width(1) },
   imageview: {
-    width: width(45),
-    height: width(40),
+    width: width(50),
+
   },
   image: {
-    width: width(45),
-    height: width(40),
+    width: width(50),
+    height: height(20),
     borderRadius: width(2),
   },
   detail: {
-    width: width(42),
+    width: width(38),
     justifyContent: "space-between",
     padding: width(2),
     alignItems: "flex-start",
   },
   icons: {
     paddingVertical: width(2),
-    width: width(7),
     justifyContent: "space-between",
     alignItems: "center",
   },
   textcategory: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     marginLeft: width(2),
     width: width(35),
   },

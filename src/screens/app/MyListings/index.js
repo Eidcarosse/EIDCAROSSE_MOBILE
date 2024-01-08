@@ -56,7 +56,7 @@ export default function MyListing({ navigation, route }) {
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: width(4),
+                  fontSize: height(1.5),
                   paddingTop: height(40),
                 }}
               >

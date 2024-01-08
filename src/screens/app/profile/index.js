@@ -38,7 +38,7 @@ export default function Profile({ navigation, route }) {
               <View style={{ paddingLeft: width(5) }}>
                 <Text
                   style={{
-                    fontSize: width(5),
+                    fontSize: height(2.7),
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
@@ -94,7 +94,7 @@ export default function Profile({ navigation, route }) {
           </View>
         </ImageBackground>
         <KeyboardAwareScrollView>
-          <View style={{ padding: width(5) }}>
+          <View style={{ padding: height(2) }}>
             <IconButton
               onPress={() => {
                 navigation.navigate(ScreenNames.EDITPROFILE);
@@ -103,9 +103,9 @@ export default function Profile({ navigation, route }) {
               containerStyle={styles.container}
               textStyle={styles.texticon}
               icon={
-                <Entypo name="user" color={AppColors.primary} size={width(4)} />
+                <Entypo name="user" color={AppColors.primary} size={height(2)} />
               }
-              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
             <IconButton
               onPress={() => {
@@ -115,9 +115,9 @@ export default function Profile({ navigation, route }) {
               containerStyle={styles.container}
               textStyle={styles.texticon}
               icon={
-                <Entypo name="key" color={AppColors.primary} size={width(4)} />
+                <Entypo name="key" color={AppColors.primary} size={height(2)} />
               }
-              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
             <IconButton
               title={"profile.privacy"}
@@ -130,10 +130,10 @@ export default function Profile({ navigation, route }) {
                 <Entypo
                   name="shield"
                   color={AppColors.primary}
-                  size={width(4)}
+                  size={height(2)}
                 />
               }
-              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
             <IconButton
               onPress={() => {
@@ -146,10 +146,10 @@ export default function Profile({ navigation, route }) {
                 <Fontisto
                   name="player-settings"
                   color={AppColors.primary}
-                  size={width(4)}
+                  size={height(2)}
                 />
               }
-              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
             <IconButton
               onPress={() => {
@@ -162,10 +162,10 @@ export default function Profile({ navigation, route }) {
                 <MaterialIcons
                   name="account-tree"
                   color={AppColors.primary}
-                  size={width(4)}
+                  size={height(2)}
                 />
               }
-              iconright={<Ionicons name="chevron-forward" size={width(4)} />}
+              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
           </View>
         </KeyboardAwareScrollView>

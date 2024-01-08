@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageStyle: {
-    width: width(10),
-    height: width(10),
+    width: height(5),
+    height: height(5),
   },
   textStyle:{
-    fontSize:width(3.8),
+    fontSize:height(1.8),
     fontWeight:'500',
     paddingHorizontal:width(8),
     width:width(67)

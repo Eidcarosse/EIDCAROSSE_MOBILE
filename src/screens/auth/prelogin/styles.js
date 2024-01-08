@@ -20,6 +20,6 @@ const styles = StyleSheet.create({
     height: width(70),
     marginTop: height(5),
   },
-  text: { fontSize: width(4), margin: width(10), fontWeight: "bold" },
+  text: { fontSize: height(2), margin: width(10), fontWeight: "bold" },
 });
 export default styles;

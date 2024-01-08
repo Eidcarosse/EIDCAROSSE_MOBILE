@@ -5,12 +5,12 @@ import AppColors from "../../../utills/AppColors";
 const styles = StyleSheet.create({
   mainViewContainer: {
     alignItems: "center",
-    padding: width(5),
+    padding: height(2),
     backgroundColor: AppColors.white,
     flexBasis: "auto",
   },
   title: {
-    fontSize: width(3.5),
+    fontSize: height(1.8),
     paddingVertical: width(2),
     paddingLeft: width(2),
     fontWeight: "bold",
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
   },
   require: {
     color: "red",
-    fontSize: width(2.5),
-    paddingHorizontal: width(4),
+    fontSize: height(1.3),
+    paddingHorizontal: width(3),
   },
   required: {
     borderWidth: 1,

@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     width: width(23),
   },
   image: {
-    width: width(17),
-    height: width(17),
+    width: height(8),
+    height: height(8),
     borderRadius: width(10),
     borderWidth:width(.3),
     borderColor:AppColors.primary
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginTop:height(1)
   },
   icons: {
-    paddingVertical: width(2),
+    paddingVertical: height(1),
     width: width(20),
     justifyContent: "space-between",
     alignItems: "flex-end",

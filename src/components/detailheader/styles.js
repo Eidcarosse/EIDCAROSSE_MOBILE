@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   textdetail: {
     color: AppColors.white,
     fontWeight: "bold",
-    fontSize: width(5),
+    fontSize: height(2.5),
     marginLeft: width(3),
   },
 });

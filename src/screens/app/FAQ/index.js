@@ -19,10 +19,10 @@ export default function FAQ({ navigation, route }) {
       title: "FAQ.q3",
       detail:"FAQ.a3"
     },
-    {
-      title: "FAQ.q4",
-      detail:"FAQ.a4"
-    },
+    // {
+    //   title: "FAQ.q4",
+    //   detail:"FAQ.a4"
+    // },
     {
       title: "FAQ.q5",
       detail:"FAQ.a5"
@@ -30,10 +30,11 @@ export default function FAQ({ navigation, route }) {
     {
       title: "FAQ.q6",
       detail:"FAQ.a6"
-    }, {
-      title: "FAQ.q7",
-      detail:"FAQ.a7"
-    },
+    }, 
+    // {
+    //   title: "FAQ.q7",
+    //   detail:"FAQ.a7"
+    // },
   ];
   return (
     <ScreenWrapper

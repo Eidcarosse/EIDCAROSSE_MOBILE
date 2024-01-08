@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
     paddingLeft: width(5),
   },
   image: {
-    width: width(40),
-    height: width(20),
-    marginLeft: -width(15),
+    width: height(20),
+    height: height(10),
+    marginLeft: -width(10),
   },
 });
 export default styles;

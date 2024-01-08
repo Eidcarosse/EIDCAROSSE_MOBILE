@@ -34,9 +34,10 @@ const CustomDrawer = ({ navigation }) => {
         <Image
           source={require("../../../assets/splash.png")}
           style={{
-            width: width(70),
-            height: width(50),
+            width: height(40),
+            height: height(35),
             tintColor: AppColors.primary,
+            alignSelf:'center'
           }}
         />
       </View>
@@ -58,7 +59,7 @@ const CustomDrawer = ({ navigation }) => {
               <AntDesign
                 name="questioncircle"
                 style={styles.icon}
-                size={width(4)}
+                size={height(2)}
               />
             }
           />
@@ -69,7 +70,9 @@ const CustomDrawer = ({ navigation }) => {
             }}
             containerStyle={styles.container}
             textStyle={styles.text}
-            icon={<AntDesign name="tags" style={styles.icon} size={width(4)} />}
+            icon={
+              <AntDesign name="tags" style={styles.icon} size={height(2)} />
+            }
           />
           <IconButton
             title={"drawr.aboutus"}
@@ -83,7 +86,7 @@ const CustomDrawer = ({ navigation }) => {
               <AntDesign
                 name="infocirlce"
                 style={styles.icon}
-                size={width(4)}
+                size={height(2)}
               />
             }
           />
@@ -98,7 +101,7 @@ const CustomDrawer = ({ navigation }) => {
               <Ionicons
                 name="shield-checkmark-sharp"
                 style={styles.icon}
-                size={width(4)}
+                size={height(2)}
               />
             }
           />
@@ -110,7 +113,7 @@ const CustomDrawer = ({ navigation }) => {
             containerStyle={styles.container}
             textStyle={styles.text}
             icon={
-              <Entypo name="open-book" style={styles.icon} size={width(4)} />
+              <Entypo name="open-book" style={styles.icon} size={height(2)} />
             }
           />
           <IconButton
@@ -119,7 +122,7 @@ const CustomDrawer = ({ navigation }) => {
             textStyle={styles.text}
             onPress={() => Linking.openURL("https://eidcarosse.ch/contact-us")}
             icon={
-              <AntDesign name="contacts" style={styles.icon} size={width(4)} />
+              <AntDesign name="contacts" style={styles.icon} size={height(2)} />
             }
           />
           <IconButton
@@ -127,7 +130,7 @@ const CustomDrawer = ({ navigation }) => {
             containerStyle={styles.container}
             textStyle={styles.text}
             icon={
-              <Ionicons name="settings" style={styles.icon} size={width(4)} />
+              <Ionicons name="settings" style={styles.icon} size={height(2)} />
             }
             onPress={() => {
               navigation.navigate(ScreenNames.SETTING),
@@ -142,7 +145,7 @@ const CustomDrawer = ({ navigation }) => {
             }}
             containerStyle={styles.container}
             textStyle={styles.text}
-            icon={<AntDesign name="car" style={styles.icon} size={width(4)} />}
+            icon={<AntDesign name="car" style={styles.icon} size={height(2)} />}
           />
           <IconButton
             title={"drawr.RFRN"}
@@ -152,7 +155,7 @@ const CustomDrawer = ({ navigation }) => {
             containerStyle={styles.container}
             textStyle={styles.text}
             icon={
-              <FontAwesome name="wrench" style={styles.icon} size={width(4)} />
+              <FontAwesome name="wrench" style={styles.icon} size={height(2)} />
             }
           />
           {/* <IconButton
@@ -160,12 +163,18 @@ const CustomDrawer = ({ navigation }) => {
           onPress={shareContent}
           containerStyle={styles.container}
           textStyle={styles.text}
-          icon={<Entypo name="share" style={styles.icon} size={width(4)} />}
+          icon={<Entypo name="share" style={styles.icon}  size={height(2)} />}
         /> */}
           <View style={styles.bottomview}>
             <Text style={styles.textbuttom}>
-              2023@ All reserved by
-              <Text style={{ color: "red", fontWeight: "bold" }}>
+              2023@ All rights reserved by
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  fontSize: height(1.5),
+                }}
+              >
                 {" "}
                 Eidcarosse
               </Text>
@@ -181,7 +190,7 @@ export default CustomDrawer;
 
 const styles = StyleSheet.create({
   container: {
-    width: width(62),
+    width: width(75),
     margin: width(2),
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
@@ -193,9 +202,12 @@ const styles = StyleSheet.create({
     color: AppColors.white,
     marginHorizontal: width(1),
   },
+  text: {
+    fontSize: height(1.8),
+  },
   textbuttom: {
     alignSelf: "center",
-    fontSize: width(3),
+    fontSize: height(1.5),
   },
   bottomview: {
     height: height(5),

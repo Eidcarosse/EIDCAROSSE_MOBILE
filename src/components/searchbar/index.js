@@ -38,15 +38,15 @@ export default function SearchBar({
       >
         <Ionicons
           name="search"
-          style={{ marginHorizontal: width(2) }}
+          style={{ marginHorizontal: height(1) }}
           color={search ? AppColors.primary : "grey"}
-          size={width(5)}
+          size={height(2.5)}
         />
         <TextInput
           placeholder={t("searchbar.phsearch")}
           value={search}
           onChangeText={setSearch}
-          style={{ width: width(55), fontSize: width(2.8) }}
+          style={{ width: width(55), fontSize: height(1.5) }}
           onSubmitEditing={handleInputSubmit}
         />
         {search && (
@@ -55,16 +55,16 @@ export default function SearchBar({
             title={"searchbar.search"}
             containerStyle={{
               flex: 1,
-              padding: width(0.1),
-              paddingVertical: width(1.5),
+              padding: height(0.1),
+              paddingVertical: height(0.8),
               backgroundColor: AppColors.primary,
-              borderRadius: width(1),
-              marginVertical: width(0.5),
+              borderRadius: height(.2),
+              marginVertical: height(0.2),
             }}
             textStyle={{
-              fontSize: width(3),
-              margin: width(0.1),
-              padding: width(0.1),
+              fontSize: height(1.5),
+              margin: height(0.1),
+              padding: height(0.1),
             }}
           />
         )}
@@ -75,7 +75,7 @@ export default function SearchBar({
             style={{ marginLeft: height(2) }}
             onPress={() => navigation.navigate(ScreenNames.MAP)}
           >
-            <Feather name="globe" size={width(7)} color={AppColors.primary} />
+            <Feather name="globe" size={height(3.5)} color={AppColors.primary} />
           </TouchableOpacity>
         </View>
       ) : (
@@ -89,7 +89,7 @@ export default function SearchBar({
             >
               <AntDesign
                 name="closesquare"
-                size={width(8)}
+                size={height(4)}
                 color={AppColors.primary}
               />
             </TouchableOpacity>

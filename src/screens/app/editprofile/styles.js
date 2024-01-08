@@ -11,18 +11,13 @@ const styles = StyleSheet.create({
     height: height(28),
     margin: width(3),
   },
-  logintext: {
-    fontSize: 30,
-    color: AppColors.white,
-    fontWeight: "bold",
-  },
   avatar: {
-    width: width(30),
-    height: width(30),
+    width: height(14),
+    height: height(14),
     borderRadius: width(30),
     marginLeft: width(5),
     borderColor:AppColors.white,
-    borderWidth:width(1)
+    borderWidth:height(.4)
   },
   card: {
     width: width(95),

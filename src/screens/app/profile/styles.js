@@ -15,34 +15,28 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    width: width(25),
-    height: width(25),
+    width: height(12),
+    height: height(12),
     borderRadius: width(20),
     marginLeft: width(5),
-    borderWidth:width(1),
+    borderWidth:height(.5),
     borderColor:AppColors.white
   },
-  card: {
-    width: width(95),
-    margin: width(1),
-    borderRadius: width(2),
-    alignSelf: "center",
-    backgroundColor: AppColors.white,
-    padding: width(4),
-  },
+ 
   container: {
     backgroundColor: AppColors.white,
-    width: width(90),
+    width: width(95),
     justifyContent: "flex-start",
-    paddingVertical: width(5),
-    marginVertical: width(2),
+    paddingVertical: height(2),
+    marginVertical: height(1),
     borderRadius: width(1),
   },
   texticon: {
     color: "black",
-    width: width(70),
+    width: width(75),
     alignSelf: "flex-start",
-    marginLeft: width(4),
+    marginLeft: height(2),
+    fontSize:height(1.8)
   },
   wishlistview: {
     flexDirection: "row",
@@ -56,10 +50,10 @@ const styles = StyleSheet.create({
   wtexticon: {
     color: "black",
     fontSize: 12,
-    marginTop: width(2),
+    marginTop: height(1),
   },
   ptext: {
-    fontSize: width(3),
+    fontSize: height(1.5),
     fontWeight: "bold",
     color: AppColors.white,
     padding: width(1),

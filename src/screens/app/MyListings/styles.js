@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   myads:{
     color:AppColors.black,
     fontWeight:'bold',
-    fontSize:width(5),
+    fontSize:height(2.5),
 
   },
   myadsView:{

@@ -1,7 +1,7 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { Image, TouchableOpacity, View } from "react-native";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ export default function Header({ navigation }) {
           navigation.openDrawer();
         }}
       >
-        <Ionicons name="menu" size={width(7)} color={AppColors.white} />
+        <Ionicons name="menu" size={height(3.5)} color={AppColors.white} />
       </TouchableOpacity>
       <View>
         <Image

@@ -101,7 +101,7 @@ export default {
       "Eidcarosse permet aux vendeurs d'atteindre un public plus large et de rationaliser le processus de vente, ce qui facilite la recherche de l'acheteur idéal pour votre véhicule.",
 
     paraDetail4:
-      "Eidcarosse accorde la priorité à l'expérience de l'utilisateur et assure un processus de transaction sécurisé et transparent. La plateforme offre des capacités de messagerie, permettant aux acheteurs et aux vendeurs de communiquer directement et de négocier les modalités. De plus, Eidcarosse propose une gamme de fonctionnalités de vérification et de sécurité pour offrir la tranquillité d'esprit à tous les utilisateurs.",
+      "La plateforme offre des capacités de messagerie, permettant aux acheteurs et aux vendeurs de communiquer directement et de négocier les modalités. De plus, Eidcarosse propose une gamme de fonctionnalités de vérification et de sécurité pour offrir la tranquillité d'esprit à tous les utilisateurs.",
   },
 
   SNTU: {

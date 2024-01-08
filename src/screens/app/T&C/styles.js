@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignSelf:'center'
   },
   title: {
-    fontSize: width(4),
+    fontSize: height(2),
     fontWeight: "bold",
     color: "black",
     margin: width(5),

@@ -232,7 +232,7 @@ export default function Detail({ navigation, route }) {
                   <Text
                     numberOfLines={1}
                     style={{
-                      fontSize: width(4),
+                      fontSize: height(2),
                       color: AppColors.primary,
                       fontWeight: "bold",
                     }}
@@ -242,7 +242,7 @@ export default function Detail({ navigation, route }) {
                   <Text
                     numberOfLines={1}
                     style={{
-                      fontSize: width(3),
+                      fontSize: height(1.5),
                       color: "grey",
                       fontWeight: "bold",
                     }}
@@ -263,7 +263,7 @@ export default function Detail({ navigation, route }) {
                   onPress={onpressfav}
                 >
                   <AntDesign
-                    size={width(5)}
+                    size={height(2.5)}
                     color={fav ? AppColors.primary : "black"}
                     name={fav ? "heart" : "hearto"}
                   />
@@ -274,7 +274,7 @@ export default function Detail({ navigation, route }) {
             </View>
 
             <View style={{ width: width(70) }}>
-              <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
+              <Text style={{ fontWeight: "bold", fontSize: height(2.5) }}>
                 {data?.title}
               </Text>
               <View
@@ -285,8 +285,8 @@ export default function Detail({ navigation, route }) {
                   alignItems: "center",
                 }}
               >
-                <Entypo name="location-pin" color={"grey"} size={width(5)} />
-                <Text style={{ fontSize: width(3) }}>{data?.address}</Text>
+                <Entypo name="location-pin" color={"grey"} size={height(2)} />
+                <Text style={{ fontSize: height(1.53) }}>{data?.address}</Text>
               </View>
             </View>
           </View>
@@ -295,7 +295,7 @@ export default function Detail({ navigation, route }) {
           }
           <View style={styles.detailview}>
             <View style={styles.detailcard}>
-              <Text style={{ fontSize: width(5), fontWeight: "bold" }}>
+              <Text style={{ fontSize: height(2.5), fontWeight: "bold" }}>
                 {t("detail.detailword")}
               </Text>
               {!isNullOrNullOrEmpty(data?.category) && (
@@ -443,12 +443,12 @@ export default function Detail({ navigation, route }) {
 
           {!isNullOrNullOrEmpty(data?.description) && (
             <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
-              <Text style={{ fontWeight: "bold", fontSize: width(5) }}>
+              <Text style={{ fontWeight: "bold", fontSize: height(2.5) }}>
                 {t("detail.description")}
               </Text>
               <Text
                 selectable={true}
-                style={{ fontSize: width(3), paddingVertical: width(2) }}
+                style={{ fontSize: height(1.5), paddingVertical: width(2) }}
               >
                 {data?.description}
               </Text>
@@ -473,7 +473,7 @@ export default function Detail({ navigation, route }) {
                   <Text
                     style={{
                       marginHorizontal: width(2),
-                      fontSize: width(4),
+                      fontSize: height(2),
                       fontWeight: "bold",
                       width: width(50),
                       color: AppColors.black,
@@ -484,7 +484,7 @@ export default function Detail({ navigation, route }) {
                   <Text
                     style={{
                       marginHorizontal: width(2),
-                      fontSize: width(3),
+                      fontSize: height(1.3),
                       color: AppColors.black,
                     }}
                   >
@@ -497,7 +497,7 @@ export default function Detail({ navigation, route }) {
                   title={"detail.seeAllAds"}
                  
                 /> */}
-                <Entypo name="chevron-right" size={width(10)} />
+                <Entypo name="chevron-right" size={height(4)} />
               </View>
             </Pressable>
           )}
@@ -532,7 +532,7 @@ export default function Detail({ navigation, route }) {
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: width(5),
+                  fontSize: height(2.5),
                   marginVertical: width(2),
                 }}
               >
@@ -567,7 +567,7 @@ export default function Detail({ navigation, route }) {
               </MapView>
             </View>
           )}
-          <RelatedAd category={data?.category} id={data?._id} />
+          {/* <RelatedAd category={data?.category} id={data?._id} /> */}
         </View>
       )}
       <Modal

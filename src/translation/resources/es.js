@@ -99,7 +99,7 @@ export default {
     paraDetail3by3:
       "Eidcarosse capacita a los vendedores para llegar a un mercado más amplio y agilizar el proceso de venta, lo que facilita encontrar al comprador adecuado para su vehículo.",
     paraDetail4:
-      "Eidcarosse prioriza la experiencia del usuario y garantiza un proceso de transacción seguro y transparente. La plataforma ofrece capacidades de mensajería, lo que permite a compradores y vendedores comunicarse directamente y negociar términos. Además, Eidcarosse ofrece una variedad de funciones de verificación y seguridad para brindar tranquilidad a todos los usuarios.",
+      "La plataforma ofrece capacidades de mensajería, lo que permite a compradores y vendedores comunicarse directamente y negociar términos. Además, Eidcarosse ofrece una variedad de funciones de verificación y seguridad para brindar tranquilidad a todos los usuarios.",
   },
   SNTU: {
     sntu: "Venda ahora a nosotros",

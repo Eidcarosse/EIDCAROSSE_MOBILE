@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
   },
   cardrow: { flexDirection: "row", flex: 1, marginVertical: width(3) },
-  cardelement: { fontSize: width(3.5), flex: 1, fontWeight: "bold" },
-  cardelement2: { fontSize: width(3.5), flex: 1 },
+  cardelement: { fontSize: height(1.5), flex: 1, fontWeight: "bold" },
+  cardelement2: { fontSize: height(1.5), flex: 1 },
   profileview: { padding: width(4) },
   profilecard: {
     padding: width(2),
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   profileimage: {
-    width: width(15),
-    height: width(15),
+    width: height(7),
+    height: height(7),
     borderRadius: width(10),
     borderColor: AppColors.black,
     borderWidth: width(0.5),

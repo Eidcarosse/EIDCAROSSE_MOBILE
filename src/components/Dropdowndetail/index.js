@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 export default DropDownDetail = ({
   title,
   detail,
-  size = 4,
+  size = 2,
   textAlign,
   color = AppColors.black,
   textStyles,
@@ -23,12 +23,12 @@ export default DropDownDetail = ({
 
   const styles = StyleSheet.create({
     text: {
-      fontSize: width(size),
+      fontSize: height(size),
       color: color,
       textAlign: textAlign,
       fontWeight: "bold",
       color: show ? AppColors.primary : "black",
-      width:width(80)
+      width: width(80),
     },
   });
   return (
@@ -64,19 +64,19 @@ export default DropDownDetail = ({
         <Text
           style={[styles.text, textStyles]}
           {...textProps}
-          numberOfLines={show?2:1}
+          numberOfLines={show ? 2 : 1}
         >
           {t(title)}
         </Text>
         <FontAwesome
           name={show ? "chevron-up" : "chevron-down"}
-          size={width(4)}
+          size={height(2)}
           color={show ? AppColors.primary : "black"}
         />
       </Pressable>
       {show && (
         <Text
-          style={{ fontSize: width(3.5), paddingVertical: width(3) }}
+          style={{ fontSize: height(1.8), paddingVertical: width(3) }}
           {...inertextProps}
         >
           {t(detail)}

@@ -13,7 +13,7 @@ import {
 } from "../../redux/slices/user";
 import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import GlobalMethods, {
   checkPrice,
   formatPrice,
@@ -91,19 +91,23 @@ export default function CardView({ data }) {
               {data?.title}
             </Text>
             <View style={styles.categoryview}>
-              <MaterialIcons name="category" color={"grey"} size={width(4)} />
+              <MaterialIcons name="category" color={"grey"} size={height(2)} />
               <Text numberOfLines={1} style={styles.detailtext}>
                 {t(`category.${data?.category}`)}
               </Text>
             </View>
             <View style={styles.categoryview}>
-              <Entypo name="location-pin" color={"grey"} size={width(4)} />
+              <Entypo name="location-pin" color={"grey"} size={height(2)} />
               <Text numberOfLines={2} style={styles.detailtext}>
                 {data?.address}
               </Text>
             </View>
             <View style={styles.categoryview}>
-              <AntDesign name="clockcircleo" color={"grey"} size={width(3.5)} />
+              <AntDesign
+                name="clockcircleo"
+                color={"grey"}
+                size={height(1.6)}
+              />
               <Text numberOfLines={1} style={styles.detailtext}>
                 {GlobalMethods.calculateTimeDifference(
                   data?.createdAt,
@@ -134,7 +138,7 @@ export default function CardView({ data }) {
         <View style={styles.icons}>
           <TouchableOpacity onPress={onpressfav} style={styles.space}>
             <AntDesign
-              size={width(4)}
+              size={height(2)}
               color={fav ? AppColors.primary : "black"}
               name={fav ? "heart" : "hearto"}
             />

@@ -2,7 +2,7 @@ import { Entypo } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import AppColors from "../../utills/AppColors";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
 
@@ -26,7 +26,7 @@ export default function Input({
     <View>
       <View style={[styles.container, containerStyle]}>
         {title && (
-          <Text style={[titlestyle, { fontSize: width(3.5) }]}>{t(title)}</Text>
+          <Text style={[titlestyle, { fontSize: height(1.8) }]}>{t(title)}</Text>
         )}
         <View style={styles.innerview}>
           <TextInput
@@ -36,7 +36,7 @@ export default function Input({
               {
                 paddingVertical: width(2),
                 width: width(80),
-                fontSize: width(3.5),
+                fontSize: height(1.5),
               },
               inputTextStyle,
               !editable && { color: "grey" },
@@ -53,7 +53,7 @@ export default function Input({
               <Entypo
                 name={secureText ? "eye-with-line" : "eye"}
                 color={secureText ? "grey" : AppColors.primary}
-                size={width(4)}
+                size={height(2)}
               />
             </TouchableOpacity>
           )}

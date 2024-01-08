@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   totaltext: {
     color: AppColors.primary,
     fontWeight: "bold",
-    fontSize: width(4),
+    fontSize: height(2),
   },
   iconview: {
     flexDirection: "row",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   title: {
-    fontSize: width(3.5),
+    fontSize: height(1.8),
     paddingVertical: width(2),
     fontWeight: "bold",
     marginLeft: width(1),

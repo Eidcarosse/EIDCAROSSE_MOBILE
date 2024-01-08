@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   texticon: {
     color: "black",
-    width: width(83),
+    width: width(85),
     alignSelf: "flex-start",
     fontWeight: "normal",
   },

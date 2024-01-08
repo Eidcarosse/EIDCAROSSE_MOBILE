@@ -4,7 +4,7 @@ import { AntDesign, Fontisto } from "@expo/vector-icons";
 
 import { Head, IconButton, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
-import { width } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import SelectDropdown from "react-native-select-dropdown";
 import { useTranslation } from "react-i18next";
@@ -48,7 +48,7 @@ export default function AppSetting({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <Text
-          style={{ fontSize: width(5), width: width(100), padding: width(4) }}
+          style={{ fontSize: height(2.5), width: width(100), padding: width(4) }}
         >
           {t("appseting.language")}
         </Text>
@@ -65,9 +65,9 @@ export default function AppSetting({ navigation, route }) {
           selectedRowTextStyle={{ color: AppColors.white }}
           buttonTextStyle={{
             textAlign: "left",
-            fontSize: width(3.5),
+            fontSize: height(1.8),
           }}
-          renderDropdownIcon={() => <AntDesign name="down" size={width(3.5)} />}
+          renderDropdownIcon={() => <AntDesign name="down" size={height(2)} />}
           dropdownIconPosition="right"
           dropdownStyle={styles.dropdown}
           onSelect={(selectedItem, index) => {

@@ -59,9 +59,9 @@ export default function BikeCategory({ navigation, route }) {
               >
                 <Image
                   source={{ uri: item.image }}
-                  style={{ width: width(8), height: width(8) }}
+                  style={{ width: height(4), height: height(4) }}
                 />
-                <Text style={{ marginLeft: width(5), fontSize: width(3.8) }}>
+                <Text style={{ marginLeft: width(5), fontSize: height(1.8) }}>
                   {t(`subList.${item.name}`)}
                 </Text>
               </TouchableOpacity>
