@@ -4,9 +4,9 @@ import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: AppColors.white,
-    paddingBottom:height(7)
+    paddingBottom: height(7),
   },
   imageiner: {
     height: height(28),
@@ -19,24 +19,34 @@ const styles = StyleSheet.create({
     height: height(12),
     borderRadius: width(20),
     marginLeft: width(5),
-    borderWidth:height(.5),
-    borderColor:AppColors.white
+    borderWidth: height(0.5),
+    borderColor: AppColors.white,
   },
- 
+
   container: {
     backgroundColor: AppColors.white,
     width: width(95),
-    justifyContent: "flex-start",
+    justifyContent: 'space-between',
     paddingVertical: height(2),
     marginVertical: height(1),
     borderRadius: width(1),
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0,
+        shadowRadius: 0,
+      },
+      android: {
+        elevation: 0,
+      },
+    }),
   },
   texticon: {
     color: "black",
     width: width(75),
     alignSelf: "flex-start",
     marginLeft: height(2),
-    fontSize:height(1.8)
+    fontSize: height(1.8),
   },
   wishlistview: {
     flexDirection: "row",

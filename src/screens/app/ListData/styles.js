@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.greybackground,
     width: width(90),
     justifyContent: "flex-start",
-    paddingVertical: width(3),
-    marginVertical: width(2),
+    paddingVertical: height(1),
+    marginVertical: height(1),
     borderRadius: width(1),
   },
   texticon: {
     color: "black",
-    width: width(70),
+    width: width(80),
     alignSelf: "flex-start",
   },
   title: {

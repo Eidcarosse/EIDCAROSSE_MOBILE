@@ -418,7 +418,7 @@ export default function ListData({ navigation, route }) {
                 >
                   <Text
                     style={{
-                      fontSize: width(6),
+                      fontSize: height(3),
                       fontWeight: "bold",
                     }}
                   >
@@ -435,16 +435,13 @@ export default function ListData({ navigation, route }) {
                     </Text> */}
                     <AntDesign
                       name="closesquare"
-                      size={width(8)}
+                      size={height(3)}
                       color={AppColors.primary}
                     />
                   </TouchableOpacity>
                 </View>
 
-                <ScrollView
-                  style={{ height: height(57) }}
-                  showsVerticalScrollIndicator={false}
-                >
+                <ScrollView showsVerticalScrollIndicator={false}>
                   <IconButton
                     onPress={() => {
                       refRBSheet.current.close();
@@ -463,7 +460,7 @@ export default function ListData({ navigation, route }) {
                     containerStyle={styles.containerb}
                     textStyle={styles.texticon}
                     iconright={
-                      <Ionicons name="chevron-forward" size={width(4)} />
+                      <Ionicons name="chevron-forward" size={height(2)} />
                     }
                   />
 
@@ -486,7 +483,7 @@ export default function ListData({ navigation, route }) {
                       containerStyle={styles.containerb}
                       textStyle={styles.texticon}
                       iconright={
-                        <Ionicons name="chevron-forward" size={width(4)} />
+                        <Ionicons name="chevron-forward" size={height(2)} />
                       }
                     />
                   )}
@@ -503,7 +500,7 @@ export default function ListData({ navigation, route }) {
                       selectedRowTextStyle={{ color: AppColors.white }}
                       buttonTextStyle={{
                         textAlign: "left",
-                        fontSize: width(3.5),
+                        fontSize: height(1.6),
                       }}
                       dropdownStyle={styles.dropdown}
                       onSelect={(selectedItem, index) => {
@@ -572,7 +569,7 @@ export default function ListData({ navigation, route }) {
                           selectedRowTextStyle={{ color: AppColors.white }}
                           buttonTextStyle={{
                             textAlign: "left",
-                            fontSize: width(3.5),
+                            fontSize: height(1.6),
                           }}
                           dropdownStyle={styles.dropdown}
                           onSelect={(selectedItem, index) => {
@@ -611,7 +608,7 @@ export default function ListData({ navigation, route }) {
                         selectedRowTextStyle={{ color: AppColors.white }}
                         buttonTextStyle={{
                           textAlign: "left",
-                          fontSize: width(3.5),
+                          fontSize: height(1.6),
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
@@ -638,14 +635,14 @@ export default function ListData({ navigation, route }) {
                           checkedImage={
                             <MaterialIcons
                               name="check-box"
-                              size={width(4)}
+                              size={height(2)}
                               color={AppColors.primary}
                             />
                           }
                           unCheckedImage={
                             <MaterialIcons
                               name="check-box-outline-blank"
-                              size={width(4)}
+                              size={height(2)}
                             />
                           }
                           style={{ paddingRight: width(2) }}
@@ -653,7 +650,7 @@ export default function ListData({ navigation, route }) {
                           isChecked={otherBrand}
                           onClick={otherBrandFuntion}
                         />
-                        <Text style={{ fontSize: width(3) }}>
+                        <Text style={{ fontSize: height(1.5) }}>
                           {t("category.Others")}
                         </Text>
                       </TouchableOpacity>
@@ -684,7 +681,7 @@ export default function ListData({ navigation, route }) {
                             selectedRowTextStyle={{ color: AppColors.white }}
                             buttonTextStyle={{
                               textAlign: "left",
-                              fontSize: width(3.5),
+                              fontSize: height(1.6),
                             }}
                             dropdownStyle={styles.dropdown}
                             onSelect={(selectedItem, index) => {
@@ -710,14 +707,14 @@ export default function ListData({ navigation, route }) {
                               checkedImage={
                                 <MaterialIcons
                                   name="check-box"
-                                  size={width(4)}
+                                  size={height(2)}
                                   color={AppColors.primary}
                                 />
                               }
                               unCheckedImage={
                                 <MaterialIcons
                                   name="check-box-outline-blank"
-                                  size={width(4)}
+                                  size={height(2)}
                                 />
                               }
                               style={{ paddingRight: width(2) }}
@@ -725,7 +722,7 @@ export default function ListData({ navigation, route }) {
                               isChecked={otherModel}
                               onClick={otherModelFuntion}
                             />
-                            <Text style={{ fontSize: width(3) }}>
+                            <Text style={{ fontSize: height(1.5) }}>
                               {t("category.Others")}
                             </Text>
                           </TouchableOpacity>
@@ -767,7 +764,7 @@ export default function ListData({ navigation, route }) {
                         selectedRowTextStyle={{ color: AppColors.white }}
                         buttonTextStyle={{
                           textAlign: "left",
-                          fontSize: width(3.5),
+                          fontSize: height(1.6),
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
@@ -798,7 +795,7 @@ export default function ListData({ navigation, route }) {
                         selectedRowTextStyle={{ color: AppColors.white }}
                         buttonTextStyle={{
                           textAlign: "left",
-                          fontSize: width(3.5),
+                          fontSize: height(1.6),
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
@@ -833,7 +830,7 @@ export default function ListData({ navigation, route }) {
                         selectedRowTextStyle={{ color: AppColors.white }}
                         buttonTextStyle={{
                           textAlign: "left",
-                          fontSize: width(3.5),
+                          fontSize: height(1.6),
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
@@ -864,7 +861,7 @@ export default function ListData({ navigation, route }) {
                         selectedRowTextStyle={{ color: AppColors.white }}
                         buttonTextStyle={{
                           textAlign: "left",
-                          fontSize: width(3.5),
+                          fontSize: height(1.6),
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
@@ -902,7 +899,7 @@ export default function ListData({ navigation, route }) {
                         borderWidth: 0,
                         paddingVertical: width(1),
                       }}
-                      textStyle={{ fontSize: width(3) }}
+                      textStyle={{ fontSize: height(1.5) }}
                       activeColor={AppColors.primary}
                       selectedBtn={(e) => {
                         setCondition(e?.key);

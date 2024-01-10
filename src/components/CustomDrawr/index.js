@@ -29,22 +29,21 @@ const CustomDrawer = ({ navigation }) => {
     }
   };
   return (
-    <SafeAreaView>
-      <View style={{ height: height(30) }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Image
           source={require("../../../assets/splash.png")}
           style={{
-            width: height(40),
-            height: height(35),
+            width: height(35),
+            height: height(30),
             tintColor: AppColors.primary,
-            alignSelf:'center'
+            alignSelf: "center",
           }}
         />
       </View>
       <View
         style={{
-          height: height(70),
-          paddingBottom: height(2),
+          flex: 2.7,
         }}
       >
         <ScrollView>

@@ -283,7 +283,7 @@ export default {
     seeAll: "See all",
   },
   addPost: {
-    require: "require",
+    require: "Required",
     title: "Add Post",
     attachImage1: "Attach Image",
     attachImage2: "You can upload up to 7 images.",
@@ -474,7 +474,7 @@ export default {
     savebutton: "Save",
   },
   detailheader: {
-    title: "Detail",
+    title: "Details",
   },
   detail: {
     detailword: "Details",

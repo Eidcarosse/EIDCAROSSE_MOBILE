@@ -78,12 +78,7 @@ export default function Card({ data, onPresshide, map = false }) {
         }}
         style={{ paddingHorizontal: width(0.5) }}
       >
-        <Image
-          resizeMode="cover"
-          style={styles.image}
-          // source={{ uri: data?.image[0] }}
-          source={{ uri: item?.img }}
-        />
+        <Image style={styles.image} source={{ uri: item?.img }} />
       </Pressable>
     );
   };
@@ -110,7 +105,11 @@ export default function Card({ data, onPresshide, map = false }) {
                 {data?.title}
               </Text>
               <View style={styles.categoryview}>
-                <MaterialIcons name="category" color={"grey"} size={height(2)} />
+                <MaterialIcons
+                  name="category"
+                  color={"grey"}
+                  size={height(2)}
+                />
                 <Text numberOfLines={1} style={styles.categorytext}>
                   {/* {data?.category}
                    */}
@@ -204,7 +203,11 @@ export default function Card({ data, onPresshide, map = false }) {
             }}
           >
             <View style={styles.categoryview}>
-              <AntDesign name="clockcircleo" color={"grey"} size={height(1.6)} />
+              <AntDesign
+                name="clockcircleo"
+                color={"grey"}
+                size={height(1.6)}
+              />
               <Text numberOfLines={1} style={styles.categorytext}>
                 {GlobalMethods.calculateTimeDifference(
                   data?.createdAt,

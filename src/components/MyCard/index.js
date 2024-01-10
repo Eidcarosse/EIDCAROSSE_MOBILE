@@ -59,7 +59,7 @@ export default function MyCard({ data }) {
       const d = await refreshApi(data?._id);
       if (d?.success) {
         await getData(userid);
-        successMessage(t("flashmsg.Ad Refresh"), t("flashmsg.ref_success"));
+        successMessage(t("flashmsg.Ad Refresh"), t("flashmsg.success")); 
       } else {
         errorMessage(t("flashmsg.refreshAdMsg"), t("flashmsg.error"));
       }

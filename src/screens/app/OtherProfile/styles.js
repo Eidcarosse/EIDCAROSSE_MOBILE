@@ -12,18 +12,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     margin: width(3),
   },
-  logintext: {
-    fontSize: 30,
-    color: AppColors.white,
-    fontWeight: "bold",
-  },
   avatar: {
-    width: width(25),
-    height: width(25),
+    width: height(12),
+    height: height(12),
     borderRadius: width(20),
     marginLeft: width(5),
     borderColor:AppColors.white,
-    borderWidth:width(1)
+    borderWidth:height(0.3)
   },
   card: {
     width: width(95),
@@ -57,7 +52,7 @@ const styles = StyleSheet.create({
   },
   wtexticon: {
     color: AppColors.primary,
-    fontSize: width(3.5),
+    fontSize: height(1.5),
   },
 });
 export default styles;

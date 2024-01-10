@@ -78,7 +78,7 @@ export default function ChatIcon({ data }) {
           >
             {data?.lastmsg?.message}
             {data?.lastmsg?.image && (
-              <Ionicons name="image" size={width(4)} color={"grey"} />
+              <Ionicons name="image" size={height(2)} color={"grey"} />
             )}
           </Text>
           <Text />

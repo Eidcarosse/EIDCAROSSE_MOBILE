@@ -56,7 +56,7 @@ export default function ChangePassword({ navigation, route }) {
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <View style={{ paddingVertical: width(10) }}>
+        <View style={{ paddingVertical: height(1) }}>
           <Input
             title={"changePassword.oldPassword"}
             placeholder={"changePassword.pholdPassword"}

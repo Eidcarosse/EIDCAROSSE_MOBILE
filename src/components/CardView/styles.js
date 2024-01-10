@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   cfpview: {
     backgroundColor: AppColors.grey,
-    padding: width(2),
+    padding: height(1),
     borderRadius: width(1),
     width: width(45),
   },
@@ -56,11 +56,10 @@ const styles = StyleSheet.create({
   },
   space: { paddingVertical: width(1) },
   imageview: {
-    width: width(50),
-
+    width: width(45),
   },
   image: {
-    width: width(50),
+    width: width(45),
     height: height(20),
     borderRadius: width(2),
   },
@@ -71,9 +70,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   icons: {
+    width: width(10),
+    alignItems: "flex-end",
     paddingVertical: width(2),
-    justifyContent: "space-between",
-    alignItems: "center",
+    height: height(10),
   },
   textcategory: {
     fontSize: height(1.5),

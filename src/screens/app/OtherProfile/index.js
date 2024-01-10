@@ -49,7 +49,7 @@ export default function OtherProfile({ navigation, route }) {
               <View style={{ paddingLeft: width(5) }}>
                 <Text
                   style={{
-                    fontSize: width(5),
+                    fontSize: height(2.5),
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
@@ -59,7 +59,7 @@ export default function OtherProfile({ navigation, route }) {
 
                 <Text
                   style={{
-                    fontSize: width(3),
+                    fontSize: height(1.5),
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
@@ -68,7 +68,7 @@ export default function OtherProfile({ navigation, route }) {
                 </Text>
                 <Text
                   style={{
-                    fontSize: width(3),
+                    fontSize: height(1.5),
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
@@ -77,7 +77,7 @@ export default function OtherProfile({ navigation, route }) {
                 </Text>
                 {/* <Text
                   style={{
-                    fontSize: width(3),
+                    fontSize: height(3),
                     fontWeight: "bold",
                     color: AppColors.white,
                   }}
@@ -89,14 +89,14 @@ export default function OtherProfile({ navigation, route }) {
             <View style={styles.wishlistview}>
               {userdata?.showNumber && (
                 <IconButton
-                  onPress={GlobalMethods.onPressCall}
+                  onPress={()=>GlobalMethods.onPressCall(userdata?.phoneNumber)}
                   title={"Phone"}
                   containerStyle={styles.wcontainer}
                   textStyle={[styles.wtexticon, { color: "#3257a8" }]}
                   icon={
                     <FontAwesome
                       name="phone"
-                      size={width(4)}
+                      size={height(2)}
                       color={"#3257a8"}
                     />
                   }
@@ -110,7 +110,7 @@ export default function OtherProfile({ navigation, route }) {
                 containerStyle={styles.wcontainer}
                 textStyle={[styles.wtexticon, { color: "#364045" }]}
                 icon={
-                  <AntDesign name="mail" size={width(4)} color={"#364045"} />
+                  <AntDesign name="mail" size={height(2)} color={"#364045"} />
                 }
               />
               {userdata?.whatsappChannel && (
@@ -124,7 +124,7 @@ export default function OtherProfile({ navigation, route }) {
                   icon={
                     <FontAwesome
                       name="whatsapp"
-                      size={width(4)}
+                      size={height(2)}
                       color={"#32a852"}
                     />
                   }

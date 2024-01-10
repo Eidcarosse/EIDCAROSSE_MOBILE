@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   image: {
-    width: width(35),
+    width: height(15),
     height: height(10),
     borderRadius: width(3),
     resizeMode:'center'
@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
     marginRight: width(2),
   },
   title: {
-    fontSize: width(4),
+    fontSize: height(2),
     fontWeight: "bold",
   },
-  textview: { padding: width(3), width: width(50)},
+  textview: { padding: height(1.5), width: width(50)},
   price: {
     color: AppColors.primary,
     marginTop: width(2),
-    fontSize: width(3.5),
+    fontSize: height(1.8),
     fontWeight: "bold",
   },
 });

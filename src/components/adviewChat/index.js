@@ -12,7 +12,7 @@ import AppColors from "../../utills/AppColors";
 import styles from "./styles";
 import Button from "../button";
 import Icons from "../../asset/images";
-import { width } from "../../utills/Dimension";
+import { height, width } from "../../utills/Dimension";
 import ScreenNames from "../../routes/routes";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 
@@ -49,7 +49,7 @@ const AdView = ({ detail, onPressView }) => {
           <Text style={styles.price}>{detail?.category} </Text>
         )}
       </View>
-      <Entypo name="chevron-right" size={width(10)} />
+      <Entypo name="chevron-right" size={height(5)} />
     </TouchableOpacity>
   );
 };

@@ -5,7 +5,7 @@ import AppColors from "../../../utills/AppColors";
 const styles = StyleSheet.create({
   mainViewContainer: {
     alignItems: "center",
-    padding: width(1),
+    padding: height(1),
     backgroundColor: AppColors.white,
   },
   searchbox: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   texticon: {
     color: "black",
-    width: width(85),
+    width: width(87),
     alignSelf: "flex-start",
     fontWeight: "normal",
   },

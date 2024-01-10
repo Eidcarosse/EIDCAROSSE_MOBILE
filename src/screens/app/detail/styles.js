@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
     height: height(7),
     borderRadius: width(10),
     borderColor: AppColors.black,
-    borderWidth: width(0.5),
+    borderWidth: height(0.1),
   },
   map: {
-    height: height(25),
+    height: height(30),
     width: width(90),
     alignSelf: "center",
     borderRadius: width(3),

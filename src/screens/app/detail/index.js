@@ -24,6 +24,7 @@ import {
 import { selectCategoryList } from "../../../redux/slices/config";
 import {
   selectFavAds,
+  selectIsLoggedIn,
   selectUserMeta,
   setAdsFav,
 } from "../../../redux/slices/user";
@@ -42,12 +43,13 @@ export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
   const loginuser = useSelector(selectUserMeta);
-  const categories = useSelector(selectCategoryList);
+  const islogin = useSelector(selectIsLoggedIn);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
   const [data, setDat] = useState([]);
   const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
+
   const [load, setload] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -144,7 +146,8 @@ export default function Detail({ navigation, route }) {
         />
       )}
       footerUnScrollable={() =>
-        !(data?.userId?._id == loginuser?._id || load) && (
+        !(data?.userId?._id == loginuser?._id || load) &&
+        islogin && (
           <DetailFooter
             pNumber={data?.phone}
             onPressCall={() =>
@@ -458,9 +461,16 @@ export default function Detail({ navigation, route }) {
           {!(data?.userId?._id == loginuser?._id) && (
             <Pressable
               onPress={() => {
-                navigation.navigate(ScreenNames.OTHERPROFILE, {
-                  user: data?.userId,
-                });
+                if (islogin) {
+                  navigation.navigate(ScreenNames.OTHERPROFILE, {
+                    user: data?.userId,
+                  });
+                } else {
+                  infoMessage(
+                    t(`flashmsg.loginfavorite`),
+                    t(`flashmsg.authentication`)
+                  );
+                }
               }}
               style={styles.profileview}
             >
@@ -501,7 +511,7 @@ export default function Detail({ navigation, route }) {
               </View>
             </Pressable>
           )}
-          {!(data?.userId?._id == loginuser?._id) && (
+          {!(data?.userId?._id == loginuser?._id) && islogin && (
             <View style={styles.contact}>
               {!isNullOrNullOrEmpty(data?.whatsapp) && (
                 <TouchableOpacity
@@ -515,7 +525,7 @@ export default function Detail({ navigation, route }) {
                   />
                 </TouchableOpacity>
               )}
-              {!isNullOrNullOrEmpty(data?.viber) && (
+              {!isNullOrNullOrEmpty(data?.viber) && islogin && (
                 <TouchableOpacity
                   style={{ paddingTop: height(1) }}
                   onPress={() => {

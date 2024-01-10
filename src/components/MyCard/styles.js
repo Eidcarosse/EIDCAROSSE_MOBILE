@@ -19,10 +19,9 @@ const styles = StyleSheet.create({
         elevation: 3,
       },
     }),
-    marginVertical: width(1),
   },
   imageview: {
-    width: width(42),
+    width: width(40),
     height: height(18),
   },
   image: {
@@ -30,14 +29,14 @@ const styles = StyleSheet.create({
     borderRadius: width(2),
   },
   detail: {
-    width: width(30),
+    width: width(28),
     justifyContent: "space-between",
     padding: width(2),
     alignItems: "flex-start",
   },
   icons: {
     paddingVertical: width(2),
-    width: width(20),
+    width: width(25),
     alignItems: "flex-end",
   },
   titletext: {
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   categoryview: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: width(1),
+    marginBottom: height(.5),
   },
   textcategory: {
     fontSize: height(1.5),

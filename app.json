@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Eidcarosse",
+    "name": "Eidcarosse.ch",
     "slug": "Eidcarosse",
     "version": "1.0.0",
     "permissions": [
@@ -37,10 +37,16 @@
       "infoPlist": {
         "UIStatusBarHidden": true,
         "UIViewControllerBasedStatusBarAppearance": false,
-        "NSCameraUsageDescription": "We require access to your device's camera to enhance your experience. Capture and upload photos for personalized content, such as profile pictures or moments to share with friends. Your photos will only be used within the app and will not be shared without your consent.",
-        "NSLocationWhenInUseUsageDescription": "To provide location-based features, we need access to your device's location when the app is in use. This information will be used to offer personalized services, such as finding nearby events or connecting with friends in your vicinity.",
-        "bundleIdentifier": "com.eidcarosse.Eidcarosse"
-      }
+        "NSCameraUsageDescription": "Eidcarosse uses the camera to capture and upload user profile image and Listing Image to the server.",
+        "NSPhotoLibraryUsageDescription": "Eidcarosse needs access to the photo library to select and upload user profile image and Listing Image to the server.",
+        "NSPhotoLibraryAddUsageDescription": "Eidcarosse needs access to the photo library to select and upload user profile image and Listing Image to the server.",
+        "NSLocationWhenInUseUsageDescription": "Eidcarosse usages device location on listing information, Listing search Data and User information.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Eidcarosse usages device location on listing information, Listing search Data and User information.",
+        "NSLocationAlwaysUsageDescription": "Eidcarosse uses device location on listing information, Listing search Data and User information.",
+        "NSMicrophoneUsageDescription": "Eidcarosse uses your microphone while taking video of your product for uploading in listing information."
+      },
+      "bundleIdentifier": "com.eidcarosse.Eidcarossech"
+
     },
     "androidStatusBar": {
       "hidden": true
@@ -55,8 +61,8 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eidcarosse.Eidcarosse",
-      "versionCode": 2
+      "package": "com.eidcarosse.Eidcarossech",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -78,8 +84,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "We require access to photos to enhance your experience. Capture and upload photos for personalized content, such as profile pictures or moments to share with friends. Your photos will only be used within the app and will not be shared without your consent.",
-          "cameraPermission":"We require access to your device's camera to enhance your experience. Capture and upload photos for personalized content, such as profile pictures or moments to share with friends. Your photos will only be used within the app and will not be shared without your consent."
+          "photosPermission": "Eidcarosse needs access to the photo library to select and upload user profile image and Listing Image to the server.",
+          "cameraPermission": "Eidcarosse uses the camera to capture and upload user profile image and Listing Image to the server."
         }
       ]
     ],

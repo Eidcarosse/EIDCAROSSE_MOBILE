@@ -8,6 +8,7 @@ import { Head, IconButton, ScreenWrapper } from "../../../components";
 import {
   selectUserMeta,
   setAdsFav,
+  setChatRooms,
   setIsLoggedIn,
   setUserAds,
   setUserMeta,
@@ -44,6 +45,7 @@ export default function ManageAccount({ navigation, route }) {
         dispatch(setUserMeta(null));
         dispatch(setUserAds(null));
         dispatch(setAdsFav([]));
+        dispatch(setChatRooms([]));
         setAuthData(null), navigation.goBack();
       } else {
         errorMessage(t("flashmsg.passwordmsg"), t("flashmsg.error"));
@@ -72,6 +74,7 @@ export default function ManageAccount({ navigation, route }) {
               dispatch(setUserMeta(null));
               dispatch(setUserAds(null));
               dispatch(setAdsFav([]));
+              dispatch(setChatRooms([]));
               setAuthData(null), navigation.goBack();
             }}
             title={"manageAccount.logout"}
@@ -103,21 +106,25 @@ export default function ManageAccount({ navigation, route }) {
         <View>
           <Dialog.Container visible={visible}>
             <Dialog.Title>
-              <Text style={{ fontSize: width(4), color: "red" }}>
+              <Text style={{ fontSize: height(2), color: "red" }}>
                 {t("manageAccount.deleteaccount")}
               </Text>
             </Dialog.Title>
             <Dialog.Description>
-              <Text style={{ fontSize: width(3) }}>
+              <Text style={{ fontSize: height(1.5) }}>
                 {t("manageAccount.deleteconfirmmsg")}
               </Text>
             </Dialog.Description>
             <Dialog.Description>
-              <Text style={{ fontSize: width(3), fontWeight: "bold" }}>
+              <Text style={{ fontSize: height(1.5), fontWeight: "bold" }}>
                 {t("manageAccount.enterpassword")}
               </Text>
             </Dialog.Description>
-            <Dialog.Input value={code} onChangeText={setCode} />
+            <Dialog.Input
+              style={{ fontSize: height(1.5), color: "black" }}
+              value={code}
+              onChangeText={setCode}
+            />
             <Dialog.Button
               label={t("myad.cancel")}
               onPress={() => setVisible(false)}

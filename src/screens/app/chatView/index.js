@@ -90,7 +90,7 @@ function ChatView({ route }) {
         { text: "OK", onPress: () => {} },
       ]);
     }
-  });
+  },[]);
   const myfuntion = async () => {
     if (roomID) {
       const messagesRef = ref(
@@ -175,8 +175,8 @@ function ChatView({ route }) {
         <Image
           source={{ uri: receiver?.image }}
           style={{
-            width: width(10),
-            height: width(10),
+            width: height(5),
+            height: height(5),
             borderRadius: width(10),
           }}
         />
@@ -205,17 +205,24 @@ function ChatView({ route }) {
       {...props}
       containerStyle={{
         position: "absolute",
-        right: width(17),
-        bottom: width(0.7),
+        right: height(7),
+        ...Platform.select({
+          ios: {
+            bottom: height(0),
+          },
+          android: {
+            bottom: height(0.4),
+          },
+        }),
         zIndex: 9999,
-        width: width(7),
-        height: width(7),
+        width: height(3),
+        height: height(3),
       }}
       onPressActionButton={() => {
         setImgModal(true);
       }}
       icon={() => (
-        <Ionicons name="camera" size={width(7)} color={AppColors.primary} />
+        <Ionicons name="camera" size={height(3)} color={AppColors.primary} />
       )}
     />
   );
@@ -225,7 +232,9 @@ function ChatView({ route }) {
       disabled={!selectedItem}
       {...props}
       containerStyle={{ paddingRight: width(4) }}
-      label={<Ionicons name="send" color={AppColors.primary} size={width(6)} />}
+      label={
+        <Ionicons name="send" color={AppColors.primary} size={height(3)} />
+      }
     />
   );
   const renderMessageImage = (props) => {
@@ -498,7 +507,7 @@ function ChatView({ route }) {
       <View style={styles.container}>
         <View style={styles.account_View}>
           <TouchableOpacity style={styles.icon_Style} onPress={handleBack}>
-            <MaterialIcons name="arrow-back-ios" size={width(7)} />
+            <MaterialIcons name="arrow-back-ios" size={height(3)} />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image
@@ -566,7 +575,7 @@ function ChatView({ route }) {
                   alignItems: "flex-end",
                 }}
               >
-                <MaterialIcons name="close" size={width(8)} color="white" />
+                <MaterialIcons name="close" size={height(4)} color="white" />
               </TouchableOpacity>
               {image &&
                 image.map((img, index) => {

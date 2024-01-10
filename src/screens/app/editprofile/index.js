@@ -178,14 +178,14 @@ export default function EditProfile({ navigation, route }) {
               keyboardType="phone-pad"
             />
             <Input
-              title={"editprofile.whatsappTitle"}
+              title={"WhatsApp"}
               placeholder={"+41 XX XXX XX XX"}
               value={whatsapp}
               setvalue={setWhatsapp}
               keyboardType="phone-pad"
             />
             <Input
-              title={"Whatsapp Channel"}
+              title={"WhatsApp Channel"}
               placeholder={"https://whatsapp.com/channel/xxxxx"}
               value={whatsappChannel}
               setvalue={setWhatsappChannel}

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: width(1),
     flexDirection: "row",
-    width: width(90),
+    width: width(95),
   },
   dropdown: { borderRadius: width(1), width: width(90), borderWidth: 0 },
   notfoundview: {

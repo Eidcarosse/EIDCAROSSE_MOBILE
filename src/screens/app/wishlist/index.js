@@ -51,7 +51,7 @@ export default function WishList({ navigation, route }) {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    fontSize: width(4),
+                    fontSize: height(2),
                     paddingTop: height(40),
                   }}
                 >
