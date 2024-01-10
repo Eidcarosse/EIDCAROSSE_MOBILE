@@ -56,7 +56,7 @@ export default function SearchBar({
             containerStyle={{
               flex: 1,
               padding: height(0.1),
-              paddingVertical: height(0.8),
+              paddingVertical: height(0.2),
               backgroundColor: AppColors.primary,
               borderRadius: height(.2),
               marginVertical: height(0.2),
@@ -89,7 +89,7 @@ export default function SearchBar({
             >
               <AntDesign
                 name="closesquare"
-                size={height(4)}
+                size={height(3.5)}
                 color={AppColors.primary}
               />
             </TouchableOpacity>
