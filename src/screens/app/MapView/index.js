@@ -162,8 +162,8 @@ export default function MapAdView({ navigation, route }) {
             styles={{
               textInput: {
                 backgroundColor: AppColors.greybackground,
-                fontSize:height(1.5),
-                height:height(4)
+                fontSize: height(1.5),
+                height: height(4),
               },
             }}
             query={{
@@ -207,6 +207,7 @@ export default function MapAdView({ navigation, route }) {
             return (
               imag && (
                 <Marker
+                  title={item?.title}
                   key={index}
                   coordinate={{
                     latitude: item?.latitude || 0,
@@ -223,9 +224,9 @@ export default function MapAdView({ navigation, route }) {
                     style={{
                       backgroundColor: "white",
                       borderColor: AppColors.primary,
-                      borderWidth: width(0.5),
-                      height: width(15),
-                      width: width(15),
+                      borderWidth: height(0.2),
+                      height: height(4),
+                      width: height(4),
                       borderRadius: width(10),
                       alignContent: "center",
                       alignItems: "center",
@@ -240,7 +241,7 @@ export default function MapAdView({ navigation, route }) {
                       tintColor={AppColors.primary}
                     /> */}
                     <Image
-                      style={{ height: width(9), width: width(9) }}
+                      style={{ height: height(3), width: height(3) }}
                       source={{ uri: imag }}
                     />
                   </View>

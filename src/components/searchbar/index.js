@@ -71,12 +71,12 @@ export default function SearchBar({
       </View>
       {next && search == "" ? (
         <View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ marginLeft: height(2) }}
             onPress={() => navigation.navigate(ScreenNames.MAP)}
           >
             <Feather name="globe" size={height(3.5)} color={AppColors.primary} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       ) : (
         search != "" && (

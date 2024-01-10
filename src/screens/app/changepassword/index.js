@@ -10,7 +10,12 @@ import { setAppLoader } from "../../../redux/slices/config";
 import { selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { errorMessage, successMessage } from "../../../utills/Methods";
+import {
+  errorMessage,
+  getAuthData,
+  setAuthData,
+  successMessage,
+} from "../../../utills/Methods";
 export default function ChangePassword({ navigation, route }) {
   const { t } = useTranslation();
   const user = useSelector(selectUserMeta);
@@ -36,6 +41,10 @@ export default function ChangePassword({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message, t(`flashmsg.error`));
       } else if (r.success) {
+        await setAuthData({
+          email: data?.email,
+          password: newPassword.trim(),
+        });
         successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
         navigation.goBack();

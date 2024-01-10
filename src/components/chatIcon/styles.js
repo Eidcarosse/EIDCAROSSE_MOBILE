@@ -8,30 +8,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: width(93),
     borderRadius: width(2),
-    alignItems:'center',
-    marginVertical:height(.2),
+    alignItems: "center",
+    marginVertical: height(0.2),
+    justifyContent: "space-between",
   },
   imageview: {
-    width: width(23),
+    width: height(10),
   },
   image: {
     width: height(8),
     height: height(8),
     borderRadius: width(10),
-    borderWidth:width(.3),
-    borderColor:AppColors.primary
+    borderWidth: width(0.3),
+    borderColor: AppColors.primary,
   },
   detail: {
-    width: width(47),
     alignItems: "flex-start",
-    justifyContent:"center",
-    marginTop:height(1)
+    width:width(60),
+    marginTop: height(1),
   },
   icons: {
     paddingVertical: height(1),
-    width: width(20),
-    justifyContent: "space-between",
-    alignItems: "flex-end",
+    marginHorizontal: width(1),
   },
 });
 export default styles;

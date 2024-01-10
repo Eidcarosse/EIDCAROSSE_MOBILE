@@ -164,6 +164,15 @@ export default function Card({ data, onPresshide, map = false }) {
             showsHorizontalScrollIndicator={false}
             horizontal
             data={img}
+            ListEmptyComponent={
+              <View
+                style={{
+                  backgroundColor: "red",
+                  height: height(20),
+                  width: width(80),
+                }}
+              />
+            }
             renderItem={renderItem}
             keyExtractor={(item, index) => index}
           />

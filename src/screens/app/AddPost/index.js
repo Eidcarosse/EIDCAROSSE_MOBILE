@@ -462,9 +462,9 @@ export default function AddPost({ navigation, route }) {
       >
         <Image
           style={{
-            height: width(15),
-            width: width(15),
-            borderRadius: width(3),
+            height: height(7),
+            width: height(7),
+            borderRadius: height(1),
             marginLeft: width(3),
           }}
           source={{ uri: item }}
@@ -479,7 +479,7 @@ export default function AddPost({ navigation, route }) {
         >
           <Entypo
             name="squared-cross"
-            size={width(4)}
+            size={height(2)}
             color={AppColors.primary}
           />
         </TouchableOpacity>
@@ -575,16 +575,18 @@ export default function AddPost({ navigation, route }) {
                     <TouchableOpacity
                       style={{
                         backgroundColor: AppColors.primary,
-                        borderRadius: width(2),
-                        padding: width(3),
-
+                        height: height(7),
+                        width: height(7),
+                        borderRadius: height(1),
                         alignSelf: "center",
+                        justifyContent: "center",
+                        alignItems: "center",
                       }}
                       onPress={() => imageRef.current.show()}
                     >
                       <Ionicons
                         name="add"
-                        size={width(8)}
+                        size={height(4)}
                         color={AppColors.white}
                       />
                     </TouchableOpacity>
@@ -1237,7 +1239,13 @@ export default function AddPost({ navigation, route }) {
             </View>
           )}
         </View>
-        <View style={{ paddingVertical: width(1), flexDirection: "row",width:width(90) }}>
+        <View
+          style={{
+            paddingVertical: width(1),
+            flexDirection: "row",
+            width: width(90),
+          }}
+        >
           <View style={{ flex: 1 }}>
             <Text style={styles.title}>{t("addPost.location")}</Text>
             <GooglePlacesAutocomplete
@@ -1265,7 +1273,7 @@ export default function AddPost({ navigation, route }) {
                   {
                     backgroundColor: AppColors.greybackground,
                     fontSize: height(1.8),
-                    height:height(5)
+                    height: height(5),
                   },
                   addressRequire && styles.required,
                 ],
@@ -1311,6 +1319,7 @@ export default function AddPost({ navigation, route }) {
           style={{
             flexDirection: "row",
             paddingVertical: width(4),
+            paddingHorizontal: width(1),
             alignSelf: "flex-start",
           }}
         >

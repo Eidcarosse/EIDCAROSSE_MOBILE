@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     padding: width(2),
   },
   search: {
-    width: width(80),
+    width: width(95),
     borderRadius: width(2),
     padding: width(1),
     flexDirection: "row",
