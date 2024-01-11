@@ -575,6 +575,7 @@ export default {
     password: "Contraseña",
     emptyfield: "Campo vacío",
     loginfavorite: "Iniciar sesión para agregar a favoritos",
+    loginView:"Iniciar sesión para ver el perfil",
     wrong: "Algo salió mal, inténtalo de nuevo",
     adPosterrormsg: "Algo salió mal al publicar el anuncio",
     requiremsg: "Los campos están vacíos",

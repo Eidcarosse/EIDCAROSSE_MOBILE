@@ -98,14 +98,7 @@ export default function Verify({ navigation, route }) {
       </View>
       <Modal isVisible={modal} backdropOpacity={0.1}>
         <View
-          style={{
-            backgroundColor: AppColors.white,
-            height: height(40),
-            width: width(90),
-            borderRadius: width(5),
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={styles.counter}
         >
           <CountdownCircleTimer
             isPlaying
@@ -120,7 +113,7 @@ export default function Verify({ navigation, route }) {
                 setToken1("");
               }
               return (
-                <Text style={{ fontSize: width(5) }}>{remainingTime}</Text>
+                <Text style={{ fontSize: height(2.5) }}>{remainingTime}</Text>
               );
             }}
           </CountdownCircleTimer>

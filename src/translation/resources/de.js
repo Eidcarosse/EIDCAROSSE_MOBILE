@@ -556,7 +556,7 @@ export default {
     whatsapp: "Meine Whatsapp-Nummer anzeigen?",
   },
   flashmsg: {
-    "Ad Refresh": "Anzeige aktualisieren",
+    "Ad Refresh": "Inserat aktualisieren",
     authentication: "Authentifizierung",
     success: "Erfolg",
     error: "Fehler",
@@ -564,6 +564,7 @@ export default {
     password: "Passwort",
     emptyfield: "Leeres Feld",
     loginfavorite: "Einloggen, um Favoriten hinzuzufügen",
+    loginView:"Anmelden, um das Profil anzuzeigen",
     wrong: "Etwas ist schiefgelaufen, versuche es erneut",
     adPosterrormsg:
       "Etwas ist schiefgelaufen, um eine Anzeige zu veröffentlichen",
@@ -586,8 +587,8 @@ export default {
     entercode: "Code eingeben, um zu bestätigen",
     signuperrormsg: "Etwas ist schiefgelaufen, um sich anzumelden",
 
-    adPostsussessmsg: "Anzeige erfolgreich veröffentlicht",
-    editadsussessmsg: "Anzeige erfolgreich bearbeitet",
+    adPostsussessmsg: "Inserat erfolgreich veröffentlicht",
+    editadsussessmsg: "Inserat erfolgreich bearbeitet",
     passwordchangemsg: "Erfolgreich geändert",
     emailsussesssendmsg: "Code an Ihre angegebene E-Mail gesendet",
     sussessloginmsg: "Erfolgreich eingeloggt",

@@ -554,6 +554,7 @@ export default {
     password: "Password",
     emptyfield: "Campo vuoto",
     loginfavorite: "Accedi per aggiungere ai preferiti",
+    loginView:"Accedi per visualizzare il profilo",
     wrong: "Qualcosa è andato storto, riprova",
     adPosterrormsg:
       "Qualcosa è andato storto durante la pubblicazione dell'annuncio",

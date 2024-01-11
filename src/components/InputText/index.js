@@ -32,6 +32,7 @@ export default function Input({
           <TextInput
             cursorColor={AppColors.primary}
             editable={editable}
+            autoCapitalize='none'
             style={[
               {
                 paddingVertical: width(2),

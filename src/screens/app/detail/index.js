@@ -467,7 +467,7 @@ export default function Detail({ navigation, route }) {
                   });
                 } else {
                   infoMessage(
-                    t(`flashmsg.loginfavorite`),
+                    t(`flashmsg.loginView`),
                     t(`flashmsg.authentication`)
                   );
                 }

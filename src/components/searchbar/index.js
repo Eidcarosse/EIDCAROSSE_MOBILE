@@ -43,6 +43,7 @@ export default function SearchBar({
           size={height(2.5)}
         />
         <TextInput
+        autoCapitalize='none'
           placeholder={t("searchbar.phsearch")}
           value={search}
           onChangeText={setSearch}

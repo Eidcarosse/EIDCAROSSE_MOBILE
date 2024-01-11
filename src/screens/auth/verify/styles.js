@@ -28,5 +28,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   text: { color: AppColors.primary, fontWeight: "bold" },
+  counter:{
+    backgroundColor: AppColors.white,
+    height: height(40),
+    width: width(90),
+    borderRadius: width(5),
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 export default styles;
