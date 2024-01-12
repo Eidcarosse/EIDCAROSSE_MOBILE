@@ -9,9 +9,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Modal,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import Modal from "react-native-modal";
+// import Modal from "react-native-modal";
 import Swiper from "react-native-swiper";
 import { useDispatch, useSelector } from "react-redux";
 import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
@@ -580,75 +581,65 @@ export default function Detail({ navigation, route }) {
           {/* <RelatedAd category={data?.category} id={data?._id} /> */}
         </View>
       )}
-      <Modal
-        animationInTiming={300}
-        animationOutTiming={600}
-        animationIn={"lightSpeedIn"}
-        animationOut={"lightSpeedOut"}
-        isVisible={showModal}
-        backdropOpacity={1}
-        swipeDirection="down"
-        backdropColor={AppColors.black}
-        onBackButtonPress={() => {
-          setShowModal(false);
-        }}
-        onSwipeComplete={() => {
-          setShowModal(false);
-        }}
-        onBackdropPress={() => {
-          setShowModal(false);
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => {
-            setShowModal(false);
-          }}
-          style={{
-            marginTop: width(10),
-            alignSelf: "flex-end",
-            backgroundColor: "rgba(0, 0, 0,.6)",
-          }}
-        >
-          <Ionicons name="close" size={height(5)} color={AppColors.white} />
-        </TouchableOpacity>
-        <Swiper
-          showsButtons={true}
-          nextButton={
-            <View
-              style={{ backgroundColor: "rgba(0, 0, 0,.2)", padding: width(1) }}
-            >
-              <AntDesign
-                name="caretright"
-                size={height(3)}
-                color={AppColors.white}
-              />
-            </View>
-          }
-          prevButton={
-            <View
-              style={{ backgroundColor: "rgba(0, 0, 0,.2)", padding: width(1) }}
-            >
-              <AntDesign
-                name="caretleft"
-                size={height(3)}
-                color={AppColors.white}
-              />
-            </View>
-          }
-          activeDotColor={AppColors.primary}
-          dotColor="white"
-          automaticallyAdjustContentInsets={true}
-        >
-          {img.map((image, index) => (
-            <Pressable key={index} style={styles.modelView}>
-              <Image
-                source={{ uri: image }}
-                resizeMode="contain"
-                style={styles.modelImage}
-              />
-            </Pressable>
-          ))}
-        </Swiper>
+      <Modal visible={showModal}>
+        <View style={{backgroundColor:'black',flex:1}}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowModal(false);
+            }}
+            style={{
+              marginTop: width(10),
+              alignSelf: "flex-end",
+              backgroundColor: "rgba(0, 0, 0,.6)",
+            }}
+          >
+            <Ionicons name="close" size={height(5)} color={AppColors.white} />
+          </TouchableOpacity>
+          <Swiper
+            // showsButtons={true}
+            // nextButton={
+            //   <View
+            //     style={{
+            //       backgroundColor: "rgba(0, 0, 0,.2)",
+            //       padding: width(1),
+            //     }}
+            //   >
+            //     <AntDesign
+            //       name="caretright"
+            //       size={height(3)}
+            //       color={AppColors.white}
+            //     />
+            //   </View>
+            // }
+            // prevButton={
+            //   <View
+            //     style={{
+            //       backgroundColor: "rgba(0, 0, 0,.2)",
+            //       padding: width(1),
+            //     }}
+            //   >
+            //     <AntDesign
+            //       name="caretleft"
+            //       size={height(3)}
+            //       color={AppColors.white}
+            //     />
+            //   </View>
+            // }
+            activeDotColor={AppColors.primary}
+            dotColor="white"
+            automaticallyAdjustContentInsets={true}
+          >
+            {img.map((image, index) => (
+              <Pressable key={index} style={styles.modelView}>
+                <Image
+                  source={{ uri: image }}
+                  resizeMode="contain"
+                  style={styles.modelImage}
+                />
+              </Pressable>
+            ))}
+          </Swiper>
+        </View>
       </Modal>
     </ScreenWrapper>
   );

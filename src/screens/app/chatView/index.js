@@ -16,6 +16,7 @@ import {
   MessageText,
   Send,
   Time,
+  Day,
 } from "react-native-gifted-chat";
 import { useDispatch, useSelector } from "react-redux";
 import { AdView, DropDownMenu } from "../../../components";
@@ -90,7 +91,7 @@ function ChatView({ route }) {
         { text: "OK", onPress: () => {} },
       ]);
     }
-  },[]);
+  }, []);
   const myfuntion = async () => {
     if (roomID) {
       const messagesRef = ref(
@@ -188,7 +189,7 @@ function ChatView({ route }) {
     return (
       <Time
         {...props}
-        timeFormat="HH:mm" 
+        timeFormat="HH:mm"
         timeTextStyle={{
           right: {
             color: "black", // Change the text color for sent message times
@@ -499,6 +500,7 @@ function ChatView({ route }) {
     setImageModal(false);
     setImage([]);
   };
+  const renderDay = (props) => <Day {...props} dateFormat={"MM/ D/ YYYY"} />;
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -549,6 +551,7 @@ function ChatView({ route }) {
             _id: user?._id,
           }}
           renderAvatar={renderAvatar}
+          renderDay={renderDay}
           renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}

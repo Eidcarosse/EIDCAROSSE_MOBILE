@@ -177,10 +177,7 @@ export default function MyCard({ data }) {
           </Text>
         </TouchableOpacity>
       </View>
-      <Menu
-        visible={isModalVisible}
-        onRequestClose={hideMenu}
-      >
+      <Menu visible={isModalVisible} onRequestClose={hideMenu}>
         <MenuItem
           onPress={() => {
             hideMenu();
@@ -188,7 +185,7 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="edit" size={height(2)} />
-          <Text style={{ fontSize: height(1.5) }}> {t("myad.edit")}</Text>
+          <Text style={{ fontSize: height(1.5) }}> {" "}{t("myad.edit")}</Text>
         </MenuItem>
         {publish && (
           <MenuItem
@@ -198,7 +195,32 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="refresh" size={height(2)} />
-            <Text style={{ fontSize: height(1.5) }}> {t("myad.refresh")}</Text>
+            <Text style={{ fontSize: height(1.5) }}> {" "} {t("myad.refresh")}</Text>
+          </MenuItem>
+        )}
+
+        {publish ? (
+          <MenuItem
+            onPress={() => {
+              hideMenu();
+              publishAd();
+            }}
+          >
+            <FontAwesome name="pause" size={height(1.8)} />
+            <Text style={{ fontSize: height(1.5) }}> {"  "} {t("myad.mute")}</Text>
+          </MenuItem>
+        ) : (
+          <MenuItem
+            onPress={() => {
+              hideMenu();
+              publishAd();
+            }}
+          >
+            <AntDesign name="play" size={height(2)} />
+            <Text style={{ fontSize: height(1.5) }}>
+              {"  "}
+              {t("myad.republish")}
+            </Text>
           </MenuItem>
         )}
         <MenuItem
@@ -211,42 +233,16 @@ export default function MyCard({ data }) {
         >
           <AntDesign name="delete" size={height(2)} color={"red"} />
           <Text style={{ color: "red", fontSize: height(1.5) }}>
-            {" "}
+            {"   "}
             {t("myad.delete")}
           </Text>
         </MenuItem>
-        {
-          /////////////////////////////////////////////////////////
-        }
-        {publish ? (
-          <MenuItem
-            onPress={() => {
-              hideMenu();
-              publishAd();
-            }}
-          >
-            <FontAwesome name="pause" size={height(1.6)} />
-            <Text style={{ fontSize: height(1.5) }}> {t("myad.mute")}</Text>
-          </MenuItem>
-        ) : (
-          <MenuItem
-            onPress={() => {
-              hideMenu();
-              publishAd();
-            }}
-          >
-            <Entypo name="publish" size={height(2)} />
-            <Text style={{ fontSize: height(1.5) }}>
-              {" "}
-              {t("myad.republish")}
-            </Text>
-          </MenuItem>
-        )}
       </Menu>
       <View>
         <Dialog.Container visible={visible}>
           <Dialog.Title>
             <Text style={{ fontSize: height(2), color: "red" }}>
+              {" "}
               {t("myad.deletetitle")}
             </Text>
           </Dialog.Title>

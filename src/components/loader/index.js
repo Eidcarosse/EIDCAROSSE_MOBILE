@@ -22,8 +22,8 @@ export default function Loader() {
       <View style={styles.container}>
         <Image
           style={{
-            width: width(20),
-            height: width(20),
+            width: width(30),
+            height: width(30),
             borderRadius: width(10),
           }}
           source={Icons.loder}
