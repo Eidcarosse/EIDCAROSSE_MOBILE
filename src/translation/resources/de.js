@@ -96,7 +96,7 @@ export default {
   },
   RN: {
     rn: "Jetzt reparieren",
-    data: "Erleben Sie eine unkomplizierte Fahrzeugreparatur mit unseren geschulten Technikern von Eidcarosse. Von routinemäßiger Wartung bis hin zu größeren Reparaturen - wir halten Ihre Fahrzeuge reibungslos und zuverlässig am Laufen. Fahren Sie mit Vertrauen, in dem Wissen, dass Ihre Fahrzeuge in den Händen von Experten sind",
+    data: "Erleben Sie eine unkomplizierte Fahrzeugreparatur mit unseren geschulten Technikern von Eidcarosse. Von routinemäßiger Wartung bis hin zu größeren Reparaturen - wir halten Ihre Fahrzeuge reibungslos und zuverlässig am Laufen. Fahren Sie mit Vertrauen, in dem Wissen, dass Ihre Fahrzeuge in den Händen von Experten sind.",
   },
   privacy: {
     privacy: "Datenschutzrichtlinie",

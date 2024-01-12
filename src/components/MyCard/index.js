@@ -1,5 +1,5 @@
 import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import Dialog from "react-native-dialog";
 import { Menu, MenuItem } from "react-native-material-menu";
@@ -8,7 +8,7 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAdById, refreshApi } from "../../backend/api";
+import { deleteAdById, refreshApi, togglePublish } from "../../backend/api";
 import { getOwneAd } from "../../backend/auth";
 import { setAppLoader } from "../../redux/slices/config";
 import { selectCurrentLanguage } from "../../redux/slices/language";
@@ -32,16 +32,20 @@ export default function MyCard({ data }) {
   const language = useSelector(selectCurrentLanguage);
   const userid = userInfo?._id;
   const [visible, setVisible] = useState(false);
+
   const getData = useCallback(async (id) => {
     let d = await getOwneAd(id);
     if (d) dispatch(setUserAds(d));
     else dispatch(setUserAds([]));
   });
-  const [publish, setPublish] = useState(true);
+  const [publish, setPublish] = useState(data?.visibility);
   const [isModalVisible, setModalVisible] = useState(false);
   const hideMenu = () => setModalVisible(false);
 
   const showMenu = () => setModalVisible(true);
+  useEffect(() => {
+    setPublish(data?.visibility);
+  });
   const deleteAd = async (id) => {
     dispatch(setAppLoader(true));
     try {
@@ -59,11 +63,22 @@ export default function MyCard({ data }) {
       const d = await refreshApi(data?._id);
       if (d?.success) {
         await getData(userid);
-        successMessage(t("flashmsg.Ad Refresh"), t("flashmsg.success")); 
+        successMessage(t("flashmsg.Ad Refresh"), t("flashmsg.success"));
       } else {
         errorMessage(t("flashmsg.refreshAdMsg"), t("flashmsg.error"));
       }
 
+      dispatch(setAppLoader(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setAppLoader(false));
+    }
+  };
+  const publishAd = async () => {
+    let r = await togglePublish(data._id);
+    dispatch(setAppLoader(true));
+    try {
+      await getData(userid);
       dispatch(setAppLoader(false));
     } catch (error) {
       console.log("Error:", error);
@@ -94,7 +109,7 @@ export default function MyCard({ data }) {
           <View style={styles.categoryview}>
             <AntDesign name="eye" color={"grey"} size={height(2)} />
             <Text numberOfLines={2} style={styles.textcategory}>
-              {data?.views} Views
+              {data?.views}
             </Text>
           </View>
         </View>
@@ -130,8 +145,8 @@ export default function MyCard({ data }) {
         <TouchableOpacity
           style={{
             backgroundColor: AppColors.grey,
-            padding: height(.8),
-            borderRadius: height(.5),
+            padding: height(0.8),
+            borderRadius: height(0.5),
           }}
           onPress={showMenu}
         >
@@ -142,7 +157,7 @@ export default function MyCard({ data }) {
           style={{
             borderWidth: 1,
             borderColor: publish ? AppColors.grey : AppColors.primary,
-            paddingHorizontal: width(3),
+
             padding: width(1),
             borderRadius: width(5),
             marginTop: height(5),
@@ -152,8 +167,9 @@ export default function MyCard({ data }) {
         >
           <Text
             style={{
-              fontSize: height(1.3),
+              fontSize: height(1.2),
               color: AppColors.white,
+              paddingHorizontal: height(0.2),
               fontWeight: publish ? "600" : "bold",
             }}
           >
@@ -164,7 +180,6 @@ export default function MyCard({ data }) {
       <Menu
         visible={isModalVisible}
         onRequestClose={hideMenu}
-        style={{ width: width(30) }}
       >
         <MenuItem
           onPress={() => {
@@ -183,7 +198,7 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="refresh" size={height(2)} />
-            <Text style={{ fontSize:  height(1.5) }}> {t("myad.refresh")}</Text>
+            <Text style={{ fontSize: height(1.5) }}> {t("myad.refresh")}</Text>
           </MenuItem>
         )}
         <MenuItem
@@ -200,28 +215,33 @@ export default function MyCard({ data }) {
             {t("myad.delete")}
           </Text>
         </MenuItem>
-
-        {/* {publish ? (
+        {
+          /////////////////////////////////////////////////////////
+        }
+        {publish ? (
           <MenuItem
             onPress={() => {
               hideMenu();
-              setPublish(false);
+              publishAd();
             }}
           >
-            <FontAwesome name="pause" size={width(4)} />
-            <Text> {t("myad.mute")}</Text>
+            <FontAwesome name="pause" size={height(1.6)} />
+            <Text style={{ fontSize: height(1.5) }}> {t("myad.mute")}</Text>
           </MenuItem>
         ) : (
           <MenuItem
             onPress={() => {
               hideMenu();
-              setPublish(true);
+              publishAd();
             }}
           >
-            <Entypo name="publish" size={width(4)} />
-            <Text> {t("myad.republish")}</Text>
+            <Entypo name="publish" size={height(2)} />
+            <Text style={{ fontSize: height(1.5) }}>
+              {" "}
+              {t("myad.republish")}
+            </Text>
           </MenuItem>
-        )} */}
+        )}
       </Menu>
       <View>
         <Dialog.Container visible={visible}>

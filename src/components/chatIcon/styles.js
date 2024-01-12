@@ -24,12 +24,14 @@ const styles = StyleSheet.create({
   },
   detail: {
     alignItems: "flex-start",
-    width:width(60),
+    width:width(50),
     marginTop: height(1),
   },
   icons: {
+    alignItems:'flex-end',
     paddingVertical: height(1),
     marginHorizontal: width(1),
+    width:width(20)
   },
 });
 export default styles;

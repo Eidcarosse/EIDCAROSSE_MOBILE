@@ -192,7 +192,7 @@ const openWhatsApp = (phoneNumber) => {
       console.log("WhatsApp opened successfully");
     })
     .catch((error) => {
-      console.error( "Error opening WhatsApp:", error);
+      console.error("Error opening WhatsApp:", error);
       errorMessage("Whatsapp not exist");
     });
 };
@@ -218,10 +218,10 @@ export const openViber = (phoneNumber) => {
       // Handle the error or display a message to the user
     });
   } catch (error) {
-    console.log('====================================');
+    console.log("====================================");
     console.log(error);
-    console.log('====================================');
-   return error
+    console.log("====================================");
+    return error;
   }
 };
 
@@ -252,7 +252,8 @@ const calculateTimeDifference = (createdAt, l) => {
   });
   return distance;
 };
-export function checkPrice(data) {
+export function checkPrice(d) {
+  let data = parseInt(d);
   // Check if data is not null or undefined
   if (data !== null && data !== undefined) {
     // Check if price is greater than 0 and not an array
