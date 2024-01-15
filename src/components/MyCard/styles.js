@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
   main: {
     flexDirection: "row",
     width: width(95),
-    marginVertical:height(.7),
     backgroundColor: AppColors.white,
     borderRadius: width(2),
     ...Platform.select({

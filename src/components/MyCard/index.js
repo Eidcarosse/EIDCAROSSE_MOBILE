@@ -123,7 +123,7 @@ export default function MyCard({ data }) {
         </View> */}
         <View style={styles.detailinerview}>
           {checkPrice(data?.price) ? (
-            <View>
+            <View style={{ width: width(50) }}>
               <Text numberOfLines={1} style={styles.chf}>
                 CHF {formatPrice(data?.price)}
               </Text>
@@ -152,31 +152,19 @@ export default function MyCard({ data }) {
         >
           <Entypo size={height(2)} name="dots-three-vertical" />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            borderWidth: 1,
-            borderColor: publish ? AppColors.grey : AppColors.primary,
-
-            padding: width(1),
-            borderRadius: width(5),
-            marginTop: height(5),
-            backgroundColor: publish ? AppColors.green : AppColors.primary,
-          }}
-          disabled={true}
-        >
-          <Text
-            style={{
-              fontSize: height(1.2),
-              color: AppColors.white,
-              paddingHorizontal: height(0.2),
-              fontWeight: publish ? "600" : "bold",
-            }}
-          >
-            {publish ? t("myad.published") : t("myad.mute")}
-          </Text>
-        </TouchableOpacity>
       </View>
+
+      {!data?.visibility && (
+        <View
+          style={{
+            height: height(18),
+            borderRadius: width(2),
+            width: width(85),
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            position: "absolute",
+          }}
+        />
+      )}
       <Menu visible={isModalVisible} onRequestClose={hideMenu}>
         <MenuItem
           onPress={() => {
@@ -185,7 +173,7 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="edit" size={height(2)} />
-          <Text style={{ fontSize: height(1.5) }}> {" "}{t("myad.edit")}</Text>
+          <Text style={{ fontSize: height(1.5) }}> {t("myad.edit")}</Text>
         </MenuItem>
         {publish && (
           <MenuItem
@@ -195,7 +183,7 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="refresh" size={height(2)} />
-            <Text style={{ fontSize: height(1.5) }}> {" "} {t("myad.refresh")}</Text>
+            <Text style={{ fontSize: height(1.5) }}> {t("myad.refresh")}</Text>
           </MenuItem>
         )}
 
@@ -207,7 +195,10 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="pause" size={height(1.8)} />
-            <Text style={{ fontSize: height(1.5) }}> {"  "} {t("myad.mute")}</Text>
+            <Text style={{ fontSize: height(1.5) }}>
+              {" "}
+              {"  "} {t("myad.mute")}
+            </Text>
           </MenuItem>
         ) : (
           <MenuItem
@@ -238,6 +229,32 @@ export default function MyCard({ data }) {
           </Text>
         </MenuItem>
       </Menu>
+      <TouchableOpacity
+        style={{
+          borderWidth: 1,
+          borderColor: publish ? AppColors.grey : AppColors.primary,
+          position: "absolute",
+          zIndex: 1,
+          padding: width(1),
+          right: width(2),
+          bottom: height(5),
+          borderRadius: width(5),
+          marginTop: height(5),
+          backgroundColor: publish ? AppColors.green : AppColors.primary,
+        }}
+        disabled={true}
+      >
+        <Text
+          style={{
+            fontSize: height(1.2),
+            color: AppColors.white,
+            paddingHorizontal: height(0.2),
+            fontWeight: publish ? "600" : "bold",
+          }}
+        >
+          {publish ? t("myad.published") : t("myad.mute")}
+        </Text>
+      </TouchableOpacity>
       <View>
         <Dialog.Container visible={visible}>
           <Dialog.Title>

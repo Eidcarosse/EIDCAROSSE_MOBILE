@@ -77,6 +77,9 @@ export default function Detail({ navigation, route }) {
       infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
       let fav = await toggleFavorite(data?._id, loginuser?._id);
+      console.log('====================================');
+      console.log("new fav",fav);
+      console.log('====================================');
       if (isInArray(data._id, fav)) {
         setFav(true);
       } else {

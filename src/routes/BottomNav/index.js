@@ -99,7 +99,7 @@ const BottomNav = ({ navigation }) => {
             >
               <Ionicons
                 name={iconName}
-                size={height(3)}
+                size={focused?height(3):height(2.2)}
                 color={focused ? AppColors.primary : "gray"}
               />
             </View>

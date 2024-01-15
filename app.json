@@ -2,7 +2,7 @@
   "expo": {
     "name": "Eidcarosse.ch",
     "slug": "Eidcarosse",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "permissions": [
       "INTERNET",
       "CAMERA",
@@ -43,8 +43,8 @@
         "NSLocationAlwaysUsageDescription": "Eidcarosse uses device location on listing information, Listing search Data and User information.",
         "NSMicrophoneUsageDescription": "Eidcarosse uses your microphone while taking video of your product for uploading in listing information."
       },
-      "bundleIdentifier": "com.eidcarosse.Eidcarosse",
-      "buildNumber": "4"
+      "bundleIdentifier": "com.eidcarosse.Eidcarossech",
+      "buildNumber": "5"
     },
     "androidStatusBar": {
       "hidden": true
@@ -59,8 +59,8 @@
         "foregroundImage": "./assets/icon.jpeg",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eidcarosse.Eidcarosse",
-      "versionCode": 1
+      "package": "com.eidcarosse.Eidcarossech",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"

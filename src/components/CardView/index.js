@@ -147,6 +147,17 @@ export default function CardView({ data }) {
       ) : (
         <></>
       )}
+       {!data?.visibility && (
+        <View
+          style={{
+            height: height(20),
+            borderRadius: width(2),
+            width: width(86),
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            position: "absolute",
+          }}
+        />
+      )}
     </View>
   );
 }
