@@ -6,6 +6,7 @@ const initialState = {
   categoryList: [],
   showWhatsapp: false,
   showViber: false,
+  rememberMe:false
 };
 
 const configSlice = createSlice({
@@ -26,6 +27,9 @@ const configSlice = createSlice({
     },
     setShowViber: (state, action) => {
       state.showViber = action.payload;
+    },
+    setRememberMe: (state, action) => {
+      state.rememberMe = action.payload;
     },
   },
 });

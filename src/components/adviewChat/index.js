@@ -21,9 +21,6 @@ import { selectUserMeta } from "../../redux/slices/user";
 const AdView = ({ detail, onPressView }) => {
   const navigation = useNavigation();
   const user = useSelector(selectUserMeta);
-  console.log("====================================");
-  console.log(detail?.userId?._id != user?._id);
-  console.log("====================================");
   function isNullOrNullOrEmpty(value) {
     return (
       value === null ||

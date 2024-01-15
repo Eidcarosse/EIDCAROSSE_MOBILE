@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  text: { color: AppColors.primary, fontWeight: "bold",fontSize:height(1.5) },
+  text: { color: AppColors.primary, fontWeight: "bold", fontSize: height(1.5) },
+  checkview: {
+    flexDirection: "row",
+    paddingHorizontal: width(5),
+    paddingVertical: height(1),
+  },
 });
 export default styles;

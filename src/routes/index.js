@@ -5,12 +5,13 @@ import { getDatabase, off, onValue, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
 import {
+  selectRememberMe,
   setAppLoader,
   setCategoryList,
   setShowViber,
@@ -79,6 +80,7 @@ export default function Routes() {
   const dispatch = useDispatch();
   const [isConnected, setIsConnected] = useState(true);
   const [user, setUser] = useState();
+  const remeber = useSelector(selectRememberMe);
   useEffect(() => {
     dispatch(setAppLoader(true));
     getNetwork();
@@ -93,7 +95,16 @@ export default function Routes() {
       dispatch(setAppLoader(true));
     }
   }, [isConnected]);
-
+  useEffect(() => {
+    if (!remeber) {
+      dispatch(setIsLoggedIn(false));
+      dispatch(setUserMeta(null));
+      dispatch(setUserAds(null));
+      dispatch(setAdsFav([]));
+      dispatch(setChatRooms([]));
+      setAuthData(null);
+    }
+  }, []);
   const getData = useCallback(async () => {
     try {
       const data = await getDataofHomePage();

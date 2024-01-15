@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { changePasswordAPI } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
-import { setAppLoader } from "../../../redux/slices/config";
+import { selectRememberMe, setAppLoader } from "../../../redux/slices/config";
 import { selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
@@ -19,6 +19,7 @@ import {
 export default function ChangePassword({ navigation, route }) {
   const { t } = useTranslation();
   const user = useSelector(selectUserMeta);
+  const remember = useSelector(selectRememberMe);
   const dispatch = useDispatch();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -41,10 +42,12 @@ export default function ChangePassword({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message, t(`flashmsg.error`));
       } else if (r.success) {
-        await setAuthData({
-          email: data?.email,
-          password: newPassword.trim(),
-        });
+        if (remember) {
+          await setAuthData({
+            email: data?.email,
+            password: newPassword.trim(),
+          });
+        }
         successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
         navigation.goBack();

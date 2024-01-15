@@ -119,9 +119,7 @@ export default function AddPost({ navigation, route }) {
   const [feild, setFeild] = useState();
 
   const [renderNow, setRenderNow] = useState(false);
-  console.log('====================================');
-  console.log(pricing,edit?.price);
-  console.log('====================================');
+
   useEffect(() => {
     if (edit) {
       setAddViber(edit?.viber ? true : false);
