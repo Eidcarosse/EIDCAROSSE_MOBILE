@@ -15,9 +15,12 @@ import Icons from "../../asset/images";
 import { height, width } from "../../utills/Dimension";
 import ScreenNames from "../../routes/routes";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import { selectUserMeta } from "../../redux/slices/user";
 
 const AdView = ({ detail, onPressView }) => {
   const navigation = useNavigation();
+  const user = useSelector(selectUserMeta);
   function isNullOrNullOrEmpty(value) {
     return (
       value === null ||
@@ -29,6 +32,7 @@ const AdView = ({ detail, onPressView }) => {
   }
   return (
     <TouchableOpacity
+      disabled={detail?.userId?._id != user?._id && !detail?.visibility}
       onPress={() => navigation.navigate(ScreenNames.DETAIL, detail)}
       style={styles.container}
     >
@@ -50,6 +54,17 @@ const AdView = ({ detail, onPressView }) => {
         )}
       </View>
       <Entypo name="chevron-right" size={height(5)} />
+      {!detail?.visibility && (
+        <View
+          style={{
+            height: height(10),
+            borderRadius: width(2),
+            width: width(95),
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            position: "absolute",
+          }}
+        />
+      )}
     </TouchableOpacity>
   );
 };

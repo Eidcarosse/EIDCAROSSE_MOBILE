@@ -24,10 +24,9 @@ const styles = StyleSheet.create({
   },
   search: {
     width: width(95),
-    borderRadius: width(2),
-    padding: width(1),
+    borderRadius: height(1),
     flexDirection: "row",
-    borderWidth: width(0.2),
+    borderWidth: height(0.1),
     alignItems: "center",
   },
   titleview: {

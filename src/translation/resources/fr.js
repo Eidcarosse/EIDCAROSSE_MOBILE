@@ -590,6 +590,7 @@ export default {
     password: "Mot de passe",
     emptyfield: "Champ vide",
     loginfavorite: "Connectez-vous pour ajouter aux favoris",
+    loginView:"Connectez-vous pour voir le profil",
     wrong: "Quelque chose s'est mal passé, réessayez",
     adPosterrormsg:
       "Quelque chose s'est mal passé lors de la publication de l'annonce",

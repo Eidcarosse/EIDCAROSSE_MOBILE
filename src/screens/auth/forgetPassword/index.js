@@ -100,11 +100,11 @@ export default function ForgetPassword({ navigation, route }) {
                 setToken("");
               }
               return (
-                <Text style={{ fontSize: width(5) }}>{remainingTime}</Text>
+                <Text style={{ fontSize: height(2.5) }}>{remainingTime}</Text>
               );
             }}
           </CountdownCircleTimer>
-          <View style={{ paddingTop: width(10) }}>
+          <View style={{ paddingTop: height(4) }}>
             <Input
               value={code}
               setvalue={setCode}
@@ -112,8 +112,8 @@ export default function ForgetPassword({ navigation, route }) {
               keyboardType="numeric"
               containerStyle={{
                 width: width(60),
-                borderWidth: width(0.2),
-                borderRadius: width(5),
+                borderWidth: height(0.09),
+                borderRadius: height(2),
               }}
             />
             <Button

@@ -47,10 +47,10 @@ const BottomNav = ({ navigation }) => {
           let iconName;
 
           if (route.name === "StackHome") {
-            iconName = focused ? "ios-home-outline" : "ios-home-outline";
+            iconName = focused ? "home-sharp" : "home-outline";
           } else if (route.name === "myChat") {
             iconName = focused
-              ? "chatbubble-ellipses-outline"
+              ? "chatbubble-ellipses-sharp"
               : "chatbubble-ellipses-outline";
           } else if (route.name === "tit") {
             return (
@@ -69,11 +69,6 @@ const BottomNav = ({ navigation }) => {
                   }),
                 }}
               >
-                {/* ///   <Ionicons
-                //     name={"add-circle"}
-                //     size={width(15)}
-                //     color={"red"}
-                //   /> */}
                 <AddIcon
                   tintColor="#2d3436"
                   height={height(7)}
@@ -83,12 +78,12 @@ const BottomNav = ({ navigation }) => {
             );
           } else if (route.name === ScreenNames.MYADS) {
             iconName = focused
-              ? "file-tray-stacked-outline"
+              ? "file-tray-stacked"
               : "file-tray-stacked-outline";
           } else if (route.name === "Profile") {
-            iconName = focused ? "person-outline" : "person-outline";
+            iconName = focused ? "person" : "person-outline";
           } else {
-            iconName = focused ? "person-outline" : "person-outline";
+            iconName = focused ? "person" : "person-outline";
           }
 
           // Return your custom icon component
@@ -104,7 +99,7 @@ const BottomNav = ({ navigation }) => {
             >
               <Ionicons
                 name={iconName}
-                size={height(3)}
+                size={focused?height(3):height(2.2)}
                 color={focused ? AppColors.primary : "gray"}
               />
             </View>

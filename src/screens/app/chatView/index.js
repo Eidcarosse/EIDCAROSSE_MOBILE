@@ -16,6 +16,7 @@ import {
   MessageText,
   Send,
   Time,
+  Day,
 } from "react-native-gifted-chat";
 import { useDispatch, useSelector } from "react-redux";
 import { AdView, DropDownMenu } from "../../../components";
@@ -90,7 +91,7 @@ function ChatView({ route }) {
         { text: "OK", onPress: () => {} },
       ]);
     }
-  },[]);
+  }, []);
   const myfuntion = async () => {
     if (roomID) {
       const messagesRef = ref(
@@ -188,6 +189,7 @@ function ChatView({ route }) {
     return (
       <Time
         {...props}
+        timeFormat="HH:mm"
         timeTextStyle={{
           right: {
             color: "black", // Change the text color for sent message times
@@ -211,18 +213,18 @@ function ChatView({ route }) {
             bottom: height(0),
           },
           android: {
-            bottom: height(0.4),
+            bottom: height(0),
           },
         }),
         zIndex: 9999,
-        width: height(3),
-        height: height(3),
+        width: height(4),
+        height: height(4),
       }}
       onPressActionButton={() => {
         setImgModal(true);
       }}
       icon={() => (
-        <Ionicons name="camera" size={height(3)} color={AppColors.primary} />
+        <Ionicons name="camera" size={height(4)} color={AppColors.primary} />
       )}
     />
   );
@@ -231,7 +233,7 @@ function ChatView({ route }) {
     <Send
       disabled={!selectedItem}
       {...props}
-      containerStyle={{ paddingRight: width(4) }}
+      containerStyle={{ paddingRight: width(2) }}
       label={
         <Ionicons name="send" color={AppColors.primary} size={height(3)} />
       }
@@ -498,6 +500,7 @@ function ChatView({ route }) {
     setImageModal(false);
     setImage([]);
   };
+  const renderDay = (props) => <Day {...props} dateFormat={"MM/ D/ YYYY"} />;
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -518,7 +521,7 @@ function ChatView({ route }) {
           </TouchableOpacity>
           <View>
             <Text style={styles.account_Text}>{usrData?.firstName}</Text>
-            {online ? (
+            {/* {online ? (
               <View style={styles.online_View}>
                 <View style={styles.online_Indicator}></View>
                 <Text style={styles.online_Text}>Online</Text>
@@ -530,7 +533,7 @@ function ChatView({ route }) {
                 ></View>
                 <Text style={styles.online_Text}>Offline</Text>
               </View>
-            )}
+            )} */}
           </View>
         </View>
         {selectedItem && (
@@ -548,6 +551,7 @@ function ChatView({ route }) {
             _id: user?._id,
           }}
           renderAvatar={renderAvatar}
+          renderDay={renderDay}
           renderActions={renderActions}
           renderMessageImage={renderMessageImage}
           renderMessageText={renderMessageText}

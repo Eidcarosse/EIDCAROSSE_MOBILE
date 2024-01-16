@@ -585,6 +585,7 @@ export default {
     password: "Password",
     emptyfield: "Empty field",
     loginfavorite: "Login to add favorite",
+    loginView:"Login to view profile",
     wrong: "Somthing went wrong re-try",
     adPosterrormsg: "Something went wrong to post ad",
     requiremsg: "Fields are empty",

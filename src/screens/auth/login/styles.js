@@ -21,7 +21,10 @@ const styles = StyleSheet.create({
     width: width(80),
     margin: width(3),
   },
-  bg: { width: width(100), height: height(28) },
+  bg: {
+    width: width(100),
+    height: height(28),
+  },
   forget: {
     alignSelf: "center",
     alignContent: "center",
@@ -29,6 +32,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  text: { color: AppColors.primary, fontWeight: "bold",fontSize:height(1.5) },
+  text: { color: AppColors.primary, fontWeight: "bold", fontSize: height(1.5) },
 });
 export default styles;

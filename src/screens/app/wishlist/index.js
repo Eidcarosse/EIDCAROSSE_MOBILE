@@ -3,7 +3,11 @@ import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Head, ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
-import { selectFavAds, selectUserMeta } from "../../../redux/slices/user";
+import {
+  selectFavAds,
+  selectUserMeta,
+  setAdsFav,
+} from "../../../redux/slices/user";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
@@ -27,8 +31,14 @@ export default function WishList({ navigation, route }) {
   const getData = useCallback(async (id) => {
     setLoader(true);
     let d = await getFavAds(id);
-    if (d) setData(d);
-    else setData([]);
+
+    if (d) {
+      let all = d.map((item) => {
+        return item._id;
+      });
+      dispatch(setAdsFav(all));
+      setData(d);
+    } else setData([]);
     setLoader(false);
   });
   return (
@@ -62,6 +72,7 @@ export default function WishList({ navigation, route }) {
           ) : (
             data.map((item, index) => (
               <TouchableOpacity
+                disabled={!item?.visibility}
                 activeOpacity={0.7}
                 onPress={() => {
                   navigation.navigate(ScreenNames.DETAIL, item);

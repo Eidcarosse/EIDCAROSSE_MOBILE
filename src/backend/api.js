@@ -117,6 +117,15 @@ export const toggleFavorite = async (id, userId) => {
     return []; // or some default value as needed
   }
 };
+export const togglePublish = async (id) => {
+  try {
+    const response = await ApiManager.patch(`ad/muteAd/${id}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return []; // or some default value as needed
+  }
+};
 export const adView = async (adId) => {
   try {
     const response = await ApiManager.patch(`ad/addView?id=${adId}`);

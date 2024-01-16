@@ -186,6 +186,7 @@ export default function ChatIcon({ data }) {
               {
                 fontWeight: "bold",
                 fontSize: height(1.2),
+               
               },
               selectedItem && { color: "lightgrey" },
             ]}

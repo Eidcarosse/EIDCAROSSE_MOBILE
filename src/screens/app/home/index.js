@@ -98,7 +98,7 @@ export default function Home({}) {
           <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>
             <Text
               style={{
-                fontSize: height(1.5),
+                fontSize: height(1.3),
                 marginTop: 8,
                 color: "grey",
                 fontWeight: "bold",
