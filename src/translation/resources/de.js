@@ -523,7 +523,8 @@ export default {
     edit: "Bearbeiten",
     title: "Meine Inserate",
     published: "AKTIV",
-    mute: "Pausieren",
+    mute: "Pausiert",
+    muteButton: "Pausieren",
     delete: "Löschen",
     refresh: "Aktualisieren",
     markassold: "Als verkauft markieren",
@@ -556,7 +557,7 @@ export default {
     whatsapp: "Meine Whatsapp-Nummer anzeigen?",
   },
   flashmsg: {
-    "Ad Refresh": "Inserat aktualisieren",
+    "Ad Refresh": "Inserat aktualisiert",
     authentication: "Authentifizierung",
     success: "Erfolg",
     error: "Fehler",
@@ -564,7 +565,7 @@ export default {
     password: "Passwort",
     emptyfield: "Leeres Feld",
     loginfavorite: "Einloggen, um Favoriten hinzuzufügen",
-    loginView:"Anmelden, um das Profil anzuzeigen",
+    loginView: "Anmelden, um das Profil anzuzeigen",
     wrong: "Etwas ist schiefgelaufen, versuche es erneut",
     adPosterrormsg:
       "Etwas ist schiefgelaufen, um eine Anzeige zu veröffentlichen",

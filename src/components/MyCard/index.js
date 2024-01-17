@@ -197,7 +197,7 @@ export default function MyCard({ data }) {
             <FontAwesome name="pause" size={height(1.8)} />
             <Text style={{ fontSize: height(1.5) }}>
               {" "}
-              {"  "} {t("myad.mute")}
+              {"  "} {t("myad.muteButton")}
             </Text>
           </MenuItem>
         ) : (

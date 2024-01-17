@@ -551,6 +551,7 @@ export default {
     title: "Mes annonces",
     published: "Publié",
     mute: "Muet",
+    muteButton: "Muet",
     delete: "Supprimer",
     refresh: "Actualiser",
     markassold: "Marquer comme vendu",

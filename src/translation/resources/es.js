@@ -536,6 +536,7 @@ export default {
     title: "Mis anuncios",
     published: "Publicado",
     mute: "Silenciar",
+    muteButton: "Silenciar",
     delete: "Eliminar",
     refresh: "Actualizar",
     markassold: "Marcar como vendido",
