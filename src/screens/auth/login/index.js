@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { loginApi } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
-import { setAppLoader, setRememberMe } from "../../../redux/slices/config";
+import { setAppLoader, } from "../../../redux/slices/config";
 import {
   setAdsFav,
   setIsLoggedIn,
@@ -40,7 +40,6 @@ export default function Login({ navigation, route }) {
   const [password, setPassword] = useState("");
   const [emailr, setEmailr] = useState("");
   const [passwordr, setPasswordr] = useState("");
-  const [check, setCheck] = useState(false);
   // const isValidEmail = (email) => {
   //   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
   //   return emailRegex.test(email);
@@ -81,11 +80,9 @@ export default function Login({ navigation, route }) {
           dispatch(setUserMeta(res?.data?.userDetails));
           dispatch(setToken(res?.data?.token));
           dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
-          if (check) {
+
             setAuthData(data);
             setAuthAllData(res?.data?.userDetails);
-            dispatch(setRememberMe(true));
-          }
           dispatch(setAppLoader(false));
           successMessage("", t(`flashmsg.sussessloginmsg`));
           navigation.navigate(ScreenNames.BUTTOM);
@@ -140,30 +137,6 @@ export default function Login({ navigation, route }) {
               secure={true}
               require={passwordr}
             />
-            <View style={styles.checkview}>
-              <CheckBox
-                checkedImage={
-                  <MaterialIcons
-                    name="check-box"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
-                }
-                unCheckedImage={
-                  <MaterialIcons
-                    name="check-box-outline-blank"
-                    size={width(4)}
-                  />
-                }
-                style={{ paddingRight: width(2) }}
-                onClick={() => {
-                  setCheck(!check);
-                }}
-                checkedCheckBoxColor={AppColors.primary}
-                isChecked={check}
-              />
-              <Text style={{ fontSize: height(1.5) }}>{t("Remember me")}</Text>
-            </View>
             <Button
               containerStyle={styles.button}
               title={"login.loginButton"}

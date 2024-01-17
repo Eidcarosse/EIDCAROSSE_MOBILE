@@ -6,7 +6,7 @@ const initialState = {
   categoryList: [],
   showWhatsapp: false,
   showViber: false,
-  rememberMe:false
+  newChat:false
 };
 
 const configSlice = createSlice({
@@ -28,8 +28,8 @@ const configSlice = createSlice({
     setShowViber: (state, action) => {
       state.showViber = action.payload;
     },
-    setRememberMe: (state, action) => {
-      state.rememberMe = action.payload;
+    setNewChat: (state, action) => {
+      state.newChat = action.payload;
     },
   },
 });

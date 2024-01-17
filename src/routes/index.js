@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Network from "expo-network";
-import { getDatabase, off, onValue, ref } from "firebase/database";
+import { getDatabase, off, onValue, ref, get } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
@@ -11,9 +11,9 @@ import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
 import {
-  selectRememberMe,
   setAppLoader,
   setCategoryList,
+  setNewChat,
   setShowViber,
   setShowWhatsapp,
   setTopAds,
@@ -80,7 +80,14 @@ export default function Routes() {
   const dispatch = useDispatch();
   const [isConnected, setIsConnected] = useState(true);
   const [user, setUser] = useState();
-  const remeber = useSelector(selectRememberMe);
+  const [countMsg, setCountMsg] = useState(0);
+  useEffect(() => {
+    if (countMsg > 0) {
+      dispatch(setNewChat(true));
+    } else {
+      dispatch(setNewChat(false));
+    }
+  }, [countMsg]);
   useEffect(() => {
     dispatch(setAppLoader(true));
     getNetwork();
@@ -95,16 +102,6 @@ export default function Routes() {
       dispatch(setAppLoader(true));
     }
   }, [isConnected]);
-  useEffect(() => {
-    if (!remeber) {
-      dispatch(setIsLoggedIn(false));
-      dispatch(setUserMeta(null));
-      dispatch(setUserAds(null));
-      dispatch(setAdsFav([]));
-      dispatch(setChatRooms([]));
-      setAuthData(null);
-    }
-  }, []);
   const getData = useCallback(async () => {
     try {
       const data = await getDataofHomePage();
@@ -215,7 +212,16 @@ export default function Routes() {
         });
       }
     });
-    return lastmsg;
+
+    const lastReadRef = await ref(
+      db,
+      `chatrooms/${data}/lastRead/${user?._id}`
+    );
+
+    // Assuming you're using Firebase Realtime Database
+    const snapshot = await get(lastReadRef);
+    const lastReadTimestamp = await snapshot.val();
+    return { lastmsg, readd: lastReadTimestamp < lastmsg?.date };
   });
 
   const getItems = useCallback(async (data) => {
@@ -233,8 +239,8 @@ export default function Routes() {
 
       const handleRoomUpdate = async (snapshot) => {
         const room = snapshot.val() || [];
-        await promisFuntion(room);
         dispatch(setChatRooms(room));
+        await promisFuntion(room);
       };
 
       onValue(roomRef, handleRoomUpdate);
@@ -264,7 +270,15 @@ export default function Routes() {
       });
 
       const newData = await Promise.all(promises);
-
+      console.log("====================================");
+      console.log(newData);
+      console.log("====================================");
+      let a = newData.find((item) => item?.lastmsg?.readd == true);
+      if (a) {
+        dispatch(setNewChat(true));
+      } else {
+        dispatch(setNewChat(false));
+      }
       dispatch(setChatRedux(newData));
       dispatch(setAppLoader(false));
     } catch (e) {

@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
@@ -25,9 +25,12 @@ export default function ChatIcon({ data }) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
-  const [selectedItem, setSelectedItem] = useState(
-    !data?.product || !data?.user
-  );
+  const [selectedItem, setSelectedItem] = useState();
+  const [newMsg, setNewMsg] = useState(false);
+  useEffect(() => {
+    setSelectedItem(!data?.product || !data?.user);
+    setNewMsg(data?.read);
+  }, [data]);
   const database = getDatabase();
   const deleteChatroom = async (chatroomId) => {
     // Assuming `chatroomId` is the unique identifier for the chatroom
@@ -169,6 +172,7 @@ export default function ChatIcon({ data }) {
             numberOfLines={1}
             style={[
               { paddingTop: height(1), fontSize: height(1) },
+              newMsg && { fontWeight: "bold", fontSize: height(1.3) },
               selectedItem && { color: "lightgrey" },
             ]}
           >
@@ -186,7 +190,6 @@ export default function ChatIcon({ data }) {
               {
                 fontWeight: "bold",
                 fontSize: height(1.2),
-               
               },
               selectedItem && { color: "lightgrey" },
             ]}

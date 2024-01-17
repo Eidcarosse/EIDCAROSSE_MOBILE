@@ -1,4 +1,4 @@
-import { getDatabase, off, onValue, ref } from "firebase/database";
+import { getDatabase, off, onValue, ref, get } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
@@ -19,6 +19,7 @@ import { getUserByID } from "../../../backend/auth";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
+import { setNewChat } from "../../../redux/slices/config";
 export default function ChatList({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -27,11 +28,13 @@ export default function ChatList({ navigation, route }) {
   const allRooms = useSelector(selectChatRooms);
   const Chat = useSelector(selectChatRedux);
   const [loading, setLoading] = useState(false);
+
   useFocusEffect(
     useCallback(() => {
       fetchRooms(user?._id);
     }, [])
   );
+
   function compareArrays(array1, array2) {
     // Check if the arrays have the same length
     if (array1.length !== array2.length) {
@@ -76,8 +79,9 @@ export default function ChatList({ navigation, route }) {
     const fetchedUser = await getUserByID(search);
     return fetchedUser;
   });
-  const myFunction = useCallback(async (data) => {
+  const myFunction = async (data) => {
     let lastmsg = {};
+    let count = 0;
     const messagesRef = ref(db, `chatrooms/${data}/messages`);
     onValue(messagesRef, (snapshot) => {
       const messageData = snapshot.val();
@@ -93,13 +97,22 @@ export default function ChatList({ navigation, route }) {
         });
       }
     });
-    return lastmsg;
-  });
 
-  const getItems = useCallback(async (data) => {
+    const lastReadRef = await ref(
+      db,
+      `chatrooms/${data}/lastRead/${user?._id}`
+    );
+
+    // Assuming you're using Firebase Realtime Database
+    const snapshot = await get(lastReadRef);
+    const lastReadTimestamp = await snapshot.val();
+    return { lastmsg, readd: lastReadTimestamp < lastmsg?.date };
+  };
+
+  const getItems = async (data) => {
     const response = await getDataofAdByID(data.split("_")[2]);
     return response;
-  });
+  };
   const promisFuntion = async () => {
     try {
       setLoading(true);
@@ -110,12 +123,19 @@ export default function ChatList({ navigation, route }) {
         return {
           roomId: element,
           user: u,
-          lastmsg: l,
+          lastmsg: l?.lastmsg,
           product: i,
+          read: l?.readd,
         };
       });
 
       const newData = await Promise.all(promises);
+      let a = newData.find((item) => item?.read == true);
+      if (a) {
+        dispatch(setNewChat(true));
+      } else {
+        dispatch(setNewChat(false));
+      }
       dispatch(setChatRedux(newData));
       setLoading(false);
     } catch (e) {
@@ -132,6 +152,7 @@ export default function ChatList({ navigation, route }) {
       statusBarColor={AppColors.primary}
       barStyle="light-content"
       refreshing={loading}
+      onRefresh={promisFuntion}
       scrollEnabled
     >
       {/* {loading && (

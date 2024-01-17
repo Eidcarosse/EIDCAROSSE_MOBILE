@@ -1,6 +1,6 @@
 // App.js
 
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -25,6 +25,7 @@ import { ListData } from "../../screens/app";
 
 import AddIcon from "../../svgcomponents/plus";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { selectNewChat } from "../../redux/slices/config";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 function TestStack() {
@@ -39,6 +40,10 @@ function TestStack() {
 }
 const BottomNav = ({ navigation }) => {
   const islogin = useSelector(selectIsLoggedIn);
+  const msg = useSelector(selectNewChat);
+  console.log("====================================");
+  console.log("dost show", msg);
+  console.log("====================================");
   return (
     // <DrawerSceneWrapper>
     <Tab.Navigator
@@ -97,9 +102,20 @@ const BottomNav = ({ navigation }) => {
                 justifyContent: "center",
               }}
             >
+              {route.name === "myChat" && msg && (
+                <View
+                  style={{
+                    backgroundColor: "red",
+                    height: height(1),
+                    width: height(1),
+                    borderRadius: height(3),
+                    marginLeft: height(3),
+                  }}
+                />
+              )}
               <Ionicons
                 name={iconName}
-                size={focused?height(3):height(2.2)}
+                size={focused ? height(3) : height(2.2)}
                 color={focused ? AppColors.primary : "gray"}
               />
             </View>

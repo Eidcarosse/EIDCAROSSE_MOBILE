@@ -130,6 +130,12 @@ function ChatView({ route }) {
           setMessages(messageList);
         }
       });
+
+      const lastReadRef = ref(
+        database,
+        `chatrooms/${roomID}/lastRead/${user?._id}`
+      );
+      await set(lastReadRef, Date.now());
     }
   };
   const renderBubble = (props) => {
@@ -221,7 +227,7 @@ function ChatView({ route }) {
         height: height(4),
       }}
       onPressActionButton={() => {
-        setImgModal(true);
+        selectedItem && setImgModal(true);
       }}
       icon={() => (
         <Ionicons name="camera" size={height(4)} color={AppColors.primary} />
