@@ -545,6 +545,7 @@ export default {
     title: "My Ads",
     published: "Published",
     mute: "Mute",
+    muteButton: "Mute",
     delete: "Delete",
     refresh: "Refresh",
     markassold: "Mark as Sold",

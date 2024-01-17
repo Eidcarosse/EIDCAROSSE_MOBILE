@@ -515,6 +515,7 @@ export default {
     title: "Le mie inserzioni",
     published: "Pubblicato",
     mute: "Silenzia",
+    muteButton: "Silenzia",
     delete: "Elimina",
     refresh: "Aggiorna",
     markassold: "Segna come venduto",
