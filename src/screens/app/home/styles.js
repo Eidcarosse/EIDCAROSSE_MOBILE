@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: height(0.1),
     alignItems: "center",
+    paddingVertical: height(.5),
   },
   titleview: {
     justifyContent: "space-between",

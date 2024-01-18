@@ -167,9 +167,7 @@ const BottomNav = ({ navigation }) => {
           />
           <Tab.Screen
             name="tit"
-            component={() => (
-              <CategoryScreen value="ADD" navigation={navigation} />
-            )}
+            component={CategoryScreen}
             options={{ headerShown: false }}
           />
           <Tab.Screen

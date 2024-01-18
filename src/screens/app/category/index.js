@@ -13,7 +13,7 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 
-export default function Category({ navigation, route, value }) {
+export default function Category({ navigation, route }) {
   const data = useSelector(selectCategoryList);
   const search = route?.params?.search;
   const dispatch = useDispatch();
@@ -69,32 +69,32 @@ export default function Category({ navigation, route, value }) {
                 textStyle={styles.textStyle}
                 imageStyle={styles.imageStyle}
                 onPress={() => {
-                  if (value == "ADD") {
+                  if (route?.params?.value == "seeAll") {
                     if (item.name == "Bikes" || item.name == "Parts") {
                       navigation.navigate(ScreenNames.BIKECATEGORY, {
                         category: item?.name,
                         find: item?.name,
+                        show: true,
                         subCategories: item?.subCategories,
+                        search: search || "",
                       });
                     } else {
-                      navigation.navigate(ScreenNames.ADDPOST, {
+                      navigation.navigate(ScreenNames.LISTDATA, {
                         category: item?.name,
                         find: item?.name,
+                        search: search || "",
                       });
                     }
                   } else if (item.name == "Bikes" || item.name == "Parts") {
                     navigation.navigate(ScreenNames.BIKECATEGORY, {
                       category: item?.name,
                       find: item?.name,
-                      show: true,
                       subCategories: item?.subCategories,
-                      search: search || "",
                     });
                   } else {
-                    navigation.navigate(ScreenNames.LISTDATA, {
+                    navigation.navigate(ScreenNames.ADDPOST, {
                       category: item?.name,
                       find: item?.name,
-                      search: search || "",
                     });
                   }
                 }}

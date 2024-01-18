@@ -19,12 +19,13 @@ import { getUserByID } from "../../../backend/auth";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
-import { setNewChat } from "../../../redux/slices/config";
+import { selectNewChat, setNewChat } from "../../../redux/slices/config";
 export default function ChatList({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const db = getDatabase();
   const user = useSelector(selectUserMeta);
+  const newone = useSelector(selectNewChat);
   const allRooms = useSelector(selectChatRooms);
   const Chat = useSelector(selectChatRedux);
   const [loading, setLoading] = useState(false);
@@ -34,26 +35,6 @@ export default function ChatList({ navigation, route }) {
       fetchRooms(user?._id);
     }, [])
   );
-
-  function compareArrays(array1, array2) {
-    // Check if the arrays have the same length
-    if (array1.length !== array2.length) {
-      return false;
-    }
-
-    // Sort the arrays to ensure order doesn't affect the comparison
-    const sortedArray1 = array1.slice().sort();
-    const sortedArray2 = array2.slice().sort();
-
-    // Compare each element in the sorted arrays
-    for (let i = 0; i < sortedArray1.length; i++) {
-      if (sortedArray1[i] !== sortedArray2[i]) {
-        return false; // Arrays are different
-      }
-    }
-
-    return true; // Arrays are the same
-  }
   const fetchRooms = async (userId) => {
     try {
       let roomRef = ref(db, `users/${userId}/rooms`);
@@ -79,25 +60,8 @@ export default function ChatList({ navigation, route }) {
     const fetchedUser = await getUserByID(search);
     return fetchedUser;
   });
-  const myFunction = async (data) => {
+  const myFunction = useCallback(async (data) => {
     let lastmsg = {};
-    let count = 0;
-    const messagesRef = ref(db, `chatrooms/${data}/messages`);
-    onValue(messagesRef, (snapshot) => {
-      const messageData = snapshot.val();
-
-      if (messageData) {
-        const messageList = Object.values(messageData);
-        messageList.forEach((message) => {
-          lastmsg = {
-            message: message?.text,
-            date: message?.timestamp,
-            image: message?.images,
-          };
-        });
-      }
-    });
-
     const lastReadRef = await ref(
       db,
       `chatrooms/${data}/lastRead/${user?._id}`
@@ -106,14 +70,24 @@ export default function ChatList({ navigation, route }) {
     // Assuming you're using Firebase Realtime Database
     const snapshot = await get(lastReadRef);
     const lastReadTimestamp = await snapshot.val();
-    return { lastmsg, readd: lastReadTimestamp < lastmsg?.date };
-  };
+    const messagesRef = ref(db, `chatrooms/${data}/messages`);
+    onValue(messagesRef, (snapshot) => {
+      const messageData = snapshot.val();
 
-  const getItems = async (data) => {
+      if (messageData) {
+        const messageList = Object.values(messageData);
+        lastmsg = messageList[messageList.length - 1];
+      }
+    });
+
+    return { lastmsg, readd: lastReadTimestamp < lastmsg?.timestamp };
+  });
+
+  const getItems = useCallback(async (data) => {
     const response = await getDataofAdByID(data.split("_")[2]);
     return response;
-  };
-  const promisFuntion = async () => {
+  });
+  const promisFuntion = useCallback(async () => {
     try {
       setLoading(true);
       const promises = allRooms.map(async (element) => {
@@ -130,8 +104,8 @@ export default function ChatList({ navigation, route }) {
       });
 
       const newData = await Promise.all(promises);
-      let a = newData.find((item) => item?.read == true);
-      if (a) {
+
+      if (newData.find((item) => item?.read == true)) {
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));
@@ -141,10 +115,11 @@ export default function ChatList({ navigation, route }) {
     } catch (e) {
       setLoading(false);
     }
-  };
+  });
   useEffect(() => {
     if (allRooms) promisFuntion();
   }, [allRooms]);
+
   return (
     <ScreenWrapper
       showStatusBar={false}

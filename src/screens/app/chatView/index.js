@@ -60,7 +60,18 @@ function ChatView({ route }) {
   const usrData = route.params?.usr;
   const user = useSelector(selectUserMeta);
   const data = useSelector(selectChatRooms);
-
+  useEffect(() => {
+    let f = async () => {
+      if (roomID) {
+        const lastReadRef = ref(
+          database,
+          `chatrooms/${roomID}/lastRead/${user?._id}`
+        );
+        await set(lastReadRef, Date.now());
+      }
+    };
+    return f();
+  }, []);
   useEffect(() => {
     myfuntion();
   }, [roomID]);
@@ -406,11 +417,11 @@ function ChatView({ route }) {
         );
         await set(lastReadRef, Date.now());
 
-        const lastRead = ref(
-          database,
-          `chatrooms/${roomNew}/lastRead/${route.params.usr?._id}`
-        );
-        await set(lastRead, Date.now());
+        // const lastRead = ref(
+        //   database,
+        //   `chatrooms/${roomNew}/lastRead/${route.params.usr?._id}`
+        // );
+        // await set(lastRead, Date.now());
 
         await setRooms(roomNew, route.params.usr?._id);
         await setRooms(roomNew, user?._id);

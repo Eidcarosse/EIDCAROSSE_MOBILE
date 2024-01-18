@@ -166,7 +166,7 @@ const CustomDrawer = ({ navigation }) => {
         /> */}
           <View style={styles.bottomview}>
             <Text style={styles.textbuttom}>
-              2023@ All rights reserved by
+              Copyright © 2023. All rights reserved by
               <Text
                 style={{
                   color: "red",
@@ -175,7 +175,7 @@ const CustomDrawer = ({ navigation }) => {
                 }}
               >
                 {" "}
-                Eidcarosse
+                Eidcarosse.ch
               </Text>
             </Text>
           </View>

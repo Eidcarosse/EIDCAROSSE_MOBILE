@@ -449,6 +449,7 @@ export default function ListData({ navigation, route }) {
                         navigation.pop();
                         navigation.navigate(ScreenNames.CATEGORY, {
                           search: title,
+                          value: "seeAll",
                         });
                       }, 600);
                     }}

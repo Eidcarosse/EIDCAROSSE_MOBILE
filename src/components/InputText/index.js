@@ -19,6 +19,7 @@ export default function Input({
   require = false,
   keyboardType = "default",
   inputTextStyle,
+  autoCapitalize='none'
 }) {
   const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);
@@ -32,7 +33,7 @@ export default function Input({
           <TextInput
             cursorColor={AppColors.primary}
             editable={editable}
-            autoCapitalize='none'
+            autoCapitalize={autoCapitalize}
             style={[
               {
                 paddingVertical: width(2),

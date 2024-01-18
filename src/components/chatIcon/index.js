@@ -13,88 +13,62 @@ import Dialog from "react-native-dialog";
 import ScreenNames from "../../routes/routes";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
-import { remove } from "firebase/database";
+import { onValue, remove } from "firebase/database";
 import { get, getDatabase, ref, set } from "firebase/database";
-import { setChatRooms } from "../../redux/slices/user";
-import { useDispatch } from "react-redux";
+import { selectUserMeta, setChatRooms } from "../../redux/slices/user";
+import { useDispatch, useSelector } from "react-redux";
 import AppColors from "../../utills/AppColors";
+import { selectNewChat, setNewChat } from "../../redux/slices/config";
 
 export default function ChatIcon({ data }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const user = useSelector(selectUserMeta);
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState();
-  const [newMsg, setNewMsg] = useState(false);
+  const [newMsg, setNewMsg] = useState(data?.read);
+  const [latestMsg, setLatestMsg] = useState(data?.lastmsg);
   useEffect(() => {
     setSelectedItem(!data?.product || !data?.user);
-    setNewMsg(data?.read);
-  }, [data]);
+    // setLatestMsg(data?.lastmsg);
+  }, []);
   const database = getDatabase();
+
   const deleteChatroom = async (chatroomId) => {
-    // Assuming `chatroomId` is the unique identifier for the chatroom
-
     try {
-      // Remove messages
-      await remove(ref(database, `chatrooms/${chatroomId}/messages`));
-
-      // Remove lastRead information
-      await remove(ref(database, `chatrooms/${chatroomId}/lastRead`));
-
-      // Remove the chatroom itself
+      // await remove(ref(database, `chatrooms/${chatroomId}/messages`));
+      // await remove(ref(database, `chatrooms/${chatroomId}/lastRead`));
       await remove(ref(database, `chatrooms/${chatroomId}`));
       await setRooms(chatroomId, data?.user?._id);
-      // You may also want to update your state to reflect the removal
-      // Example: setRooms(null, route.params.usr?._id);
-      //          setRooms(null, user?._id);
+      await setRooms(chatroomId, user?._id);
     } catch (error) {
       console.error("Error deleting chatroom:", error.message);
       // Handle errors as needed
     }
   };
   const setRooms = async (roomId, id) => {
-    const dataRef = ref(database, `users/${id}`);
-    lst = [`${roomId}`];
-    await get(dataRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const roomsFromData = data.rooms;
-          const newRooms = roomsFromData.filter((room) => !lst.includes(room));
-          lst = lst.concat(newRooms);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error("Error getting data:", error);
-      });
+    try {
+      const userRef = ref(database, `users/${id}/rooms`);
+      const snapshot = await get(userRef);
 
-    const userRef = ref(database, `users/${id}`);
+      if (snapshot.exists()) {
+        const currentRooms = snapshot.val() || [];
 
-    const updateData = {
-      online: false,
-      rooms: lst, // Update the 'rooms' field with the 'lst' object
-    };
+        // Filter out the room to be removed
+        const updatedRooms = currentRooms.filter((room) => room !== roomId);
 
-    set(userRef, updateData)
-      .then(() => {
-        dispatch(setChatRooms(roomID));
-
-        console.log("Update successful");
-      })
-      .catch((error) => {
-        console.error("Update failed", error);
-      });
+        // Update the user's data with the updated rooms array
+        await set(userRef, updatedRooms);
+      }
+    } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
+    }
   };
-  // Example usage in your component
-  const onDeleteChatroom = useCallback((id) => {
-    // Assuming you have access to the chatroom ID you want to delete
-    const chatroomIdToDelete = id;
 
-    deleteChatroom(chatroomIdToDelete);
-  }, []);
   const handlePress = useCallback(() => {
     navigation.navigate(ScreenNames.CHAT, {
       usr: data?.user,
@@ -102,6 +76,35 @@ export default function ChatIcon({ data }) {
       userItem: data?.product,
     });
   });
+
+  const handleSnapshot = useCallback(async (snapshot) => {
+    let lastmsg = {};
+    const lastReadRef = ref(
+      database,
+      `chatrooms/${data?.roomId}/lastRead/${user?._id}`
+    );
+    const snapsho = await get(lastReadRef);
+    let lastReadTimestamp = await snapsho.val();
+    const messageData = snapshot.val();
+    if (messageData) {
+      const messageList = Object.values(messageData);
+      lastmsg = messageList[messageList.length - 1];
+    }
+    // setLatestMsg(lastmsg);
+    setNewMsg(lastReadTimestamp < lastmsg?.timestamp);
+    if (lastReadTimestamp < lastmsg?.timestamp)
+      dispatch(setNewChat(lastReadTimestamp < lastmsg?.timestamp));
+
+    // Handle the updated data here
+  }, []);
+
+  // useEffect(() => {
+  //   const dataRef = ref(database, `chatrooms/${data?.roomId}/messages`);
+  //   onValue(dataRef, handleSnapshot);
+  // }, [data]);
+console.log('====================================');
+console.log( data?.read);
+
   return (
     <Fragment>
       <TouchableOpacity
@@ -176,9 +179,14 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {data?.lastmsg?.message}
-            {data?.lastmsg?.image && (
-              <Ionicons name="image" size={height(2)} color={"grey"} />
+            {/* {latestMsg?.text} */}
+            {data?.lastmsg?.text}
+            {data?.lastmsg?.images && (
+              <Ionicons
+                name="image"
+                size={height(2)}
+                color={newMsg ? AppColors.black : "grey"}
+              />
             )}
           </Text>
           <Text />
@@ -194,13 +202,12 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {data?.lastmsg?.date
-              ? `${new Date(data?.lastmsg?.date).getDate()}/${
-                  new Date(data?.lastmsg?.date).getMonth() + 1
-                }/${new Date(data?.lastmsg?.date).getFullYear()}`
+            {data?.lastmsg?.timestamp
+              ? `${new Date(data?.lastmsg?.timestamp).getDate()}/${
+                  new Date(data?.lastmsg?.timestamp).getMonth() + 1
+                }/${new Date(data?.lastmsg?.timestamp).getFullYear()}`
               : "00/00/0000"}
           </Text>
-          <Text />
         </View>
       </TouchableOpacity>
       <View>

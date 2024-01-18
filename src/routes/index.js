@@ -197,22 +197,6 @@ export default function Routes() {
   });
   const myFunction = useCallback(async (data) => {
     let lastmsg = {};
-    const messagesRef = ref(db, `chatrooms/${data}/messages`);
-    onValue(messagesRef, (snapshot) => {
-      const messageData = snapshot.val();
-
-      if (messageData) {
-        const messageList = Object.values(messageData);
-        messageList.forEach((message) => {
-          lastmsg = {
-            message: message?.text,
-            date: message?.timestamp,
-            image: message?.images,
-          };
-        });
-      }
-    });
-
     const lastReadRef = await ref(
       db,
       `chatrooms/${data}/lastRead/${user?._id}`
@@ -220,8 +204,17 @@ export default function Routes() {
 
     // Assuming you're using Firebase Realtime Database
     const snapshot = await get(lastReadRef);
-    const lastReadTimestamp = await snapshot.val();
-    return { lastmsg, readd: lastReadTimestamp < lastmsg?.date };
+    let lastReadTimestamp = await snapshot.val();
+    const messagesRef = ref(db, `chatrooms/${data}/messages`);
+    onValue(messagesRef, (snapshot) => {
+      const messageData = snapshot.val();
+
+      if (messageData) {
+        const messageList = Object.values(messageData);
+        lastmsg = messageList[messageList.length - 1];
+      }
+    });
+    return { lastmsg, readd: lastReadTimestamp < lastmsg?.timestamp };
   });
 
   const getItems = useCallback(async (data) => {
@@ -233,14 +226,19 @@ export default function Routes() {
     const d = await getCategory();
     if (d) dispatch(setCategoryList(d));
   }
-  const fetchRoomsData = async (userId) => {
+  const fetchRoomsData = useCallback(async (userId) => {
     try {
       roomRef = ref(db, `users/${userId}/rooms`);
 
       const handleRoomUpdate = async (snapshot) => {
         const room = snapshot.val() || [];
         dispatch(setChatRooms(room));
-        await promisFuntion(room);
+        if (user) {
+          console.log("====================================");
+          console.log(user);
+          console.log("====================================");
+          await promisFuntion(room);
+        }
       };
 
       onValue(roomRef, handleRoomUpdate);
@@ -254,7 +252,7 @@ export default function Routes() {
     } catch (error) {
       console.error("Error fetching room data:", error);
     }
-  };
+  });
   const promisFuntion = async (allRooms) => {
     try {
       const promises = allRooms.map(async (element) => {
@@ -264,17 +262,18 @@ export default function Routes() {
         return {
           roomId: element,
           user: u,
-          lastmsg: l,
+          lastmsg: l?.lastmsg,
           product: i,
+          read: l?.readd,
         };
       });
 
       const newData = await Promise.all(promises);
-      console.log("====================================");
-      console.log(newData);
-      console.log("====================================");
-      let a = newData.find((item) => item?.lastmsg?.readd == true);
+      let a = newData.find((item) => item?.read == true);
       if (a) {
+        console.log("====================================");
+        console.log(a);
+        console.log("====================================");
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));

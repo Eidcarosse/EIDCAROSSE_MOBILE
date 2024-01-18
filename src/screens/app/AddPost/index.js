@@ -125,7 +125,7 @@ export default function AddPost({ navigation, route }) {
       setAddViber(edit?.viber ? true : false);
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
-      setPricing(edit?.price >0? "Price" : "");
+      setPricing(edit?.price > 0 ? "Price" : "");
       setBrand(edit?.brand);
       setModel(edit?.model);
       edit?.brand === "Others" && setOtherBrand(true);
@@ -1129,6 +1129,7 @@ export default function AddPost({ navigation, route }) {
             <Input
               value={description}
               multi
+              autoCapitalize={"sentences"}
               setvalue={setDescription}
               placeholder={t("addPost.phdescription")}
               containerStyle={[styles.price, { width: width(90) }]}
