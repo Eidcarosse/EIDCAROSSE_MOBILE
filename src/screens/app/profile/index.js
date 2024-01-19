@@ -104,7 +104,11 @@ export default function Profile({ navigation, route }) {
               containerStyle={styles.container}
               textStyle={styles.texticon}
               icon={
-                <Entypo name="user" color={AppColors.primary} size={height(2)} />
+                <Entypo
+                  name="user"
+                  color={AppColors.primary}
+                  size={height(2)}
+                />
               }
               iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />

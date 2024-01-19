@@ -86,7 +86,18 @@
                     "photosPermission": "Eidcarosse needs access to the photo library to select and upload user profile image and Listing Image to the server.",
                     "cameraPermission": "Eidcarosse uses the camera to capture and upload user profile image and Listing Image to the server."
                 }
-            ]
+            ],
+            [
+                "expo-notifications",
+                {
+                  "icon": "./assets/icon1.png",
+                  "color": "#ffffff",
+                  "sounds": [
+                    "./local/assets/notification-sound.wav",
+                    "./local/assets/notification-sound-other.wav"
+                  ]
+                }
+              ]
         ],
         "extra": {
             "eas": {
@@ -95,3 +106,4 @@
         }
     }
 }
+

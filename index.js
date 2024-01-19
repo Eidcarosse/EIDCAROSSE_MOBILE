@@ -2,6 +2,7 @@ import { AppRegistry, Platform } from "react-native";
 import { registerRootComponent } from "expo";
 import App from "./src";
 import { name as appName } from "./app.json";
+
 registerRootComponent(App);
 const firebaseConfig = {
   apiKey: "AIzaSyBNgp2owPCTFdoonCCfEIA3c-mdTP52bXs",

@@ -60,17 +60,17 @@ function ChatView({ route }) {
   const usrData = route.params?.usr;
   const user = useSelector(selectUserMeta);
   const data = useSelector(selectChatRooms);
+  let f = async () => {
+    if (roomID) {
+      const lastReadRef = ref(
+        database,
+        `chatrooms/${roomID}/lastRead/${user?._id}`
+      );
+      await set(lastReadRef, Date.now());
+    }
+  };
   useEffect(() => {
-    let f = async () => {
-      if (roomID) {
-        const lastReadRef = ref(
-          database,
-          `chatrooms/${roomID}/lastRead/${user?._id}`
-        );
-        await set(lastReadRef, Date.now());
-      }
-    };
-    return f();
+    f();
   }, []);
   useEffect(() => {
     myfuntion();
@@ -444,7 +444,7 @@ function ChatView({ route }) {
         await setRooms(roomID, user?._id);
       }
     }
-  }, []);
+  });
   async function getBlobFromFile(imageUri) {
     return (await fetch(imageUri)).blob();
   }

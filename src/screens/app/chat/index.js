@@ -35,6 +35,15 @@ export default function ChatList({ navigation, route }) {
       fetchRooms(user?._id);
     }, [])
   );
+  // async function schedulePushNotification() {
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: "Eidcarosse",
+  //       body: "New message",
+  //     },
+  //     trigger: { seconds: 1 },
+  //   });
+  // }
   const fetchRooms = async (userId) => {
     try {
       let roomRef = ref(db, `users/${userId}/rooms`);
@@ -106,6 +115,7 @@ export default function ChatList({ navigation, route }) {
       const newData = await Promise.all(promises);
 
       if (newData.find((item) => item?.read == true)) {
+        // await schedulePushNotification();
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));

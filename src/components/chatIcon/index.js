@@ -19,7 +19,7 @@ import { selectUserMeta, setChatRooms } from "../../redux/slices/user";
 import { useDispatch, useSelector } from "react-redux";
 import AppColors from "../../utills/AppColors";
 import { selectNewChat, setNewChat } from "../../redux/slices/config";
-
+import * as Notifications from "expo-notifications";
 export default function ChatIcon({ data }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
@@ -31,6 +31,8 @@ export default function ChatIcon({ data }) {
   const [newMsg, setNewMsg] = useState();
   const [userDetail, setUserDetail] = useState();
   const [latestMsg, setLatestMsg] = useState();
+  const [lastNot, setLastNot] = useState(new Date());
+  const [not, setNot] = useState(0);
   useEffect(() => {
     setSelectedItem(!data?.product || !data?.user);
     setUserDetail(data);
@@ -50,6 +52,15 @@ export default function ChatIcon({ data }) {
       // Handle errors as needed
     }
   };
+  async function schedulePushNotification(title, body) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: body,
+      },
+      trigger: null,
+    });
+  }
   const setRooms = async (roomId, id) => {
     try {
       const userRef = ref(database, `users/${id}/rooms`);
@@ -64,15 +75,12 @@ export default function ChatIcon({ data }) {
         // Update the user's data with the updated rooms array
         await set(userRef, updatedRooms);
       }
-    } catch (error) {
-      console.log("====================================");
-      console.log(error);
-      console.log("====================================");
-    }
+    } catch (error) {}
   };
 
   const handlePress = useCallback(() => {
     if (data?.roomId == userDetail?.roomId) {
+      setNewMsg(false);
       navigation.navigate(ScreenNames.CHAT, {
         usr: data?.user,
         userRoom: data?.roomId,
@@ -96,16 +104,29 @@ export default function ChatIcon({ data }) {
     }
     setLatestMsg(lastmsg);
     setNewMsg(lastReadTimestamp < lastmsg?.timestamp);
-    if (lastReadTimestamp < lastmsg?.timestamp)
+    if (lastReadTimestamp < lastmsg?.timestamp) {
+      if (
+        lastmsg.senderId != user?._id &&
+        lastmsg?.timestamp < lastNot &&
+        not == 0
+      ) {
+        setLastNot(lastmsg?.timestamp);
+        setNot(not + 1);
+        await schedulePushNotification(
+          userDetail?.user?.firstName,
+          lastmsg.text
+        );
+      }
       dispatch(setNewChat(lastReadTimestamp < lastmsg?.timestamp));
-
+    }
     // Handle the updated data here
   });
 
   useEffect(() => {
     if (data?.roomId == userDetail?.roomId) {
       const dataRef = ref(database, `chatrooms/${userDetail?.roomId}/messages`);
-      return onValue(dataRef, handleSnapshot);
+      setNot(0);
+      onValue(dataRef, handleSnapshot);
     }
   }, [userDetail]);
 
@@ -216,8 +237,8 @@ export default function ChatIcon({ data }) {
             <View
               style={{
                 backgroundColor: "red",
-                height: height(1),
-                width: height(1),
+                height: height(1.5),
+                width: height(1.5),
                 borderRadius: height(1),
                 marginTop: height(1.2),
               }}
