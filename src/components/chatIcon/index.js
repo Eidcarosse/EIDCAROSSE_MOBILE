@@ -28,12 +28,14 @@ export default function ChatIcon({ data }) {
   const [visible, setVisible] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState();
-  const [newMsg, setNewMsg] = useState(data?.read);
-  const [latestMsg, setLatestMsg] = useState(data?.lastmsg);
+  const [newMsg, setNewMsg] = useState();
+  const [userDetail, setUserDetail] = useState();
+  const [latestMsg, setLatestMsg] = useState();
   useEffect(() => {
     setSelectedItem(!data?.product || !data?.user);
+    setUserDetail(data);
     // setLatestMsg(data?.lastmsg);
-  }, []);
+  }, [data]);
   const database = getDatabase();
 
   const deleteChatroom = async (chatroomId) => {
@@ -70,18 +72,20 @@ export default function ChatIcon({ data }) {
   };
 
   const handlePress = useCallback(() => {
-    navigation.navigate(ScreenNames.CHAT, {
-      usr: data?.user,
-      userRoom: data?.roomId,
-      userItem: data?.product,
-    });
+    if (data?.roomId == userDetail?.roomId) {
+      navigation.navigate(ScreenNames.CHAT, {
+        usr: data?.user,
+        userRoom: data?.roomId,
+        userItem: data?.product,
+      });
+    }
   });
 
   const handleSnapshot = useCallback(async (snapshot) => {
     let lastmsg = {};
     const lastReadRef = ref(
       database,
-      `chatrooms/${data?.roomId}/lastRead/${user?._id}`
+      `chatrooms/${userDetail?.roomId}/lastRead/${user?._id}`
     );
     const snapsho = await get(lastReadRef);
     let lastReadTimestamp = await snapsho.val();
@@ -90,20 +94,20 @@ export default function ChatIcon({ data }) {
       const messageList = Object.values(messageData);
       lastmsg = messageList[messageList.length - 1];
     }
-    // setLatestMsg(lastmsg);
+    setLatestMsg(lastmsg);
     setNewMsg(lastReadTimestamp < lastmsg?.timestamp);
     if (lastReadTimestamp < lastmsg?.timestamp)
       dispatch(setNewChat(lastReadTimestamp < lastmsg?.timestamp));
 
     // Handle the updated data here
-  }, []);
+  });
 
-  // useEffect(() => {
-  //   const dataRef = ref(database, `chatrooms/${data?.roomId}/messages`);
-  //   onValue(dataRef, handleSnapshot);
-  // }, [data]);
-console.log('====================================');
-console.log( data?.read);
+  useEffect(() => {
+    if (data?.roomId == userDetail?.roomId) {
+      const dataRef = ref(database, `chatrooms/${userDetail?.roomId}/messages`);
+      return onValue(dataRef, handleSnapshot);
+    }
+  }, [userDetail]);
 
   return (
     <Fragment>
@@ -123,7 +127,7 @@ console.log( data?.read);
             style={[styles.image]}
             source={{
               uri:
-                data?.user?.image ||
+                userDetail?.user?.image ||
                 "https://res.cloudinary.com/dlkuyfwzu/image/upload/v1704430891/Simple_avatar_qrmt3r.png",
             }}
             onLoad={() => setImageLoading(false)}
@@ -167,8 +171,8 @@ console.log( data?.read);
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {data?.user
-              ? `${data?.user?.firstName} ${data?.user?.lastName}`
+            {userDetail?.user
+              ? `${userDetail?.user?.firstName} ${userDetail?.user?.lastName}`
               : "Eidcarosse user"}
           </Text>
           <Text
@@ -179,9 +183,9 @@ console.log( data?.read);
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {/* {latestMsg?.text} */}
-            {data?.lastmsg?.text}
-            {data?.lastmsg?.images && (
+            {latestMsg?.text}
+            {/* {data?.lastmsg?.text} */}
+            {latestMsg?.images && (
               <Ionicons
                 name="image"
                 size={height(2)}
@@ -202,12 +206,23 @@ console.log( data?.read);
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {data?.lastmsg?.timestamp
-              ? `${new Date(data?.lastmsg?.timestamp).getDate()}/${
-                  new Date(data?.lastmsg?.timestamp).getMonth() + 1
-                }/${new Date(data?.lastmsg?.timestamp).getFullYear()}`
+            {latestMsg?.timestamp
+              ? `${new Date(latestMsg?.timestamp).getDate()}/${
+                  new Date(latestMsg?.timestamp).getMonth() + 1
+                }/${new Date(latestMsg?.timestamp).getFullYear()}`
               : "00/00/0000"}
           </Text>
+          {newMsg && (
+            <View
+              style={{
+                backgroundColor: "red",
+                height: height(1),
+                width: height(1),
+                borderRadius: height(1),
+                marginTop: height(1.2),
+              }}
+            />
+          )}
         </View>
       </TouchableOpacity>
       <View>

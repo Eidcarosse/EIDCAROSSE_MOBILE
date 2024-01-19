@@ -187,19 +187,17 @@ export default function Routes() {
     }
   };
 
-  const fetchData = useCallback(async (data) => {
+  const fetchData = useCallback(async (data, id) => {
     const search =
-      user?._id === data.split("_")[0]
-        ? data.split("_")[1]
-        : data.split("_")[0];
+      id === data.split("_")[0] ? data.split("_")[1] : data.split("_")[0];
     const fetchedUser = await getUserByID(search);
     return fetchedUser;
   });
-  const myFunction = useCallback(async (data) => {
+  const myFunction = useCallback(async (data,id) => {
     let lastmsg = {};
     const lastReadRef = await ref(
       db,
-      `chatrooms/${data}/lastRead/${user?._id}`
+      `chatrooms/${data}/lastRead/${id}`
     );
 
     // Assuming you're using Firebase Realtime Database
@@ -232,12 +230,13 @@ export default function Routes() {
 
       const handleRoomUpdate = async (snapshot) => {
         const room = snapshot.val() || [];
+        console.log("====================================");
+        console.log(room, "userid", userId);
+        console.log("====================================");
         dispatch(setChatRooms(room));
-        if (user) {
-          console.log("====================================");
-          console.log(user);
-          console.log("====================================");
-          await promisFuntion(room);
+        if (userId) {
+
+          await promisFuntion(room, userId);
         }
       };
 
@@ -253,11 +252,11 @@ export default function Routes() {
       console.error("Error fetching room data:", error);
     }
   });
-  const promisFuntion = async (allRooms) => {
+  const promisFuntion = async (allRooms, id) => {
     try {
       const promises = allRooms.map(async (element) => {
-        let u = await fetchData(element);
-        let l = await myFunction(element);
+        let u = await fetchData(element, id);
+        let l = await myFunction(element,id);
         let i = await getItems(element);
         return {
           roomId: element,
