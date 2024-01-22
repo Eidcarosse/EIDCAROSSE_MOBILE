@@ -562,7 +562,11 @@ function ChatView({ route }) {
         <GiftedChat
           onSend={onSend}
           renderSend={renderSend}
-          messages={messages}
+          // messages={messages}
+          messages={messages.map((message) => ({
+            ...message,
+            _id: message._id.toString(), // Ensure that _id is a string
+          }))}
           placeholder={t("chat.placeholder")}
           user={{
             _id: user?._id,

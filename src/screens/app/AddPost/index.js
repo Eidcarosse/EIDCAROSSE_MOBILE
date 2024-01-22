@@ -1285,6 +1285,7 @@ export default function AddPost({ navigation, route }) {
                 language: "en",
                 components: "country:ch",
               }}
+              currentLocationLabel='Current location'
               nearbyPlacesAPI="GooglePlacesSearch"
               debounce={300}
             />
