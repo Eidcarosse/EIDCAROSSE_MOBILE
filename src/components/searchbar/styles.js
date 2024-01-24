@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   flatView:{
     backgroundColor: "white",
-    maxHeight: height(30),
+    maxHeight: height(35),
     width: width(95),
     position: "absolute",
     zIndex: 1,

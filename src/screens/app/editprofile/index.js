@@ -17,6 +17,7 @@ import {
   FilePickerModal,
   Head,
   Input,
+  NumberInput,
   ScreenWrapper,
 } from "../../../components";
 
@@ -89,8 +90,7 @@ export default function EditProfile({ navigation, route }) {
         >
           <View style={styles.imageiner}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <TouchableOpacity
-              onPress={() => imageRef.current.show()}>
+              <TouchableOpacity onPress={() => imageRef.current.show()}>
                 <Image style={styles.avatar} source={{ uri: image[0] }} />
                 <View
                   style={{
@@ -170,14 +170,28 @@ export default function EditProfile({ navigation, route }) {
               editable={false}
               keyboardType="email-address"
             />
-            <Input
+            {/* <Input
+              title={"editprofile.phoneNumberTitle"}
+              placeholder={"+41 XX XXX XX XX"}
+              value={phoneNumber}
+              setvalue={setPhoneNumber}
+              keyboardType="phone-pad"
+            /> */}
+            <NumberInput
               title={"editprofile.phoneNumberTitle"}
               placeholder={"+41 XX XXX XX XX"}
               value={phoneNumber}
               setvalue={setPhoneNumber}
               keyboardType="phone-pad"
             />
-            <Input
+            {/* <Input
+              title={"WhatsApp"}
+              placeholder={"+41 XX XXX XX XX"}
+              value={whatsapp}
+              setvalue={setWhatsapp}
+              keyboardType="phone-pad"
+            /> */}
+            <NumberInput
               title={"WhatsApp"}
               placeholder={"+41 XX XXX XX XX"}
               value={whatsapp}
@@ -190,7 +204,14 @@ export default function EditProfile({ navigation, route }) {
               value={whatsappChannel}
               setvalue={setWhatsappChannel}
             />
-            <Input
+            {/* <Input
+              title={"editprofile.viberTitle"}
+              placeholder={"+41 XX XXX XX XX"}
+              value={viber}
+              setvalue={setViber}
+              keyboardType="phone-pad"
+            /> */}
+             <NumberInput
               title={"editprofile.viberTitle"}
               placeholder={"+41 XX XXX XX XX"}
               value={viber}

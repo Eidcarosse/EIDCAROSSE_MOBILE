@@ -13,6 +13,7 @@ export { default as DetailFooter } from "./detailfooter";
 export { default as SearchBar } from "./searchbar";
 export { default as IconButton } from "./Iconbutton";
 export { default as Input } from "./InputText";
+export { default as NumberInput } from "./numberInput";
 export { default as CustomDrawer } from "./CustomDrawr";
 export { default as DrawerSceneWrapper } from "./DrawarWrapper";
 export { default as DropDownMenu } from "./dorpdownmenu";

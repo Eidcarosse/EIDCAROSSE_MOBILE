@@ -13,7 +13,13 @@ import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { signupApi } from "../../../backend/auth";
-import { Button, Head, Input, ScreenWrapper } from "../../../components";
+import {
+  Button,
+  Head,
+  Input,
+  NumberInput,
+  ScreenWrapper,
+} from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
 import {
   setIsLoggedIn,
@@ -144,7 +150,7 @@ export default function SignUp({ navigation, route }) {
               secure={true}
               require={passwordr}
             />
-            <Input
+            <NumberInput
               value={phoneNumber}
               setvalue={setPhoneNumber}
               title={"signup.phoneNumberTitle"}

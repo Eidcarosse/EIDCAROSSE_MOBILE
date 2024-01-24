@@ -1,5 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
+// import * as Permissions from "expo-permissions";
 import React, {
   forwardRef,
   useEffect,
@@ -13,17 +13,17 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
   const { t } = useTranslation();
   const [isVisible, setVisible] = useState(false);
 
-  const requestPermissions = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
-    await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
-    if (status !== "granted") {
-      alert("Permission to access camera or camera roll denied!");
-    }
-  };
+  // const requestPermissions = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  //   await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+  //   await Permissions.askAsync(Permissions.MEDIA_LIBRARY_WRITE_ONLY);
+  //   if (status !== "granted") {
+  //     alert("Permission to access camera or camera roll denied!");
+  //   }
+  // };
 
   useEffect(() => {
-    requestPermissions();
+    // requestPermissions();
   }, []);
   useImperativeHandle(ref, () => ({
     show: function () {

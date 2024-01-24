@@ -26,6 +26,7 @@ import {
   Head,
   IconButton,
   Input,
+  NumberInput,
   ScreenWrapper,
 } from "../../../components";
 import {
@@ -153,7 +154,7 @@ export default function AddPost({ navigation, route }) {
     let data = await backEndDataAPi({
       type: find,
     });
-    setFeild(data);
+    if (data) setFeild(data);
   };
   const getvehicleMake = async () => {
     dispatch(setAppLoader(true));
@@ -1204,7 +1205,7 @@ export default function AddPost({ navigation, route }) {
           {addWhatsapp && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
-              <Input
+              <NumberInput
                 value={whatsapp}
                 setvalue={setWhatsapp}
                 placeholder={t("+41 XX XXX XX XX")}
@@ -1231,7 +1232,7 @@ export default function AddPost({ navigation, route }) {
           {addViber && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.viber")}</Text>
-              <Input
+              <NumberInput
                 value={viber}
                 setvalue={setViber}
                 placeholder={t("+41 XX XXX XX XX")}
@@ -1254,7 +1255,6 @@ export default function AddPost({ navigation, route }) {
               fetchDetails={true}
               autoFillOnNotFound={true}
               placeholder={edit?.address || t("addPost.phlocation")}
-              currentLocation={true}
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
                 setLatiitude(details?.geometry?.location?.lat);
@@ -1285,7 +1285,7 @@ export default function AddPost({ navigation, route }) {
                 language: "en",
                 components: "country:ch",
               }}
-              currentLocationLabel='Current location'
+              currentLocationLabel="Current location"
               nearbyPlacesAPI="GooglePlacesSearch"
               debounce={300}
             />
