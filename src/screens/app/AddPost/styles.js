@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  dropdown: { borderRadius: width(1), width: width(90) },
+  dropdown: {
+    borderRadius: width(1),
+    width: width(90),
+  },
   price: {
     backgroundColor: AppColors.greybackground,
     borderBottomWidth: 0,

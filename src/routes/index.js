@@ -141,12 +141,12 @@ export default function Routes() {
     try {
       const response = await loginApi(data);
       if (response?.data) {
-        dispatch(setIsLoggedIn(true));
-        dispatch(setUserMeta(response?.data?.userDetails));
-        dispatch(setToken(response?.data?.token));
         await fetchRoomsData(response?.data?.userDetails?._id);
         const userAd = await getOwneAd(response?.data?.userDetails?._id);
         setUser(response?.data?.userDetails);
+        dispatch(setIsLoggedIn(true));
+        dispatch(setUserMeta(response?.data?.userDetails));
+        dispatch(setToken(response?.data?.token));
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds));
       } else if (response?.data?.success == false && isConnected) {

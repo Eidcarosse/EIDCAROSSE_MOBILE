@@ -55,6 +55,7 @@ import {
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
+import DropDrownList from "../../../components/DropDrownList";
 
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
@@ -159,7 +160,6 @@ export default function AddPost({ navigation, route }) {
   const getvehicleMake = async () => {
     dispatch(setAppLoader(true));
     let vehicledata = await geVehicleMakes(find);
-
     if (vehicledata) {
       setVcompanies(vehicledata);
       dispatch(setAppLoader(false));
@@ -767,7 +767,12 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {showBrand(category) && (
+          <DropDrownList
+            data={vcompanies}
+            select={brand}
+            setSelect={setBrand}
+          />
+          {/* {showBrand(category) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.brand")}</Text>
               <SelectDropdown
@@ -781,6 +786,7 @@ export default function AddPost({ navigation, route }) {
                 }
                 data={vcompanies}
                 disabled={otherBrand}
+                dropdownOverlayColor="rgba(0,0,0,.2)"
                 search={true}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 buttonStyle={[
@@ -843,7 +849,7 @@ export default function AddPost({ navigation, route }) {
                 </Text>
               </TouchableOpacity>
             </View>
-          )}
+          )} */}
 
           {brand && (
             <View>
