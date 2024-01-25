@@ -55,7 +55,6 @@ import {
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
-import DropDrownList from "../../../components/DropDrownList";
 
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
@@ -767,12 +766,12 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          <DropDrownList
+          {/* <DropDrownList
             data={vcompanies}
             select={brand}
             setSelect={setBrand}
-          />
-          {/* {showBrand(category) && (
+          /> */}
+          {showBrand(category) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.brand")}</Text>
               <SelectDropdown
@@ -799,6 +798,7 @@ export default function AddPost({ navigation, route }) {
                   { textAlign: "left", fontSize: height(1.6) },
                   otherBrand && { color: "grey" },
                 ]}
+                onFocus={false}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
                   if (model) {
@@ -849,7 +849,7 @@ export default function AddPost({ navigation, route }) {
                 </Text>
               </TouchableOpacity>
             </View>
-          )} */}
+          )}
 
           {brand && (
             <View>
@@ -869,6 +869,7 @@ export default function AddPost({ navigation, route }) {
                     data={apimodel}
                     disabled={otherModel}
                     search={true}
+                    onFocus={false}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -1214,7 +1215,6 @@ export default function AddPost({ navigation, route }) {
               <NumberInput
                 value={whatsapp}
                 setvalue={setWhatsapp}
-                placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
                 keyboardType="phone-pad"
               />
@@ -1241,7 +1241,6 @@ export default function AddPost({ navigation, route }) {
               <NumberInput
                 value={viber}
                 setvalue={setViber}
-                placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
                 keyboardType="phone-pad"
               />

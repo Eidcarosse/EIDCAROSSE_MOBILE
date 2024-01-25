@@ -16,6 +16,7 @@ function MyDrawer() {
     // </Drawer.Navigator>
     <Drawer.Navigator
       screenOptions={{
+        drawerPosition: "left",
         headerShown: false,
         drawerInactiveBackgroundColor: AppColors.white,
         drawerActiveBackgroundColor: AppColors.white,

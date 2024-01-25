@@ -24,4 +24,4 @@ export { default as AdView } from "./adviewChat";
 export { default as RelatedAd } from "./relatedAd";
 export { default as MapAdCard } from "./MapCard";
 export { default as Card } from "./newCard";
-export{default as DropDownList} from './DropDrownList'
+export { default as DropDownList } from "./DropDrownList";

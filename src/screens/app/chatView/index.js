@@ -12,11 +12,11 @@ import {
 import {
   Actions,
   Bubble,
+  Day,
   GiftedChat,
   MessageText,
   Send,
   Time,
-  Day,
 } from "react-native-gifted-chat";
 import { useDispatch, useSelector } from "react-redux";
 import { AdView, DropDownMenu } from "../../../components";

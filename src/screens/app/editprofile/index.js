@@ -179,7 +179,6 @@ export default function EditProfile({ navigation, route }) {
             /> */}
             <NumberInput
               title={"editprofile.phoneNumberTitle"}
-              placeholder={"+41 XX XXX XX XX"}
               value={phoneNumber}
               setvalue={setPhoneNumber}
               keyboardType="phone-pad"
@@ -193,7 +192,6 @@ export default function EditProfile({ navigation, route }) {
             /> */}
             <NumberInput
               title={"WhatsApp"}
-              placeholder={"+41 XX XXX XX XX"}
               value={whatsapp}
               setvalue={setWhatsapp}
               keyboardType="phone-pad"
@@ -211,9 +209,8 @@ export default function EditProfile({ navigation, route }) {
               setvalue={setViber}
               keyboardType="phone-pad"
             /> */}
-             <NumberInput
+            <NumberInput
               title={"editprofile.viberTitle"}
-              placeholder={"+41 XX XXX XX XX"}
               value={viber}
               setvalue={setViber}
               keyboardType="phone-pad"

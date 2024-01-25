@@ -1,10 +1,10 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Image } from "expo-image";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
-  Image,
   Pressable,
   Text,
   TouchableOpacity,
@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../backend/api";
-import { selectCategoryList } from "../../redux/slices/config";
 import { selectCurrentLanguage } from "../../redux/slices/language";
 import {
   selectFavAds,
@@ -38,6 +37,7 @@ export default function Card({ data, onPresshide, map = false }) {
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
+  const [blur, setBlur] = useState(5);
 
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
@@ -78,7 +78,12 @@ export default function Card({ data, onPresshide, map = false }) {
         }}
         style={{ paddingHorizontal: width(0.5) }}
       >
-        <Image style={styles.image} source={{ uri: item?.img }} />
+        <Image
+          style={styles.image}
+          source={{ uri: item?.img }}
+          priority={"high"}
+          transition={500}
+        />
       </Pressable>
     );
   };
@@ -153,13 +158,6 @@ export default function Card({ data, onPresshide, map = false }) {
         </Pressable>
 
         <View style={styles.imageview}>
-          {/* <ImageSlider
-            data={img}
-            showIndicator={false}
-            autoPlay={false}
-            preview={false}
-            caroselImageStyle={styles.cics}
-          /> */}
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal

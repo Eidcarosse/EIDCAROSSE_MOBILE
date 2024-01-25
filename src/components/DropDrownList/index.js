@@ -36,9 +36,20 @@ export default DropDownList = ({
           ? data.findIndex((item) => item == select)
           : 0
       );
-  }, [show]);
-  const handleScrollToIndex = (index) => {
-    flatListRef?.current?.scrollToIndex({ index, animated: true });
+  }, [flatListRef]);
+
+  const handleScrollToIndex = (i) => {
+    // console.log("====================================");
+    // console.log("caling");
+    // console.log("====================================");
+    // let i =
+    //   data.findIndex((item) => item == select) > 0
+    //     ? data.findIndex((item) => item == select)
+    //     : 0;
+    flatListRef?.current?.scrollTo({
+      index: i,
+      animated: true,
+    });
   };
   const styles = StyleSheet.create({
     text: {
@@ -134,66 +145,71 @@ export default DropDownList = ({
           /> */}
         </Pressable>
       </View>
-      <Modal
-        isVisible={show}
-        onBackButtonPress={() => setShow(false)}
-        onBackdropPress={() => setShow(false)}
-        backdropColor="white"
-      >
-        <View
-          style={{
-            flex: 1,
-            alignContent: "center",
-            alignSelf: "center",
-            alignItems: "center",
-            backgroundColor: "white",
-            paddingBottom: height(2),
-          }}
+      {show && (
+        <Modal
+          isVisible={true}
+          onBackButtonPress={() => setShow(false)}
+          onBackdropPress={() => setShow(false)}
+          backdropColor="white"
         >
           <View
             style={{
-              width: width(100),
-              paddingHorizontal: height(2),
-              paddingVertical: height(0.5),
-              flexDirection: "row",
-              borderWidth: 1,
+              flex: 1,
+              alignContent: "center",
+              alignSelf: "center",
               alignItems: "center",
-              justifyContent: "center",
               backgroundColor: "white",
-              borderColor: "grey",
+              paddingBottom: height(2),
             }}
           >
-            <TextInput
-              value={filter}
-              onChangeText={setFilter}
-              style={{ width: width(90), backgroundColor: "white" }}
-            />
-            <Pressable
+            <View
               style={{
-                justifyContent: "space-between",
+                width: width(100),
+                paddingHorizontal: height(2),
+                paddingVertical: height(0.5),
                 flexDirection: "row",
+                borderWidth: 1,
                 alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "white",
+                borderColor: "grey",
               }}
-              onPress={() => setShow(!show)}
             >
-              <FontAwesome name={"close"} size={height(3)} color={"grey"} />
-            </Pressable>
+              <TextInput
+                value={filter}
+                onChangeText={setFilter}
+                style={{ width: width(90), backgroundColor: "white" }}
+              />
+              <Pressable
+                style={{
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+                onPress={() => setShow(!show)}
+              >
+                <FontAwesome name={"close"} size={height(3)} color={"grey"} />
+              </Pressable>
+            </View>
+            <FlatList
+              ref={flatListRef}
+              style={{
+                width: width(98),
+                padding: height(1),
+                backgroundColor: "white",
+              }}
+              data={data.filter((item) =>
+                item.toLowerCase().includes(filter.toLowerCase())
+              )}
+              renderItem={renderItem}
+              keyExtractor={(item, index) => index}
+
+              // onEndReached={handleScrollToIndex}
+              // onEndReachedThreshold={0.1}
+            />
           </View>
-          <FlatList
-            ref={flatListRef}
-            style={{
-              width: width(98),
-              padding: height(1),
-              backgroundColor: "white",
-            }}
-            data={data.filter((item) =>
-              item.toLowerCase().includes(filter.toLowerCase())
-            )}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index}
-          />
-        </View>
-      </Modal>
+        </Modal>
+      )}
     </Fragment>
   );
 };

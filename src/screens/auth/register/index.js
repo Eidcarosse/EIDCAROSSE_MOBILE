@@ -107,7 +107,7 @@ export default function SignUp({ navigation, route }) {
         </ImageBackground>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
-          enableAutomaticScroll={true}
+          // enableAutomaticScroll={true}
           enableResetScrollToCoords={false}
           extraScrollHeight={height(8)}
           showsVerticalScrollIndicator={false}

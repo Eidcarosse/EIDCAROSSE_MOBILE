@@ -78,23 +78,20 @@ const styles = StyleSheet.create({
   contact: {
     paddingLeft: width(5),
     flexDirection: "row",
-    alignContent:'center',
-    alignItems:'center',
+    alignContent: "center",
+    alignItems: "center",
   },
   modelImage: {
-    width: width(90),
-    height: height(60),
-    marginTop: height(1),
-    // alignSelf: "center",
+    flex: 1,
+    width: width(100),
+    height: "100%",
   },
   modelView: {
-    width: width(90),
-    height: height(80),
-    backgroundColor: AppColors.lightGrey,
+    flex: 1,
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    alignSelf:'center'
+    alignSelf: "center",
   },
 });
 export default styles;

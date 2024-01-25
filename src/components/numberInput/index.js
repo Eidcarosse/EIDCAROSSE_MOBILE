@@ -76,7 +76,7 @@ export default function NumberInput({
                 !editable && { color: "grey" },
               ]}
               keyboardType={keyboardType}
-              placeholder={t(placeholder)}
+              placeholder={t('+41 7XXXXXXXX')}
               multiline={multi}
               value={value}
             />
