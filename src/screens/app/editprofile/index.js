@@ -78,151 +78,147 @@ export default function EditProfile({ navigation, route }) {
     <ScreenWrapper
       showStatusBar={false}
       headerUnScrollable={() => (
-        <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
+        <>
+          <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
+          <ImageBackground
+            resizeMode='stretch'
+            source={Icons.bglogo}
+            style={{ width: width(100), height: height(20) }}
+          >
+            <View style={styles.imageiner}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity onPress={() => imageRef.current.show()}>
+                  <Image style={styles.avatar} source={{ uri: image[0] }} />
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: height(9),
+                      left: height(12),
+                      backgroundColor: AppColors.primary,
+                      padding: width(2),
+                      borderRadius: width(5),
+                    }}
+                  >
+                    <FontAwesome
+                      name="camera"
+                      size={height(2)}
+                      color={AppColors.white}
+                    />
+                  </View>
+                </TouchableOpacity>
+                <View style={{ paddingLeft: width(3) }}>
+                  <Text
+                    style={{
+                      fontSize: height(2.5),
+                      fontWeight: "bold",
+                      color: AppColors.white,
+                      width: width(55),
+                    }}
+                  >
+                    {userdata?.firstName} {userdata?.lastName}
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: height(2),
+                      fontWeight: "bold",
+                      marginTop: height(1),
+                      color: AppColors.white,
+                    }}
+                  >
+                    {userdata?.userName}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </ImageBackground>
+        </>
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
+      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground
-          source={Icons.bglogo}
-          style={{ width: width(100), height: height(28) }}
-        >
-          <View style={styles.imageiner}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <TouchableOpacity onPress={() => imageRef.current.show()}>
-                <Image style={styles.avatar} source={{ uri: image[0] }} />
-                <View
-                  style={{
-                    position: "absolute",
-                    top: height(9),
-                    left: height(12),
-                    backgroundColor: AppColors.primary,
-                    padding: width(2),
-                    borderRadius: width(5),
-                  }}
-                >
-                  <FontAwesome
-                    name="camera"
-                    size={height(2.5)}
-                    color={AppColors.white}
-                  />
-                </View>
-              </TouchableOpacity>
-              <View style={{ paddingLeft: width(3) }}>
-                <Text
-                  style={{
-                    fontSize: height(2.5),
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                    width: width(55),
-                  }}
-                >
-                  {userdata?.firstName} {userdata?.lastName}
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: height(2),
-                    fontWeight: "bold",
-                    marginTop: height(1),
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.userName}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </ImageBackground>
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          enableAutomaticScroll={true}
-          enableResetScrollToCoords={false}
-          extraScrollHeight={height(8)}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={{ paddingVertical: width(10) }}>
-            <Input
-              title={"editprofile.firstNameTitle"}
-              placeholder={"editprofile.firstNamePlaceholder"}
-              value={firstName}
-              setvalue={setFirstName}
-            />
-            <Input
-              title={"editprofile.lastNameTitle"}
-              placeholder={"editprofile.lastNamePlaceholder"}
-              value={lastName}
-              setvalue={setLastName}
-            />
-            <Input
-              title={"editprofile.userNameTitle"}
-              placeholder={"editprofile.usernamePlaceholder"}
-              value={userName}
-              setvalue={setUserName}
-              editable={false}
-            />
-            <Input
-              title={"editprofile.emailTitle"}
-              placeholder={"editprofile.emailPlaceholder"}
-              value={email}
-              setvalue={setEmail}
-              editable={false}
-              keyboardType="email-address"
-            />
-            {/* <Input
+        <View style={{ paddingVertical: width(5) }}>
+          <Input
+            title={"editprofile.firstNameTitle"}
+            placeholder={"editprofile.firstNamePlaceholder"}
+            value={firstName}
+            setvalue={setFirstName}
+          />
+          <Input
+            title={"editprofile.lastNameTitle"}
+            placeholder={"editprofile.lastNamePlaceholder"}
+            value={lastName}
+            setvalue={setLastName}
+          />
+          <Input
+            title={"editprofile.userNameTitle"}
+            placeholder={"editprofile.usernamePlaceholder"}
+            value={userName}
+            setvalue={setUserName}
+            editable={false}
+          />
+          <Input
+            title={"editprofile.emailTitle"}
+            placeholder={"editprofile.emailPlaceholder"}
+            value={email}
+            setvalue={setEmail}
+            editable={false}
+            keyboardType="email-address"
+          />
+          {/* <Input
               title={"editprofile.phoneNumberTitle"}
               placeholder={"+41 XX XXX XX XX"}
               value={phoneNumber}
               setvalue={setPhoneNumber}
               keyboardType="phone-pad"
             /> */}
-            <NumberInput
-              title={"editprofile.phoneNumberTitle"}
-              value={phoneNumber}
-              setvalue={setPhoneNumber}
-              keyboardType="phone-pad"
-            />
-            {/* <Input
+          <NumberInput
+            title={"editprofile.phoneNumberTitle"}
+            value={phoneNumber}
+            setvalue={setPhoneNumber}
+            keyboardType="phone-pad"
+          />
+          {/* <Input
               title={"WhatsApp"}
               placeholder={"+41 XX XXX XX XX"}
               value={whatsapp}
               setvalue={setWhatsapp}
               keyboardType="phone-pad"
             /> */}
-            <NumberInput
-              title={"WhatsApp"}
-              value={whatsapp}
-              setvalue={setWhatsapp}
-              keyboardType="phone-pad"
-            />
-            <Input
-              title={"WhatsApp Channel"}
-              placeholder={"https://whatsapp.com/channel/xxxxx"}
-              value={whatsappChannel}
-              setvalue={setWhatsappChannel}
-            />
-            {/* <Input
+          <NumberInput
+            title={"WhatsApp"}
+            value={whatsapp}
+            setvalue={setWhatsapp}
+            keyboardType="phone-pad"
+          />
+          <Input
+            title={"WhatsApp Channel"}
+            placeholder={"https://whatsapp.com/channel/xxxxx"}
+            value={whatsappChannel}
+            setvalue={setWhatsappChannel}
+          />
+          {/* <Input
               title={"editprofile.viberTitle"}
               placeholder={"+41 XX XXX XX XX"}
               value={viber}
               setvalue={setViber}
               keyboardType="phone-pad"
             /> */}
-            <NumberInput
-              title={"editprofile.viberTitle"}
-              value={viber}
-              setvalue={setViber}
-              keyboardType="phone-pad"
-            />
+          <NumberInput
+            title={"editprofile.viberTitle"}
+            value={viber}
+            setvalue={setViber}
+            keyboardType="phone-pad"
+          />
 
-            <Button
-              containerStyle={styles.button}
-              onPress={update}
-              title={"editprofile.update"}
-            />
-          </View>
-        </KeyboardAwareScrollView>
+          <Button
+            containerStyle={styles.button}
+            onPress={update}
+            title={"editprofile.update"}
+          />
+        </View>
       </View>
       <FilePickerModal
         ref={imageRef}

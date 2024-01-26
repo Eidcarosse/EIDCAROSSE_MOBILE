@@ -1,11 +1,12 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
+  Keyboard,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -91,74 +92,113 @@ export default function SignUp({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
+  const [isKeyboardOpen, setKeyboardOpen] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardOpen(true);
+      }
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardOpen(false);
+      }
+    );
+
+    // Cleanup listeners when the component unmounts
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
 
   return (
     <ScreenWrapper
       showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      headerUnScrollable={() => <Head navigation={navigation} />}
+      headerUnScrollable={() =>
+        !isKeyboardOpen ? (
+          <View>
+            <Head navigation={navigation} />
+            <ImageBackground source={Icons.bglogo} style={styles.image}>
+              <View style={styles.imageiner}>
+                <Text style={styles.logintext}>{t("signup.signup")}</Text>
+              </View>
+            </ImageBackground>
+          </View>
+        ) : (
+          <View>
+            <Head navigation={navigation} />
+            <View
+              style={{
+                justifyContent: "flex-end",
+                paddingHorizontal: height(5),
+                paddingTop: height(5),
+                backgroundColor: "white",
+              }}
+            >
+              <Text style={[styles.logintext, { color: AppColors.primary }]}>
+                {t("signup.signup")}
+              </Text>
+            </View>
+          </View>
+        )
+      }
+      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground source={Icons.bglogo} style={styles.image}>
-          <View style={styles.imageiner}>
-            <Text style={styles.logintext}>{t("signup.signup")}</Text>
-          </View>
-        </ImageBackground>
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          // enableAutomaticScroll={true}
-          enableResetScrollToCoords={false}
-          extraScrollHeight={height(8)}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={{ paddingVertical: width(10) }}>
-            <Input
-              value={firstName}
-              setvalue={setFirstName}
-              title={"signup.firstNameTitle"}
-              placeholder={"signup.firstNamePlaceholder"}
-              require={firstNamer}
-            />
-            <Input
-              value={lastName}
-              setvalue={setLastName}
-              title={"signup.lastNameTitle"}
-              placeholder={"signup.lastNamePlaceholder"}
-              require={lastNamer}
-            />
-            <Input
-              value={userName}
-              setvalue={setUserName}
-              title={"signup.userNameTitle"}
-              placeholder={"signup.usernamePlaceholder"}
-              require={userNamer}
-            />
-            <Input
-              value={email}
-              setvalue={setEmail}
-              title={"signup.emailTitle"}
-              placeholder={"signup.emailPlaceholder"}
-              require={emailr}
-              keyboardType="email-address"
-            />
-            <Input
-              value={password}
-              setvalue={setPassword}
-              title={"signup.passwordTitle"}
-              placeholder={"signup.passwordPlaceholder"}
-              secure={true}
-              require={passwordr}
-            />
-            <NumberInput
-              value={phoneNumber}
-              setvalue={setPhoneNumber}
-              title={"signup.phoneNumberTitle"}
-              placeholder={"signup.phoneNumberPlaceholder"}
-              require={phoneNumberr}
-              keyboardType="phone-pad"
-            />
-            {/* <Input
+        <View style={{ paddingVertical: width(10) }}>
+          <Input
+            value={firstName}
+            setvalue={setFirstName}
+            title={"signup.firstNameTitle"}
+            placeholder={"signup.firstNamePlaceholder"}
+            require={firstNamer}
+          />
+          <Input
+            value={lastName}
+            setvalue={setLastName}
+            title={"signup.lastNameTitle"}
+            placeholder={"signup.lastNamePlaceholder"}
+            require={lastNamer}
+          />
+          <Input
+            value={userName}
+            setvalue={setUserName}
+            title={"signup.userNameTitle"}
+            placeholder={"signup.usernamePlaceholder"}
+            require={userNamer}
+          />
+          <Input
+            value={email}
+            setvalue={setEmail}
+            title={"signup.emailTitle"}
+            placeholder={"signup.emailPlaceholder"}
+            require={emailr}
+            keyboardType="email-address"
+          />
+          <Input
+            value={password}
+            setvalue={setPassword}
+            title={"signup.passwordTitle"}
+            placeholder={"signup.passwordPlaceholder"}
+            secure={true}
+            require={passwordr}
+          />
+          <NumberInput
+            value={phoneNumber}
+            setvalue={setPhoneNumber}
+            title={"signup.phoneNumberTitle"}
+            placeholder={"signup.phoneNumberPlaceholder"}
+            require={phoneNumberr}
+            keyboardType="phone-pad"
+          />
+          {/* <Input
               value={whatsapp}
               setvalue={SetWhatsapp}
               title={"signup.whatsappTitle"}
@@ -170,102 +210,96 @@ export default function SignUp({ navigation, route }) {
               title={"signup.viberTitle"}
               placeholder={"signup.viberPlaceholder"}
             /> */}
-            <View style={styles.checkview}>
-              <CheckBox
-                checkedImage={
-                  <MaterialIcons
-                    name="check-box"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
-                }
-                unCheckedImage={
-                  <MaterialIcons
-                    name="check-box-outline-blank"
-                    size={width(4)}
-                  />
-                }
-                style={{ paddingRight: width(2) }}
-                onClick={() => {
-                  setCheck(!check);
-                }}
-                checkedCheckBoxColor={AppColors.primary}
-                isChecked={check}
-              />
-              <View>
-                <Text style={{ fontSize: height(1.5) }}>
-                  {t("signup.checkBoxText")}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(ScreenNames.TNC)}
-                >
-                  <Text style={styles.tandc}>
-                    {t("signup.termAndCondition")}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Button
-              disabled={!check}
-              onPress={() => {
-                if (!firstName) {
-                  setFirstNamer("require feild");
-                } else if (!lastName) {
-                  setLastNamer("require feild");
-                } else if (!userName) {
-                  setUserNamer("require feild");
-                } else if (!email) {
-                  setEmailr("require feild");
-                } else if (!isValidEmail(email)) {
-                  setEmailr("Email incorect formate");
-                } else if (!password) {
-                  setPasswordr("require feild");
-                } else if (!isValidPassword(password)) {
-                  setPasswordr(
-                    "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
-                  );
-                } else if (!phoneNumber) {
-                  setPhoneNumberr("Phone Number require");
-                } else signup(userData);
-
-                if (firstName) {
-                  setFirstNamer("");
-                }
-                if (lastName) {
-                  setLastNamer("");
-                }
-
-                if (userName) {
-                  setUserNamer("");
-                }
-                if (email && isValidEmail(email)) {
-                  setEmailr("");
-                }
-                if (password && isValidPassword(password)) {
-                  setPasswordr("");
-                }
+          <View style={styles.checkview}>
+            <CheckBox
+              checkedImage={
+                <MaterialIcons
+                  name="check-box"
+                  size={width(4)}
+                  color={AppColors.primary}
+                />
+              }
+              unCheckedImage={
+                <MaterialIcons name="check-box-outline-blank" size={width(4)} />
+              }
+              style={{ paddingRight: width(2) }}
+              onClick={() => {
+                setCheck(!check);
               }}
-              containerStyle={check ? styles.button : styles.dbutton}
-              title={"signup.signupButton"}
+              checkedCheckBoxColor={AppColors.primary}
+              isChecked={check}
             />
-
-            <View style={{ height: height(5) }} />
-
-            <View style={styles.already}>
+            <View>
               <Text style={{ fontSize: height(1.5) }}>
-                {t("signup.alreadyHaveAccount")}
-                {"  "}
+                {t("signup.checkBoxText")}
               </Text>
               <TouchableOpacity
-                onPress={() => {
-                  navigation.goBack();
-                }}
+                onPress={() => navigation.navigate(ScreenNames.TNC)}
               >
-                <Text style={styles.signin}>{t("signup.signin")}</Text>
+                <Text style={styles.tandc}>{t("signup.termAndCondition")}</Text>
               </TouchableOpacity>
             </View>
           </View>
-        </KeyboardAwareScrollView>
+          <Button
+            disabled={!check}
+            onPress={() => {
+              if (!firstName) {
+                setFirstNamer("require feild");
+              } else if (!lastName) {
+                setLastNamer("require feild");
+              } else if (!userName) {
+                setUserNamer("require feild");
+              } else if (!email) {
+                setEmailr("require feild");
+              } else if (!isValidEmail(email)) {
+                setEmailr("Email incorect formate");
+              } else if (!password) {
+                setPasswordr("require feild");
+              } else if (!isValidPassword(password)) {
+                setPasswordr(
+                  "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
+                );
+              } else if (!phoneNumber) {
+                setPhoneNumberr("Phone Number require");
+              } else signup(userData);
+
+              if (firstName) {
+                setFirstNamer("");
+              }
+              if (lastName) {
+                setLastNamer("");
+              }
+
+              if (userName) {
+                setUserNamer("");
+              }
+              if (email && isValidEmail(email)) {
+                setEmailr("");
+              }
+              if (password && isValidPassword(password)) {
+                setPasswordr("");
+              }
+            }}
+            containerStyle={check ? styles.button : styles.dbutton}
+            title={"signup.signupButton"}
+          />
+
+          <View style={{ height: height(5) }} />
+
+          <View style={styles.already}>
+            <Text style={{ fontSize: height(1.5) }}>
+              {t("signup.alreadyHaveAccount")}
+              {"  "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Text style={styles.signin}>{t("signup.signin")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </ScreenWrapper>
   );

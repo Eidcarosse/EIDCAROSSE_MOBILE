@@ -2,13 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ActivityIndicator,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image } from "expo-image";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import Dialog from "react-native-dialog";
 import ScreenNames from "../../routes/routes";
 import { height, width } from "../../utills/Dimension";
@@ -20,10 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import AppColors from "../../utills/AppColors";
 import { selectNewChat, setNewChat } from "../../redux/slices/config";
 import * as Notifications from "expo-notifications";
+import GlobalMethods from "../../utills/Methods";
+import { selectCurrentLanguage } from "../../redux/slices/language";
 export default function ChatIcon({ data }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const user = useSelector(selectUserMeta);
+  const language = useSelector(selectCurrentLanguage);
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
@@ -33,9 +31,14 @@ export default function ChatIcon({ data }) {
   const [latestMsg, setLatestMsg] = useState();
   const [lastNot, setLastNot] = useState(new Date());
   const [not, setNot] = useState(0);
+
+
   useEffect(() => {
     setSelectedItem(!data?.product || !data?.user);
     setUserDetail(data);
+    if(!(data?.product && data?.user)){
+      deleteChatroom(data?.roomId)
+    }
     // setLatestMsg(data?.lastmsg);
   }, [data]);
   const database = getDatabase();
@@ -145,6 +148,8 @@ export default function ChatIcon({ data }) {
         >
           <Image
             resizeMode="contain"
+            priority={"high"}
+            transition={500}
             style={[styles.image]}
             source={{
               uri:
@@ -227,11 +232,17 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {latestMsg?.timestamp
-              ? `${new Date(latestMsg?.timestamp).getDate()}/${
-                  new Date(latestMsg?.timestamp).getMonth() + 1
-                }/${new Date(latestMsg?.timestamp).getFullYear()}`
-              : "00/00/0000"}
+            {!newMsg
+              ? latestMsg?.timestamp
+                ? `${new Date(latestMsg?.timestamp).getDate()}/${
+                    new Date(latestMsg?.timestamp).getMonth() + 1
+                  }/${new Date(latestMsg?.timestamp).getFullYear()}`
+                : "00/00/0000"
+              : latestMsg &&
+                GlobalMethods.calculateTimeDifference(
+                  latestMsg?.timestamp,
+                  language
+                )}
           </Text>
           {newMsg && (
             <View

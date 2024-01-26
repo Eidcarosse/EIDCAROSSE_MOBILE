@@ -1,6 +1,13 @@
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import { Image, ImageBackground, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import styles from "./styles";
 
 import { useTranslation } from "react-i18next";
@@ -19,63 +26,66 @@ export default function OtherProfile({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
   const { t } = useTranslation();
   const onRefresh = () => {
-    setRefreshing(true);
     myAdsFunction();
-    setRefreshing(false);
   };
   useEffect(() => {
     myAdsFunction();
   }, []);
   const myAdsFunction = async () => {
+    setRefreshing(true);
     const userAd = await getOwneAd(userdata?._id);
     if (userAd) setData(userAd);
+    setRefreshing(false);
   };
 
   return (
     <ScreenWrapper
       showStatusBar={false}
-      headerUnScrollable={() => <Head navigation={navigation} />}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
-    >
-      <View style={styles.mainViewContainer}>
-        <ImageBackground
-          source={Icons.bglogo}
-          style={{ width: width(100), flex: 1 }}
-        >
-          <View style={styles.imageiner}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image style={styles.avatar} source={{ uri: userdata?.image }} />
-              <View style={{ paddingLeft: width(5) }}>
-                <Text
-                  style={{
-                    fontSize: height(2.5),
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.firstName} {userdata?.lastName}
-                </Text>
+      refreshing={refreshing}
+      onRefresh={myAdsFunction}
+      headerUnScrollable={() => (
+        <>
+          <Head navigation={navigation} />
+          <ImageBackground
+            source={Icons.bglogo}
+            style={{ width: width(100), height: height(28) }}
+          >
+            <View style={styles.imageiner}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: userdata?.image }}
+                />
+                <View style={{ paddingLeft: width(5) }}>
+                  <Text
+                    style={{
+                      fontSize: height(2.5),
+                      fontWeight: "bold",
+                      color: AppColors.white,
+                    }}
+                  >
+                    {userdata?.firstName} {userdata?.lastName}
+                  </Text>
 
-                <Text
-                  style={{
-                    fontSize: height(1.5),
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.userName}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: height(1.5),
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.email}
-                </Text>
-                {/* <Text
+                  <Text
+                    style={{
+                      fontSize: height(1.5),
+                      fontWeight: "bold",
+                      color: AppColors.white,
+                    }}
+                  >
+                    {userdata?.userName}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: height(1.5),
+                      fontWeight: "bold",
+                      color: AppColors.white,
+                    }}
+                  >
+                    {userdata?.email}
+                  </Text>
+                  {/* <Text
                   style={{
                     fontSize: height(3),
                     fontWeight: "bold",
@@ -84,70 +94,81 @@ export default function OtherProfile({ navigation, route }) {
                 >
                   {userdata?.phoneNumber}
                 </Text> */}
+                </View>
               </View>
-            </View>
-            <View style={styles.wishlistview}>
-              {userdata?.showNumber && (
-                <IconButton
-                  onPress={()=>GlobalMethods.onPressCall(userdata?.phoneNumber)}
-                  title={"Phone"}
-                  containerStyle={styles.wcontainer}
-                  textStyle={[styles.wtexticon, { color: "#3257a8" }]}
-                  icon={
-                    <FontAwesome
-                      name="phone"
-                      size={height(2)}
-                      color={"#3257a8"}
-                    />
-                  }
-                />
-              )}
-              <IconButton
-                onPress={() =>
-                  GlobalMethods.onPressEmail(userdata?.email, loginuser?.email)
-                }
-                title={"Email"}
-                containerStyle={styles.wcontainer}
-                textStyle={[styles.wtexticon, { color: "#364045" }]}
-                icon={
-                  <AntDesign name="mail" size={height(2)} color={"#364045"} />
-                }
-              />
-              {userdata?.whatsappChannel && (
+              <View style={styles.wishlistview}>
+                {userdata?.showNumber && (
+                  <IconButton
+                    onPress={() =>
+                      GlobalMethods.onPressCall(userdata?.phoneNumber)
+                    }
+                    title={"Phone"}
+                    containerStyle={styles.wcontainer}
+                    textStyle={[styles.wtexticon, { color: "#3257a8" }]}
+                    icon={
+                      <FontAwesome
+                        name="phone"
+                        size={height(2)}
+                        color={"#3257a8"}
+                      />
+                    }
+                  />
+                )}
                 <IconButton
                   onPress={() =>
-                    GlobalMethods.openWhatsAppChannel(userdata?.whatsappChannel)
+                    GlobalMethods.onPressEmail(
+                      userdata?.email,
+                      loginuser?.email
+                    )
                   }
-                  title={"Channel"}
+                  title={"Email"}
                   containerStyle={styles.wcontainer}
-                  textStyle={[styles.wtexticon, { color: "#32a852" }]}
+                  textStyle={[styles.wtexticon, { color: "#364045" }]}
                   icon={
-                    <FontAwesome
-                      name="whatsapp"
-                      size={height(2)}
-                      color={"#32a852"}
-                    />
+                    <AntDesign name="mail" size={height(2)} color={"#364045"} />
                   }
                 />
-              )}
+                {userdata?.whatsappChannel && (
+                  <IconButton
+                    onPress={() =>
+                      GlobalMethods.openWhatsAppChannel(
+                        userdata?.whatsappChannel
+                      )
+                    }
+                    title={"Channel"}
+                    containerStyle={styles.wcontainer}
+                    textStyle={[styles.wtexticon, { color: "#32a852" }]}
+                    icon={
+                      <FontAwesome
+                        name="whatsapp"
+                        size={height(2)}
+                        color={"#32a852"}
+                      />
+                    }
+                  />
+                )}
+              </View>
             </View>
-          </View>
-        </ImageBackground>
+          </ImageBackground>
+        </>
+      )}
+      statusBarColor={AppColors.primary}
+      barStyle="light-content"
+      scrollEnabled
+    >
+      <View style={styles.mainViewContainer}>
         <View
           style={{ width: width(100), flex: 2, paddingVertical: height(1) }}
         >
-          {!userdata.showAds && (
-            <ScrollView>
-              {data?.map((item, index) => (
-                <View
-                  key={index}
-                  style={{ width: width(100), alignItems: "center" }}
-                >
-                  <CardView data={item} />
-                </View>
-              ))}
-            </ScrollView>
-          )}
+          {!userdata.showAds &&
+            data?.map((item, index) => (
+              <View
+                key={index}
+                style={{ width: width(100), alignItems: "center" }}
+              >
+                <CardView data={item} />
+              </View>
+            ))}
           {userdata.showAds && (
             <Text
               style={{
