@@ -9,10 +9,10 @@ import PhoneInput from "react-native-phone-number-input";
 import { useSelector } from "react-redux";
 import { selectCurrentLanguage } from "../../../src/redux/slices/language";
 export default function NumberInput({
+  showBtn=true,
   title,
   value,
   setvalue,
-  placeholder,
   secure = true,
   containerStyle,
   titlestyle,
@@ -82,7 +82,7 @@ export default function NumberInput({
             />
           )}
 
-          <TouchableOpacity
+         {showBtn&& <TouchableOpacity
             onPress={() => {
               setSecureText(!secureText);
               if (!secureText) {
@@ -98,7 +98,7 @@ export default function NumberInput({
               color={secureText ? "grey" : AppColors.primary}
               size={height(2)}
             />
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
       </View>
       {require && (

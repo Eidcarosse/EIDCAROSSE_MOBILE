@@ -32,12 +32,11 @@ export default function ChatIcon({ data }) {
   const [lastNot, setLastNot] = useState(new Date());
   const [not, setNot] = useState(0);
 
-
   useEffect(() => {
     setSelectedItem(!data?.product || !data?.user);
     setUserDetail(data);
-    if(!(data?.product && data?.user)){
-      deleteChatroom(data?.roomId)
+    if (!(data?.product && data?.user)) {
+      deleteChatroom(data?.roomId);
     }
     // setLatestMsg(data?.lastmsg);
   }, [data]);
@@ -115,10 +114,10 @@ export default function ChatIcon({ data }) {
       ) {
         setLastNot(lastmsg?.timestamp);
         setNot(not + 1);
-        await schedulePushNotification(
-          userDetail?.user?.firstName,
-          lastmsg.text
-        );
+        // await schedulePushNotification(
+        //   userDetail?.user?.firstName,
+        //   lastmsg.text
+        // );
       }
       dispatch(setNewChat(lastReadTimestamp < lastmsg?.timestamp));
     }
@@ -137,7 +136,7 @@ export default function ChatIcon({ data }) {
     <Fragment>
       <TouchableOpacity
         style={styles.main}
-        // onLongPress={() => setVisible(true)}
+        onLongPress={() => setVisible(true)}
         onPress={handlePress}
       >
         <View
@@ -232,17 +231,11 @@ export default function ChatIcon({ data }) {
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {!newMsg
-              ? latestMsg?.timestamp
-                ? `${new Date(latestMsg?.timestamp).getDate()}/${
-                    new Date(latestMsg?.timestamp).getMonth() + 1
-                  }/${new Date(latestMsg?.timestamp).getFullYear()}`
-                : "00/00/0000"
-              : latestMsg &&
-                GlobalMethods.calculateTimeDifference(
-                  latestMsg?.timestamp,
-                  language
-                )}
+            {latestMsg?.timestamp
+              ? `${new Date(latestMsg?.timestamp).getDate()}/${
+                  new Date(latestMsg?.timestamp).getMonth() + 1
+                }/${new Date(latestMsg?.timestamp).getFullYear()}`
+              : "00/00/0000"}
           </Text>
           {newMsg && (
             <View

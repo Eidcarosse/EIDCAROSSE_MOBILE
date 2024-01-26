@@ -1,4 +1,4 @@
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   Keyboard,
+  Pressable,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -92,66 +93,43 @@ export default function SignUp({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
-  const [isKeyboardOpen, setKeyboardOpen] = useState(false);
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setKeyboardOpen(true);
-      }
-    );
-
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardOpen(false);
-      }
-    );
-
-    // Cleanup listeners when the component unmounts
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
-
   return (
     <ScreenWrapper
       showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      headerUnScrollable={() =>
-        !isKeyboardOpen ? (
-          <View>
-            <Head navigation={navigation} />
-            <ImageBackground source={Icons.bglogo} style={styles.image}>
-              <View style={styles.imageiner}>
-                <Text style={styles.logintext}>{t("signup.signup")}</Text>
-              </View>
-            </ImageBackground>
+      headerUnScrollable={() => (
+        <ImageBackground
+          source={Icons.bglogo}
+          style={styles.image}
+          resizeMode="stretch"
+        >
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={{
+              paddingHorizontal: width(5),
+            }}
+          >
+            <Ionicons
+              name="chevron-back"
+              size={height(4)}
+              color={AppColors.white}
+            />
+          </Pressable>
+          <View style={styles.imageiner}>
+            <Text style={styles.logintext}>{t("signup.signup")}</Text>
           </View>
-        ) : (
-          <View>
-            <Head navigation={navigation} />
-            <View
-              style={{
-                justifyContent: "flex-end",
-                paddingHorizontal: height(5),
-                paddingTop: height(5),
-                backgroundColor: "white",
-              }}
-            >
-              <Text style={[styles.logintext, { color: AppColors.primary }]}>
-                {t("signup.signup")}
-              </Text>
-            </View>
-          </View>
-        )
-      }
-      scrollEnabled
+        </ImageBackground>
+      )}
     >
-      <View style={styles.mainViewContainer}>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        enableAutomaticScroll={true}
+        extraHeight={100}
+        enableOnAndroid={true}
+        enableResetScrollToCoords={false}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={{ paddingVertical: width(10) }}>
           <Input
             value={firstName}
@@ -192,6 +170,8 @@ export default function SignUp({ navigation, route }) {
           />
           <NumberInput
             value={phoneNumber}
+            secure={false}
+            showBtn={false}
             setvalue={setPhoneNumber}
             title={"signup.phoneNumberTitle"}
             placeholder={"signup.phoneNumberPlaceholder"}
@@ -300,7 +280,7 @@ export default function SignUp({ navigation, route }) {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </ScreenWrapper>
   );
 }
