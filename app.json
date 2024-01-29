@@ -2,8 +2,7 @@
     "expo": {
         "name": "Eidcarosse.ch",
         "slug": "Eidcarosse",
-
-        "version": "1.0.2",
+        "version": "1.0.3",
         "permissions": [
             "INTERNET",
             "CAMERA",
@@ -45,7 +44,7 @@
                 "NSMicrophoneUsageDescription": "Eidcarosse uses your microphone while taking video of your product for uploading in listing information."
             },
             "bundleIdentifier": "com.eidcarosse.Eidcarossech",
-            "buildNumber": "5"
+            "buildNumber": "6"
         },
         "androidStatusBar": {
             "hidden": true
@@ -62,7 +61,7 @@
                 "backgroundColor": "#ffffff"
             },
             "package": "com.eidcarosse.Eidcarossech",
-            "versionCode": 2
+            "versionCode": 4
         },
         "web": {
             "favicon": "./assets/favicon.png"
@@ -87,18 +86,7 @@
                     "photosPermission": "Eidcarosse needs access to the photo library to select and upload user profile image and Listing Image to the server.",
                     "cameraPermission": "Eidcarosse uses the camera to capture and upload user profile image and Listing Image to the server."
                 }
-            ],
-            [
-                "expo-notifications",
-                {
-                  "icon": "./assets/icon1.png",
-                  "color": "#ffffff",
-                  "sounds": [
-                    "./local/assets/notification-sound.wav",
-                    "./local/assets/notification-sound-other.wav"
-                  ]
-                }
-              ]
+            ]
         ],
         "extra": {
             "eas": {

@@ -129,6 +129,7 @@ export default function SignUp({ navigation, route }) {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         keyboardShouldPersistTaps="handled"
         enableAutomaticScroll={true}
+        extraHeight={100}
         viewIsInsideTabBar={false}
         enableResetScrollToCoords={true}
         showsVerticalScrollIndicator={false}
