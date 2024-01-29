@@ -46,6 +46,7 @@ export default function Card({ data, onPresshide, map = false }) {
       setFav(false);
     }
   });
+
   const img = data?.images?.map((item) => {
     return { img: item };
   });
@@ -81,6 +82,7 @@ export default function Card({ data, onPresshide, map = false }) {
         <Image
           style={styles.image}
           source={{ uri: item?.img }}
+          contentFit='contain'
           priority={"high"}
           transition={500}
         />
@@ -134,7 +136,8 @@ export default function Card({ data, onPresshide, map = false }) {
                 onPress={() =>
                   GlobalMethods.onPressShare(
                     `${WebLink}${data?._id}`,
-                    data?.title
+                    data?.title,
+                    data?.images[0]
                   )
                 }
               >
@@ -258,7 +261,7 @@ export default function Card({ data, onPresshide, map = false }) {
                     t(`flashmsg.authentication`)
                   );
                 } else {
-                  GlobalMethods.onPressCall(loginuser?.phoneNumber);
+                  GlobalMethods.onPressCall(data?.userId?.phoneNumber);
                 }
               }}
             >

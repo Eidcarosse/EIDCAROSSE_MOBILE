@@ -14,7 +14,7 @@ import { selectUserMeta, setChatRooms } from "../../redux/slices/user";
 import { useDispatch, useSelector } from "react-redux";
 import AppColors from "../../utills/AppColors";
 import { selectNewChat, setNewChat } from "../../redux/slices/config";
-import * as Notifications from "expo-notifications";
+// import * as Notifications from "expo-notifications";
 import GlobalMethods from "../../utills/Methods";
 import { selectCurrentLanguage } from "../../redux/slices/language";
 export default function ChatIcon({ data }) {
@@ -54,15 +54,15 @@ export default function ChatIcon({ data }) {
       // Handle errors as needed
     }
   };
-  async function schedulePushNotification(title, body) {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: title,
-        body: body,
-      },
-      trigger: null,
-    });
-  }
+  // async function schedulePushNotification(title, body) {
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: title,
+  //       body: body,
+  //     },
+  //     trigger: null,
+  //   });
+  // }
   const setRooms = async (roomId, id) => {
     try {
       const userRef = ref(database, `users/${id}/rooms`);
@@ -146,7 +146,7 @@ export default function ChatIcon({ data }) {
           ]}
         >
           <Image
-            resizeMode="contain"
+            contentFit="contain"
             priority={"high"}
             transition={500}
             style={[styles.image]}

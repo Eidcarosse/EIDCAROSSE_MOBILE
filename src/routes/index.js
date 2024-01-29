@@ -10,7 +10,7 @@ import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
-import * as Notifications from "expo-notifications";
+// import * as Notifications from "expo-notifications";
 import {
   setAppLoader,
   setCategoryList,
@@ -42,7 +42,6 @@ import {
   FAQScreen,
   HTSFScreen,
   ListData,
-  MapAdView,
   MyListingScreen,
   OtherProfileScreen,
   PasswordScreens,
@@ -247,15 +246,15 @@ export default function Routes() {
     }
   });
 
-  async function schedulePushNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Eidcarosse",
-        body: "New message",
-      },
-      trigger: { seconds: 0.2 },
-    });
-  }
+  // async function schedulePushNotification() {
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: "Eidcarosse",
+  //       body: "New message",
+  //     },
+  //     trigger: { seconds: 0.2 },
+  //   });
+  // }
 
   const promisFuntion = async (allRooms, id) => {
     try {
@@ -274,7 +273,7 @@ export default function Routes() {
 
       const newData = await Promise.all(promises);
       if (newData.find((item) => item?.read == true)) {
-        await schedulePushNotification();
+        // await schedulePushNotification();
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));
@@ -315,7 +314,6 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.PASSWORD} component={PasswordScreens} />
         <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />
         <Stack.Screen name={ScreenNames.WISH} component={WishScreen} />
-        <Stack.Screen name={ScreenNames.MAP} component={MapAdView} />
         <Stack.Screen
           name={ScreenNames.MYLISTING}
           component={MyListingScreen}

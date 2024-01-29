@@ -1287,7 +1287,7 @@ export default function AddPost({ navigation, route }) {
               }}
               query={{
                 key: Apikey,
-                language: "en",
+                language: "de",
                 components: "country:ch",
               }}
               currentLocationLabel="Current location"

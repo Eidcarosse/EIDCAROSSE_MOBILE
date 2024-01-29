@@ -51,6 +51,7 @@
             "hidden": true
         },
         "android": {
+            "useNextNotificationsApi": true,
             "config": {
                 "googleMaps": {
                     "apiKey": "AIzaSyC9nSGumZ7_6Xs0pd6HBiU_paZT7mmH5UI"

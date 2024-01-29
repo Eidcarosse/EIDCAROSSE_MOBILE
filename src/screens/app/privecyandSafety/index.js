@@ -1,15 +1,11 @@
 import { Fontisto } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { Head, IconButton, ScreenWrapper } from "../../../components";
-import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
-import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
 import { getShowAds, getShowNumber } from "../../../backend/auth";
+import { Head, IconButton, ScreenWrapper } from "../../../components";
 import {
   selectShowViber,
   selectShowWhatsapp,
@@ -17,7 +13,11 @@ import {
   setShowViber,
   setShowWhatsapp,
 } from "../../../redux/slices/config";
-import { setData, setDatav, setDataw } from "../../../utills/Methods";
+import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
+import AppColors from "../../../utills/AppColors";
+import { height } from "../../../utills/Dimension";
+import { setDatav, setDataw } from "../../../utills/Methods";
+import styles from "./styles";
 
 export default function PrivacySafety({ navigation, route }) {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export default function PrivacySafety({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"privacySafety.title"} navigation={navigation} />
       )}

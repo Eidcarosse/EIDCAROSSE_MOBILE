@@ -8,6 +8,7 @@ import {
   View,
   Keyboard,
   Pressable,
+  Platform,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -93,6 +94,7 @@ export default function SignUp({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
+
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -123,11 +125,12 @@ export default function SignUp({ navigation, route }) {
       )}
     >
       <KeyboardAwareScrollView
+        behavior="padding"
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         keyboardShouldPersistTaps="handled"
         enableAutomaticScroll={true}
-        extraHeight={100}
-        enableOnAndroid={true}
-        enableResetScrollToCoords={false}
+        viewIsInsideTabBar={false}
+        enableResetScrollToCoords={true}
         showsVerticalScrollIndicator={false}
       >
         <View style={{ paddingVertical: width(10) }}>

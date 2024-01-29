@@ -27,9 +27,11 @@ import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage } from "../../../utills/Methods";
+import { useTranslation } from "react-i18next";
 
 export default function EditProfile({ navigation, route }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userdata = useSelector(selectUserMeta);
   const imageRef = useRef(null);
   const [image, setImage] = React.useState([userdata?.image]);
@@ -81,7 +83,7 @@ export default function EditProfile({ navigation, route }) {
         <>
           <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
           <ImageBackground
-            resizeMode='stretch'
+            resizeMode="stretch"
             source={Icons.bglogo}
             style={{ width: width(100), height: height(20) }}
           >

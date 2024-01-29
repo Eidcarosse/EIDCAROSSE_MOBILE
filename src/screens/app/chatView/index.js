@@ -251,10 +251,11 @@ function ChatView({ route }) {
       disabled={!selectedItem}
       {...props}
       containerStyle={{ paddingRight: width(2) }}
-      label={
+    >
+      <View style={{ marginRight: width(3), marginBottom: height(1.2) }}>
         <Ionicons name="send" color={AppColors.primary} size={height(3)} />
-      }
-    />
+      </View>
+    </Send>
   );
   const renderMessageImage = (props) => {
     if (props.currentMessage.image) {

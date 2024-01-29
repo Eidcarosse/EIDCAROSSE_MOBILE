@@ -154,6 +154,7 @@ export default function ListingView({ data }) {
               GlobalMethods.onPressShare(
                 `${WebLink}${data?._id}`,
                 data?.title,
+                data?.images[0]
               )
             }
           >

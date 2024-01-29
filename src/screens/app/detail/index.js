@@ -135,7 +135,11 @@ export default function Detail({ navigation, route }) {
         <DetailHeader
           onPressBack={() => navigation.goBack()}
           onPressShare={() =>
-            GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
+            GlobalMethods.onPressShare(
+              `${WebLink}${data?._id}`,
+              data?.title,
+              data?.images[0]
+            )
           }
         />
       )}
@@ -202,7 +206,7 @@ export default function Detail({ navigation, route }) {
                 >
                   <Image
                     source={{ uri: image }}
-                    resizeMode="contain"
+                    contentFit="contain"
                     priority={"high"}
                     transition={500}
                     style={{
@@ -475,6 +479,7 @@ export default function Detail({ navigation, route }) {
                   priority={"high"}
                   source={{ uri: data?.userId?.image }}
                   style={styles.profileimage}
+                  contentFit="contain"
                 />
                 <View style={styles.profilecardin}>
                   <Text
@@ -651,7 +656,7 @@ export default function Detail({ navigation, route }) {
                 <Image
                   priority={"high"}
                   source={{ uri: image }}
-                  resizeMode="contain"
+                  contentFit="contain"
                   style={styles.modelImage}
                 />
               </Pressable>

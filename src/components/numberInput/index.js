@@ -1,15 +1,13 @@
-import { Entypo, Feather } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
+import { Feather } from "@expo/vector-icons";
+import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import PhoneInput from "react-native-phone-number-input";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
-import PhoneInput from "react-native-phone-number-input";
-import { useSelector } from "react-redux";
-import { selectCurrentLanguage } from "../../../src/redux/slices/language";
 export default function NumberInput({
-  showBtn=true,
+  showBtn = true,
   title,
   value,
   setvalue,
@@ -27,8 +25,6 @@ export default function NumberInput({
   const [secureText, setSecureText] = useState(secure);
   const phoneInput = useRef(null);
   const [changeValue, setChangeValue] = useState();
-  const lang = useSelector(selectCurrentLanguage).toUpperCase();
-
   return (
     <View>
       <View style={[styles.container, containerStyle]}>
@@ -53,10 +49,11 @@ export default function NumberInput({
                 height: height(5),
               }}
               onChangeFormattedText={(text) => {
-                setChangeValue(text);
+                showBtn && setChangeValue(text);
+                !showBtn && setvalue(text);
               }}
               placeholder={"XX XXX XX XX"}
-              filterProps={{ placeholder: t("commmon.cpholder")}}
+              filterProps={{ placeholder: t("commmon.cpholder") }}
               defaultCode={"CH"}
               layout="first"
               // value={waNum}
@@ -76,29 +73,31 @@ export default function NumberInput({
                 !editable && { color: "grey" },
               ]}
               keyboardType={keyboardType}
-              placeholder={t('+41 7XXXXXXXX')}
+              placeholder={t("+41 7XXXXXXXX")}
               multiline={multi}
               value={value}
             />
           )}
 
-         {showBtn&& <TouchableOpacity
-            onPress={() => {
-              setSecureText(!secureText);
-              if (!secureText) {
-                const isValid = phoneInput.current.isValidNumber(changeValue);
-                if (isValid) {
-                  setvalue(changeValue);
+          {showBtn && (
+            <TouchableOpacity
+              onPress={() => {
+                setSecureText(!secureText);
+                if (!secureText) {
+                  const isValid = phoneInput.current.isValidNumber(changeValue);
+                  if (isValid) {
+                    setvalue(changeValue);
+                  }
                 }
-              }
-            }}
-          >
-            <Feather
-              name={secureText ? "edit" : "check-square"}
-              color={secureText ? "grey" : AppColors.primary}
-              size={height(2)}
-            />
-          </TouchableOpacity>}
+              }}
+            >
+              <Feather
+                name={secureText ? "edit" : "check-square"}
+                color={secureText ? "grey" : AppColors.primary}
+                size={height(2)}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       {require && (
