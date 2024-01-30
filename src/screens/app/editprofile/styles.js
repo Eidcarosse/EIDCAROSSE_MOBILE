@@ -4,20 +4,19 @@ import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: AppColors.white,
   },
   imageiner: {
-    height: height(28),
-    margin: width(3),
+    padding: width(3),
   },
   avatar: {
     width: height(14),
     height: height(14),
     borderRadius: width(30),
     marginLeft: width(5),
-    borderColor:AppColors.white,
-    borderWidth:height(.4)
+    borderColor: AppColors.greybackground,
+    borderWidth: height(0.4),
   },
   card: {
     width: width(95),
@@ -55,12 +54,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: width(2),
   },
-  button:
-  {
-    backgroundColor:AppColors.primary,
-    width:width(80),
-    margin:width(5),
-    borderRadius:width(1)
-  }
+  button: {
+    backgroundColor: AppColors.primary,
+    width: width(80),
+    margin: width(5),
+    borderRadius: width(1),
+  },
 });
 export default styles;

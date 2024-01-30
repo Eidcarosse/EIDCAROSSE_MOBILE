@@ -1,28 +1,21 @@
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
-  Image,
   Linking,
   Pressable,
   Text,
   TouchableOpacity,
   View,
-  Modal,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-// import Modal from "react-native-modal";
+import Modal from "react-native-modal";
 import Swiper from "react-native-swiper";
 import { useDispatch, useSelector } from "react-redux";
 import { adView, getDataofAdByID, toggleFavorite } from "../../../backend/api";
-import {
-  DetailFooter,
-  DetailHeader,
-  RelatedAd,
-  ScreenWrapper,
-} from "../../../components";
-import { selectCategoryList } from "../../../redux/slices/config";
+import { DetailFooter, DetailHeader, ScreenWrapper } from "../../../components";
 import {
   selectFavAds,
   selectIsLoggedIn,
@@ -142,7 +135,11 @@ export default function Detail({ navigation, route }) {
         <DetailHeader
           onPressBack={() => navigation.goBack()}
           onPressShare={() =>
-            GlobalMethods.onPressShare(`${WebLink}${data?._id}`, data?.title)
+            GlobalMethods.onPressShare(
+              `${WebLink}${data?._id}`,
+              data?.title,
+              data?.images[0]
+            )
           }
         />
       )}
@@ -209,7 +206,9 @@ export default function Detail({ navigation, route }) {
                 >
                   <Image
                     source={{ uri: image }}
-                    resizeMode="contain"
+                    contentFit="contain"
+                    priority={"high"}
+                    transition={500}
                     style={{
                       width: width(100),
                       height: height(32),
@@ -477,8 +476,10 @@ export default function Detail({ navigation, route }) {
             >
               <View style={styles.profilecard}>
                 <Image
+                  priority={"high"}
                   source={{ uri: data?.userId?.image }}
                   style={styles.profileimage}
+                  contentFit="contain"
                 />
                 <View style={styles.profilecardin}>
                   <Text
@@ -581,8 +582,29 @@ export default function Detail({ navigation, route }) {
           {/* <RelatedAd category={data?.category} id={data?._id} /> */}
         </View>
       )}
-      <Modal visible={showModal}>
-        <View style={{backgroundColor:'black',flex:1}}>
+      <Modal
+        isVisible={showModal}
+        statusBarTranslucent={true}
+        style={{
+          width: width(100),
+          alignSelf: "center",
+        }}
+        hasBackdrop={true}
+        backdropColor="black"
+        backgroundColor={"black"}
+        backdropOpacity={1}
+        animationInTiming={300}
+        animationOutTiming={200}
+        animationIn={"lightSpeedIn"}
+        animationOut={"lightSpeedOut"}
+        onBackButtonPress={() => {
+          setShowModal(false);
+        }}
+        onBackdropPress={() => {
+          setShowModal(false);
+        }}
+      >
+        <View style={{ flex: 1 }}>
           <TouchableOpacity
             onPress={() => {
               setShowModal(false);
@@ -632,8 +654,9 @@ export default function Detail({ navigation, route }) {
             {img.map((image, index) => (
               <Pressable key={index} style={styles.modelView}>
                 <Image
+                  priority={"high"}
                   source={{ uri: image }}
-                  resizeMode="contain"
+                  contentFit="contain"
                   style={styles.modelImage}
                 />
               </Pressable>

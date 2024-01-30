@@ -126,6 +126,7 @@ export default function Login({ navigation, route }) {
               value={email}
               setvalue={setEmail}
               title={"login.emailTitle"}
+              keyboardType="email-address"
               placeholder={"login.yourEmailAddress"}
               require={emailr}
             />

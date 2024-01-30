@@ -1,11 +1,14 @@
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
 import {
   ImageBackground,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
+  Keyboard,
+  Pressable,
+  Platform,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -13,7 +16,13 @@ import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { signupApi } from "../../../backend/auth";
-import { Button, Head, Input, ScreenWrapper } from "../../../components";
+import {
+  Button,
+  Head,
+  Input,
+  NumberInput,
+  ScreenWrapper,
+} from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
 import {
   setIsLoggedIn,
@@ -91,68 +100,89 @@ export default function SignUp({ navigation, route }) {
       showStatusBar={false}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
-      headerUnScrollable={() => <Head navigation={navigation} />}
-    >
-      <View style={styles.mainViewContainer}>
-        <ImageBackground source={Icons.bglogo} style={styles.image}>
+      headerUnScrollable={() => (
+        <ImageBackground
+          source={Icons.bglogo}
+          style={styles.image}
+          resizeMode="stretch"
+        >
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={{
+              paddingHorizontal: width(5),
+            }}
+          >
+            <Ionicons
+              name="chevron-back"
+              size={height(4)}
+              color={AppColors.white}
+            />
+          </Pressable>
           <View style={styles.imageiner}>
             <Text style={styles.logintext}>{t("signup.signup")}</Text>
           </View>
         </ImageBackground>
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          enableAutomaticScroll={true}
-          enableResetScrollToCoords={false}
-          extraScrollHeight={height(8)}
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={{ paddingVertical: width(10) }}>
-            <Input
-              value={firstName}
-              setvalue={setFirstName}
-              title={"signup.firstNameTitle"}
-              placeholder={"signup.firstNamePlaceholder"}
-              require={firstNamer}
-            />
-            <Input
-              value={lastName}
-              setvalue={setLastName}
-              title={"signup.lastNameTitle"}
-              placeholder={"signup.lastNamePlaceholder"}
-              require={lastNamer}
-            />
-            <Input
-              value={userName}
-              setvalue={setUserName}
-              title={"signup.userNameTitle"}
-              placeholder={"signup.usernamePlaceholder"}
-              require={userNamer}
-            />
-            <Input
-              value={email}
-              setvalue={setEmail}
-              title={"signup.emailTitle"}
-              placeholder={"signup.emailPlaceholder"}
-              require={emailr}
-              keyboardType="email-address"
-            />
-            <Input
-              value={password}
-              setvalue={setPassword}
-              title={"signup.passwordTitle"}
-              placeholder={"signup.passwordPlaceholder"}
-              secure={true}
-              require={passwordr}
-            />
-            <Input
-              value={phoneNumber}
-              setvalue={setPhoneNumber}
-              title={"signup.phoneNumberTitle"}
-              placeholder={"signup.phoneNumberPlaceholder"}
-              require={phoneNumberr}
-              keyboardType="phone-pad"
-            />
-            {/* <Input
+      )}
+    >
+      <KeyboardAwareScrollView
+        behavior="padding"
+        keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+        keyboardShouldPersistTaps="handled"
+        enableAutomaticScroll={true}
+        extraHeight={100}
+        viewIsInsideTabBar={false}
+        enableResetScrollToCoords={true}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{ paddingVertical: width(10) }}>
+          <Input
+            value={firstName}
+            setvalue={setFirstName}
+            title={"signup.firstNameTitle"}
+            placeholder={"signup.firstNamePlaceholder"}
+            require={firstNamer}
+          />
+          <Input
+            value={lastName}
+            setvalue={setLastName}
+            title={"signup.lastNameTitle"}
+            placeholder={"signup.lastNamePlaceholder"}
+            require={lastNamer}
+          />
+          <Input
+            value={userName}
+            setvalue={setUserName}
+            title={"signup.userNameTitle"}
+            placeholder={"signup.usernamePlaceholder"}
+            require={userNamer}
+          />
+          <Input
+            value={email}
+            setvalue={setEmail}
+            title={"signup.emailTitle"}
+            placeholder={"signup.emailPlaceholder"}
+            require={emailr}
+            keyboardType="email-address"
+          />
+          <Input
+            value={password}
+            setvalue={setPassword}
+            title={"signup.passwordTitle"}
+            placeholder={"signup.passwordPlaceholder"}
+            secure={true}
+            require={passwordr}
+          />
+          <NumberInput
+            value={phoneNumber}
+            secure={false}
+            showBtn={false}
+            setvalue={setPhoneNumber}
+            title={"signup.phoneNumberTitle"}
+            placeholder={"signup.phoneNumberPlaceholder"}
+            require={phoneNumberr}
+            keyboardType="phone-pad"
+          />
+          {/* <Input
               value={whatsapp}
               setvalue={SetWhatsapp}
               title={"signup.whatsappTitle"}
@@ -164,103 +194,97 @@ export default function SignUp({ navigation, route }) {
               title={"signup.viberTitle"}
               placeholder={"signup.viberPlaceholder"}
             /> */}
-            <View style={styles.checkview}>
-              <CheckBox
-                checkedImage={
-                  <MaterialIcons
-                    name="check-box"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
-                }
-                unCheckedImage={
-                  <MaterialIcons
-                    name="check-box-outline-blank"
-                    size={width(4)}
-                  />
-                }
-                style={{ paddingRight: width(2) }}
-                onClick={() => {
-                  setCheck(!check);
-                }}
-                checkedCheckBoxColor={AppColors.primary}
-                isChecked={check}
-              />
-              <View>
-                <Text style={{ fontSize: height(1.5) }}>
-                  {t("signup.checkBoxText")}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(ScreenNames.TNC)}
-                >
-                  <Text style={styles.tandc}>
-                    {t("signup.termAndCondition")}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Button
-              disabled={!check}
-              onPress={() => {
-                if (!firstName) {
-                  setFirstNamer("require feild");
-                } else if (!lastName) {
-                  setLastNamer("require feild");
-                } else if (!userName) {
-                  setUserNamer("require feild");
-                } else if (!email) {
-                  setEmailr("require feild");
-                } else if (!isValidEmail(email)) {
-                  setEmailr("Email incorect formate");
-                } else if (!password) {
-                  setPasswordr("require feild");
-                } else if (!isValidPassword(password)) {
-                  setPasswordr(
-                    "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
-                  );
-                } else if (!phoneNumber) {
-                  setPhoneNumberr("Phone Number require");
-                } else signup(userData);
-
-                if (firstName) {
-                  setFirstNamer("");
-                }
-                if (lastName) {
-                  setLastNamer("");
-                }
-
-                if (userName) {
-                  setUserNamer("");
-                }
-                if (email && isValidEmail(email)) {
-                  setEmailr("");
-                }
-                if (password && isValidPassword(password)) {
-                  setPasswordr("");
-                }
+          <View style={styles.checkview}>
+            <CheckBox
+              checkedImage={
+                <MaterialIcons
+                  name="check-box"
+                  size={width(4)}
+                  color={AppColors.primary}
+                />
+              }
+              unCheckedImage={
+                <MaterialIcons name="check-box-outline-blank" size={width(4)} />
+              }
+              style={{ paddingRight: width(2) }}
+              onClick={() => {
+                setCheck(!check);
               }}
-              containerStyle={check ? styles.button : styles.dbutton}
-              title={"signup.signupButton"}
+              checkedCheckBoxColor={AppColors.primary}
+              isChecked={check}
             />
-
-            <View style={{ height: height(5) }} />
-
-            <View style={styles.already}>
+            <View>
               <Text style={{ fontSize: height(1.5) }}>
-                {t("signup.alreadyHaveAccount")}
-                {"  "}
+                {t("signup.checkBoxText")}
               </Text>
               <TouchableOpacity
-                onPress={() => {
-                  navigation.goBack();
-                }}
+                onPress={() => navigation.navigate(ScreenNames.TNC)}
               >
-                <Text style={styles.signin}>{t("signup.signin")}</Text>
+                <Text style={styles.tandc}>{t("signup.termAndCondition")}</Text>
               </TouchableOpacity>
             </View>
           </View>
-        </KeyboardAwareScrollView>
-      </View>
+          <Button
+            disabled={!check}
+            onPress={() => {
+              if (!firstName) {
+                setFirstNamer("require feild");
+              } else if (!lastName) {
+                setLastNamer("require feild");
+              } else if (!userName) {
+                setUserNamer("require feild");
+              } else if (!email) {
+                setEmailr("require feild");
+              } else if (!isValidEmail(email)) {
+                setEmailr("Email incorect formate");
+              } else if (!password) {
+                setPasswordr("require feild");
+              } else if (!isValidPassword(password)) {
+                setPasswordr(
+                  "Altest 1 capital ,1 Small and 1 specail and must be 6 character"
+                );
+              } else if (!phoneNumber) {
+                setPhoneNumberr("Phone Number require");
+              } else signup(userData);
+
+              if (firstName) {
+                setFirstNamer("");
+              }
+              if (lastName) {
+                setLastNamer("");
+              }
+
+              if (userName) {
+                setUserNamer("");
+              }
+              if (email && isValidEmail(email)) {
+                setEmailr("");
+              }
+              if (password && isValidPassword(password)) {
+                setPasswordr("");
+              }
+            }}
+            containerStyle={check ? styles.button : styles.dbutton}
+            title={"signup.signupButton"}
+          />
+
+          <View style={{ height: height(5) }} />
+
+          <View style={styles.already}>
+            <Text style={{ fontSize: height(1.5) }}>
+              {t("signup.alreadyHaveAccount")}
+              {"  "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Text style={styles.signin}>{t("signup.signin")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     </ScreenWrapper>
   );
 }

@@ -1,11 +1,15 @@
-import { getDatabase, off, onValue, ref, get } from "firebase/database";
+import { get, getDatabase, off, onValue, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
 import { useFocusEffect } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { getDataofAdByID } from "../../../backend/api";
+import { getUserByID } from "../../../backend/auth";
 import { ChatIcon, ScreenWrapper } from "../../../components";
 import Header from "../../../components/header";
+import { selectNewChat, setNewChat } from "../../../redux/slices/config";
 import {
   selectChatRedux,
   selectChatRooms,
@@ -14,12 +18,8 @@ import {
   setChatRooms,
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
-import { getDataofAdByID } from "../../../backend/api";
-import { getUserByID } from "../../../backend/auth";
-import { height, width } from "../../../utills/Dimension";
+import { height } from "../../../utills/Dimension";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
-import { selectNewChat, setNewChat } from "../../../redux/slices/config";
 export default function ChatList({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -35,6 +35,15 @@ export default function ChatList({ navigation, route }) {
       fetchRooms(user?._id);
     }, [])
   );
+  // async function schedulePushNotification() {
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: "Eidcarosse",
+  //       body: "New message",
+  //     },
+  //     trigger: { seconds: 1 },
+  //   });
+  // }
   const fetchRooms = async (userId) => {
     try {
       let roomRef = ref(db, `users/${userId}/rooms`);
@@ -106,6 +115,7 @@ export default function ChatList({ navigation, route }) {
       const newData = await Promise.all(promises);
 
       if (newData.find((item) => item?.read == true)) {
+        // await schedulePushNotification();
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));

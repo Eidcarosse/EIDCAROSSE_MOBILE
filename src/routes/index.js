@@ -10,6 +10,7 @@ import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
+// import * as Notifications from "expo-notifications";
 import {
   setAppLoader,
   setCategoryList,
@@ -41,7 +42,6 @@ import {
   FAQScreen,
   HTSFScreen,
   ListData,
-  MapAdView,
   MyListingScreen,
   OtherProfileScreen,
   PasswordScreens,
@@ -140,12 +140,12 @@ export default function Routes() {
     try {
       const response = await loginApi(data);
       if (response?.data) {
-        dispatch(setIsLoggedIn(true));
-        dispatch(setUserMeta(response?.data?.userDetails));
-        dispatch(setToken(response?.data?.token));
         await fetchRoomsData(response?.data?.userDetails?._id);
         const userAd = await getOwneAd(response?.data?.userDetails?._id);
         setUser(response?.data?.userDetails);
+        dispatch(setIsLoggedIn(true));
+        dispatch(setUserMeta(response?.data?.userDetails));
+        dispatch(setToken(response?.data?.token));
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds));
       } else if (response?.data?.success == false && isConnected) {
@@ -193,12 +193,9 @@ export default function Routes() {
     const fetchedUser = await getUserByID(search);
     return fetchedUser;
   });
-  const myFunction = useCallback(async (data,id) => {
+  const myFunction = useCallback(async (data, id) => {
     let lastmsg = {};
-    const lastReadRef = await ref(
-      db,
-      `chatrooms/${data}/lastRead/${id}`
-    );
+    const lastReadRef = await ref(db, `chatrooms/${data}/lastRead/${id}`);
 
     // Assuming you're using Firebase Realtime Database
     const snapshot = await get(lastReadRef);
@@ -230,12 +227,8 @@ export default function Routes() {
 
       const handleRoomUpdate = async (snapshot) => {
         const room = snapshot.val() || [];
-        console.log("====================================");
-        console.log(room, "userid", userId);
-        console.log("====================================");
         dispatch(setChatRooms(room));
         if (userId) {
-
           await promisFuntion(room, userId);
         }
       };
@@ -252,11 +245,22 @@ export default function Routes() {
       console.error("Error fetching room data:", error);
     }
   });
+
+  // async function schedulePushNotification() {
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: "Eidcarosse",
+  //       body: "New message",
+  //     },
+  //     trigger: { seconds: 0.2 },
+  //   });
+  // }
+
   const promisFuntion = async (allRooms, id) => {
     try {
       const promises = allRooms.map(async (element) => {
         let u = await fetchData(element, id);
-        let l = await myFunction(element,id);
+        let l = await myFunction(element, id);
         let i = await getItems(element);
         return {
           roomId: element,
@@ -268,11 +272,8 @@ export default function Routes() {
       });
 
       const newData = await Promise.all(promises);
-      let a = newData.find((item) => item?.read == true);
-      if (a) {
-        console.log("====================================");
-        console.log(a);
-        console.log("====================================");
+      if (newData.find((item) => item?.read == true)) {
+        // await schedulePushNotification();
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));
@@ -313,7 +314,6 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.PASSWORD} component={PasswordScreens} />
         <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />
         <Stack.Screen name={ScreenNames.WISH} component={WishScreen} />
-        <Stack.Screen name={ScreenNames.MAP} component={MapAdView} />
         <Stack.Screen
           name={ScreenNames.MYLISTING}
           component={MyListingScreen}

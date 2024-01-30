@@ -26,6 +26,7 @@ import {
   Head,
   IconButton,
   Input,
+  NumberInput,
   ScreenWrapper,
 } from "../../../components";
 import {
@@ -153,12 +154,11 @@ export default function AddPost({ navigation, route }) {
     let data = await backEndDataAPi({
       type: find,
     });
-    setFeild(data);
+    if (data) setFeild(data);
   };
   const getvehicleMake = async () => {
     dispatch(setAppLoader(true));
     let vehicledata = await geVehicleMakes(find);
-
     if (vehicledata) {
       setVcompanies(vehicledata);
       dispatch(setAppLoader(false));
@@ -766,6 +766,11 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
+          {/* <DropDrownList
+            data={vcompanies}
+            select={brand}
+            setSelect={setBrand}
+          /> */}
           {showBrand(category) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.brand")}</Text>
@@ -780,6 +785,7 @@ export default function AddPost({ navigation, route }) {
                 }
                 data={vcompanies}
                 disabled={otherBrand}
+                dropdownOverlayColor="rgba(0,0,0,.2)"
                 search={true}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 buttonStyle={[
@@ -792,6 +798,7 @@ export default function AddPost({ navigation, route }) {
                   { textAlign: "left", fontSize: height(1.6) },
                   otherBrand && { color: "grey" },
                 ]}
+                onFocus={false}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
                   if (model) {
@@ -862,6 +869,7 @@ export default function AddPost({ navigation, route }) {
                     data={apimodel}
                     disabled={otherModel}
                     search={true}
+                    onFocus={false}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}
@@ -1204,10 +1212,9 @@ export default function AddPost({ navigation, route }) {
           {addWhatsapp && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
-              <Input
+              <NumberInput
                 value={whatsapp}
                 setvalue={setWhatsapp}
-                placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
                 keyboardType="phone-pad"
               />
@@ -1231,10 +1238,9 @@ export default function AddPost({ navigation, route }) {
           {addViber && (
             <View style={{ paddingVertical: width(1) }}>
               <Text style={styles.title}>{t("addPost.viber")}</Text>
-              <Input
+              <NumberInput
                 value={viber}
                 setvalue={setViber}
-                placeholder={t("+41 XX XXX XX XX")}
                 containerStyle={[styles.price, { width: width(90) }]}
                 keyboardType="phone-pad"
               />
@@ -1254,7 +1260,6 @@ export default function AddPost({ navigation, route }) {
               fetchDetails={true}
               autoFillOnNotFound={true}
               placeholder={edit?.address || t("addPost.phlocation")}
-              currentLocation={true}
               onPress={(data, details = null) => {
                 setAddress(details?.formatted_address);
                 setLatiitude(details?.geometry?.location?.lat);
@@ -1282,9 +1287,10 @@ export default function AddPost({ navigation, route }) {
               }}
               query={{
                 key: Apikey,
-                language: "en",
+                language: "de",
                 components: "country:ch",
               }}
+              currentLocationLabel="Current location"
               nearbyPlacesAPI="GooglePlacesSearch"
               debounce={300}
             />

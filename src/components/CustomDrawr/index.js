@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
   container: {
     width: width(75),
     margin: width(2),
+    marginLeft: -width(3),
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
     borderTopLeftRadius: 0,

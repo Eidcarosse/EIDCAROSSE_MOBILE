@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.white,
   },
   imageiner: {
-    height: height(25),
+    height: height(15),
     justifyContent: "flex-end",
     marginLeft: width(10),
   },
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     width: width(80),
     margin: width(2),
   },
-  image: { width: width(100), height: height(28) },
+  image: { width: width(100), height: height(22) },
   checkview: { flexDirection: "row", padding: width(4) },
   tandc: { color: AppColors.primary, fontWeight: "bold",fontSize:height(1.6) },
   already: {

@@ -9,10 +9,9 @@ import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
 import { selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
+import { height } from "../../../utills/Dimension";
 import {
   errorMessage,
-  getAuthData,
   setAuthData,
   successMessage,
 } from "../../../utills/Methods";

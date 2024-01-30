@@ -4,7 +4,7 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -346,13 +346,13 @@ export default function ListData({ navigation, route }) {
               .includes(searchString.toLowerCase());
           })}
           style={styles.flatlist}
-          renderItem={({ item }) => {
-            return (
+          renderItem={useMemo(() => {
+            return ({ item }) => (
               <View style={{ width: width(98), alignItems: "center" }}>
                 <Card data={item} />
               </View>
             );
-          }}
+          })}
           ListEmptyComponent={({ item }) => (
             <View style={styles.emptyview}>
               {refreshing ? (
@@ -492,8 +492,11 @@ export default function ListData({ navigation, route }) {
                     <Text style={styles.title}>{t("allData.sortby")}</Text>
                     <SelectDropdown
                       data={sortList}
-                      defaultValueByIndex={0}
-                      defaultButtonText={t("allData.defaultValueDropdown")}
+                      defaultValueByIndex={sortby ? -1 : 0}
+                      defaultButtonText={
+                        t(sortList.find((item) => item.value == sortby)?.key) ||
+                        t("allData.defaultValueDropdown")
+                      }
                       searchPlaceHolder={t("allData.phsearchHere")}
                       defaultValue={sortby}
                       buttonStyle={styles.searchbox}
@@ -750,7 +753,9 @@ export default function ListData({ navigation, route }) {
                       <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                       <SelectDropdown
                         defaultButtonText={
-                          bodyshape || t("addPost.defaultValueDropdown")
+                          bodyshape
+                            ? t(`bodyShapeList.${bodyshape}`)
+                            : t("addPost.defaultValueDropdown")
                         }
                         data={
                           category == "Bikes"
@@ -785,7 +790,9 @@ export default function ListData({ navigation, route }) {
                       <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                       <SelectDropdown
                         defaultButtonText={
-                          gearbox || t("addPost.defaultValueDropdown")
+                          gearbox
+                            ? t(`gearBoxList.${gearbox}`)
+                            : t("addPost.defaultValueDropdown")
                         }
                         data={feild.gearBox}
                         searchPlaceHolder={t("addPost.phsearchHere")}
@@ -816,7 +823,9 @@ export default function ListData({ navigation, route }) {
                       <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                       <SelectDropdown
                         defaultButtonText={
-                          fueltype || t("addPost.defaultValueDropdown")
+                          fueltype
+                            ? t(`fuelTypelist.${fueltype}`)
+                            : t("addPost.defaultValueDropdown")
                         }
                         data={
                           category == "Bikes"

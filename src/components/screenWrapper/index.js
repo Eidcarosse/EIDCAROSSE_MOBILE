@@ -70,6 +70,8 @@ export default function ScreenWrapper({
               }
               keyboardShouldPersistTaps="handled"
               enableAutomaticScroll={true}
+              enableOnAndroid={true}
+              extraHeight={100}
               enableResetScrollToCoords={false}
               extraScrollHeight={height(8)}
               showsVerticalScrollIndicator={false}

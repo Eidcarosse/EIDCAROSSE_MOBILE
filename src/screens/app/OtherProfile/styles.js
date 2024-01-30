@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.white,
   },
   imageiner: {
-    height: height(28),
+    height: height(25),
     justifyContent: "space-around",
     margin: width(3),
   },

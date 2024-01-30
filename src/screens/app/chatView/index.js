@@ -12,11 +12,11 @@ import {
 import {
   Actions,
   Bubble,
+  Day,
   GiftedChat,
   MessageText,
   Send,
   Time,
-  Day,
 } from "react-native-gifted-chat";
 import { useDispatch, useSelector } from "react-redux";
 import { AdView, DropDownMenu } from "../../../components";
@@ -60,17 +60,17 @@ function ChatView({ route }) {
   const usrData = route.params?.usr;
   const user = useSelector(selectUserMeta);
   const data = useSelector(selectChatRooms);
+  let f = async () => {
+    if (roomID) {
+      const lastReadRef = ref(
+        database,
+        `chatrooms/${roomID}/lastRead/${user?._id}`
+      );
+      await set(lastReadRef, Date.now());
+    }
+  };
   useEffect(() => {
-    let f = async () => {
-      if (roomID) {
-        const lastReadRef = ref(
-          database,
-          `chatrooms/${roomID}/lastRead/${user?._id}`
-        );
-        await set(lastReadRef, Date.now());
-      }
-    };
-    return f();
+    f();
   }, []);
   useEffect(() => {
     myfuntion();
@@ -251,10 +251,11 @@ function ChatView({ route }) {
       disabled={!selectedItem}
       {...props}
       containerStyle={{ paddingRight: width(2) }}
-      label={
+    >
+      <View style={{ marginRight: width(3), marginBottom: height(1.2) }}>
         <Ionicons name="send" color={AppColors.primary} size={height(3)} />
-      }
-    />
+      </View>
+    </Send>
   );
   const renderMessageImage = (props) => {
     if (props.currentMessage.image) {
@@ -444,7 +445,7 @@ function ChatView({ route }) {
         await setRooms(roomID, user?._id);
       }
     }
-  }, []);
+  });
   async function getBlobFromFile(imageUri) {
     return (await fetch(imageUri)).blob();
   }
@@ -562,7 +563,11 @@ function ChatView({ route }) {
         <GiftedChat
           onSend={onSend}
           renderSend={renderSend}
-          messages={messages}
+          // messages={messages}
+          messages={messages.map((message) => ({
+            ...message,
+            _id: message._id.toString(), // Ensure that _id is a string
+          }))}
           placeholder={t("chat.placeholder")}
           user={{
             _id: user?._id,

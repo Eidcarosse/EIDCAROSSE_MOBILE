@@ -41,9 +41,6 @@ function TestStack() {
 const BottomNav = ({ navigation }) => {
   const islogin = useSelector(selectIsLoggedIn);
   const msg = useSelector(selectNewChat);
-  console.log("====================================");
-  console.log("dost show", msg);
-  console.log("====================================");
   return (
     // <DrawerSceneWrapper>
     <Tab.Navigator

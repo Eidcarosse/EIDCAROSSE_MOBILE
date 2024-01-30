@@ -1,6 +1,7 @@
 import { Linking, Platform, Share, ToastAndroid } from "react-native";
 import { formatDistanceToNow } from "date-fns";
 import { es, de, it, enUS, fr } from "date-fns/locale";
+
 export function debounce(func, wait, immediate) {
   var timeout;
   return function () {
@@ -151,7 +152,7 @@ const onPressMessage = (phoneNumber) => {
     .catch((error) => console.error("Error opening messaging app:", error));
 };
 const onPressEmail = (email, mymail, message = "") => {
-  const subject = `Eidcaross \n ${message}`; // Optional: Replace with the subject of your email
+  const subject = `${message}`; // Optional: Replace with the subject of your email
 
   const url = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   `mailto:${email}?subject=${encodeURIComponent(
@@ -168,11 +169,12 @@ const onPressEmail = (email, mymail, message = "") => {
     })
     .catch((error) => console.error("Error opening email app:", error));
 };
-const onPressShare = async (message, title) => {
+const onPressShare = async (message, title, url) => {
   try {
     const result = await Share.share({
       message: `${title}\n${message}`,
       title: "Eidcarosse",
+      url: message,
     });
 
     if (result.action === Share.sharedAction) {
@@ -182,6 +184,7 @@ const onPressShare = async (message, title) => {
     console.error("Error sharing:", error);
   }
 };
+
 const openWhatsApp = (phoneNumber) => {
   // Construct the WhatsApp URL
   const whatsappURL = `whatsapp://send?phone=${phoneNumber}`;
@@ -244,7 +247,7 @@ const calculateTimeDifference = (createdAt, l) => {
       locale = enUS;
       break;
     default:
-      locale = enUS;
+      locale = de;
   }
   const distance = formatDistanceToNow(new Date(createdAt), {
     locale,

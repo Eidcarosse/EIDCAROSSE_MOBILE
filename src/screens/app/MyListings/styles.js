@@ -35,7 +35,10 @@ const styles = StyleSheet.create({
 
   },
   myadsView:{
-    margin:width(2)
+    padding:height(2),
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:'white'
   }
 });
 export default styles;

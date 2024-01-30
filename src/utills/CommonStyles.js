@@ -134,4 +134,50 @@ const CommonStyles = StyleSheet.create({
         justifyContent: 'space-between'
     }
 });
+{/* <View style={{ flexDirection: "row" }}>
+        <SearchableDropdown
+          onItemSelect={onItemSelect}
+          selectedItems={selectedItems}
+          containerStyle={{ padding: 5 }}
+          onRemoveItem={onRemoveItem}
+          itemStyle={{
+            padding: 10,
+            marginTop: 2,
+            backgroundColor: "#white",
+            borderColor: "#bbb",
+            borderWidth: 1,
+            width: width(95),
+            borderRadius: 5,
+          }}
+          multi
+          chip
+          itemTextStyle={{ color: "#222" }}
+          itemsContainerStyle={{
+            position: "absolute",
+            zIndex: 1,
+            top: height(10),
+            maxHeight: height(30),
+            backgroundColor: "white",
+            alignSelf: "center",
+          }}
+          items={items}
+          defaultIndex={0}
+          resetValue={false}
+          textInputProps={{
+            placeholder: "placeholder",
+            underlineColorAndroid: "transparent",
+            style: {
+              padding: 12,
+              borderWidth: 1,
+              borderColor: "#ccc",
+              borderRadius: 5,
+              width: width(95),
+            },
+            onTextChange: (text) => {},
+          }}
+          listProps={{
+            nestedScrollEnabled: true,
+          }}
+        />
+      </View> */}
 export default CommonStyles;

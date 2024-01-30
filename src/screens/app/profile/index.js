@@ -20,80 +20,86 @@ export default function Profile({ navigation, route }) {
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
   const userFav = useSelector(selectFavAds);
-
   return (
     <ScreenWrapper
       showStatusBar={false}
-      headerUnScrollable={() => <Header navigation={navigation} />}
+      headerUnScrollable={() => (
+        <>
+          <Header navigation={navigation} />
+          <ImageBackground
+            source={Icons.bglogo}
+            style={{ width: width(100), height: height(30), }}
+          >
+            <View style={styles.imageiner}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: userdata?.image }}
+                />
+                <View style={{ paddingLeft: width(5) }}>
+                  <Text
+                    style={{
+                      fontSize: height(2.7),
+                      fontWeight: "bold",
+                      color: AppColors.white,
+                    }}
+                  >
+                    {userdata?.firstName} {userdata?.lastName}
+                  </Text>
+
+                  {/* <Text style={styles.ptext}>{userdata?.userName}</Text> */}
+                  <Text style={styles.ptext}>{userdata?.email}</Text>
+                  <Text style={styles.ptext}>{userdata?.phoneNumber}</Text>
+                </View>
+              </View>
+              <View style={styles.wishlistview}>
+                <IconButton
+                  onPress={() => {
+                    navigation.navigate(ScreenNames.WISH);
+                  }}
+                  title={"profile.wish"}
+                  containerStyle={styles.wcontainer}
+                  textStyle={styles.wtexticon}
+                  icon={
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontWeight: "bold",
+                        color: AppColors.primary,
+                      }}
+                    >
+                      {userFav?.length || 0}
+                    </Text>
+                  }
+                />
+                <IconButton
+                  onPress={() => {
+                    navigation.navigate(ScreenNames.MYADS);
+                  }}
+                  title={"profile.listing"}
+                  containerStyle={styles.wcontainer}
+                  textStyle={styles.wtexticon}
+                  icon={
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontWeight: "bold",
+                        color: AppColors.primary,
+                      }}
+                    >
+                      {userAds?.length || userdata?.adIds?.length}
+                    </Text>
+                  }
+                />
+              </View>
+            </View>
+          </ImageBackground>
+        </>
+      )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground
-          source={Icons.bglogo}
-          style={{ width: width(100), height: height(30) }}
-        >
-          <View style={styles.imageiner}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image style={styles.avatar} source={{ uri: userdata?.image }} />
-              <View style={{ paddingLeft: width(5) }}>
-                <Text
-                  style={{
-                    fontSize: height(2.7),
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.firstName} {userdata?.lastName}
-                </Text>
-
-                {/* <Text style={styles.ptext}>{userdata?.userName}</Text> */}
-                <Text style={styles.ptext}>{userdata?.email}</Text>
-                <Text style={styles.ptext}>{userdata?.phoneNumber}</Text>
-              </View>
-            </View>
-            <View style={styles.wishlistview}>
-              <IconButton
-                onPress={() => {
-                  navigation.navigate(ScreenNames.WISH);
-                }}
-                title={"profile.wish"}
-                containerStyle={styles.wcontainer}
-                textStyle={styles.wtexticon}
-                icon={
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      color: AppColors.primary,
-                    }}
-                  >
-                    {userFav?.length || 0}
-                  </Text>
-                }
-              />
-              <IconButton
-                onPress={() => {
-                  navigation.navigate(ScreenNames.MYADS);
-                }}
-                title={"profile.listing"}
-                containerStyle={styles.wcontainer}
-                textStyle={styles.wtexticon}
-                icon={
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      color: AppColors.primary,
-                    }}
-                  >
-                    {userAds?.length || 0}
-                  </Text>
-                }
-              />
-            </View>
-          </View>
-        </ImageBackground>
         <KeyboardAwareScrollView>
           <View style={{ padding: height(2) }}>
             <IconButton
@@ -104,7 +110,11 @@ export default function Profile({ navigation, route }) {
               containerStyle={styles.container}
               textStyle={styles.texticon}
               icon={
-                <Entypo name="user" color={AppColors.primary} size={height(2)} />
+                <Entypo
+                  name="user"
+                  color={AppColors.primary}
+                  size={height(2)}
+                />
               }
               iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
