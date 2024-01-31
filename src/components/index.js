@@ -21,7 +21,4 @@ export { default as SmallText } from "./text";
 export { default as FilePickerModal } from "./filepikermodal";
 export { default as ChatIcon } from "./chatIcon";
 export { default as AdView } from "./adviewChat";
-export { default as RelatedAd } from "./relatedAd";
-export { default as MapAdCard } from "./MapCard";
 export { default as Card } from "./newCard";
-export { default as DropDownList } from "./DropDrownList";

@@ -2,8 +2,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image } from "expo-image";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+} from "react-native";
 import Dialog from "react-native-dialog";
 import ScreenNames from "../../routes/routes";
 import { height, width } from "../../utills/Dimension";
@@ -146,9 +151,7 @@ export default function ChatIcon({ data }) {
           ]}
         >
           <Image
-            contentFit="contain"
-            priority={"high"}
-            transition={500}
+            resizeMode="contain"
             style={[styles.image]}
             source={{
               uri:

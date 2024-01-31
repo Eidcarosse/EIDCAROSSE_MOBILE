@@ -303,6 +303,7 @@ function ChatView({ route }) {
       let result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 4],
+        quality: .5,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -329,6 +330,7 @@ function ChatView({ route }) {
         allowsMultipleSelection: true,
         allowsEditing: true,
         selectionLimit: 1,
+        quality: .5,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {

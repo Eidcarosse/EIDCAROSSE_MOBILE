@@ -1,15 +1,9 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Image } from "expo-image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FlatList,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import Swiper from "react-native-swiper";
+import { Pressable, Text, TouchableOpacity, View, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../backend/api";
 import { selectCurrentLanguage } from "../../redux/slices/language";
@@ -37,7 +31,7 @@ export default function Card({ data, onPresshide, map = false }) {
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
-  const [blur, setBlur] = useState(5);
+  const [img, setimg] = useState(data?.images || []);
 
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
@@ -46,10 +40,10 @@ export default function Card({ data, onPresshide, map = false }) {
       setFav(false);
     }
   });
+  useEffect(() => {
+    setimg(data?.images);
+  }, [data]);
 
-  const img = data?.images?.map((item) => {
-    return { img: item };
-  });
   function isInArray(element, arr) {
     // Check if arr is defined and not null
     if (arr && Array.isArray(arr)) {
@@ -70,26 +64,6 @@ export default function Card({ data, onPresshide, map = false }) {
       dispatch(setAdsFav(fav));
     }
   };
-  const renderItem = ({ item }) => {
-    return (
-      <Pressable
-        onPress={() => {
-          map && onPresshide();
-          navigation.navigate(ScreenNames.DETAIL, data);
-        }}
-        style={{ paddingHorizontal: width(0.5) }}
-      >
-        <Image
-          style={styles.image}
-          source={{ uri: item?.img }}
-          contentFit='contain'
-          priority={"high"}
-          transition={500}
-        />
-      </Pressable>
-    );
-  };
-
   return (
     <View style={styles.main}>
       <View style={{ borderBottomWidth: width(0.1) }}>
@@ -159,24 +133,71 @@ export default function Card({ data, onPresshide, map = false }) {
             </View>
           </View>
         </Pressable>
-
         <View style={styles.imageview}>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={img}
-            ListEmptyComponent={
-              <View
+          {/* <Swiper
+            style={{ height: height(25) }}
+            activeDotColor={AppColors.primary}
+            dotColor="white"
+            automaticallyAdjustContentInsets={true}
+            showsPagination={false}
+          >
+            {img.map((image, index) => (*/}
+          <Pressable
+            style={{
+              width: width(90),
+              height: height(22),
+              borderRadius: height(2),
+              marginBottom: height(1),
+            }}
+            onPress={() => {
+              map && onPresshide();
+              navigation.navigate(ScreenNames.DETAIL, data);
+            }}
+          >
+            <View
+              style={{
+                height: height(3),
+                width: height(6),
+                backgroundColor: "rgba(255,255,255,.8)",
+                position: "absolute",
+                zIndex: 1,
+                top: height(2),
+                right: height(0.5),
+                borderRadius: height(1),
+                alignContent: "center",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
+              }}
+            >
+              <Ionicons size={height(2.2)} name="image" color={"grey"} />
+              <Text
                 style={{
-                  backgroundColor: "red",
-                  height: height(20),
-                  width: width(80),
+                  fontSize: height(1.8),
+                  color: AppColors.black,
+                  paddingLeft: height(0.5),
+                  color: "grey",
+                  fontWeight: "bold",
                 }}
-              />
-            }
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index}
-          />
+              >
+                {img?.length}
+              </Text>
+            </View>
+            <Image
+              source={{ uri: img[0] }}
+              resizeMode="cover"
+              style={{
+                width: width(90),
+                height: height(22),
+                marginTop: height(1),
+                borderRadius: height(2),
+                // alignSelf: "center",
+              }}
+              // style={{ flex: 1, resizeMode: "cover" }}
+            />
+          </Pressable>
+          {/*    ))}
+          </Swiper> */}
         </View>
         <Pressable
           style={styles.detail}

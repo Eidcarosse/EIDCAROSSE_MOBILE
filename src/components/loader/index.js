@@ -11,10 +11,6 @@ export default function Loader() {
   const appLoader = useSelector(selectLoader);
   return (
     <Modal
-      animationInTiming={300}
-      animationOutTiming={200}
-      animationIn={"lightSpeedIn"}
-      animationOut={"lightSpeedOut"}
       isVisible={appLoader}
       backdropOpacity={1}
       backdropColor={AppColors.white}

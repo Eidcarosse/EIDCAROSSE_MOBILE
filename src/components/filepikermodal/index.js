@@ -42,7 +42,9 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
   }));
   const openCamera = async () => {
     try {
-      await ImagePicker.launchCameraAsync({})
+      await ImagePicker.launchCameraAsync({
+        quality: .5,
+      })
         .then((a) => onFilesSelected(a.assets))
         .catch((e) => console.log("my log", e));
     } catch (error) {
@@ -55,7 +57,7 @@ const FilePickerModal = ({ onFilesSelected, multi = false }, ref) => {
       allowsMultipleSelection: multi,
       selectionLimit: 7,
       aspect: [4, 3],
-      quality: 1,
+      quality: .5,
     })
       .then((a) => onFilesSelected(a.assets))
       .catch((e) => console.log("my log", e));

@@ -785,8 +785,8 @@ export default function AddPost({ navigation, route }) {
                 }
                 data={vcompanies}
                 disabled={otherBrand}
-                dropdownOverlayColor="rgba(0,0,0,.2)"
                 search={true}
+                searchInputStyle
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 buttonStyle={[
                   styles.searchbox,
@@ -798,7 +798,6 @@ export default function AddPost({ navigation, route }) {
                   { textAlign: "left", fontSize: height(1.6) },
                   otherBrand && { color: "grey" },
                 ]}
-                onFocus={false}
                 dropdownStyle={styles.dropdown}
                 onSelect={(selectedItem, index) => {
                   if (model) {
@@ -869,7 +868,6 @@ export default function AddPost({ navigation, route }) {
                     data={apimodel}
                     disabled={otherModel}
                     search={true}
-                    onFocus={false}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{ backgroundColor: AppColors.primary }}
                     selectedRowTextStyle={{ color: AppColors.white }}

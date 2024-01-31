@@ -1,1 +1,1 @@
-../../../../../../.config/yarn/global/node_modules/.bin/expo-cli
+../lib/node_modules/expo-cli/bin/expo.js

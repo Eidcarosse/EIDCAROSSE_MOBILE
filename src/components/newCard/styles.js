@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
   imageview: {
     flex: 1,
     backgroundColor: AppColors.transparent,
-    flexDirection: "row",
     alignSelf: "center",
     borderRadius: width(3),
   },

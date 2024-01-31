@@ -1,5 +1,4 @@
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Modal from "react-native-modal";
@@ -43,7 +43,7 @@ export default function Detail({ navigation, route }) {
   const [data, setDat] = useState([]);
   const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
-
+  const [img, setimg] = useState([]);
   const [load, setload] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -78,13 +78,6 @@ export default function Detail({ navigation, route }) {
       dispatch(setAdsFav(fav));
     }
   };
-  // const img = data?.images?.map((item) => {
-  //   return { img: item };
-  // });
-  const img =
-    data?.images?.map((item) => {
-      return item;
-    }) || [];
   function isNullOrNullOrEmpty(value) {
     return (
       value === null ||
@@ -117,6 +110,7 @@ export default function Detail({ navigation, route }) {
       // setload(false);
       if (d) {
         setDat(d);
+        setimg(d?.images)
         if (d.userId._id != loginuser?._id) {
           await adView(dat?._id);
         }
@@ -192,7 +186,7 @@ export default function Detail({ navigation, route }) {
               dotColor="white"
               automaticallyAdjustContentInsets={true}
             >
-              {img.map((image, index) => (
+              {img?.map((image, index) => (
                 <Pressable
                   key={index}
                   style={{
@@ -206,9 +200,7 @@ export default function Detail({ navigation, route }) {
                 >
                   <Image
                     source={{ uri: image }}
-                    contentFit="contain"
-                    priority={"high"}
-                    transition={500}
+                    resizeMode="contain"
                     style={{
                       width: width(100),
                       height: height(32),
@@ -476,10 +468,9 @@ export default function Detail({ navigation, route }) {
             >
               <View style={styles.profilecard}>
                 <Image
-                  priority={"high"}
                   source={{ uri: data?.userId?.image }}
                   style={styles.profileimage}
-                  contentFit="contain"
+                  resizeMode="contain"
                 />
                 <View style={styles.profilecardin}>
                   <Text
@@ -579,7 +570,6 @@ export default function Detail({ navigation, route }) {
               </MapView>
             </View>
           )}
-          {/* <RelatedAd category={data?.category} id={data?._id} /> */}
         </View>
       )}
       <Modal
@@ -654,9 +644,8 @@ export default function Detail({ navigation, route }) {
             {img.map((image, index) => (
               <Pressable key={index} style={styles.modelView}>
                 <Image
-                  priority={"high"}
                   source={{ uri: image }}
-                  contentFit="contain"
+                  resizeMode="contain"
                   style={styles.modelImage}
                 />
               </Pressable>
