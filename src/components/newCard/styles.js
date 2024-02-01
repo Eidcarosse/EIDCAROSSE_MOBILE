@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.transparent,
     alignSelf: "center",
     borderRadius: width(3),
+    marginBottom:height(1)
   },
   image: {
     height: height(23),

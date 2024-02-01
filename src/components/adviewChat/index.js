@@ -31,7 +31,7 @@ const AdView = ({ detail, onPressView }) => {
     );
   }
   return (
-    <TouchableOpacity
+    <TouchableOpacity 
       disabled={detail?.userId?._id != user?._id && !detail?.visibility}
       onPress={() => navigation.navigate(ScreenNames.DETAIL, detail)}
       style={styles.container}

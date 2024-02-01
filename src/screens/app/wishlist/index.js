@@ -27,7 +27,7 @@ export default function WishList({ navigation, route }) {
 
   useEffect(() => {
     getData(id);
-  }, [userFav]);
+  }, [userFav?.length]);
   const getData = useCallback(async (id) => {
     setLoader(true);
     let d = await getFavAds(id);
@@ -40,7 +40,7 @@ export default function WishList({ navigation, route }) {
       setData(d);
     } else setData([]);
     setLoader(false);
-  });
+  },[]);
   return (
     <ScreenWrapper
       showStatusBar={false}

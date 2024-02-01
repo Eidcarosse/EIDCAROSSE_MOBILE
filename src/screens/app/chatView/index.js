@@ -520,7 +520,7 @@ function ChatView({ route }) {
     setImageModal(false);
     setImage([]);
   };
-  const renderDay = (props) => <Day {...props} dateFormat={"MM/ D/ YYYY"} />;
+  const renderDay = (props) => <Day {...props} dateFormat={"DD/MM/ YYYY"} />;
   return (
     <ScreenWrapper
       showStatusBar={false}

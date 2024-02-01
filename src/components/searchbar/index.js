@@ -93,61 +93,61 @@ export default function SearchBar({
   const { t } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // const [isFocused, setIsFocused] = useState(false);
-  // const [searchHistory, setSearchHistory] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
+  const [searchHistory, setSearchHistory] = useState([]);
 
-  // useEffect(() => {
-  //   // Load the search history from AsyncStorage when the component mounts
-  //   loadSearchHistory();
-  // }, []);
+  useEffect(() => {
+    // Load the search history from AsyncStorage when the component mounts
+    loadSearchHistory();
+  }, []);
 
-  // useEffect(() => {
-  //   // Save the current search to the search history whenever it changes
-  //   saveSearchHistory();
-  // }, [searchHistory]);
+  useEffect(() => {
+    // Save the current search to the search history whenever it changes
+    saveSearchHistory();
+  }, [searchHistory]);
 
-  // const saveSearchHistory = async () => {
-  //   try {
-  //     await AsyncStorage.setItem(
-  //       "searchHistory",
-  //       JSON.stringify(searchHistory)
-  //     );
-  //   } catch (error) {
-  //     console.error("Error saving search history:", error);
-  //   }
-  // };
+  const saveSearchHistory = async () => {
+    try {
+      await AsyncStorage.setItem(
+        "searchHistory",
+        JSON.stringify(searchHistory)
+      );
+    } catch (error) {
+      console.error("Error saving search history:", error);
+    }
+  };
 
-  // const loadSearchHistory = async () => {
-  //   try {
-  //     const savedSearchHistory = await AsyncStorage.getItem("searchHistory");
-  //     if (savedSearchHistory !== null) {
-  //       setSearchHistory(JSON.parse(savedSearchHistory));
-  //     }
-  //   } catch (error) {
-  //     console.error("Error loading search history:", error);
-  //   }
-  // };
+  const loadSearchHistory = async () => {
+    try {
+      const savedSearchHistory = await AsyncStorage.getItem("searchHistory");
+      if (savedSearchHistory !== null) {
+        setSearchHistory(JSON.parse(savedSearchHistory));
+      }
+    } catch (error) {
+      console.error("Error loading search history:", error);
+    }
+  };
 
-  // const handleSearch = () => {
-  //   const newSearchHistory = [search, ...searchHistory];
-  //   setSearchHistory(newSearchHistory);
-  // };
+  const handleSearch = () => {
+    const newSearchHistory = [search, ...searchHistory];
+    setSearchHistory(newSearchHistory);
+  };
 
-  // const handleFocus = () => {
-  //   setIsFocused(true);
-  // };
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
-  // const handleBlur = () => {
-  //   setTimeout(() => {
-  //     setIsFocused(false);
-  //   }, 2000);
-  // };
-  // const handleDelete = (index) => {
-  //   // Delete the search at the specified index
-  //   const newSearchHistory = [...searchHistory];
-  //   newSearchHistory.splice(index, 1);
-  //   setSearchHistory(newSearchHistory);
-  // };
+  const handleBlur = () => {
+    setTimeout(() => {
+      setIsFocused(false);
+    }, 2000);
+  };
+  const handleDelete = (index) => {
+    // Delete the search at the specified index
+    const newSearchHistory = [...searchHistory];
+    newSearchHistory.splice(index, 1);
+    setSearchHistory(newSearchHistory);
+  };
   const handleInputSubmit = () => {
     // let a = searchHistory.find((item) => item == search);
     // // Navigate to the next screen here
@@ -158,29 +158,29 @@ export default function SearchBar({
       : onPress();
   };
 
-  // const renderItem = ({ item, index }) => {
-  //   return (
-  //     <View style={styles.flatcontainer}>
-  //       <Entypo name="back-in-time" size={height(2)} color={"grey"} />
-  //       <TouchableOpacity
-  //         style={{ width: width(67) }}
-  //         onPress={() => {
-  //           setSearch(item);
-  //         }}
-  //       >
-  //         <Text style={{ fontSize: height(1.5) }}>{item}</Text>
-  //       </TouchableOpacity>
-  //       <TouchableOpacity
-  //         style={{ marginLeft: height(2), padding: height(0.5) }}
-  //         onPress={() => {
-  //           handleDelete(index);
-  //         }}
-  //       >
-  //         <AntDesign name="close" size={height(2.5)} color={"grey"} />
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // };
+  const renderItem = ({ item, index }) => {
+    return (
+      <View style={styles.flatcontainer}>
+        <Entypo name="back-in-time" size={height(2)} color={"grey"} />
+        <TouchableOpacity
+          style={{ width: width(67) }}
+          onPress={() => {
+            setSearch(item);
+          }}
+        >
+          <Text style={{ fontSize: height(1.5) }}>{item}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ marginLeft: height(2), padding: height(0.5) }}
+          onPress={() => {
+            handleDelete(index);
+          }}
+        >
+          <AntDesign name="close" size={height(2.5)} color={"grey"} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
     <Fragment>
       <View style={styles.container}>
@@ -199,8 +199,8 @@ export default function SearchBar({
           <TextInput
             blurOnSubmit={true}
             autoCapitalize="none"
-            // onFocus={handleFocus}
-            // onBlur={handleBlur}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
             placeholder={t("searchbar.phsearch")}
             value={search}
             onChangeText={setSearch}
@@ -218,12 +218,16 @@ export default function SearchBar({
         </View>
         {next && search == "" ? (
           <View>
-            {/* <TouchableOpacity
-            style={{ marginLeft: height(2) }}
-            onPress={() => navigation.navigate(ScreenNames.MAP)}
-          >
-            <Feather name="globe" size={height(3.5)} color={AppColors.primary} />
-          </TouchableOpacity> */}
+            <TouchableOpacity
+              style={{ marginLeft: height(2) }}
+              onPress={() => navigation.navigate(ScreenNames.MAP)}
+            >
+              <Feather
+                name="globe"
+                size={height(3.5)}
+                color={AppColors.primary}
+              />
+            </TouchableOpacity>
           </View>
         ) : (
           search != "" && (
@@ -244,7 +248,7 @@ export default function SearchBar({
           )
         )}
       </View>
-      {/* {(isFocused) && (
+      {isFocused && (
         <View style={styles.flatView}>
           <FlatList
             data={searchHistory.filter((item) =>
@@ -254,7 +258,7 @@ export default function SearchBar({
             keyExtractor={(item, index) => index}
           />
         </View>
-      )} */}
+      )}
     </Fragment>
   );
 }

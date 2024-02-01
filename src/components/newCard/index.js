@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Swiper from "react-native-swiper";
 import { Pressable, Text, TouchableOpacity, View, Image } from "react-native";
+import Modal from "react-native-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../backend/api";
 import { selectCurrentLanguage } from "../../redux/slices/language";
@@ -32,7 +33,7 @@ export default function Card({ data, onPresshide, map = false }) {
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
   const [img, setimg] = useState(data?.images || []);
-
+  const [modal, setModal] = useState(false);
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
       setFav(true);
@@ -142,47 +143,50 @@ export default function Card({ data, onPresshide, map = false }) {
             showsPagination={false}
           >
             {img.map((image, index) => (*/}
+
+          <TouchableOpacity
+            style={{
+              height: height(3),
+              width: height(6),
+              backgroundColor: "rgba(255,255,255,.8)",
+              position: "absolute",
+              zIndex: 1,
+              top: height(2),
+              right: height(0.5),
+              borderRadius: height(1),
+              alignContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+            onPress={() => {
+              setModal(true);
+            }}
+          >
+            <Ionicons size={height(2.2)} name="image" color={"grey"} />
+            <Text
+              style={{
+                fontSize: height(1.8),
+                color: AppColors.black,
+                paddingLeft: height(0.5),
+                color: "grey",
+                fontWeight: "bold",
+              }}
+            >
+              {img?.length}
+            </Text>
+          </TouchableOpacity>
           <Pressable
             style={{
               width: width(90),
               height: height(22),
               borderRadius: height(2),
-              marginBottom: height(1),
             }}
             onPress={() => {
               map && onPresshide();
               navigation.navigate(ScreenNames.DETAIL, data);
             }}
           >
-            <View
-              style={{
-                height: height(3),
-                width: height(6),
-                backgroundColor: "rgba(255,255,255,.8)",
-                position: "absolute",
-                zIndex: 1,
-                top: height(2),
-                right: height(0.5),
-                borderRadius: height(1),
-                alignContent: "center",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Ionicons size={height(2.2)} name="image" color={"grey"} />
-              <Text
-                style={{
-                  fontSize: height(1.8),
-                  color: AppColors.black,
-                  paddingLeft: height(0.5),
-                  color: "grey",
-                  fontWeight: "bold",
-                }}
-              >
-                {img?.length}
-              </Text>
-            </View>
             <Image
               source={{ uri: img[0] }}
               resizeMode="cover"
@@ -316,6 +320,56 @@ export default function Card({ data, onPresshide, map = false }) {
           <></>
         )}
       </View>
+      <Modal
+      backdropOpacity={.5}
+        isVisible={modal}
+        onBackdropPress={() => {
+          setModal(false);
+        }}
+      >
+        <View
+          style={{
+            height: height(38),
+            backgroundColor: AppColors.white,
+            alignSelf: "center",
+            borderRadius: width(3),
+            marginBottom: height(1),
+            alignSelf: "center",
+            width: width(96),
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Swiper
+            style={{ alignSelf: "center" }}
+            activeDotColor={AppColors.primary}
+            dotColor='lightgrey'
+            automaticallyAdjustContentInsets={true}
+          >
+            {img.map((image, index) => (
+              <Pressable
+                key={index}
+                style={{
+                  width: width(96),
+                  justifyContent: "center",
+                  height: height(38),
+                }}
+              >
+                <Image
+                  source={{ uri:image }}
+                  resizeMode='contain'
+                  style={{
+                    width: width(96),
+                    height: height(32),
+                    // alignSelf: "center",
+                  }}
+                  // style={{ flex: 1, resizeMode: "cover" }}
+                />
+              </Pressable>
+            ))}
+          </Swiper>
+        </View>
+      </Modal>
     </View>
   );
 }

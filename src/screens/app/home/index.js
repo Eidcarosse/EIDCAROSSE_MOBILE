@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { ScreenWrapper } from "../../../components";
+import { IconButton, ScreenWrapper } from "../../../components";
+import { Ionicons } from "@expo/vector-icons";
 import CategoryList from "../../../components/categorylist";
 import Header from "../../../components/header";
 import SearchBar from "../../../components/searchbar";
@@ -84,14 +85,39 @@ export default function Home({}) {
       scrollViewRef={scrollViewRef}
     >
       <View style={styles.mainViewContainer}>
-        <SearchBar
+        {/* <SearchBar
           search={searchString}
           setSearch={setSearchString}
           containerstyle={styles.search}
           next={true}
+        /> */}
+        <IconButton
+          title={t("searchbar.phsearch")}
+          containerStyle={{
+            backgroundColor: "white",
+            width: width(98),
+            borderWidth: height(.05),
+          }}
+          textStyle={{
+            color: "grey",
+            fontWeight: "100",
+            fontSize: height(1.5),
+            width: width(80),
+          }}
+          icon={
+            <Ionicons
+              name="search"
+              style={{ marginHorizontal: height(1) }}
+              color="lightgrey"
+              size={height(2.5)}
+            />
+          }
+          onPress={() => {
+            navigation.navigate(ScreenNames.CATEGORY, {value:"seeAll" });
+          }}
         />
         <CategoryList navigation={navigation} search={searchString} />
-     
+
         <View style={styles.titleview}>
           <Text style={{ fontSize: height(1.8), fontWeight: "bold" }}>
             {t("home.letest")}

@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../../backend/common";
-import { CategoryIcon, Head, Header, ScreenWrapper } from "../../../components";
+import {
+  CategoryIcon,
+  Head,
+  Header,
+  ScreenWrapper,
+  SearchBar,
+} from "../../../components";
 import {
   selectCategoryList,
   setAppLoader,
@@ -18,6 +24,7 @@ export default function Category({ navigation, route }) {
   const search = route?.params?.search;
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
+  const [searchString, setSearchString] = useState("");
   useEffect(() => {
     onRefresh();
   }, []);
@@ -55,6 +62,20 @@ export default function Category({ navigation, route }) {
       barStyle="light-content"
     >
       <View style={[{ paddingBottom: height(7), margin: width(3) }]}>
+        {/* {route?.params?.value == "seeAll" && (
+          <SearchBar
+            search={searchString}
+            setSearch={setSearchString}
+            containerstyle={{
+              width: width(95),
+              borderRadius: height(1),
+              flexDirection: "row",
+              borderWidth: height(0.1),
+              alignItems: "center",
+              paddingVertical: height(0.5),
+            }}
+          />
+        )} */}
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}

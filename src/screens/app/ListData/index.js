@@ -308,7 +308,7 @@ export default function ListData({ navigation, route }) {
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
-        <SearchBar
+        {/* <SearchBar
           search={title}
           setSearch={setTitle}
           containerstyle={styles.search}
@@ -320,7 +320,7 @@ export default function ListData({ navigation, route }) {
             }
             setFilter(filter + 1);
           }}
-        />
+        /> */}
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
             {t("allData.totalresult")} : {totalAds}
