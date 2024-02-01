@@ -20,6 +20,7 @@ export default {
     passwordPlaceholder: "Inserisci la tua password",
     checkBoxText:
       "Ho letto e accettato i Termini e le Condizioni di Eidcarosse",
+      checkBoxText2: "gelesen und stimme zu",
     termAndCondition: "Termini e Condizioni",
     continueWithGoogle: "Continua con Google",
     signupButton: "Registrati",

@@ -18,7 +18,8 @@ export default {
     passwordTitle: "Passwort",
     passwordPlaceholder: "Geben Sie Ihr Passwort ein",
     checkBoxText: "Ich habe die Eidcarosse",
-    termAndCondition: "Nutzungsbedingungen gelesen",
+    termAndCondition: "Nutzungsbedingungen",
+    checkBoxText2: "gelesen und stimme zu",
     continueWithGoogle: "Mit Google fortfahren",
     signupButton: "Registrieren",
     or: "oder",
@@ -313,7 +314,7 @@ export default {
     location: "Ort",
     phlocation: "Standort auswählen",
     TandC1: "Ich habe die Eidcarosse ",
-    TandC2: "Geschäftsbedingungen ",
+    TandC2: "Nutzungsbedingungen",
     TandC3: "gelesen und stimme zu",
     post: "Inserat hinzufügen",
     phsearchHere: "Hier suchen",
@@ -438,7 +439,7 @@ export default {
     logout: "Abmelden",
     deleteaccount: "Konto löschen",
     deleteconfirmmsg:
-      "Möchten Sie Ihr Konto wirklich löschen? Diese Aktion löscht alle Ihre Details, Anzeigen, Wunschliste und Chats. Sie können diese Aktion nicht rückgängig machen oder die gelöschten Daten wiederherstellen",
+      "Möchten Sie Ihr Konto wirklich löschen? Diese Aktion löscht alle Ihre Details, Inserate, Wunschliste und Chats. Sie können diese Aktion nicht rückgängig machen oder die gelöschten Daten wiederherstellen",
     enterpassword: "Geben Sie das Passwort ein, um fortzufahren",
   },
   changePassword: {

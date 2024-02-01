@@ -1,4 +1,4 @@
-import { Feather, AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import {
@@ -91,6 +91,7 @@ export default function SearchBar({
   onPress,
 }) {
   const { t } = useTranslation();
+  const inputRef = useRef();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [isFocused, setIsFocused] = useState(false);
@@ -99,6 +100,7 @@ export default function SearchBar({
   useEffect(() => {
     // Load the search history from AsyncStorage when the component mounts
     loadSearchHistory();
+    !next && inputRef.current.focus();
   }, []);
 
   useEffect(() => {
@@ -149,26 +151,31 @@ export default function SearchBar({
     setSearchHistory(newSearchHistory);
   };
   const handleInputSubmit = () => {
-    // let a = searchHistory.find((item) => item == search);
+    let a = searchHistory.find((item) => item == search);
     // // Navigate to the next screen here
-    // if (!a) handleSearch();
-    next
-      ? (navigation.navigate(ScreenNames.LISTDATA, { search: search }),
-        setSearch(""))
-      : onPress();
+    if (!a) handleSearch();
+
+    navigation.navigate(ScreenNames.LISTDATA, { search: search }),
+      setSearch("");
   };
 
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.flatcontainer}>
-        <Entypo name="back-in-time" size={height(2)} color={"grey"} />
         <TouchableOpacity
-          style={{ width: width(67) }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: width(77),
+          }}
           onPress={() => {
             setSearch(item);
           }}
         >
-          <Text style={{ fontSize: height(1.5) }}>{item}</Text>
+          <Entypo name="back-in-time" size={height(2.3)} color={"grey"} />
+          <Text style={{ fontSize: height(2), width: width(70), color:'grey',fontWeight:'500'}}>
+            {item}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ marginLeft: height(2), padding: height(0.5) }}
@@ -176,7 +183,7 @@ export default function SearchBar({
             handleDelete(index);
           }}
         >
-          <AntDesign name="close" size={height(2.5)} color={"grey"} />
+          <AntDesign name="close" size={height(2)} color={"grey"} />
         </TouchableOpacity>
       </View>
     );
@@ -197,6 +204,7 @@ export default function SearchBar({
             size={height(2.5)}
           />
           <TextInput
+            ref={inputRef}
             blurOnSubmit={true}
             autoCapitalize="none"
             onFocus={handleFocus}
@@ -207,48 +215,46 @@ export default function SearchBar({
             style={{ width: width(55), fontSize: height(1.5) }}
             onSubmitEditing={handleInputSubmit}
           />
-          {search && (
-            <Button
-              onPress={handleInputSubmit}
-              title={"searchbar.search"}
-              containerStyle={styles.serachBtn}
-              textStyle={styles.searchTxt}
-            />
-          )}
         </View>
-        {next && search == "" ? (
-          <View>
-            <TouchableOpacity
-              style={{ marginLeft: height(2) }}
-              onPress={() => navigation.navigate(ScreenNames.MAP)}
-            >
-              <Feather
-                name="globe"
-                size={height(3.5)}
-                color={AppColors.primary}
-              />
-            </TouchableOpacity>
-          </View>
-        ) : (
-          search != "" && (
-            <View>
-              <TouchableOpacity
-                style={{ marginLeft: height(2) }}
-                onPress={() => {
-                  setSearch(""), !next && onPress();
-                }}
-              >
-                <AntDesign
-                  name="closesquare"
-                  size={height(3.5)}
-                  color={AppColors.primary}
-                />
-              </TouchableOpacity>
-            </View>
-          )
+        {search && (
+          // <Button
+          //   onPress={handleInputSubmit}
+          //   title={"searchbar.search"}
+          //   containerStyle={styles.serachBtn}
+          //   textStyle={styles.searchTxt}
+          // />
+          <TouchableOpacity
+            style={{
+              marginLeft: height(1),
+              backgroundColor: "red",
+              paddingHorizontal: height(0.4),
+              paddingVertical:height(.2),
+              borderRadius: 3,
+            }}
+            onPress={handleInputSubmit}
+          >
+            <Ionicons
+              name="search"
+              size={height(2.5)}
+              color={AppColors.white}
+            />
+          </TouchableOpacity>
+        )}
+        {search != "" && (
+          <TouchableOpacity
+            onPress={() => {
+              setSearch("");
+            }}
+          >
+            <AntDesign
+              name="closesquare"
+              size={height(3.5)}
+              color={AppColors.primary}
+            />
+          </TouchableOpacity>
         )}
       </View>
-      {isFocused && (
+      {!next && (
         <View style={styles.flatView}>
           <FlatList
             data={searchHistory.filter((item) =>

@@ -321,9 +321,12 @@ export default function Card({ data, onPresshide, map = false }) {
         )}
       </View>
       <Modal
-      backdropOpacity={.5}
+        backdropOpacity={0.5}
         isVisible={modal}
         onBackdropPress={() => {
+          setModal(false);
+        }}
+        onBackButtonPress={() => {
           setModal(false);
         }}
       >
@@ -343,7 +346,7 @@ export default function Card({ data, onPresshide, map = false }) {
           <Swiper
             style={{ alignSelf: "center" }}
             activeDotColor={AppColors.primary}
-            dotColor='lightgrey'
+            dotColor="lightgrey"
             automaticallyAdjustContentInsets={true}
           >
             {img.map((image, index) => (
@@ -356,8 +359,8 @@ export default function Card({ data, onPresshide, map = false }) {
                 }}
               >
                 <Image
-                  source={{ uri:image }}
-                  resizeMode='contain'
+                  source={{ uri: image }}
+                  resizeMode="contain"
                   style={{
                     width: width(96),
                     height: height(32),

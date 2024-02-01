@@ -19,6 +19,7 @@ export default {
     passwordTitle: "Mot de passe",
     passwordPlaceholder: "Entrez votre mot de passe",
     checkBoxText: "J'ai lu et accepté les conditions d'Eidcarosse",
+    checkBoxText2: "gelesen und stimme zu",
     termAndCondition: "Conditions générales",
     continueWithGoogle: "Continuer avec Google",
 

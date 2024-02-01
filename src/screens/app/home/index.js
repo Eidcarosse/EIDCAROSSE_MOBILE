@@ -96,7 +96,7 @@ export default function Home({}) {
           containerStyle={{
             backgroundColor: "white",
             width: width(98),
-            borderWidth: height(.05),
+            borderWidth: height(0.05),
           }}
           textStyle={{
             color: "grey",
@@ -113,7 +113,7 @@ export default function Home({}) {
             />
           }
           onPress={() => {
-            navigation.navigate(ScreenNames.CATEGORY, {value:"seeAll" });
+            navigation.navigate(ScreenNames.SEARCH);
           }}
         />
         <CategoryList navigation={navigation} search={searchString} />

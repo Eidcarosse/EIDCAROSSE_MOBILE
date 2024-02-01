@@ -308,19 +308,31 @@ export default function ListData({ navigation, route }) {
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
-        {/* <SearchBar
-          search={title}
-          setSearch={setTitle}
-          containerstyle={styles.search}
-          onPress={() => {
-            setData([]);
-            setempty(false);
-            if (pageNumber != 0) {
-              setPageNumber(1);
-            }
-            setFilter(filter + 1);
+        <IconButton
+          title={title ? title : t("searchbar.phsearch")}
+          containerStyle={{
+            backgroundColor: "white",
+            width: width(98),
+            borderWidth: height(0.05),
           }}
-        /> */}
+          textStyle={{
+            color: "grey",
+            fontWeight: "100",
+            fontSize: height(1.5),
+            width: width(80),
+          }}
+          icon={
+            <Ionicons
+              name="search"
+              style={{ marginHorizontal: height(1) }}
+              color="lightgrey"
+              size={height(2.5)}
+            />
+          }
+          onPress={() => {
+            navigation.navigate(ScreenNames.SEARCH);
+          }}
+        />
         <View style={styles.totalview}>
           <Text style={styles.totaltext}>
             {t("allData.totalresult")} : {totalAds}

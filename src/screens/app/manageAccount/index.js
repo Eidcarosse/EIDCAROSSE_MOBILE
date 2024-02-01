@@ -121,6 +121,7 @@ export default function ManageAccount({ navigation, route }) {
               </Text>
             </Dialog.Description>
             <Dialog.Input
+            secureTextEntry={true}
               style={{ fontSize: height(1.5), color: "black" }}
               value={code}
               onChangeText={setCode}

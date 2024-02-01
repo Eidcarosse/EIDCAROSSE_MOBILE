@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   main: {
-    width: width(85),
+    width: width(75),
     borderRadius: height(1),
     padding: height(0.5),
     flexDirection: "row",
@@ -30,27 +30,20 @@ const styles = StyleSheet.create({
     padding: height(0.1),
   },
   flatcontainer: {
-    padding: height(0.5),
-    margin: height(0.5),
+    padding: height(0.2),
+    margin: height(0.2),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    elevation: 1,
-    backgroundColor: "white",
     borderRadius: height(1),
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
+
   },
   flatView:{
     backgroundColor: "white",
-    maxHeight: height(35),
+    maxHeight: height(25),
     width: width(95),
-    position: "absolute",
-    zIndex: 1,
-    top: height(7),
     flexDirection: "row",
+    marginVertical:height(1)
   }
 });
 export default styles;

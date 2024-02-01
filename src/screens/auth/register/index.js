@@ -213,15 +213,27 @@ export default function SignUp({ navigation, route }) {
               checkedCheckBoxColor={AppColors.primary}
               isChecked={check}
             />
-            <View>
+            <View
+              style={{
+                flexWrap: "wrap",
+                flexDirection: "row",
+                width: width(85),
+              }}
+            >
               <Text style={{ fontSize: height(1.5) }}>
                 {t("signup.checkBoxText")}
               </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate(ScreenNames.TNC)}
               >
-                <Text style={styles.tandc}>{t("signup.termAndCondition")}</Text>
+                <Text style={styles.tandc}>
+                  {"  "}
+                  {t("signup.termAndCondition")}
+                </Text>
               </TouchableOpacity>
+              <Text style={{ fontSize: height(1.5) }}>
+                {t("signup.checkBoxText2")}
+              </Text>
             </View>
           </View>
           <Button
