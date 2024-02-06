@@ -11,12 +11,11 @@ const styles = StyleSheet.create({
   categorytext: {
     fontSize: height(2),
     fontWeight: "bold",
-    marginVertical: height(1),
   },
   textseeall: {
     fontSize: height(1.3),
     fontWeight: "bold",
-    marginTop: height(2),
+    marginTop:8,
     color: "grey",
   },
   titleview: {

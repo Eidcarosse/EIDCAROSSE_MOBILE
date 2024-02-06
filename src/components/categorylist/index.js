@@ -9,6 +9,7 @@ import styles from "./styles";
 
 export default function CategoryList({ navigation, search }) {
   const { t } = useTranslation();
+
   const d = useSelector(selectCategoryList);
   const data = d.slice(0, 6);
   const renderItem = ({ item }) => {
@@ -42,7 +43,10 @@ export default function CategoryList({ navigation, search }) {
         <Text style={styles.categorytext}>{t("categorylist.categories")}</Text>
         <Pressable
           onPress={() => {
-            navigation.navigate(ScreenNames.CATEGORY, { search: search,value:"seeAll" });
+            navigation.navigate(ScreenNames.CATEGORY, {
+              search: search,
+              value: "seeAll",
+            });
           }}
         >
           {<Text style={styles.textseeall}>{t("categorylist.seeAll")}</Text>}

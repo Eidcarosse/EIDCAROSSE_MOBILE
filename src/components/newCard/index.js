@@ -24,7 +24,7 @@ import GlobalMethods, {
   infoMessage,
 } from "../../utills/Methods";
 import styles from "./styles";
-export default function Card({ data, onPresshide, map = false }) {
+const Card = React.memo(({ data, onPresshide, map = false }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const language = useSelector(selectCurrentLanguage);
@@ -375,4 +375,5 @@ export default function Card({ data, onPresshide, map = false }) {
       </Modal>
     </View>
   );
-}
+});
+export default Card;

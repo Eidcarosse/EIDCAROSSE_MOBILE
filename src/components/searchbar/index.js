@@ -1,22 +1,14 @@
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React, { Fragment, useState, useEffect, useRef } from "react";
-import {
-  TextInput,
-  TouchableOpacity,
-  View,
-  Text,
-  Platform,
-} from "react-native";
+import React, { Fragment, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
-import ScreenNames from "../../routes/routes";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
-import Button from "../button";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
-import { FlatList } from "react-native-gesture-handler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 var items = [
   {
     id: 1,
@@ -131,8 +123,16 @@ export default function SearchBar({
   };
 
   const handleSearch = () => {
-    const newSearchHistory = [search, ...searchHistory];
-    setSearchHistory(newSearchHistory);
+    const existingIndex = searchHistory.findIndex(item => item === search);
+    if (existingIndex !== -1) {
+      const updatedHistory = [...searchHistory];
+      updatedHistory.splice(existingIndex, 1);
+      // Place it at the beginning of the array
+      setSearchHistory([search, ...updatedHistory]);
+    } else {
+      // If the search does not exist, add it to the beginning
+      setSearchHistory([search, ...searchHistory]);
+    }
   };
 
   const handleFocus = () => {
@@ -151,12 +151,9 @@ export default function SearchBar({
     setSearchHistory(newSearchHistory);
   };
   const handleInputSubmit = () => {
-    let a = searchHistory.find((item) => item == search);
     // // Navigate to the next screen here
-    if (!a) handleSearch();
-
-    navigation.navigate(ScreenNames.LISTDATA, { search: search }),
-      setSearch("");
+    handleSearch();
+    onPress(), setSearch("");
   };
 
   const renderItem = ({ item, index }) => {
@@ -173,7 +170,14 @@ export default function SearchBar({
           }}
         >
           <Entypo name="back-in-time" size={height(2.3)} color={"grey"} />
-          <Text style={{ fontSize: height(2), width: width(70), color:'grey',fontWeight:'500'}}>
+          <Text
+            style={{
+              fontSize: height(2),
+              width: width(70),
+              color: "grey",
+              fontWeight: "500",
+            }}
+          >
             {item}
           </Text>
         </TouchableOpacity>
@@ -228,7 +232,7 @@ export default function SearchBar({
               marginLeft: height(1),
               backgroundColor: "red",
               paddingHorizontal: height(0.4),
-              paddingVertical:height(.2),
+              paddingVertical: height(0.2),
               borderRadius: 3,
             }}
             onPress={handleInputSubmit}

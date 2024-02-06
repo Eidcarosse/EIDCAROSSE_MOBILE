@@ -32,5 +32,9 @@ const ScreenNames = {
   CPF: "CPForget",
   VERIFY: "Verify",
   SEARCH: "search",
+  ILISTDATA: "InerList",
+  ICATEGORY: "InerCat",
+  IBIKECATEGORY: "InerSubCat",
+  ISEARCH: "InerSearch",
 };
 export default ScreenNames;

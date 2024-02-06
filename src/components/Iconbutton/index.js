@@ -14,6 +14,7 @@ const IconButton = ({
   activeOpacity = 0.7,
   containerStyle = {},
   textStyle = {},
+  onPressRightIcon,
 }) => {
   const { t } = useTranslation();
   return (
@@ -29,7 +30,9 @@ const IconButton = ({
     >
       {icon}
       <Text style={[styles.text, textStyle]}>{t(title)}</Text>
-      {iconright}
+      <TouchableOpacity onPress={onPressRightIcon}>
+        {iconright}
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 };

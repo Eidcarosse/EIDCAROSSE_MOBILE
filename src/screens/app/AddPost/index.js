@@ -1179,6 +1179,9 @@ export default function AddPost({ navigation, route }) {
                 size={height(3)}
               />
             }
+            onPressRightIcon={() => {
+              setAddPhone(!addPhone);
+            }}
           />
           {/* {htc == "Phone" && ( */}
           {addPhone && (
@@ -1206,6 +1209,9 @@ export default function AddPost({ navigation, route }) {
                 size={height(3)}
               />
             }
+            onPressRightIcon={() => {
+              setAddWhatsapp(!addWhatsapp);
+            }}
           />
           {addWhatsapp && (
             <View style={{ paddingVertical: width(1) }}>
@@ -1232,6 +1238,9 @@ export default function AddPost({ navigation, route }) {
                 size={height(3)}
               />
             }
+            onPressRightIcon={() => {
+              setAddViber(!addViber);
+            }}
           />
           {addViber && (
             <View style={{ paddingVertical: width(1) }}>

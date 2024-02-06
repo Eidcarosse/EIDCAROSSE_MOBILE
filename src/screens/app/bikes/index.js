@@ -1,11 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Text, TouchableOpacity, View, Image } from "react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { Head, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
-import styles from "./styles";
 import { height, width } from "../../../utills/Dimension";
+import styles from "./styles";
 
 export default function BikeCategory({ navigation, route }) {
   const subCategories = route?.params?.subCategories;
@@ -48,13 +48,14 @@ export default function BikeCategory({ navigation, route }) {
                       find: item.name,
                       subcategory: item.name,
                     });
-                  } else
+                  } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
                       category: route?.params?.category,
                       find: item.name,
                       subcategory: item.name,
                       search: search || "",
                     });
+                  }
                 }}
               >
                 <Image

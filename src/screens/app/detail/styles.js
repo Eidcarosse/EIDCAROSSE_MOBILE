@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E5E8E84D",
     borderRadius: width(2),
   },
-  cardrow: { flexDirection: "row", flex: 1, marginVertical: width(3) },
+  cardrow: { flexDirection: "row", flex: 1, marginVertical: height(.5) },
   cardelement: { fontSize: height(1.5), flex: 1, fontWeight: "bold" },
   cardelement2: { fontSize: height(1.5), flex: 1 },
   profileview: { padding: width(4) },

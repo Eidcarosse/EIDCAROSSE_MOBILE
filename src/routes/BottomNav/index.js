@@ -11,6 +11,7 @@ import {
   HomeScreen,
   MyListingScreen,
   ProfileScreen,
+  SearchScreen,
 } from "../../screens/app";
 import { DrawerSceneWrapper } from "../../components";
 import { PreLogin } from "../../screens/auth";
@@ -35,6 +36,7 @@ function TestStack() {
       <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
       <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
       <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
+      <Stack.Screen name={ScreenNames.SEARCH} component={SearchScreen} />
     </Stack.Navigator>
   );
 }

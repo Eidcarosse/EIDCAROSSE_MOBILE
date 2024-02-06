@@ -55,8 +55,10 @@ import {
   showbodyShape,
 } from "../../../utills/Methods";
 import styles from "./styles";
+import { useRoute } from "@react-navigation/native";
 
-export default function ListData({ navigation, route }) {
+export default function ListData({ navigation }) {
+  const route = useRoute();
   const { t } = useTranslation();
   const cat = route?.params?.category;
   const find = route?.params?.find;
@@ -141,6 +143,7 @@ export default function ListData({ navigation, route }) {
     setempty(false);
     setCategory("");
     setSubCategory("");
+    setFindValue("");
     if (pageNumber != 0) {
       setPageNumber(1);
     }
@@ -153,7 +156,7 @@ export default function ListData({ navigation, route }) {
     dispatch(setAppLoader(false));
   }, []);
   useEffect(() => {
-    if (brand) getmodel(find, brand);
+    if (brand) getmodel(findValue, brand);
   }, [brand]);
   const getmodel = async (a, b) => {
     dispatch(setAppLoader(true));
@@ -330,7 +333,14 @@ export default function ListData({ navigation, route }) {
             />
           }
           onPress={() => {
-            navigation.navigate(ScreenNames.SEARCH);
+            // navigation.pop();
+            navigation.replace(ScreenNames.SEARCH, {
+              category: category,
+              find: category,
+              search: title,
+              sub: subCategory,
+              show: true,
+            });
           }}
         />
         <View style={styles.totalview}>
@@ -352,19 +362,13 @@ export default function ListData({ navigation, route }) {
         </View>
         <FlatList
           key={"coloum1"}
-          data={data.filter((item) => {
-            return item.title
-              .toLowerCase()
-              .includes(searchString.toLowerCase());
-          })}
+          data={data}
           style={styles.flatlist}
-          renderItem={useMemo(() => {
-            return ({ item }) => (
-              <View style={{ width: width(98), alignItems: "center" }}>
-                <Card data={item} />
-              </View>
-            );
-          })}
+          renderItem={({ item }) => (
+            <View style={{ width: width(98), alignItems: "center" }}>
+              <Card data={item} />
+            </View>
+          )}
           ListEmptyComponent={({ item }) => (
             <View style={styles.emptyview}>
               {refreshing ? (
@@ -459,8 +463,8 @@ export default function ListData({ navigation, route }) {
                       onPress={() => {
                         refRBSheet.current.close();
                         setTimeout(() => {
-                          navigation.pop();
-                          navigation.navigate(ScreenNames.CATEGORY, {
+                          // navigation.pop();
+                          navigation.replace(ScreenNames.CATEGORY, {
                             search: title,
                             value: "seeAll",
                           });
@@ -483,8 +487,8 @@ export default function ListData({ navigation, route }) {
                         onPress={() => {
                           refRBSheet.current.close();
                           setTimeout(() => {
-                            navigation.pop();
-                            navigation.navigate(ScreenNames.BIKECATEGORY, {
+                            // navigation.pop();
+                            navigation.replace(ScreenNames.BIKECATEGORY, {
                               category: category,
                               find: category,
                               search: title,
@@ -776,7 +780,7 @@ export default function ListData({ navigation, route }) {
                         />
                       </View>
                     )}
-                    {showbodyShape(find) && (
+                    {showbodyShape(findValue) && (
                       <View style={{ alignSelf: "center" }}>
                         <Text style={styles.title}>
                           {t("addPost.bodyshape")}
@@ -815,7 +819,7 @@ export default function ListData({ navigation, route }) {
                         />
                       </View>
                     )}
-                    {showGearBox(find) && feild?.gearBox && (
+                    {showGearBox(findValue) && feild?.gearBox && (
                       <View style={{ alignSelf: "center" }}>
                         <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                         <SelectDropdown
@@ -848,7 +852,7 @@ export default function ListData({ navigation, route }) {
                         />
                       </View>
                     )}
-                    {showFuletype(find) && (
+                    {showFuletype(findValue) && (
                       <View style={{ alignSelf: "center" }}>
                         <Text style={styles.title}>
                           {t("addPost.fueltype")}
@@ -965,6 +969,7 @@ export default function ListData({ navigation, route }) {
                     }}
                     onPress={() => {
                       clearAll();
+                      refRBSheet.current.close();
                     }}
                   />
                   <Button

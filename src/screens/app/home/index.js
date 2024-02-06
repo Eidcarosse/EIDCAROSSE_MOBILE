@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, ScreenWrapper } from "../../../components";
@@ -14,9 +14,11 @@ import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
 import {
   selectCategoryList,
+  selectFilter,
   selectTopAds,
   setAppLoader,
   setCategoryList,
+  setFilter,
   setTopAds,
 } from "../../../redux/slices/config";
 import { height, width } from "../../../utills/Dimension";
@@ -32,7 +34,7 @@ export default function Home({}) {
   useScrollToTop(scrollViewRef);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
+  const flter = useSelector(selectFilter);
   const data = useSelector(selectTopAds);
   const category = useSelector(selectCategoryList);
   const [refreshing, setRefreshing] = useState(false);
@@ -72,11 +74,66 @@ export default function Home({}) {
       dispatch(setAppLoader(false));
     }
   });
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     dispatch(
+  //       setFilter({
+  //         address: "",
+  //         category: "",
+  //         subCategory: "",
+  //         condition: "",
+  //         title: "",
+  //         brand: "",
+  //         model: "",
+  //         year: "",
+  //         type: "",
+  //         minPrice: "",
+  //         maxPrice: "",
+  //         sortBy: "",
+  //         km: "",
+  //         bodyShape: "",
+  //         gearBox: "",
+  //         fuelType: "",
+  //       })
+  //     );
+  //   }, [])
+  // );
 
   return (
     <ScreenWrapper
       showStatusBar={false}
-      headerUnScrollable={() => <Header navigation={navigation} />}
+      headerUnScrollable={() => (
+        <View style={{ backgroundColor: "white" }}>
+          <Header navigation={navigation} />
+          <IconButton
+            title={t("searchbar.phsearch")}
+            containerStyle={{
+              backgroundColor: "white",
+              width: width(98),
+              borderWidth: height(0.05),
+              marginTop: height(1),
+              backgroundColor: "white",
+            }}
+            textStyle={{
+              color: "grey",
+              fontWeight: "100",
+              fontSize: height(1.5),
+              width: width(80),
+            }}
+            icon={
+              <Ionicons
+                name="search"
+                style={{ marginHorizontal: height(1) }}
+                color="lightgrey"
+                size={height(2.5)}
+              />
+            }
+            onPress={() => {
+              navigation.navigate(ScreenNames.SEARCH);
+            }}
+          />
+        </View>
+      )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
       scrollEnabled
@@ -91,31 +148,7 @@ export default function Home({}) {
           containerstyle={styles.search}
           next={true}
         /> */}
-        <IconButton
-          title={t("searchbar.phsearch")}
-          containerStyle={{
-            backgroundColor: "white",
-            width: width(98),
-            borderWidth: height(0.05),
-          }}
-          textStyle={{
-            color: "grey",
-            fontWeight: "100",
-            fontSize: height(1.5),
-            width: width(80),
-          }}
-          icon={
-            <Ionicons
-              name="search"
-              style={{ marginHorizontal: height(1) }}
-              color="lightgrey"
-              size={height(2.5)}
-            />
-          }
-          onPress={() => {
-            navigation.navigate(ScreenNames.SEARCH);
-          }}
-        />
+
         <CategoryList navigation={navigation} search={searchString} />
 
         <View style={styles.titleview}>

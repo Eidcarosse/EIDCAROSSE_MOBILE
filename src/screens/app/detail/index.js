@@ -36,14 +36,11 @@ import styles from "./styles";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
-  console.log('====================================');
-  console.log("params ",route?.params);
-  console.log('====================================');
   const loginuser = useSelector(selectUserMeta);
   const islogin = useSelector(selectIsLoggedIn);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
-  const [data, setDat] = useState( route?.params);
+  const [data, setDat] = useState(route?.params);
   const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
   const [img, setimg] = useState([]);
@@ -113,7 +110,7 @@ export default function Detail({ navigation, route }) {
       // setload(false);
       if (d) {
         setDat(d);
-        setimg(d?.images)
+        setimg(d?.images);
         if (d.userId._id != loginuser?._id) {
           await adView(dat?._id);
         }
@@ -293,7 +290,13 @@ export default function Detail({ navigation, route }) {
           }
           <View style={styles.detailview}>
             <View style={styles.detailcard}>
-              <Text style={{ fontSize: height(2.5), fontWeight: "bold" }}>
+              <Text
+                style={{
+                  fontSize: height(2.5),
+                  fontWeight: "bold",
+                  paddingBottom: height(1),
+                }}
+              >
                 {t("detail.detailword")}
               </Text>
               {!isNullOrNullOrEmpty(data?.category) && (

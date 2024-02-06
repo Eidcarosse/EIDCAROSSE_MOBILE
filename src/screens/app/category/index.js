@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../../backend/common";
-import {
-  CategoryIcon,
-  Head,
-  Header,
-  ScreenWrapper,
-  SearchBar,
-} from "../../../components";
+import { CategoryIcon, Head, Header, ScreenWrapper } from "../../../components";
 import {
   selectCategoryList,
   setAppLoader,

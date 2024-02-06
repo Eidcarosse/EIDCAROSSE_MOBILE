@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View, Text } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../../backend/common";
 import {
   CategoryIcon,
   Head,
-  Header,
   ScreenWrapper,
   SearchBar,
 } from "../../../components";
@@ -23,7 +22,7 @@ export default function Search({ navigation, route }) {
   const data = useSelector(selectCategoryList);
   const search = route?.params?.search;
   const dispatch = useDispatch();
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState(search || "");
   useEffect(() => {
     onRefresh();
   }, []);
@@ -53,7 +52,17 @@ export default function Search({ navigation, route }) {
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
-      <View style={[{ margin: height(1), paddingBottom: height(2), flex: 1 }]}>
+      <View
+        style={[
+          {
+            margin: height(1),
+            paddingBottom: height(5),
+            flex: 1,
+            marginBottom: height(2),
+            justifyContent: "space-between",
+          },
+        ]}
+      >
         <SearchBar
           search={searchString}
           setSearch={setSearchString}
@@ -61,12 +70,30 @@ export default function Search({ navigation, route }) {
             width: width(95),
             borderRadius: height(1),
             flexDirection: "row",
+            flex: 3,
             borderWidth: height(0.1),
             alignItems: "center",
             paddingVertical: height(0.5),
           }}
+          onPress={() => {
+            if (route?.params?.sub) {
+              navigation.navigate(ScreenNames.LISTDATA, {
+                category: route?.params?.category,
+                find: route?.params?.sub,
+                subcategory: route?.params?.sub,
+                search: searchString,
+              });
+            } else {
+              navigation.navigate(ScreenNames.LISTDATA, {
+                category: route?.params?.category,
+                find: route?.params?.category,
+                subcategory: route?.params?.sub,
+                search: searchString,
+              });
+            }
+          }}
         />
-        <View style={{ padding: height(1), }}>
+        <View style={{ flex: 0.5 }}>
           <Text
             style={{
               padding: height(0.5),
@@ -77,42 +104,43 @@ export default function Search({ navigation, route }) {
             Popular categories
           </Text>
         </View>
-        <FlatList
-          data={data}
-          style={{ height: height(55) }}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return (
-              <CategoryIcon
-                navigation={navigation}
-                cardStyle={styles.card}
-                title={item?.name}
-                image={item?.image}
-                textStyle={styles.textStyle}
-                imageStyle={styles.imageStyle}
-                onPress={() => {
-                  if (item.name == "Bikes" || item.name == "Parts") {
-                    navigation.navigate(ScreenNames.BIKECATEGORY, {
-                      category: item?.name,
-                      find: item?.name,
-                      show: true,
-                      subCategories: item?.subCategories,
-                      search: search || "",
-                    });
-                  } else {
-                    navigation.navigate(ScreenNames.LISTDATA, {
-                      category: item?.name,
-                      find: item?.name,
-                      search: search || "",
-                    });
-                  }
-                }}
-              />
-            );
-          }}
-          numColumns={1}
-          keyExtractor={(item, index) => index}
-        />
+        <View style={{ flex: 5 }}>
+          <FlatList
+            data={data}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return (
+                <CategoryIcon
+                  navigation={navigation}
+                  cardStyle={styles.card}
+                  title={item?.name}
+                  image={item?.image}
+                  textStyle={styles.textStyle}
+                  imageStyle={styles.imageStyle}
+                  onPress={() => {
+                    if (item.name == "Bikes" || item.name == "Parts") {
+                      navigation.navigate(ScreenNames.BIKECATEGORY, {
+                        category: item?.name,
+                        find: item?.name,
+                        show: true,
+                        subCategories: item?.subCategories,
+                        search: search || "",
+                      });
+                    } else {
+                      navigation.navigate(ScreenNames.LISTDATA, {
+                        category: item?.name,
+                        find: item?.name,
+                        search: search || "",
+                      });
+                    }
+                  }}
+                />
+              );
+            }}
+            numColumns={1}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
       </View>
     </ScreenWrapper>
   );
