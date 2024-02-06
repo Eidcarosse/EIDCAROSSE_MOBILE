@@ -334,7 +334,7 @@ export default function ListData({ navigation }) {
           }
           onPress={() => {
             // navigation.pop();
-            navigation.replace(ScreenNames.SEARCH, {
+            navigation.push(ScreenNames.SEARCH, {
               category: category,
               find: category,
               search: title,
@@ -464,7 +464,7 @@ export default function ListData({ navigation }) {
                         refRBSheet.current.close();
                         setTimeout(() => {
                           // navigation.pop();
-                          navigation.replace(ScreenNames.CATEGORY, {
+                          navigation.push(ScreenNames.CATEGORY, {
                             search: title,
                             value: "seeAll",
                           });
@@ -488,7 +488,7 @@ export default function ListData({ navigation }) {
                           refRBSheet.current.close();
                           setTimeout(() => {
                             // navigation.pop();
-                            navigation.replace(ScreenNames.BIKECATEGORY, {
+                            navigation.push(ScreenNames.BIKECATEGORY, {
                               category: category,
                               find: category,
                               search: title,

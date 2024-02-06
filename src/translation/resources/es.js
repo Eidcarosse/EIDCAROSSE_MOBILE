@@ -19,7 +19,7 @@ export default {
     passwordTitle: "Contraseña",
     passwordPlaceholder: "Ingrese su contraseña",
     checkBoxText: "He leído y acepto los Términos y Condiciones de Eidcarosse",
-    checkBoxText2: "gelesen und stimme zu",
+    checkBoxText2: "",
     termAndCondition: "Términos y Condiciones",
     continueWithGoogle: "Continuar con Google",
 

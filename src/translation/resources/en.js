@@ -18,7 +18,7 @@ export default {
     passwordTitle: "Password",
     passwordPlaceholder: "Enter your password",
     checkBoxText: "I have read and agree to the Eidcarosse",
-    checkBoxText2: "gelesen und stimme zu",
+    checkBoxText2: "",
     termAndCondition: "Terms and Conditions",
     continueWithGoogle: "Continue with Google",
     signupButton: "Register",

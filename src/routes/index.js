@@ -303,8 +303,10 @@ export default function Routes() {
         <Stack.Screen name={ScreenNames.VERIFY} component={verifyScreen} />
         <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
         <Stack.Screen name={ScreenNames.DETAIL} component={DetailScreen} />
-        {/* <Stack.Screen name={ScreenNames.ICATEGORY} component={CategoryScreen} />
-        <Stack.Screen name={ScreenNames.IBIKECATEGORY} component={BikeScreen} /> */}
+        <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
+        <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
+        <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
+        <Stack.Screen name={ScreenNames.SEARCH} component={SearchScreen} />
         <Stack.Screen name={ScreenNames.PROFILE} component={ProfileScreen} />
         <Stack.Screen
           name={ScreenNames.OTHERPROFILE}

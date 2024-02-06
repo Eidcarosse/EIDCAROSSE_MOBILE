@@ -1,32 +1,30 @@
 // App.js
 
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
 
+import { Ionicons } from "@expo/vector-icons";
+import { Platform, View } from "react-native";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../redux/slices/user";
 import {
   BikeScreen,
   CategoryScreen,
   ChatScreen,
   HomeScreen,
+  ListData,
   MyListingScreen,
   ProfileScreen,
   SearchScreen,
 } from "../../screens/app";
-import { DrawerSceneWrapper } from "../../components";
 import { PreLogin } from "../../screens/auth";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "../../redux/slices/user";
-import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 import ScreenNames from "../routes";
-import AppColors from "../../utills/AppColors";
-import { Platform, View, Fragment } from "react-native";
-import { ListData } from "../../screens/app";
 
-import AddIcon from "../../svgcomponents/plus";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { selectNewChat } from "../../redux/slices/config";
+import AddIcon from "../../svgcomponents/plus";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 function TestStack() {
