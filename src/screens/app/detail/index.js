@@ -78,6 +78,7 @@ export default function Detail({ navigation, route }) {
       dispatch(setAdsFav(fav));
     }
   };
+
   function isNullOrNullOrEmpty(value) {
     return (
       value === null ||
@@ -122,6 +123,7 @@ export default function Detail({ navigation, route }) {
 
     // dispatch(setAppLoader(false));
   };
+
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -142,6 +144,7 @@ export default function Detail({ navigation, route }) {
         islogin && (
           <DetailFooter
             pNumber={data?.phone}
+            eMail={data?.email}
             onPressCall={() =>
               GlobalMethods.onPressCall(data?.userId?.phoneNumber)
             }
@@ -476,7 +479,7 @@ export default function Detail({ navigation, route }) {
                 <Image
                   source={{ uri: data?.userId?.image }}
                   style={styles.profileimage}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
                 <View style={styles.profilecardin}>
                   <Text
@@ -488,7 +491,7 @@ export default function Detail({ navigation, route }) {
                       color: AppColors.black,
                     }}
                   >
-                    {data?.userId?.firstName} {data?.userId?.lastName}
+                    {data?.userId?.userName}
                   </Text>
                   <Text
                     style={{
@@ -497,7 +500,7 @@ export default function Detail({ navigation, route }) {
                       color: AppColors.black,
                     }}
                   >
-                    {data?.userId?.userName}
+                    User of Eidcarosse
                   </Text>
                 </View>
 

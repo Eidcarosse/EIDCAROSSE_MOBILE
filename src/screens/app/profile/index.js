@@ -27,8 +27,9 @@ export default function Profile({ navigation, route }) {
         <>
           <Header navigation={navigation} />
           <ImageBackground
+            resizeMode="stretch"
             source={Icons.bglogo}
-            style={{ width: width(100), height: height(30), }}
+            style={{ width: width(100), height: height(25) }}
           >
             <View style={styles.imageiner}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>

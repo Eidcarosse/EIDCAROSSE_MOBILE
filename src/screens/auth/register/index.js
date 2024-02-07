@@ -1,40 +1,27 @@
-import { AntDesign, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import React, { useState, useEffect } from "react";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
   ImageBackground,
-  ScrollView,
+  Platform,
+  Pressable,
   Text,
   TouchableOpacity,
   View,
-  Keyboard,
-  Pressable,
-  Platform,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+import { useTranslation } from "react-i18next";
 import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { signupApi } from "../../../backend/auth";
-import {
-  Button,
-  Head,
-  Input,
-  NumberInput,
-  ScreenWrapper,
-} from "../../../components";
+import { Button, Input, NumberInput, ScreenWrapper } from "../../../components";
 import { setAppLoader } from "../../../redux/slices/config";
-import {
-  setIsLoggedIn,
-  setToken,
-  setUserMeta,
-} from "../../../redux/slices/user";
+import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
-import ScreenNames from "../../../routes/routes";
 export default function SignUp({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();

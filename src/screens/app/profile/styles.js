@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingBottom: height(7),
   },
   imageiner: {
-    height: height(28),
+    height: height(25),
     justifyContent: "space-around",
     margin: width(3),
   },
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   wishlistview: {
     flexDirection: "row",
     justifyContent: "space-around",
+    paddingBottom:height(2),
   },
   wcontainer: {
     backgroundColor: AppColors.white,

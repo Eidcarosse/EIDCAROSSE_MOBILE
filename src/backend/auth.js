@@ -92,6 +92,12 @@ const getShowNumber = async (id) => {
     return response;
   } catch (error) {}
 };
+const getShowEmail = async (id) => {
+  try {
+    const response = await ApiManager.put(`auth/showEmail/${id}`);
+    return response;
+  } catch (error) {}
+};
 const getShowAds = async (id) => {
   try {
     const response = await ApiManager.put(`auth/showAds/${id}`);
@@ -188,4 +194,5 @@ export {
   verifycode,
   verifyAccount,
   deleteAccountAPI,
+  getShowEmail
 };

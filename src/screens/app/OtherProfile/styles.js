@@ -8,15 +8,15 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.white,
   },
   imageiner: {
-    height: height(25),
+    height: height(20),
     justifyContent: "space-around",
-    margin: width(3),
+    marginBottom: height(3),
   },
   avatar: {
-    width: height(12),
-    height: height(12),
+    width: height(10),
+    height: height(10),
     borderRadius: width(20),
-    marginLeft: width(5),
+    marginLeft: width(10),
     borderColor:AppColors.white,
     borderWidth:height(0.3)
   },
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   wishlistview: {
     flexDirection: "row",
     justifyContent: "space-around",
+    paddingBottom:height(1)
   },
   wcontainer: {
     backgroundColor: AppColors.white,

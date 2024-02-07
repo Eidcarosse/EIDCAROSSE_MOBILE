@@ -252,7 +252,7 @@ function ChatView({ route }) {
       {...props}
       containerStyle={{ paddingRight: width(2) }}
     >
-      <View style={{ marginRight: width(3), marginBottom: height(1.2) }}>
+      <View style={{ marginRight: width(3), marginBottom: height(1.2),paddingLeft:height(7) }}>
         <Ionicons name="send" color={AppColors.primary} size={height(3)} />
       </View>
     </Send>

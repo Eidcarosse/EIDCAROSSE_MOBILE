@@ -114,7 +114,7 @@ export default function AddPost({ navigation, route }) {
   const [apimodel, setapiModel] = React.useState([]);
 
   const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
-
+  const [addEmail, setAddEmail] = useState(userInfo?.showEmail);
   const [addWhatsapp, setAddWhatsapp] = useState(w);
   const [addViber, setAddViber] = useState(v);
   const [feild, setFeild] = useState();
@@ -126,6 +126,7 @@ export default function AddPost({ navigation, route }) {
       setAddViber(edit?.viber ? true : false);
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
+      setAddEmail(edit?.email ? true : false);
       setPricing(edit?.price > 0 ? "Price" : "");
       setBrand(edit?.brand);
       setModel(edit?.model);
@@ -1156,15 +1157,35 @@ export default function AddPost({ navigation, route }) {
           <Text style={[styles.title, { fontSize: height(2.5) }]}>
             {t("addPost.contactdetail")}
           </Text>
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>{t("addPost.email")}</Text>
-            <Input
-              value={email}
-              setvalue={setEmail}
-              containerStyle={[styles.price, { width: width(90) }]}
-              editable={false}
-            />
-          </View>
+          <IconButton
+            onPress={() => {
+              setAddEmail(!addEmail);
+            }}
+            title={"addPost.addEmail"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            iconright={
+              <AntDesign
+                name={!addEmail ? "checkcircleo" : "checkcircle"}
+                color={!addEmail ? "black" : AppColors.primary}
+                size={height(3)}
+              />
+            }
+            onPressRightIcon={() => {
+              setAddEmail(!addEmail);
+            }}
+          />
+          {addEmail && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>{t("addPost.email")}</Text>
+              <Input
+                value={email}
+                setvalue={setEmail}
+                containerStyle={[styles.price, { width: width(90) }]}
+                editable={false}
+              />
+            </View>
+          )}
           <IconButton
             onPress={() => {
               setAddPhone(!addPhone);

@@ -14,6 +14,7 @@ export default function DetailFooter({
   onPressMail,
   onPressChat,
   pNumber,
+  eMail,
 }) {
   return (
     <View style={styles.container}>
@@ -25,6 +26,7 @@ export default function DetailFooter({
       />
       <IconButton
         onPress={onPressMail}
+        disabled={eMail ? false : true}
         icon={
           <AntDesign size={height(2)} name="mail" color={AppColors.white} />
         }

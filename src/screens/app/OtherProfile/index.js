@@ -1,9 +1,10 @@
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
   ImageBackground,
+  Pressable,
   ScrollView,
   Text,
   View,
@@ -37,7 +38,6 @@ export default function OtherProfile({ navigation, route }) {
     if (userAd) setData(userAd);
     setRefreshing(false);
   };
-
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -45,11 +45,24 @@ export default function OtherProfile({ navigation, route }) {
       onRefresh={myAdsFunction}
       headerUnScrollable={() => (
         <>
-          <Head navigation={navigation} />
+          {/* <Head navigation={navigation} /> */}
           <ImageBackground
+            resizeMode="stretch"
             source={Icons.bglogo}
-            style={{ width: width(100), height: height(28) }}
+            style={{ width: width(100), height: height(25) }}
           >
+            <Pressable
+              onPress={() => navigation.goBack()}
+              style={{
+                paddingHorizontal: width(5),
+              }}
+            >
+              <Ionicons
+                name="chevron-back"
+                size={height(4)}
+                color={AppColors.white}
+              />
+            </Pressable>
             <View style={styles.imageiner}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
@@ -76,7 +89,7 @@ export default function OtherProfile({ navigation, route }) {
                   >
                     {userdata?.userName}
                   </Text>
-                  <Text
+                  {/* <Text
                     style={{
                       fontSize: height(1.5),
                       fontWeight: "bold",
@@ -84,7 +97,7 @@ export default function OtherProfile({ navigation, route }) {
                     }}
                   >
                     {userdata?.email}
-                  </Text>
+                  </Text> */}
                   {/* <Text
                   style={{
                     fontSize: height(3),
@@ -114,20 +127,26 @@ export default function OtherProfile({ navigation, route }) {
                     }
                   />
                 )}
-                <IconButton
-                  onPress={() =>
-                    GlobalMethods.onPressEmail(
-                      userdata?.email,
-                      loginuser?.email
-                    )
-                  }
-                  title={"Email"}
-                  containerStyle={styles.wcontainer}
-                  textStyle={[styles.wtexticon, { color: "#364045" }]}
-                  icon={
-                    <AntDesign name="mail" size={height(2)} color={"#364045"} />
-                  }
-                />
+                {userdata?.showEmail && (
+                  <IconButton
+                    onPress={() =>
+                      GlobalMethods.onPressEmail(
+                        userdata?.email,
+                        loginuser?.email
+                      )
+                    }
+                    title={"Email"}
+                    containerStyle={styles.wcontainer}
+                    textStyle={[styles.wtexticon, { color: "#364045" }]}
+                    icon={
+                      <AntDesign
+                        name="mail"
+                        size={height(2)}
+                        color={"#364045"}
+                      />
+                    }
+                  />
+                )}
                 {userdata?.whatsappChannel && (
                   <IconButton
                     onPress={() =>
@@ -158,9 +177,9 @@ export default function OtherProfile({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View
-          style={{ width: width(100), flex: 2, paddingVertical: height(1) }}
+          style={{ width: width(100), flex: 3, paddingVertical: height(1) }}
         >
-          {!userdata.showAds &&
+          {!userdata?.showAds &&
             data?.map((item, index) => (
               <View
                 key={index}
@@ -169,7 +188,7 @@ export default function OtherProfile({ navigation, route }) {
                 <CardView data={item} />
               </View>
             ))}
-          {userdata.showAds && (
+          {userdata?.showAds && (
             <Text
               style={{
                 alignSelf: "center",

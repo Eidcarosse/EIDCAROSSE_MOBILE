@@ -4,7 +4,7 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -23,7 +23,6 @@ import {
   IconButton,
   Input,
   ScreenWrapper,
-  SearchBar,
 } from "../../../components";
 import AppColors from "../../../utills/AppColors";
 //import { data } from "../../../utills/Data";
@@ -41,6 +40,7 @@ import {
 } from "../../../backend/api";
 import { selectCategoryList, setAppLoader } from "../../../redux/slices/config";
 
+import { useRoute } from "@react-navigation/native";
 import CheckBox from "react-native-check-box";
 import ScreenNames from "../../../routes/routes";
 import { sortList } from "../../../utills/Data";
@@ -55,7 +55,6 @@ import {
   showbodyShape,
 } from "../../../utills/Methods";
 import styles from "./styles";
-import { useRoute } from "@react-navigation/native";
 
 export default function ListData({ navigation }) {
   const route = useRoute();
@@ -333,7 +332,7 @@ export default function ListData({ navigation }) {
             />
           }
           onPress={() => {
-            // navigation.pop();
+            navigation.pop();
             navigation.push(ScreenNames.SEARCH, {
               category: category,
               find: category,
@@ -463,7 +462,7 @@ export default function ListData({ navigation }) {
                       onPress={() => {
                         refRBSheet.current.close();
                         setTimeout(() => {
-                          // navigation.pop();
+                          navigation.pop();
                           navigation.push(ScreenNames.CATEGORY, {
                             search: title,
                             value: "seeAll",
@@ -487,7 +486,7 @@ export default function ListData({ navigation }) {
                         onPress={() => {
                           refRBSheet.current.close();
                           setTimeout(() => {
-                            // navigation.pop();
+                            navigation.pop();
                             navigation.push(ScreenNames.BIKECATEGORY, {
                               category: category,
                               find: category,

@@ -4,7 +4,7 @@ import { View } from "react-native";
 
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { getShowAds, getShowNumber } from "../../../backend/auth";
+import { getShowAds, getShowEmail, getShowNumber } from "../../../backend/auth";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
 import {
   selectShowViber,
@@ -29,6 +29,16 @@ export default function PrivacySafety({ navigation, route }) {
   const getNumber = async () => {
     dispatch(setAppLoader(true));
     const res = await getShowNumber(user?._id);
+    if (res) {
+      dispatch(setUserMeta(res?.user));
+      dispatch(setAppLoader(false));
+    } else {
+      dispatch(setAppLoader(false));
+    }
+  };
+  const getMail = async () => {
+    dispatch(setAppLoader(true));
+    const res = await getShowEmail(user?._id);
     if (res) {
       dispatch(setUserMeta(res?.user));
       dispatch(setAppLoader(false));
@@ -70,6 +80,21 @@ export default function PrivacySafety({ navigation, route }) {
               size={height(3)}
             />
           }
+          onPressRightIcon={getNumber}
+        />
+        <IconButton
+          onPress={getMail}
+          title={"privacySafety.email"}
+          containerStyle={styles.container}
+          textStyle={styles.texticon}
+          iconright={
+            <Fontisto
+              name={!user?.showEmail ? "toggle-off" : "toggle-on"}
+              color={!user?.showEmail ? "black" : AppColors.primary}
+              size={height(3)}
+            />
+          }
+          onPressRightIcon={getMail}
         />
 
         <IconButton
@@ -87,6 +112,10 @@ export default function PrivacySafety({ navigation, route }) {
               size={height(3)}
             />
           }
+          onPressRightIcon={async () => {
+            dispatch(setShowWhatsapp(!whatsapp)),
+              await setDataw(whatsapp ? 0 : 1);
+          }}
         />
         <IconButton
           onPress={async () => {
@@ -102,6 +131,9 @@ export default function PrivacySafety({ navigation, route }) {
               size={height(3)}
             />
           }
+          onPressRightIcon={async () => {
+            dispatch(setShowViber(!viber)), await setDatav(viber ? 0 : 1);
+          }}
         />
         <IconButton
           onPress={getAds}
@@ -115,6 +147,7 @@ export default function PrivacySafety({ navigation, route }) {
               size={height(3)}
             />
           }
+          onPressRightIcon={getAds}
         />
       </View>
     </ScreenWrapper>

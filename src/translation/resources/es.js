@@ -314,7 +314,7 @@ export default {
     addWhatsapp: "Agregar Whatsapp",
     addViber: "Agregar Viber",
     addNumber: "Agregar número de teléfono",
-
+    addEmail: "Agregar dirección de correo electrónico",
     viber: "Viber",
     phviber: "xxxxxxxxxx",
     email: "Correo Electrónico",
@@ -564,6 +564,7 @@ export default {
   privacySafety: {
     title: "Privacidad y Seguridad",
     number: "Mostrar mi número de teléfono",
+    email:"Mostrar mi dirección de correo electrónico",
     viber: "Mostrar mi número de Viber",
     whatsapp: "Mostrar mi número de Whatsapp",
     ads: "¿Permitir que el público vea todos mis anuncios?",
