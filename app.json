@@ -31,6 +31,9 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
+            "config": {
+                "usesNonExemptEncryption": false
+              },
             "bitcode": false,
             "supportsTablet": true,
             "infoPlist": {
@@ -67,6 +70,12 @@
             "favicon": "./assets/favicon.png"
         },
         "plugins": [
+            [
+                "expo-secure-store",
+                {
+                  "faceIDPermission": "Allow Eidcarosse.ch to access your Face ID biometric data."
+                }
+              ],
             [
                 "expo-build-properties",
                 {

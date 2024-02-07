@@ -1,5 +1,5 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import { loginApi } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
-import { setAppLoader, } from "../../../redux/slices/config";
+import { setAppLoader } from "../../../redux/slices/config";
 import {
   setAdsFav,
   setIsLoggedIn,
@@ -25,6 +25,8 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
+  getAuthAllData,
+  getAuthData,
   infoMessage,
   setAuthAllData,
   setAuthData,
@@ -32,7 +34,37 @@ import {
 } from "../../../utills/Methods";
 import styles from "./styles";
 import { useTranslation } from "react-i18next";
+import * as SecureStore from "expo-secure-store";
 //import i18n from "../../../translation";
+async function save(value) {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await SecureStore.setItemAsync("prelogin", jsonValue);
+    console.log("Value saved successfully.");
+  } catch (error) {
+    console.error("Error saving value:", error);
+  }
+}
+
+async function getValueFor() {
+  try {
+    const jsonValue = await SecureStore.getItemAsync("prelogin", {
+      requireAuthentication: true,
+      authenticationPrompt: "Please authenticate to access the stored data",
+    });
+    if (jsonValue !== null) {
+      const value = JSON.parse(jsonValue);
+      console.log("Retrieved value:", value);
+      return value;
+    } else {
+      console.log("No value stored under that key.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error retrieving value:", error);
+    return null;
+  }
+}
 export default function Login({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -48,6 +80,16 @@ export default function Login({ navigation, route }) {
   //   const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=.{6,})/;
   //   return passwordRegex.test(password);
   // };
+
+  useEffect(() => {
+    async function get() {
+      let a = await getValueFor();
+      if (a) {
+        setEmail(a?.email), setPassword(a?.password);
+      }
+    }
+    get();
+  }, []);
   const isValidEmail = (email) => {
     return email.length > 0;
   };
@@ -76,13 +118,14 @@ export default function Login({ navigation, route }) {
           infoMessage("Account not verified");
           navigation.navigate(ScreenNames.VERIFY, { data: res?.data });
         } else {
+          save(data);
           dispatch(setIsLoggedIn(true));
           dispatch(setUserMeta(res?.data?.userDetails));
           dispatch(setToken(res?.data?.token));
           dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
 
-            setAuthData(data);
-            setAuthAllData(res?.data?.userDetails);
+          setAuthData(data);
+          setAuthAllData(res?.data?.userDetails);
           dispatch(setAppLoader(false));
           successMessage("", t(`flashmsg.sussessloginmsg`));
           navigation.navigate(ScreenNames.BUTTOM);

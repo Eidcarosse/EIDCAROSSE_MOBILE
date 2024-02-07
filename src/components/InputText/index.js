@@ -19,7 +19,7 @@ export default function Input({
   require = false,
   keyboardType = "default",
   inputTextStyle,
-  autoCapitalize='none'
+  autoCapitalize = "none",
 }) {
   const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);
@@ -27,7 +27,9 @@ export default function Input({
     <View>
       <View style={[styles.container, containerStyle]}>
         {title && (
-          <Text style={[titlestyle, { fontSize: height(1.8) }]}>{t(title)}</Text>
+          <Text style={[titlestyle, { fontSize: height(1.8) }]}>
+            {t(title)}
+          </Text>
         )}
         <View style={styles.innerview}>
           <TextInput
