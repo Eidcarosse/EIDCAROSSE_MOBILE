@@ -19,7 +19,7 @@ export default function Input({
   require = false,
   keyboardType = "default",
   inputTextStyle,
-  autoCapitalize = "none",
+  autoCapitalize =  "sentences" ,
 }) {
   const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);

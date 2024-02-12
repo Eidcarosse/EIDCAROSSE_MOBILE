@@ -125,6 +125,7 @@ export default function Routes() {
     try {
       let data = await getAuthData();
       if (data) {
+        dispatch(setIsLoggedIn(true));
         login(data);
       }
       const w = await getDataw();
@@ -144,7 +145,6 @@ export default function Routes() {
         await fetchRoomsData(response?.data?.userDetails?._id);
         const userAd = await getOwneAd(response?.data?.userDetails?._id);
         setUser(response?.data?.userDetails);
-        dispatch(setIsLoggedIn(true));
         dispatch(setUserMeta(response?.data?.userDetails));
         dispatch(setToken(response?.data?.token));
         dispatch(setUserAds(userAd));

@@ -33,6 +33,7 @@ import GlobalMethods, {
   infoMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
+import { formatDistanceToNow } from "date-fns";
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
@@ -123,7 +124,8 @@ export default function Detail({ navigation, route }) {
 
     // dispatch(setAppLoader(false));
   };
-
+  const date = new Date(data?.userId?.createdAt);
+  const dateofAd = new Date(data?.createdAt);
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -284,8 +286,18 @@ export default function Detail({ navigation, route }) {
                 }}
               >
                 <Entypo name="location-pin" color={"grey"} size={height(2)} />
-                <Text style={{ fontSize: height(1.53) }}>{data?.address}</Text>
+                <Text style={{ fontSize: height(1.5) }}>{data?.address}</Text>
               </View>
+              <Text style={{ fontSize: height(1.5) }}>
+                {new Date(data?.createdAt).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  second: "numeric",
+                })}
+              </Text>
             </View>
           </View>
           {
@@ -500,7 +512,15 @@ export default function Detail({ navigation, route }) {
                       color: AppColors.black,
                     }}
                   >
-                    User of Eidcarosse
+                    Member since{"  "}
+                    {new Date(data?.userId?.createdAt).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      // hour: "numeric",
+                      // minute: "numeric",
+                      // second: "numeric",
+                    })}
                   </Text>
                 </View>
 

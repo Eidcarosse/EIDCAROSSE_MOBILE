@@ -147,6 +147,7 @@ export default function SignUp({ navigation, route }) {
             value={email}
             setvalue={setEmail}
             title={"signup.emailTitle"}
+            autoCapitalize={'none'}
             placeholder={"signup.emailPlaceholder"}
             require={emailr}
             keyboardType="email-address"

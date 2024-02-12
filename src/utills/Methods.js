@@ -124,6 +124,25 @@ export const getlangData = async () => {
     // error reading value
   }
 };
+export const setRememberMe = async (value) => {
+  try {
+    await AsyncStorage.setItem("remember", value);
+  } catch (e) {
+    console.log('====================================');
+    console.log(e);
+    console.log('====================================');
+  }
+};
+export const getRememberMe = async () => {
+  try {
+    const value = await AsyncStorage.getItem("remember");
+    if (value !== null) {
+      return value;
+    }
+  } catch (e) {
+    // error reading value
+  }
+};
 const onPressCall = (phoneNumber) => {
   const url =
     Platform.OS == "ios" ? `telprompt:${phoneNumber}` : `tel:${phoneNumber}`;

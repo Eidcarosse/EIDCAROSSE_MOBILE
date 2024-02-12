@@ -20,7 +20,7 @@ export default {
     passwordPlaceholder: "Inserisci la tua password",
     checkBoxText:
       "Ho letto e accettato i Termini e le Condizioni di Eidcarosse",
-      checkBoxText2: "",
+    checkBoxText2: "",
     termAndCondition: "Termini e Condizioni",
     continueWithGoogle: "Continua con Google",
     signupButton: "Registrati",
@@ -41,6 +41,7 @@ export default {
     forgetPassword: "Password dimenticata",
     donothaveaccount: "Non hai un account?",
     registerNow: "Registrati adesso!",
+    rememberMe: "Ricordati di me",
   },
   prelogin: {
     mustLogin: "Devi effettuare l'accesso per continuare",
@@ -543,7 +544,7 @@ export default {
   privacySafety: {
     title: "Privacy e Sicurezza",
     number: "Mostra il mio numero di telefono",
-    email:"Mostra il mio indirizzo email",
+    email: "Mostra il mio indirizzo email",
     viber: "Mostra il mio numero di Viber",
     whatsapp: "Mostra il mio numero di Whatsapp",
     ads: "Permetti al pubblico di vedere tutti i miei annunci?",

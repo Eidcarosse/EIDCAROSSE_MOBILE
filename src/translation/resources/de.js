@@ -38,6 +38,7 @@ export default {
     forgetPassword: "Passwort vergessen",
     donothaveaccount: "Noch kein Konto?",
     registerNow: "Jetzt registrieren!",
+    rememberMe:"Erinnere dich an mich"
   },
   prelogin: {
     mustLogin: "Sie müssen sich anmelden, um fortzufahren",

@@ -27,9 +27,11 @@ import {
   errorMessage,
   getAuthAllData,
   getAuthData,
+  getRememberMe,
   infoMessage,
   setAuthAllData,
   setAuthData,
+  setRememberMe,
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
@@ -50,7 +52,7 @@ async function getValueFor() {
   try {
     const jsonValue = await SecureStore.getItemAsync("prelogin", {
       requireAuthentication: true,
-      authenticationPrompt: "Please authenticate to access the stored data",
+      authenticationPrompt: "Please authenticate to access",
     });
     if (jsonValue !== null) {
       const value = JSON.parse(jsonValue);
@@ -72,6 +74,7 @@ export default function Login({ navigation, route }) {
   const [password, setPassword] = useState("");
   const [emailr, setEmailr] = useState("");
   const [passwordr, setPasswordr] = useState("");
+  const [check, setCheck] = useState(false);
   // const isValidEmail = (email) => {
   //   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
   //   return emailRegex.test(email);
@@ -84,8 +87,12 @@ export default function Login({ navigation, route }) {
   useEffect(() => {
     async function get() {
       let a = await getValueFor();
-      if (a) {
-        setEmail(a?.email), setPassword(a?.password);
+      let r = await getRememberMe();
+      if (r == "save") {
+        setCheck(true);
+        if (a) {
+          setEmail(a?.email), setPassword(a?.password);
+        }
       }
     }
     get();
@@ -118,7 +125,13 @@ export default function Login({ navigation, route }) {
           infoMessage("Account not verified");
           navigation.navigate(ScreenNames.VERIFY, { data: res?.data });
         } else {
-          save(data);
+          if (check) {
+            setRememberMe("save");
+            save(data);
+          } else {
+            setRememberMe("no");
+            save({});
+          }
           dispatch(setIsLoggedIn(true));
           dispatch(setUserMeta(res?.data?.userDetails));
           dispatch(setToken(res?.data?.token));
@@ -139,6 +152,9 @@ export default function Login({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
+  async function handleRemberMe() {
+    setCheck(!check);
+  }
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -171,6 +187,7 @@ export default function Login({ navigation, route }) {
               title={"login.emailTitle"}
               keyboardType="email-address"
               placeholder={"login.yourEmailAddress"}
+              autoCapitalize={'none'}
               require={emailr}
             />
             <Input
@@ -181,6 +198,40 @@ export default function Login({ navigation, route }) {
               secure={true}
               require={passwordr}
             />
+
+            <View style={{ flexDirection: "row", padding: width(4) }}>
+              <CheckBox
+                checkedImage={
+                  <MaterialIcons
+                    name="check-box"
+                    size={width(4)}
+                    color={AppColors.primary}
+                  />
+                }
+                unCheckedImage={
+                  <MaterialIcons
+                    name="check-box-outline-blank"
+                    size={width(4)}
+                  />
+                }
+                style={{ paddingRight: width(2) }}
+                onClick={handleRemberMe}
+                checkedCheckBoxColor={AppColors.primary}
+                isChecked={check}
+              />
+              <View
+                style={{
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                }}
+              >
+                <TouchableOpacity onPress={handleRemberMe}>
+                  <Text style={{ fontSize: height(1.5) }}>
+                    {t("login.rememberMe")}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
             <Button
               containerStyle={styles.button}
               title={"login.loginButton"}

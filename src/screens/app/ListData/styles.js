@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { height, width } from "../../../utills/Dimension";
 import AppColors from "../../../utills/AppColors";
 
@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     padding: width(2),
-    paddingBottom: height(10),
+    paddingBottom: Platform.OS == "android" ? height(7) : height(8),
+    flex: 1,
   },
   search: {
     width: width(98),
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
   totalview: {
     width: width(90),
     alignSelf: "center",
-    paddingTop: width(3),
     flexDirection: "row",
     justifyContent: "space-between",
 
@@ -62,9 +62,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   flatlist: {
-    marginBottom: height(8),
-    marginVertical: height(2),
     width: width(98),
+    flex: 1,
   },
   emptyview: {
     height: height(100),

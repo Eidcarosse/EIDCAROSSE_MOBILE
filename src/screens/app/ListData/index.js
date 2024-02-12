@@ -104,7 +104,7 @@ export default function ListData({ navigation }) {
 
   const [otherBrand, setOtherBrand] = React.useState(false);
   const [otherModel, setOtherModel] = React.useState(false);
-
+  let uniqueEntries = {};
   const queryParams = {
     address: address.trim() || "",
     category: category || "",
@@ -295,73 +295,83 @@ export default function ListData({ navigation }) {
       dispatch(setAppLoader(false));
     }, 1000);
   };
+
   return (
     <ScreenWrapper
       showStatusBar={false}
       headerUnScrollable={() => (
-        <Head
-          headtitle={category ? t(`category.${category}`) : "allData.title"}
-          navigation={navigation}
-        />
+        <View style={{ backgroundColor: "white" }}>
+          <Head
+            headtitle={category ? t(`category.${category}`) : "allData.title"}
+            navigation={navigation}
+          />
+          <IconButton
+            title={title ? title : t("searchbar.phsearch")}
+            containerStyle={{
+              backgroundColor: "white",
+              width: width(98),
+              borderWidth: height(0.05),
+              marginVertical: height(1),
+            }}
+            textStyle={{
+              color: "grey",
+              fontWeight: "100",
+              fontSize: height(1.5),
+              width: width(80),
+            }}
+            icon={
+              <Ionicons
+                name="search"
+                style={{ marginHorizontal: height(1) }}
+                color="lightgrey"
+                size={height(2.5)}
+              />
+            }
+            onPress={() => {
+              navigation.pop();
+              navigation.push(ScreenNames.SEARCH, {
+                category: category,
+                find: category,
+                search: title,
+                sub: subCategory,
+                show: true,
+              });
+            }}
+          />
+          <View style={styles.totalview}>
+            <Text style={styles.totaltext}>
+              {t("allData.totalresult")} : {totalAds}
+            </Text>
+            <View style={styles.iconview}>
+              <TouchableOpacity
+                style={{ marginLeft: height(2) }}
+                onPress={() => refRBSheet.current.open()}
+              >
+                <FontAwesome
+                  name="sliders"
+                  size={height(3)}
+                  color={AppColors.primary}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
       )}
-      refreshing={refresh}
-      onRefresh={Refresh}
+      // refreshing={refresh}
+      // onRefresh={Refresh}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
-        <IconButton
-          title={title ? title : t("searchbar.phsearch")}
-          containerStyle={{
-            backgroundColor: "white",
-            width: width(98),
-            borderWidth: height(0.05),
-          }}
-          textStyle={{
-            color: "grey",
-            fontWeight: "100",
-            fontSize: height(1.5),
-            width: width(80),
-          }}
-          icon={
-            <Ionicons
-              name="search"
-              style={{ marginHorizontal: height(1) }}
-              color="lightgrey"
-              size={height(2.5)}
-            />
-          }
-          onPress={() => {
-            navigation.pop();
-            navigation.push(ScreenNames.SEARCH, {
-              category: category,
-              find: category,
-              search: title,
-              sub: subCategory,
-              show: true,
-            });
-          }}
-        />
-        <View style={styles.totalview}>
-          <Text style={styles.totaltext}>
-            {t("allData.totalresult")} : {totalAds}
-          </Text>
-          <View style={styles.iconview}>
-            <TouchableOpacity
-              style={{ marginLeft: height(2) }}
-              onPress={() => refRBSheet.current.open()}
-            >
-              <FontAwesome
-                name="sliders"
-                size={height(3)}
-                color={AppColors.primary}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
         <FlatList
           key={"coloum1"}
-          data={data}
+          data={data.filter((entry) => {
+            if (!uniqueEntries[entry._id]) {
+              uniqueEntries[entry._id] = true;
+              return true;
+            }
+            return false;
+          })}
           style={styles.flatlist}
           renderItem={({ item }) => (
             <View style={{ width: width(98), alignItems: "center" }}>
@@ -409,38 +419,39 @@ export default function ListData({ navigation }) {
           }
           keyExtractor={(item, index) => index}
         />
-        {/* )} */}
-        <View>
-          <RBSheet
-            ref={refRBSheet}
-            closeOnDragDown={false}
-            closeOnPressMask={true}
-            closeOnPressBack={true}
-            height={height(85)}
-            customStyles={styles.bs}
-          >
-            {refreshing ? (
-              <ActivityIndicator color={AppColors.primary} size={"large"} />
-            ) : (
-              <View style={styles.container}>
-                <View
+      </View>
+      {/* )} */}
+      <View>
+        <RBSheet
+          ref={refRBSheet}
+          closeOnDragDown={false}
+          closeOnPressMask={true}
+          closeOnPressBack={true}
+          height={height(85)}
+          customStyles={styles.bs}
+        >
+          {refreshing ? (
+            <ActivityIndicator color={AppColors.primary} size={"large"} />
+          ) : (
+            <View style={styles.container}>
+              <View
+                style={{
+                  marginBottom: width(3),
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignContent: "center",
+                }}
+              >
+                <Text
                   style={{
-                    marginBottom: width(3),
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignContent: "center",
+                    fontSize: height(3),
+                    fontWeight: "bold",
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: height(3),
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {t("allData.filter")}
-                  </Text>
-                  <TouchableOpacity onPress={() => refRBSheet.current.close()}>
-                    {/* <Text
+                  {t("allData.filter")}
+                </Text>
+                <TouchableOpacity onPress={() => refRBSheet.current.close()}>
+                  {/* <Text
                       style={{
                         fontSize: width(4),
                         color: AppColors.primary,
@@ -448,77 +459,182 @@ export default function ListData({ navigation }) {
                     >
                       Close
                     </Text> */}
-                    <AntDesign
-                      name="closesquare"
-                      size={height(3)}
-                      color={AppColors.primary}
-                    />
-                  </TouchableOpacity>
-                </View>
+                  <AntDesign
+                    name="closesquare"
+                    size={height(3)}
+                    color={AppColors.primary}
+                  />
+                </TouchableOpacity>
+              </View>
 
-                <ScrollView showsVerticalScrollIndicator={false}>
-                  <View style={{ paddingBottom: height(5) }}>
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{ paddingBottom: height(5) }}>
+                  <IconButton
+                    onPress={() => {
+                      refRBSheet.current.close();
+                      setTimeout(() => {
+                        navigation.pop();
+                        navigation.push(ScreenNames.CATEGORY, {
+                          search: title,
+                          value: "seeAll",
+                        });
+                      }, 600);
+                    }}
+                    title={
+                      category
+                        ? t(`category.${category}`)
+                        : "filter.selectCategory"
+                    }
+                    containerStyle={styles.containerb}
+                    textStyle={styles.texticon}
+                    iconright={
+                      <Ionicons name="chevron-forward" size={height(2)} />
+                    }
+                  />
+
+                  {subCategory && (
                     <IconButton
                       onPress={() => {
                         refRBSheet.current.close();
                         setTimeout(() => {
                           navigation.pop();
-                          navigation.push(ScreenNames.CATEGORY, {
+                          navigation.push(ScreenNames.BIKECATEGORY, {
+                            category: category,
+                            find: category,
                             search: title,
-                            value: "seeAll",
+                            subCategories: getSubcategoriesByName(s, category),
+                            show: true,
                           });
                         }, 600);
                       }}
-                      title={
-                        category
-                          ? t(`category.${category}`)
-                          : "filter.selectCategory"
-                      }
+                      title={t(`subList.${subCategory}`)}
                       containerStyle={styles.containerb}
                       textStyle={styles.texticon}
                       iconright={
                         <Ionicons name="chevron-forward" size={height(2)} />
                       }
                     />
+                  )}
+                  <View style={{ alignSelf: "center" }}>
+                    <Text style={styles.title}>{t("allData.sortby")}</Text>
+                    <SelectDropdown
+                      data={sortList}
+                      defaultValueByIndex={sortby ? -1 : 0}
+                      defaultButtonText={
+                        t(sortList.find((item) => item.value == sortby)?.key) ||
+                        t("allData.defaultValueDropdown")
+                      }
+                      searchPlaceHolder={t("allData.phsearchHere")}
+                      defaultValue={sortby}
+                      buttonStyle={styles.searchbox}
+                      selectedRowStyle={{
+                        backgroundColor: AppColors.primary,
+                      }}
+                      selectedRowTextStyle={{ color: AppColors.white }}
+                      buttonTextStyle={{
+                        textAlign: "left",
+                        fontSize: height(1.6),
+                      }}
+                      dropdownStyle={styles.dropdown}
+                      onSelect={(selectedItem, index) => {
+                        setSortby(selectedItem.value);
+                      }}
+                      buttonTextAfterSelection={(selectedItem, index) => {
+                        return t(`${selectedItem.key}`);
+                      }}
+                      rowTextForSelection={(item, index) => {
+                        return t(item.key);
+                      }}
+                    />
+                  </View>
 
-                    {subCategory && (
-                      <IconButton
-                        onPress={() => {
-                          refRBSheet.current.close();
-                          setTimeout(() => {
-                            navigation.pop();
-                            navigation.push(ScreenNames.BIKECATEGORY, {
-                              category: category,
-                              find: category,
-                              search: title,
-                              subCategories: getSubcategoriesByName(
-                                s,
-                                category
-                              ),
-                              show: true,
-                            });
-                          }, 600);
-                        }}
-                        title={t(`subList.${subCategory}`)}
-                        containerStyle={styles.containerb}
-                        textStyle={styles.texticon}
-                        iconright={
-                          <Ionicons name="chevron-forward" size={height(2)} />
-                        }
+                  <View style={{ paddingVertical: width(1) }}>
+                    <Text style={styles.title}>{t("allData.address")}</Text>
+                    <Input
+                      value={address}
+                      setvalue={setAddress}
+                      placeholder={"allData.searchbyaddress"}
+                      containerStyle={[
+                        {
+                          width: width(90),
+                          backgroundColor: AppColors.greybackground,
+                          borderBottomWidth: 0,
+                          borderRadius: width(1),
+                        },
+                      ]}
+                    />
+                  </View>
+                  <View style={{ paddingLeft: 4, paddingVertical: width(1) }}>
+                    <Text style={styles.title}>{t("allData.pricerang")}</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Input
+                        value={pricefrom}
+                        setvalue={setPricefrom}
+                        placeholder={"allData.from"}
+                        containerStyle={styles.price}
                       />
+                      <Input
+                        value={priceto}
+                        setvalue={setPriceto}
+                        placeholder={"allData.to"}
+                        containerStyle={styles.price}
+                      />
+                    </View>
+                  </View>
+                  {!(vCategory == undefined || vCategory == []) &&
+                    showType(category) && (
+                      <View style={{ alignSelf: "center" }}>
+                        <Text style={styles.title}>{t("addPost.type")}</Text>
+
+                        <SelectDropdown
+                          defaultButtonText={t("addPost.defaultValueDropdown")}
+                          data={vCategory}
+                          searchPlaceHolder={t("addPost.phsearchHere")}
+                          buttonStyle={styles.searchbox}
+                          selectedRowStyle={{
+                            backgroundColor: AppColors.primary,
+                          }}
+                          selectedRowTextStyle={{ color: AppColors.white }}
+                          buttonTextStyle={{
+                            textAlign: "left",
+                            fontSize: height(1.6),
+                          }}
+                          dropdownStyle={styles.dropdown}
+                          onSelect={(selectedItem, index) => {
+                            setType(selectedItem);
+                          }}
+                          buttonTextAfterSelection={(selectedItem, index) => {
+                            return t(`type.${selectedItem}`);
+                          }}
+                          rowTextForSelection={(item, index) => {
+                            return t(`type.${item}`);
+                          }}
+                        />
+                      </View>
                     )}
+
+                  {showBrand(category) && (
                     <View style={{ alignSelf: "center" }}>
-                      <Text style={styles.title}>{t("allData.sortby")}</Text>
+                      <Text style={styles.title}>{t("addPost.brand")}</Text>
                       <SelectDropdown
-                        data={sortList}
-                        defaultValueByIndex={sortby ? -1 : 0}
                         defaultButtonText={
-                          t(
-                            sortList.find((item) => item.value == sortby)?.key
-                          ) || t("allData.defaultValueDropdown")
+                          brand
+                            ? brand === "Others"
+                              ? t("category.Others")
+                              : brand
+                            : t("addPost.defaultValueDropdown") ||
+                              t("addPost.defaultValueDropdown")
                         }
-                        searchPlaceHolder={t("allData.phsearchHere")}
-                        defaultValue={sortby}
+                        data={vcompanies}
+                        search={true}
+                        onFocus={false}
+                        disabled={otherBrand}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
                         buttonStyle={styles.searchbox}
                         selectedRowStyle={{
                           backgroundColor: AppColors.primary,
@@ -530,66 +646,69 @@ export default function ListData({ navigation }) {
                         }}
                         dropdownStyle={styles.dropdown}
                         onSelect={(selectedItem, index) => {
-                          setSortby(selectedItem.value);
+                          if (model) modelRef.current.reset();
+                          setBrand(selectedItem);
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
-                          return t(`${selectedItem.key}`);
+                          return t(selectedItem);
                         }}
                         rowTextForSelection={(item, index) => {
-                          return t(item.key);
+                          return t(item);
                         }}
                       />
-                    </View>
-
-                    <View style={{ paddingVertical: width(1) }}>
-                      <Text style={styles.title}>{t("allData.address")}</Text>
-                      <Input
-                        value={address}
-                        setvalue={setAddress}
-                        placeholder={"allData.searchbyaddress"}
-                        containerStyle={[
-                          {
-                            width: width(90),
-                            backgroundColor: AppColors.greybackground,
-                            borderBottomWidth: 0,
-                            borderRadius: width(1),
-                          },
-                        ]}
-                      />
-                    </View>
-                    <View style={{ paddingLeft: 4, paddingVertical: width(1) }}>
-                      <Text style={styles.title}>{t("allData.pricerang")}</Text>
-                      <View
+                      <TouchableOpacity
                         style={{
                           flexDirection: "row",
-                          justifyContent: "space-between",
+                          paddingVertical: width(4),
+                          alignSelf: "flex-start",
+                          alignItems: "center",
                         }}
+                        onPress={otherBrandFuntion}
                       >
-                        <Input
-                          value={pricefrom}
-                          setvalue={setPricefrom}
-                          placeholder={"allData.from"}
-                          containerStyle={styles.price}
+                        <CheckBox
+                          checkedImage={
+                            <MaterialIcons
+                              name="check-box"
+                              size={height(2)}
+                              color={AppColors.primary}
+                            />
+                          }
+                          unCheckedImage={
+                            <MaterialIcons
+                              name="check-box-outline-blank"
+                              size={height(2)}
+                            />
+                          }
+                          style={{ paddingRight: width(2) }}
+                          checkedCheckBoxColor={AppColors.primary}
+                          isChecked={otherBrand}
+                          onClick={otherBrandFuntion}
                         />
-                        <Input
-                          value={priceto}
-                          setvalue={setPriceto}
-                          placeholder={"allData.to"}
-                          containerStyle={styles.price}
-                        />
-                      </View>
+                        <Text style={{ fontSize: height(1.5) }}>
+                          {t("category.Others")}
+                        </Text>
+                      </TouchableOpacity>
                     </View>
-                    {!(vCategory == undefined || vCategory == []) &&
-                      showType(category) && (
+                  )}
+                  {brand && (
+                    <View>
+                      {apimodel && brand != "Others" ? (
                         <View style={{ alignSelf: "center" }}>
-                          <Text style={styles.title}>{t("addPost.type")}</Text>
-
+                          <Text style={styles.title}>{t("addPost.model")}</Text>
                           <SelectDropdown
-                            defaultButtonText={t(
-                              "addPost.defaultValueDropdown"
-                            )}
-                            data={vCategory}
+                            defaultButtonText={
+                              model
+                                ? model === "Others"
+                                  ? t("category.Others")
+                                  : model
+                                : t("addPost.defaultValueDropdown")
+                            }
+                            ref={modelRef}
                             searchPlaceHolder={t("addPost.phsearchHere")}
+                            data={apimodel}
+                            disabled={otherModel}
+                            search={true}
+                            onFocus={false}
                             buttonStyle={styles.searchbox}
                             selectedRowStyle={{
                               backgroundColor: AppColors.primary,
@@ -601,398 +720,274 @@ export default function ListData({ navigation }) {
                             }}
                             dropdownStyle={styles.dropdown}
                             onSelect={(selectedItem, index) => {
-                              setType(selectedItem);
+                              setModel(selectedItem);
                             }}
                             buttonTextAfterSelection={(selectedItem, index) => {
-                              return t(`type.${selectedItem}`);
+                              return selectedItem;
                             }}
                             rowTextForSelection={(item, index) => {
-                              return t(`type.${item}`);
+                              return item;
                             }}
                           />
-                        </View>
-                      )}
-
-                    {showBrand(category) && (
-                      <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>{t("addPost.brand")}</Text>
-                        <SelectDropdown
-                          defaultButtonText={
-                            brand
-                              ? brand === "Others"
-                                ? t("category.Others")
-                                : brand
-                              : t("addPost.defaultValueDropdown") ||
-                                t("addPost.defaultValueDropdown")
-                          }
-                          data={vcompanies}
-                          search={true}
-                          onFocus={false}
-                          disabled={otherBrand}
-                          searchPlaceHolder={t("addPost.phsearchHere")}
-                          buttonStyle={styles.searchbox}
-                          selectedRowStyle={{
-                            backgroundColor: AppColors.primary,
-                          }}
-                          selectedRowTextStyle={{ color: AppColors.white }}
-                          buttonTextStyle={{
-                            textAlign: "left",
-                            fontSize: height(1.6),
-                          }}
-                          dropdownStyle={styles.dropdown}
-                          onSelect={(selectedItem, index) => {
-                            if (model) modelRef.current.reset();
-                            setBrand(selectedItem);
-                          }}
-                          buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(selectedItem);
-                          }}
-                          rowTextForSelection={(item, index) => {
-                            return t(item);
-                          }}
-                        />
-                        <TouchableOpacity
-                          style={{
-                            flexDirection: "row",
-                            paddingVertical: width(4),
-                            alignSelf: "flex-start",
-                            alignItems: "center",
-                          }}
-                          onPress={otherBrandFuntion}
-                        >
-                          <CheckBox
-                            checkedImage={
-                              <MaterialIcons
-                                name="check-box"
-                                size={height(2)}
-                                color={AppColors.primary}
-                              />
-                            }
-                            unCheckedImage={
-                              <MaterialIcons
-                                name="check-box-outline-blank"
-                                size={height(2)}
-                              />
-                            }
-                            style={{ paddingRight: width(2) }}
-                            checkedCheckBoxColor={AppColors.primary}
-                            isChecked={otherBrand}
-                            onClick={otherBrandFuntion}
-                          />
-                          <Text style={{ fontSize: height(1.5) }}>
-                            {t("category.Others")}
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                    {brand && (
-                      <View>
-                        {apimodel && brand != "Others" ? (
-                          <View style={{ alignSelf: "center" }}>
-                            <Text style={styles.title}>
-                              {t("addPost.model")}
-                            </Text>
-                            <SelectDropdown
-                              defaultButtonText={
-                                model
-                                  ? model === "Others"
-                                    ? t("category.Others")
-                                    : model
-                                  : t("addPost.defaultValueDropdown")
+                          <TouchableOpacity
+                            style={{
+                              flexDirection: "row",
+                              paddingVertical: width(4),
+                              alignSelf: "flex-start",
+                              alignItems: "center",
+                            }}
+                            onPress={otherModelFuntion}
+                          >
+                            <CheckBox
+                              checkedImage={
+                                <MaterialIcons
+                                  name="check-box"
+                                  size={height(2)}
+                                  color={AppColors.primary}
+                                />
                               }
-                              ref={modelRef}
-                              searchPlaceHolder={t("addPost.phsearchHere")}
-                              data={apimodel}
-                              disabled={otherModel}
-                              search={true}
-                              onFocus={false}
-                              buttonStyle={styles.searchbox}
-                              selectedRowStyle={{
-                                backgroundColor: AppColors.primary,
-                              }}
-                              selectedRowTextStyle={{ color: AppColors.white }}
-                              buttonTextStyle={{
-                                textAlign: "left",
-                                fontSize: height(1.6),
-                              }}
-                              dropdownStyle={styles.dropdown}
-                              onSelect={(selectedItem, index) => {
-                                setModel(selectedItem);
-                              }}
-                              buttonTextAfterSelection={(
-                                selectedItem,
-                                index
-                              ) => {
-                                return selectedItem;
-                              }}
-                              rowTextForSelection={(item, index) => {
-                                return item;
-                              }}
+                              unCheckedImage={
+                                <MaterialIcons
+                                  name="check-box-outline-blank"
+                                  size={height(2)}
+                                />
+                              }
+                              style={{ paddingRight: width(2) }}
+                              checkedCheckBoxColor={AppColors.primary}
+                              isChecked={otherModel}
+                              onClick={otherModelFuntion}
                             />
-                            <TouchableOpacity
-                              style={{
-                                flexDirection: "row",
-                                paddingVertical: width(4),
-                                alignSelf: "flex-start",
-                                alignItems: "center",
-                              }}
-                              onPress={otherModelFuntion}
-                            >
-                              <CheckBox
-                                checkedImage={
-                                  <MaterialIcons
-                                    name="check-box"
-                                    size={height(2)}
-                                    color={AppColors.primary}
-                                  />
-                                }
-                                unCheckedImage={
-                                  <MaterialIcons
-                                    name="check-box-outline-blank"
-                                    size={height(2)}
-                                  />
-                                }
-                                style={{ paddingRight: width(2) }}
-                                checkedCheckBoxColor={AppColors.primary}
-                                isChecked={otherModel}
-                                onClick={otherModelFuntion}
-                              />
-                              <Text style={{ fontSize: height(1.5) }}>
-                                {t("category.Others")}
-                              </Text>
-                            </TouchableOpacity>
-                          </View>
-                        ) : (
-                          <></>
-                        )}
-                      </View>
-                    )}
-                    {showYear(category) && (
-                      <View style={{ paddingVertical: width(1) }}>
-                        <Text style={styles.title}>{t("addPost.year")}</Text>
-                        <Input
-                          value={year + ""}
-                          setvalue={setYear}
-                          containerStyle={[styles.price, { width: width(90) }]}
-                          placeholder={t("addPost.phyear")}
-                          keyboardType="number-pad"
-                        />
-                      </View>
-                    )}
-                    {showbodyShape(findValue) && (
-                      <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>
-                          {t("addPost.bodyshape")}
-                        </Text>
-                        <SelectDropdown
-                          defaultButtonText={
-                            bodyshape
-                              ? t(`bodyShapeList.${bodyshape}`)
-                              : t("addPost.defaultValueDropdown")
-                          }
-                          data={
-                            category == "Bikes"
-                              ? feild?.bikeBodyShape
-                              : feild?.AutosBodyShape
-                          }
-                          searchPlaceHolder={t("addPost.phsearchHere")}
-                          buttonStyle={styles.searchbox}
-                          selectedRowStyle={{
-                            backgroundColor: AppColors.primary,
-                          }}
-                          selectedRowTextStyle={{ color: AppColors.white }}
-                          buttonTextStyle={{
-                            textAlign: "left",
-                            fontSize: height(1.6),
-                          }}
-                          dropdownStyle={styles.dropdown}
-                          onSelect={(selectedItem, index) => {
-                            setBodyshap(selectedItem.name);
-                          }}
-                          buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(`bodyShapeList.${selectedItem.name}`);
-                          }}
-                          rowTextForSelection={(item, index) => {
-                            return t(`bodyShapeList.${item.name}`);
-                          }}
-                        />
-                      </View>
-                    )}
-                    {showGearBox(findValue) && feild?.gearBox && (
-                      <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>{t("addPost.gearbox")}</Text>
-                        <SelectDropdown
-                          defaultButtonText={
-                            gearbox
-                              ? t(`gearBoxList.${gearbox}`)
-                              : t("addPost.defaultValueDropdown")
-                          }
-                          data={feild.gearBox}
-                          searchPlaceHolder={t("addPost.phsearchHere")}
-                          buttonStyle={styles.searchbox}
-                          selectedRowStyle={{
-                            backgroundColor: AppColors.primary,
-                          }}
-                          selectedRowTextStyle={{ color: AppColors.white }}
-                          buttonTextStyle={{
-                            textAlign: "left",
-                            fontSize: height(1.6),
-                          }}
-                          dropdownStyle={styles.dropdown}
-                          onSelect={(selectedItem, index) => {
-                            setGearbox(selectedItem.name);
-                          }}
-                          buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(`gearBoxList.${selectedItem.name}`);
-                          }}
-                          rowTextForSelection={(item, index) => {
-                            return t(`gearBoxList.${item.name}`);
-                          }}
-                        />
-                      </View>
-                    )}
-                    {showFuletype(findValue) && (
-                      <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>
-                          {t("addPost.fueltype")}
-                        </Text>
-                        <SelectDropdown
-                          defaultButtonText={
-                            fueltype
-                              ? t(`fuelTypelist.${fueltype}`)
-                              : t("addPost.defaultValueDropdown")
-                          }
-                          data={
-                            category == "Bikes"
-                              ? feild?.BikeFuelType
-                              : feild?.fuelType
-                          }
-                          searchPlaceHolder={t("addPost.phsearchHere")}
-                          buttonStyle={styles.searchbox}
-                          selectedRowStyle={{
-                            backgroundColor: AppColors.primary,
-                          }}
-                          selectedRowTextStyle={{ color: AppColors.white }}
-                          buttonTextStyle={{
-                            textAlign: "left",
-                            fontSize: height(1.6),
-                          }}
-                          dropdownStyle={styles.dropdown}
-                          onSelect={(selectedItem, index) => {
-                            setFueltype(selectedItem.name);
-                          }}
-                          buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(`fuelTypelist.${selectedItem.name}`);
-                          }}
-                          rowTextForSelection={(item, index) => {
-                            return t(`fuelTypelist.${item.name}`);
-                          }}
-                        />
-                      </View>
-                    )}
-                    {showKM(category) && (
-                      <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>{t("addPost.km")}</Text>
-                        <SelectDropdown
-                          data={feild?.kilometers}
-                          defaultButtonText={
-                            km || t("addPost.defaultValueDropdown")
-                          }
-                          searchPlaceHolder={t("addPost.phsearchHere")}
-                          buttonStyle={styles.searchbox}
-                          selectedRowStyle={{
-                            backgroundColor: AppColors.primary,
-                          }}
-                          selectedRowTextStyle={{ color: AppColors.white }}
-                          buttonTextStyle={{
-                            textAlign: "left",
-                            fontSize: height(1.6),
-                          }}
-                          dropdownStyle={styles.dropdown}
-                          onSelect={(selectedItem, index) => {
-                            setKm(selectedItem.name);
-                          }}
-                          buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(selectedItem.name);
-                          }}
-                          rowTextForSelection={(item, index) => {
-                            return t(item.name);
-                          }}
-                        />
-                      </View>
-                    )}
-
-                    <View
-                      style={{ alignSelf: "center", paddingBottom: height(2) }}
-                    >
-                      <Text style={styles.title}>{t("allData.condition")}</Text>
-
-                      <RadioButtonRN
-                        data={rdata}
-                        initial={
-                          condition
-                            ? rdata.findIndex(
-                                (item) =>
-                                  item?.key.toLowerCase() ===
-                                  (condition || "").toLowerCase()
-                              ) + 1
-                            : 0
+                            <Text style={{ fontSize: height(1.5) }}>
+                              {t("category.Others")}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      ) : (
+                        <></>
+                      )}
+                    </View>
+                  )}
+                  {showYear(category) && (
+                    <View style={{ paddingVertical: width(1) }}>
+                      <Text style={styles.title}>{t("addPost.year")}</Text>
+                      <Input
+                        value={year + ""}
+                        setvalue={setYear}
+                        containerStyle={[styles.price, { width: width(90) }]}
+                        placeholder={t("addPost.phyear")}
+                        keyboardType="number-pad"
+                      />
+                    </View>
+                  )}
+                  {showbodyShape(findValue) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          bodyshape
+                            ? t(`bodyShapeList.${bodyshape}`)
+                            : t("addPost.defaultValueDropdown")
                         }
-                        circleSize={width(3)}
-                        boxStyle={{
-                          width: width(90),
-                          borderWidth: 0,
-                          paddingVertical: width(1),
+                        data={
+                          category == "Bikes"
+                            ? feild?.bikeBodyShape
+                            : feild?.AutosBodyShape
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
                         }}
-                        textStyle={{ fontSize: height(1.5) }}
-                        activeColor={AppColors.primary}
-                        selectedBtn={(e) => {
-                          setCondition(e?.key);
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: height(1.6),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setBodyshap(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          return t(`bodyShapeList.${selectedItem.name}`);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          return t(`bodyShapeList.${item.name}`);
                         }}
                       />
                     </View>
-                  </View>
-                </ScrollView>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Button
-                    title={"allData.clear"}
-                    containerStyle={{
-                      width: width(48),
-                      borderRadius: width(1),
-                      backgroundColor: "grey",
-                    }}
-                    onPress={() => {
-                      clearAll();
-                      refRBSheet.current.close();
-                    }}
-                  />
-                  <Button
-                    title={"allData.search"}
-                    containerStyle={{
-                      width: width(40),
-                      borderRadius: width(1),
-                      backgroundColor: AppColors.primary,
-                    }}
-                    onPress={() => {
-                      setData([]);
-                      setempty(false);
-                      if (pageNumber != 0) {
-                        setPageNumber(1);
+                  )}
+                  {showGearBox(findValue) && feild?.gearBox && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.gearbox")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          gearbox
+                            ? t(`gearBoxList.${gearbox}`)
+                            : t("addPost.defaultValueDropdown")
+                        }
+                        data={feild.gearBox}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: height(1.6),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setGearbox(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          return t(`gearBoxList.${selectedItem.name}`);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          return t(`gearBoxList.${item.name}`);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showFuletype(findValue) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.fueltype")}</Text>
+                      <SelectDropdown
+                        defaultButtonText={
+                          fueltype
+                            ? t(`fuelTypelist.${fueltype}`)
+                            : t("addPost.defaultValueDropdown")
+                        }
+                        data={
+                          category == "Bikes"
+                            ? feild?.BikeFuelType
+                            : feild?.fuelType
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: height(1.6),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setFueltype(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          return t(`fuelTypelist.${selectedItem.name}`);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          return t(`fuelTypelist.${item.name}`);
+                        }}
+                      />
+                    </View>
+                  )}
+                  {showKM(category) && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.km")}</Text>
+                      <SelectDropdown
+                        data={feild?.kilometers}
+                        defaultButtonText={
+                          km || t("addPost.defaultValueDropdown")
+                        }
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: height(1.6),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setKm(selectedItem.name);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          return t(selectedItem.name);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          return t(item.name);
+                        }}
+                      />
+                    </View>
+                  )}
+
+                  <View
+                    style={{ alignSelf: "center", paddingBottom: height(2) }}
+                  >
+                    <Text style={styles.title}>{t("allData.condition")}</Text>
+
+                    <RadioButtonRN
+                      data={rdata}
+                      initial={
+                        condition
+                          ? rdata.findIndex(
+                              (item) =>
+                                item?.key.toLowerCase() ===
+                                (condition || "").toLowerCase()
+                            ) + 1
+                          : 0
                       }
-                      refRBSheet.current.close();
-                      setFilter(filter + 1);
-                    }}
-                  />
+                      circleSize={width(3)}
+                      boxStyle={{
+                        width: width(90),
+                        borderWidth: 0,
+                        paddingVertical: width(1),
+                      }}
+                      textStyle={{ fontSize: height(1.5) }}
+                      activeColor={AppColors.primary}
+                      selectedBtn={(e) => {
+                        setCondition(e?.key);
+                      }}
+                    />
+                  </View>
                 </View>
+              </ScrollView>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Button
+                  title={"allData.clear"}
+                  containerStyle={{
+                    width: width(48),
+                    borderRadius: width(1),
+                    backgroundColor: "grey",
+                  }}
+                  onPress={() => {
+                    clearAll();
+                    refRBSheet.current.close();
+                  }}
+                />
+                <Button
+                  title={"allData.search"}
+                  containerStyle={{
+                    width: width(40),
+                    borderRadius: width(1),
+                    backgroundColor: AppColors.primary,
+                  }}
+                  onPress={() => {
+                    setData([]);
+                    setempty(false);
+                    if (pageNumber != 0) {
+                      setPageNumber(1);
+                    }
+                    refRBSheet.current.close();
+                    setFilter(filter + 1);
+                  }}
+                />
               </View>
-            )}
-          </RBSheet>
-        </View>
+            </View>
+          )}
+        </RBSheet>
       </View>
     </ScreenWrapper>
   );
