@@ -20,6 +20,7 @@ export default function Profile({ navigation, route }) {
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
   const userFav = useSelector(selectFavAds);
+
   return (
     <ScreenWrapper
       showStatusBar={false}

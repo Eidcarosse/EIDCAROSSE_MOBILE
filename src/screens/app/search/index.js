@@ -118,21 +118,12 @@ export default function Search({ navigation, route }) {
                   textStyle={styles.textStyle}
                   imageStyle={styles.imageStyle}
                   onPress={() => {
-                    if (item.name == "Bikes" || item.name == "Parts") {
-                      navigation.navigate(ScreenNames.BIKECATEGORY, {
-                        category: item?.name,
-                        find: item?.name,
-                        show: true,
-                        subCategories: item?.subCategories,
-                        search: search || "",
-                      });
-                    } else {
-                      navigation.navigate(ScreenNames.LISTDATA, {
-                        category: item?.name,
-                        find: item?.name,
-                        search: search || "",
-                      });
-                    }
+                    navigation.navigate(ScreenNames.BIKECATEGORY, {
+                      category: item,
+                      find: item?.name,
+                      show: true,
+                      search: search || "",
+                    });
                   }}
                 />
               );

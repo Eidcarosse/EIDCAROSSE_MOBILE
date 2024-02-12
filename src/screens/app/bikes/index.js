@@ -11,18 +11,13 @@ export default function BikeCategory({ navigation, route }) {
   const subCategories = route?.params?.subCategories;
   const search = route?.params?.search;
   const { t } = useTranslation();
+  const cat = route?.params?.category;
+
   return (
     <ScreenWrapper
       showStatusBar={false}
       headerUnScrollable={() => (
-        <Head
-          headtitle={
-            route?.params?.category == "Parts"
-              ? t("subcategory.titleParts")
-              : t("subcategory.titleBike")
-          }
-          navigation={navigation}
-        />
+        <Head headtitle={t(`category.${cat?.name}`)} navigation={navigation} />
       )}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
@@ -34,7 +29,7 @@ export default function BikeCategory({ navigation, route }) {
         ]}
       >
         <FlatList
-          data={subCategories}
+          data={cat.subCategories}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             return (
@@ -44,13 +39,13 @@ export default function BikeCategory({ navigation, route }) {
                 onPress={() => {
                   if (!route?.params?.show) {
                     navigation.navigate(ScreenNames.ADDPOST, {
-                      category: route?.params?.category,
+                      category: cat?.name,
                       find: item.name,
                       subcategory: item.name,
                     });
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
-                      category: route?.params?.category,
+                      category: cat?.name,
                       find: item.name,
                       subcategory: item.name,
                       search: search || "",
@@ -58,11 +53,11 @@ export default function BikeCategory({ navigation, route }) {
                   }
                 }}
               >
-                <Image
-                  source={{ uri: item.image }}
+                {/* <Image
+                  source={{ uri: item?.image ? item?.image : cat?.image }}
                   style={{ width: height(4), height: height(4) }}
-                />
-                <Text style={{ marginLeft: width(5), fontSize: height(1.8) }}>
+                /> */}
+                <Text style={{ fontSize: height(1.6) }}>
                   {t(`subList.${item.name}`)}
                 </Text>
               </TouchableOpacity>

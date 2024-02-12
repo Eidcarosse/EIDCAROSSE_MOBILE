@@ -215,7 +215,7 @@ export default function ListData({ navigation }) {
     );
 
     if (matchedCategory) {
-      return matchedCategory.subCategories;
+      return matchedCategory;
     }
 
     // Return an empty array if no match is found
@@ -295,7 +295,9 @@ export default function ListData({ navigation }) {
       dispatch(setAppLoader(false));
     }, 1000);
   };
-
+console.log('====================================');
+console.log( "function",getSubcategoriesByName(s, category));
+console.log('====================================');
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -329,7 +331,7 @@ export default function ListData({ navigation }) {
             }
             onPress={() => {
               navigation.pop();
-              navigation.push(ScreenNames.SEARCH, {
+              navigation.replace(ScreenNames.SEARCH, {
                 category: category,
                 find: category,
                 search: title,
@@ -474,7 +476,7 @@ export default function ListData({ navigation }) {
                       refRBSheet.current.close();
                       setTimeout(() => {
                         navigation.pop();
-                        navigation.push(ScreenNames.CATEGORY, {
+                        navigation.replace(ScreenNames.CATEGORY, {
                           search: title,
                           value: "seeAll",
                         });
@@ -498,11 +500,10 @@ export default function ListData({ navigation }) {
                         refRBSheet.current.close();
                         setTimeout(() => {
                           navigation.pop();
-                          navigation.push(ScreenNames.BIKECATEGORY, {
-                            category: category,
+                          navigation.replace(ScreenNames.BIKECATEGORY, {
+                            category: getSubcategoriesByName(s, category),
                             find: category,
                             search: title,
-                            subCategories: getSubcategoriesByName(s, category),
                             show: true,
                           });
                         }, 600);

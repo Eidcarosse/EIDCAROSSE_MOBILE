@@ -71,30 +71,15 @@ export default function Category({ navigation, route }) {
                 imageStyle={styles.imageStyle}
                 onPress={() => {
                   if (route?.params?.value == "seeAll") {
-                    if (item.name == "Bikes" || item.name == "Parts") {
-                      navigation.navigate(ScreenNames.BIKECATEGORY, {
-                        category: item?.name,
-                        find: item?.name,
-                        show: true,
-                        subCategories: item?.subCategories,
-                        search: search || "",
-                      });
-                    } else {
-                      navigation.navigate(ScreenNames.LISTDATA, {
-                        category: item?.name,
-                        find: item?.name,
-                        search: search || "",
-                      });
-                    }
-                  } else if (item.name == "Bikes" || item.name == "Parts") {
                     navigation.navigate(ScreenNames.BIKECATEGORY, {
-                      category: item?.name,
+                      category: item,
                       find: item?.name,
-                      subCategories: item?.subCategories,
+                      show: true,
+                      search: search || "",
                     });
                   } else {
-                    navigation.navigate(ScreenNames.ADDPOST, {
-                      category: item?.name,
+                    navigation.navigate(ScreenNames.BIKECATEGORY, {
+                      category: item,
                       find: item?.name,
                     });
                   }

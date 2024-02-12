@@ -74,30 +74,6 @@ export default function Home({}) {
       dispatch(setAppLoader(false));
     }
   });
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     dispatch(
-  //       setFilter({
-  //         address: "",
-  //         category: "",
-  //         subCategory: "",
-  //         condition: "",
-  //         title: "",
-  //         brand: "",
-  //         model: "",
-  //         year: "",
-  //         type: "",
-  //         minPrice: "",
-  //         maxPrice: "",
-  //         sortBy: "",
-  //         km: "",
-  //         bodyShape: "",
-  //         gearBox: "",
-  //         fuelType: "",
-  //       })
-  //     );
-  //   }, [])
-  // );
 
   return (
     <ScreenWrapper
@@ -142,12 +118,6 @@ export default function Home({}) {
       scrollViewRef={scrollViewRef}
     >
       <View style={styles.mainViewContainer}>
-        {/* <SearchBar
-          search={searchString}
-          setSearch={setSearchString}
-          containerstyle={styles.search}
-          next={true}
-        /> */}
 
         <CategoryList navigation={navigation} search={searchString} />
 

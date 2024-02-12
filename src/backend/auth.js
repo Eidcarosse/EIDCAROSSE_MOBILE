@@ -1,4 +1,4 @@
-import { BaseUrl } from "../utills/Constants";
+import { BaseUrl,BaseUrl1 } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 const signupApi = async (data) => {
@@ -52,7 +52,7 @@ async function updateProfile(id, formData) {
       },
     };
     const resp = await fetch(
-      BaseUrl + `auth/userProfile/${id}`,
+      BaseUrl1 + `auth/userProfile/${id}`,
       requestOptions
     );
     let response = await resp.json();
@@ -170,7 +170,7 @@ const deleteAccountAPI = async (id, data) => {
     };
 
     let resp = await fetch(
-      `${BaseUrl}auth/delete-account/${id}`,
+      `${BaseUrl1}auth/delete-account/${id}`,
       requestOptions
     );
     let response = await resp.json();

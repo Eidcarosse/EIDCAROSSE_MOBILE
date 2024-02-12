@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   textStyle:{
     fontSize:height(1.8),
     fontWeight:'500',
-    paddingHorizontal:width(8),
-    width:width(67)
+    paddingHorizontal:width(6),
+    width:width(70),
   }
 });
 export default styles;

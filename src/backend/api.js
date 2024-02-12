@@ -2,7 +2,7 @@ import { BaseUrl, BaseUrl1 } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 export const getDataofHomePage = async () => {
-  return fetch(BaseUrl + "ad/fetchTopAds", {
+  return fetch(BaseUrl1 + "ad/fetchTopAds", {
     method: "GET",
     credentials: "include",
   })
@@ -151,7 +151,7 @@ export const editAdApi = async (id, formData) => {
     };
 
     const resp = await fetch(
-      BaseUrl + `ad/edit-ad-mobile/${id}`,
+      BaseUrl1 + `ad/edit-ad-mobile/${id}`,
       requestOptions
     );
     let response = await resp.json();

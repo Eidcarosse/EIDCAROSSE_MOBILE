@@ -11,27 +11,23 @@ export default function CategoryList({ navigation, search }) {
   const { t } = useTranslation();
 
   const d = useSelector(selectCategoryList);
-  const data = d.slice(0, 6);
+  const data = [d[0], d[1], d[2], d[8], d[9], d[13]];
   const renderItem = ({ item }) => {
+    // console.log('====================================');
+    // console.log("home category",item);
+    // console.log('====================================');
     return (
       <CategoryIcon
         navigation={navigation}
-        title={item.name}
-        image={item.image}
+        title={item?.name}
+        image={item?.image}
         onPress={() => {
-          if (item.name == "Bikes" || item.name == "Parts") {
             navigation.navigate(ScreenNames.BIKECATEGORY, {
-              category: item.name,
+              category: item,
               find: item.name,
-              subCategories: item.subCategories,
               show: true,
             });
-          } else {
-            navigation.navigate(ScreenNames.LISTDATA, {
-              category: item.name,
-              find: item.name,
-            });
-          }
+        
         }}
       />
     );
