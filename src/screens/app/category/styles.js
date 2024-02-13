@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageStyle: {
-    width: height(5),
-    height: height(5),
+    width: height(3),
+    height: height(3),
   },
   textStyle:{
     fontSize:height(1.8),

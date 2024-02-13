@@ -125,7 +125,7 @@ export default function Home({}) {
           <Text style={{ fontSize: height(1.8), fontWeight: "bold" }}>
             {t("home.letest")}
           </Text>
-          <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>
+          {/* <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>
             <Text
               style={{
                 fontSize: height(1.3),
@@ -136,7 +136,7 @@ export default function Home({}) {
             >
               {t("home.seeAll")}
             </Text>
-          </Pressable>
+          </Pressable> */}
         </View>
         <View style={{ salignItems: "center" }}>
           {data?.length === 0 ? (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, View, TouchableOpacity, Text, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "../../../backend/common";
 import { CategoryIcon, Head, Header, ScreenWrapper } from "../../../components";
@@ -12,13 +12,18 @@ import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
+import { useTranslation } from "react-i18next";
 
 export default function Category({ navigation, route }) {
+  const { t } = useTranslation();
   const data = useSelector(selectCategoryList);
+  console.log("====================================");
+  console.log(route.params);
+  console.log("====================================");
   const search = route?.params?.search;
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState(data[0]);
   useEffect(() => {
     onRefresh();
   }, []);
@@ -38,7 +43,6 @@ export default function Category({ navigation, route }) {
       }
     } catch (error) {}
   };
-
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -49,47 +53,129 @@ export default function Category({ navigation, route }) {
           <Header navigation={navigation} />
         )
       }
-      scrollEnabled
+      // scrollEnabled
       refreshing={refreshing}
       onRefresh={onRefresh}
       statusBarColor={AppColors.primary}
       barStyle="light-content"
     >
-      <View style={[{ paddingBottom: height(7), margin: width(3) }]}>
+      <View
+        style={[
+          {
+            paddingBottom: Platform.OS == "ios" ? height(7) : height(6),
+            margin: height(1),
+            flexDirection: "row",
+          },
+        ]}
+      >
         <FlatList
           data={data}
           showsVerticalScrollIndicator={false}
-          scrollEnabled={false}
+          // scrollEnabled={false}
           renderItem={({ item }) => {
             return (
-              <CategoryIcon
-                navigation={navigation}
-                cardStyle={styles.card}
-                title={item?.name}
-                image={item?.image}
-                textStyle={styles.textStyle}
-                imageStyle={styles.imageStyle}
-                onPress={() => {
-                  if (route?.params?.value == "seeAll") {
-                    navigation.navigate(ScreenNames.BIKECATEGORY, {
-                      category: item,
-                      find: item?.name,
-                      show: true,
-                      search: search || "",
-                    });
-                  } else {
-                    navigation.navigate(ScreenNames.BIKECATEGORY, {
-                      category: item,
-                      find: item?.name,
-                    });
-                  }
+              <View
+                style={{
+                  alignContent: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor:
+                    item.name == searchString.name ? "#E5E8E8" : "white",
+                  padding:
+                    item.name == searchString.name ? height(1) : height(0.5),
+                  borderTopLeftRadius: height(1),
+                  borderBottomLeftRadius: height(1),
                 }}
-              />
+              >
+                <CategoryIcon
+                  navigation={navigation}
+                  cardStyle={{
+                    padding: height(1),
+                    margin: height(0.5),
+                    marginVertical: 0,
+                  }}
+                  title={item?.name}
+                  image={item?.image}
+                  // textStyle={styles.textStyle}
+                  imageStyle={styles.imageStyle}
+                  onPress={() => {
+                    setSearchString(item);
+                    // if (route?.params?.value == "seeAll") {
+                    //   navigation.navigate(ScreenNames.BIKECATEGORY, {
+                    //     category: item,
+                    //     find: item?.name,
+                    //     show: true,
+                    //     search: search || "",
+                    //   });
+                    // } else {
+                    //   navigation.navigate(ScreenNames.BIKECATEGORY, {
+                    //     category: item,
+                    //     find: item?.name,
+                    //   });
+                    // }
+                  }}
+                />
+              </View>
             );
           }}
           numColumns={1}
           keyExtractor={(item, index) => index}
         />
+        <View
+          style={{
+            backgroundColor: "#E5E8E8",
+            width: width(65),
+            padding: height(0.5),
+          }}
+        >
+          <FlatList
+            data={searchString.subCategories}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={{
+                    width: width(63),
+                    margin: height(0.2),
+                    borderRadius: height(0.5),
+                    alignSelf: "center",
+                    backgroundColor: AppColors.white,
+                    padding: width(4),
+                    elevation: 1,
+                    shadowColor: "black",
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                  onPress={() => {
+                    if (route?.params?.value == "seeAll") {
+                      navigation.navigate(ScreenNames.LISTDATA, {
+                        category: searchString.name,
+                        find: item.name,
+                        subcategory: item.name,
+                        search: search || "",
+                      });
+                    } else {
+                      navigation.navigate(ScreenNames.ADDPOST, {
+                        category: searchString.name,
+                        find: item.name,
+                        subcategory: item.name,
+                      });
+                    }
+                  }}
+                >
+                  <Text style={{ fontSize: height(1.6) }}>
+                    {t(`subList.${item.name}`)}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
       </View>
     </ScreenWrapper>
   );

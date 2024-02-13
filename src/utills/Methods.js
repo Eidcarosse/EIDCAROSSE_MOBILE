@@ -297,20 +297,21 @@ export const showType = (x) => {
 export const showBrand = (x) => {
   return (
     x === "Autos" ||
-    x === "Bikes" ||
+    x === "Motorcycles" ||
     x === "Boats" ||
     x === "Drones" ||
     x === "Construction Machines" ||
     x === "Trucks" ||
     x === "Vans" ||
     x === "Trailers" ||
-    x === "Busses"
+    x === "Busses"||
+    x==="Mobile Phones"
   );
 };
 export const showYear = (x) => {
   return (
     x === "Autos" ||
-    x === "Bikes" ||
+    x === "Motorcycles" ||
     x === "Boats" ||
     x === "Drones" ||
     x === "Construction Machines" ||
@@ -346,8 +347,8 @@ export const showFuletype = (x) => {
 };
 export const showExteriorColor = (x) => {
   return (
-    x === "Autos"
-    // x === "Bikes" ||
+    x === "Autos"||
+    x === "Motorcycles" 
     // x === "Boats" ||
     // x === "Drones" ||
     // x === "Construction Machines" ||
@@ -371,7 +372,7 @@ export const showInteriorColor = (x) => {
 export const showKM = (x) => {
   return (
     x === "Autos" ||
-    x === "Bikes" ||
+    x === "Motorcycles" ||
     x === "Boats" ||
     x === "Construction Machines" ||
     x === "Trucks" ||

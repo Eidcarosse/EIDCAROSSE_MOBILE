@@ -60,7 +60,6 @@ export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
   const edit = route?.params?.data;
   const category = route?.params?.category || edit?.category;
-  const f = route?.params?.find;
   const sub = route?.params?.subcategory || edit?.subCategory;
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
@@ -72,7 +71,7 @@ export default function AddPost({ navigation, route }) {
   const imageRef = useRef(null);
   const cat = useSelector(selectCategoryList);
   const [selectedCategory, setSelectedCategory] = useState();
-  const [find, setFind] = useState(f);
+  // const [find, setFind] = useState(subCategory);
   const [image, setImage] = React.useState(edit?.images || []);
   const [subCategory, setSubCategory] = React.useState(sub);
   const [title, setTitle] = React.useState(edit?.title || "");
@@ -121,29 +120,27 @@ export default function AddPost({ navigation, route }) {
 
   const [renderNow, setRenderNow] = useState(false);
 
-  useEffect(() => {
-    if (edit) {
-      setAddViber(edit?.viber ? true : false);
-      setAddWhatsapp(edit?.whatsapp ? true : false);
-      setAddPhone(edit?.phone ? true : false);
-      setAddEmail(edit?.email ? true : false);
-      setPricing(edit?.price > 0 ? "Price" : "");
-      setBrand(edit?.brand);
-      setModel(edit?.model);
-      edit?.brand === "Others" && setOtherBrand(true);
-      edit?.model === "Others" && setOtherModel(true);
-      edit?.category == "Bikes"
-        ? setFind(edit?.subCategory)
-        : setFind(edit?.category);
-    }
-  }, [edit]);
+  // useEffect(() => {
+  //   if (edit) {
+  //     setAddViber(edit?.viber ? true : false);
+  //     setAddWhatsapp(edit?.whatsapp ? true : false);
+  //     setAddPhone(edit?.phone ? true : false);
+  //     setAddEmail(edit?.email ? true : false);
+  //     setPricing(edit?.price > 0 ? "Price" : "");
+  //     setBrand(edit?.brand);
+  //     setModel(edit?.model);
+  //     edit?.brand === "Others" && setOtherBrand(true);
+  //     edit?.model === "Others" && setOtherModel(true);
+  //     edit?.subCategory && setFind(edit?.subCategory);
+  //   }
+  // }, [edit]);
   useEffect(() => {
     getvehicleMake();
-    if (showType(category)) {
+    if (showType(subCategory)) {
       getvehicleCategory();
     }
     getFeilds();
-  }, [find]);
+  }, [subCategory]);
   useEffect(() => {
     cat.map((i) => {
       if (i.name == category) {
@@ -153,13 +150,14 @@ export default function AddPost({ navigation, route }) {
   }, []);
   const getFeilds = async () => {
     let data = await backEndDataAPi({
-      type: find,
+      cat: category,
+      subcat: subCategory,
     });
     if (data) setFeild(data);
   };
   const getvehicleMake = async () => {
     dispatch(setAppLoader(true));
-    let vehicledata = await geVehicleMakes(find);
+    let vehicledata = await geVehicleMakes(subCategory);
     if (vehicledata) {
       setVcompanies(vehicledata);
       dispatch(setAppLoader(false));
@@ -170,7 +168,7 @@ export default function AddPost({ navigation, route }) {
     dispatch(setAppLoader(false));
   };
   const getvehicleCategory = async () => {
-    let vehicledata = await geVehicleCategory(find);
+    let vehicledata = await geVehicleCategory(subCategory);
     if (vehicledata) {
       setVtype(vehicledata);
     } else {
@@ -178,8 +176,8 @@ export default function AddPost({ navigation, route }) {
     }
   };
   useEffect(() => {
-    if (brand) getmodel(find, brand);
-  }, [brand, find]);
+    if (brand) getmodel(subCategory, brand);
+  }, [brand, subCategory]);
   const getmodel = async (a, b) => {
     dispatch(setAppLoader(true));
     let cardata = await getModel(a, b);
@@ -192,204 +190,204 @@ export default function AddPost({ navigation, route }) {
     }
     dispatch(setAppLoader(false));
   };
-  const addPost = async () => {
-    dispatch(setAppLoader(true));
-    try {
-      const requiredFields = [
-        title,
-        latitude,
-        longitude,
-        address,
-        image,
-        userInfo,
-      ];
-      showBrand(category) && requiredFields.push(brand);
-      pricing == "Price" && requiredFields.push(price);
-      const isAnyFieldEmpty = requiredFields.some((field) => !field);
+  // const addPost = async () => {
+  //   dispatch(setAppLoader(true));
+  //   try {
+  //     const requiredFields = [
+  //       title,
+  //       latitude,
+  //       longitude,
+  //       address,
+  //       image,
+  //       userInfo,
+  //     ];
+  //     showBrand(category) && requiredFields.push(brand);
+  //     pricing == "Price" && requiredFields.push(price);
+  //     const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
-      if (isAnyFieldEmpty) {
-        if (!title) {
-          setTitleRequire(true);
-        } else {
-          setTitleRequire(false);
-        }
-        if (!brand) {
-          setBrandRequire(true);
-        } else {
-          setBrandRequire(false);
-        }
-        if (!address) {
-          setAddressRequire(true);
-        } else {
-          setAddressRequire(false);
-        }
-        if (!price) {
-          setPriceRequire(true);
-        } else {
-          setPriceRequire(false);
-        }
+  //     if (isAnyFieldEmpty) {
+  //       if (!title) {
+  //         setTitleRequire(true);
+  //       } else {
+  //         setTitleRequire(false);
+  //       }
+  //       if (!brand) {
+  //         setBrandRequire(true);
+  //       } else {
+  //         setBrandRequire(false);
+  //       }
+  //       if (!address) {
+  //         setAddressRequire(true);
+  //       } else {
+  //         setAddressRequire(false);
+  //       }
+  //       if (!price) {
+  //         setPriceRequire(true);
+  //       } else {
+  //         setPriceRequire(false);
+  //       }
 
-        dispatch(setAppLoader(false));
-        // Show an alert if any required field is empty
-        if (!title && !address && !price)
-          errorMessage(
-            t(`flashmsg.Please fill all required fields`),
-            t(`flashmsg.require`)
-          );
-        else if (!address)
-          infoMessage(t(`flashmsg.locationRequire`), t("flashmsg.require"));
-        else
-          errorMessage(
-            t(`flashmsg.Please fill all required fields`),
-            t(`flashmsg.require`)
-          );
+  //       dispatch(setAppLoader(false));
+  //       // Show an alert if any required field is empty
+  //       if (!title && !address && !price)
+  //         errorMessage(
+  //           t(`flashmsg.Please fill all required fields`),
+  //           t(`flashmsg.require`)
+  //         );
+  //       else if (!address)
+  //         infoMessage(t(`flashmsg.locationRequire`), t("flashmsg.require"));
+  //       else
+  //         errorMessage(
+  //           t(`flashmsg.Please fill all required fields`),
+  //           t(`flashmsg.require`)
+  //         );
 
-        return;
-      }
-      if (image.length < 1) {
-        errorMessage("Image require ", t(`flashmsg.error`));
-        dispatch(setAppLoader(false));
-        return;
-      }
-      const formData = new FormData();
-      formData.append("userId", userInfo?._id);
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("subCategory", subCategory);
-      formData.append("type", type);
-      formData.append("price", price);
-      formData.append("km", km);
+  //       return;
+  //     }
+  //     if (image.length < 1) {
+  //       errorMessage("Image require ", t(`flashmsg.error`));
+  //       dispatch(setAppLoader(false));
+  //       return;
+  //     }
+  //     const formData = new FormData();
+  //     formData.append("userId", userInfo?._id);
+  //     formData.append("title", title);
+  //     formData.append("category", category);
+  //     formData.append("subCategory", subCategory);
+  //     formData.append("type", type);
+  //     formData.append("price", price);
+  //     formData.append("km", km);
 
-      formData.append("condition", condition);
-      formData.append("brand", brand);
-      formData.append("year", year);
-      formData.append("model", model);
-      formData.append("bodyShape", bodyshape);
-      formData.append("gearBox", gearbox);
-      formData.append("fuelType", fueltype);
-      formData.append("exteriorColor", exterior);
-      formData.append("interiorColor", interior);
-      formData.append("videoUrl", url);
-      formData.append("description", description);
-      formData.append("latitude", latitude);
-      formData.append("longitude", longitude);
-      formData.append("address", address);
-      addViber && formData.append("viber", viber);
-      addWhatsapp && formData.append("whatsapp", whatsapp);
-      addPhone && formData.append("phone", true);
-      // Append each selected image to the form data
-      image.forEach((img, index) => {
-        formData.append("file", {
-          name: `image${index}`,
-          type: "image/jpeg", // Adjust the type if needed
-          uri: img,
-        });
-      });
-      const resp = await addPostAd(formData);
-      if (resp?.success) {
-        navigation.navigate("StackHome");
-        const userAd = await getOwneAd(userInfo?._id);
-        dispatch(setUserAds(userAd));
-        successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
-      } else {
-        errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
-      }
-      dispatch(setAppLoader(false));
-    } catch (error) {
-      console.error("Image upload error:", error);
-      dispatch(setAppLoader(false));
-    }
-  };
-  const editPost = async () => {
-    dispatch(setAppLoader(true));
-    try {
-      const requiredFields = [title, latitude, longitude, address, image];
-      showBrand(category) && requiredFields.push(brand);
-      pricing == "Price" && requiredFields.push(price);
-      const isAnyFieldEmpty = requiredFields.some((field) => !field);
+  //     formData.append("condition", condition);
+  //     formData.append("brand", brand);
+  //     formData.append("year", year);
+  //     formData.append("model", model);
+  //     formData.append("bodyShape", bodyshape);
+  //     formData.append("gearBox", gearbox);
+  //     formData.append("fuelType", fueltype);
+  //     formData.append("exteriorColor", exterior);
+  //     formData.append("interiorColor", interior);
+  //     formData.append("videoUrl", url);
+  //     formData.append("description", description);
+  //     formData.append("latitude", latitude);
+  //     formData.append("longitude", longitude);
+  //     formData.append("address", address);
+  //     addViber && formData.append("viber", viber);
+  //     addWhatsapp && formData.append("whatsapp", whatsapp);
+  //     addPhone && formData.append("phone", true);
+  //     // Append each selected image to the form data
+  //     image.forEach((img, index) => {
+  //       formData.append("file", {
+  //         name: `image${index}`,
+  //         type: "image/jpeg", // Adjust the type if needed
+  //         uri: img,
+  //       });
+  //     });
+  //     const resp = await addPostAd(formData);
+  //     if (resp?.success) {
+  //       navigation.navigate("StackHome");
+  //       const userAd = await getOwneAd(userInfo?._id);
+  //       dispatch(setUserAds(userAd));
+  //       successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
+  //     } else {
+  //       errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
+  //     }
+  //     dispatch(setAppLoader(false));
+  //   } catch (error) {
+  //     console.error("Image upload error:", error);
+  //     dispatch(setAppLoader(false));
+  //   }
+  // };
+  // const editPost = async () => {
+  //   dispatch(setAppLoader(true));
+  //   try {
+  //     const requiredFields = [title, latitude, longitude, address, image];
+  //     showBrand(category) && requiredFields.push(brand);
+  //     pricing == "Price" && requiredFields.push(price);
+  //     const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
-      if (isAnyFieldEmpty) {
-        if (!title) {
-          setTitleRequire(true);
-        } else {
-          setTitleRequire(false);
-        }
-        if (!brand) {
-          setBrandRequire(true);
-        } else {
-          setBrandRequire(false);
-        }
-        if (!address) {
-          setAddressRequire(true);
-        } else {
-          setAddressRequire(false);
-        }
-        if (!price) {
-          setPriceRequire(true);
-        } else {
-          setPriceRequire(false);
-        }
+  //     if (isAnyFieldEmpty) {
+  //       if (!title) {
+  //         setTitleRequire(true);
+  //       } else {
+  //         setTitleRequire(false);
+  //       }
+  //       if (!brand) {
+  //         setBrandRequire(true);
+  //       } else {
+  //         setBrandRequire(false);
+  //       }
+  //       if (!address) {
+  //         setAddressRequire(true);
+  //       } else {
+  //         setAddressRequire(false);
+  //       }
+  //       if (!price) {
+  //         setPriceRequire(true);
+  //       } else {
+  //         setPriceRequire(false);
+  //       }
 
-        dispatch(setAppLoader(false));
-        // Show an alert if any required field is empty
-        errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.require`));
+  //       dispatch(setAppLoader(false));
+  //       // Show an alert if any required field is empty
+  //       errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.require`));
 
-        return;
-      }
-      if (image.length < 1) {
-        errorMessage("Image require ", t(`flashmsg.error`));
-        dispatch(setAppLoader(false));
-        return;
-      }
-      const formData = new FormData();
-      formData.append("userId", userInfo?._id);
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("subCategory", subCategory);
-      formData.append("type", type);
-      formData.append("price", pricing == "Price" ? price : 0);
-      formData.append("km", km);
+  //       return;
+  //     }
+  //     if (image.length < 1) {
+  //       errorMessage("Image require ", t(`flashmsg.error`));
+  //       dispatch(setAppLoader(false));
+  //       return;
+  //     }
+  //     const formData = new FormData();
+  //     formData.append("userId", userInfo?._id);
+  //     formData.append("title", title);
+  //     formData.append("category", category);
+  //     formData.append("subCategory", subCategory);
+  //     formData.append("type", type);
+  //     formData.append("price", pricing == "Price" ? price : 0);
+  //     formData.append("km", km);
 
-      formData.append("condition", condition);
-      formData.append("brand", brand);
-      formData.append("year", year);
-      formData.append("model", model);
-      formData.append("bodyShape", bodyshape);
-      formData.append("gearBox", gearbox);
-      formData.append("fuelType", fueltype);
-      formData.append("exteriorColor", exterior);
-      formData.append("interiorColor", interior);
-      formData.append("videoUrl", url);
-      formData.append("description", description);
-      formData.append("latitude", latitude);
-      formData.append("longitude", longitude);
-      formData.append("address", address);
-      formData.append("viber", addViber == true ? viber : "");
-      formData.append("whatsapp", addWhatsapp == true ? whatsapp : "");
-      formData.append("phone", addPhone == true ? true : false);
-      image.forEach((img, index) => {
-        formData.append("file", {
-          name: `image${index}`,
-          type: "image/jpeg", // Adjust the type if needed
-          uri: img,
-        });
-      });
-      const resp = await editAdApi(edit?._id, formData);
-      if (resp?.success) {
-        successMessage(t(`flashmsg.editadsussessmsg`), t(`flashmsg.success`));
-        navigation.navigate(ScreenNames.MYADS);
-      } else {
-        errorMessage(t(`flashmsg.editerrormsg`), t(`flashmsg.error`));
-      }
-      dispatch(setAppLoader(false));
-      // navigation.navigate("StackHome");
-      // const userAd = await getOwneAd(userInfo?._id);
-      // dispatch(setUserAds(userAd));
-    } catch (error) {
-      console.error("Image upload error:", error);
-      dispatch(setAppLoader(false));
-    }
-  };
+  //     formData.append("condition", condition);
+  //     formData.append("brand", brand);
+  //     formData.append("year", year);
+  //     formData.append("model", model);
+  //     formData.append("bodyShape", bodyshape);
+  //     formData.append("gearBox", gearbox);
+  //     formData.append("fuelType", fueltype);
+  //     formData.append("exteriorColor", exterior);
+  //     formData.append("interiorColor", interior);
+  //     formData.append("videoUrl", url);
+  //     formData.append("description", description);
+  //     formData.append("latitude", latitude);
+  //     formData.append("longitude", longitude);
+  //     formData.append("address", address);
+  //     formData.append("viber", addViber == true ? viber : "");
+  //     formData.append("whatsapp", addWhatsapp == true ? whatsapp : "");
+  //     formData.append("phone", addPhone == true ? true : false);
+  //     image.forEach((img, index) => {
+  //       formData.append("file", {
+  //         name: `image${index}`,
+  //         type: "image/jpeg", // Adjust the type if needed
+  //         uri: img,
+  //       });
+  //     });
+  //     const resp = await editAdApi(edit?._id, formData);
+  //     if (resp?.success) {
+  //       successMessage(t(`flashmsg.editadsussessmsg`), t(`flashmsg.success`));
+  //       navigation.navigate(ScreenNames.MYADS);
+  //     } else {
+  //       errorMessage(t(`flashmsg.editerrormsg`), t(`flashmsg.error`));
+  //     }
+  //     dispatch(setAppLoader(false));
+  //     // navigation.navigate("StackHome");
+  //     // const userAd = await getOwneAd(userInfo?._id);
+  //     // dispatch(setUserAds(userAd));
+  //   } catch (error) {
+  //     console.error("Image upload error:", error);
+  //     dispatch(setAppLoader(false));
+  //   }
+  // };
   const rdata = [
     {
       key: feild?.conditionList[0]?.value,
@@ -488,6 +486,9 @@ export default function AddPost({ navigation, route }) {
       </TouchableOpacity>
     </ScaleDecorator>
   );
+  console.log("====================================");
+  console.log(route.params);
+  console.log("====================================");
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -722,7 +723,7 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {!(vtype == undefined || vtype == []) && showType(category) && (
+          {!(vtype == undefined || vtype == []) && showType(subCategory) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.type")}</Text>
 
@@ -767,12 +768,7 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {/* <DropDrownList
-            data={vcompanies}
-            select={brand}
-            setSelect={setBrand}
-          /> */}
-          {showBrand(category) && (
+          {showBrand(subCategory) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.brand")}</Text>
               <SelectDropdown
@@ -923,7 +919,7 @@ export default function AddPost({ navigation, route }) {
               ) : (
                 <></>
               )}
-              {showYear(category) && (
+              {showYear(subCategory) && (
                 <View style={{ paddingVertical: width(1) }}>
                   <Text style={styles.title}>{t("addPost.year")}</Text>
                   <Input
@@ -935,7 +931,7 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
-              {showbodyShape(find) && (
+              {showbodyShape(subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
@@ -970,7 +966,7 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
-              {showGearBox(find) && feild?.gearBox && (
+              {showGearBox(subCategory) && feild?.gearBox && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                   <SelectDropdown
@@ -1001,7 +997,7 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
-              {showFuletype(find) && (
+              {showFuletype(subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                   <SelectDropdown
@@ -1036,7 +1032,7 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
-              {showExteriorColor(category) && (
+              {showExteriorColor(subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
                   <SelectDropdown
@@ -1071,7 +1067,7 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
-              {showInteriorColor(category) && (
+              {showInteriorColor(subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
                   <SelectDropdown
@@ -1102,7 +1098,7 @@ export default function AddPost({ navigation, route }) {
                   />
                 </View>
               )}
-              {showKM(category) && (
+              {showKM(subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.km")}</Text>
                   <SelectDropdown
@@ -1136,7 +1132,6 @@ export default function AddPost({ navigation, route }) {
             <Input
               value={description}
               multi
-              autoCapitalize={"sentences"}
               setvalue={setDescription}
               placeholder={t("addPost.phdescription")}
               containerStyle={[styles.price, { width: width(90) }]}

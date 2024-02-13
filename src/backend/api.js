@@ -163,7 +163,9 @@ export const editAdApi = async (id, formData) => {
 };
 export const backEndDataAPi = async (data) => {
   try {
-    const res = await ApiManager.get(`ad/get-postAd-data`, data);
+    const res = await ApiManager.get(
+      `ad/get-postAd-data/${data.cat}/${data.subcat}`
+    );
     return res?.data;
   } catch (error) {}
 };
