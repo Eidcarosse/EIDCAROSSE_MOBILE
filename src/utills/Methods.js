@@ -381,6 +381,190 @@ export const showKM = (x) => {
     x === "Busses"
   );
 };
+export function shouldRenderField(field, category, sub_category) {
+  const config = {
+    // Main categories
+    Mobiles: ["Condition", "Price", "Free"],
+    Vehicles: ["Condition", "Price", "Free"],
+    "Property for Sale": ["Area", "Price", "Free"],
+    "Property for Rent": ["Area", "Price", "Free"],
+    "Electronics & Home Appliances": ["Condition", "Price", "Free"],
+    Bikes: ["Condition", "Price", "Free"],
+    Jobs: [
+      "CompanyName",
+      "SalaryFrom",
+      "SalaryTo",
+      // "Level",
+      "SalaryPeriod",
+      "PositionType",
+    ],
+    Animals: ["Breed", "Gender", "Age", "Price", "Free"],
+    "Furniture & Home Decor": ["Condition", "Price", "Free"],
+    "Fashion & Beauty": ["Condition", "Price", "Free"],
+    "Books, Sports & Hobbies": ["Condition", "Price", "Free"],
+    Kids: ["Condition", "Price", "Free"],
+    Relationship: ["Dating", "Price", "Free"],
+    "Business, Industrial & Agriculture": ["Price", "Free"],
+    "Other Ads": ["Price"],
+    Services: ["Price"],
+
+    // Subcategories
+    Tablets: ["Make"],
+    "Mobile Phones": ["Make"],
+    "Smart Watches": ["Make"],
+    Cars: [
+      "Make",
+      "Model",
+      "Year",
+      "Mileage",
+      "Fuel",
+      "Transmission",
+      "Condition",
+    ],
+    "Cars on Installments": [
+      "Make",
+      "Model",
+      "Year",
+      "Mileage",
+      "Fuel",
+      "Transmission",
+      "Condition",
+      "Down Payment",
+      "Monthly Installments",
+      "Installment Plan",
+    ],
+    Boats: ["Make", "Hours Driven"],
+    Buses: ["Make", "Year", "Mileage", "Fuel", "Type"],
+    Vans: ["Make", "Year", "Mileage", "Fuel", "Type"],
+    Trucks: ["Make", "Year", "Mileage", "Fuel", "Type"],
+    Trailers: ["Make", "Mileage", "Type"],
+    "Other Vehicles": ["Year", "Mileage"],
+    Houses: ["Furnished", "Bedrooms", "bathrooms"],
+    "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
+    "Shops - Offices - Commercial Space": [
+      "Furnished",
+      "Bedrooms",
+      "bathrooms",
+    ],
+    "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
+    "Roommates & Paying Guests": ["Furnished"],
+    Rooms: ["Furnished"],
+    "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
+    Motorcycles: ["Make", "Model", "Mileage", "Type"],
+    // "Bikes Accessories": ["Make"],
+    Bicycles: ["Make", "Year"],
+    "ATV & Quads": ["Make", "Year", "Mileage"],
+    Dating: ["I am", "Looking For"],
+    "Construction & Heavy Machinery": [
+      "Make",
+      "Working Hours",
+      "Condition",
+      "Type",
+    ],
+    Scooters: ["Make"],
+  };
+
+  return (
+    (config[category] && config[category].includes(field)) ||
+    (config[sub_category] && config[sub_category].includes(field))
+  );
+}
+
+export function shouldRequiredFields(field, category, sub_category, value) {
+  const config = {
+    // Main categories
+    Mobiles: ["Price"],
+    Vehicles: ["Price"],
+    "Property for Sale": ["Price"],
+    "Property for Rent": ["Price"],
+    "Electronics & Home Appliances": ["Price"],
+    Bikes: ["Price"],
+    "Business, Industrial & Agriculture": ["Price", "Free"],
+    "Other Ads": ["Price"],
+    Services: ["Price"],
+    // Jobs: [
+    // "CompanyName",
+    //   "SalaryFrom",
+    //  "SalaryTo",
+    // "Level",
+    // "SalaryPeriod",
+    //"PositionType",
+    //],
+    Animals: ["Price"],
+    "Furniture & Home Decor": ["Price"],
+    "Fashion & Beauty": ["Price"],
+    "Books, Sports & Hobbies": ["Price"],
+    Kids: ["Price"],
+    Relationship: ["Price"],
+
+    // Subcategories
+    Tablets: ["Make"],
+    "Mobile Phones": ["Make"],
+    "Smart Watches": ["Make"],
+    Cars: [
+      "Make",
+      // "Model",
+      // "Year",
+      // "Mileage",
+      // "Fuel",
+      // "Transmission",
+      // "Condition",
+    ],
+    "Cars on Installments": [
+      "Make",
+      // "Model",
+      // "Year",
+      // "Mileage",
+      // "Fuel",
+      // "Transmission",
+      // "Condition",
+      // "Down Payment",
+      // "Monthly Installments",
+      // "Installment Plan",
+    ],
+    Boats: ["Make"],
+    Buses: ["Make"],
+    Vans: ["Make"],
+    Trucks: ["Make"],
+    Trailers: ["Make"],
+    // "Other Vehicles": ["Year", "Mileage"],
+    // Houses: ["Furnished", "Bedrooms", "bathrooms"],
+    // "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
+    // "Shops - Offices - Commercial Space": [
+    // "Furnished",
+    // "Bedrooms",
+    // "bathrooms",
+    // ],
+    // "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
+    // "Roommates & Paying Guests": ["Furnished"],
+    // Rooms: ["Furnished"],
+    // "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
+    Motorcycles: ["Make"],
+    // "Bikes Accessories": ["Make"],
+    Bicycles: ["Make"],
+    "ATV & Quads": ["Make"],
+    // Dating: ["I am", "Looking For"],
+    "Construction & Heavy Machinery": [
+      "Make",
+      // "Working Hours",
+      // "Condition",
+      // "Type",
+    ],
+    Scooters: ["Make"],
+  };
+
+  const isRequired =
+    (config[category] && config[category].includes(field)) ||
+    (config[sub_category] && config[sub_category].includes(field));
+
+  const hasValue =
+    value === undefined ||
+    value === null ||
+    value === ""
+
+  // Return true if the field should be rendered and it is required and has a value
+  return isRequired && hasValue;
+}
 export const formatPrice = (price) => {
   const priceString = price.toString();
   const groups = [];
