@@ -55,7 +55,7 @@ export async function addPostAd(formData) {
         "Content-Type": "multipart/form-data",
       },
     };
-    const resp = await fetch(BaseUrl + "ad/adPost", requestOptions);
+    const resp = await fetch(BaseUrl1 + "ad/adPost", requestOptions);
     let response = await resp.json();
     return response;
   } catch (error) {

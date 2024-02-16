@@ -427,6 +427,7 @@ export default {
     "Kids Furniture": "Kids Furniture",
     "Kids Vehicles": "Kids Vehicles",
     Toys: "Toys",
+    "Sex toys": "Sex toys",
     "Baby Gear": "Baby Gear",
     "Bath & Diapers": "Bath & Diapers",
     "Swings & Slides": "Swings & Slides",
@@ -523,8 +524,6 @@ export default {
     takephoto: "Take Photo",
     choosefromgallery: "Choose from Library",
 
-
-
     area: "Area",
     enterArea: "Enter Area",
     companyName: "Company Name",
@@ -563,7 +562,6 @@ export default {
     lookingFor: "Looking For",
     male: "Male",
     female: "Female",
-
   },
   fuelTypelist: {
     Gasoline: "Gasoline",

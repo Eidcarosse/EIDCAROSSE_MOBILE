@@ -179,9 +179,9 @@ export default function Routes() {
           dispatch(setUserAds(userAd));
           dispatch(setAdsFav(userData?.favAdIds));
         }
-        Alert.alert(t("flashmsg.alert"), t("Check the Internet connection"), [
-          { text: "OK", onPress: () => {} },
-        ]);
+        // Alert.alert(t("flashmsg.alert"), t("Check the Internet connection"), [
+        //   { text: "OK", onPress: () => {} },
+        // ]);
       }
     } catch (error) {
       dispatch(setAppLoader(false));

@@ -128,9 +128,9 @@ export const setRememberMe = async (value) => {
   try {
     await AsyncStorage.setItem("remember", value);
   } catch (e) {
-    console.log('====================================');
+    console.log("====================================");
     console.log(e);
-    console.log('====================================');
+    console.log("====================================");
   }
 };
 export const getRememberMe = async () => {
@@ -294,93 +294,6 @@ export const showType = (x) => {
     x === "Busses"
   );
 };
-export const showBrand = (x) => {
-  return (
-    x === "Autos" ||
-    x === "Motorcycles" ||
-    x === "Boats" ||
-    x === "Drones" ||
-    x === "Construction Machines" ||
-    x === "Trucks" ||
-    x === "Vans" ||
-    x === "Trailers" ||
-    x === "Busses"||
-    x==="Mobile Phones"
-  );
-};
-export const showYear = (x) => {
-  return (
-    x === "Autos" ||
-    x === "Motorcycles" ||
-    x === "Boats" ||
-    x === "Drones" ||
-    x === "Construction Machines" ||
-    x === "Trucks" ||
-    x === "Vans" ||
-    x === "Trailers" ||
-    x === "Busses"
-  );
-};
-export const showbodyShape = (x) => {
-  return x === "Autos" || x === "Motorcycles";
-};
-export const showGearBox = (x) => {
-  return (
-    x === "Autos"
-    // x === "Construction Machines" ||
-    // x === "Trucks" ||
-    // x === "Vans" ||
-    // x === "Trailers" ||
-    // x === "Busses"
-  );
-};
-export const showFuletype = (x) => {
-  return (
-    x === "Autos" || x === "Motorcycles"
-    // x === "Boats" ||
-    // x === "Construction Machines" ||
-    // x === "Trucks" ||
-    // x === "Vans" ||
-    // x === "Trailers" ||
-    // x === "Busses"
-  );
-};
-export const showExteriorColor = (x) => {
-  return (
-    x === "Autos"||
-    x === "Motorcycles" 
-    // x === "Boats" ||
-    // x === "Drones" ||
-    // x === "Construction Machines" ||
-    // x === "Trucks" ||
-    // x === "Vans" ||
-    // x === "Trailers" ||
-    // x === "Busses"
-  );
-};
-export const showInteriorColor = (x) => {
-  return (
-    x === "Autos"
-    // x === "Boats" ||
-    // x === "Construction Machines" ||
-    // x === "Trucks" ||
-    // x === "Vans" ||
-    // x === "Trailers" ||
-    // x === "Busses"
-  );
-};
-export const showKM = (x) => {
-  return (
-    x === "Autos" ||
-    x === "Motorcycles" ||
-    x === "Boats" ||
-    x === "Construction Machines" ||
-    x === "Trucks" ||
-    x === "Vans" ||
-    x === "Trailers" ||
-    x === "Busses"
-  );
-};
 export function shouldRenderField(field, category, sub_category) {
   const config = {
     // Main categories
@@ -389,7 +302,7 @@ export function shouldRenderField(field, category, sub_category) {
     "Property for Sale": ["Area", "Price", "Free"],
     "Property for Rent": ["Area", "Price", "Free"],
     "Electronics & Home Appliances": ["Condition", "Price", "Free"],
-    Bikes: ["Condition", "Price", "Free"],
+    Bikes: ["Brand", "Condition", "Price", "Free", "ExteriorColor"],
     Jobs: [
       "CompanyName",
       "SalaryFrom",
@@ -409,59 +322,59 @@ export function shouldRenderField(field, category, sub_category) {
     Services: ["Price"],
 
     // Subcategories
-    Tablets: ["Make"],
-    "Mobile Phones": ["Make"],
-    "Smart Watches": ["Make"],
-    Cars: [
-      "Make",
+    Tablets: ["Brand"],
+    "Mobile Phones": ["Brand"],
+    "Smart Watches": ["Brand"],
+    Autos: [
+      "Brand",
       "Model",
       "Year",
-      "Mileage",
-      "Fuel",
-      "Transmission",
+      "km",
+      "fuelType",
+      "gearBox",
       "Condition",
+      "bodyShap",
+      "ExteriorColor",
+      "interirColor",
     ],
     "Cars on Installments": [
-      "Make",
+      "Brand",
       "Model",
       "Year",
-      "Mileage",
-      "Fuel",
-      "Transmission",
+      "km",
+      "fuelType",
+      "gearBox",
       "Condition",
       "Down Payment",
       "Monthly Installments",
       "Installment Plan",
     ],
-    Boats: ["Make", "Hours Driven"],
-    Buses: ["Make", "Year", "Mileage", "Fuel", "Type"],
-    Vans: ["Make", "Year", "Mileage", "Fuel", "Type"],
-    Trucks: ["Make", "Year", "Mileage", "Fuel", "Type"],
-    Trailers: ["Make", "Mileage", "Type"],
-    "Other Vehicles": ["Year", "Mileage"],
+    Boats: ["Brand", "Hours Driven"],
+    Buses: ["Brand", "Year", "km", "fuelType", "Type"],
+    Vans: ["Brand", "Year", "km", "fuelType", "Type"],
+    Trucks: ["Brand", "Year", "km", "fuelType", "Type"],
+    Trailers: ["Brand", "km", "Type"],
+    "Other Vehicles": ["Year", "km"],
     Houses: ["Furnished", "Bedrooms", "bathrooms"],
     "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
-    "Shops - Offices - Commercial Space": [
-      "Furnished",
-      "Bedrooms",
-      "bathrooms",
-    ],
+    "Shops - Offices - Commercial Space": ["Furnished", "bathrooms"],
+    Drones: ["Brand"],
     "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
     "Roommates & Paying Guests": ["Furnished"],
     Rooms: ["Furnished"],
     "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-    Motorcycles: ["Make", "Model", "Mileage", "Type"],
-    // "Bikes Accessories": ["Make"],
-    Bicycles: ["Make", "Year"],
-    "ATV & Quads": ["Make", "Year", "Mileage"],
+    Motorcycles: ["Brand", "Model", "km", "Type", "bodyShap"],
+    // "Bikes Accessories": ["Brand"],
+    Bicycles: ["Brand", "Year"],
+    "ATV & Quads": ["Brand", "Year"],
     Dating: ["I am", "Looking For"],
     "Construction & Heavy Machinery": [
-      "Make",
+      "Brand",
       "Working Hours",
       "Condition",
       "Type",
     ],
-    Scooters: ["Make"],
+    Scooters: ["Brand"],
   };
 
   return (
@@ -470,101 +383,98 @@ export function shouldRenderField(field, category, sub_category) {
   );
 }
 
-export function shouldRequiredFields(field, category, sub_category, value) {
-  const config = {
-    // Main categories
-    Mobiles: ["Price"],
-    Vehicles: ["Price"],
-    "Property for Sale": ["Price"],
-    "Property for Rent": ["Price"],
-    "Electronics & Home Appliances": ["Price"],
-    Bikes: ["Price"],
-    "Business, Industrial & Agriculture": ["Price", "Free"],
-    "Other Ads": ["Price"],
-    Services: ["Price"],
-    // Jobs: [
-    // "CompanyName",
-    //   "SalaryFrom",
-    //  "SalaryTo",
-    // "Level",
-    // "SalaryPeriod",
-    //"PositionType",
-    //],
-    Animals: ["Price"],
-    "Furniture & Home Decor": ["Price"],
-    "Fashion & Beauty": ["Price"],
-    "Books, Sports & Hobbies": ["Price"],
-    Kids: ["Price"],
-    Relationship: ["Price"],
+// export function shouldRequiredFields(field, category, sub_category, value) {
+//   const config = {
+//     // Main categories
+//     Mobiles: ["Price"],
+//     Vehicles: ["Price"],
+//     "Property for Sale": ["Price"],
+//     "Property for Rent": ["Price"],
+//     "Electronics & Home Appliances": ["Price"],
+//     Bikes: ["Price"],
+//     "Business, Industrial & Agriculture": ["Price", "Free"],
+//     "Other Ads": ["Price"],
+//     Services: ["Price"],
+//     // Jobs: [
+//     // "CompanyName",
+//     //   "SalaryFrom",
+//     //  "SalaryTo",
+//     // "Level",
+//     // "SalaryPeriod",
+//     //"PositionType",
+//     //],
+//     Animals: ["Price"],
+//     "Furniture & Home Decor": ["Price"],
+//     "Fashion & Beauty": ["Price"],
+//     "Books, Sports & Hobbies": ["Price"],
+//     Kids: ["Price"],
+//     Relationship: ["Price"],
 
-    // Subcategories
-    Tablets: ["Make"],
-    "Mobile Phones": ["Make"],
-    "Smart Watches": ["Make"],
-    Cars: [
-      "Make",
-      // "Model",
-      // "Year",
-      // "Mileage",
-      // "Fuel",
-      // "Transmission",
-      // "Condition",
-    ],
-    "Cars on Installments": [
-      "Make",
-      // "Model",
-      // "Year",
-      // "Mileage",
-      // "Fuel",
-      // "Transmission",
-      // "Condition",
-      // "Down Payment",
-      // "Monthly Installments",
-      // "Installment Plan",
-    ],
-    Boats: ["Make"],
-    Buses: ["Make"],
-    Vans: ["Make"],
-    Trucks: ["Make"],
-    Trailers: ["Make"],
-    // "Other Vehicles": ["Year", "Mileage"],
-    // Houses: ["Furnished", "Bedrooms", "bathrooms"],
-    // "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
-    // "Shops - Offices - Commercial Space": [
-    // "Furnished",
-    // "Bedrooms",
-    // "bathrooms",
-    // ],
-    // "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
-    // "Roommates & Paying Guests": ["Furnished"],
-    // Rooms: ["Furnished"],
-    // "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-    Motorcycles: ["Make"],
-    // "Bikes Accessories": ["Make"],
-    Bicycles: ["Make"],
-    "ATV & Quads": ["Make"],
-    // Dating: ["I am", "Looking For"],
-    "Construction & Heavy Machinery": [
-      "Make",
-      // "Working Hours",
-      // "Condition",
-      // "Type",
-    ],
-    Scooters: ["Make"],
-  };
+//     // Subcategories
+//     Tablets: ["Brand"],
+//     "Mobile Phones": ["Brand"],
+//     "Smart Watches": ["Brand"],
+//     Cars: [
+//       "Brand",
+//       // "Model",
+//       // "Year",
+//       // "km",
+//       // "fuelType",
+//       // "gearBox",
+//       // "Condition",
+//     ],
+//     "Cars on Installments": [
+//       "Brand",
+//       // "Model",
+//       // "Year",
+//       // "km",
+//       // "fuelType",
+//       // "gearBox",
+//       // "Condition",
+//       // "Down Payment",
+//       // "Monthly Installments",
+//       // "Installment Plan",
+//     ],
+//     Boats: ["Brand"],
+//     Buses: ["Brand"],
+//     Vans: ["Brand"],
+//     Trucks: ["Brand"],
+//     Trailers: ["Brand"],
+//     // "Other Vehicles": ["Year", "km"],
+//     // Houses: ["Furnished", "Bedrooms", "bathrooms"],
+//     // "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
+//     // "Shops - Offices - Commercial Space": [
+//     // "Furnished",
+//     // "Bedrooms",
+//     // "bathrooms",
+//     // ],
+//     // "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
+//     // "Roommates & Paying Guests": ["Furnished"],
+//     // Rooms: ["Furnished"],
+//     // "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
+//     Motorcycles: ["Brand"],
+//     // "Bikes Accessories": ["Brand"],
+//     Bicycles: ["Brand"],
+//     "ATV & Quads": ["Brand"],
+//     // Dating: ["I am", "Looking For"],
+//     "Construction & Heavy Machinery": [
+//       "Brand",
+//       // "Working Hours",
+//       // "Condition",
+//       // "Type",
+//     ],
+//     Scooters: ["Brand"],
+//   };
 
-  const isRequired =
-    (config[category] && config[category].includes(field)) ||
-    (config[sub_category] && config[sub_category].includes(field));
+//   const isRequired =
+//     (config[category] && config[category].includes(field)) ||
+//     (config[sub_category] && config[sub_category].includes(field));
 
-  const hasValue =
-    value === undefined ||
-    value === null ||
-    value === ""
+//   const hasValue = value === undefined || value === null || value === "";
 
-  // Return true if the field should be rendered and it is required and has a value
-  return isRequired && hasValue;
-}
+//   // Return true if the field should be rendered and it is required and has a value
+//   return isRequired && hasValue;
+// }
 export const formatPrice = (price) => {
   const priceString = price.toString();
   const groups = [];

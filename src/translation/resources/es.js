@@ -422,6 +422,7 @@ export default {
     "Kids Furniture": "Muebles para Niños",
     "Kids Vehicles": "Vehículos para Niños",
     Toys: "Juguetes",
+    "Sex toys": "Juguetes sexuales",
     "Baby Gear": "Artículos para Bebés",
     "Bath & Diapers": "Baño y Pañales",
     "Swings & Slides": "Columpios y Toboganes",

@@ -131,14 +131,13 @@ export default function Category({ navigation, route }) {
           <FlatList
             data={searchString.subCategories}
             showsVerticalScrollIndicator={false}
+            style={{borderRadius:5}}
             renderItem={({ item }) => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.6}
                   style={{
                     width: width(63),
-                    margin: height(0.2),
-                    borderRadius: height(0.5),
                     alignSelf: "center",
                     backgroundColor: AppColors.white,
                     padding: width(4),
@@ -174,6 +173,7 @@ export default function Category({ navigation, route }) {
               );
             }}
             keyExtractor={(item, index) => index}
+            ItemSeparatorComponent={() => <View style={{backgroundColor:AppColors.greybackground,height:1,width:width(70)}}/>}
           />
         </View>
       </View>
