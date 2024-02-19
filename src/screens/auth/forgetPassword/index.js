@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ImageBackground, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
 import Modal from "react-native-modal";
@@ -41,38 +41,45 @@ export default function ForgetPassword({ navigation, route }) {
   }
   return (
     <ScreenWrapper
-      showStatusBar={false}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
-      headerUnScrollable={() => <Head navigation={navigation} />}
+      headerUnScrollable={() => (
+        <Head navigation={navigation} headtitle={t("frogeyPassword.title")} />
+      )}
+      footerUnScrollable={() => (
+        <Button
+          disabled={token ? true : false}
+          containerStyle={styles.button}
+          title={"frogeyPassword.button"}
+          onPress={() => {
+            if (email) {
+              forgetpassword();
+            } else {
+              errorMessage(
+                t(`flashmsg.emailrequireerrormsg`),
+                t(`flashmsg.error`)
+              );
+            }
+          }}
+        />
+      )}
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground source={Icons.bglogo} style={styles.bg}>
-          <View style={styles.imageiner}>
-            <Text style={styles.logintext}>{t("frogeyPassword.title")}</Text>
-          </View>
-        </ImageBackground>
-        <View style={{ paddingTop: width(10) }}>
+        <View>
+        <Image
+            style={{
+              height: height(15),
+              width: height(40),
+              borderRadius: height(2),
+              alignSelf: "center",
+              marginVertical:height(5)
+            }}
+            source={require("../../../../assets/splash.png")}
+            tintColor={'red'}
+          />
           <Input
             value={email}
             setvalue={setEmail}
             title={"login.emailTitle"}
             placeholder={"login.yourEmailAddress"}
-          />
-          <Button
-            disabled={token ? true : false}
-            containerStyle={styles.button}
-            title={"frogeyPassword.button"}
-            onPress={() => {
-              if (email) {
-                forgetpassword();
-              } else {
-                errorMessage(
-                  t(`flashmsg.emailrequireerrormsg`),
-                  t(`flashmsg.error`)
-                );
-              }
-            }}
           />
         </View>
       </View>

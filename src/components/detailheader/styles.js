@@ -4,12 +4,11 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.primary, //"rgba(128, 128, 128,5)",
+    backgroundColor:AppColors.white,
     width: width(100),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: height(2.5),
   },
   menuicon: {
     paddingLeft: width(5),
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textdetail: {
-    color: AppColors.white,
+    color: AppColors.black,
     fontWeight: "bold",
     fontSize: height(2.5),
     marginLeft: width(3),

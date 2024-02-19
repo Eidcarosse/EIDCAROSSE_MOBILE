@@ -42,15 +42,15 @@ export default DropDownDetail = ({
         ...Platform.select({
           ios: {
             shadowColor: "rgba(0, 0, 0, 0.2)",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.8,
-            shadowRadius: 2,
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.4,
+            shadowRadius: 1,
           },
           android: {
-            elevation: 3,
+            elevation: 1,
           },
         }),
-        margin: height(1),
+        marginVertical: height(.5),
       }}
     >
       <Pressable

@@ -77,7 +77,6 @@ export default function Home({}) {
 
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() => (
         <View style={{ backgroundColor: "white" }}>
           <Header navigation={navigation} />
@@ -110,15 +109,12 @@ export default function Home({}) {
           />
         </View>
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
       refreshing={refreshing}
       onRefresh={onRefresh}
       scrollViewRef={scrollViewRef}
     >
       <View style={styles.mainViewContainer}>
-
         <CategoryList navigation={navigation} search={searchString} />
 
         <View style={styles.titleview}>

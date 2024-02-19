@@ -1,13 +1,17 @@
 import { Entypo, Ionicons, SimpleLineIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, Image } from "react-native";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { Menu, MenuItem } from "react-native-material-menu";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { selectCategoryList } from "../../redux/slices/config";
 
 export default function DetailHeader({
+  catgory,
+  subcatgory,
   onPressBack,
   onPressShare,
   onPressOption,
@@ -15,6 +19,9 @@ export default function DetailHeader({
   loginuser = false,
 }) {
   const { t } = useTranslation();
+  const list = useSelector(selectCategoryList);
+  const cat = list.find((x) => x.name == catgory);
+  const sub = cat?.subCategories.find((e) => e.name == subcatgory);
   return (
     <View style={styles.container}>
       <View style={styles.menuicon}>
@@ -22,10 +29,53 @@ export default function DetailHeader({
           <Ionicons
             name="chevron-back"
             size={height(3.5)}
-            color={AppColors.white}
+            color={AppColors.black}
           />
         </TouchableOpacity>
-        <Text style={styles.textdetail}>{t("detailheader.title")}</Text>
+        {cat && (
+          <View
+            style={{
+              flexDirection: "row",
+              padding: height(1),
+              backgroundColor: "white",
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              tintColor={AppColors.primary}
+              style={{
+                width: height(4),
+                height: height(4),
+                paddingLeft: height(3),
+              }}
+              source={{ uri: cat?.image }}
+            />
+            <View>
+              <Text
+                style={{
+                  color: "black",
+                  fontSize: height(2),
+                  paddingHorizontal: width(4.5),
+                  fontWeight: "bold",
+                }}
+              >
+                {t(`category.${cat?.name}`)}
+              </Text>
+              {sub && (
+                <Text
+                  style={{
+                    color: AppColors.primary,
+                    fontSize: height(1.5),
+                    paddingHorizontal: width(4.5),
+                  }}
+                >
+                  {t(`subList.${sub?.name}`)}
+                </Text>
+              )}
+            </View>
+          </View>
+        )}
       </View>
       <View
         style={{
@@ -37,28 +87,8 @@ export default function DetailHeader({
           style={{ marginHorizontal: width(8) }}
           onPress={onPressShare}
         >
-          <Entypo size={height(3)} name="share" color={AppColors.white} />
+          <Entypo size={height(3)} name="share" color={AppColors.black} />
         </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={{ marginHorizontal: width(3) }}
-          onPress={showMenu}
-        >
-          <SimpleLineIcons
-            size={width(4)}
-            name="options-vertical"
-            color={AppColors.white}
-          />
-        </TouchableOpacity> */}
-        {/* <Menu visible={isModalVisible} onRequestClose={hideMenu}>
-          <MenuItem
-            onPress={() => {
-              hideMenu();
-            }}
-          >
-            Block
-          </MenuItem>
-        </Menu> */}
-        {/* <Ionicons name="chevron-back" size={width(7)} color={AppColors.white} /> */}
       </View>
     </View>
   );

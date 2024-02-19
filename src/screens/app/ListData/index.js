@@ -45,15 +45,7 @@ import CheckBox from "react-native-check-box";
 import ScreenNames from "../../../routes/routes";
 import { sortList } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
-import {
-  showBrand,
-  showFuletype,
-  showGearBox,
-  showKM,
-  showType,
-  showYear,
-  showbodyShape,
-} from "../../../utills/Methods";
+import { showType } from "../../../utills/Methods";
 import styles from "./styles";
 
 export default function ListData({ navigation }) {
@@ -295,9 +287,7 @@ export default function ListData({ navigation }) {
       dispatch(setAppLoader(false));
     }, 1000);
   };
-console.log('====================================');
-console.log( "function",getSubcategoriesByName(s, category));
-console.log('====================================');
+
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -361,8 +351,6 @@ console.log('====================================');
       )}
       // refreshing={refresh}
       // onRefresh={Refresh}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
     >
       <View style={styles.mainViewContainer}>
         <FlatList
@@ -587,39 +575,38 @@ console.log('====================================');
                       />
                     </View>
                   </View>
-                  {!(vCategory == undefined || vCategory == []) &&
-                    showType(category) && (
-                      <View style={{ alignSelf: "center" }}>
-                        <Text style={styles.title}>{t("addPost.type")}</Text>
+                  {!(vCategory == undefined || vCategory == []) && category && (
+                    <View style={{ alignSelf: "center" }}>
+                      <Text style={styles.title}>{t("addPost.type")}</Text>
 
-                        <SelectDropdown
-                          defaultButtonText={t("addPost.defaultValueDropdown")}
-                          data={vCategory}
-                          searchPlaceHolder={t("addPost.phsearchHere")}
-                          buttonStyle={styles.searchbox}
-                          selectedRowStyle={{
-                            backgroundColor: AppColors.primary,
-                          }}
-                          selectedRowTextStyle={{ color: AppColors.white }}
-                          buttonTextStyle={{
-                            textAlign: "left",
-                            fontSize: height(1.6),
-                          }}
-                          dropdownStyle={styles.dropdown}
-                          onSelect={(selectedItem, index) => {
-                            setType(selectedItem);
-                          }}
-                          buttonTextAfterSelection={(selectedItem, index) => {
-                            return t(`type.${selectedItem}`);
-                          }}
-                          rowTextForSelection={(item, index) => {
-                            return t(`type.${item}`);
-                          }}
-                        />
-                      </View>
-                    )}
+                      <SelectDropdown
+                        defaultButtonText={t("addPost.defaultValueDropdown")}
+                        data={vCategory}
+                        searchPlaceHolder={t("addPost.phsearchHere")}
+                        buttonStyle={styles.searchbox}
+                        selectedRowStyle={{
+                          backgroundColor: AppColors.primary,
+                        }}
+                        selectedRowTextStyle={{ color: AppColors.white }}
+                        buttonTextStyle={{
+                          textAlign: "left",
+                          fontSize: height(1.6),
+                        }}
+                        dropdownStyle={styles.dropdown}
+                        onSelect={(selectedItem, index) => {
+                          setType(selectedItem);
+                        }}
+                        buttonTextAfterSelection={(selectedItem, index) => {
+                          return t(`type.${selectedItem}`);
+                        }}
+                        rowTextForSelection={(item, index) => {
+                          return t(`type.${item}`);
+                        }}
+                      />
+                    </View>
+                  )}
 
-                  {showBrand(category) && (
+                  {category && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.brand")}</Text>
                       <SelectDropdown
@@ -768,7 +755,7 @@ console.log('====================================');
                       )}
                     </View>
                   )}
-                  {showYear(category) && (
+                  {category && (
                     <View style={{ paddingVertical: width(1) }}>
                       <Text style={styles.title}>{t("addPost.year")}</Text>
                       <Input
@@ -780,7 +767,7 @@ console.log('====================================');
                       />
                     </View>
                   )}
-                  {showbodyShape(findValue) && (
+                  {findValue && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                       <SelectDropdown
@@ -817,7 +804,7 @@ console.log('====================================');
                       />
                     </View>
                   )}
-                  {showGearBox(findValue) && feild?.gearBox && (
+                  {findValue && feild?.gearBox && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.gearbox")}</Text>
                       <SelectDropdown
@@ -850,7 +837,7 @@ console.log('====================================');
                       />
                     </View>
                   )}
-                  {showFuletype(findValue) && (
+                  {findValue && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.fueltype")}</Text>
                       <SelectDropdown
@@ -887,7 +874,7 @@ console.log('====================================');
                       />
                     </View>
                   )}
-                  {showKM(category) && (
+                  {category && (
                     <View style={{ alignSelf: "center" }}>
                       <Text style={styles.title}>{t("addPost.km")}</Text>
                       <SelectDropdown

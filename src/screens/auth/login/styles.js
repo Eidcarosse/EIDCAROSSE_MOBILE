@@ -7,23 +7,17 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.white,
     },
     imageiner: {
-        height: height(25),
-        justifyContent: "flex-end",
         marginLeft: width(10),
     },
     logintext: {
         fontSize: height(4),
-        color: AppColors.white,
+        color: AppColors.primary,
         fontWeight: "bold",
     },
     button: {
         backgroundColor: AppColors.primary,
         width: width(80),
         margin: width(3),
-    },
-    bg: {
-        width: width(100),
-        height: height(28),
     },
     forget: {
         alignSelf: "center",

@@ -90,13 +90,9 @@ export default function TnC({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"terms.tandc"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      backgroundColor={AppColors.white}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

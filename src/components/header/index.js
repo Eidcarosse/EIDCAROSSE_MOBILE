@@ -1,16 +1,41 @@
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View, Text } from "react-native";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Header({ navigation }) {
+export default function Header({ navigation, title = "Eidcarosse.ch" }) {
   const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          borderRadius: height(1),
+          flex: 1,
+          flexDirection: "row",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          source={require("../../../assets/icon.jpeg")}
+          style={styles.image}
+        />
+        <Text
+          style={{
+            color: AppColors.primary,
+            fontSize: height(3),
+            fontWeight: "bold",
+            paddingHorizontal: height(1),
+          }}
+        >
+          {title}
+        </Text>
+      </View>
+
       <TouchableOpacity
         activeOpacity={0.4}
         style={styles.menuicon}
@@ -18,15 +43,10 @@ export default function Header({ navigation }) {
           navigation.openDrawer();
         }}
       >
-        <Ionicons name="menu" size={height(3.5)} color={AppColors.white} />
+        <Ionicons name="menu" size={height(3.5)} color={AppColors.black} />
       </TouchableOpacity>
-      <View>
-        <Image
-          source={require("../../../assets/splash.png")}
-          style={styles.image}
-        />
-      </View>
       {/* <View>
+      
       <TouchableOpacity
         activeOpacity={0.4}
         style={styles.menuicon}

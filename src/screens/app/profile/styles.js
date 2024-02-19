@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { height, width } from "../../../utills/Dimension";
 import AppColors from "../../../utills/AppColors";
 
@@ -9,18 +9,16 @@ const styles = StyleSheet.create({
     paddingBottom: height(7),
   },
   imageiner: {
-    height: height(25),
-    justifyContent: "space-around",
-    margin: width(3),
+    padding:height(1)
   },
 
   avatar: {
-    width: height(12),
-    height: height(12),
+    width: height(15),
+    height: height(15),
     borderRadius: width(20),
-    marginLeft: width(5),
     borderWidth: height(0.5),
-    borderColor: AppColors.white,
+    borderColor: AppColors.greybackground,
+    alignSelf:'center'
   },
 
   container: {
@@ -28,7 +26,7 @@ const styles = StyleSheet.create({
     width: width(95),
     justifyContent: 'space-between',
     paddingVertical: height(2),
-    marginVertical: height(1),
+    marginVertical: height(0),
     borderRadius: width(1),
     ...Platform.select({
       ios: {
@@ -51,23 +49,34 @@ const styles = StyleSheet.create({
   wishlistview: {
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingBottom:height(2),
+    alignItems:'center'
   },
   wcontainer: {
     backgroundColor: AppColors.white,
-    flexDirection: "column",
-    padding: width(1),
+    width:width(45),
+    alignContent:'center',
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0,
+        shadowRadius: 0,
+      },
+      android: {
+        elevation: 0,
+      },
+    }),
   },
   wtexticon: {
     color: "black",
-    fontSize: 12,
-    marginTop: height(1),
+    fontSize: height(2),
+    margin: height(1),
+    paddingHorizontal:height(1)
   },
   ptext: {
     fontSize: height(1.5),
     fontWeight: "bold",
-    color: AppColors.white,
-    padding: width(1),
+    color: AppColors.black,
+    margin: height(.3),
   },
 });
 export default styles;

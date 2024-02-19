@@ -40,15 +40,8 @@ export default function MyListing({ navigation, route }) {
     <ScreenWrapper
       showStatusBar={false}
       headerUnScrollable={() => (
-        <>
-          <Header navigation={navigation} />
-          <View style={styles.myadsView}>
-            <Text style={styles.myads}>{t("myad.title")}</Text>
-          </View>
-        </>
+        <Header navigation={navigation} title={t("myad.title")} />
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       refreshing={refreshing}
       onRefresh={onRefresh}
       scrollEnabled

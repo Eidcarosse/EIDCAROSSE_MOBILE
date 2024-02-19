@@ -60,8 +60,6 @@ export default function ChangePassword({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

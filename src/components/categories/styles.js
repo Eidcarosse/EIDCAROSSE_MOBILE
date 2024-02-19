@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
     fontSize: height(1.3),
     fontWeight: "bold",
   },
-  image: { height: height(5), width: height(5) },
+  image: { height: height(4), width: height(4) },
 });
 export default styles;

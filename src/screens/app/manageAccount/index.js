@@ -62,8 +62,6 @@ export default function ManageAccount({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"manageAccount.title"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
@@ -121,7 +119,7 @@ export default function ManageAccount({ navigation, route }) {
               </Text>
             </Dialog.Description>
             <Dialog.Input
-            secureTextEntry={true}
+              secureTextEntry={true}
               style={{ fontSize: height(1.5), color: "black" }}
               value={code}
               onChangeText={setCode}

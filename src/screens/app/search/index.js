@@ -45,12 +45,9 @@ export default function Search({ navigation, route }) {
 
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"Search"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
     >
       <View
         style={[

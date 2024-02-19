@@ -43,9 +43,6 @@ export default function HTSF({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"HTSF.htsf"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      backgroundColor={AppColors.white}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

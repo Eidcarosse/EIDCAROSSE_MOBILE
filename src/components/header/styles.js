@@ -4,19 +4,19 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.primary,
+    backgroundColor: AppColors.white,
     width: width(100),
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingHorizontal: height(2),
     alignItems: "center",
   },
-  menuicon: {
-    paddingLeft: width(5),
-  },
+  menuicon: {},
   image: {
-    width: height(20),
-    height: height(10),
-    marginLeft: -width(10),
+    width: height(6),
+    height: height(6),
+    borderRadius: height(1),
+    marginVertical:height(.5)
   },
 });
 export default styles;

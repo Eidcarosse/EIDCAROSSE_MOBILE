@@ -1,4 +1,11 @@
-import { Entypo, Fontisto, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  Fontisto,
+  Ionicons,
+  MaterialIcons,
+  FontAwesome,
+  AntDesign,
+} from "@expo/vector-icons";
 import React from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -23,165 +30,151 @@ export default function Profile({ navigation, route }) {
 
   return (
     <ScreenWrapper
-      showStatusBar={false}
-      headerUnScrollable={() => (
-        <>
-          <Header navigation={navigation} />
-          <ImageBackground
-            resizeMode="stretch"
-            source={Icons.bglogo}
-            style={{ width: width(100), height: height(25) }}
-          >
-            <View style={styles.imageiner}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image
-                  style={styles.avatar}
-                  source={{ uri: userdata?.image }}
-                />
-                <View style={{ paddingLeft: width(5) }}>
-                  <Text
-                    style={{
-                      fontSize: height(2.7),
-                      fontWeight: "bold",
-                      color: AppColors.white,
-                    }}
-                  >
-                    {userdata?.firstName} {userdata?.lastName}
-                  </Text>
-
-                  {/* <Text style={styles.ptext}>{userdata?.userName}</Text> */}
-                  <Text style={styles.ptext}>{userdata?.email}</Text>
-                  <Text style={styles.ptext}>{userdata?.phoneNumber}</Text>
-                </View>
-              </View>
-              <View style={styles.wishlistview}>
-                <IconButton
-                  onPress={() => {
-                    navigation.navigate(ScreenNames.WISH);
-                  }}
-                  title={"profile.wish"}
-                  containerStyle={styles.wcontainer}
-                  textStyle={styles.wtexticon}
-                  icon={
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        fontWeight: "bold",
-                        color: AppColors.primary,
-                      }}
-                    >
-                      {userFav?.length || 0}
-                    </Text>
-                  }
-                />
-                <IconButton
-                  onPress={() => {
-                    navigation.navigate(ScreenNames.MYADS);
-                  }}
-                  title={"profile.listing"}
-                  containerStyle={styles.wcontainer}
-                  textStyle={styles.wtexticon}
-                  icon={
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        fontWeight: "bold",
-                        color: AppColors.primary,
-                      }}
-                    >
-                      {userAds?.length || userdata?.adIds?.length}
-                    </Text>
-                  }
-                />
-              </View>
-            </View>
-          </ImageBackground>
-        </>
-      )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
+      headerUnScrollable={() => <Header navigation={navigation} />}
+      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        <KeyboardAwareScrollView>
-          <View style={{ padding: height(2) }}>
+        <View style={styles.imageiner}>
+          <Image style={styles.avatar} source={{ uri: userdata?.image }} />
+          <View
+            style={{
+              justifyContent: "center",
+              alignContent: "center",
+              alignItems: "center",
+              marginTop: height(3),
+            }}
+          >
+            <Text
+              style={{
+                fontSize: height(2.5),
+                fontWeight: "600",
+                color: AppColors.black,
+              }}
+            >
+              {userdata?.firstName} {userdata?.lastName}
+            </Text>
+
+            {/* <Text style={styles.ptext}>{userdata?.userName}</Text> */}
+            <Text style={[styles.ptext, { color: AppColors.primary }]}>
+              {userdata?.email}
+            </Text>
+            <Text style={styles.ptext}>{userdata?.phoneNumber}</Text>
+          </View>
+
+          <View style={styles.wishlistview}>
             <IconButton
               onPress={() => {
-                navigation.navigate(ScreenNames.EDITPROFILE);
+                navigation.navigate(ScreenNames.WISH);
               }}
-              title={"profile.personalInformation"}
-              containerStyle={styles.container}
-              textStyle={styles.texticon}
+              title={userFav?.length || 0}
+              containerStyle={styles.wcontainer}
+              textStyle={styles.wtexticon}
               icon={
-                <Entypo
-                  name="user"
+                <AntDesign
+                  name="star"
                   color={AppColors.primary}
                   size={height(2)}
                 />
               }
-              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
+            />
+            <View
+              style={{
+                height: height(4),
+                width: 1,
+                backgroundColor: AppColors.greybackground,
+              }}
             />
             <IconButton
               onPress={() => {
-                navigation.navigate(ScreenNames.PASSWORD);
+                navigation.navigate(ScreenNames.MYADS);
               }}
-              title={"profile.password"}
-              containerStyle={styles.container}
-              textStyle={styles.texticon}
+              title={userAds?.length || userdata?.adIds?.length}
+              containerStyle={styles.wcontainer}
+              textStyle={styles.wtexticon}
               icon={
-                <Entypo name="key" color={AppColors.primary} size={height(2)} />
-              }
-              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
-            />
-            <IconButton
-              title={"profile.privacy"}
-              onPress={() => {
-                navigation.navigate(ScreenNames.PANDS);
-              }}
-              containerStyle={styles.container}
-              textStyle={styles.texticon}
-              icon={
-                <Entypo
-                  name="shield"
+                <FontAwesome
+                  name="bullhorn"
                   color={AppColors.primary}
                   size={height(2)}
                 />
               }
-              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
-            />
-            <IconButton
-              onPress={() => {
-                navigation.navigate(ScreenNames.SETTING);
-              }}
-              title={"profile.appSetting"}
-              containerStyle={styles.container}
-              textStyle={styles.texticon}
-              icon={
-                <Fontisto
-                  name="player-settings"
-                  color={AppColors.primary}
-                  size={height(2)}
-                />
-              }
-              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
-            />
-            <IconButton
-              onPress={() => {
-                navigation.navigate(ScreenNames.ACCOUNT);
-              }}
-              title={"profile.manageAccount"}
-              containerStyle={styles.container}
-              textStyle={styles.texticon}
-              icon={
-                <MaterialIcons
-                  name="account-tree"
-                  color={AppColors.primary}
-                  size={height(2)}
-                />
-              }
-              iconright={<Ionicons name="chevron-forward" size={height(2)} />}
             />
           </View>
-        </KeyboardAwareScrollView>
+        </View>
+        <View style={{ padding: height(2) }}>
+          <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.EDITPROFILE);
+            }}
+            title={"profile.personalInformation"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            icon={
+              <Entypo name="user" color={AppColors.primary} size={height(2)} />
+            }
+            iconright={<Ionicons name="chevron-forward" size={height(2)} />}
+          />
+          <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.PASSWORD);
+            }}
+            title={"profile.password"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            icon={
+              <Entypo name="key" color={AppColors.primary} size={height(2)} />
+            }
+            iconright={<Ionicons name="chevron-forward" size={height(2)} />}
+          />
+          <IconButton
+            title={"profile.privacy"}
+            onPress={() => {
+              navigation.navigate(ScreenNames.PANDS);
+            }}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            icon={
+              <Entypo
+                name="shield"
+                color={AppColors.primary}
+                size={height(2)}
+              />
+            }
+            iconright={<Ionicons name="chevron-forward" size={height(2)} />}
+          />
+          <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.SETTING);
+            }}
+            title={"profile.appSetting"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            icon={
+              <Fontisto
+                name="player-settings"
+                color={AppColors.primary}
+                size={height(2)}
+              />
+            }
+            iconright={<Ionicons name="chevron-forward" size={height(2)} />}
+          />
+          <IconButton
+            onPress={() => {
+              navigation.navigate(ScreenNames.ACCOUNT);
+            }}
+            title={"profile.manageAccount"}
+            containerStyle={styles.container}
+            textStyle={styles.texticon}
+            icon={
+              <MaterialIcons
+                name="account-tree"
+                color={AppColors.primary}
+                size={height(2)}
+              />
+            }
+            iconright={<Ionicons name="chevron-forward" size={height(2)} />}
+          />
+        </View>
       </View>
     </ScreenWrapper>
   );

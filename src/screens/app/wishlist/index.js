@@ -40,15 +40,12 @@ export default function WishList({ navigation, route }) {
       setData(d);
     } else setData([]);
     setLoader(false);
-  },[]);
+  }, []);
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"wishList.title"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

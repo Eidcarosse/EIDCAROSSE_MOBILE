@@ -40,17 +40,12 @@ export default function OtherProfile({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-      showStatusBar={false}
       refreshing={refreshing}
       onRefresh={myAdsFunction}
       headerUnScrollable={() => (
         <>
           {/* <Head navigation={navigation} /> */}
-          <ImageBackground
-            resizeMode="stretch"
-            source={Icons.bglogo}
-            style={{ width: width(100), height: height(25) }}
-          >
+          <View style={{ width: width(100), backgroundColor: AppColors.white }}>
             <Pressable
               onPress={() => navigation.goBack()}
               style={{
@@ -60,7 +55,7 @@ export default function OtherProfile({ navigation, route }) {
               <Ionicons
                 name="chevron-back"
                 size={height(4)}
-                color={AppColors.white}
+                color={AppColors.black}
               />
             </Pressable>
             <View style={styles.imageiner}>
@@ -72,9 +67,9 @@ export default function OtherProfile({ navigation, route }) {
                 <View style={{ paddingLeft: width(5) }}>
                   <Text
                     style={{
-                      fontSize: height(2.5),
+                      fontSize: height(2),
                       fontWeight: "bold",
-                      color: AppColors.white,
+                      color: AppColors.black,
                     }}
                   >
                     {userdata?.firstName} {userdata?.lastName}
@@ -84,29 +79,11 @@ export default function OtherProfile({ navigation, route }) {
                     style={{
                       fontSize: height(1.5),
                       fontWeight: "bold",
-                      color: AppColors.white,
+                      color: AppColors.primary,
                     }}
                   >
                     {userdata?.userName}
                   </Text>
-                  {/* <Text
-                    style={{
-                      fontSize: height(1.5),
-                      fontWeight: "bold",
-                      color: AppColors.white,
-                    }}
-                  >
-                    {userdata?.email}
-                  </Text> */}
-                  {/* <Text
-                  style={{
-                    fontSize: height(3),
-                    fontWeight: "bold",
-                    color: AppColors.white,
-                  }}
-                >
-                  {userdata?.phoneNumber}
-                </Text> */}
                 </View>
               </View>
               <View style={styles.wishlistview}>
@@ -168,11 +145,9 @@ export default function OtherProfile({ navigation, route }) {
                 )}
               </View>
             </View>
-          </ImageBackground>
+          </View>
         </>
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

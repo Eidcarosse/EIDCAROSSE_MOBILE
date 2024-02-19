@@ -47,12 +47,9 @@ export default function ChangePassword({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
@@ -81,14 +78,12 @@ export default function ChangePassword({ navigation, route }) {
                   t(`flashmsg.confirmerrormsg`),
                   t(`flashmsg.password`)
                 );
-              }
-              else if (!isValidPassword(newPassword.trim())){
-                errorMessage(
-                  t("Atlest 8 character"),
-                  t(`flashmsg.password`)
-                );
-              }
-              else if (newPassword.trim() == "" || confirmPassword.trim() == "") {
+              } else if (!isValidPassword(newPassword.trim())) {
+                errorMessage(t("Atlest 8 character"), t(`flashmsg.password`));
+              } else if (
+                newPassword.trim() == "" ||
+                confirmPassword.trim() == ""
+              ) {
                 errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.password`));
               } else chngePassword();
             }}

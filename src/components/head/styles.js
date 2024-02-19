@@ -4,17 +4,26 @@ import { height, width } from "../../utills/Dimension";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppColors.primary,
+    backgroundColor: AppColors.white,
     width: width(100),
     flexDirection: "row",
     alignItems: "center",
     alignItems: "center",
     alignContent: "center",
+    justifyContent: "center",
   },
   menuicon: {
-    paddingHorizontal: width(5),
+    paddingLeft: width(3),
   },
-  headview: { height: height(6), justifyContent: "center" },
-  headtext: { color: AppColors.white, fontSize: height(2.3), fontWeight: "bold" },
+  headview: {
+    paddingVertical: height(1),
+    justifyContent: "center",
+  },
+  headtext: {
+    color: AppColors.primary,
+    fontSize: height(3),
+    width: width(90),
+    fontWeight: "bold",
+  },
 });
 export default styles;

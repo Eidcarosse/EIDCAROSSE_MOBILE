@@ -10,13 +10,9 @@ export default function Repair({ navigation, route }) {
   const { t } = useTranslation();
   return (
     <ScreenWrapper
-    showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"RN.rn"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      backgroundColor={AppColors.white}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

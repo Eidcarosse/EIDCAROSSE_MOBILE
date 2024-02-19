@@ -15,8 +15,6 @@ export default function PreLogin({ navigation, route }) {
     <ScreenWrapper
       showStatusBar={false}
       headerUnScrollable={() => <Header navigation={navigation} />}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

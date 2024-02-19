@@ -42,9 +42,6 @@ export default function FAQ({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"FAQ.title"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      backgroundColor={AppColors.white}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

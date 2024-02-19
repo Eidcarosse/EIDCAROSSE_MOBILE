@@ -66,9 +66,7 @@ export default function AboutUs({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"aboutUs.aboutus"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      backgroundColor={AppColors.white}
-      barStyle="light-content"
+  
       scrollEnabled
       showStatusBar={false}
     >

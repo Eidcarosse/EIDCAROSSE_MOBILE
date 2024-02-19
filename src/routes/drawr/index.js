@@ -9,20 +9,9 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
   return (
-    // <Drawer.Navigator
-    // screenOptions={{headerShown:false}}
-    // >
-    //   <Drawer.Screen name="Feed" component={BottomNav} />
-    // </Drawer.Navigator>
     <Drawer.Navigator
       screenOptions={{
-        drawerPosition: "left",
         headerShown: false,
-        drawerInactiveBackgroundColor: AppColors.white,
-        drawerActiveBackgroundColor: AppColors.white,
-        drawerActiveTintColor: AppColors.primary,
-        // overlayColor: AppColors.transparent,
-        drawerHideStatusBarOnOpen: false,
         drawerStyle: {
           backgroundColor: "#E5E8E8",
           width: width(80),

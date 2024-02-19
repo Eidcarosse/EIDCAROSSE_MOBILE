@@ -37,18 +37,19 @@ export default function AppSetting({ navigation, route }) {
 
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"appseting.title"} navigation={navigation} />
       )}
-      statusBarColor={AppColors.primary}
-      backgroundColor={AppColors.white}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
         <Text
-          style={{ fontSize: height(2.5), width: width(100), padding: width(4) }}
+          style={{
+            fontSize: height(2.5),
+            width: width(100),
+            padding: width(4),
+          }}
         >
           {t("appseting.language")}
         </Text>

@@ -4,21 +4,19 @@ import AppColors from "../../../utills/AppColors";
 
 const styles = StyleSheet.create({
   mainViewContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: AppColors.white,
   },
   imageiner: {
-    height: height(20),
     justifyContent: "space-around",
-    marginBottom: height(3),
   },
   avatar: {
-    width: height(10),
-    height: height(10),
+    width: height(12),
+    height: height(12),
     borderRadius: width(20),
     marginLeft: width(10),
-    borderColor:AppColors.white,
-    borderWidth:height(0.3)
+    borderColor: AppColors.greybackground,
+    borderWidth: height(0.3),
   },
   card: {
     width: width(95),
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
   wishlistview: {
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingBottom:height(1)
+    padding: height(1),
   },
   wcontainer: {
     backgroundColor: AppColors.white,

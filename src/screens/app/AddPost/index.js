@@ -282,37 +282,37 @@ export default function AddPost({ navigation, route }) {
       addWhatsapp && formData.append("whatsapp", whatsapp);
       addPhone && formData.append("phone", true);
       addEmail && formData.append("email", true);
-      type && formData.append("vhclZ[type]", type);
-      km && formData.append("vhclZ[km]", km);
-      condition && formData.append("vhclZ[condition]", condition);
-      brand && formData.append("vhclZ[brand]", brand);
-      year && formData.append("vhclZ[year]", year);
-      model && formData.append("vhclZ[model]", model);
-      bodyshape && formData.append("vhclZ[bodyShape]", bodyshape);
-      gearbox && formData.append("vhclZ[gearBox]", gearbox);
-      fueltype && formData.append("vhclZ[fuelType]", fueltype);
-      exterior && formData.append("vhclZ[exteriorColor]", exterior);
-      interior && formData.append("vhclZ[interiorColor]", interior);
-      downPayment && formData.append("vhclZ[dwnPymnt]", downPayment);
-      installments && formData.append("vhclZ[mnthlyInstl]", installments);
-      installmentPlan && formData.append("vhclZ[instlPlan]", installmentPlan);
-      drivenHours && formData.append("vhclZ[hrzDrvn]", drivenHours);
-      companyName && formData.append("jobZ[companyName]", companyName);
-      salaryFrom && formData.append("jobZ[salaryFrom]", salaryFrom);
-      salaryTo && formData.append("jobZ[salaryTo]", salaryTo);
-      positionType && formData.append("jobZ[positionType]", positionType);
-      salaryPeriod && formData.append("jobZ[salaryPeriod]", salaryPeriod);
-      area && formData.append("property4sr[area]", area);
+      type && formData.append("vhclZ.type", type);
+      km && formData.append("vhclZ.km", km);
+      condition && formData.append("vhclZ.condition", condition);
+      brand && formData.append("vhclZ.brand", brand);
+      year && formData.append("vhclZ.year", year);
+      model && formData.append("vhclZ.model", model);
+      bodyshape && formData.append("vhclZ.bodyShape", bodyshape);
+      gearbox && formData.append("vhclZ.gearBox", gearbox);
+      fueltype && formData.append("vhclZ.fuelType", fueltype);
+      exterior && formData.append("vhclZ.exteriorColor", exterior);
+      interior && formData.append("vhclZ.interiorColor", interior);
+      downPayment && formData.append("vhclZ.dwnPymnt", downPayment);
+      installments && formData.append("vhclZ.mnthlyInstl", installments);
+      installmentPlan && formData.append("vhclZ.instlPlan", installmentPlan);
+      drivenHours && formData.append("vhclZ.hrzDrvn", drivenHours);
+      companyName && formData.append("jobZ.companyName", companyName);
+      salaryFrom && formData.append("jobZ.salaryFrom", salaryFrom);
+      salaryTo && formData.append("jobZ.salaryTo", salaryTo);
+      positionType && formData.append("jobZ.positionType", positionType);
+      salaryPeriod && formData.append("jobZ.salaryPeriod", salaryPeriod);
+      area && formData.append("property4sr.area", area);
       propertyCondition &&
-        formData.append("property4sr[furnished]", propertyCondition);
-      bedRooms && formData.append("property4sr[bedrooms]", bedRooms);
-      bathRooms && formData.append("property4sr[bathrooms]", bathRooms);
-      gender && formData.append("animalZ[gender]", gender);
-      breed && formData.append("animalZ[breed]", breed);
-      age && formData.append("animalZ[age]", age);
-      workingHours && formData.append("bznessInAg[workingHours]", workingHours);
-      iAm && formData.append("rltnShp[iAm]", iAm);
-      lookingFor && formData.append("rltnShp[lkinFor]", lookingFor);
+        formData.append("property4sr.furnished", propertyCondition);
+      bedRooms && formData.append("property4sr.bedrooms", bedRooms);
+      bathRooms && formData.append("property4sr.bathrooms", bathRooms);
+      gender && formData.append("animalZ.gender", gender);
+      breed && formData.append("animalZ.breed]", breed);
+      age && formData.append("animalZ.age", age);
+      workingHours && formData.append("bznessInAg.workingHours", workingHours);
+      iAm && formData.append("rltnShp.iAm", iAm);
+      lookingFor && formData.append("rltnShp.lkinFor", lookingFor);
 
       // Append each selected image to the form data
       image.forEach((img, index) => {
@@ -549,9 +549,9 @@ export default function AddPost({ navigation, route }) {
       </TouchableOpacity>
     </ScaleDecorator>
   );
-  console.log("====================================");
-  console.log("gender", gender, iAm, lookingFor, propertyCondition);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log("gender", gender, iAm, lookingFor, propertyCondition);
+  // console.log("====================================");
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -582,8 +582,8 @@ export default function AddPost({ navigation, route }) {
           <Image
             tintColor={AppColors.primary}
             style={{
-              width: height(6),
-              height: height(6),
+              width: height(4),
+              height: height(4),
               paddingLeft: height(3),
             }}
             source={{ uri: selectedCategory?.image }}

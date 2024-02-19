@@ -132,10 +132,7 @@ export default function ChatList({ navigation, route }) {
 
   return (
     <ScreenWrapper
-      showStatusBar={false}
-      headerUnScrollable={() => <Header navigation={navigation} />}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
+      headerUnScrollable={() => <Header navigation={navigation} title="Chats" />}
       refreshing={loading}
       onRefresh={promisFuntion}
       scrollEnabled

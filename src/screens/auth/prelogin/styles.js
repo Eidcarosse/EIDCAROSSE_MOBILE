@@ -5,10 +5,8 @@ import AppColors from "../../../utills/AppColors";
 const styles = StyleSheet.create({
   mainViewContainer: {
     flex: 1,
-    backgroundColor: AppColors.white,
     justifyContent: "center",
-    alignItems: "center",
-    marginBottom: height(15),
+    alignItems: "center",alignSelf:'center'
   },
   containerStyle: {
     borderRadius: width(2),
@@ -17,8 +15,7 @@ const styles = StyleSheet.create({
   image: {
     width: width(75),
     alignSelf: "center",
-    height: width(70),
-    marginTop: height(5),
+    height: width(70),marginVertical:height(10)
   },
   text: { fontSize: height(2), margin: width(10), fontWeight: "bold" },
 });

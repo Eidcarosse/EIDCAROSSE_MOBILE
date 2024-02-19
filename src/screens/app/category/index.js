@@ -45,7 +45,6 @@ export default function Category({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() =>
         route?.params ? (
           <Head headtitle={"categorylist.categories"} navigation={navigation} />
@@ -56,8 +55,6 @@ export default function Category({ navigation, route }) {
       // scrollEnabled
       refreshing={refreshing}
       onRefresh={onRefresh}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
     >
       <View
         style={[

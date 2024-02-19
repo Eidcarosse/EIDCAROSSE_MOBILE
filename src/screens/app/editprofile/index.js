@@ -78,15 +78,10 @@ export default function EditProfile({ navigation, route }) {
   };
   return (
     <ScreenWrapper
-      showStatusBar={false}
       headerUnScrollable={() => (
         <>
           <Head headtitle={"editprofile.headtitle"} navigation={navigation} />
-          <ImageBackground
-            resizeMode="stretch"
-            source={Icons.bglogo}
-            style={{ width: width(100), height: height(20) }}
-          >
+          <View style={{ width: width(100), backgroundColor: AppColors.white }}>
             <View style={styles.imageiner}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity onPress={() => imageRef.current.show()}>
@@ -111,9 +106,9 @@ export default function EditProfile({ navigation, route }) {
                 <View style={{ paddingLeft: width(3) }}>
                   <Text
                     style={{
-                      fontSize: height(2.5),
+                      fontSize: height(2),
                       fontWeight: "bold",
-                      color: AppColors.white,
+                      color: AppColors.black,
                       width: width(55),
                     }}
                   >
@@ -122,10 +117,10 @@ export default function EditProfile({ navigation, route }) {
 
                   <Text
                     style={{
-                      fontSize: height(2),
+                      fontSize: height(1.5),
                       fontWeight: "bold",
                       marginTop: height(1),
-                      color: AppColors.white,
+                      color: AppColors.primary,
                     }}
                   >
                     {userdata?.userName}
@@ -133,11 +128,9 @@ export default function EditProfile({ navigation, route }) {
                 </View>
               </View>
             </View>
-          </ImageBackground>
+          </View>
         </>
       )}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>

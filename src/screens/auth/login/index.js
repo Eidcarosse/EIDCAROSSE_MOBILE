@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import CheckBox from "react-native-check-box";
@@ -157,135 +158,132 @@ export default function Login({ navigation, route }) {
   }
   return (
     <ScreenWrapper
-      showStatusBar={false}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
-      headerUnScrollable={() => <Head navigation={navigation} />}
+      scrollEnabled
+      headerUnScrollable={() => (
+        <Head navigation={navigation} headtitle={t("login.login")} />
+      )}
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground source={Icons.bglogo} style={styles.bg}>
-          <View style={styles.imageiner}>
-            <Text style={styles.logintext}>{t("login.login")}</Text>
-          </View>
-        </ImageBackground>
-        <KeyboardAwareScrollView
-          keyboardShouldPersistTaps="handled"
-          enableAutomaticScroll={true}
-          enableResetScrollToCoords={false}
-          extraScrollHeight={height(8)}
-          showsVerticalScrollIndicator={false}
-        >
-          <View
+        <View style={styles.imageiner}>
+          <Image
             style={{
-              height: height(70),
-              paddingTop: width(5),
+              height: height(15),
+              width: height(40),
+              borderRadius: height(2),
+              alignSelf: "center",
+              marginVertical:height(5)
             }}
-          >
-            <Input
-              value={email}
-              setvalue={setEmail}
-              title={"login.emailTitle"}
-              keyboardType="email-address"
-              placeholder={"login.yourEmailAddress"}
-              autoCapitalize={'none'}
-              require={emailr}
-            />
-            <Input
-              value={password}
-              setvalue={setPassword}
-              title={"login.passwordTitle"}
-              placeholder={"login.yourPassword"}
-              secure={true}
-              require={passwordr}
-            />
+            source={require("../../../../assets/splash.png")}
+            tintColor={'red'}
+          />
+        </View>
+        <View
+          style={{
+            height: height(70),
+            paddingTop: width(5),
+          }}
+        >
+          <Input
+            value={email}
+            setvalue={setEmail}
+            title={"login.emailTitle"}
+            keyboardType="email-address"
+            placeholder={"login.yourEmailAddress"}
+            autoCapitalize={"none"}
+            require={emailr}
+          />
+          <Input
+            value={password}
+            setvalue={setPassword}
+            title={"login.passwordTitle"}
+            placeholder={"login.yourPassword"}
+            secure={true}
+            require={passwordr}
+          />
 
-            <View style={{ flexDirection: "row", padding: width(4) }}>
-              <CheckBox
-                checkedImage={
-                  <MaterialIcons
-                    name="check-box"
-                    size={width(4)}
-                    color={AppColors.primary}
-                  />
-                }
-                unCheckedImage={
-                  <MaterialIcons
-                    name="check-box-outline-blank"
-                    size={width(4)}
-                  />
-                }
-                style={{ paddingRight: width(2) }}
-                onClick={handleRemberMe}
-                checkedCheckBoxColor={AppColors.primary}
-                isChecked={check}
-              />
-              <View
-                style={{
-                  flexWrap: "wrap",
-                  flexDirection: "row",
-                }}
-              >
-                <TouchableOpacity onPress={handleRemberMe}>
-                  <Text style={{ fontSize: height(1.5) }}>
-                    {t("login.rememberMe")}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Button
-              containerStyle={styles.button}
-              title={"login.loginButton"}
-              onPress={() => {
-                if (!isValidEmail(email)) {
-                  setEmailr("email require");
-                } else if (!isValidPassword(password)) {
-                  setPasswordr("password require");
-                } else login(userData);
-              }}
+          <View style={{ flexDirection: "row", padding: width(4) }}>
+            <CheckBox
+              checkedImage={
+                <MaterialIcons
+                  name="check-box"
+                  size={width(4)}
+                  color={AppColors.primary}
+                />
+              }
+              unCheckedImage={
+                <MaterialIcons name="check-box-outline-blank" size={width(4)} />
+              }
+              style={{ paddingRight: width(2) }}
+              onClick={handleRemberMe}
+              checkedCheckBoxColor={AppColors.primary}
+              isChecked={check}
             />
-            {/* <Button
+            <View
+              style={{
+                flexWrap: "wrap",
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity onPress={handleRemberMe}>
+                <Text style={{ fontSize: height(1.5) }}>
+                  {t("login.rememberMe")}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <Button
+            containerStyle={styles.button}
+            title={"login.loginButton"}
+            onPress={() => {
+              if (!isValidEmail(email)) {
+                setEmailr("email require");
+              } else if (!isValidPassword(password)) {
+                setPasswordr("password require");
+              } else login(userData);
+            }}
+          />
+          {/* <Button
               containerStyle={styles.button}
               title={"login.continueWithGoogle"}
               onPress={() => {}}
             /> */}
-            <View style={{ height: height(2) }} />
-            <View style={styles.forget}>
-              <Text style={{ fontSize: height(1.5) }}>
-                {t("login.cannotLogin")} {"  "}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate(ScreenNames.FORGET);
-                }}
-              >
-                <Text style={styles.text}>{t("login.forgetPassword")}</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ height: height(6) }} />
-
-            <View
-              style={{
-                alignSelf: "center",
-                justifyContent: "center",
-                alignContent: "center",
-                flexDirection: "row",
-                flexWrap: "wrap",
+          <View style={{ height: height(2) }} />
+          <View style={styles.forget}>
+            <Text style={{ fontSize: height(1.5) }}>
+              {t("login.cannotLogin")} {"  "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(ScreenNames.FORGET);
               }}
             >
-              <Text style={{ fontSize: height(1.5) }}>
-                {t("login.donothaveaccount")}
-                {"   "}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate(ScreenNames.SIGNUP);
-                }}
-              >
-                <Text style={styles.text}> {t("login.registerNow")}</Text>
-              </TouchableOpacity>
-            </View>
+              <Text style={styles.text}>{t("login.forgetPassword")}</Text>
+            </TouchableOpacity>
           </View>
-        </KeyboardAwareScrollView>
+          <View style={{ height: height(6) }} />
+
+          <View
+            style={{
+              alignSelf: "center",
+              justifyContent: "center",
+              alignContent: "center",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Text style={{ fontSize: height(1.5) }}>
+              {t("login.donothaveaccount")}
+              {"   "}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate(ScreenNames.SIGNUP);
+              }}
+            >
+              <Text style={styles.text}> {t("login.registerNow")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </ScreenWrapper>
   );

@@ -13,9 +13,6 @@ export default function CategoryList({ navigation, search }) {
   const d = useSelector(selectCategoryList);
   const data = [d[0], d[1], d[2], d[8], d[9], d[13]];
   const renderItem = ({ item }) => {
-    // console.log('====================================');
-    // console.log("home category",item);
-    // console.log('====================================');
     return (
       <CategoryIcon
         navigation={navigation}
