@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: width(1),
   },
   texticon: {
-    color: "black",
+    color: AppColors.black,
     width: width(78),
     alignSelf: "flex-start",
   },

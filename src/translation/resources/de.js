@@ -682,7 +682,8 @@ export default {
   },
   detail: {
     detailword: "Details",
-    CFP: "Preis auf Anfrage",
+    contact: "Preis auf Anfrage",
+    free:"Free",
     DP: "Preis auf Anfrage",
     price: "Preis",
     condition: "Zustand",

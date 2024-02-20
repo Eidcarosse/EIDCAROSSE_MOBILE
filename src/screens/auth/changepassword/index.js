@@ -50,6 +50,27 @@ export default function ChangePassword({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"changePassword.title"} navigation={navigation} />
       )}
+      footerUnScrollable={() => (
+        <Button
+          containerStyle={styles.button}
+          title={"changePassword.savebutton"}
+          onPress={() => {
+            if (newPassword.trim() !== confirmPassword.trim()) {
+              errorMessage(
+                t(`flashmsg.confirmerrormsg`),
+                t(`flashmsg.password`)
+              );
+            } else if (!isValidPassword(newPassword.trim())) {
+              errorMessage(t("Atlest 8 character"), t(`flashmsg.password`));
+            } else if (
+              newPassword.trim() == "" ||
+              confirmPassword.trim() == ""
+            ) {
+              errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.password`));
+            } else chngePassword();
+          }}
+        />
+      )}
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
@@ -68,25 +89,6 @@ export default function ChangePassword({ navigation, route }) {
             value={confirmPassword}
             secure
             setvalue={setConfirmPassword}
-          />
-          <Button
-            containerStyle={styles.button}
-            title={"changePassword.savebutton"}
-            onPress={() => {
-              if (newPassword.trim() !== confirmPassword.trim()) {
-                errorMessage(
-                  t(`flashmsg.confirmerrormsg`),
-                  t(`flashmsg.password`)
-                );
-              } else if (!isValidPassword(newPassword.trim())) {
-                errorMessage(t("Atlest 8 character"), t(`flashmsg.password`));
-              } else if (
-                newPassword.trim() == "" ||
-                confirmPassword.trim() == ""
-              ) {
-                errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.password`));
-              } else chngePassword();
-            }}
           />
 
           <View style={{ height: height(7) }} />

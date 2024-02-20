@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     paddingVertical: width(2),
     paddingLeft: width(2),
     fontWeight: "bold",
+    color: AppColors.black,
   },
   searchbox: {
     width: width(90),
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     }),
   },
   texticon: {
-    color: "black",
+    color: AppColors.black,
     width: width(80),
     alignSelf: "flex-start",
   },

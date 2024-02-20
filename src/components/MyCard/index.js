@@ -134,7 +134,7 @@ export default function MyCard({ data }) {
           ) : (
             <View style={styles.cfpview}>
               <Text numberOfLines={1} style={styles.cfp}>
-                {t("detail.CFP")}
+              {t(`detail.${data?.price}`)}
               </Text>
             </View>
           )}
@@ -173,7 +173,7 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="edit" size={height(2)} />
-          <Text style={{ fontSize: height(1.5) }}> {t("myad.edit")}</Text>
+          <Text style={{ fontSize: height(1.5), color: AppColors.black, }}> {t("myad.edit")}</Text>
         </MenuItem>
         {publish && (
           <MenuItem
@@ -183,7 +183,7 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="refresh" size={height(2)} />
-            <Text style={{ fontSize: height(1.5) }}> {t("myad.refresh")}</Text>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}> {t("myad.refresh")}</Text>
           </MenuItem>
         )}
 
@@ -195,7 +195,7 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="pause" size={height(1.8)} />
-            <Text style={{ fontSize: height(1.5) }}>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}>
               {" "}
               {"  "} {t("myad.muteButton")}
             </Text>
@@ -208,7 +208,7 @@ export default function MyCard({ data }) {
             }}
           >
             <AntDesign name="play" size={height(2)} />
-            <Text style={{ fontSize: height(1.5) }}>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}>
               {"  "}
               {t("myad.republish")}
             </Text>
@@ -223,7 +223,7 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="delete" size={height(2)} color={"red"} />
-          <Text style={{ color: "red", fontSize: height(1.5) }}>
+          <Text style={{ color: AppColors.primary, fontSize: height(1.5) }}>
             {"   "}
             {t("myad.delete")}
           </Text>
@@ -258,7 +258,7 @@ export default function MyCard({ data }) {
       <View>
         <Dialog.Container visible={visible}>
           <Dialog.Title>
-            <Text style={{ fontSize: height(2), color: "red" }}>
+            <Text style={{ fontSize: height(2), color: AppColors.primary }}>
               {" "}
               {t("myad.deletetitle")}
             </Text>

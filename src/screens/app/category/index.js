@@ -49,7 +49,7 @@ export default function Category({ navigation, route }) {
         route?.params ? (
           <Head headtitle={"categorylist.categories"} navigation={navigation} />
         ) : (
-          <Header navigation={navigation} />
+          <Header navigation={navigation} title={t("addPost.post")} />
         )
       }
       // scrollEnabled
@@ -128,7 +128,7 @@ export default function Category({ navigation, route }) {
           <FlatList
             data={searchString.subCategories}
             showsVerticalScrollIndicator={false}
-            style={{borderRadius:5}}
+            style={{ borderRadius: 5 }}
             renderItem={({ item }) => {
               return (
                 <TouchableOpacity
@@ -163,14 +163,24 @@ export default function Category({ navigation, route }) {
                     }
                   }}
                 >
-                  <Text style={{ fontSize: height(1.6) }}>
+                  <Text
+                    style={{ fontSize: height(1.6), color: AppColors.black }}
+                  >
                     {t(`subList.${item.name}`)}
                   </Text>
                 </TouchableOpacity>
               );
             }}
             keyExtractor={(item, index) => index}
-            ItemSeparatorComponent={() => <View style={{backgroundColor:AppColors.greybackground,height:1,width:width(70)}}/>}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  backgroundColor: AppColors.greybackground,
+                  height: 1,
+                  width: width(70),
+                }}
+              />
+            )}
           />
         </View>
       </View>

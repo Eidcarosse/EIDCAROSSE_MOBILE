@@ -159,6 +159,7 @@ export default function ChatList({ navigation, route }) {
                   fontWeight: "bold",
                   fontSize: height(2),
                   paddingTop: height(40),
+                  color: AppColors.black,
                 }}
               >
                 {t("commmon.nochatMsg")}

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: width(4),
     fontWeight: "bold",
-    color: "black",
+    color: AppColors.black,
     margin: width(5),
   },
   description: {

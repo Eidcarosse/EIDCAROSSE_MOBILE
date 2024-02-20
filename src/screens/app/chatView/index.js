@@ -680,6 +680,7 @@ const styles = StyleSheet.create({
     marginLeft: width(5),
     fontSize: 20,
     fontWeight: "600",
+    color: AppColors.black,
   },
   online_View: {
     marginLeft: width(5),

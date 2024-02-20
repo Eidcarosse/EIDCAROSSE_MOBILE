@@ -710,7 +710,8 @@ export default {
   },
   detail: {
     detailword: "Détails",
-    CFP: "Contacter pour le Prix",
+    contact: "Contacter pour le Prix",
+    free:"Free",
     DP: "Prix désactivé",
     price: "Prix",
     condition: "État",

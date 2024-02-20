@@ -294,6 +294,25 @@ export const showType = (x) => {
     x === "Busses"
   );
 };
+export function isNullOrNullOrEmpty(value) {
+  return (
+    value === null ||
+    value === "" ||
+    value === "null" ||
+    value === undefined ||
+    value === "undefined"
+  );
+}
+export const showDetails = (x) => {
+  return (
+    !isNullOrNullOrEmpty(x?.vhclZ) ||
+    !isNullOrNullOrEmpty(x?.jobZ) ||
+    !isNullOrNullOrEmpty(x?.property4sr) ||
+    !isNullOrNullOrEmpty(x.animalZ) ||
+    !isNullOrNullOrEmpty(x.bznessInAg) ||
+    !isNullOrNullOrEmpty(x.rltnShp)
+  );
+};
 export function shouldRenderField(field, category, sub_category) {
   const config = {
     // Main categories
@@ -302,12 +321,11 @@ export function shouldRenderField(field, category, sub_category) {
     "Property for Sale": ["Area", "Price", "Free"],
     "Property for Rent": ["Area", "Price", "Free"],
     "Electronics & Home Appliances": ["Condition", "Price", "Free"],
-    Bikes: ["Brand", "Condition", "Price", "Free", "ExteriorColor"],
+    Bikes: ["Brand", "Condition", "Price", "Free"],
     Jobs: [
       "CompanyName",
       "SalaryFrom",
       "SalaryTo",
-      // "Level",
       "SalaryPeriod",
       "PositionType",
     ],
@@ -318,7 +336,7 @@ export function shouldRenderField(field, category, sub_category) {
     Kids: ["Condition", "Price", "Free"],
     Relationship: ["Dating", "Price", "Free"],
     "Business, Industrial & Agriculture": ["Price", "Free"],
-    "Other Ads": ["Price"],
+    "Other ads": ["Price"],
     Services: ["Price"],
 
     // Subcategories
@@ -363,7 +381,7 @@ export function shouldRenderField(field, category, sub_category) {
     "Roommates & Paying Guests": ["Furnished"],
     Rooms: ["Furnished"],
     "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-    Motorcycles: ["Brand", "Model", "km", "Type", "bodyShap"],
+    Motorcycles: ["Brand", "Model", "km", "Type", "bodyShap", "ExteriorColor"],
     // "Bikes Accessories": ["Brand"],
     Bicycles: ["Brand", "Year"],
     "ATV & Quads": ["Brand", "Year"],

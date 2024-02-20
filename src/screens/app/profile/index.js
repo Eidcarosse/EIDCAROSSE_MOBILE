@@ -7,7 +7,7 @@ import {
   AntDesign,
 } from "@expo/vector-icons";
 import React from "react";
-import { Image, ImageBackground, Text, View } from "react-native";
+import { Image, ImageBackground, Pressable, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
@@ -22,7 +22,9 @@ import {
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
+import { useTranslation } from "react-i18next";
 export default function Profile({ navigation, route }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
@@ -30,10 +32,18 @@ export default function Profile({ navigation, route }) {
 
   return (
     <ScreenWrapper
-      headerUnScrollable={() => <Header navigation={navigation} />}
-      scrollEnabled
-    >
+    barStyle='light-content'
+    statusBarColor={AppColors.primary} scrollEnabled>
       <View style={styles.mainViewContainer}>
+        <View
+          style={{
+            backgroundColor: AppColors.primary,
+            width: width(100),
+            height: height(10),
+            borderBottomLeftRadius: height(3),
+            borderBottomRightRadius: height(3),
+          }}
+        />
         <View style={styles.imageiner}>
           <Image style={styles.avatar} source={{ uri: userdata?.image }} />
           <View
@@ -49,6 +59,7 @@ export default function Profile({ navigation, route }) {
                 fontSize: height(2.5),
                 fontWeight: "600",
                 color: AppColors.black,
+                marginTop:height(4)
               }}
             >
               {userdata?.firstName} {userdata?.lastName}
@@ -62,43 +73,42 @@ export default function Profile({ navigation, route }) {
           </View>
 
           <View style={styles.wishlistview}>
-            <IconButton
+            <Pressable
               onPress={() => {
                 navigation.navigate(ScreenNames.WISH);
               }}
-              title={userFav?.length || 0}
-              containerStyle={styles.wcontainer}
-              textStyle={styles.wtexticon}
-              icon={
-                <AntDesign
-                  name="star"
-                  color={AppColors.primary}
-                  size={height(2)}
-                />
-              }
-            />
-            <View
-              style={{
-                height: height(4),
-                width: 1,
-                backgroundColor: AppColors.greybackground,
-              }}
-            />
-            <IconButton
+              style={styles.wcontainer}
+            >
+              <AntDesign
+                name="star"
+                color={AppColors.primary}
+                size={height(3)}
+              />
+              <View style={{ marginHorizontal: height(2) }}>
+                <Text style={styles.wtexticon}>{userFav?.length || 0}</Text>
+                <Text> {t("profile.wish")}</Text>
+              </View>
+            </Pressable>
+            <View style={styles.verticalLine} />
+            <Pressable
               onPress={() => {
                 navigation.navigate(ScreenNames.MYADS);
               }}
-              title={userAds?.length || userdata?.adIds?.length}
-              containerStyle={styles.wcontainer}
-              textStyle={styles.wtexticon}
-              icon={
-                <FontAwesome
-                  name="bullhorn"
-                  color={AppColors.primary}
-                  size={height(2)}
-                />
-              }
-            />
+              style={styles.wcontainer}
+            >
+              <FontAwesome
+                name="bullhorn"
+                color={AppColors.primary}
+                size={height(2.5)}
+              />
+              <View style={{ marginHorizontal: height(2) }}>
+                <Text style={styles.wtexticon}>
+                  {" "}
+                  {userAds?.length || userdata?.adIds?.length}
+                </Text>
+                <Text> {t("profile.listing")}</Text>
+              </View>
+            </Pressable>
           </View>
         </View>
         <View style={{ padding: height(2) }}>

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: width(1),
   },
   texticon: {
-    color: "black",
+    color: AppColors.black,
     width: width(70),
     alignSelf: "flex-start",
     marginLeft: width(4),
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     padding: width(1),
   },
   wtexticon: {
-    color: "black",
+    color: AppColors.black,
     fontSize: 12,
     marginTop: width(2),
   },

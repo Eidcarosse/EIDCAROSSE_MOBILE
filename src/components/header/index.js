@@ -21,8 +21,9 @@ export default function Header({ navigation, title = "Eidcarosse.ch" }) {
         }}
       >
         <Image
-          source={require("../../../assets/icon.jpeg")}
+          source={require("../../../assets/icon1.png")}
           style={styles.image}
+          resizeMode="cover"
         />
         <Text
           style={{

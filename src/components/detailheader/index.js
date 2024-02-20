@@ -40,6 +40,7 @@ export default function DetailHeader({
               backgroundColor: "white",
               alignContent: "center",
               alignItems: "center",
+              width:width(75),
             }}
           >
             <Image
@@ -54,7 +55,7 @@ export default function DetailHeader({
             <View>
               <Text
                 style={{
-                  color: "black",
+                  color: AppColors.black,
                   fontSize: height(2),
                   paddingHorizontal: width(4.5),
                   fontWeight: "bold",
@@ -84,7 +85,7 @@ export default function DetailHeader({
         }}
       >
         <TouchableOpacity
-          style={{ marginHorizontal: width(8) }}
+          style={{ marginRight: width(8) }}
           onPress={onPressShare}
         >
           <Entypo size={height(3)} name="share" color={AppColors.black} />

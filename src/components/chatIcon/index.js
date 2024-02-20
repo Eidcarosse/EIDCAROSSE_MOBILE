@@ -195,6 +195,7 @@ export default function ChatIcon({ data }) {
                 fontWeight: "bold",
                 fontSize: height(1.8),
                 paddingTop: height(1),
+                color: AppColors.black,
               },
               selectedItem && { color: "lightgrey" },
             ]}
@@ -206,7 +207,11 @@ export default function ChatIcon({ data }) {
           <Text
             numberOfLines={1}
             style={[
-              { paddingTop: height(1), fontSize: height(1) },
+              {
+                paddingTop: height(1),
+                fontSize: height(1),
+                color: AppColors.black,
+              },
               newMsg && { fontWeight: "bold", fontSize: height(1.3) },
               selectedItem && { color: "lightgrey" },
             ]}
@@ -230,15 +235,15 @@ export default function ChatIcon({ data }) {
               {
                 fontWeight: "bold",
                 fontSize: height(1.2),
+                color: AppColors.black,
               },
               selectedItem && { color: "lightgrey" },
             ]}
           >
-            {latestMsg?.timestamp
-              ? `${new Date(latestMsg?.timestamp).getDate()}/${
-                  new Date(latestMsg?.timestamp).getMonth() + 1
-                }/${new Date(latestMsg?.timestamp).getFullYear()}`
-              : "00/00/0000"}
+            {latestMsg?.timestamp &&
+              `${new Date(latestMsg?.timestamp).getDate()}/${
+                new Date(latestMsg?.timestamp).getMonth() + 1
+              }/${new Date(latestMsg?.timestamp).getFullYear()}`}
           </Text>
           {newMsg && (
             <View
@@ -257,7 +262,7 @@ export default function ChatIcon({ data }) {
         <Dialog.Container visible={visible}>
           <Dialog.Title> {t("Delete Chat")}</Dialog.Title>
           <Dialog.Description>
-            <Text style={{ fontSize: height(1.5) }}>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}>
               {t("Do you want to delete the chat")}
             </Text>
           </Dialog.Description>

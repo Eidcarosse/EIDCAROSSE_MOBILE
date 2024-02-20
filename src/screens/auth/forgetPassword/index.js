@@ -83,7 +83,7 @@ export default function ForgetPassword({ navigation, route }) {
           />
         </View>
       </View>
-      <Modal isVisible={modal} backdropOpacity={0.2}>
+      <Modal isVisible={modal} backdropOpacity={0.5}>
         <View
           style={{
             backgroundColor: AppColors.white,

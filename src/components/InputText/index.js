@@ -27,7 +27,7 @@ export default function Input({
     <View>
       <View style={[styles.container, containerStyle]}>
         {title && (
-          <Text style={[titlestyle, { fontSize: height(1.8) }]}>
+          <Text style={[titlestyle, { fontSize: height(1.8), color: AppColors.black, }]}>
             {t(title)}
           </Text>
         )}

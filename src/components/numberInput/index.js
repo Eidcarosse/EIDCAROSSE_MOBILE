@@ -29,7 +29,7 @@ export default function NumberInput({
     <View>
       <View style={[styles.container, containerStyle]}>
         {title && (
-          <Text style={[titlestyle, { fontSize: height(1.8) }]}>
+          <Text style={[titlestyle, { fontSize: height(1.8), color: AppColors.black, }]}>
             {t(title)}
           </Text>
         )}
@@ -68,6 +68,7 @@ export default function NumberInput({
                   paddingVertical: width(2),
                   width: width(80),
                   fontSize: height(1.5),
+                  color: AppColors.black,
                 },
                 inputTextStyle,
                 !editable && { color: "grey" },

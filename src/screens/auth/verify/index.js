@@ -44,11 +44,10 @@ export default function Verify({ navigation, route }) {
     const data = await verifyAccount({ code, email, token1 });
     if (data?.success) {
       setModel(false);
-      successMessage("Verified login now","Success")
+      successMessage("Verified login now", "Success");
       navigation.navigate(ScreenNames.LOGIN);
-    }
-    else{
-      errorMessage("Invalid Code", t(`flashmsg.error`))
+    } else {
+      errorMessage("Invalid Code", t(`flashmsg.error`));
     }
   }
   async function sendverifycode() {
@@ -61,17 +60,28 @@ export default function Verify({ navigation, route }) {
   }
   return (
     <ScreenWrapper
-    showStatusBar={false}
-      statusBarColor={AppColors.primary}
-      barStyle="light-content"
-      headerUnScrollable={() => <Head navigation={navigation} />}
+      headerUnScrollable={() => (
+        <Head navigation={navigation} headtitle={t("Verify Account")} />
+      )}
+      footerUnScrollable={() => (
+        <Button
+          disabled={token1 ? true : false}
+          containerStyle={styles.button}
+          title={"Resend"}
+          onPress={() => {
+            if (email) {
+              sendverifycode(code);
+            } else {
+              errorMessage(
+                t(`flashmsg.emailrequireerrormsg`),
+                t(`flashmsg.error`)
+              );
+            }
+          }}
+        />
+      )}
     >
       <View style={styles.mainViewContainer}>
-        <ImageBackground source={Icons.bglogo} style={styles.bg}>
-          <View style={styles.imageiner}>
-            <Text style={styles.logintext}>{t("Forget Password")}</Text>
-          </View>
-        </ImageBackground>
         <View style={{ paddingTop: width(10) }}>
           <Input
             value={email}
@@ -79,27 +89,10 @@ export default function Verify({ navigation, route }) {
             title={"login.emailTitle"}
             placeholder={"login.yourEmailAddress"}
           />
-          <Button
-            disabled={token1 ? true : false}
-            containerStyle={styles.button}
-            title={"Resend"}
-            onPress={() => {
-              if (email) {
-                sendverifycode(code);
-              } else {
-                errorMessage(
-                  t(`flashmsg.emailrequireerrormsg`),
-                  t(`flashmsg.error`)
-                );
-              }
-            }}
-          />
         </View>
       </View>
       <Modal isVisible={modal} backdropOpacity={0.1}>
-        <View
-          style={styles.counter}
-        >
+        <View style={styles.counter}>
           <CountdownCircleTimer
             isPlaying
             duration={60}

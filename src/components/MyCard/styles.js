@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   titletext: {
+    color: AppColors.black,
     fontWeight: "bold",
     fontSize: height(2),
     paddingBottom: width(3),
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     marginBottom: height(.5),
   },
   textcategory: {
+    color: AppColors.black,
     fontSize: height(1.5),
     marginLeft: width(2),
     width: width(35),

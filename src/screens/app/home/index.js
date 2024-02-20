@@ -118,7 +118,13 @@ export default function Home({}) {
         <CategoryList navigation={navigation} search={searchString} />
 
         <View style={styles.titleview}>
-          <Text style={{ fontSize: height(1.8), fontWeight: "bold" }}>
+          <Text
+            style={{
+              fontSize: height(1.8),
+              fontWeight: "bold",
+              color: AppColors.black,
+            }}
+          >
             {t("home.letest")}
           </Text>
           {/* <Pressable onPress={() => navigation.navigate(ScreenNames.LISTDATA)}>

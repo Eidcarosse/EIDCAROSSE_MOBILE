@@ -69,7 +69,7 @@ export default function OtherProfile({ navigation, route }) {
                     style={{
                       fontSize: height(2),
                       fontWeight: "bold",
-                      color: AppColors.black,
+                      color:'rgba(0,0,0,.8)'
                     }}
                   >
                     {userdata?.firstName} {userdata?.lastName}
@@ -83,6 +83,17 @@ export default function OtherProfile({ navigation, route }) {
                     }}
                   >
                     {userdata?.userName}
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: height(1.8),
+                      marginTop:height(1),
+                      textDecorationLine: 'underline',
+                      color:'grey'
+                    }}
+                  >
+                    {data?.length+ " Published ads"}
                   </Text>
                 </View>
               </View>

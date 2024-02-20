@@ -84,7 +84,7 @@ export default function ListingView({ data }) {
             ) : (
               <View style={styles.cfpview}>
                 <Text numberOfLines={1} style={styles.cfp}>
-                  {t("detail.CFP")}
+                {t(`detail.${data?.price}`)}
                 </Text>
               </View>
             )}

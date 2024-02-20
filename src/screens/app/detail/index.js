@@ -31,6 +31,8 @@ import GlobalMethods, {
   formatPrice,
   formatPriceE,
   infoMessage,
+  showDetails,
+  isNullOrNullOrEmpty,
 } from "../../../utills/Methods";
 import styles from "./styles";
 import { formatDistanceToNow } from "date-fns";
@@ -79,16 +81,6 @@ export default function Detail({ navigation, route }) {
       dispatch(setAdsFav(fav));
     }
   };
-
-  function isNullOrNullOrEmpty(value) {
-    return (
-      value === null ||
-      value === "" ||
-      value === "null" ||
-      value === undefined ||
-      value === "undefined"
-    );
-  }
   useEffect(() => {
     getData();
   }, [dat?._id != data?._id]);
@@ -124,7 +116,6 @@ export default function Detail({ navigation, route }) {
 
     // dispatch(setAppLoader(false));
   };
-
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -255,7 +246,7 @@ export default function Detail({ navigation, route }) {
               ) : (
                 <View style={styles.cfpview}>
                   <Text numberOfLines={1} style={styles.cfp}>
-                    {t("detail.CFP")}
+                  {t(`detail.${data?.price}`)}
                   </Text>
                 </View>
               )}
@@ -277,7 +268,13 @@ export default function Detail({ navigation, route }) {
             </View>
 
             <View style={{ width: width(70) }}>
-              <Text style={{ fontWeight: "bold", fontSize: height(2.5) }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: height(2.5),
+                  color: AppColors.black,
+                }}
+              >
                 {data?.title}
               </Text>
               <View
@@ -291,309 +288,339 @@ export default function Detail({ navigation, route }) {
                 <Entypo name="location-pin" color={"grey"} size={height(2)} />
                 <Text style={{ fontSize: height(1.5) }}>{data?.address}</Text>
               </View>
-              <Text style={{ fontSize: height(1.5) }}>
+              <Text
+                style={{
+                  fontSize: height(1.5),
+                  paddingHorizontal: height(1),
+                  color: AppColors.black,
+                }}
+              >
                 {new Date(data?.createdAt).toLocaleString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  second: "numeric",
                 })}
               </Text>
             </View>
           </View>
           {/*---------detail view------*/}
-          <View style={styles.detailview}>
-            <View style={styles.detailcard}>
-              <Text
-                style={{
-                  fontSize: height(2.5),
-                  fontWeight: "bold",
-                  paddingBottom: height(1),
-                }}
-              >
-                {t("detail.detailword")}
-              </Text>
+          {showDetails(data) && (
+            <View style={styles.detailview}>
+              <View style={styles.detailcard}>
+                <Text
+                  style={{
+                    fontSize: height(2.5),
+                    fontWeight: "bold",
+                    paddingBottom: height(1),
+                    color: AppColors.black,
+                  }}
+                >
+                  {t("detail.detailword")}
+                </Text>
 
-              {/*--------Vehicle brand------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.brand) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.brand")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.vhclZ?.brand === "Others"
-                      ? t("category.Others")
-                      : data?.vhclZ?.brand}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle model------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.model) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.model")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.vhclZ?.model === "Others"
-                      ? t("category.Others")
-                      : data?.vhclZ?.model}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle type------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.type) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.type")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {t(`type.${data?.vhclZ?.type}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle year------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.year) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.year")}</Text>
-                  <Text style={styles.cardelement2}>{data?.vhclZ?.year}</Text>
-                </View>
-              )}
-              {/*--------Vehicle condition------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.condition) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.condition")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {/* {data?.condition} */}
-                    {t(`condition.${data?.vhclZ?.condition}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle bodyshape------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.bodyShape) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.bodyshape")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {t(`bodyShapeList.${data?.vhclZ?.bodyShape}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle e-color------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.exteriorColor) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.exteriorcolor")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {t(`colorList.${data?.vhclZ?.exteriorColor}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle i-color------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.interiorColor) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.interiorcolor")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {t(`colorList.${data?.vhclZ?.interiorColor}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle fuel------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.fuelType) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.fueltype")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {t(`fuelTypelist.${data?.vhclZ?.fuelType}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle gareBox------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.gearBox) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.gearbox")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {t(`gearBoxList.${data?.vhclZ?.gearBox}`)}
-                  </Text>
-                </View>
-              )}
-              {/*--------Vehicle Km------*/}
-              {!isNullOrNullOrEmpty(data?.vhclZ?.km) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.km")}</Text>
-                  <Text style={styles.cardelement2}>{t(data?.vhclZ?.km)}</Text>
-                </View>
-              )}
-              {/*--------animalZ age------*/}
-              {!isNullOrNullOrEmpty(data?.animalZ?.age) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.Age")}</Text>
-                  <Text style={styles.cardelement2}>{data?.animalZ?.age}</Text>
-                </View>
-              )}
-              {/*--------animalZ breed------*/}
-              {!isNullOrNullOrEmpty(data?.animalZ?.breed) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.breed")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.animalZ?.breed}
-                  </Text>
-                </View>
-              )}
-              {/*--------animalZ gender------*/}
-              {!isNullOrNullOrEmpty(data?.animalZ?.gender) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.gender")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.animalZ?.gender}
-                  </Text>
-                </View>
-              )}
-              {/*--------bznessInAg workingHours------*/}
-              {!isNullOrNullOrEmpty(data?.bznessInAg?.workingHours) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.workingHours")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.bznessInAg?.workingHours}
-                  </Text>
-                </View>
-              )}
-              {/*--------jobZ companyName------*/}
-              {!isNullOrNullOrEmpty(data?.jobZ?.companyName) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.companyName")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.jobZ?.companyName}
-                  </Text>
-                </View>
-              )}
-              {/*--------jobZ positionType------*/}
-              {!isNullOrNullOrEmpty(data?.jobZ?.positionType) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.positionType")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.jobZ?.positionType}
-                  </Text>
-                </View>
-              )}
-              {/*--------jobZ salaryFrom------*/}
-              {!isNullOrNullOrEmpty(data?.jobZ?.salaryFrom) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.salaryFrom")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.jobZ?.salaryFrom}
-                  </Text>
-                </View>
-              )}
-              {/*--------jobZ salaryTo------*/}
-              {!isNullOrNullOrEmpty(data?.jobZ?.salaryTo) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.salaryTo")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.jobZ?.salaryTo}
-                  </Text>
-                </View>
-              )}
-              {/*--------jobZ salaryPeriod------*/}
-              {!isNullOrNullOrEmpty(data?.jobZ?.salaryPeriod) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.salaryPeriod")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.jobZ?.salaryPeriod}
-                  </Text>
-                </View>
-              )}
-              {/*--------property4sr area------*/}
-              {!isNullOrNullOrEmpty(data?.property4sr?.area) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.area")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.property4sr?.area}
-                  </Text>
-                </View>
-              )}
-              {/*--------property4sr bedrooms------*/}
-              {!isNullOrNullOrEmpty(data?.property4sr?.bedrooms) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.bedrooms")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.property4sr?.bedrooms}
-                  </Text>
-                </View>
-              )}
-              {/*--------property4sr bathrooms------*/}
-              {!isNullOrNullOrEmpty(data?.property4sr?.bathrooms) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.bathrooms")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.property4sr?.bathrooms}
-                  </Text>
-                </View>
-              )}
-              {/*--------property4sr furnished------*/}
-              {!isNullOrNullOrEmpty(data?.property4sr?.furnished) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>
-                    {t("detail.furnished")}
-                  </Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.property4sr?.furnished}
-                  </Text>
-                </View>
-              )}
-              {/*--------rltnShp iAm------*/}
-              {!isNullOrNullOrEmpty(data?.rltnShp?.iAm) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.iAm")}</Text>
-                  <Text style={styles.cardelement2}>{data?.rltnShp?.iAm}</Text>
-                </View>
-              )}
-              {/*--------rltnShp lkinFor------*/}
-              {!isNullOrNullOrEmpty(data?.rltnShp?.lkinFor) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.lkinFor")}</Text>
-                  <Text style={styles.cardelement2}>
-                    {data?.rltnShp?.lkinFor}
-                  </Text>
-                </View>
-              )}
+                {/*--------Vehicle brand------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.brand) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.brand")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.vhclZ?.brand === "Others"
+                        ? t("category.Others")
+                        : data?.vhclZ?.brand}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle model------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.model) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.model")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.vhclZ?.model === "Others"
+                        ? t("category.Others")
+                        : data?.vhclZ?.model}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle type------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.type) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.type")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {t(`type.${data?.vhclZ?.type}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle year------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.year) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.year")}</Text>
+                    <Text style={styles.cardelement2}>{data?.vhclZ?.year}</Text>
+                  </View>
+                )}
+                {/*--------Vehicle condition------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.condition) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.condition")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {/* {data?.condition} */}
+                      {t(`condition.${data?.vhclZ?.condition}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle bodyshape------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.bodyShape) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.bodyshape")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {t(`bodyShapeList.${data?.vhclZ?.bodyShape}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle e-color------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.exteriorColor) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.exteriorcolor")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {t(`colorList.${data?.vhclZ?.exteriorColor}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle i-color------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.interiorColor) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.interiorcolor")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {t(`colorList.${data?.vhclZ?.interiorColor}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle fuel------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.fuelType) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.fueltype")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {t(`fuelTypelist.${data?.vhclZ?.fuelType}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle gareBox------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.gearBox) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.gearbox")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {t(`gearBoxList.${data?.vhclZ?.gearBox}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------Vehicle Km------*/}
+                {!isNullOrNullOrEmpty(data?.vhclZ?.km) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("detail.km")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {t(data?.vhclZ?.km)}
+                    </Text>
+                  </View>
+                )}
+                {/*--------animalZ age------*/}
+                {!isNullOrNullOrEmpty(data?.animalZ?.age) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.age")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.animalZ?.age}
+                    </Text>
+                  </View>
+                )}
+                {/*--------animalZ breed------*/}
+                {!isNullOrNullOrEmpty(data?.animalZ?.breed) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.breed")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.animalZ?.breed}
+                    </Text>
+                  </View>
+                )}
+                {/*--------animalZ gender------*/}
+                {!isNullOrNullOrEmpty(data?.animalZ?.gender) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.gender")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.animalZ?.gender}
+                    </Text>
+                  </View>
+                )}
+                {/*--------bznessInAg workingHours------*/}
+                {!isNullOrNullOrEmpty(data?.bznessInAg?.workingHours) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.workingHours")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.bznessInAg?.workingHours}
+                    </Text>
+                  </View>
+                )}
+                {/*--------jobZ companyName------*/}
+                {!isNullOrNullOrEmpty(data?.jobZ?.companyName) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.companyName")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.jobZ?.companyName}
+                    </Text>
+                  </View>
+                )}
+                {/*--------jobZ positionType------*/}
+                {!isNullOrNullOrEmpty(data?.jobZ?.positionType) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.positionType")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.jobZ?.positionType}
+                    </Text>
+                  </View>
+                )}
+                {/*--------jobZ salaryFrom------*/}
+                {!isNullOrNullOrEmpty(data?.jobZ?.salaryFrom) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.salaryFrom")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.jobZ?.salaryFrom}
+                    </Text>
+                  </View>
+                )}
+                {/*--------jobZ salaryTo------*/}
+                {!isNullOrNullOrEmpty(data?.jobZ?.salaryTo) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.salaryTo")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.jobZ?.salaryTo}
+                    </Text>
+                  </View>
+                )}
+                {/*--------jobZ salaryPeriod------*/}
+                {!isNullOrNullOrEmpty(data?.jobZ?.salaryPeriod) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.salaryPeriod")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.jobZ?.salaryPeriod}
+                    </Text>
+                  </View>
+                )}
+                {/*--------property4sr area------*/}
+                {!isNullOrNullOrEmpty(data?.property4sr?.area) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.area")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.property4sr?.area}
+                    </Text>
+                  </View>
+                )}
+                {/*--------property4sr bedrooms------*/}
+                {!isNullOrNullOrEmpty(data?.property4sr?.bedrooms) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.bedrooms")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.property4sr?.bedrooms}
+                    </Text>
+                  </View>
+                )}
+                {/*--------property4sr bathrooms------*/}
+                {!isNullOrNullOrEmpty(data?.property4sr?.bathrooms) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.bathrooms")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.property4sr?.bathrooms}
+                    </Text>
+                  </View>
+                )}
+                {/*--------property4sr furnished------*/}
+                {!isNullOrNullOrEmpty(data?.property4sr?.furnished) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.furnished")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.property4sr?.furnished}
+                    </Text>
+                  </View>
+                )}
+                {/*--------rltnShp iAm------*/}
+                {!isNullOrNullOrEmpty(data?.rltnShp?.iAm) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>{t("addPost.iAm")}</Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.rltnShp?.iAm}
+                    </Text>
+                  </View>
+                )}
+                {/*--------rltnShp lkinFor------*/}
+                {!isNullOrNullOrEmpty(data?.rltnShp?.lkinFor) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("addPost.lookingFor")}
+                    </Text>
+                    <Text style={styles.cardelement2}>
+                      {data?.rltnShp?.lkinFor}
+                    </Text>
+                  </View>
+                )}
 
-              {/*--------Video URL------*/}
-              {!isNullOrNullOrEmpty(data?.videoUrl) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.videourl")}</Text>
-                  <TouchableOpacity
-                    style={styles.cardelement2}
-                    onPress={handlePress}
-                  >
-                    <Text style={{ color: "blue" }}>{data?.videoUrl}</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-              {/*--------Website------*/}
-              {!isNullOrNullOrEmpty(data?.website) && (
-                <View style={styles.cardrow}>
-                  <Text style={styles.cardelement}>{t("detail.website")}</Text>
-                  <Text style={styles.cardelement2}>{data?.website}</Text>
-                </View>
-              )}
+                {/*--------Video URL------*/}
+                {!isNullOrNullOrEmpty(data?.videoUrl) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("detail.videourl")}
+                    </Text>
+                    <TouchableOpacity
+                      style={styles.cardelement2}
+                      onPress={handlePress}
+                    >
+                      <Text numberOfLines={1} style={{ color: "blue" }}>
+                        {data?.videoUrl}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+                {/*--------Website------*/}
+                {!isNullOrNullOrEmpty(data?.website) && (
+                  <View style={styles.cardrow}>
+                    <Text style={styles.cardelement}>
+                      {t("detail.website")}
+                    </Text>
+                    <Text style={styles.cardelement2}>{data?.website}</Text>
+                  </View>
+                )}
+              </View>
             </View>
-          </View>
+          )}
           {/*---------description------*/}
           {!isNullOrNullOrEmpty(data?.description) && (
-            <View style={{ paddingLeft: width(5), paddingBottom: width(3) }}>
+            <View style={{ paddingLeft: width(5), paddingVertical: width(3) }}>
               <Text style={{ fontWeight: "bold", fontSize: height(2.5) }}>
                 {t("detail.description")}
               </Text>
@@ -638,7 +665,7 @@ export default function Detail({ navigation, route }) {
                       color: AppColors.black,
                     }}
                   >
-                    {data?.userId?.userName}
+                    {data?.userId?.firstName}
                   </Text>
                   <Text
                     style={{

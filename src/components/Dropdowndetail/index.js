@@ -24,7 +24,6 @@ export default DropDownDetail = ({
   const styles = StyleSheet.create({
     text: {
       fontSize: height(size),
-      color: color,
       textAlign: textAlign,
       fontWeight: "bold",
       color: show ? AppColors.primary : "black",
@@ -76,7 +75,7 @@ export default DropDownDetail = ({
       </Pressable>
       {show && (
         <Text
-          style={{ fontSize: height(1.8), paddingVertical: width(3) }}
+          style={{ fontSize: height(1.8), paddingVertical: width(3), color: AppColors.black, }}
           {...inertextProps}
         >
           {t(detail)}

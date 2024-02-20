@@ -49,6 +49,7 @@ export default function AppSetting({ navigation, route }) {
             fontSize: height(2.5),
             width: width(100),
             padding: width(4),
+            color: AppColors.black,
           }}
         >
           {t("appseting.language")}

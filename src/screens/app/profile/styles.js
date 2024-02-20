@@ -9,7 +9,12 @@ const styles = StyleSheet.create({
     paddingBottom: height(7),
   },
   imageiner: {
-    padding:height(1)
+    padding: height(1),
+  },
+  verticalLine: {
+    height: height(3),
+    width: 1,
+    backgroundColor: AppColors.greybackground,
   },
 
   avatar: {
@@ -17,17 +22,19 @@ const styles = StyleSheet.create({
     height: height(15),
     borderRadius: width(20),
     borderWidth: height(0.5),
-    borderColor: AppColors.greybackground,
-    alignSelf:'center'
+    borderColor: AppColors.white,
+    alignSelf: "center",
+    position: "absolute",
+    top: -height(8.5),
+    zIndex: 1,
   },
 
   container: {
     backgroundColor: AppColors.white,
-    width: width(95),
-    justifyContent: 'space-between',
+    width: width(100),
+    justifyContent: "space-between",
     paddingVertical: height(2),
     marginVertical: height(0),
-    borderRadius: width(1),
     ...Platform.select({
       ios: {
         shadowOffset: { width: 0, height: 0 },
@@ -40,7 +47,7 @@ const styles = StyleSheet.create({
     }),
   },
   texticon: {
-    color: "black",
+    color: AppColors.black,
     width: width(75),
     alignSelf: "flex-start",
     marginLeft: height(2),
@@ -49,34 +56,33 @@ const styles = StyleSheet.create({
   wishlistview: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems:'center'
+    alignItems: "center",
+    justifyContent: "center",
+    padding: height(1),
+    borderBottomWidth: 1,
+
+    borderColor: AppColors.greybackground,
+    paddingVertical:height(3),
+    marginVertical:height(1)
   },
   wcontainer: {
-    backgroundColor: AppColors.white,
-    width:width(45),
-    alignContent:'center',
-    ...Platform.select({
-      ios: {
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0,
-        shadowRadius: 0,
-      },
-      android: {
-        elevation: 0,
-      },
-    }),
+    justifyContent: "center",
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    flex: 1,
   },
   wtexticon: {
-    color: "black",
-    fontSize: height(2),
-    margin: height(1),
-    paddingHorizontal:height(1)
+    fontWeight: "bold",
+    fontSize: height(1.8),
+    textAlign: "center",
   },
   ptext: {
     fontSize: height(1.5),
     fontWeight: "bold",
     color: AppColors.black,
-    margin: height(.3),
+    margin: height(0.3),
   },
 });
 export default styles;

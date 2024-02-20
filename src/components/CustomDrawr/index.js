@@ -169,7 +169,7 @@ const CustomDrawer = ({ navigation }) => {
               Copyright © 2023. All rights reserved by
               <Text
                 style={{
-                  color: "red",
+                  color: AppColors.primary,
                   fontWeight: "bold",
                   fontSize: height(1.5),
                 }}
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
   textbuttom: {
     alignSelf: "center",
     fontSize: height(1.5),
+    color: AppColors.black,
   },
   bottomview: {
     height: height(5),

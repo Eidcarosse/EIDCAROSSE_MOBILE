@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   avatar: {
-    width: height(12),
-    height: height(12),
+    width: height(10),
+    height: height(10),
     borderRadius: width(20),
     marginLeft: width(10),
     borderColor: AppColors.greybackground,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderRadius: width(1),
   },
   texticon: {
-    color: "black",
+    color: AppColors.black,
     width: width(70),
     alignSelf: "flex-start",
     marginLeft: width(4),

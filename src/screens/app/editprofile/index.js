@@ -112,7 +112,7 @@ export default function EditProfile({ navigation, route }) {
                       width: width(55),
                     }}
                   >
-                    {userdata?.firstName} {userdata?.lastName}
+                    {firstName} {lastName}
                   </Text>
 
                   <Text

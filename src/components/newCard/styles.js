@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.transparent,
     alignSelf: "center",
     borderRadius: width(3),
-    marginBottom:height(1)
+    marginBottom: height(1),
   },
   image: {
     height: height(23),
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titletext: {
+    color: AppColors.black,
     fontSize: height(2),
     marginVertical: height(0.5),
     fontWeight: "bold",

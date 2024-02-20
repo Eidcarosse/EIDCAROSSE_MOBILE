@@ -308,7 +308,7 @@ export default function AddPost({ navigation, route }) {
       bedRooms && formData.append("property4sr.bedrooms", bedRooms);
       bathRooms && formData.append("property4sr.bathrooms", bathRooms);
       gender && formData.append("animalZ.gender", gender);
-      breed && formData.append("animalZ.breed]", breed);
+      breed && formData.append("animalZ.breed", breed);
       age && formData.append("animalZ.age", age);
       workingHours && formData.append("bznessInAg.workingHours", workingHours);
       iAm && formData.append("rltnShp.iAm", iAm);
@@ -331,9 +331,6 @@ export default function AddPost({ navigation, route }) {
       } else {
         errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
       }
-      console.log("====================================");
-      console.log(JSON.stringify(formData, null, 2));
-      console.log("====================================");
       dispatch(setAppLoader(false));
     } catch (error) {
       console.error("post upload error:", error);
@@ -450,27 +447,31 @@ export default function AddPost({ navigation, route }) {
       label: t("condition.price"),
     },
     {
-      key: "Disable",
-      label: t("condition.disable"),
+      key: "Free",
+      label: t("condition.Free"),
+    },
+    {
+      key: "Contact",
+      label: t("condition.Contact for price"),
     },
   ];
   const pcdata = [
     {
-      key: "1",
+      key: "Yes",
       label: t("addPost.furnished"),
     },
     {
-      key: "2",
+      key: "No",
       label: t("addPost.unFurnished"),
     },
   ];
   const gdata = [
     {
-      key: "1",
+      key: "Male",
       label: t("addPost.male"),
     },
     {
-      key: "2",
+      key: "Female",
       label: t("addPost.female"),
     },
   ];
@@ -549,9 +550,9 @@ export default function AddPost({ navigation, route }) {
       </TouchableOpacity>
     </ScaleDecorator>
   );
-  // console.log("====================================");
-  // console.log("gender", gender, iAm, lookingFor, propertyCondition);
-  // console.log("====================================");
+  console.log("====================================");
+  console.log("gender", pricing, price);
+  console.log("====================================");
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -591,7 +592,7 @@ export default function AddPost({ navigation, route }) {
           <View>
             <Text
               style={{
-                color: "black",
+                color: AppColors.black,
                 fontSize: height(2),
                 paddingHorizontal: width(4.5),
                 fontWeight: "bold",
@@ -1122,7 +1123,7 @@ export default function AddPost({ navigation, route }) {
                 data={pdata}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
-                initial={pricing == "Price" ? 1 : 2}
+                initial={1}
                 boxStyle={{
                   width: width(90),
                   borderWidth: 0,
@@ -1130,36 +1131,40 @@ export default function AddPost({ navigation, route }) {
                 }}
                 activeColor={AppColors.primary}
                 selectedBtn={(e) => {
-                  e.key == "Disable" ? setPrice("") : "";
+                  e.key == "Contact"
+                    ? setPrice("Contact")
+                    : e.key == "Free"
+                    ? setPrice("Free")
+                    : setPrice("");
                   setPricing(e.key);
                 }}
               />
             </View>
           )}
           {/*-----------------price---------------*/}
-          {shouldRenderField("Price", category, subCategory) &&
-            pricing == "Price" && (
-              <View
-                style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
-              >
-                <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
+          {shouldRenderField("Price", category, subCategory) && (
+            <View
+              style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
+            >
+              <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
-                <Input
-                  value={price + ""}
-                  setvalue={handleInputChange}
-                  placeholder={t("addPost.phprice")}
-                  containerStyle={[
-                    styles.price,
-                    { width: width(90) },
-                    priceRequire && styles.required,
-                  ]}
-                  keyboardType="number-pad"
-                />
-                {priceRequire && (
-                  <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-                )}
-              </View>
-            )}
+              <Input
+                editable={pricing == "Price"}
+                value={price}
+                setvalue={handleInputChange}
+                placeholder={t("addPost.phprice")}
+                containerStyle={[
+                  styles.price,
+                  { width: width(90) },
+                  priceRequire && styles.required,
+                ]}
+                keyboardType="number-pad"
+              />
+              {priceRequire && (
+                <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+              )}
+            </View>
+          )}
           {/*-----------------condition Vahecal---------------*/}
           {shouldRenderField("Condition", category, subCategory) &&
             feild?.conditionList && (

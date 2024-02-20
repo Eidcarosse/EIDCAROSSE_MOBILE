@@ -47,7 +47,7 @@ export default function RelatedAd({ category, id }) {
     <View style={styles.main}>
       {data.length>0 && (
         <View style={styles.titleview}>
-          <Text style={{ fontSize: width(4), fontWeight: "bold" }}>
+          <Text style={{ fontSize: width(4), fontWeight: "bold", color: AppColors.black, }}>
             {t("detail.relatedAds")}
           </Text>
         </View>

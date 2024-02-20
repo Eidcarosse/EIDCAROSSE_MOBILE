@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: height(2),
     paddingBottom: width(1),
+    color: AppColors.black,
   },
   categoryview: { flexDirection: "row", alignItems: "center" },
   detailtext: {
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: width(2),
     width: width(34),
     marginVertical: width(0.5),
+    color: AppColors.black,
   },
   chf: {
     fontSize: height(1.8),

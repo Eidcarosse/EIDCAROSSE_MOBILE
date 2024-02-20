@@ -22,8 +22,10 @@ import GlobalMethods, {
   formatPrice,
   formatPriceE,
   infoMessage,
+  shouldRenderField,
 } from "../../utills/Methods";
 import styles from "./styles";
+import { isNullOrNullOrEmpty } from "../../utills/Methods";
 const Card = React.memo(({ data, onPresshide, map = false }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -65,6 +67,7 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
       dispatch(setAdsFav(fav));
     }
   };
+
   return (
     <View style={styles.main}>
       <View style={{ borderBottomWidth: width(0.1) }}>
@@ -210,24 +213,26 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
-          <View style={styles.detailinerview}>
-            {checkPrice(data?.price) ? (
-              <View>
-                <Text numberOfLines={1} style={styles.chf}>
-                  CHF {formatPrice(data?.price)}
-                </Text>
-                <Text numberOfLines={1} style={styles.eur}>
-                  EUR {formatPriceE(Math.round(data?.price * 1.06))}
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.cfpview}>
-                <Text numberOfLines={1} style={styles.cfp}>
-                  {t("detail.CFP")}
-                </Text>
-              </View>
-            )}
-          </View>
+          {!isNullOrNullOrEmpty(data?.price) && (
+            <View style={styles.detailinerview}>
+              {checkPrice(data?.price) ? (
+                <View>
+                  <Text numberOfLines={1} style={styles.chf}>
+                    CHF {formatPrice(data?.price)}
+                  </Text>
+                  <Text numberOfLines={1} style={styles.eur}>
+                    EUR {formatPriceE(Math.round(data?.price * 1.06))}
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.cfpview}>
+                  <Text numberOfLines={1} style={styles.cfp}>
+                    {t(`detail.${data?.price}`)}
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
           <View
             style={{
               flexDirection: "row",

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     paddingBottom: width(17),
     flex:1,
     backgroundColor: AppColors.white,
+    marginTop:height(1)
   },
  
 });
