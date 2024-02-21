@@ -227,7 +227,7 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
               ) : (
                 <View style={styles.cfpview}>
                   <Text numberOfLines={1} style={styles.cfp}>
-                    {t(`detail.${data?.price}`)}
+                    {t(`addPost.${data?.price}`)}
                   </Text>
                 </View>
               )}

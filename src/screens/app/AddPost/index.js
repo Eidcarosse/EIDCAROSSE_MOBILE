@@ -1,4 +1,10 @@
-import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  FontAwesome,
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import RadioButtonRN from "radio-buttons-react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -48,7 +54,70 @@ import {
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
+function getPriceInitialValue(input) {
+  switch (input) {
+    case "Free":
+      return 2;
+    case "contact":
+      return 3;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      if (!isNaN(parseFloat(input))) {
+        return 1;
+      } else {
+        return 0;
+      }
+  }
+}
+function getGenderInitialValue(input) {
+  switch (input) {
+    case "Male":
+      return 1;
+    case "Female":
+      return 2;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      return 0;
+  }
+}
 
+function getConditionInitailValue(input) {
+  switch (input) {
+    case "New":
+      return 1;
+    case "Used":
+      return 2;
+    case "Recondition":
+      return 3;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      return 0;
+  }
+}
+
+function getPContitionInitialValue(input) {
+  switch (input) {
+    case "Yes":
+      return 1;
+    case "No":
+      return 2;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      return 0;
+  }
+}
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
   const edit = route?.params?.data;
@@ -71,24 +140,30 @@ export default function AddPost({ navigation, route }) {
   const [titleRequire, setTitleRequire] = React.useState(null);
   const [pricing, setPricing] = React.useState("Price");
   const [url, setUrl] = React.useState(edit?.videoUrl || "");
-  const [km, setKm] = React.useState(edit?.km || "");
+  const [km, setKm] = React.useState(edit?.vhclZ?.km || "");
   const [description, setDescription] = React.useState(edit?.description || "");
   const [check, setCheck] = React.useState(false);
   const [otherBrand, setOtherBrand] = React.useState(false);
   const [otherModel, setOtherModel] = React.useState(false);
-  const [year, setYear] = React.useState(edit?.year || "");
+  const [year, setYear] = React.useState(edit?.vhclZ?.year || "");
   const [price, setPrice] = React.useState(edit?.price || "");
   const [priceRequire, setPriceRequire] = React.useState(null);
-  const [condition, setCondition] = React.useState(edit?.condition || "");
-  const [brand, setBrand] = React.useState(edit?.brand || "");
+  const [condition, setCondition] = React.useState(
+    edit?.vhclZ?.condition || ""
+  );
+  const [brand, setBrand] = React.useState(edit?.vhclZ?.brand || "");
   const [brandRequire, setBrandRequire] = React.useState(null);
-  const [model, setModel] = React.useState(edit?.model || "");
-  const [type, setType] = React.useState(edit?.type || "");
-  const [bodyshape, setBodyshap] = React.useState(edit?.bodyShape || "");
-  const [gearbox, setGearbox] = React.useState(edit?.gearBox || "");
-  const [fueltype, setFueltype] = React.useState(edit?.fuelType || "");
-  const [exterior, setExterior] = React.useState(edit?.exteriorColor || "");
-  const [interior, setInterior] = React.useState(edit?.interiorColor || "");
+  const [model, setModel] = React.useState(edit?.vhclZ?.model || "");
+  const [type, setType] = React.useState(edit?.vhclZ?.type || "");
+  const [bodyshape, setBodyshap] = React.useState(edit?.vhclZ?.bodyShape || "");
+  const [gearbox, setGearbox] = React.useState(edit?.vhclZ?.gearBox || "");
+  const [fueltype, setFueltype] = React.useState(edit?.vhclZ?.fuelType || "");
+  const [exterior, setExterior] = React.useState(
+    edit?.vhclZ?.exteriorColor || ""
+  );
+  const [interior, setInterior] = React.useState(
+    edit?.vhclZ?.interiorColor || ""
+  );
   const [latitude, setLatiitude] = React.useState(edit?.latitude || 37.78825);
   const [longitude, setLongitude] = React.useState(
     edit?.longitude || -122.4324
@@ -112,46 +187,56 @@ export default function AddPost({ navigation, route }) {
   const [feild, setFeild] = useState();
 
   const [renderNow, setRenderNow] = useState(false);
-
-  /////////////////// new status ///////////////////////////
-
-  const [area, setArea] = useState();
-  const [companyName, setCompanyName] = useState();
-  const [salaryFrom, setSalaryFrom] = useState();
-  const [salaryTo, setSalaryTo] = useState();
-  const [salaryPeriod, setSalaryPeriod] = useState();
-  const [positionType, setPositionType] = useState();
-  const [breed, setBreed] = useState();
-  const [age, setAge] = useState();
-  const [drivenHours, setDrivenHours] = useState();
-  const [workingHours, setWorkingHours] = useState();
-  const [downPayment, setDownPayment] = useState();
-  const [installments, setInstallments] = useState();
-  const [installmentPlan, setInstallmentPlan] = useState();
-  const [bedRooms, setBedRooms] = useState();
-  const [bathRooms, setBathRooms] = useState();
-  const [iAm, setIAm] = useState();
-  const [lookingFor, setLookingFor] = useState();
-  const [gender, setGender] = useState();
-  const [propertyCondition, setPropertyCondition] = useState();
+  ////////////////////////////////////////////////////
+  const [area, setArea] = useState(edit?.property4sr?.area || "");
+  const [companyName, setCompanyName] = useState(edit?.jobZ?.companyName || "");
+  const [salaryFrom, setSalaryFrom] = useState(edit?.jobZ?.salaryFrom || "");
+  const [salaryTo, setSalaryTo] = useState(edit?.jobZ?.salaryTo || "");
+  const [salaryPeriod, setSalaryPeriod] = useState(
+    edit?.jobZ?.salaryPeriod || ""
+  );
+  const [positionType, setPositionType] = useState(
+    edit?.jobZ?.positionType || ""
+  );
+  const [breed, setBreed] = useState(edit?.animalZ?.breed || "");
+  const [age, setAge] = useState(edit?.animalZ?.age || "");
+  const [drivenHours, setDrivenHours] = useState(edit?.vhclZ?.hrzDrvn || "");
+  const [workingHours, setWorkingHours] = useState(
+    edit?.bznessInAg?.workingHours || ""
+  );
+  const [downPayment, setDownPayment] = useState(edit?.vhclZ?.dwnPymnt || "");
+  const [installments, setInstallments] = useState(
+    edit?.vhclZ?.mnthlyInstl || ""
+  );
+  const [installmentPlan, setInstallmentPlan] = useState(
+    edit?.vhclZ?.instlPlan || ""
+  );
+  const [bedRooms, setBedRooms] = useState(edit?.property4sr?.bedrooms || "");
+  const [bathRooms, setBathRooms] = useState(
+    edit?.property4sr?.bathrooms || ""
+  );
+  const [iAm, setIAm] = useState(edit?.rltnShp?.iAm || "");
+  const [lookingFor, setLookingFor] = useState(edit?.rltnShp?.lkinFor || "");
+  const [gender, setGender] = useState(edit?.animalZ?.gender || "");
+  const [propertyCondition, setPropertyCondition] = useState(
+    edit?.property4sr?.furnished || ""
+  );
   const [free, setFree] = useState(false);
-  {
-    /*----------Edit data-----------*/
-  }
-  // useEffect(() => {
-  //   if (edit) {
-  //     setAddViber(edit?.viber ? true : false);
-  //     setAddWhatsapp(edit?.whatsapp ? true : false);
-  //     setAddPhone(edit?.phone ? true : false);
-  //     setAddEmail(edit?.email ? true : false);
-  //     setPricing(edit?.price > 0 ? "Price" : "");
-  //     setBrand(edit?.brand);
-  //     setModel(edit?.model);
-  //     edit?.brand === "Others" && setOtherBrand(true);
-  //     edit?.model === "Others" && setOtherModel(true);
-  //     edit?.subCategory && setFind(edit?.subCategory);
-  //   }
-  // }, [edit]);
+
+  useEffect(() => {
+    if (edit) {
+      setAddViber(edit?.viber ? true : false);
+      setAddWhatsapp(edit?.whatsapp ? true : false);
+      setAddPhone(edit?.phone ? true : false);
+      setAddEmail(edit?.email ? true : false);
+      console.log('====================================');
+      console.log(getPriceInitialValue(edit?.price));
+      console.log('====================================');
+      getPriceInitialValue(edit?.price) == 1 && setPrice(edit?.price);
+      edit?.jobZ?.brand === "Others" && setOtherBrand(true);
+      edit?.jobZ?.model === "Others" && setOtherModel(true);
+    }
+  }, [edit]);
   useEffect(() => {
     getvehicleMake();
     if (showType(subCategory)) {
@@ -322,111 +407,32 @@ export default function AddPost({ navigation, route }) {
           uri: img,
         });
       });
-      const resp = await addPostAd(formData);
-      if (resp?.success) {
-        navigation.navigate("StackHome");
-        const userAd = await getOwneAd(userInfo?._id);
-        dispatch(setUserAds(userAd));
-        successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
+      if (edit) {
+        const resp = await editAdApi(edit?._id, formData);
+        if (resp?.success) {
+          successMessage(t(`flashmsg.editadsussessmsg`), t(`flashmsg.success`));
+          navigation.navigate(ScreenNames.MYADS);
+        } else {
+          errorMessage(t(`flashmsg.editerrormsg`), t(`flashmsg.error`));
+        }
       } else {
-        errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
+        const resp = await addPostAd(formData);
+        if (resp?.success) {
+          navigation.navigate("StackHome");
+          const userAd = await getOwneAd(userInfo?._id);
+          dispatch(setUserAds(userAd));
+          successMessage(t(`flashmsg.adPostsussessmsg`), t(`flashmsg.success`));
+        } else {
+          errorMessage(t(`flashmsg.adPosterrormsg`), t(`flashmsg.error`));
+        }
       }
+
       dispatch(setAppLoader(false));
     } catch (error) {
       console.error("post upload error:", error);
       dispatch(setAppLoader(false));
     }
   };
-  // const editPost = async () => {
-  //   dispatch(setAppLoader(true));
-  //   try {
-  //     const requiredFields = [title, latitude, longitude, address, image];
-  //     showBrand(category) && requiredFields.push(brand);
-  //     pricing == "Price" && requiredFields.push(price);
-  //     const isAnyFieldEmpty = requiredFields.some((field) => !field);
-
-  //     if (isAnyFieldEmpty) {
-  //       if (!title) {
-  //         setTitleRequire(true);
-  //       } else {
-  //         setTitleRequire(false);
-  //       }
-  //       if (!brand) {
-  //         setBrandRequire(true);
-  //       } else {
-  //         setBrandRequire(false);
-  //       }
-  //       if (!address) {
-  //         setAddressRequire(true);
-  //       } else {
-  //         setAddressRequire(false);
-  //       }
-  //       if (!price) {
-  //         setPriceRequire(true);
-  //       } else {
-  //         setPriceRequire(false);
-  //       }
-
-  //       dispatch(setAppLoader(false));
-  //       // Show an alert if any required field is empty
-  //       errorMessage(t(`flashmsg.emptyfield`), t(`flashmsg.require`));
-
-  //       return;
-  //     }
-  //     if (image.length < 1) {
-  //       errorMessage("Image require ", t(`flashmsg.error`));
-  //       dispatch(setAppLoader(false));
-  //       return;
-  //     }
-  //     const formData = new FormData();
-  //     formData.append("userId", userInfo?._id);
-  //     formData.append("title", title);
-  //     formData.append("category", category);
-  //     formData.append("subCategory", subCategory);
-  //     formData.append("type", type);
-  //     formData.append("price", pricing == "Price" ? price : 0);
-  //     formData.append("km", km);
-
-  //     formData.append("condition", condition);
-  //     formData.append("brand", brand);
-  //     formData.append("year", year);
-  //     formData.append("model", model);
-  //     formData.append("bodyShape", bodyshape);
-  //     formData.append("gearBox", gearbox);
-  //     formData.append("fuelType", fueltype);
-  //     formData.append("exteriorColor", exterior);
-  //     formData.append("interiorColor", interior);
-  //     formData.append("videoUrl", url);
-  //     formData.append("description", description);
-  //     formData.append("latitude", latitude);
-  //     formData.append("longitude", longitude);
-  //     formData.append("address", address);
-  //     formData.append("viber", addViber == true ? viber : "");
-  //     formData.append("whatsapp", addWhatsapp == true ? whatsapp : "");
-  //     formData.append("phone", addPhone == true ? true : false);
-  //     image.forEach((img, index) => {
-  //       formData.append("file", {
-  //         name: `image${index}`,
-  //         type: "image/jpeg", // Adjust the type if needed
-  //         uri: img,
-  //       });
-  //     });
-  //     const resp = await editAdApi(edit?._id, formData);
-  //     if (resp?.success) {
-  //       successMessage(t(`flashmsg.editadsussessmsg`), t(`flashmsg.success`));
-  //       navigation.navigate(ScreenNames.MYADS);
-  //     } else {
-  //       errorMessage(t(`flashmsg.editerrormsg`), t(`flashmsg.error`));
-  //     }
-  //     dispatch(setAppLoader(false));
-  //     // navigation.navigate("StackHome");
-  //     // const userAd = await getOwneAd(userInfo?._id);
-  //     // dispatch(setUserAds(userAd));
-  //   } catch (error) {
-  //     console.error("Image upload error:", error);
-  //     dispatch(setAppLoader(false));
-  //   }
-  // };
   const rdata = [
     {
       key: "New",
@@ -448,11 +454,11 @@ export default function AddPost({ navigation, route }) {
     },
     {
       key: "Free",
-      label: t("condition.Free"),
+      label: t("addPost.Free"),
     },
     {
       key: "Contact",
-      label: t("condition.Contact for price"),
+      label: t("addPost.Contact"),
     },
   ];
   const pcdata = [
@@ -468,11 +474,11 @@ export default function AddPost({ navigation, route }) {
   const gdata = [
     {
       key: "Male",
-      label: t("addPost.male"),
+      label: t("addPost.Male"),
     },
     {
       key: "Female",
-      label: t("addPost.female"),
+      label: t("addPost.Female"),
     },
   ];
   const otherModelFuntion = () => {
@@ -550,9 +556,7 @@ export default function AddPost({ navigation, route }) {
       </TouchableOpacity>
     </ScaleDecorator>
   );
-  console.log("====================================");
-  console.log("gender", pricing, price);
-  console.log("====================================");
+
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -1037,6 +1041,8 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={pcdata}
+                initial={getPContitionInitialValue(gender)}
+                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1058,6 +1064,8 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={gdata}
+                initial={getGenderInitialValue(gender)}
+                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1079,6 +1087,8 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={gdata}
+                initial={getGenderInitialValue(iAm)}
+                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1100,6 +1110,8 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={gdata}
+                initial={getGenderInitialValue(lookingFor)}
+                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1114,56 +1126,51 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {/*-----------------pricing radiobtn---------------*/}
+          {/*-----------------pricing radiobtn with Text Feild---------------*/}
           {shouldRenderField("Price", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.pricing")}</Text>
+            <>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.pricing")}</Text>
 
-              <RadioButtonRN
-                data={pdata}
-                textStyle={{ fontSize: height(1.5) }}
-                circleSize={width(3)}
-                initial={1}
-                boxStyle={{
-                  width: width(90),
-                  borderWidth: 0,
-                  paddingVertical: width(1),
-                }}
-                activeColor={AppColors.primary}
-                selectedBtn={(e) => {
-                  e.key == "Contact"
-                    ? setPrice("Contact")
-                    : e.key == "Free"
-                    ? setPrice("Free")
-                    : setPrice("");
-                  setPricing(e.key);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------price---------------*/}
-          {shouldRenderField("Price", category, subCategory) && (
-            <View
-              style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
-            >
-              <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
+                <RadioButtonRN
+                  data={pdata}
+                  initial={getPriceInitialValue(price)}
+                  animationTypes={["shake"]}
+                  textStyle={{ fontSize: height(1.5) }}
+                  circleSize={width(3)}
+                  boxStyle={{
+                    width: width(90),
+                    borderWidth: 0,
+                    paddingVertical: width(1),
+                  }}
+                  activeColor={AppColors.primary}
+                  selectedBtn={(e) => {
+                    setPricing(e.key);
+                  }}
+                />
+              </View>
+              <View
+                style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
+              >
+                <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
-              <Input
-                editable={pricing == "Price"}
-                value={price}
-                setvalue={handleInputChange}
-                placeholder={t("addPost.phprice")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  priceRequire && styles.required,
-                ]}
-                keyboardType="number-pad"
-              />
-              {priceRequire && (
-                <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-              )}
-            </View>
+                <Input
+                  editable={pricing == "Price"}
+                  value={pricing == "Price" ? price+"" : t(`addPost.${price}`)}
+                  setvalue={handleInputChange}
+                  placeholder={t("addPost.phprice")}
+                  containerStyle={[
+                    styles.price,
+                    { width: width(90) },
+                    priceRequire && styles.required,
+                  ]}
+                  keyboardType="number-pad"
+                />
+                {priceRequire && (
+                  <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+                )}
+              </View>
+            </>
           )}
           {/*-----------------condition Vahecal---------------*/}
           {shouldRenderField("Condition", category, subCategory) &&
@@ -1172,17 +1179,10 @@ export default function AddPost({ navigation, route }) {
                 <Text style={styles.title}>{t("addPost.condition")}</Text>
 
                 <RadioButtonRN
+                  animationTypes={["shake"]}
                   data={rdata}
+                  initial={getConditionInitailValue(condition)}
                   textStyle={{ fontSize: height(1.5) }}
-                  initial={
-                    edit?.condition
-                      ? rdata.findIndex(
-                          (item) =>
-                            item.key.toLowerCase() ===
-                            (edit?.condition || "").toLowerCase()
-                        ) + 1
-                      : 0
-                  }
                   circleSize={width(3)}
                   boxStyle={{
                     width: width(90),
@@ -1305,296 +1305,288 @@ export default function AddPost({ navigation, route }) {
           )}
 
           {/*-----------------render after select brand---------------*/}
-          {brand && (
-            <View>
-              {/*-----------------model---------------*/}
-
-              {apimodel && brand != "Others" ? (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.model")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      model
-                        ? model === "Others"
-                          ? t("category.Others")
-                          : model
-                        : t("addPost.defaultValueDropdown")
+          {brand &&
+            (apimodel && brand != "Others" ? (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.model")}</Text>
+                <SelectDropdown
+                  defaultButtonText={
+                    model
+                      ? model === "Others"
+                        ? t("category.Others")
+                        : model
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  ref={modelRef}
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  data={apimodel}
+                  disabled={otherModel}
+                  search={true}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={[
+                    { textAlign: "left", fontSize: height(1.6) },
+                    otherModel && { color: "grey" },
+                  ]}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setModel(selectedItem);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                />
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    paddingVertical: width(4),
+                    alignSelf: "flex-start",
+                    alignItems: "center",
+                  }}
+                  onPress={otherModelFuntion}
+                >
+                  <CheckBox
+                    checkedImage={
+                      <MaterialIcons
+                        name="check-box"
+                        size={height(2)}
+                        color={AppColors.primary}
+                      />
                     }
-                    ref={modelRef}
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    data={apimodel}
-                    disabled={otherModel}
-                    search={true}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={[
-                      { textAlign: "left", fontSize: height(1.6) },
-                      otherModel && { color: "grey" },
-                    ]}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setModel(selectedItem);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return selectedItem;
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return item;
-                    }}
+                    unCheckedImage={
+                      <MaterialIcons
+                        name="check-box-outline-blank"
+                        size={height(2)}
+                      />
+                    }
+                    style={{ paddingRight: width(2) }}
+                    checkedCheckBoxColor={AppColors.primary}
+                    isChecked={otherModel}
+                    onClick={otherModelFuntion}
                   />
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
-                      paddingVertical: width(4),
-                      alignSelf: "flex-start",
-                      alignItems: "center",
-                    }}
-                    onPress={otherModelFuntion}
-                  >
-                    <CheckBox
-                      checkedImage={
-                        <MaterialIcons
-                          name="check-box"
-                          size={height(2)}
-                          color={AppColors.primary}
-                        />
-                      }
-                      unCheckedImage={
-                        <MaterialIcons
-                          name="check-box-outline-blank"
-                          size={height(2)}
-                        />
-                      }
-                      style={{ paddingRight: width(2) }}
-                      checkedCheckBoxColor={AppColors.primary}
-                      isChecked={otherModel}
-                      onClick={otherModelFuntion}
-                    />
-                    <Text style={{ fontSize: height(1.5) }}>
-                      {t("category.Others")}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <></>
-              )}
-              {/*-----------------Year---------------*/}
-              {shouldRenderField("Year", category, subCategory) && (
-                <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>{t("addPost.year")}</Text>
-                  <Input
-                    value={year + ""}
-                    setvalue={setYear}
-                    containerStyle={[styles.price, { width: width(90) }]}
-                    placeholder={t("addPost.phyear")}
-                    keyboardType="number-pad"
-                  />
-                </View>
-              )}
-              {/*-----------------body shap---------------*/}
-              {shouldRenderField("bodyShap", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      bodyshape
-                        ? t(`bodyShapeList.${bodyshape}`)
-                        : t("addPost.defaultValueDropdown")
-                    }
-                    data={
-                      category == "Bikes"
-                        ? feild?.bikeBodyShape
-                        : feild?.AutosBodyShape
-                    }
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setBodyshap(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(`bodyShapeList.${selectedItem.name}`);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(`bodyShapeList.${item.name}`);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------Gear box---------------*/}
-              {shouldRenderField("gearBox", category, subCategory) &&
-                feild?.gearBox && (
-                  <View style={{ alignSelf: "center" }}>
-                    <Text style={styles.title}>{t("addPost.gearbox")}</Text>
-                    <SelectDropdown
-                      defaultButtonText={
-                        gearbox
-                          ? t(`gearBoxList.${gearbox}`)
-                          : t("addPost.defaultValueDropdown")
-                      }
-                      data={feild.gearBox}
-                      searchPlaceHolder={t("addPost.phsearchHere")}
-                      buttonStyle={styles.searchbox}
-                      selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                      selectedRowTextStyle={{ color: AppColors.white }}
-                      buttonTextStyle={{
-                        textAlign: "left",
-                        fontSize: height(1.6),
-                      }}
-                      dropdownStyle={styles.dropdown}
-                      onSelect={(selectedItem, index) => {
-                        setGearbox(selectedItem.name);
-                      }}
-                      buttonTextAfterSelection={(selectedItem, index) => {
-                        return t(`gearBoxList.${selectedItem.name}`);
-                      }}
-                      rowTextForSelection={(item, index) => {
-                        return t(`gearBoxList.${item.name}`);
-                      }}
-                    />
-                  </View>
-                )}
-              {/*-----------------fule type---------------*/}
-              {shouldRenderField("fuleType", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.fueltype")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      fueltype
-                        ? t(`fuelTypelist.${fueltype}`)
-                        : t("addPost.defaultValueDropdown")
-                    }
-                    data={
-                      category == "Bikes"
-                        ? feild?.BikeFuelType
-                        : feild?.fuelType
-                    }
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setFueltype(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(`fuelTypelist.${selectedItem.name}`);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(`fuelTypelist.${item.name}`);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------exterior color---------------*/}
-              {shouldRenderField("ExteriorColor", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      exterior
-                        ? t(`colorList.${exterior}`)
-                        : t("addPost.defaultValueDropdown")
-                    }
-                    data={
-                      category == "Bikes"
-                        ? feild?.bikeColor
-                        : feild?.exteriorColor
-                    }
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setExterior(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(`colorList.${selectedItem.name}`);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(`colorList.${item.name}`);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------Interior color---------------*/}
-              {shouldRenderField("interirColor", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      interior
-                        ? t(`colorList.${interior}`)
-                        : t("addPost.defaultValueDropdown")
-                    }
-                    data={feild?.interiorColor}
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setInterior(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(`colorList.${selectedItem.name}`);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(`colorList.${item.name}`);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------Km---------------*/}
-              {shouldRenderField("km", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.km")}</Text>
-                  <SelectDropdown
-                    data={feild?.kilometers}
-                    defaultButtonText={km || t("addPost.defaultValueDropdown")}
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setKm(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(selectedItem.name);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(item.name);
-                    }}
-                  />
-                </View>
-              )}
+                  <Text style={{ fontSize: height(1.5) }}>
+                    {t("category.Others")}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <></>
+            ))}
+          {/*-----------------Year---------------*/}
+          {shouldRenderField("Year", category, subCategory) && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>{t("addPost.year")}</Text>
+              <Input
+                value={year + ""}
+                setvalue={setYear}
+                containerStyle={[styles.price, { width: width(90) }]}
+                placeholder={t("addPost.phyear")}
+                keyboardType="number-pad"
+              />
             </View>
           )}
+          {/*-----------------body shap---------------*/}
+          {shouldRenderField("bodyShap", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
+              <SelectDropdown
+                defaultButtonText={
+                  bodyshape
+                    ? t(`bodyShapeList.${bodyshape}`)
+                    : t("addPost.defaultValueDropdown")
+                }
+                data={
+                  category == "Bikes"
+                    ? feild?.bikeBodyShape
+                    : feild?.AutosBodyShape
+                }
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setBodyshap(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(`bodyShapeList.${selectedItem.name}`);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(`bodyShapeList.${item.name}`);
+                }}
+              />
+            </View>
+          )}
+          {/*-----------------Gear box---------------*/}
+          {shouldRenderField("gearBox", category, subCategory) &&
+            feild?.gearBox && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.gearbox")}</Text>
+                <SelectDropdown
+                  defaultButtonText={
+                    gearbox
+                      ? t(`gearBoxList.${gearbox}`)
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  data={feild.gearBox}
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={{
+                    textAlign: "left",
+                    fontSize: height(1.6),
+                  }}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setGearbox(selectedItem.name);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(`gearBoxList.${selectedItem.name}`);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(`gearBoxList.${item.name}`);
+                  }}
+                />
+              </View>
+            )}
+          {/*-----------------fule type---------------*/}
+          {shouldRenderField("fuleType", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.fueltype")}</Text>
+              <SelectDropdown
+                defaultButtonText={
+                  fueltype
+                    ? t(`fuelTypelist.${fueltype}`)
+                    : t("addPost.defaultValueDropdown")
+                }
+                data={
+                  category == "Bikes" ? feild?.BikeFuelType : feild?.fuelType
+                }
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setFueltype(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(`fuelTypelist.${selectedItem.name}`);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(`fuelTypelist.${item.name}`);
+                }}
+              />
+            </View>
+          )}
+          {/*-----------------exterior color---------------*/}
+          {shouldRenderField("ExteriorColor", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
+              <SelectDropdown
+                defaultButtonText={
+                  exterior
+                    ? t(`colorList.${exterior}`)
+                    : t("addPost.defaultValueDropdown")
+                }
+                data={
+                  category == "Bikes" ? feild?.bikeColor : feild?.exteriorColor
+                }
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setExterior(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(`colorList.${selectedItem.name}`);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(`colorList.${item.name}`);
+                }}
+              />
+            </View>
+          )}
+          {/*-----------------Interior color---------------*/}
+          {shouldRenderField("interirColor", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
+              <SelectDropdown
+                defaultButtonText={
+                  interior
+                    ? t(`colorList.${interior}`)
+                    : t("addPost.defaultValueDropdown")
+                }
+                data={feild?.interiorColor}
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setInterior(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(`colorList.${selectedItem.name}`);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(`colorList.${item.name}`);
+                }}
+              />
+            </View>
+          )}
+          {/*-----------------Km---------------*/}
+          {shouldRenderField("km", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.km")}</Text>
+              <SelectDropdown
+                data={feild?.kilometers}
+                defaultButtonText={km || t("addPost.defaultValueDropdown")}
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setKm(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(selectedItem.name);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(item.name);
+                }}
+              />
+            </View>
+          )}
+
           {/*-----------------description---------------*/}
           <View style={{ paddingVertical: width(1) }}>
             <Text style={styles.title}>{t("addPost.description")}</Text>
@@ -1631,8 +1623,8 @@ export default function AddPost({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={
-              <AntDesign
-                name={!addEmail ? "checkcircleo" : "checkcircle"}
+              <FontAwesome
+                name={!addEmail ? "toggle-off" : "toggle-on"}
                 color={!addEmail ? "black" : AppColors.primary}
                 size={height(3)}
               />
@@ -1661,8 +1653,8 @@ export default function AddPost({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={
-              <AntDesign
-                name={!addPhone ? "checkcircleo" : "checkcircle"}
+              <FontAwesome
+                name={!addPhone ? "toggle-off" : "toggle-on"}
                 color={!addPhone ? "black" : AppColors.primary}
                 size={height(3)}
               />
@@ -1691,8 +1683,8 @@ export default function AddPost({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={
-              <AntDesign
-                name={!addWhatsapp ? "checkcircleo" : "checkcircle"}
+              <FontAwesome
+                name={!addWhatsapp ? "toggle-off" : "toggle-on"}
                 color={!addWhatsapp ? "black" : AppColors.primary}
                 size={height(3)}
               />
@@ -1721,8 +1713,8 @@ export default function AddPost({ navigation, route }) {
             containerStyle={styles.container}
             textStyle={styles.texticon}
             iconright={
-              <AntDesign
-                name={!addViber ? "checkcircleo" : "checkcircle"}
+              <FontAwesome
+                name={!addViber ? "toggle-off" : "toggle-on"}
                 color={!addViber ? "black" : AppColors.primary}
                 size={height(3)}
               />
@@ -1895,9 +1887,7 @@ export default function AddPost({ navigation, route }) {
         >
           <Button
             disabled={!check}
-            onPress={() => {
-              edit ? editPost() : addPost();
-            }}
+            onPress={addPost}
             title={edit ? "editAd.edit" : "addPost.post"}
             containerStyle={{
               width: width(80),

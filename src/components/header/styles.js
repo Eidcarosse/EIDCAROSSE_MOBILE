@@ -18,5 +18,10 @@ const styles = StyleSheet.create({
     borderRadius: height(1),
     marginVertical:height(.5)
   },
+  image2: {
+    width: height(16.5),
+    height: height(2),
+    marginHorizontal:height(1)
+  },
 });
 export default styles;

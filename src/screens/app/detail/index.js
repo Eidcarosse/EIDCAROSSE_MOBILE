@@ -212,60 +212,62 @@ export default function Detail({ navigation, route }) {
           </View>
           {/*------price-------*/}
           <View style={styles.nameview}>
-            <View
-              style={{
-                paddingBottom: height(2),
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              {checkPrice(data?.price) ? (
-                <View style={{}}>
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      fontSize: height(2),
-                      color: AppColors.primary,
-                      fontWeight: "bold",
-                    }}
+            {!isNullOrNullOrEmpty(data?.price) && (
+              <View
+                style={{
+                  paddingBottom: height(2),
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                {checkPrice(data?.price) && data?.price ? (
+                  <View>
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        fontSize: height(2),
+                        color: AppColors.primary,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      CHF {formatPrice(data?.price)}
+                    </Text>
+                    <Text
+                      numberOfLines={1}
+                      style={{
+                        fontSize: height(1.5),
+                        color: "grey",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      EUR {formatPriceE(Math.round(data?.price * 1.06))}
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={styles.cfpview}>
+                    <Text numberOfLines={1} style={styles.cfp}>
+                      {t(`addPost.${data?.price}`)}
+                    </Text>
+                  </View>
+                )}
+                {/*------fav btn-------*/}
+                {!(data?.userId?._id === loginuser?._id) ? (
+                  <TouchableOpacity
+                    style={{ marginHorizontal: width(3) }}
+                    onPress={onpressfav}
                   >
-                    CHF {formatPrice(data?.price)}
-                  </Text>
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      fontSize: height(1.5),
-                      color: "grey",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    EUR {formatPriceE(Math.round(data?.price * 1.06))}
-                  </Text>
-                </View>
-              ) : (
-                <View style={styles.cfpview}>
-                  <Text numberOfLines={1} style={styles.cfp}>
-                  {t(`detail.${data?.price}`)}
-                  </Text>
-                </View>
-              )}
-              {/*------fav btn-------*/}
-              {!(data?.userId?._id === loginuser?._id) ? (
-                <TouchableOpacity
-                  style={{ marginHorizontal: width(3) }}
-                  onPress={onpressfav}
-                >
-                  <AntDesign
-                    size={height(2.5)}
-                    color={fav ? AppColors.primary : "black"}
-                    name={fav ? "heart" : "hearto"}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <></>
-              )}
-            </View>
+                    <AntDesign
+                      size={height(2.5)}
+                      color={fav ? AppColors.primary : "black"}
+                      name={fav ? "heart" : "hearto"}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <></>
+                )}
+              </View>
+            )}
 
             <View style={{ width: width(70) }}>
               <Text

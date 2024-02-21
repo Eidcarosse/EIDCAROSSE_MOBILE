@@ -560,8 +560,10 @@ export default {
     enterBathrooms: "Enter number of Bathrooms",
     iAm: "I am",
     lookingFor: "Looking For",
-    male: "Male",
-    female: "Female",
+    Male: "Male",
+    Female: "Female",
+    Free: "Free",
+    Contact: "Contact for Price",
   },
   fuelTypelist: {
     Gasoline: "Gasoline",
@@ -704,8 +706,6 @@ export default {
   },
   detail: {
     detailword: "Details",
-    contact: "Contact for Price",
-    free:"Free",
     DP: "Disabled Price",
     price: "Price",
     condition: "Condition",

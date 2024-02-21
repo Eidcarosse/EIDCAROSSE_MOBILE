@@ -64,16 +64,16 @@ export default function ForgetPassword({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View>
-        <Image
+          <Image
             style={{
               height: height(15),
-              width: height(40),
+              width: height(15),
               borderRadius: height(2),
               alignSelf: "center",
-              marginVertical:height(5)
+              marginVertical: height(5),
             }}
-            source={require("../../../../assets/splash.png")}
-            tintColor={'red'}
+            source={Icons.mainLogo}
+            tintColor={"red"}
           />
           <Input
             value={email}

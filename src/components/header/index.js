@@ -5,8 +5,9 @@ import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
 import AppColors from "../../utills/AppColors";
 import { useDispatch, useSelector } from "react-redux";
+import Icons from "../../asset/images";
 
-export default function Header({ navigation, title = "Eidcarosse.ch" }) {
+export default function Header({ navigation, title}) {
   const dispatch = useDispatch();
 
   return (
@@ -25,16 +26,26 @@ export default function Header({ navigation, title = "Eidcarosse.ch" }) {
           style={styles.image}
           resizeMode="cover"
         />
-        <Text
-          style={{
-            color: AppColors.primary,
-            fontSize: height(3),
-            fontWeight: "bold",
-            paddingHorizontal: height(1),
-          }}
-        >
-          {title}
-        </Text>
+        {!title && (
+          <Image
+            source={Icons.logName}
+            style={styles.image2}
+            resizeMode="cover"
+          />
+        )}
+        {title && (
+          <Text
+            style={{
+              color: AppColors.primary,
+              fontSize: height(3),
+              fontWeight: "bold",
+              paddingHorizontal: height(1),
+              fontStyle: 'italic'
+            }}
+          >
+            {title}
+          </Text>
+        )}
       </View>
 
       <TouchableOpacity

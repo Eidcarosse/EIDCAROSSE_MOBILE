@@ -21,6 +21,7 @@ import GlobalMethods, {
   errorMessage,
   formatPrice,
   formatPriceE,
+  isNullOrNullOrEmpty,
   successMessage,
 } from "../../utills/Methods";
 
@@ -121,24 +122,26 @@ export default function MyCard({ data }) {
             EUR {data?.price}
           </Text>
         </View> */}
-        <View style={styles.detailinerview}>
-          {checkPrice(data?.price) ? (
-            <View style={{ width: width(50) }}>
-              <Text numberOfLines={1} style={styles.chf}>
-                CHF {formatPrice(data?.price)}
-              </Text>
-              <Text numberOfLines={1} style={styles.eur}>
-                EUR {formatPriceE(Math.round(data?.price * 1.06))}
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.cfpview}>
-              <Text numberOfLines={1} style={styles.cfp}>
-              {t(`detail.${data?.price}`)}
-              </Text>
-            </View>
-          )}
-        </View>
+        {!isNullOrNullOrEmpty(data?.price) && (
+          <View style={styles.detailinerview}>
+            {checkPrice(data?.price) ? (
+              <View style={{ width: width(50) }}>
+                <Text numberOfLines={1} style={styles.chf}>
+                  CHF {formatPrice(data?.price)}
+                </Text>
+                <Text numberOfLines={1} style={styles.eur}>
+                  EUR {formatPriceE(Math.round(data?.price * 1.06))}
+                </Text>
+              </View>
+            ) : (
+              <View style={styles.cfpview}>
+                <Text numberOfLines={1} style={styles.cfp}>
+                  {t(`addPost.${data?.price}`)}
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
       </View>
 
       <View style={styles.icons}>
@@ -173,7 +176,10 @@ export default function MyCard({ data }) {
           }}
         >
           <AntDesign name="edit" size={height(2)} />
-          <Text style={{ fontSize: height(1.5), color: AppColors.black, }}> {t("myad.edit")}</Text>
+          <Text style={{ fontSize: height(1.5), color: AppColors.black }}>
+            {" "}
+            {t("myad.edit")}
+          </Text>
         </MenuItem>
         {publish && (
           <MenuItem
@@ -183,7 +189,10 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="refresh" size={height(2)} />
-            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}> {t("myad.refresh")}</Text>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black }}>
+              {" "}
+              {t("myad.refresh")}
+            </Text>
           </MenuItem>
         )}
 
@@ -195,7 +204,7 @@ export default function MyCard({ data }) {
             }}
           >
             <FontAwesome name="pause" size={height(1.8)} />
-            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black }}>
               {" "}
               {"  "} {t("myad.muteButton")}
             </Text>
@@ -208,7 +217,7 @@ export default function MyCard({ data }) {
             }}
           >
             <AntDesign name="play" size={height(2)} />
-            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black }}>
               {"  "}
               {t("myad.republish")}
             </Text>

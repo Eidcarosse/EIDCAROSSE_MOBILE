@@ -16,6 +16,7 @@ import GlobalMethods, {
   formatPrice,
   formatPriceE,
   infoMessage,
+  isNullOrNullOrEmpty,
 } from "../../utills/Methods";
 import styles from "./styles";
 import { toggleFavorite } from "../../backend/api";
@@ -71,37 +72,39 @@ export default function ListingView({ data }) {
           <Image style={styles.image} source={{ uri: data?.images[0] }} />
         </View>
         <View style={styles.detail}>
-          <View style={styles.detailinerview}>
-            {checkPrice(data?.price) ? (
-              <View>
-                <Text numberOfLines={1} style={styles.chf}>
-                  CHF {formatPrice(data?.price)}
-                </Text>
-                <Text numberOfLines={1} style={styles.eur}>
-                  EUR {formatPriceE(Math.round(data?.price * 1.06))}
-                </Text>
-              </View>
-            ) : (
-              <View style={styles.cfpview}>
-                <Text numberOfLines={1} style={styles.cfp}>
-                {t(`detail.${data?.price}`)}
-                </Text>
-              </View>
-            )}
-            {!(data?.userId?._id === loginuser?._id) ? (
-              <View>
-                <TouchableOpacity onPress={onpressfav}>
-                  <AntDesign
-                    size={width(4)}
-                    color={fav ? AppColors.primary : "black"}
-                    name={fav ? "heart" : "hearto"}
-                  />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <></>
-            )}
-          </View>
+          {!isNullOrNullOrEmpty(data?.price) && (
+            <View style={styles.detailinerview}>
+              {checkPrice(data?.price) ? (
+                <View>
+                  <Text numberOfLines={1} style={styles.chf}>
+                    CHF {formatPrice(data?.price)}
+                  </Text>
+                  <Text numberOfLines={1} style={styles.eur}>
+                    EUR {formatPriceE(Math.round(data?.price * 1.06))}
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.cfpview}>
+                  <Text numberOfLines={1} style={styles.cfp}>
+                    {t(`addPost.${data?.price}`)}
+                  </Text>
+                </View>
+              )}
+              {!(data?.userId?._id === loginuser?._id) ? (
+                <View>
+                  <TouchableOpacity onPress={onpressfav}>
+                    <AntDesign
+                      size={width(4)}
+                      color={fav ? AppColors.primary : "black"}
+                      name={fav ? "heart" : "hearto"}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <></>
+              )}
+            </View>
+          )}
           <View>
             <Text numberOfLines={1} style={styles.titletext}>
               {data?.title}

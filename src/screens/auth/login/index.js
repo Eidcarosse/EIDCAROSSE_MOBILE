@@ -168,13 +168,14 @@ export default function Login({ navigation, route }) {
           <Image
             style={{
               height: height(15),
-              width: height(40),
+              width: height(15),
               borderRadius: height(2),
               alignSelf: "center",
-              marginVertical:height(5)
+              justifyContent: "center",
+              marginVertical: height(2),
             }}
-            source={require("../../../../assets/splash.png")}
-            tintColor={'red'}
+            source={Icons.mainLogo}
+            tintColor={"red"}
           />
         </View>
         <View
