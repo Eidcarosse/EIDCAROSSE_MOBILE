@@ -1444,7 +1444,7 @@ export default function AddPost({ navigation, route }) {
               </View>
             )}
           {/*-----------------fule type---------------*/}
-          {shouldRenderField("fuleType", category, subCategory) && (
+          {shouldRenderField("fuelType", category, subCategory) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.fueltype")}</Text>
               <SelectDropdown

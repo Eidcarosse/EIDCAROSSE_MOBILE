@@ -321,7 +321,7 @@ export function shouldRenderField(field, category, sub_category) {
     "Property for Sale": ["Area", "Price", "Free"],
     "Property for Rent": ["Area", "Price", "Free"],
     "Electronics & Home Appliances": ["Condition", "Price", "Free"],
-    Bikes: ["Brand", "Condition", "Price", "Free"],
+    Bikes: ["Brand", "Condition", "Price", "Free",],
     Jobs: [
       "CompanyName",
       "SalaryFrom",
@@ -381,7 +381,7 @@ export function shouldRenderField(field, category, sub_category) {
     "Roommates & Paying Guests": ["Furnished"],
     Rooms: ["Furnished"],
     "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-    Motorcycles: ["Brand", "Model", "km", "Type", "bodyShap", "ExteriorColor"],
+    Motorcycles: ["Brand", "Model", "km", "Type", "bodyShap", "ExteriorColor","fuelType"],
     // "Bikes Accessories": ["Brand"],
     Bicycles: ["Brand", "Year"],
     "ATV & Quads": ["Brand", "Year"],

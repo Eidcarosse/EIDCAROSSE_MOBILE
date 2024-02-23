@@ -56,8 +56,6 @@ const styles = StyleSheet.create({
   },
   iconview: {
     flexDirection: "row",
-    width: width(10),
-    justifyContent: "space-around",
     alignContent: "center",
     alignItems: "center",
   },
