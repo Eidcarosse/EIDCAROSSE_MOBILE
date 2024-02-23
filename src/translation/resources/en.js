@@ -233,6 +233,7 @@ export default {
     share: "Share with Friends",
   },
   category: {
+    undefined:'',
     Autos: "Autos",
     Bikes: "Bikes",
     Boats: "Boats",
@@ -498,7 +499,7 @@ export default {
     description: "Description",
     phdescription: "Describe what you are selling.",
     videourl: "Video Url",
-    phurl: "https://example.com",
+    phurl: "example.com",
     contactdetail: "Contact Detail",
     htc: "How to Contact",
     whatsapp: "Whatsapp",

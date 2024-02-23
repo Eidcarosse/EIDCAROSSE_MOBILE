@@ -90,7 +90,7 @@ export default function Search({ navigation, route }) {
             }
           }}
         />
-        <View style={{ flex: 0.5 }}>
+        <View>
           <Text
             style={{
               padding: height(0.5),

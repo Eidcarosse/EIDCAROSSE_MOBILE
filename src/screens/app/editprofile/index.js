@@ -1,17 +1,9 @@
 import React, { useRef } from "react";
-import {
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import Icons from "../../../asset/images";
 import {
   Button,
   FilePickerModal,
@@ -21,13 +13,13 @@ import {
   ScreenWrapper,
 } from "../../../components";
 
+import { useTranslation } from "react-i18next";
 import { updateProfile } from "../../../backend/auth";
 import { setAppLoader } from "../../../redux/slices/config";
 import { selectUserMeta, setUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage } from "../../../utills/Methods";
-import { useTranslation } from "react-i18next";
 
 export default function EditProfile({ navigation, route }) {
   const dispatch = useDispatch();
@@ -148,13 +140,6 @@ export default function EditProfile({ navigation, route }) {
             setvalue={setLastName}
           />
           <Input
-            title={"editprofile.userNameTitle"}
-            placeholder={"editprofile.usernamePlaceholder"}
-            value={userName}
-            setvalue={setUserName}
-            editable={false}
-          />
-          <Input
             title={"editprofile.emailTitle"}
             placeholder={"editprofile.emailPlaceholder"}
             value={email}
@@ -162,26 +147,12 @@ export default function EditProfile({ navigation, route }) {
             editable={false}
             keyboardType="email-address"
           />
-          {/* <Input
-              title={"editprofile.phoneNumberTitle"}
-              placeholder={"+41 XX XXX XX XX"}
-              value={phoneNumber}
-              setvalue={setPhoneNumber}
-              keyboardType="phone-pad"
-            /> */}
           <NumberInput
             title={"editprofile.phoneNumberTitle"}
             value={phoneNumber}
             setvalue={setPhoneNumber}
             keyboardType="phone-pad"
           />
-          {/* <Input
-              title={"WhatsApp"}
-              placeholder={"+41 XX XXX XX XX"}
-              value={whatsapp}
-              setvalue={setWhatsapp}
-              keyboardType="phone-pad"
-            /> */}
           <NumberInput
             title={"WhatsApp"}
             value={whatsapp}
@@ -190,17 +161,10 @@ export default function EditProfile({ navigation, route }) {
           />
           <Input
             title={"WhatsApp Channel"}
-            placeholder={"https://whatsapp.com/channel/xxxxx"}
+            placeholder={"whatsapp.com/channel/xxxxx"}
             value={whatsappChannel}
             setvalue={setWhatsappChannel}
           />
-          {/* <Input
-              title={"editprofile.viberTitle"}
-              placeholder={"+41 XX XXX XX XX"}
-              value={viber}
-              setvalue={setViber}
-              keyboardType="phone-pad"
-            /> */}
           <NumberInput
             title={"editprofile.viberTitle"}
             value={viber}

@@ -17,9 +17,7 @@ import { useTranslation } from "react-i18next";
 export default function Category({ navigation, route }) {
   const { t } = useTranslation();
   const data = useSelector(selectCategoryList);
-  console.log("====================================");
-  console.log(route.params);
-  console.log("====================================");
+
   const search = route?.params?.search;
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
@@ -77,9 +75,9 @@ export default function Category({ navigation, route }) {
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor:
-                    item.name == searchString.name ? "#E5E8E8" : "white",
+                    item?.name == searchString?.name ? "#E5E8E8" : "white",
                   padding:
-                    item.name == searchString.name ? height(1) : height(0.5),
+                    item?.name == searchString?.name ? height(1) : height(0.5),
                   borderTopLeftRadius: height(1),
                   borderBottomLeftRadius: height(1),
                 }}
@@ -126,7 +124,7 @@ export default function Category({ navigation, route }) {
           }}
         >
           <FlatList
-            data={searchString.subCategories}
+            data={searchString?.subCategories || []}
             showsVerticalScrollIndicator={false}
             style={{ borderRadius: 5 }}
             renderItem={({ item }) => {
@@ -149,14 +147,14 @@ export default function Category({ navigation, route }) {
                   onPress={() => {
                     if (route?.params?.value == "seeAll") {
                       navigation.navigate(ScreenNames.LISTDATA, {
-                        category: searchString.name,
+                        category: searchString?.name,
                         find: item.name,
                         subcategory: item.name,
                         search: search || "",
                       });
                     } else {
                       navigation.navigate(ScreenNames.ADDPOST, {
-                        category: searchString.name,
+                        category: searchString?.name,
                         find: item.name,
                         subcategory: item.name,
                       });

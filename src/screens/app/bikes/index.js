@@ -27,8 +27,18 @@ export default function BikeCategory({ navigation, route }) {
         ]}
       >
         <FlatList
-          data={cat.subCategories}
+          data={cat?.subCategories || []}
           showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                backgroundColor: AppColors.greybackground,
+                height: 1,
+                width: width(95),
+                alignSelf:'center'
+              }}
+            />
+          )}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -38,14 +48,14 @@ export default function BikeCategory({ navigation, route }) {
                   if (!route?.params?.show) {
                     navigation.navigate(ScreenNames.ADDPOST, {
                       category: cat?.name,
-                      find: item.name,
-                      subcategory: item.name,
+                      find: item?.name,
+                      subcategory: item?.name,
                     });
                   } else {
                     navigation.navigate(ScreenNames.LISTDATA, {
                       category: cat?.name,
-                      find: item.name,
-                      subcategory: item.name,
+                      find: item?.name,
+                      subcategory: item?.name,
                       search: search || "",
                     });
                   }
@@ -55,7 +65,7 @@ export default function BikeCategory({ navigation, route }) {
                   source={{ uri: item?.image ? item?.image : cat?.image }}
                   style={{ width: height(4), height: height(4) }}
                 /> */}
-                <Text style={{ fontSize: height(1.6), color: AppColors.black, }}>
+                <Text style={{ fontSize: height(1.6), color: AppColors.black }}>
                   {t(`subList.${item.name}`)}
                 </Text>
               </TouchableOpacity>

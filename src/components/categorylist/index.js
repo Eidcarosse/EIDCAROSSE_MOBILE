@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, Pressable, Text, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -9,9 +9,14 @@ import styles from "./styles";
 
 export default function CategoryList({ navigation, search }) {
   const { t } = useTranslation();
-
   const d = useSelector(selectCategoryList);
-  const data = [d[0], d[1], d[2], d[8], d[9], d[13]];
+  const [data, setData] = useState([d[0], d[1], d[2], d[8], d[9], d[13]]);
+  useEffect(() => {
+    console.log("set cat", d);
+    if (d) {
+      setData([d[0], d[1], d[2], d[8], d[9], d[13]]);
+    }
+  }, [d.length]);
   const renderItem = ({ item }) => {
     return (
       <CategoryIcon
@@ -19,12 +24,11 @@ export default function CategoryList({ navigation, search }) {
         title={item?.name}
         image={item?.image}
         onPress={() => {
-            navigation.navigate(ScreenNames.BIKECATEGORY, {
-              category: item,
-              find: item.name,
-              show: true,
-            });
-        
+          navigation.navigate(ScreenNames.BIKECATEGORY, {
+            category: item,
+            find: item?.name,
+            show: true,
+          });
         }}
       />
     );

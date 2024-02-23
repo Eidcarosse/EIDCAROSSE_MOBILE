@@ -1,4 +1,4 @@
-import { BaseUrl,BaseUrl1 } from "../utills/Constants";
+import { BaseUrl, BaseUrl1 } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 const signupApi = async (data) => {
@@ -26,9 +26,11 @@ const loginApi = async (data) => {
     return false;
   }
 };
-const getOwneAd = async (id) => {
+const getOwneAd = async (id, getHidden = true) => {
   try {
-    const response = await ApiManager.get(`auth/getUserAds/${id}`);
+    const response = await ApiManager.get(
+      `auth/getUserAds/${id}/${getHidden}`
+    );
     return response?.data;
   } catch (error) {
     return []; // or some default value as needed
@@ -194,5 +196,5 @@ export {
   verifycode,
   verifyAccount,
   deleteAccountAPI,
-  getShowEmail
+  getShowEmail,
 };

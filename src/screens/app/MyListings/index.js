@@ -23,9 +23,7 @@ export default function MyListing({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
-    setRefreshing(true);
     myAdsFunction();
-    setRefreshing(false);
   };
   useFocusEffect(
     React.useCallback(() => {
@@ -33,8 +31,10 @@ export default function MyListing({ navigation, route }) {
     }, [])
   );
   const myAdsFunction = async () => {
+    setRefreshing(true);
     const userAd = await getOwneAd(userdata?._id);
     dispatch(setUserAds(userAd));
+    setRefreshing(false);
   };
   return (
     <ScreenWrapper

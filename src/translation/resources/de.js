@@ -215,6 +215,7 @@ export default {
     share: "Mit Freunden teilen",
   },
   category: {
+    undefined:'',
     Autos: "Autos",
     Bikes: "Motorräder",
     Boats: "Boote",
@@ -482,7 +483,7 @@ export default {
     description: "Beschreibung",
     phdescription: "Dies ist meine Inseratbeschreibung",
     videourl: "Video-URL",
-    phurl: "https://example.com",
+    phurl: "example.com",
     contactdetail: "Kontaktdaten",
     htc: "Wie kontaktieren",
     whatsapp: "WhatsApp",

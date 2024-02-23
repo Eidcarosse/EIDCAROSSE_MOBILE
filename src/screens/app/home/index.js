@@ -57,6 +57,7 @@ export default function Home({}) {
   );
   async function getCategorylist() {
     const d = await getCategory();
+    console.log("d",d);
     if (d) dispatch(setCategoryList(d));
   }
   const getData = useCallback(async () => {

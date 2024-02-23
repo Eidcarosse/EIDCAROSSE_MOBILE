@@ -151,7 +151,7 @@ export const editAdApi = async (id, formData) => {
     };
 
     const resp = await fetch(
-      BaseUrl1 + `ad/edit-ad/${id}`,
+      BaseUrl1 + `ad/edit-ad-mobile/${id}`,
       requestOptions
     );
     let response = await resp.json();

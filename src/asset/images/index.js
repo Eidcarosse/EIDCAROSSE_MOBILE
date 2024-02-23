@@ -1,6 +1,5 @@
 const Icons = {
     login:require('./log.png'),
-    bglogo:require('./bg.png'),
     logName:require('./eidcarose.png'),
     mainLogo:require('./mainLog.png'),
     accountbg:require('./account_bg.jpeg'),

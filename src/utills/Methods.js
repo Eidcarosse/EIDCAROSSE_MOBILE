@@ -401,98 +401,6 @@ export function shouldRenderField(field, category, sub_category) {
   );
 }
 
-// export function shouldRequiredFields(field, category, sub_category, value) {
-//   const config = {
-//     // Main categories
-//     Mobiles: ["Price"],
-//     Vehicles: ["Price"],
-//     "Property for Sale": ["Price"],
-//     "Property for Rent": ["Price"],
-//     "Electronics & Home Appliances": ["Price"],
-//     Bikes: ["Price"],
-//     "Business, Industrial & Agriculture": ["Price", "Free"],
-//     "Other Ads": ["Price"],
-//     Services: ["Price"],
-//     // Jobs: [
-//     // "CompanyName",
-//     //   "SalaryFrom",
-//     //  "SalaryTo",
-//     // "Level",
-//     // "SalaryPeriod",
-//     //"PositionType",
-//     //],
-//     Animals: ["Price"],
-//     "Furniture & Home Decor": ["Price"],
-//     "Fashion & Beauty": ["Price"],
-//     "Books, Sports & Hobbies": ["Price"],
-//     Kids: ["Price"],
-//     Relationship: ["Price"],
-
-//     // Subcategories
-//     Tablets: ["Brand"],
-//     "Mobile Phones": ["Brand"],
-//     "Smart Watches": ["Brand"],
-//     Cars: [
-//       "Brand",
-//       // "Model",
-//       // "Year",
-//       // "km",
-//       // "fuelType",
-//       // "gearBox",
-//       // "Condition",
-//     ],
-//     "Cars on Installments": [
-//       "Brand",
-//       // "Model",
-//       // "Year",
-//       // "km",
-//       // "fuelType",
-//       // "gearBox",
-//       // "Condition",
-//       // "Down Payment",
-//       // "Monthly Installments",
-//       // "Installment Plan",
-//     ],
-//     Boats: ["Brand"],
-//     Buses: ["Brand"],
-//     Vans: ["Brand"],
-//     Trucks: ["Brand"],
-//     Trailers: ["Brand"],
-//     // "Other Vehicles": ["Year", "km"],
-//     // Houses: ["Furnished", "Bedrooms", "bathrooms"],
-//     // "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
-//     // "Shops - Offices - Commercial Space": [
-//     // "Furnished",
-//     // "Bedrooms",
-//     // "bathrooms",
-//     // ],
-//     // "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
-//     // "Roommates & Paying Guests": ["Furnished"],
-//     // Rooms: ["Furnished"],
-//     // "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-//     Motorcycles: ["Brand"],
-//     // "Bikes Accessories": ["Brand"],
-//     Bicycles: ["Brand"],
-//     "ATV & Quads": ["Brand"],
-//     // Dating: ["I am", "Looking For"],
-//     "Construction & Heavy Machinery": [
-//       "Brand",
-//       // "Working Hours",
-//       // "Condition",
-//       // "Type",
-//     ],
-//     Scooters: ["Brand"],
-//   };
-
-//   const isRequired =
-//     (config[category] && config[category].includes(field)) ||
-//     (config[sub_category] && config[sub_category].includes(field));
-
-//   const hasValue = value === undefined || value === null || value === "";
-
-//   // Return true if the field should be rendered and it is required and has a value
-//   return isRequired && hasValue;
-// }
 export const formatPrice = (price) => {
   const priceString = price.toString();
   const groups = [];
@@ -542,6 +450,70 @@ export const getAuthAllData = async () => {
     // error reading value
   }
 };
+export function getPriceInitialValue(input) {
+  switch (input) {
+    case "Free":
+      return 2;
+    case "Contact":
+      return 3;
+    case "":
+    case null:
+    case undefined:
+      return 1;
+    default:
+      if (!isNaN(parseFloat(input))) {
+        return 1;
+      } else {
+        return 0;
+      }
+  }
+}
+export function getGenderInitialValue(input) {
+  switch (input) {
+    case "Male":
+      return 1;
+    case "Female":
+      return 2;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      return 0;
+  }
+}
+
+export function getConditionInitailValue(input) {
+  switch (input) {
+    case "New":
+      return 1;
+    case "Used":
+      return 2;
+    case "Recondition":
+      return 3;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      return 0;
+  }
+}
+
+export function getPContitionInitialValue(input) {
+  switch (input) {
+    case "Yes":
+      return 1;
+    case "No":
+      return 2;
+    case "":
+    case null:
+    case undefined:
+      return 0;
+    default:
+      return 0;
+  }
+}
 const onPressFavorite = () => {};
 const GlobalMethods = {
   toastMessage,

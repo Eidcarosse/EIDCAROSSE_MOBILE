@@ -13,13 +13,7 @@ export default function Header({ navigation, title}) {
   return (
     <View style={styles.container}>
       <View
-        style={{
-          borderRadius: height(1),
-          flex: 1,
-          flexDirection: "row",
-          alignContent: "center",
-          alignItems: "center",
-        }}
+        style={styles.headerTitle}
       >
         <Image
           source={require("../../../assets/icon1.png")}
@@ -35,13 +29,7 @@ export default function Header({ navigation, title}) {
         )}
         {title && (
           <Text
-            style={{
-              color: AppColors.primary,
-              fontSize: height(3),
-              fontWeight: "bold",
-              paddingHorizontal: height(1),
-              fontStyle: 'italic'
-            }}
+            style={styles.title}
           >
             {title}
           </Text>

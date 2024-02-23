@@ -58,7 +58,7 @@ export default DrawerSceneWrapper;
 const styles = StyleSheet.create({
   maincontainer: {
     flex: 1,
-    backgroundColor:'red'
+    backgroundColor: AppColors.primary,
   },
   container: {
     flex: 1,

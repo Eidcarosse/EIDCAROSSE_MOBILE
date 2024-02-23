@@ -73,7 +73,7 @@ export default function ForgetPassword({ navigation, route }) {
               marginVertical: height(5),
             }}
             source={Icons.mainLogo}
-            tintColor={"red"}
+            tintColor={AppColors.primary}
           />
           <Input
             value={email}

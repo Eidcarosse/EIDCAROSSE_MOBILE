@@ -108,7 +108,9 @@ export default function Detail({ navigation, route }) {
         if (d.userId._id != loginuser?._id) {
           await adView(dat?._id);
         }
-      } else setDat({});
+      } else {
+        setDat({}), navigation.goBack();
+      }
       setload(false);
     } catch (error) {
       setload(false);
@@ -459,7 +461,7 @@ export default function Detail({ navigation, route }) {
                       {t("addPost.gender")}
                     </Text>
                     <Text style={styles.cardelement2}>
-                      {data?.animalZ?.gender}
+                      {t(`addPost.${data?.animalZ?.gender}`)}
                     </Text>
                   </View>
                 )}

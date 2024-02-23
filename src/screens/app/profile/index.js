@@ -25,15 +25,15 @@ import { height, width } from "../../../utills/Dimension";
 import { useTranslation } from "react-i18next";
 export default function Profile({ navigation, route }) {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const userdata = useSelector(selectUserMeta);
   const userAds = useSelector(selectUserAds);
   const userFav = useSelector(selectFavAds);
-
   return (
     <ScreenWrapper
-    barStyle='light-content'
-    statusBarColor={AppColors.primary} scrollEnabled>
+      barStyle="light-content"
+      statusBarColor={AppColors.primary}
+      scrollEnabled
+    >
       <View style={styles.mainViewContainer}>
         <View
           style={{
@@ -59,7 +59,7 @@ export default function Profile({ navigation, route }) {
                 fontSize: height(2.5),
                 fontWeight: "600",
                 color: AppColors.black,
-                marginTop:height(4)
+                marginTop: height(4),
               }}
             >
               {userdata?.firstName} {userdata?.lastName}
@@ -82,11 +82,11 @@ export default function Profile({ navigation, route }) {
               <AntDesign
                 name="star"
                 color={AppColors.primary}
-                size={height(3)}
+                size={height(2.5)}
               />
               <View style={{ marginHorizontal: height(2) }}>
                 <Text style={styles.wtexticon}>{userFav?.length || 0}</Text>
-                <Text> {t("profile.wish")}</Text>
+                <Text style={styles.wtext}> {t("profile.wish")}</Text>
               </View>
             </Pressable>
             <View style={styles.verticalLine} />
@@ -104,9 +104,11 @@ export default function Profile({ navigation, route }) {
               <View style={{ marginHorizontal: height(2) }}>
                 <Text style={styles.wtexticon}>
                   {" "}
-                  {userAds?.length || userdata?.adIds?.length}
+                  {userAds?.length >= 0
+                    ? userAds?.length
+                    : userdata?.adIds?.length}
                 </Text>
-                <Text> {t("profile.listing")}</Text>
+                <Text style={styles.wtext}> {t("profile.listing")}</Text>
               </View>
             </Pressable>
           </View>

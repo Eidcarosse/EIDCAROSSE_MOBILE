@@ -34,7 +34,7 @@ export default function OtherProfile({ navigation, route }) {
   }, []);
   const myAdsFunction = async () => {
     setRefreshing(true);
-    const userAd = await getOwneAd(userdata?._id);
+    const userAd = await getOwneAd(userdata?._id, false);
     if (userAd) setData(userAd);
     setRefreshing(false);
   };
@@ -69,7 +69,7 @@ export default function OtherProfile({ navigation, route }) {
                     style={{
                       fontSize: height(2),
                       fontWeight: "bold",
-                      color:'rgba(0,0,0,.8)'
+                      color: "rgba(0,0,0,.8)",
                     }}
                   >
                     {userdata?.firstName} {userdata?.lastName}
@@ -85,16 +85,18 @@ export default function OtherProfile({ navigation, route }) {
                     {userdata?.userName}
                   </Text>
 
-                  <Text
-                    style={{
-                      fontSize: height(1.8),
-                      marginTop:height(1),
-                      textDecorationLine: 'underline',
-                      color:'grey'
-                    }}
-                  >
-                    {data?.length+ " Published ads"}
-                  </Text>
+                  {data && (
+                    <Text
+                      style={{
+                        fontSize: height(1.8),
+                        marginTop: height(1),
+                        textDecorationLine: "underline",
+                        color: "grey",
+                      }}
+                    >
+                      {data?.length + " Published ads"}
+                    </Text>
+                  )}
                 </View>
               </View>
               <View style={styles.wishlistview}>

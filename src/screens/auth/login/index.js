@@ -175,7 +175,6 @@ export default function Login({ navigation, route }) {
               marginVertical: height(2),
             }}
             source={Icons.mainLogo}
-            tintColor={"red"}
           />
         </View>
         <View

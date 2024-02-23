@@ -1,5 +1,4 @@
 import {
-  AntDesign,
   Entypo,
   FontAwesome,
   Ionicons,
@@ -29,7 +28,6 @@ import { getOwneAd } from "../../../backend/auth";
 import {
   Button,
   FilePickerModal,
-  Head,
   IconButton,
   Input,
   NumberInput,
@@ -48,76 +46,16 @@ import { Apikey } from "../../../utills/Constants";
 import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
+  getConditionInitailValue,
+  getGenderInitialValue,
+  getPContitionInitialValue,
+  getPriceInitialValue,
   infoMessage,
   shouldRenderField,
   showType,
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
-function getPriceInitialValue(input) {
-  switch (input) {
-    case "Free":
-      return 2;
-    case "contact":
-      return 3;
-    case "":
-    case null:
-    case undefined:
-      return 0;
-    default:
-      if (!isNaN(parseFloat(input))) {
-        return 1;
-      } else {
-        return 0;
-      }
-  }
-}
-function getGenderInitialValue(input) {
-  switch (input) {
-    case "Male":
-      return 1;
-    case "Female":
-      return 2;
-    case "":
-    case null:
-    case undefined:
-      return 0;
-    default:
-      return 0;
-  }
-}
-
-function getConditionInitailValue(input) {
-  switch (input) {
-    case "New":
-      return 1;
-    case "Used":
-      return 2;
-    case "Recondition":
-      return 3;
-    case "":
-    case null:
-    case undefined:
-      return 0;
-    default:
-      return 0;
-  }
-}
-
-function getPContitionInitialValue(input) {
-  switch (input) {
-    case "Yes":
-      return 1;
-    case "No":
-      return 2;
-    case "":
-    case null:
-    case undefined:
-      return 0;
-    default:
-      return 0;
-  }
-}
 export default function AddPost({ navigation, route }) {
   const { t } = useTranslation();
   const edit = route?.params?.data;
@@ -132,53 +70,96 @@ export default function AddPost({ navigation, route }) {
   const brandRef = useRef();
   const imageRef = useRef(null);
   const cat = useSelector(selectCategoryList);
+  // const [ad, setAd] = useState({
+  //   category: category,
+  //   subCategory: sub,
+  //   title: edit?.title || "",
+  //   titleRequire: null,
+  //   pricing: "Price",
+  //   url: edit?.videoUrl || "",
+  //   km: edit?.vhclZ?.km || "",
+  //   description: edit?.description || "",
+  //   year: edit?.vhclZ?.year || "",
+  //   price: edit?.price || "",
+  //   condition: edit?.vhclZ?.condition || "",
+  //   brand: edit?.vhclZ?.brand || "",
+  //   model: edit?.vhclZ?.model || "",
+  //   type: edit?.vhclZ?.type || "",
+  //   bodyshape: edit?.vhclZ?.bodyShape || "",
+  //   gearbox: edit?.vhclZ?.gearBox || "",
+  //   fueltype: edit?.vhclZ?.fuelType || "",
+  //   exterior: edit?.vhclZ?.exteriorColor || "",
+  //   interior: edit?.vhclZ?.interiorColor || "",
+  //   latitude: edit?.latitude || 37.78825,
+  //   longitude: edit?.longitude || -122.4324,
+  //   email: userInfo?.email,
+  //   phone: userInfo?.phoneNumber,
+  //   whatsapp: edit?.whatsapp || userInfo?.whatsapp,
+  //   viber: edit?.viber || userInfo?.viber,
+  //   address: edit?.address || "",
+  //   area: edit?.property4sr?.area || "",
+  //   companyName: edit?.jobZ?.companyName || "",
+  //   salaryFrom: edit?.jobZ?.salaryFrom || "",
+  //   salaryTo: edit?.jobZ?.salaryTo || "",
+  //   salaryPeriod: edit?.jobZ?.salaryPeriod || "",
+  //   positionType: edit?.jobZ?.positionType || "",
+  //   breed: edit?.animalZ?.breed || "",
+  //   age: edit?.animalZ?.age || "",
+  //   drivenHours: edit?.vhclZ?.hrzDrvn || "",
+  //   workingHours: edit?.bznessInAg?.workingHours || "",
+  //   downPayment: edit?.vhclZ?.dwnPymnt || "",
+  //   installments: edit?.vhclZ?.mnthlyInstl || "",
+  //   installmentPlan: edit?.vhclZ?.instlPlan || "",
+  //   bedRooms: edit?.property4sr?.bedrooms || "",
+  //   bathRooms: edit?.property4sr?.bathrooms || "",
+  //   iAm: edit?.rltnShp?.iAm || "",
+  //   lookingFor: edit?.rltnShp?.lkinFor || "",
+  //   gender: edit?.animalZ?.gender || "",
+  //   propertyCondition: edit?.property4sr?.furnished || "",
+  // });
+
+  // Usage example:
+  // To update a specific state variable, you can use the spread operator to maintain other state variables unchanged.
+  // setAd((prevState) => ({ ...prevState, selectedCategory: newValue }));
   const [selectedCategory, setSelectedCategory] = useState();
-  // const [find, setFind] = useState(subCategory);
-  const [image, setImage] = React.useState(edit?.images || []);
-  const [subCategory, setSubCategory] = React.useState(sub);
-  const [title, setTitle] = React.useState(edit?.title || "");
-  const [titleRequire, setTitleRequire] = React.useState(null);
-  const [pricing, setPricing] = React.useState("Price");
-  const [url, setUrl] = React.useState(edit?.videoUrl || "");
-  const [km, setKm] = React.useState(edit?.vhclZ?.km || "");
-  const [description, setDescription] = React.useState(edit?.description || "");
-  const [check, setCheck] = React.useState(false);
-  const [otherBrand, setOtherBrand] = React.useState(false);
-  const [otherModel, setOtherModel] = React.useState(false);
-  const [year, setYear] = React.useState(edit?.vhclZ?.year || "");
-  const [price, setPrice] = React.useState(edit?.price || "");
-  const [priceRequire, setPriceRequire] = React.useState(null);
-  const [condition, setCondition] = React.useState(
-    edit?.vhclZ?.condition || ""
-  );
-  const [brand, setBrand] = React.useState(edit?.vhclZ?.brand || "");
-  const [brandRequire, setBrandRequire] = React.useState(null);
-  const [model, setModel] = React.useState(edit?.vhclZ?.model || "");
-  const [type, setType] = React.useState(edit?.vhclZ?.type || "");
-  const [bodyshape, setBodyshap] = React.useState(edit?.vhclZ?.bodyShape || "");
-  const [gearbox, setGearbox] = React.useState(edit?.vhclZ?.gearBox || "");
-  const [fueltype, setFueltype] = React.useState(edit?.vhclZ?.fuelType || "");
-  const [exterior, setExterior] = React.useState(
-    edit?.vhclZ?.exteriorColor || ""
-  );
-  const [interior, setInterior] = React.useState(
-    edit?.vhclZ?.interiorColor || ""
-  );
-  const [latitude, setLatiitude] = React.useState(edit?.latitude || 37.78825);
-  const [longitude, setLongitude] = React.useState(
-    edit?.longitude || -122.4324
-  );
-  const [email, setEmail] = React.useState(userInfo?.email);
-  const [phone, setPhone] = React.useState(userInfo?.phoneNumber);
-  const [whatsapp, setWhatsapp] = React.useState(
+  const [image, setImage] = useState(edit?.images || []);
+  const [subCategory, setSubCategory] = useState(sub);
+  const [title, setTitle] = useState(edit?.title || "");
+  const [titleRequire, setTitleRequire] = useState(null);
+  const [pricing, setPricing] = useState("Price");
+  const [url, setUrl] = useState(edit?.videoUrl || "");
+  const [km, setKm] = useState(edit?.vhclZ?.km || "");
+  const [description, setDescription] = useState(edit?.description || "");
+  const [check, setCheck] = useState(false);
+  const [otherBrand, setOtherBrand] = useState(false);
+  const [otherModel, setOtherModel] = useState(false);
+  const [year, setYear] = useState(edit?.vhclZ?.year || "");
+  const [price, setPrice] = useState(edit?.price || "");
+  const [priceRequire, setPriceRequire] = useState(null);
+  const [salaryRequire, setSalaryRequire] = useState(null);
+  const [condition, setCondition] = useState(edit?.vhclZ?.condition || "");
+  const [brand, setBrand] = useState(edit?.vhclZ?.brand || "");
+  const [brandRequire, setBrandRequire] = useState(null);
+  const [model, setModel] = useState(edit?.vhclZ?.model || "");
+  const [type, setType] = useState(edit?.vhclZ?.type || "");
+  const [bodyshape, setBodyshap] = useState(edit?.vhclZ?.bodyShape || "");
+  const [gearbox, setGearbox] = useState(edit?.vhclZ?.gearBox || "");
+  const [fueltype, setFueltype] = useState(edit?.vhclZ?.fuelType || "");
+  const [exterior, setExterior] = useState(edit?.vhclZ?.exteriorColor || "");
+  const [interior, setInterior] = useState(edit?.vhclZ?.interiorColor || "");
+  const [latitude, setLatiitude] = useState(edit?.latitude || 37.78825);
+  const [longitude, setLongitude] = useState(edit?.longitude || -122.4324);
+  const [email, setEmail] = useState(userInfo?.email);
+  const [phone, setPhone] = useState(userInfo?.phoneNumber);
+  const [whatsapp, setWhatsapp] = useState(
     edit?.whatsapp || userInfo?.whatsapp
   );
-  const [viber, setViber] = React.useState(edit?.viber || userInfo?.viber);
-  const [address, setAddress] = React.useState(edit?.address || "");
-  const [addressRequire, setAddressRequire] = React.useState(null);
-  const [vcompanies, setVcompanies] = React.useState([]);
-  const [vtype, setVtype] = React.useState();
-  const [apimodel, setapiModel] = React.useState([]);
+  const [viber, setViber] = useState(edit?.viber || userInfo?.viber);
+  const [address, setAddress] = useState(edit?.address || "");
+  const [addressRequire, setAddressRequire] = useState(null);
+  const [vcompanies, setVcompanies] = useState([]);
+  const [vtype, setVtype] = useState();
+  const [apimodel, setapiModel] = useState([]);
 
   const [addPhone, setAddPhone] = useState(userInfo?.showNumber);
   const [addEmail, setAddEmail] = useState(userInfo?.showEmail);
@@ -187,7 +168,7 @@ export default function AddPost({ navigation, route }) {
   const [feild, setFeild] = useState();
 
   const [renderNow, setRenderNow] = useState(false);
-  ////////////////////////////////////////////////////
+
   const [area, setArea] = useState(edit?.property4sr?.area || "");
   const [companyName, setCompanyName] = useState(edit?.jobZ?.companyName || "");
   const [salaryFrom, setSalaryFrom] = useState(edit?.jobZ?.salaryFrom || "");
@@ -221,7 +202,6 @@ export default function AddPost({ navigation, route }) {
   const [propertyCondition, setPropertyCondition] = useState(
     edit?.property4sr?.furnished || ""
   );
-  const [free, setFree] = useState(false);
 
   useEffect(() => {
     if (edit) {
@@ -229,12 +209,9 @@ export default function AddPost({ navigation, route }) {
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
       setAddEmail(edit?.email ? true : false);
-      console.log('====================================');
-      console.log(getPriceInitialValue(edit?.price));
-      console.log('====================================');
       getPriceInitialValue(edit?.price) == 1 && setPrice(edit?.price);
-      edit?.jobZ?.brand === "Others" && setOtherBrand(true);
-      edit?.jobZ?.model === "Others" && setOtherModel(true);
+      edit?.vhclZ?.brand === "Others" && setOtherBrand(true);
+      edit?.vhclZ?.model === "Others" && setOtherModel(true);
     }
   }, [edit]);
   useEffect(() => {
@@ -251,6 +228,7 @@ export default function AddPost({ navigation, route }) {
       }
     });
   }, []);
+
   const getFeilds = async () => {
     let data = await backEndDataAPi({
       cat: category,
@@ -305,7 +283,11 @@ export default function AddPost({ navigation, route }) {
         userInfo,
       ];
       // category && requiredFields.push(brand);
-      // pricing == "Price" && requiredFields.push(price);
+      shouldRenderField("Price", category, subCategory) &&
+        pricing == "Price" &&
+        requiredFields.push(price);
+      shouldRenderField("SalaryFrom", category, subCategory) &&
+        requiredFields.push(salaryFrom);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
       if (isAnyFieldEmpty) {
@@ -328,6 +310,11 @@ export default function AddPost({ navigation, route }) {
           setPriceRequire(true);
         } else {
           setPriceRequire(false);
+        }
+        if (!salaryFrom) {
+          setSalaryRequire(true);
+        } else {
+          setSalaryRequire(false);
         }
 
         dispatch(setAppLoader(false));
@@ -352,62 +339,87 @@ export default function AddPost({ navigation, route }) {
         dispatch(setAppLoader(false));
         return;
       }
-      const formData = new FormData();
-      formData.append("userId", userInfo?._id);
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("subCategory", subCategory);
-      price && formData.append("price", price);
-      url && formData.append("videoUrl", url);
-      description && formData.append("description", description);
-      address && formData.append("latitude", latitude);
-      address && formData.append("longitude", longitude);
-      address && formData.append("address", address);
-      addViber && formData.append("viber", viber);
-      addWhatsapp && formData.append("whatsapp", whatsapp);
-      addPhone && formData.append("phone", true);
-      addEmail && formData.append("email", true);
-      type && formData.append("vhclZ.type", type);
-      km && formData.append("vhclZ.km", km);
-      condition && formData.append("vhclZ.condition", condition);
-      brand && formData.append("vhclZ.brand", brand);
-      year && formData.append("vhclZ.year", year);
-      model && formData.append("vhclZ.model", model);
-      bodyshape && formData.append("vhclZ.bodyShape", bodyshape);
-      gearbox && formData.append("vhclZ.gearBox", gearbox);
-      fueltype && formData.append("vhclZ.fuelType", fueltype);
-      exterior && formData.append("vhclZ.exteriorColor", exterior);
-      interior && formData.append("vhclZ.interiorColor", interior);
-      downPayment && formData.append("vhclZ.dwnPymnt", downPayment);
-      installments && formData.append("vhclZ.mnthlyInstl", installments);
-      installmentPlan && formData.append("vhclZ.instlPlan", installmentPlan);
-      drivenHours && formData.append("vhclZ.hrzDrvn", drivenHours);
-      companyName && formData.append("jobZ.companyName", companyName);
-      salaryFrom && formData.append("jobZ.salaryFrom", salaryFrom);
-      salaryTo && formData.append("jobZ.salaryTo", salaryTo);
-      positionType && formData.append("jobZ.positionType", positionType);
-      salaryPeriod && formData.append("jobZ.salaryPeriod", salaryPeriod);
-      area && formData.append("property4sr.area", area);
-      propertyCondition &&
-        formData.append("property4sr.furnished", propertyCondition);
-      bedRooms && formData.append("property4sr.bedrooms", bedRooms);
-      bathRooms && formData.append("property4sr.bathrooms", bathRooms);
-      gender && formData.append("animalZ.gender", gender);
-      breed && formData.append("animalZ.breed", breed);
-      age && formData.append("animalZ.age", age);
-      workingHours && formData.append("bznessInAg.workingHours", workingHours);
-      iAm && formData.append("rltnShp.iAm", iAm);
-      lookingFor && formData.append("rltnShp.lkinFor", lookingFor);
 
       // Append each selected image to the form data
-      image.forEach((img, index) => {
-        formData.append("file", {
-          name: `image${index}`,
-          type: "image/jpeg", // Adjust the type if needed
-          uri: img,
-        });
-      });
+
       if (edit) {
+        const formData = new FormData();
+        formData.append("userId", userInfo?._id);
+        formData.append("title", title);
+        formData.append("category", category);
+        formData.append("subCategory", subCategory);
+        (edit?.price || price) && formData.append("price", price);
+        (edit?.videoUrl || url) && formData.append("videoUrl", url);
+        (edit?.description || description) &&
+          formData.append("description", description);
+        (edit?.latitude || address) && formData.append("latitude", latitude);
+        (edit?.longitude || address) && formData.append("longitude", longitude);
+        (edit?.address || address) && formData.append("address", address);
+        formData.append("viber", addViber ? viber : "");
+        formData.append("whatsapp", addWhatsapp ? whatsapp : "");
+        formData.append("phone", addPhone);
+        formData.append("email", addEmail);
+        (edit?.vhclZ?.type || type) && formData.append("vhclZ.type", type);
+        (edit?.vhclZ?.km || km) && formData.append("vhclZ.km", km);
+        (edit?.vhclZ?.condition || condition) &&
+          formData.append("vhclZ.condition", condition);
+        (edit?.vhclZ?.brand || brand) && formData.append("vhclZ.brand", brand);
+        (edit?.vhclZ?.year || year) && formData.append("vhclZ.year", year);
+        (edit?.vhclZ?.model || model) && formData.append("vhclZ.model", model);
+        (edit?.vhclZ?.bodyShape || bodyshape) &&
+          formData.append("vhclZ.bodyShape", bodyshape);
+        (edit?.vhclZ?.gearBox || gearbox) &&
+          formData.append("vhclZ.gearBox", gearbox);
+        (edit?.vhclZ?.fuelType || fueltype) &&
+          formData.append("vhclZ.fuelType", fueltype);
+        (edit?.vhclZ?.exteriorColor || exterior) &&
+          formData.append("vhclZ.exteriorColor", exterior);
+        (edit?.vhclZ?.interiorColor || interior) &&
+          formData.append("vhclZ.interiorColor", interior);
+        (edit?.vhclZ?.dwnPymnt || downPayment) &&
+          formData.append("vhclZ.dwnPymnt", downPayment);
+        (edit?.vhclZ?.mnthlyInstl || installments) &&
+          formData.append("vhclZ.mnthlyInstl", installments);
+        (edit?.vhclZ?.instlPlan || installmentPlan) &&
+          formData.append("vhclZ.instlPlan", installmentPlan);
+        (edit?.vhclZ?.hrzDrvn || drivenHours) &&
+          formData.append("vhclZ.hrzDrvn", drivenHours);
+        (edit?.jobZ?.companyName || companyName) &&
+          formData.append("jobZ.companyName", companyName);
+        (edit?.jobZ?.salaryFrom || salaryFrom) &&
+          formData.append("jobZ.salaryFrom", salaryFrom);
+        (edit?.jobZ?.salaryTo || salaryTo) &&
+          formData.append("jobZ.salaryTo", salaryTo);
+        (edit?.jobZ?.positionType || positionType) &&
+          formData.append("jobZ.positionType", positionType);
+        (edit?.jobZ?.salaryPeriod || salaryPeriod) &&
+          formData.append("jobZ.salaryPeriod", salaryPeriod);
+        (edit?.property4sr?.area || area) &&
+          formData.append("property4sr.area", area);
+        (edit?.property4sr?.furnished || propertyCondition) &&
+          formData.append("property4sr.furnished", propertyCondition);
+        (edit?.property4sr?.bedrooms || bedRooms) &&
+          formData.append("property4sr.bedrooms", bedRooms);
+        (edit?.property4sr?.bathrooms || bathRooms) &&
+          formData.append("property4sr.bathrooms", bathRooms);
+        (edit?.animalZ?.gender || gender) &&
+          formData.append("animalZ.gender", gender);
+        (edit?.animalZ?.breed || breed) &&
+          formData.append("animalZ.breed", breed);
+        (edit?.animalZ?.age || age) && formData.append("animalZ.age", age);
+        (edit?.bznessInAg?.workingHours || workingHours) &&
+          formData.append("bznessInAg.workingHours", workingHours);
+        (edit?.rltnShp?.iAm || iAm) && formData.append("rltnShp.iAm", iAm);
+        (edit?.rltnShp?.lkinFor || lookingFor) &&
+          formData.append("rltnShp.lkinFor", lookingFor);
+
+        image.forEach((img, index) => {
+          formData.append("file", {
+            name: `image${index}`,
+            type: "image/jpeg", // Adjust the type if needed
+            uri: img,
+          });
+        });
         const resp = await editAdApi(edit?._id, formData);
         if (resp?.success) {
           successMessage(t(`flashmsg.editadsussessmsg`), t(`flashmsg.success`));
@@ -416,7 +428,65 @@ export default function AddPost({ navigation, route }) {
           errorMessage(t(`flashmsg.editerrormsg`), t(`flashmsg.error`));
         }
       } else {
+        const formData = new FormData();
+        formData.append("userId", userInfo?._id);
+        formData.append("title", title);
+        formData.append("category", category);
+        formData.append("subCategory", subCategory);
+        price && formData.append("price", price);
+        url && formData.append("videoUrl", url);
+        description && formData.append("description", description);
+        address && formData.append("latitude", latitude);
+        address && formData.append("longitude", longitude);
+        address && formData.append("address", address);
+        addViber && formData.append("viber", viber);
+        addWhatsapp && formData.append("whatsapp", whatsapp);
+        addPhone && formData.append("phone", true);
+        addEmail && formData.append("email", true);
+        type && formData.append("vhclZ.type", type);
+        km && formData.append("vhclZ.km", km);
+        condition && formData.append("vhclZ.condition", condition);
+        brand && formData.append("vhclZ.brand", brand);
+        year && formData.append("vhclZ.year", year);
+        model && formData.append("vhclZ.model", model);
+        bodyshape && formData.append("vhclZ.bodyShape", bodyshape);
+        gearbox && formData.append("vhclZ.gearBox", gearbox);
+        fueltype && formData.append("vhclZ.fuelType", fueltype);
+        exterior && formData.append("vhclZ.exteriorColor", exterior);
+        interior && formData.append("vhclZ.interiorColor", interior);
+        downPayment && formData.append("vhclZ.dwnPymnt", downPayment);
+        installments && formData.append("vhclZ.mnthlyInstl", installments);
+        installmentPlan && formData.append("vhclZ.instlPlan", installmentPlan);
+        drivenHours && formData.append("vhclZ.hrzDrvn", drivenHours);
+        companyName && formData.append("jobZ.companyName", companyName);
+        salaryFrom && formData.append("jobZ.salaryFrom", salaryFrom);
+        salaryTo && formData.append("jobZ.salaryTo", salaryTo);
+        positionType && formData.append("jobZ.positionType", positionType);
+        salaryPeriod && formData.append("jobZ.salaryPeriod", salaryPeriod);
+        area && formData.append("property4sr.area", area);
+        propertyCondition &&
+          formData.append("property4sr.furnished", propertyCondition);
+        bedRooms && formData.append("property4sr.bedrooms", bedRooms);
+        bathRooms && formData.append("property4sr.bathrooms", bathRooms);
+        gender && formData.append("animalZ.gender", gender);
+        breed && formData.append("animalZ.breed", breed);
+        age && formData.append("animalZ.age", age);
+        workingHours &&
+          formData.append("bznessInAg.workingHours", workingHours);
+        iAm && formData.append("rltnShp.iAm", iAm);
+        lookingFor && formData.append("rltnShp.lkinFor", lookingFor);
+
+        image.forEach((img, index) => {
+          formData.append("file", {
+            name: `image${index}`,
+            type: "image/jpeg", // Adjust the type if needed
+            uri: img,
+          });
+        });
         const resp = await addPostAd(formData);
+        console.log("====================================");
+        console.log("Add post", resp);
+        console.log("====================================");
         if (resp?.success) {
           navigation.navigate("StackHome");
           const userAd = await getOwneAd(userInfo?._id);
@@ -485,12 +555,14 @@ export default function AddPost({ navigation, route }) {
     if (!otherModel) {
       if (model) {
         setModel("");
+        modelRef?.current?.reset();
       }
       setModel("Others");
       setOtherModel(!otherModel);
     } else {
       if (model) {
         setModel("");
+        modelRef?.current?.reset();
       }
       setOtherModel(!otherModel);
     }
@@ -501,13 +573,14 @@ export default function AddPost({ navigation, route }) {
         setModel("");
         setOtherModel(false);
       }
+      brandRef?.current?.reset();
       setBrand("Others");
       setOtherBrand(!otherBrand);
     } else {
       if (brand) {
         setModel("");
         setBrand("");
-        brandRef.current.reset();
+        brandRef?.current?.reset();
       }
       setOtherBrand(!otherBrand);
     }
@@ -556,7 +629,6 @@ export default function AddPost({ navigation, route }) {
       </TouchableOpacity>
     </ScaleDecorator>
   );
-
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -742,20 +814,14 @@ export default function AddPost({ navigation, route }) {
           {/*-----------------area---------------*/}
           {shouldRenderField("Area", category, subCategory) && (
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.area")}</Text>
+              <Text style={styles.title}>{t("addPost.area") + " (sq.ft)"}</Text>
               <Input
                 value={area}
+                keyboardType="number-pad"
                 setvalue={setArea}
                 placeholder={t("addPost.enterArea")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------company name---------------*/}
@@ -766,15 +832,8 @@ export default function AddPost({ navigation, route }) {
                 value={companyName}
                 setvalue={setCompanyName}
                 placeholder={t("addPost.enterCompanyName")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------salary from---------------*/}
@@ -789,12 +848,12 @@ export default function AddPost({ navigation, route }) {
                 containerStyle={[
                   styles.price,
                   { width: width(90) },
-                  titleRequire && styles.required,
+                  salaryRequire && styles.required,
                 ]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
+              {salaryRequire && (
+                <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+              )}
             </View>
           )}
           {/*-----------------salary to---------------*/}
@@ -806,15 +865,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setSalaryTo}
                 placeholder={t("addPost.enterSalaryTo")}
                 keyboardType="number-pad"
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------salary period---------------*/}
@@ -825,15 +877,8 @@ export default function AddPost({ navigation, route }) {
                 value={salaryPeriod}
                 setvalue={setSalaryPeriod}
                 placeholder={t("addPost.enterSalaryPeriod")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------position Type---------------*/}
@@ -844,15 +889,8 @@ export default function AddPost({ navigation, route }) {
                 value={positionType}
                 setvalue={setPositionType}
                 placeholder={t("addPost.enterPositionType")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------breed---------------*/}
@@ -863,15 +901,8 @@ export default function AddPost({ navigation, route }) {
                 value={breed}
                 setvalue={setBreed}
                 placeholder={t("addPost.enterBreed")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------age---------------*/}
@@ -882,15 +913,8 @@ export default function AddPost({ navigation, route }) {
                 value={age}
                 setvalue={setAge}
                 placeholder={t("addPost.enterAge")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------driven hours---------------*/}
@@ -902,15 +926,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setDrivenHours}
                 keyboardType="number-pad"
                 placeholder={t("addPost.enterDrivenHours")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------working hours---------------*/}
@@ -922,15 +939,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setWorkingHours}
                 keyboardType="number-pad"
                 placeholder={t("addPost.enterWorkingHours")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------down payment---------------*/}
@@ -942,15 +952,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setDownPayment}
                 keyboardType="number-pad"
                 placeholder={t("addPost.enterDownPayment")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------instalmentplan---------------*/}
@@ -961,15 +964,8 @@ export default function AddPost({ navigation, route }) {
                 value={installmentPlan}
                 setvalue={setInstallmentPlan}
                 placeholder={t("addPost.enterInstallmentPlan")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------monthly instalment---------------*/}
@@ -983,15 +979,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setInstallments}
                 keyboardType="number-pad"
                 placeholder={t("addPost.enterMonthlyInstallment")}
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------bedroom---------------*/}
@@ -1003,15 +992,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setBedRooms}
                 placeholder={t("addPost.enterBedrooms")}
                 keyboardType="number-pad"
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------bathroom---------------*/}
@@ -1023,15 +1005,8 @@ export default function AddPost({ navigation, route }) {
                 setvalue={setBathRooms}
                 placeholder={t("addPost.enterBathrooms")}
                 keyboardType="number-pad"
-                containerStyle={[
-                  styles.price,
-                  { width: width(90) },
-                  titleRequire && styles.required,
-                ]}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
-              {/* {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-            )} */}
             </View>
           )}
           {/*-----------------condition---------------*/}
@@ -1042,7 +1017,6 @@ export default function AddPost({ navigation, route }) {
               <RadioButtonRN
                 data={pcdata}
                 initial={getPContitionInitialValue(gender)}
-                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1065,7 +1039,6 @@ export default function AddPost({ navigation, route }) {
               <RadioButtonRN
                 data={gdata}
                 initial={getGenderInitialValue(gender)}
-                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1088,7 +1061,6 @@ export default function AddPost({ navigation, route }) {
               <RadioButtonRN
                 data={gdata}
                 initial={getGenderInitialValue(iAm)}
-                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1111,7 +1083,6 @@ export default function AddPost({ navigation, route }) {
               <RadioButtonRN
                 data={gdata}
                 initial={getGenderInitialValue(lookingFor)}
-                animationTypes={["shake"]}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1135,7 +1106,6 @@ export default function AddPost({ navigation, route }) {
                 <RadioButtonRN
                   data={pdata}
                   initial={getPriceInitialValue(price)}
-                  animationTypes={["shake"]}
                   textStyle={{ fontSize: height(1.5) }}
                   circleSize={width(3)}
                   boxStyle={{
@@ -1145,7 +1115,21 @@ export default function AddPost({ navigation, route }) {
                   }}
                   activeColor={AppColors.primary}
                   selectedBtn={(e) => {
-                    setPricing(e.key);
+                    console.log(e?.key);
+                    switch (e?.key) {
+                      case "Free":
+                        setPrice("Free");
+                        setPricing("Free");
+                        break;
+                      case "Contact":
+                        setPrice("Contact");
+                        setPricing("Contact");
+                        break;
+                      default:
+                        setPricing("Price");
+                        edit?.price ? setPrice(edit?.price) : setPrice("");
+                        break;
+                    }
                   }}
                 />
               </View>
@@ -1156,7 +1140,9 @@ export default function AddPost({ navigation, route }) {
 
                 <Input
                   editable={pricing == "Price"}
-                  value={pricing == "Price" ? price+"" : t(`addPost.${price}`)}
+                  value={
+                    pricing == "Price" ? price + "" : t(`addPost.${price}`)
+                  }
                   setvalue={handleInputChange}
                   placeholder={t("addPost.phprice")}
                   containerStyle={[
@@ -1179,7 +1165,6 @@ export default function AddPost({ navigation, route }) {
                 <Text style={styles.title}>{t("addPost.condition")}</Text>
 
                 <RadioButtonRN
-                  animationTypes={["shake"]}
                   data={rdata}
                   initial={getConditionInitailValue(condition)}
                   textStyle={{ fontSize: height(1.5) }}

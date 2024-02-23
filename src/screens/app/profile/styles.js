@@ -12,9 +12,10 @@ const styles = StyleSheet.create({
     padding: height(1),
   },
   verticalLine: {
-    height: height(3),
+    height: height(4),
     width: 1,
     backgroundColor: AppColors.greybackground,
+    alignSelf:'flex-end'
   },
 
   avatar: {
@@ -25,8 +26,9 @@ const styles = StyleSheet.create({
     borderColor: AppColors.white,
     alignSelf: "center",
     position: "absolute",
-    top: -height(8.5),
+    top: -height(8.1),
     zIndex: 1,
+    backgroundColor: "white",
   },
 
   container: {
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
 
     borderColor: AppColors.greybackground,
-    paddingVertical:height(3),
-    marginVertical:height(1)
+    paddingVertical: height(3),
+    marginVertical: height(1),
   },
   wcontainer: {
     justifyContent: "center",
@@ -77,6 +79,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: height(1.8),
     textAlign: "center",
+  },
+  wtext: {
+    fontWeight: "300",
+    fontSize: height(1.5),
+    textAlign: "center",
+    textDecorationLine: "underline",
   },
   ptext: {
     fontSize: height(1.5),

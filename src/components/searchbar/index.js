@@ -123,7 +123,7 @@ export default function SearchBar({
   };
 
   const handleSearch = () => {
-    const existingIndex = searchHistory.findIndex(item => item === search);
+    const existingIndex = searchHistory.findIndex((item) => item === search);
     if (existingIndex !== -1) {
       const updatedHistory = [...searchHistory];
       updatedHistory.splice(existingIndex, 1);
@@ -230,7 +230,7 @@ export default function SearchBar({
           <TouchableOpacity
             style={{
               marginLeft: height(1),
-              backgroundColor: "red",
+              backgroundColor: AppColors.primary,
               paddingHorizontal: height(0.4),
               paddingVertical: height(0.2),
               borderRadius: 3,

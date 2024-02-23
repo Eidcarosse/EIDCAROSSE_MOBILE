@@ -41,7 +41,7 @@ export default function ChatIcon({ data }) {
     setSelectedItem(!data?.product || !data?.user);
     setUserDetail(data);
     if (!(data?.product && data?.user)) {
-      deleteChatroom(data?.roomId);
+      // deleteChatroom(data?.roomId);
     }
     // setLatestMsg(data?.lastmsg);
   }, [data]);
@@ -51,8 +51,8 @@ export default function ChatIcon({ data }) {
     try {
       // await remove(ref(database, `chatrooms/${chatroomId}/messages`));
       // await remove(ref(database, `chatrooms/${chatroomId}/lastRead`));
-      await remove(ref(database, `chatrooms/${chatroomId}`));
-      await setRooms(chatroomId, data?.user?._id);
+      // await remove(ref(database, `chatrooms/${chatroomId}`));
+      // await setRooms(chatroomId, data?.user?._id);
       await setRooms(chatroomId, user?._id);
     } catch (error) {
       console.error("Error deleting chatroom:", error.message);
@@ -151,7 +151,7 @@ export default function ChatIcon({ data }) {
           ]}
         >
           <Image
-            resizeMode="contain"
+            resizeMode="cover"
             style={[styles.image]}
             source={{
               uri:
@@ -209,7 +209,7 @@ export default function ChatIcon({ data }) {
             style={[
               {
                 paddingTop: height(1),
-                fontSize: height(1),
+                fontSize: height(1.5),
                 color: AppColors.black,
               },
               newMsg && { fontWeight: "bold", fontSize: height(1.3) },
@@ -248,7 +248,7 @@ export default function ChatIcon({ data }) {
           {newMsg && (
             <View
               style={{
-                backgroundColor: "red",
+                backgroundColor: AppColors.primary,
                 height: height(1.5),
                 width: height(1.5),
                 borderRadius: height(1),

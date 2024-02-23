@@ -510,7 +510,7 @@ export default {
     description: "Description",
     phdescription: "Ceci est ma description de l'annonce",
     videourl: "URL de la Vidéo",
-    phurl: "https://example.com",
+    phurl: "example.com",
     contactdetail: "Coordonnées",
     htc: "Comment Contacter",
     whatsapp: "Whatsapp",

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     width: width(93),
     borderRadius: width(2),
     alignItems: "center",
-    marginVertical: height(0.2),
     justifyContent: "space-between",
   },
   imageview: {
