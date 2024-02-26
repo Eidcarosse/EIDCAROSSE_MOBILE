@@ -68,6 +68,13 @@ const styles = StyleSheet.create({
     width: width(80),
     alignSelf: "flex-start",
   },
+  texticon2: {
+    color: AppColors.black,
+    width: width(80),
+    alignSelf: "flex-start",
+    fontWeight:'600',
+    fontSize:height(1.5)
+  },
   require: {
     color: "red",
     fontSize: height(1.3),

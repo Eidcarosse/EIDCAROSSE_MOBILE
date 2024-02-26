@@ -1016,7 +1016,7 @@ export default function AddPost({ navigation, route }) {
 
               <RadioButtonRN
                 data={pcdata}
-                initial={getPContitionInitialValue(gender)}
+                initial={getPContitionInitialValue(propertyCondition)}
                 textStyle={{ fontSize: height(1.5) }}
                 circleSize={width(3)}
                 boxStyle={{
@@ -1255,37 +1255,20 @@ export default function AddPost({ navigation, route }) {
               {brandRequire && (
                 <Text style={styles.require}>*{t(`addPost.require`)}</Text>
               )}
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  paddingVertical: width(4),
-                  alignSelf: "flex-start",
-                  alignItems: "center",
-                }}
+              <IconButton
                 onPress={otherBrandFuntion}
-              >
-                <CheckBox
-                  checkedImage={
-                    <MaterialIcons
-                      name="check-box"
-                      size={height(2)}
-                      color={AppColors.primary}
-                    />
-                  }
-                  unCheckedImage={
-                    <MaterialIcons
-                      name="check-box-outline-blank"
-                      size={height(2)}
-                    />
-                  }
-                  style={{ paddingRight: width(2) }}
-                  isChecked={otherBrand}
-                  onClick={otherBrandFuntion}
-                />
-                <Text style={{ fontSize: height(1.5) }}>
-                  {t("category.Others")}
-                </Text>
-              </TouchableOpacity>
+                title={t("category.Others")}
+                containerStyle={styles.container}
+                textStyle={styles.texticon2}
+                iconright={
+                  <FontAwesome
+                    name={!otherBrand ? "toggle-off" : "toggle-on"}
+                    color={!otherBrand ? "black" : AppColors.primary}
+                    size={height(2.2)}
+                  />
+                }
+                onPressRightIcon={otherBrandFuntion}
+              />
             </View>
           )}
 
@@ -1325,38 +1308,20 @@ export default function AddPost({ navigation, route }) {
                     return item;
                   }}
                 />
-                <TouchableOpacity
-                  style={{
-                    flexDirection: "row",
-                    paddingVertical: width(4),
-                    alignSelf: "flex-start",
-                    alignItems: "center",
-                  }}
+                <IconButton
                   onPress={otherModelFuntion}
-                >
-                  <CheckBox
-                    checkedImage={
-                      <MaterialIcons
-                        name="check-box"
-                        size={height(2)}
-                        color={AppColors.primary}
-                      />
-                    }
-                    unCheckedImage={
-                      <MaterialIcons
-                        name="check-box-outline-blank"
-                        size={height(2)}
-                      />
-                    }
-                    style={{ paddingRight: width(2) }}
-                    checkedCheckBoxColor={AppColors.primary}
-                    isChecked={otherModel}
-                    onClick={otherModelFuntion}
-                  />
-                  <Text style={{ fontSize: height(1.5) }}>
-                    {t("category.Others")}
-                  </Text>
-                </TouchableOpacity>
+                  title={t("category.Others")}
+                  containerStyle={styles.container}
+                  textStyle={styles.texticon2}
+                  iconright={
+                    <FontAwesome
+                      name={!otherModel ? "toggle-off" : "toggle-on"}
+                      color={!otherModel ? "black" : AppColors.primary}
+                      size={height(2.2)}
+                    />
+                  }
+                  onPressRightIcon={otherModelFuntion}
+                />
               </View>
             ) : (
               <></>

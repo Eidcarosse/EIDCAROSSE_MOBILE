@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   totalview: {
-    width: width(90),
+    width: width(94),
     alignSelf: "center",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   totaltext: {
-    color: AppColors.primary,
-    fontWeight: "bold",
-    fontSize: height(2),
+    color: AppColors.black,
+    fontWeight: '400',
+    fontSize: height(1.5),
   },
   iconview: {
     flexDirection: "row",
@@ -101,6 +101,34 @@ const styles = StyleSheet.create({
     color: AppColors.black,
     width: width(78),
     alignSelf: "flex-start",
+  },
+  texticon2: {
+    color: AppColors.black,
+    width: width(80),
+    alignSelf: "flex-start",
+    fontWeight:'600',
+    fontSize:height(1.5)
+  },
+  container2: {
+    backgroundColor: AppColors.white,
+    width: width(90),
+    justifyContent: "flex-start",
+    paddingVertical: width(3),
+    borderRadius: width(0),
+    alignSelf: "center",
+    paddingHorizontal: height(0),
+
+    ...Platform.select({
+      ios: {
+        shadowColor: "rgba(0, 0, 0, 0.2)",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0,
+        shadowRadius: 0,
+      },
+      android: {
+        elevation: 0,
+      },
+    }),
   },
   title: {
     fontSize: height(1.8),

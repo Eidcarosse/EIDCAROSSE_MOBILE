@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
   },
   headtext: {
     color: AppColors.primary,
-    fontSize: height(3),
-    width: width(90),
+    fontSize: height(2.5),
+    width: width(80),
     fontWeight: "bold",
+    marginRight: width(10),
   },
 });
 export default styles;

@@ -4,6 +4,7 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { Menu, MenuItem } from "react-native-material-menu";
 import Modal from "react-native-modal";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -15,8 +16,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Platform,
 } from "react-native";
-import RBSheet from "react-native-raw-bottom-sheet";
+
 import {
   Button,
   Card,
@@ -50,6 +52,7 @@ import {
   getConditionInitailValue,
   getGenderInitialValue,
   getPContitionInitialValue,
+  getPriceInitialValue,
   shouldRenderField,
   showType,
 } from "../../../utills/Methods";
@@ -82,7 +85,7 @@ export default function ListData({ navigation }) {
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [category, setCategory] = useState(cat);
-  const [searchString, setSearchString] = useState("");
+  // const [searchString, setSearchString] = useState("");
   const [km, setKm] = useState("");
   const [refreshing, onRefresh] = useState(false);
   const [refresh, setRefreshing] = useState(false);
@@ -101,7 +104,6 @@ export default function ListData({ navigation }) {
   const [data, setData] = useState([]);
   const [totalAds, setTotalAds] = useState(0);
   const [apimodel, setapiModel] = useState([]);
-
   const [otherBrand, setOtherBrand] = useState(false);
   const [otherModel, setOtherModel] = useState(false);
 
@@ -115,6 +117,11 @@ export default function ListData({ navigation }) {
   // const [area, setArea] = useState("");
   // const [companyName, setCompanyName] = useState("");
   const [salaryFrom, setSalaryFrom] = useState("");
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const hideMenu = () => setModalVisible(false);
+  const showMenu = () => setModalVisible(true);
+
   // const [salaryPeriod, setSalaryPeriod] = useState("");
   // const [positionType, setPositionType] = useState("");
   // const [breed, setBreed] = useState(edit?.animalZ?.breed || "");
@@ -132,7 +139,6 @@ export default function ListData({ navigation }) {
   // );
   const [bedRooms, setBedRooms] = useState("");
   const [bathRooms, setBathRooms] = useState("");
-  const [iAm, setIAm] = useState("");
   const [lookingFor, setLookingFor] = useState("");
   const [gender, setGender] = useState("");
   const [propertyCondition, setPropertyCondition] = useState("");
@@ -155,6 +161,12 @@ export default function ListData({ navigation }) {
     bodyShape: bodyshape || "",
     gearBox: gearbox || "",
     fuelType: fueltype || "",
+    furnished: propertyCondition || "",
+    bedrooms: bedRooms || "",
+    bathrooms: bathRooms || "",
+    // companyName: companyName || "",
+    salaryFrom: salaryFrom || "",
+    lkinFor: lookingFor || "",
     page: pageNumber, // Adjust the page number as needed
   };
   const clearAll = () => {
@@ -173,9 +185,6 @@ export default function ListData({ navigation }) {
     setCondition("");
     setData([]);
     setempty(false);
-    setCategory("");
-    setSubCategory("");
-    setFindValue("");
     if (pageNumber != 0) {
       setPageNumber(1);
     }
@@ -218,7 +227,8 @@ export default function ListData({ navigation }) {
   }, [category]);
   const getFeilds = async () => {
     let data = await backEndDataAPi({
-      type: findValue,
+      cat: category,
+      subcat: subCategory,
     });
     setFeild(data);
   };
@@ -323,12 +333,14 @@ export default function ListData({ navigation }) {
     if (!otherModel) {
       if (model) {
         setModel("");
+        modelRef?.current?.reset();
       }
       setModel("Others");
       setOtherModel(!otherModel);
     } else {
       if (model) {
         setModel("");
+        modelRef?.current?.reset();
       }
       setOtherModel(!otherModel);
     }
@@ -339,12 +351,14 @@ export default function ListData({ navigation }) {
         setModel("");
         setOtherModel(false);
       }
+      brandRef?.current?.reset();
       setBrand("Others");
       setOtherBrand(!otherBrand);
     } else {
       if (brand) {
         setModel("");
         setBrand("");
+        brandRef?.current?.reset();
       }
       setOtherBrand(!otherBrand);
     }
@@ -362,6 +376,12 @@ export default function ListData({ navigation }) {
       dispatch(setAppLoader(false));
     }, 1000);
   };
+  function openModal() {
+    setModal(true);
+  }
+  function closeModal() {
+    setModal(false);
+  }
 
   return (
     <ScreenWrapper
@@ -395,7 +415,6 @@ export default function ListData({ navigation }) {
               />
             }
             onPress={() => {
-              navigation.pop();
               navigation.replace(ScreenNames.SEARCH, {
                 category: category,
                 find: category,
@@ -404,34 +423,93 @@ export default function ListData({ navigation }) {
                 show: true,
               });
             }}
+            iconright={
+              <>
+                {title && (
+                  <MaterialIcons
+                    name="close"
+                    style={{ marginHorizontal: height(1) }}
+                    color={AppColors.primary}
+                    size={height(2.5)}
+                  />
+                )}
+              </>
+            }
+            onPressRightIcon={() => {
+              setTitle("");
+              setData([]);
+              setempty(false);
+              if (pageNumber != 0) {
+                setPageNumber(1);
+              }
+              setFilter(filter + 1);
+            }}
           />
           <View style={styles.totalview}>
-            <Text style={styles.totaltext}>
-              {t("allData.totalresult")} : {totalAds}
-            </Text>
+            {title || category ? (
+              <Text style={styles.totaltext}>
+                {t("allData.totalresult")} : {totalAds}
+              </Text>
+            ) : (
+              <View />
+            )}
             <View style={styles.iconview}>
-            <TouchableOpacity
-                style={{ marginRight:height(2)}}
-                onPress={() => {
-                  // refRBSheet.current.open()
-                }}
-              >
-                <MaterialIcons
-                  name="sort"
-                  size={height(3)}
-                  color={AppColors.primary}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-
-                onPress={() => {
-                  setModal(true);
-                  // refRBSheet.current.open()
-                }}
-              >
+              <>
+                <TouchableOpacity
+                  style={{ marginRight: height(2) }}
+                  onPress={showMenu}
+                >
+                  <MaterialIcons
+                    name="sort"
+                    size={height(3)}
+                    color={AppColors.primary}
+                  />
+                </TouchableOpacity>
+                <Menu
+                  visible={isModalVisible}
+                  style={{ borderRadius: height(2), padding: height(1) }}
+                  onRequestClose={hideMenu}
+                >
+                  {sortList.map((selectedItem, index) => (
+                    <MenuItem
+                      key={index}
+                      style={{
+                        borderRadius: height(1),
+                        backgroundColor:
+                          selectedItem.value == sortby
+                            ? AppColors.primary
+                            : "white",
+                      }}
+                      onPress={() => {
+                        setSortby(selectedItem.value);
+                        hideMenu();
+                        setData([]);
+                        setempty(false);
+                        if (pageNumber != 0) {
+                          setPageNumber(1);
+                        }
+                        setFilter(filter + 1);
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: height(1.5),
+                          color:
+                            selectedItem.value == sortby
+                              ? AppColors.white
+                              : AppColors.black,
+                        }}
+                      >
+                        {t(`${selectedItem.key}`)}
+                      </Text>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+              <TouchableOpacity onPress={openModal}>
                 <FontAwesome
                   name="sliders"
-                  size={height(3)}
+                  size={height(2.8)}
                   color={AppColors.primary}
                 />
               </TouchableOpacity>
@@ -439,8 +517,8 @@ export default function ListData({ navigation }) {
           </View>
         </View>
       )}
-      // refreshing={refresh}
-      // onRefresh={Refresh}
+      refreshing={refresh}
+      onRefresh={Refresh}
     >
       <View style={styles.mainViewContainer}>
         <FlatList
@@ -505,59 +583,97 @@ export default function ListData({ navigation }) {
         isVisible={modal}
         backdropColor={AppColors.white}
         backdropOpacity={1}
-        animationOutTiming={600}
-        onBackButtonPress={() => setModal(false)}
-        onBackdropPress={() => setModal(false)}
+        animationOutTiming={100}
+        onBackButtonPress={closeModal}
+        onBackdropPress={closeModal}
         useNativeDriverForBackdrop={true}
         avoidKeyboard={false}
       >
         {refreshing ? (
           <ActivityIndicator color={AppColors.primary} size={"large"} />
         ) : (
-          <View
-            style={{
-              backgroundColor: "white",
-              padding: height(2),
-              height: height(90),
-              width: width(100),
-              alignSelf: "center",
-            }}
-          >
-            <View
-              style={{
-                marginBottom: width(3),
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignContent: "center",
-              }}
-            >
-              <Text
+          <ScreenWrapper
+            scrollEnabled
+            headerUnScrollable={() => (
+              <View
                 style={{
-                  fontSize: height(3),
-                  fontWeight: "bold",
+                  marginBottom: width(3),
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignContent: "center",
                 }}
               >
-                {t("allData.filter")}
-              </Text>
-              <TouchableOpacity onPress={() => setModal(false)}>
-                <AntDesign
-                  name="closesquare"
-                  size={height(3)}
-                  color={AppColors.primary}
+                <Text
+                  style={{
+                    fontSize: height(3),
+                    fontWeight: "bold",
+                  }}
+                >
+                  {t("allData.filter")}
+                </Text>
+                <TouchableOpacity onPress={closeModal}>
+                  <AntDesign
+                    name="closesquare"
+                    size={height(3)}
+                    color={AppColors.primary}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+            footerUnScrollable={() => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
+                <Button
+                  title={"allData.clear"}
+                  containerStyle={{
+                    width: width(48),
+                    borderRadius: width(1),
+                    backgroundColor: "grey",
+                  }}
+                  onPress={() => {
+                    clearAll();
+                    closeModal();
+                  }}
                 />
-              </TouchableOpacity>
-            </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
+                <Button
+                  title={"allData.search"}
+                  containerStyle={{
+                    width: width(40),
+                    borderRadius: width(1),
+                    backgroundColor: AppColors.primary,
+                  }}
+                  onPress={() => {
+                    setData([]);
+                    setempty(false);
+                    if (pageNumber != 0) {
+                      setPageNumber(1);
+                    }
+                    closeModal();
+                    setFilter(filter + 1);
+                  }}
+                />
+              </View>
+            )}
+          >
+            <View style={{ paddingBottom: height(2) }}>
+              {/*-----------------category---------------*/}
               <IconButton
                 onPress={() => {
-                  setModal(false);
-                  setTimeout(() => {
-                    navigation.pop();
-                    navigation.navigate(ScreenNames.CATEGORY, {
-                      search: title,
-                      value: "seeAll",
-                    });
-                  }, 600);
+                  try {
+                    closeModal();
+                    setTimeout(() => {
+                      navigation.replace(ScreenNames.CATEGORY, {
+                        search: title,
+                        value: "seeAll",
+                      });
+                    }, 700);
+                  } catch (error) {
+                    console.log("navigation", error);
+                  }
                 }}
                 title={
                   category ? t(`category.${category}`) : "filter.selectCategory"
@@ -566,20 +682,23 @@ export default function ListData({ navigation }) {
                 textStyle={styles.texticon}
                 iconright={<Ionicons name="chevron-forward" size={height(2)} />}
               />
-
+              {/*-----------------subcategory---------------*/}
               {subCategory && (
                 <IconButton
                   onPress={() => {
-                    setModal(false);
-                    setTimeout(() => {
-                      navigation.pop();
-                      navigation.navigate(ScreenNames.BIKECATEGORY, {
-                        category: getSubcategoriesByName(s, category),
-                        find: category,
-                        search: title,
-                        show: true,
-                      });
-                    }, 600);
+                    try {
+                      closeModal();
+                      setTimeout(() => {
+                        navigation.replace(ScreenNames.BIKECATEGORY, {
+                          category: getSubcategoriesByName(s, category),
+                          find: category,
+                          search: title,
+                          show: true,
+                        });
+                      }, 700);
+                    } catch (error) {
+                      console.log("navigation", error);
+                    }
                   }}
                   title={t(`subList.${subCategory}`)}
                   containerStyle={styles.containerb}
@@ -589,39 +708,7 @@ export default function ListData({ navigation }) {
                   }
                 />
               )}
-              <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>{t("allData.sortby")}</Text>
-                <SelectDropdown
-                  data={sortList}
-                  defaultValueByIndex={sortby ? -1 : 0}
-                  defaultButtonText={
-                    t(sortList.find((item) => item.value == sortby)?.key) ||
-                    t("allData.defaultValueDropdown")
-                  }
-                  searchPlaceHolder={t("allData.phsearchHere")}
-                  defaultValue={sortby}
-                  buttonStyle={styles.searchbox}
-                  selectedRowStyle={{
-                    backgroundColor: AppColors.primary,
-                  }}
-                  selectedRowTextStyle={{ color: AppColors.white }}
-                  buttonTextStyle={{
-                    textAlign: "left",
-                    fontSize: height(1.6),
-                  }}
-                  dropdownStyle={styles.dropdown}
-                  onSelect={(selectedItem, index) => {
-                    setSortby(selectedItem.value);
-                  }}
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return t(`${selectedItem.key}`);
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return t(item.key);
-                  }}
-                />
-              </View>
-
+              {/*-----------------address---------------*/}
               <View style={{ paddingVertical: width(1) }}>
                 <Text style={styles.title}>{t("allData.address")}</Text>
                 <Input
@@ -638,28 +725,69 @@ export default function ListData({ navigation }) {
                   ]}
                 />
               </View>
-              <View style={{ paddingLeft: 4, paddingVertical: width(1) }}>
-                <Text style={styles.title}>{t("allData.pricerang")}</Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Input
-                    value={pricefrom}
-                    setvalue={setPricefrom}
-                    placeholder={"allData.from"}
-                    containerStyle={styles.price}
-                  />
-                  <Input
-                    value={priceto}
-                    setvalue={setPriceto}
-                    placeholder={"allData.to"}
-                    containerStyle={styles.price}
-                  />
-                </View>
-              </View>
+              {/*-----------------Price---------------*/}
+              {shouldRenderField("Price", category, subCategory) && (
+                <>
+                  <View style={{ alignSelf: "center" }}>
+                    <Text style={styles.title}>{t("addPost.pricing")}</Text>
+
+                    <RadioButtonRN
+                      data={pdata}
+                      initial={1}
+                      textStyle={{ fontSize: height(1.5) }}
+                      circleSize={width(3)}
+                      boxStyle={{
+                        width: width(90),
+                        borderWidth: 0,
+                        paddingVertical: width(1),
+                      }}
+                      activeColor={AppColors.primary}
+                      selectedBtn={(e) => {
+                        console.log(e?.key);
+                        switch (e?.key) {
+                          case "Free":
+                            setPricing("Free");
+                            break;
+                          case "Contact":
+                            setPricing("Contact");
+                            break;
+                          default:
+                            setPricing("Price");
+                        }
+                      }}
+                    />
+                  </View>
+                  {pricing == "Price" && (
+                    <View style={{ paddingLeft: 4, paddingVertical: width(1) }}>
+                      <Text style={styles.title}>{t("allData.pricerang")}</Text>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Input
+                          value={pricefrom}
+                          keyboardType="numeric"
+                          inputTextStyle={{ width: width(35) }}
+                          setvalue={setPricefrom}
+                          placeholder={"allData.from"}
+                          containerStyle={styles.price}
+                        />
+                        <Input
+                          value={priceto}
+                          setvalue={setPriceto}
+                          inputTextStyle={{ width: width(35) }}
+                          keyboardType="numeric"
+                          placeholder={"allData.to"}
+                          containerStyle={styles.price}
+                        />
+                      </View>
+                    </View>
+                  )}
+                </>
+              )}
+
               {/*-----------------salary from---------------*/}
               {shouldRenderField("SalaryFrom", category, subCategory) && (
                 <View style={{ paddingVertical: width(1) }}>
@@ -669,15 +797,8 @@ export default function ListData({ navigation }) {
                     setvalue={setSalaryFrom}
                     placeholder={t("addPost.enterSalaryFrom")}
                     keyboardType="number-pad"
-                    containerStyle={[
-                      styles.price,
-                      { width: width(90) },
-                      salaryRequire && styles.required,
-                    ]}
+                    containerStyle={[styles.price, { width: width(90) }]}
                   />
-                  {salaryRequire && (
-                    <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-                  )}
                 </View>
               )}
               {/*-----------------bedroom---------------*/}
@@ -706,14 +827,14 @@ export default function ListData({ navigation }) {
                   />
                 </View>
               )}
-              {/*-----------------condition---------------*/}
+              {/*-----------------property condition---------------*/}
               {shouldRenderField("Furnished", category, subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.condition")}</Text>
 
                   <RadioButtonRN
                     data={pcdata}
-                    initial={getPContitionInitialValue(gender)}
+                    initial={getPContitionInitialValue(propertyCondition)}
                     textStyle={{ fontSize: height(1.5) }}
                     circleSize={width(3)}
                     boxStyle={{
@@ -723,7 +844,7 @@ export default function ListData({ navigation }) {
                     }}
                     activeColor={AppColors.primary}
                     selectedBtn={(e) => {
-                      setPropertyCondition(e.key);
+                      setPropertyCondition(e?.key);
                     }}
                   />
                 </View>
@@ -789,7 +910,7 @@ export default function ListData({ navigation }) {
                     }}
                     activeColor={AppColors.primary}
                     selectedBtn={(e) => {
-                      setCondition(e.key);
+                      setCondition(e?.key);
                     }}
                   />
                 </View>
@@ -844,7 +965,9 @@ export default function ListData({ navigation }) {
                     searchInputStyle
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={[styles.searchbox]}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={[
                       { textAlign: "left", fontSize: height(1.6) },
@@ -865,37 +988,20 @@ export default function ListData({ navigation }) {
                       return item;
                     }}
                   />
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
-                      paddingVertical: width(4),
-                      alignSelf: "flex-start",
-                      alignItems: "center",
-                    }}
+                  <IconButton
                     onPress={otherBrandFuntion}
-                  >
-                    <CheckBox
-                      checkedImage={
-                        <MaterialIcons
-                          name="check-box"
-                          size={height(2)}
-                          color={AppColors.primary}
-                        />
-                      }
-                      unCheckedImage={
-                        <MaterialIcons
-                          name="check-box-outline-blank"
-                          size={height(2)}
-                        />
-                      }
-                      style={{ paddingRight: width(2) }}
-                      isChecked={otherBrand}
-                      onClick={otherBrandFuntion}
-                    />
-                    <Text style={{ fontSize: height(1.5) }}>
-                      {t("category.Others")}
-                    </Text>
-                  </TouchableOpacity>
+                    title={t("category.Others")}
+                    containerStyle={styles.container2}
+                    textStyle={styles.texticon2}
+                    iconright={
+                      <FontAwesome
+                        name={!otherBrand ? "toggle-off" : "toggle-on"}
+                        color={!otherBrand ? "black" : AppColors.primary}
+                        size={height(2.2)}
+                      />
+                    }
+                    onPressRightIcon={otherBrandFuntion}
+                  />
                 </View>
               )}
 
@@ -937,38 +1043,20 @@ export default function ListData({ navigation }) {
                         return item;
                       }}
                     />
-                    <TouchableOpacity
-                      style={{
-                        flexDirection: "row",
-                        paddingVertical: width(4),
-                        alignSelf: "flex-start",
-                        alignItems: "center",
-                      }}
+                    <IconButton
                       onPress={otherModelFuntion}
-                    >
-                      <CheckBox
-                        checkedImage={
-                          <MaterialIcons
-                            name="check-box"
-                            size={height(2)}
-                            color={AppColors.primary}
-                          />
-                        }
-                        unCheckedImage={
-                          <MaterialIcons
-                            name="check-box-outline-blank"
-                            size={height(2)}
-                          />
-                        }
-                        style={{ paddingRight: width(2) }}
-                        checkedCheckBoxColor={AppColors.primary}
-                        isChecked={otherModel}
-                        onClick={otherModelFuntion}
-                      />
-                      <Text style={{ fontSize: height(1.5) }}>
-                        {t("category.Others")}
-                      </Text>
-                    </TouchableOpacity>
+                      title={t("category.Others")}
+                      containerStyle={styles.container2}
+                      textStyle={styles.texticon2}
+                      iconright={
+                        <FontAwesome
+                          name={!otherModel ? "toggle-off" : "toggle-on"}
+                          color={!otherModel ? "black" : AppColors.primary}
+                          size={height(2.2)}
+                        />
+                      }
+                      onPressRightIcon={otherModelFuntion}
+                    />
                   </View>
                 ) : (
                   <></>
@@ -1076,7 +1164,9 @@ export default function ListData({ navigation }) {
                     }
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
@@ -1112,7 +1202,9 @@ export default function ListData({ navigation }) {
                     }
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
@@ -1144,7 +1236,9 @@ export default function ListData({ navigation }) {
                     data={feild?.interiorColor}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
@@ -1172,7 +1266,9 @@ export default function ListData({ navigation }) {
                     defaultButtonText={km || t("addPost.defaultValueDropdown")}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
-                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
                     selectedRowTextStyle={{ color: AppColors.white }}
                     buttonTextStyle={{
                       textAlign: "left",
@@ -1191,45 +1287,8 @@ export default function ListData({ navigation }) {
                   />
                 </View>
               )}
-            </ScrollView>
-            {/**-----button----- */}
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
-              <Button
-                title={"allData.clear"}
-                containerStyle={{
-                  width: width(48),
-                  borderRadius: width(1),
-                  backgroundColor: "grey",
-                }}
-                onPress={() => {
-                  clearAll();
-                  setModal(false);
-                }}
-              />
-              <Button
-                title={"allData.search"}
-                containerStyle={{
-                  width: width(40),
-                  borderRadius: width(1),
-                  backgroundColor: AppColors.primary,
-                }}
-                onPress={() => {
-                  setData([]);
-                  setempty(false);
-                  if (pageNumber != 0) {
-                    setPageNumber(1);
-                  }
-                  setModal(false);
-                  setFilter(filter + 1);
-                }}
-              />
             </View>
-          </View>
+          </ScreenWrapper>
         )}
       </Modal>
     </ScreenWrapper>
