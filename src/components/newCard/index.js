@@ -213,7 +213,7 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
-          {!isNullOrNullOrEmpty(data?.price) && (
+          {!isNullOrNullOrEmpty(data?.price) ? (
             <View style={styles.detailinerview}>
               {checkPrice(data?.price) ? (
                 <View>
@@ -232,6 +232,20 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
                 </View>
               )}
             </View>
+          ) : (
+            !isNullOrNullOrEmpty(data?.jobZ?.positionType) && (
+              <Text
+                numberOfLines={1}
+                style={{
+                  fontSize: height(2.5),
+                  color: AppColors.primary,
+                  fontWeight: "bold",
+                  marginBottom: height(0.5),
+                }}
+              >
+                {data?.jobZ?.positionType}
+              </Text>
+            )
           )}
           <View
             style={{

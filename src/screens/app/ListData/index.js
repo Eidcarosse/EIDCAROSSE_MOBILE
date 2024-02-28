@@ -62,10 +62,8 @@ export default function ListData({ navigation }) {
   const route = useRoute();
   const { t } = useTranslation();
   const cat = route?.params?.category;
-  const find = route?.params?.find;
   const sub = route?.params?.subcategory;
   const ti = route?.params?.search;
-  const refRBSheet = useRef();
   const [modal, setModal] = useState(false);
   const s = useSelector(selectCategoryList);
   const [feild, setFeild] = useState();
@@ -73,30 +71,9 @@ export default function ListData({ navigation }) {
   const [findValue, setFindValue] = useState(sub);
   const brandRef = useRef();
   const modelRef = useRef();
-  const [sortby, setSortby] = useState("");
-  const [address, setAddress] = useState("");
-  const [subCategory, setSubCategory] = useState(sub);
-
-  const [title, setTitle] = useState(ti || "");
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pricefrom, setPricefrom] = useState();
-  const [priceto, setPriceto] = useState("");
-  const [condition, setCondition] = useState("");
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [category, setCategory] = useState(cat);
-  // const [searchString, setSearchString] = useState("");
-  const [km, setKm] = useState("");
   const [refreshing, onRefresh] = useState(false);
   const [refresh, setRefreshing] = useState(false);
   const [empty, setempty] = useState(false);
-  const [year, setYear] = useState("");
-  const [bodyshape, setBodyshap] = useState("");
-  const [gearbox, setGearbox] = useState("");
-  const [fueltype, setFueltype] = useState("");
-  const [exterior, setExterior] = useState("");
-  const [interior, setInterior] = useState("");
-  const [type, setType] = useState();
   const [loder, setLoder] = useState(false);
   const [vcompanies, setVcompanies] = useState([]);
   const [vCategory, setVCategory] = useState();
@@ -106,43 +83,45 @@ export default function ListData({ navigation }) {
   const [apimodel, setapiModel] = useState([]);
   const [otherBrand, setOtherBrand] = useState(false);
   const [otherModel, setOtherModel] = useState(false);
-
-  {
-    /**-----------new----------------- */
-  }
-
-  const [pricing, setPricing] = useState("Price");
-  const [salaryRequire, setSalaryRequire] = useState(null);
-  const [vtype, setVtype] = useState();
-  // const [area, setArea] = useState("");
-  // const [companyName, setCompanyName] = useState("");
-  const [salaryFrom, setSalaryFrom] = useState("");
-
   const [isModalVisible, setModalVisible] = useState(false);
-  const hideMenu = () => setModalVisible(false);
-  const showMenu = () => setModalVisible(true);
-
+  ///send params
+  const [sortby, setSortby] = useState("");
+  const [address, setAddress] = useState("");
+  const [subCategory, setSubCategory] = useState(sub);
+  const [title, setTitle] = useState(ti || "");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pricefrom, setPricefrom] = useState();
+  const [priceto, setPriceto] = useState("");
+  const [condition, setCondition] = useState("");
+  const [brand, setBrand] = useState("");
+  const [model, setModel] = useState("");
+  const [category, setCategory] = useState(cat);
+  const [km, setKm] = useState("");
+  const [year, setYear] = useState("");
+  const [bodyshape, setBodyshap] = useState("");
+  const [gearbox, setGearbox] = useState("");
+  const [fueltype, setFueltype] = useState("");
+  const [type, setType] = useState();
+  const [pricing, setPricing] = useState("Price");
+  const [companyName, setCompanyName] = useState("");
+  const [salaryFrom, setSalaryFrom] = useState("");
+  const [drivenHours, setDrivenHours] = useState("");
+  const [workingHours, setWorkingHours] = useState("");
+  const [downPayment, setDownPayment] = useState("");
+  const [installments, setInstallments] = useState("");
+  const [installmentPlan, setInstallmentPlan] = useState("");
+  const [bedRooms, setBedRooms] = useState("");
+  const [bathRooms, setBathRooms] = useState("");
+  const [lookingFor, setLookingFor] = useState("");
+  const [wlookingFor, setWLookingFor] = useState("");
+  const [gender, setGender] = useState("");
+  const [propertyCondition, setPropertyCondition] = useState("");
+  //missing
+  // const [area, setArea] = useState("");
   // const [salaryPeriod, setSalaryPeriod] = useState("");
   // const [positionType, setPositionType] = useState("");
   // const [breed, setBreed] = useState(edit?.animalZ?.breed || "");
   // const [age, setAge] = useState(edit?.animalZ?.age || "");
-  // const [drivenHours, setDrivenHours] = useState(edit?.vhclZ?.hrzDrvn || "");
-  // const [workingHours, setWorkingHours] = useState(
-  //   edit?.bznessInAg?.workingHours || ""
-  // );
-  // const [downPayment, setDownPayment] = useState(edit?.vhclZ?.dwnPymnt || "");
-  // const [installments, setInstallments] = useState(
-  //   edit?.vhclZ?.mnthlyInstl || ""
-  // );
-  // const [installmentPlan, setInstallmentPlan] = useState(
-  //   edit?.vhclZ?.instlPlan || ""
-  // );
-  const [bedRooms, setBedRooms] = useState("");
-  const [bathRooms, setBathRooms] = useState("");
-  const [lookingFor, setLookingFor] = useState("");
-  const [gender, setGender] = useState("");
-  const [propertyCondition, setPropertyCondition] = useState("");
-
   let uniqueEntries = {};
   const queryParams = {
     address: address.trim() || "",
@@ -152,10 +131,11 @@ export default function ListData({ navigation }) {
     title: title.trim() || "",
     brand: brand || "",
     model: model || "",
+    Price: ((pricing == "Free" || pricing == "Contact") && pricing) || "",
     year: year || "",
     type: type || "",
-    minPrice: priceto || "",
-    maxPrice: pricefrom || "",
+    minPrice: pricefrom || "",
+    maxPrice: priceto || "",
     sortBy: sortby || "",
     km: km || "",
     bodyShape: bodyshape || "",
@@ -164,25 +144,45 @@ export default function ListData({ navigation }) {
     furnished: propertyCondition || "",
     bedrooms: bedRooms || "",
     bathrooms: bathRooms || "",
-    // companyName: companyName || "",
+    companyName: companyName || "",
+    iAm: lookingFor,
     salaryFrom: salaryFrom || "",
-    lkinFor: lookingFor || "",
+    lkinFor: wlookingFor || "",
+    workingHours: workingHours,
+    hrzDrvn: drivenHours,
+    dwnPymnt: downPayment,
+    mnthlyInstl: installments,
+    instlPlan: installmentPlan,
     page: pageNumber, // Adjust the page number as needed
   };
+
   const clearAll = () => {
-    setTitle("");
     setAddress("");
+    setCondition("");
     setBrand("");
+    setOtherBrand(false);
     setModel("");
+    setOtherModel(false);
+    setPricing("Price");
     setYear("");
+    setType("");
     setPricefrom("");
     setPriceto("");
-    setSortby("");
     setKm("");
     setBodyshap("");
     setGearbox("");
     setFueltype("");
-    setCondition("");
+    setPropertyCondition("");
+    setBedRooms("");
+    setBathRooms("");
+    setCompanyName("");
+    setLookingFor("");
+    setWLookingFor("");
+    setWorkingHours("");
+    setDrivenHours("");
+    setDownPayment("");
+    setInstallments("");
+    setInstallmentPlan("");
     setData([]);
     setempty(false);
     if (pageNumber != 0) {
@@ -264,11 +264,12 @@ export default function ListData({ navigation }) {
     // Return an empty array if no match is found
     return [];
   };
-
+  const hideMenu = () => setModalVisible(false);
+  const showMenu = () => setModalVisible(true);
   const getData = async () => {
     onRefresh(true);
     let d = await getAllData(queryParams);
-    if (d?.ad.length == 0) {
+    if (d?.ad?.length == 0) {
       setempty(true);
     }
     if (d) {
@@ -327,6 +328,10 @@ export default function ListData({ navigation }) {
     {
       key: "Female",
       label: t("addPost.Female"),
+    },
+    {
+      key: "Others",
+      label: t("addPost.Others"),
     },
   ];
   const otherModelFuntion = () => {
@@ -398,13 +403,14 @@ export default function ListData({ navigation }) {
               backgroundColor: "white",
               width: width(98),
               borderWidth: height(0.05),
-              marginVertical: height(1),
+              marginVertical: height(2),
             }}
             textStyle={{
               color: "grey",
-              fontWeight: "100",
+              fontWeight: "400",
               fontSize: height(1.5),
               width: width(80),
+              paddingHorizontal: width(1),
             }}
             icon={
               <Ionicons
@@ -584,6 +590,7 @@ export default function ListData({ navigation }) {
         backdropColor={AppColors.white}
         backdropOpacity={1}
         animationOutTiming={100}
+        animationInTiming={200}
         onBackButtonPress={closeModal}
         onBackdropPress={closeModal}
         useNativeDriverForBackdrop={true}
@@ -733,7 +740,7 @@ export default function ListData({ navigation }) {
 
                     <RadioButtonRN
                       data={pdata}
-                      initial={1}
+                      initial={getPriceInitialValue(pricing)}
                       textStyle={{ fontSize: height(1.5) }}
                       circleSize={width(3)}
                       boxStyle={{
@@ -787,7 +794,103 @@ export default function ListData({ navigation }) {
                   )}
                 </>
               )}
-
+              {/*-----------------driven hours---------------*/}
+              {shouldRenderField("Hours Driven", category, subCategory) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.drivenHours")}</Text>
+                  <Input
+                    value={drivenHours}
+                    setvalue={setDrivenHours}
+                    keyboardType="number-pad"
+                    placeholder={t("addPost.enterDrivenHours")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
+              {/*-----------------company name---------------*/}
+              {shouldRenderField("CompanyName", category, subCategory) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.companyName")}</Text>
+                  <Input
+                    value={companyName}
+                    setvalue={setCompanyName}
+                    placeholder={t("addPost.enterCompanyName")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
+              {/*-----------------working hours---------------*/}
+              {shouldRenderField("Working Hours", category, subCategory) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.workingHours")}</Text>
+                  <Input
+                    value={workingHours}
+                    setvalue={setWorkingHours}
+                    keyboardType="number-pad"
+                    placeholder={t("addPost.enterWorkingHours")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
+              {/*-----------------down payment---------------*/}
+              {shouldRenderField("Down Payment", category, subCategory) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.downPayment")}</Text>
+                  <Input
+                    value={downPayment}
+                    setvalue={setDownPayment}
+                    keyboardType="number-pad"
+                    placeholder={t("addPost.enterDownPayment")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
+              {/*-----------------instalmentplan---------------*/}
+              {shouldRenderField("Installment Plan", category, subCategory) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>
+                    {t("addPost.installmentPlan")}
+                  </Text>
+                  <Input
+                    value={installmentPlan}
+                    setvalue={setInstallmentPlan}
+                    placeholder={t("addPost.enterInstallmentPlan")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
+              {/*-----------------monthly instalment---------------*/}
+              {shouldRenderField(
+                "Monthly Installments",
+                category,
+                subCategory
+              ) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>
+                    {t("addPost.monthlyInstallments")}
+                  </Text>
+                  <Input
+                    value={installments}
+                    setvalue={setInstallments}
+                    keyboardType="number-pad"
+                    placeholder={t("addPost.enterMonthlyInstallment")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
+              {/*-----------------area---------------*/}
+              {/* {shouldRenderField("Area", category, subCategory) && (
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>{t("addPost.area") + " (sq.ft)"}</Text>
+              <Input
+                value={area}
+                keyboardType="number-pad"
+                setvalue={setArea}
+                placeholder={t("addPost.enterArea")}
+                containerStyle={[styles.price, { width: width(90) }]}
+              />
+            </View>
+          )} */}
               {/*-----------------salary from---------------*/}
               {shouldRenderField("SalaryFrom", category, subCategory) && (
                 <View style={{ paddingVertical: width(1) }}>
@@ -871,7 +974,7 @@ export default function ListData({ navigation }) {
                   />
                 </View>
               )}
-              {/*-----------------looking for---------------*/}
+              {/*-----------------i am looking for---------------*/}
               {shouldRenderField("Looking For", category, subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.lookingFor")}</Text>
@@ -889,6 +992,28 @@ export default function ListData({ navigation }) {
                     activeColor={AppColors.primary}
                     selectedBtn={(e) => {
                       setLookingFor(e.key);
+                    }}
+                  />
+                </View>
+              )}
+              {/*-----------------who's looking for---------------*/}
+              {shouldRenderField("Looking For", category, subCategory) && (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("Who's Looking For")}</Text>
+
+                  <RadioButtonRN
+                    data={gdata}
+                    initial={getGenderInitialValue(wlookingFor)}
+                    textStyle={{ fontSize: height(1.5) }}
+                    circleSize={width(3)}
+                    boxStyle={{
+                      width: width(90),
+                      borderWidth: 0,
+                      paddingVertical: width(1),
+                    }}
+                    activeColor={AppColors.primary}
+                    selectedBtn={(e) => {
+                      setWLookingFor(e.key);
                     }}
                   />
                 </View>
@@ -1181,78 +1306,6 @@ export default function ListData({ navigation }) {
                     }}
                     rowTextForSelection={(item, index) => {
                       return t(`fuelTypelist.${item.name}`);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------exterior color---------------*/}
-              {shouldRenderField("ExteriorColor", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      exterior
-                        ? t(`colorList.${exterior}`)
-                        : t("addPost.defaultValueDropdown")
-                    }
-                    data={
-                      category == "Bikes"
-                        ? feild?.bikeColor
-                        : feild?.exteriorColor
-                    }
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{
-                      backgroundColor: AppColors.primary,
-                    }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setExterior(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(`colorList.${selectedItem.name}`);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(`colorList.${item.name}`);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------Interior color---------------*/}
-              {shouldRenderField("interirColor", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
-                  <SelectDropdown
-                    defaultButtonText={
-                      interior
-                        ? t(`colorList.${interior}`)
-                        : t("addPost.defaultValueDropdown")
-                    }
-                    data={feild?.interiorColor}
-                    searchPlaceHolder={t("addPost.phsearchHere")}
-                    buttonStyle={styles.searchbox}
-                    selectedRowStyle={{
-                      backgroundColor: AppColors.primary,
-                    }}
-                    selectedRowTextStyle={{ color: AppColors.white }}
-                    buttonTextStyle={{
-                      textAlign: "left",
-                      fontSize: height(1.6),
-                    }}
-                    dropdownStyle={styles.dropdown}
-                    onSelect={(selectedItem, index) => {
-                      setInterior(selectedItem.name);
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                      return t(`colorList.${selectedItem.name}`);
-                    }}
-                    rowTextForSelection={(item, index) => {
-                      return t(`colorList.${item.name}`);
                     }}
                   />
                 </View>

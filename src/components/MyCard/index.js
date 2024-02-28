@@ -25,7 +25,7 @@ import GlobalMethods, {
   successMessage,
 } from "../../utills/Methods";
 
-export default function MyCard({ data }) {
+const MyCard = React.memo(({ data }) => {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -122,7 +122,7 @@ export default function MyCard({ data }) {
             EUR {data?.price}
           </Text>
         </View> */}
-        {!isNullOrNullOrEmpty(data?.price) && (
+        {!isNullOrNullOrEmpty(data?.price) ? (
           <View style={styles.detailinerview}>
             {checkPrice(data?.price) ? (
               <View style={{ width: width(50) }}>
@@ -141,6 +141,18 @@ export default function MyCard({ data }) {
               </View>
             )}
           </View>
+        ) : (
+          <Text
+            numberOfLines={1}
+            style={{
+              fontSize: height(2),
+              color: AppColors.primary,
+              fontWeight: "bold",
+              maxWidth: width(38),
+            }}
+          >
+            {data?.jobZ?.positionType}
+          </Text>
         )}
       </View>
 
@@ -293,4 +305,5 @@ export default function MyCard({ data }) {
       </View>
     </View>
   );
-}
+});
+export default MyCard;

@@ -43,7 +43,7 @@ export default function Detail({ navigation, route }) {
   const islogin = useSelector(selectIsLoggedIn);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
-  const [data, setDat] = useState(route?.params);
+  const [data, setDat] = useState({});
   const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
   const [img, setimg] = useState([]);
@@ -758,6 +758,7 @@ export default function Detail({ navigation, route }) {
                 }}
               >
                 <Marker
+                  title="Ad owner location"
                   coordinate={{
                     latitude: data?.latitude || 0,
                     longitude: data?.longitude || 0,

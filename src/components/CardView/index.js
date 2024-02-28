@@ -19,9 +19,10 @@ import GlobalMethods, {
   formatPrice,
   formatPriceE,
   infoMessage,
+  isNullOrNullOrEmpty,
 } from "../../utills/Methods";
 import styles from "./styles";
-export default function CardView({ data }) {
+const CardView = React.memo(({ data }) => {
   const { t } = useTranslation();
   const [slideNo, setSlideNo] = useState(0);
   const introRef = useRef(null);
@@ -46,7 +47,6 @@ export default function CardView({ data }) {
       setFav(false);
     }
   });
-
   const onpressfav = async () => {
     if (!loginuser) {
       infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
@@ -116,21 +116,43 @@ export default function CardView({ data }) {
               </Text>
             </View>
           </View>
-          {checkPrice(data?.price) ? (
-            <View>
-              <Text numberOfLines={1} style={styles.chf}>
-                CHF {formatPrice(data?.price)}
-              </Text>
-              <Text numberOfLines={1} style={styles.eur}>
-                EUR {formatPriceE(Math.round(data?.price * 1.06))}
-              </Text>
+          {!isNullOrNullOrEmpty(data?.price) ? (
+            <View
+              style={{
+                paddingBottom: width(2),
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              {checkPrice(data?.price) ? (
+                <View>
+                  <Text numberOfLines={1} style={styles.chf}>
+                    CHF {formatPrice(data?.price)}
+                  </Text>
+                  <Text numberOfLines={1} style={styles.eur}>
+                    EUR {formatPriceE(Math.round(data?.price * 1.06))}
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.cfpview}>
+                  <Text numberOfLines={1} style={styles.cfp}>
+                    {t(`addPost.${data?.price}`)}
+                  </Text>
+                </View>
+              )}
             </View>
           ) : (
-            <View style={styles.cfpview}>
-              <Text numberOfLines={1} style={styles.cfp}>
-                {t(`addPost.${data?.price}`)}
-              </Text>
-            </View>
+            <Text
+              numberOfLines={1}
+              style={{
+                fontSize: height(2),
+                color: AppColors.primary,
+                fontWeight: "bold",
+                maxWidth: width(38),
+              }}
+            >
+              {data?.jobZ?.positionType}
+            </Text>
           )}
         </View>
       </TouchableOpacity>
@@ -147,7 +169,7 @@ export default function CardView({ data }) {
       ) : (
         <></>
       )}
-       {!data?.visibility && (
+      {!data?.visibility && (
         <View
           style={{
             height: height(20),
@@ -160,4 +182,5 @@ export default function CardView({ data }) {
       )}
     </View>
   );
-}
+});
+export default CardView;

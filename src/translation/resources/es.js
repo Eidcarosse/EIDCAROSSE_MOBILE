@@ -461,7 +461,7 @@ export default {
     seeAll: "Ver Todo",
   },
   categorylist: {
-    categories: "Categorías",
+    categories: "Categorías principales",
     seeAll: "Ver Todo",
   },
   addPost: {
@@ -519,7 +519,7 @@ export default {
     defaultValueDropdown: "Seleccionar una opción",
     takephoto: "Tomar foto",
     choosefromgallery: "Elegir de la biblioteca",
-
+    Others: "Otros",
     area: "Área",
     enterArea: "Ingresar área",
     companyName: "Nombre de la empresa",

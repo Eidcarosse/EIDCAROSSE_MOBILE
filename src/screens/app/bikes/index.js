@@ -45,20 +45,20 @@ export default function BikeCategory({ navigation, route }) {
                 activeOpacity={0.6}
                 style={styles.card}
                 onPress={() => {
-                  if (!route?.params?.show) {
-                    navigation.navigate(ScreenNames.ADDPOST, {
-                      category: cat?.name,
-                      find: item?.name,
-                      subcategory: item?.name,
-                    });
-                  } else {
-                    navigation.navigate(ScreenNames.LISTDATA, {
+                  // if (!route?.params?.show) {
+                  //   navigation.navigate(ScreenNames.ADDPOST, {
+                  //     category: cat?.name,
+                  //     find: item?.name,
+                  //     subcategory: item?.name,
+                  //   });
+                  // } else {
+                    navigation.replace(ScreenNames.LISTDATA, {
                       category: cat?.name,
                       find: item?.name,
                       subcategory: item?.name,
                       search: search || "",
                     });
-                  }
+                  // }
                 }}
               >
                 {/* <Image

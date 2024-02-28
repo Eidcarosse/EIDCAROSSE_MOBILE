@@ -240,9 +240,7 @@ export const openViber = (phoneNumber) => {
       // Handle the error or display a message to the user
     });
   } catch (error) {
-    console.log("====================================");
     console.log(error);
-    console.log("====================================");
     return error;
   }
 };
@@ -321,7 +319,7 @@ export function shouldRenderField(field, category, sub_category) {
     "Property for Sale": ["Area", "Price", "Free"],
     "Property for Rent": ["Area", "Price", "Free"],
     "Electronics & Home Appliances": ["Condition", "Price", "Free"],
-    Bikes: ["Brand", "Condition", "Price", "Free",],
+    Bikes: ["Brand", "Condition", "Price", "Free"],
     Jobs: [
       "CompanyName",
       "SalaryFrom",
@@ -360,7 +358,7 @@ export function shouldRenderField(field, category, sub_category) {
       "Model",
       "Year",
       "km",
-      // "fuelType", 
+      // "fuelType",
       "gearBox",
       "Condition",
       "Down Payment",
@@ -368,15 +366,27 @@ export function shouldRenderField(field, category, sub_category) {
       "Installment Plan",
     ],
     Boats: ["Brand", "Hours Driven"],
-    Buses: ["Brand", "Year", "km", 
-    // "fuelType",
-     "Type"],
-    Vans: ["Brand", "Year", "km", 
-    // "fuelType", 
-    "Type"],
-    Trucks: ["Brand", "Year", "km",
-    //  "fuelType", 
-     "Type"],
+    Buses: [
+      "Brand",
+      "Year",
+      "km",
+      // "fuelType",
+      "Type",
+    ],
+    Vans: [
+      "Brand",
+      "Year",
+      "km",
+      // "fuelType",
+      "Type",
+    ],
+    Trucks: [
+      "Brand",
+      "Year",
+      "km",
+      //  "fuelType",
+      "Type",
+    ],
     Trailers: ["Brand", "km", "Type"],
     "Other Vehicles": ["Year", "km"],
     Houses: ["Furnished", "Bedrooms", "bathrooms"],
@@ -387,7 +397,15 @@ export function shouldRenderField(field, category, sub_category) {
     "Roommates & Paying Guests": ["Furnished"],
     Rooms: ["Furnished"],
     "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-    Motorcycles: ["Brand", "Model", "km", "Type", "bodyShap", "ExteriorColor","fuelType"],
+    Motorcycles: [
+      "Brand",
+      "Model",
+      "km",
+      "Type",
+      "bodyShap",
+      "ExteriorColor",
+      "fuelType",
+    ],
     // "Bikes Accessories": ["Brand"],
     Bicycles: ["Brand", "Year"],
     "ATV & Quads": ["Brand", "Year"],
@@ -464,6 +482,7 @@ export function getPriceInitialValue(input) {
       return 3;
     case "":
     case null:
+    case "Price":
     case undefined:
       return 1;
     default:
@@ -474,12 +493,15 @@ export function getPriceInitialValue(input) {
       }
   }
 }
+
 export function getGenderInitialValue(input) {
   switch (input) {
     case "Male":
       return 1;
     case "Female":
       return 2;
+    case "Others":
+      return 3;
     case "":
     case null:
     case undefined:

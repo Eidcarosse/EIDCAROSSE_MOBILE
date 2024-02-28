@@ -1,25 +1,16 @@
 import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Image,
-  ImageBackground,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import styles from "./styles";
 
 import { useTranslation } from "react-i18next";
-import Icons from "../../../asset/images";
+import { useSelector } from "react-redux";
 import { getOwneAd } from "../../../backend/auth";
-import { CardView, Head, IconButton, ScreenWrapper } from "../../../components";
+import { CardView, IconButton, ScreenWrapper } from "../../../components";
+import { selectUserMeta } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import GlobalMethods from "../../../utills/Methods";
-import { useSelector } from "react-redux";
-import { selectUserMeta } from "../../../redux/slices/user";
 export default function OtherProfile({ navigation, route }) {
   const userdata = route?.params?.user;
   const loginuser = useSelector(selectUserMeta);
@@ -44,7 +35,6 @@ export default function OtherProfile({ navigation, route }) {
       onRefresh={myAdsFunction}
       headerUnScrollable={() => (
         <>
-          {/* <Head navigation={navigation} /> */}
           <View style={{ width: width(100), backgroundColor: AppColors.white }}>
             <Pressable
               onPress={() => navigation.goBack()}
@@ -85,7 +75,7 @@ export default function OtherProfile({ navigation, route }) {
                     {userdata?.userName}
                   </Text>
 
-                  {data && (
+                  {userdata?.showAds && data && (
                     <Text
                       style={{
                         fontSize: height(1.8),

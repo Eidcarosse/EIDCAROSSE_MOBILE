@@ -450,7 +450,7 @@ export default {
     seeAll: "Alle Inserate",
   },
   categorylist: {
-    categories: "Kategorien",
+    categories: "Top-Kategorien",
     seeAll: "Alle Kategorien",
   },
   addPost: {
@@ -508,7 +508,7 @@ export default {
     defaultValueDropdown: "Option auswählen",
     takephoto: "Foto machen",
     choosefromgallery: "Foto auswählen",
-
+    Others: "Andere",
     area: "Gebiet",
     enterArea: "Gebiet eingeben",
     companyName: "Firmenname",

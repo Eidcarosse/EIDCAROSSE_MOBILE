@@ -9,11 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
-import { Loader } from "../components";
+import { Loader, NetworkLoader } from "../components";
 // import * as Notifications from "expo-notifications";
 import {
   setAppLoader,
   setCategoryList,
+  setNetworkLoader,
   setNewChat,
   setShowViber,
   setShowWhatsapp,
@@ -96,11 +97,15 @@ export default function Routes() {
   }, []);
   useEffect(() => {
     if (isConnected) {
+      dispatch(setNetworkLoader(false));
       getuser();
       getData();
       getCategorylist();
     } else {
       dispatch(setAppLoader(true));
+      setTimeout(() => {
+        dispatch(setNetworkLoader(true));
+      }, 600);
     }
   }, [isConnected]);
   const getData = useCallback(async () => {
@@ -292,7 +297,9 @@ export default function Routes() {
   };
   return (
     <NavigationContainer>
+      <NetworkLoader />
       <Loader />
+
       <Stack.Navigator screenOptions={{ header: () => false }}>
         <Stack.Screen name={"drawr"} component={MyDrawer} />
         <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />

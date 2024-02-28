@@ -10,11 +10,11 @@ import styles from "./styles";
 export default function CategoryList({ navigation, search }) {
   const { t } = useTranslation();
   const d = useSelector(selectCategoryList);
-  const [data, setData] = useState([d[0], d[1], d[2], d[8], d[9], d[13]]);
+  const [data, setData] = useState([d[0], d[1], d[2], d[3], d[4], d[8]]);
   useEffect(() => {
     console.log("set cat", d);
     if (d) {
-      setData([d[0], d[1], d[2], d[8], d[9], d[13]]);
+      setData([d[0], d[1], d[2], d[3], d[4], d[8]]);
     }
   }, [d.length]);
   const renderItem = ({ item }) => {

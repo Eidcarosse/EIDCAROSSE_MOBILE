@@ -57,7 +57,7 @@ export default function Input({
               <Entypo
                 name={secureText ? "eye-with-line" : "eye"}
                 color={secureText ? "grey" : AppColors.primary}
-                size={height(2)}
+                size={height(2.5)}
               />
             </TouchableOpacity>
           )}

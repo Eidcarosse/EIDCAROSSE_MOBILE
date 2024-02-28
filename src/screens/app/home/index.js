@@ -14,11 +14,9 @@ import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
 import {
   selectCategoryList,
-  selectFilter,
   selectTopAds,
   setAppLoader,
   setCategoryList,
-  setFilter,
   setTopAds,
 } from "../../../redux/slices/config";
 import { height, width } from "../../../utills/Dimension";
@@ -34,7 +32,7 @@ export default function Home({}) {
   useScrollToTop(scrollViewRef);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const flter = useSelector(selectFilter);
+
   const data = useSelector(selectTopAds);
   const category = useSelector(selectCategoryList);
   const [refreshing, setRefreshing] = useState(false);
