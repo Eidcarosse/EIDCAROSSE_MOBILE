@@ -42,7 +42,6 @@ const BottomNav = ({ navigation }) => {
   const islogin = useSelector(selectIsLoggedIn);
   const msg = useSelector(selectNewChat);
   return (
-    // <DrawerSceneWrapper>
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -180,7 +179,6 @@ const BottomNav = ({ navigation }) => {
         </>
       )}
     </Tab.Navigator>
-    // </DrawerSceneWrapper>
   );
 };
 

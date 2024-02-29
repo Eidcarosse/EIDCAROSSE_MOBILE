@@ -22,7 +22,7 @@
             "POST_NOTIFICATIONS"
         ],
         "orientation": "portrait",
-        "icon": "./assets/icon.jpeg",
+        "icon": "./assets/icon1.png",
         "userInterfaceStyle": "light",
         "splash": {
             "image": "./assets/splash.png",
@@ -60,7 +60,7 @@
                 }
             },
             "adaptiveIcon": {
-                "foregroundImage": "./assets/icon.jpeg",
+                "foregroundImage": "./assets/icon1.png",
                 "backgroundColor": "#ffffff"
             },
             "package": "com.eidcarosse.Eidcarossech",

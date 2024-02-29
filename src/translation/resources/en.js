@@ -82,8 +82,7 @@ export default {
   aboutUs: {
     aboutus: "About Us",
     paraDetail1:
-      "Eidcarosse is a comprehensive online marketplace dedicated to facilitating the buying and selling of vehicles. With a user-friendly interface and powerful search features, Eidcarosse connects individuals looking for vehicles with sellers offering an extensive range of options. Whether you're in the market for a stylish sedan, a powerful truck, a sleek bike, or any other vehicle, Eidcarosse provides a platform that simplifies the entire process.",
-
+      "Eidcarosse, we are driven by a passion for connecting people with the vehicles, electronics, properties, jobs, and items they need. Our mission is to provide a seamless and enjoyable experience for both buyers and sellers alike. With a commitment to user-friendly design and powerful search features, we've created a platform that simplifies the process of buying and selling across a wide range of categories. Our team is dedicated to fostering a vibrant online community where individuals and businesses can come together to find exactly what they're looking for. Whether you're searching for your dream car, the latest gadgets, your next home, exciting job opportunities, or unique items, Eidcarosse is here to help you navigate through it all.With Eidcarosse, you can trust that you're getting access to a diverse marketplace that prioritizes convenience, reliability, and security. Join us today and discover a world of endless possibilities right at your fingertips.",
     paraTitle2: "Buyers",
     paraDetail2by1:
       "For buyers, Eidcarosse offers a vast selection of vehicles from private sellers and dealerships, ensuring you have access to a wide range of options to suit your preferences and budget",
@@ -233,7 +232,7 @@ export default {
     share: "Share with Friends",
   },
   category: {
-    undefined:'',
+    undefined: "",
     Autos: "Autos",
     Bikes: "Bikes",
     Boats: "Boats",

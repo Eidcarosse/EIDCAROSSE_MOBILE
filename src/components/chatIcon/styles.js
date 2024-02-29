@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     width: height(8),
     height: height(8),
     borderRadius: width(10),
-    borderWidth: width(0.3),
-    borderColor: AppColors.primary,
+    borderWidth: height(0.4),
+    borderColor: AppColors.greybackground,
   },
   detail: {
     alignItems: "flex-start",

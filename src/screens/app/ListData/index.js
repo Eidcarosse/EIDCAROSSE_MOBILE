@@ -116,12 +116,7 @@ export default function ListData({ navigation }) {
   const [wlookingFor, setWLookingFor] = useState("");
   const [gender, setGender] = useState("");
   const [propertyCondition, setPropertyCondition] = useState("");
-  //missing
-  // const [area, setArea] = useState("");
-  // const [salaryPeriod, setSalaryPeriod] = useState("");
-  // const [positionType, setPositionType] = useState("");
-  // const [breed, setBreed] = useState(edit?.animalZ?.breed || "");
-  // const [age, setAge] = useState(edit?.animalZ?.age || "");
+  const [area, setArea] = useState("");
   let uniqueEntries = {};
   const queryParams = {
     address: address.trim() || "",
@@ -148,11 +143,12 @@ export default function ListData({ navigation }) {
     iAm: lookingFor,
     salaryFrom: salaryFrom || "",
     lkinFor: wlookingFor || "",
-    workingHours: workingHours,
-    hrzDrvn: drivenHours,
-    dwnPymnt: downPayment,
-    mnthlyInstl: installments,
-    instlPlan: installmentPlan,
+    workingHours: workingHours || "",
+    hrzDrvn: drivenHours || "",
+    dwnPymnt: downPayment || "",
+    mnthlyInstl: installments || "",
+    instlPlan: installmentPlan || "",
+    area: area || "",
     page: pageNumber, // Adjust the page number as needed
   };
 
@@ -183,6 +179,7 @@ export default function ListData({ navigation }) {
     setDownPayment("");
     setInstallments("");
     setInstallmentPlan("");
+    setArea("");
     setData([]);
     setempty(false);
     if (pageNumber != 0) {
@@ -879,18 +876,20 @@ export default function ListData({ navigation }) {
                 </View>
               )}
               {/*-----------------area---------------*/}
-              {/* {shouldRenderField("Area", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.area") + " (sq.ft)"}</Text>
-              <Input
-                value={area}
-                keyboardType="number-pad"
-                setvalue={setArea}
-                placeholder={t("addPost.enterArea")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )} */}
+              {shouldRenderField("Area", category, subCategory) && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>
+                    {t("addPost.area") + " (sq.ft)"}
+                  </Text>
+                  <Input
+                    value={area}
+                    keyboardType="number-pad"
+                    setvalue={setArea}
+                    placeholder={t("addPost.enterArea")}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                  />
+                </View>
+              )}
               {/*-----------------salary from---------------*/}
               {shouldRenderField("SalaryFrom", category, subCategory) && (
                 <View style={{ paddingVertical: width(1) }}>

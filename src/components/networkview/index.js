@@ -13,6 +13,8 @@ export default function NetworkLoader() {
     <Modal
       isVisible={net}
       backdropOpacity={1}
+      animationInTiming={100}
+      animationOutTiming={100}
       backdropColor={AppColors.white}
     >
       <View style={styles.container}>

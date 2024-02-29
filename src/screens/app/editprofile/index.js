@@ -86,6 +86,8 @@ export default function EditProfile({ navigation, route }) {
                       backgroundColor: AppColors.primary,
                       padding: width(2),
                       borderRadius: width(5),
+                      borderWidth:height(.3),
+                      borderColor:AppColors.white
                     }}
                   >
                     <FontAwesome

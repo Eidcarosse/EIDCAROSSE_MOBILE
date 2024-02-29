@@ -44,8 +44,9 @@ export default function AboutUs({ navigation, route }) {
           <Text style={styles.description}>{t(data?.paraDetail)}</Text>
         )}
         {data?.paraType == "bullets" &&
-          data.paraDetail.map((item) => (
+          data.paraDetail.map((item, index) => (
             <View
+              key={index}
               style={{
                 justifyContent: "flex-start",
                 flexDirection: "row",
@@ -53,7 +54,13 @@ export default function AboutUs({ navigation, route }) {
               }}
             >
               <View style={styles.dot} />
-              <Text style={{ margin: width(1), width: width(80),fontSize:height(1.8) }}>
+              <Text
+                style={{
+                  margin: width(1),
+                  width: width(80),
+                  fontSize: height(1.8),
+                }}
+              >
                 {t(item)}
               </Text>
             </View>
@@ -66,7 +73,6 @@ export default function AboutUs({ navigation, route }) {
       headerUnScrollable={() => (
         <Head headtitle={"aboutUs.aboutus"} navigation={navigation} />
       )}
-  
       scrollEnabled
       showStatusBar={false}
     >

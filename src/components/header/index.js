@@ -16,7 +16,7 @@ export default function Header({ navigation, title}) {
         style={styles.headerTitle}
       >
         <Image
-          source={require("../../../assets/icon1.png")}
+          source={Icons.headerLogo}
           style={styles.image}
           resizeMode="cover"
         />

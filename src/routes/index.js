@@ -102,7 +102,7 @@ export default function Routes() {
       getData();
       getCategorylist();
     } else {
-      dispatch(setAppLoader(true));
+      dispatch(setAppLoader(false));
       setTimeout(() => {
         dispatch(setNetworkLoader(true));
       }, 600);

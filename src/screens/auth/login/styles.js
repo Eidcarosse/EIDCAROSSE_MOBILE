@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.white,
     },
     imageiner: {
-        marginLeft: width(10),
+        // marginRight: width(10),
     },
     logintext: {
         fontSize: height(4),

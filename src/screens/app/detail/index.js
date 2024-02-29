@@ -578,7 +578,8 @@ export default function Detail({ navigation, route }) {
                   <View style={styles.cardrow}>
                     <Text style={styles.cardelement}>{t("addPost.iAm")}</Text>
                     <Text style={styles.cardelement2}>
-                      {data?.rltnShp?.iAm}
+                      
+                      {t(`addPost.${data?.rltnShp?.iAm}`)}
                     </Text>
                   </View>
                 )}
@@ -589,7 +590,7 @@ export default function Detail({ navigation, route }) {
                       {t("addPost.lookingFor")}
                     </Text>
                     <Text style={styles.cardelement2}>
-                      {data?.rltnShp?.lkinFor}
+                      {t(`addPost.${data?.rltnShp?.lkinFor}`)}
                     </Text>
                   </View>
                 )}

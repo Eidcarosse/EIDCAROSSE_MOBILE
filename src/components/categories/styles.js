@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: height(1.3),
     fontWeight: "bold",
+textAlign:'center',
+marginTop:height(.5)
   },
   image: { height: height(4), width: height(4) },
 });

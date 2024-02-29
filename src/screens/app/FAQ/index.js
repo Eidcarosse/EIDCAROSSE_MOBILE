@@ -9,15 +9,15 @@ export default function FAQ({ navigation, route }) {
   const faq = [
     {
       title: "FAQ.q1",
-      detail:"FAQ.a1"
+      detail: "FAQ.a1",
     },
     {
       title: "FAQ.q2",
-      detail:"FAQ.a2"
+      detail: "FAQ.a2",
     },
     {
       title: "FAQ.q3",
-      detail:"FAQ.a3"
+      detail: "FAQ.a3",
     },
     // {
     //   title: "FAQ.q4",
@@ -25,12 +25,12 @@ export default function FAQ({ navigation, route }) {
     // },
     {
       title: "FAQ.q5",
-      detail:"FAQ.a5"
+      detail: "FAQ.a5",
     },
     {
       title: "FAQ.q6",
-      detail:"FAQ.a6"
-    }, 
+      detail: "FAQ.a6",
+    },
     // {
     //   title: "FAQ.q7",
     //   detail:"FAQ.a7"
@@ -38,15 +38,15 @@ export default function FAQ({ navigation, route }) {
   ];
   return (
     <ScreenWrapper
-    showStatusBar={false}
+      showStatusBar={false}
       headerUnScrollable={() => (
         <Head headtitle={"FAQ.title"} navigation={navigation} />
       )}
       scrollEnabled
     >
       <View style={styles.mainViewContainer}>
-        {faq.map((item) => (
-          <Dropdowndetail title={item.title} detail={item.detail} />
+        {faq.map((item, index) => (
+          <Dropdowndetail key={index} title={item.title} detail={item.detail} />
         ))}
       </View>
     </ScreenWrapper>

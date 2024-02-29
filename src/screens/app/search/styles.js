@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     paddingHorizontal: width(8),
     width: width(67),
+    textAlign:'left'
   },
 });
 export default styles;

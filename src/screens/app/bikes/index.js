@@ -65,12 +65,13 @@ export default function BikeCategory({ navigation, route }) {
                   source={{ uri: item?.image ? item?.image : cat?.image }}
                   style={{ width: height(4), height: height(4) }}
                 /> */}
-                <Text style={{ fontSize: height(1.6), color: AppColors.black }}>
+                <Text style={{ fontSize: height(1.8), color: AppColors.black }}>
                   {t(`subList.${item.name}`)}
                 </Text>
               </TouchableOpacity>
             );
           }}
+          style={{width:width(100)}}
           keyExtractor={(item, index) => index}
         />
       </View>
