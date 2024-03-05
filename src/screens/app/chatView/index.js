@@ -617,7 +617,7 @@ function ChatView({ route }) {
           renderTime={renderTime}
           renderBubble={renderBubble}
           textInputProps={{ editable: selectedItem && usrData ? true : false }}
-
+          
         />
 
         <View>
