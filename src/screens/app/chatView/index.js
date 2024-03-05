@@ -1,4 +1,12 @@
-import { get, getDatabase, onValue, push, ref, set } from "firebase/database";
+import {
+  get,
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  set,
+  remove,
+} from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Alert,
@@ -40,6 +48,7 @@ import { useTranslation } from "react-i18next";
 import Modal from "react-native-modal";
 import { Button, ScreenWrapper } from "../../../components";
 import AppColors from "../../../utills/AppColors";
+import ScreenNames from "../../../routes/routes";
 function ChatView({ route }) {
   const { t } = useTranslation();
   const database = getDatabase();
@@ -50,8 +59,10 @@ function ChatView({ route }) {
   const [selectedItem, setSelectedItem] = useState(route?.params.userItem);
   const [online, setOnline] = useState();
   const [image, setImage] = useState([]);
+  const [imageSelect, setImageSelect] = useState([]);
   const [imageModal, setImageModal] = useState(false);
   const [imgModal, setImgModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const navigation = useNavigation();
 
@@ -60,6 +71,7 @@ function ChatView({ route }) {
   const usrData = route.params?.usr;
   const user = useSelector(selectUserMeta);
   const data = useSelector(selectChatRooms);
+  const [modal, setModal] = useState(false);
   let f = async () => {
     if (roomID) {
       const lastReadRef = ref(
@@ -86,15 +98,14 @@ function ChatView({ route }) {
     setReceiver(route.params?.usr);
   }, []);
   useEffect(() => {
-    const userStatusRef = ref(
-      database,
-      `users/${route.params.usr?._id}/online`
-    );
-    onValue(userStatusRef, (snapshot) => {
-      const status = snapshot.val();
-      setOnline(status);
-    });
-  }, [user?._id]);
+    if (usrData) {
+      const userStatusRef = ref(database, `users/${usrData?._id}/online`);
+      onValue(userStatusRef, (snapshot) => {
+        const status = snapshot.val();
+        setOnline(status);
+      });
+    }
+  }, [usrData]);
 
   useEffect(() => {
     if (!selectedItem) {
@@ -252,7 +263,13 @@ function ChatView({ route }) {
       {...props}
       containerStyle={{ paddingRight: width(2) }}
     >
-      <View style={{ marginRight: width(3), marginBottom: height(1.2),paddingLeft:height(7) }}>
+      <View
+        style={{
+          marginRight: width(3),
+          marginBottom: height(1.2),
+          paddingLeft: height(7),
+        }}
+      >
         <Ionicons name="send" color={AppColors.primary} size={height(3)} />
       </View>
     </Send>
@@ -266,19 +283,22 @@ function ChatView({ route }) {
             flexDirection: "row",
           }}
         >
-          {props.currentMessage.image &&
-            props.currentMessage.image.map((item, index) => {
+          {props?.currentMessage?.image &&
+            props?.currentMessage?.image.map((item, index) => {
               return (
-                <View
+                <TouchableOpacity
+                  key={index}
                   style={{
-                    width: width(47),
-                    height: width(47),
+                    width: height(12),
+                    height: height(7),
                     borderRadius: width(2),
                     padding: width(1),
                   }}
+                  onPress={() => {
+                    setImageSelect(item), setModal(true);
+                  }}
                 >
                   <Image
-                    key={index}
                     source={{
                       uri: item,
                     }}
@@ -289,7 +309,7 @@ function ChatView({ route }) {
                     }}
                     resizeMode="contain"
                   />
-                </View>
+                </TouchableOpacity>
               );
             })}
         </View>
@@ -297,13 +317,20 @@ function ChatView({ route }) {
     }
     return null;
   };
-
+  const deleteChatMessage = async (chatroomId, msgId) => {
+    try {
+      await remove(ref(database, `chatrooms/${chatroomId}/messages/${msgId}`));
+    } catch (error) {
+      console.error("Error deleting chatroom:", error.message);
+      // Handle errors as needed
+    }
+  };
   const openCamera = async () => {
     try {
       let result = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 4],
-        quality: .5,
+        quality: 0.5,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -330,7 +357,7 @@ function ChatView({ route }) {
         allowsMultipleSelection: true,
         allowsEditing: true,
         selectionLimit: 1,
-        quality: .5,
+        quality: 0.5,
       })
         .then((a) => {
           const selectedImages = a?.assets.map((imageUri) => {
@@ -374,7 +401,7 @@ function ChatView({ route }) {
     const userRef = ref(database, `users/${id}`);
 
     const updateData = {
-      online: false,
+      online: true,
       rooms: lst, // Update the 'rooms' field with the 'lst' object
     };
 
@@ -500,13 +527,13 @@ function ChatView({ route }) {
     }
 
     if (imageUrls.length > 0) {
-      set(newMessageRef, {
+      await setRooms(roomID, route.params.usr?._id);
+      await setRooms(roomID, user?._id);
+      await set(newMessageRef, {
         images: imageUrls,
         timestamp: Date.now(),
         senderId: user?._id,
       });
-      await setRooms(roomID, route.params.usr?._id);
-      await setRooms(roomID, user?._id);
     }
 
     setImageModal(false);
@@ -521,6 +548,7 @@ function ChatView({ route }) {
     setImage([]);
   };
   const renderDay = (props) => <Day {...props} dateFormat={"DD/MM/ YYYY"} />;
+
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -532,7 +560,14 @@ function ChatView({ route }) {
           <TouchableOpacity style={styles.icon_Style} onPress={handleBack}>
             <MaterialIcons name="arrow-back-ios" size={height(3)} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              usrData &&
+              navigation.navigate(ScreenNames.OTHERPROFILE, {
+                user: usrData,
+              })
+            }
+          >
             <Image
               source={{ uri: usrData?.image }}
               style={styles.image_Style}
@@ -541,7 +576,7 @@ function ChatView({ route }) {
           </TouchableOpacity>
           <View>
             <Text style={styles.account_Text}>{usrData?.firstName}</Text>
-            {/* {online ? (
+            {online ? (
               <View style={styles.online_View}>
                 <View style={styles.online_Indicator}></View>
                 <Text style={styles.online_Text}>Online</Text>
@@ -553,7 +588,7 @@ function ChatView({ route }) {
                 ></View>
                 <Text style={styles.online_Text}>Offline</Text>
               </View>
-            )} */}
+            )}
           </View>
         </View>
         {selectedItem && (
@@ -582,6 +617,7 @@ function ChatView({ route }) {
           renderTime={renderTime}
           renderBubble={renderBubble}
           textInputProps={{ editable: selectedItem && usrData ? true : false }}
+
         />
 
         <View>
@@ -612,6 +648,8 @@ function ChatView({ route }) {
                       key={index}
                       source={{
                         uri: img,
+                      }}
+                      style={{
                         width: width(90),
                         height: height(70),
                         alignSelf: "center",
@@ -642,6 +680,44 @@ function ChatView({ route }) {
           onClose={() => setImgModal(false)}
         />
       </View>
+      <DropDownMenu
+        isVisible={deleteModal}
+        firstBtnText={t("Delete")}
+        secondBtnText={t("Copy")}
+        onClose={() => setDeleteModal(false)}
+      />
+      <Modal
+        backdropOpacity={0.5}
+        isVisible={modal}
+        onBackdropPress={() => {
+          setModal(false);
+        }}
+        onBackButtonPress={() => {
+          setModal(false);
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: AppColors.white,
+            alignSelf: "center",
+            borderRadius: width(3),
+            alignSelf: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={{ uri: imageSelect }}
+            resizeMode="contain"
+            style={{
+              width: width(96),
+              height: height(60),
+              // alignSelf: "center",
+            }}
+            // style={{ flex: 1, resizeMode: "cover" }}
+          />
+        </View>
+      </Modal>
     </ScreenWrapper>
   );
 }
@@ -655,26 +731,23 @@ const styles = StyleSheet.create({
   },
   account_View: {
     width: width(90),
-    height: width(13),
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "center",
-    marginTop: height(1),
-    marginBottom: height(1),
+    marginBottom: height(2),
   },
   icon_Style: {
-    fontSize: 20,
-    width: width(10),
+    width: width(8),
     flexDirection: "row",
     alignItems: "center",
   },
   image_Style: {
-    width: width(13),
-    height: width(13),
-    borderRadius: width(20),
-    borderWidth: width(0.3),
-    borderColor: AppColors.primary,
+    width: height(7),
+    height: height(7),
+    borderRadius: height(10),
+    borderWidth: height(0.5),
+    borderColor: AppColors.greybackground,
   },
   account_Text: {
     marginLeft: width(5),

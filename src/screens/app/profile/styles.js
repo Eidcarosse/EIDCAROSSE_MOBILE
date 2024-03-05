@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     height: height(4),
     width: 1,
     backgroundColor: AppColors.greybackground,
-    alignSelf:'flex-end'
+    alignSelf: "flex-end",
   },
 
   avatar: {
@@ -24,13 +24,20 @@ const styles = StyleSheet.create({
     borderRadius: width(20),
     borderWidth: height(0.5),
     borderColor: AppColors.white,
+    backgroundColor: "white",
+  },
+  flotView: {
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    width: height(15),
+    height: height(15),
+    borderRadius: width(20),
     alignSelf: "center",
     position: "absolute",
     top: -height(8.1),
     zIndex: 1,
-    backgroundColor: "white",
   },
-
   container: {
     backgroundColor: AppColors.white,
     width: width(100),

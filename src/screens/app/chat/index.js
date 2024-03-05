@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataofAdByID } from "../../../backend/api";
 import { getUserByID } from "../../../backend/auth";
 import { ChatIcon, ScreenWrapper } from "../../../components";
+import {  Ionicons } from "@expo/vector-icons";
+
 import Header from "../../../components/header";
 import { selectNewChat, setNewChat } from "../../../redux/slices/config";
 import {
@@ -18,7 +20,7 @@ import {
   setChatRooms,
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
-import { height } from "../../../utills/Dimension";
+import { height, width } from "../../../utills/Dimension";
 import styles from "./styles";
 export default function ChatList({ navigation, route }) {
   const { t } = useTranslation();
@@ -153,12 +155,21 @@ export default function ChatList({ navigation, route }) {
           )}
           keyExtractor={(item, index) => index}
           ListEmptyComponent={() => (
-            <View>
+            <View style={{
+              alignContent:'center',
+              alignItems:'center',
+              justifyContent:'center',
+              height:height(70)
+            }}>
+              <Ionicons
+              name="chatbubbles-outline"
+              size={width(50)}
+              color={AppColors.bgIcon}
+              />
               <Text
                 style={{
                   fontWeight: "bold",
                   fontSize: height(2),
-                  paddingTop: height(40),
                   color: AppColors.black,
                 }}
               >

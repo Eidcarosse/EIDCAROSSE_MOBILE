@@ -3,6 +3,8 @@ import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Head, ScreenWrapper } from "../../../components";
 import CardView from "../../../components/CardView";
+import {  Ionicons } from "@expo/vector-icons";
+
 import {
   selectFavAds,
   selectUserMeta,
@@ -54,12 +56,21 @@ export default function WishList({ navigation, route }) {
             loader ? (
               <ActivityIndicator color={AppColors.primary} size={"large"} />
             ) : (
-              <View>
+              <View style={{
+                alignContent:'center',
+                alignItems:'center',
+                justifyContent:'center',
+                height:height(70)
+              }}>
+                <Ionicons
+                name="heart-circle"
+                size={width(50)}
+                color={AppColors.bgIcon}
+                />
                 <Text
                   style={{
                     fontWeight: "bold",
                     fontSize: height(2),
-                    paddingTop: height(40),
                   }}
                 >
                   {t("commmon.nothingtoshow")}

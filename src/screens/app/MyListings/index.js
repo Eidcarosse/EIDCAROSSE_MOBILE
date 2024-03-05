@@ -1,4 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
+import {  MaterialIcons } from "@expo/vector-icons";
+
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -48,13 +50,23 @@ export default function MyListing({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         <View style={{ width: width(100), alignItems: "center" }}>
+
           {data?.length === 0 ? (
-            <View>
+            <View style={{
+              alignContent:'center',
+              alignItems:'center',
+              justifyContent:'center',
+              height:height(70)
+            }}>
+              <MaterialIcons
+              name="storefront"
+              size={width(50)}
+              color={AppColors.bgIcon}
+              />
               <Text
                 style={{
                   fontWeight: "bold",
                   fontSize: height(1.5),
-                  paddingTop: height(40),
                 }}
               >
                 {t("commmon.nothingtoshow")}

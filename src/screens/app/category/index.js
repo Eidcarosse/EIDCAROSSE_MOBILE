@@ -77,7 +77,7 @@ export default function Category({ navigation, route }) {
                   backgroundColor:
                     item?.name == searchString?.name ? "#E5E8E8" : "white",
                   padding:
-                    item?.name == searchString?.name ? height(1) : height(0.5),
+                    item?.name == searchString?.name ? height(1) : height(0.3),
                   borderTopLeftRadius: height(1),
                   borderBottomLeftRadius: height(1),
                 }}
@@ -85,29 +85,16 @@ export default function Category({ navigation, route }) {
                 <CategoryIcon
                   navigation={navigation}
                   cardStyle={{
-                    padding: height(1),
-                    margin: height(0.5),
-                    marginVertical: 0,
+                    paddingVertical:height(.7),
+                    width:width(33),
+                    marginVertical: height(.3),
                   }}
                   title={item?.name}
                   image={item?.image}
-                  // textStyle={styles.textStyle}
+                  textStyle={styles.textStyle}
                   imageStyle={styles.imageStyle}
                   onPress={() => {
                     setSearchString(item);
-                    // if (route?.params?.value == "seeAll") {
-                    //   navigation.navigate(ScreenNames.BIKECATEGORY, {
-                    //     category: item,
-                    //     find: item?.name,
-                    //     show: true,
-                    //     search: search || "",
-                    //   });
-                    // } else {
-                    //   navigation.navigate(ScreenNames.BIKECATEGORY, {
-                    //     category: item,
-                    //     find: item?.name,
-                    //   });
-                    // }
                   }}
                 />
               </View>
@@ -119,7 +106,7 @@ export default function Category({ navigation, route }) {
         <View
           style={{
             backgroundColor: "#E5E8E8",
-            width: width(65),
+            width: width(60),
             padding: height(0.5),
           }}
         >
@@ -164,7 +151,7 @@ export default function Category({ navigation, route }) {
                   <Text
                     style={{ fontSize: height(1.6), color: AppColors.black }}
                   >
-                    {t(`subList.${item.name}`)}
+                    {t(`category.${item.name}`)}
                   </Text>
                 </TouchableOpacity>
               );

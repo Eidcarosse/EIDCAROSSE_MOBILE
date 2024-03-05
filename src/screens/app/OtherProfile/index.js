@@ -75,7 +75,7 @@ export default function OtherProfile({ navigation, route }) {
                     {userdata?.userName}
                   </Text>
 
-                  {userdata?.showAds && data && (
+                  {!userdata?.showAds && data && (
                     <Text
                       style={{
                         fontSize: height(1.8),

@@ -47,8 +47,6 @@ import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
   getConditionInitailValue,
-  getGenderInitialValue,
-  getPContitionInitialValue,
   getPriceInitialValue,
   infoMessage,
   shouldRenderField,
@@ -70,57 +68,6 @@ export default function AddPost({ navigation, route }) {
   const brandRef = useRef();
   const imageRef = useRef(null);
   const cat = useSelector(selectCategoryList);
-  // const [ad, setAd] = useState({
-  //   category: category,
-  //   subCategory: sub,
-  //   title: edit?.title || "",
-  //   titleRequire: null,
-  //   pricing: "Price",
-  //   url: edit?.videoUrl || "",
-  //   km: edit?.vhclZ?.km || "",
-  //   description: edit?.description || "",
-  //   year: edit?.vhclZ?.year || "",
-  //   price: edit?.price || "",
-  //   condition: edit?.vhclZ?.condition || "",
-  //   brand: edit?.vhclZ?.brand || "",
-  //   model: edit?.vhclZ?.model || "",
-  //   type: edit?.vhclZ?.type || "",
-  //   bodyshape: edit?.vhclZ?.bodyShape || "",
-  //   gearbox: edit?.vhclZ?.gearBox || "",
-  //   fueltype: edit?.vhclZ?.fuelType || "",
-  //   exterior: edit?.vhclZ?.exteriorColor || "",
-  //   interior: edit?.vhclZ?.interiorColor || "",
-  //   latitude: edit?.latitude || 37.78825,
-  //   longitude: edit?.longitude || -122.4324,
-  //   email: userInfo?.email,
-  //   phone: userInfo?.phoneNumber,
-  //   whatsapp: edit?.whatsapp || userInfo?.whatsapp,
-  //   viber: edit?.viber || userInfo?.viber,
-  //   address: edit?.address || "",
-  //   area: edit?.property4sr?.area || "",
-  //   companyName: edit?.jobZ?.companyName || "",
-  //   salaryFrom: edit?.jobZ?.salaryFrom || "",
-  //   salaryTo: edit?.jobZ?.salaryTo || "",
-  //   salaryPeriod: edit?.jobZ?.salaryPeriod || "",
-  //   positionType: edit?.jobZ?.positionType || "",
-  //   breed: edit?.animalZ?.breed || "",
-  //   age: edit?.animalZ?.age || "",
-  //   drivenHours: edit?.vhclZ?.hrzDrvn || "",
-  //   workingHours: edit?.bznessInAg?.workingHours || "",
-  //   downPayment: edit?.vhclZ?.dwnPymnt || "",
-  //   installments: edit?.vhclZ?.mnthlyInstl || "",
-  //   installmentPlan: edit?.vhclZ?.instlPlan || "",
-  //   bedRooms: edit?.property4sr?.bedrooms || "",
-  //   bathRooms: edit?.property4sr?.bathrooms || "",
-  //   iAm: edit?.rltnShp?.iAm || "",
-  //   lookingFor: edit?.rltnShp?.lkinFor || "",
-  //   gender: edit?.animalZ?.gender || "",
-  //   propertyCondition: edit?.property4sr?.furnished || "",
-  // });
-
-  // Usage example:
-  // To update a specific state variable, you can use the spread operator to maintain other state variables unchanged.
-  // setAd((prevState) => ({ ...prevState, selectedCategory: newValue }));
   const [selectedCategory, setSelectedCategory] = useState();
   const [image, setImage] = useState(edit?.images || []);
   const [subCategory, setSubCategory] = useState(sub);
@@ -136,7 +83,6 @@ export default function AddPost({ navigation, route }) {
   const [year, setYear] = useState(edit?.vhclZ?.year || "");
   const [price, setPrice] = useState(edit?.price || "");
   const [priceRequire, setPriceRequire] = useState(null);
-  const [salaryRequire, setSalaryRequire] = useState(null);
   const [condition, setCondition] = useState(edit?.vhclZ?.condition || "");
   const [brand, setBrand] = useState(edit?.vhclZ?.brand || "");
   const [brandRequire, setBrandRequire] = useState(null);
@@ -168,22 +114,9 @@ export default function AddPost({ navigation, route }) {
   const [feild, setFeild] = useState();
 
   const [renderNow, setRenderNow] = useState(false);
-
-  const [area, setArea] = useState(edit?.property4sr?.area || "");
-  const [companyName, setCompanyName] = useState(edit?.jobZ?.companyName || "");
-  const [salaryFrom, setSalaryFrom] = useState(edit?.jobZ?.salaryFrom || "");
-  const [salaryTo, setSalaryTo] = useState(edit?.jobZ?.salaryTo || "");
-  const [salaryPeriod, setSalaryPeriod] = useState(
-    edit?.jobZ?.salaryPeriod || ""
-  );
-  const [positionType, setPositionType] = useState(
-    edit?.jobZ?.positionType || ""
-  );
-  const [breed, setBreed] = useState(edit?.animalZ?.breed || "");
-  const [age, setAge] = useState(edit?.animalZ?.age || "");
   const [drivenHours, setDrivenHours] = useState(edit?.vhclZ?.hrzDrvn || "");
   const [workingHours, setWorkingHours] = useState(
-    edit?.bznessInAg?.workingHours || ""
+    edit?.vhclZ?.workingHours || ""
   );
   const [downPayment, setDownPayment] = useState(edit?.vhclZ?.dwnPymnt || "");
   const [installments, setInstallments] = useState(
@@ -191,16 +124,6 @@ export default function AddPost({ navigation, route }) {
   );
   const [installmentPlan, setInstallmentPlan] = useState(
     edit?.vhclZ?.instlPlan || ""
-  );
-  const [bedRooms, setBedRooms] = useState(edit?.property4sr?.bedrooms || "");
-  const [bathRooms, setBathRooms] = useState(
-    edit?.property4sr?.bathrooms || ""
-  );
-  const [iAm, setIAm] = useState(edit?.rltnShp?.iAm || "");
-  const [lookingFor, setLookingFor] = useState(edit?.rltnShp?.lkinFor || "");
-  const [gender, setGender] = useState(edit?.animalZ?.gender || "");
-  const [propertyCondition, setPropertyCondition] = useState(
-    edit?.property4sr?.furnished || ""
   );
 
   useEffect(() => {
@@ -285,9 +208,8 @@ export default function AddPost({ navigation, route }) {
       // category && requiredFields.push(brand);
       shouldRenderField("Price", category, subCategory) &&
         pricing == "Price" &&
+        parseInt(price) <= 0 &&
         requiredFields.push(price);
-      shouldRenderField("SalaryFrom", category, subCategory) &&
-        requiredFields.push(salaryFrom);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
       if (isAnyFieldEmpty) {
@@ -310,11 +232,6 @@ export default function AddPost({ navigation, route }) {
           setPriceRequire(true);
         } else {
           setPriceRequire(false);
-        }
-        if (!salaryFrom) {
-          setSalaryRequire(true);
-        } else {
-          setSalaryRequire(false);
         }
 
         dispatch(setAppLoader(false));
@@ -384,34 +301,8 @@ export default function AddPost({ navigation, route }) {
           formData.append("vhclZ.instlPlan", installmentPlan);
         (edit?.vhclZ?.hrzDrvn || drivenHours) &&
           formData.append("vhclZ.hrzDrvn", drivenHours);
-        (edit?.jobZ?.companyName || companyName) &&
-          formData.append("jobZ.companyName", companyName);
-        (edit?.jobZ?.salaryFrom || salaryFrom) &&
-          formData.append("jobZ.salaryFrom", salaryFrom);
-        (edit?.jobZ?.salaryTo || salaryTo) &&
-          formData.append("jobZ.salaryTo", salaryTo);
-        (edit?.jobZ?.positionType || positionType) &&
-          formData.append("jobZ.positionType", positionType);
-        (edit?.jobZ?.salaryPeriod || salaryPeriod) &&
-          formData.append("jobZ.salaryPeriod", salaryPeriod);
-        (edit?.property4sr?.area || area) &&
-          formData.append("property4sr.area", area);
-        (edit?.property4sr?.furnished || propertyCondition) &&
-          formData.append("property4sr.furnished", propertyCondition);
-        (edit?.property4sr?.bedrooms || bedRooms) &&
-          formData.append("property4sr.bedrooms", bedRooms);
-        (edit?.property4sr?.bathrooms || bathRooms) &&
-          formData.append("property4sr.bathrooms", bathRooms);
-        (edit?.animalZ?.gender || gender) &&
-          formData.append("animalZ.gender", gender);
-        (edit?.animalZ?.breed || breed) &&
-          formData.append("animalZ.breed", breed);
-        (edit?.animalZ?.age || age) && formData.append("animalZ.age", age);
-        (edit?.bznessInAg?.workingHours || workingHours) &&
-          formData.append("bznessInAg.workingHours", workingHours);
-        (edit?.rltnShp?.iAm || iAm) && formData.append("rltnShp.iAm", iAm);
-        (edit?.rltnShp?.lkinFor || lookingFor) &&
-          formData.append("rltnShp.lkinFor", lookingFor);
+        (edit?.vhclZ?.workingHours || workingHours) &&
+          formData.append("vhclZ.workingHours", workingHours);
 
         image.forEach((img, index) => {
           formData.append("file", {
@@ -458,24 +349,7 @@ export default function AddPost({ navigation, route }) {
         installments && formData.append("vhclZ.mnthlyInstl", installments);
         installmentPlan && formData.append("vhclZ.instlPlan", installmentPlan);
         drivenHours && formData.append("vhclZ.hrzDrvn", drivenHours);
-        companyName && formData.append("jobZ.companyName", companyName);
-        salaryFrom && formData.append("jobZ.salaryFrom", salaryFrom);
-        salaryTo && formData.append("jobZ.salaryTo", salaryTo);
-        positionType && formData.append("jobZ.positionType", positionType);
-        salaryPeriod && formData.append("jobZ.salaryPeriod", salaryPeriod);
-        area && formData.append("property4sr.area", area);
-        propertyCondition &&
-          formData.append("property4sr.furnished", propertyCondition);
-        bedRooms && formData.append("property4sr.bedrooms", bedRooms);
-        bathRooms && formData.append("property4sr.bathrooms", bathRooms);
-        gender && formData.append("animalZ.gender", gender);
-        breed && formData.append("animalZ.breed", breed);
-        age && formData.append("animalZ.age", age);
-        workingHours &&
-          formData.append("bznessInAg.workingHours", workingHours);
-        iAm && formData.append("rltnShp.iAm", iAm);
-        lookingFor && formData.append("rltnShp.lkinFor", lookingFor);
-
+        workingHours && formData.append("vhclZ.workingHours", workingHours);
         image.forEach((img, index) => {
           formData.append("file", {
             name: `image${index}`,
@@ -531,26 +405,6 @@ export default function AddPost({ navigation, route }) {
       label: t("addPost.Contact"),
     },
   ];
-  const pcdata = [
-    {
-      key: "Yes",
-      label: t("addPost.furnished"),
-    },
-    {
-      key: "No",
-      label: t("addPost.unFurnished"),
-    },
-  ];
-  const gdata = [
-    {
-      key: "Male",
-      label: t("addPost.Male"),
-    },
-    {
-      key: "Female",
-      label: t("addPost.Female"),
-    },
-  ];
   const otherModelFuntion = () => {
     if (!otherModel) {
       if (model) {
@@ -592,6 +446,10 @@ export default function AddPost({ navigation, route }) {
       setPrice(text);
     }
   };
+  function yearFix(year) {
+    const currentYear = new Date().getFullYear();
+    if (year <= currentYear) setYear(year);
+  }
   useEffect(() => {
     if (image.length > 0) setRenderNow(true);
     else setRenderNow(false);
@@ -683,7 +541,7 @@ export default function AddPost({ navigation, route }) {
                 paddingHorizontal: width(4.5),
               }}
             >
-              {t(`subList.${sub}`)}
+              {t(`category.${sub}`)}
             </Text>
           </View>
         </View>
@@ -693,613 +551,335 @@ export default function AddPost({ navigation, route }) {
     >
       <View style={styles.mainViewContainer}>
         {/* --------Image ---- */}
-        <View
-          style={{
-            backgroundColor: AppColors.grey,
-            borderRadius: width(2),
-            width: width(90),
-            alignContent: "center",
-            alignItems: "center",
-            paddingVertical: height(3),
-          }}
-        >
-          {!(image != null && image != "") ? (
-            <View
-              style={{ justifyContent: "space-around", alignItems: "center" }}
-            >
-              <TouchableOpacity
-                style={{
-                  backgroundColor: AppColors.primary,
-                  borderRadius: width(2),
-                  padding: height(1),
-                }}
-                onPress={() => imageRef.current.show()}
-              >
-                <Ionicons
-                  name="camera"
-                  size={height(7)}
-                  color={AppColors.white}
-                />
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={{ flex: 1 }}>
-              <DraggableFlatList
-                data={image}
-                horizontal
-                style={{ marginHorizontal: width(2) }}
-                onDragEnd={({ data }) => setImage(data)}
-                keyExtractor={(index, item) => {
-                  return `key-${index}`;
-                }}
-                renderItem={renderItem}
-                ListHeaderComponent={
-                  image?.length < 7 && (
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: AppColors.primary,
-                        height: height(7),
-                        width: height(7),
-                        borderRadius: height(1),
-                        alignSelf: "center",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                      onPress={() => imageRef.current.show()}
-                    >
-                      <Ionicons
-                        name="add"
-                        size={height(4)}
-                        color={AppColors.white}
-                      />
-                    </TouchableOpacity>
-                  )
-                }
-              />
-            </View>
-          )}
-          <Text
+        {address && (
+          <View
             style={{
-              fontWeight: "bold",
-              fontSize: height(2),
-              padding: width(3),
+              backgroundColor: AppColors.grey,
+              borderRadius: width(2),
+              width: width(90),
+              alignContent: "center",
+              alignItems: "center",
+              paddingVertical: height(3),
             }}
           >
-            {t("addPost.attachImage1")}
-          </Text>
-          <Text style={{ fontSize: height(1.2), padding: width(1) }}>
-            {t("addPost.attachImage2")}
-          </Text>
-          {renderNow && (
+            {!(image != null && image != "") ? (
+              <View
+                style={{ justifyContent: "space-around", alignItems: "center" }}
+              >
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: AppColors.primary,
+                    borderRadius: width(2),
+                    padding: height(1),
+                  }}
+                  onPress={() => imageRef.current.show()}
+                >
+                  <Ionicons
+                    name="camera"
+                    size={height(7)}
+                    color={AppColors.white}
+                  />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={{ flex: 1 }}>
+                <DraggableFlatList
+                  data={image}
+                  horizontal
+                  style={{ marginHorizontal: width(2) }}
+                  onDragEnd={({ data }) => setImage(data)}
+                  keyExtractor={(index, item) => {
+                    return `key-${index}`;
+                  }}
+                  renderItem={renderItem}
+                  ListHeaderComponent={
+                    image?.length < 7 && (
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: AppColors.primary,
+                          height: height(7),
+                          width: height(7),
+                          borderRadius: height(1),
+                          alignSelf: "center",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        onPress={() => imageRef.current.show()}
+                      >
+                        <Ionicons
+                          name="add"
+                          size={height(4)}
+                          color={AppColors.white}
+                        />
+                      </TouchableOpacity>
+                    )
+                  }
+                />
+              </View>
+            )}
             <Text
               style={{
-                fontSize: height(1.2),
-                padding: width(1),
-                width: width(60),
-                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: height(2),
+                padding: width(3),
               }}
             >
-              {t("addPost.attachImage3")}
+              {t("addPost.attachImage1")}
             </Text>
-          )}
-        </View>
-
-        {/* --------product infomartio---- */}
-        <View>
-          <Text
-            style={[
-              styles.title,
-              { fontSize: height(2.5), marginVertical: width(2) },
-            ]}
-          >
-            {t("addPost.productInformation")}
-          </Text>
-          {/*-----------------title---------------*/}
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>{t("addPost.titleWord")}</Text>
-            <Input
-              value={title}
-              setvalue={setTitle}
-              placeholder={t("addPost.phtitleWord")}
-              containerStyle={[
-                styles.price,
-                { width: width(90) },
-                titleRequire && styles.required,
-              ]}
-            />
-            {titleRequire && (
-              <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+            <Text style={{ fontSize: height(1.2), padding: width(1) }}>
+              {t("addPost.attachImage2")}
+            </Text>
+            {renderNow && (
+              <Text
+                style={{
+                  fontSize: height(1.2),
+                  padding: width(1),
+                  width: width(60),
+                  textAlign: "center",
+                }}
+              >
+                {t("addPost.attachImage3")}
+              </Text>
             )}
           </View>
-          {/*-----------------area---------------*/}
-          {shouldRenderField("Area", category, subCategory) && (
+        )}
+
+        {/* --------product infomartio---- */}
+        {image.length > 0 && (
+          <View>
+            <Text
+              style={[
+                styles.title,
+                { fontSize: height(2.5), marginVertical: width(2) },
+              ]}
+            >
+              {t("addPost.productInformation")}
+            </Text>
+            {/*-----------------title---------------*/}
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.area") + " (sq.ft)"}</Text>
+              <Text style={styles.title}>{t("addPost.titleWord")}</Text>
               <Input
-                value={area}
-                keyboardType="number-pad"
-                setvalue={setArea}
-                placeholder={t("addPost.enterArea")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------company name---------------*/}
-          {shouldRenderField("CompanyName", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.companyName")}</Text>
-              <Input
-                value={companyName}
-                setvalue={setCompanyName}
-                placeholder={t("addPost.enterCompanyName")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------salary from---------------*/}
-          {shouldRenderField("SalaryFrom", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.salaryFrom")}</Text>
-              <Input
-                value={salaryFrom}
-                setvalue={setSalaryFrom}
-                placeholder={t("addPost.enterSalaryFrom")}
-                keyboardType="number-pad"
+                value={title}
+                setvalue={setTitle}
+                placeholder={t("addPost.phtitleWord")}
                 containerStyle={[
                   styles.price,
                   { width: width(90) },
-                  salaryRequire && styles.required,
+                  titleRequire && styles.required,
                 ]}
               />
-              {salaryRequire && (
+              {titleRequire && (
                 <Text style={styles.require}>*{t(`addPost.require`)}</Text>
               )}
             </View>
-          )}
-          {/*-----------------salary to---------------*/}
-          {shouldRenderField("SalaryTo", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.salaryTo")}</Text>
-              <Input
-                value={salaryTo}
-                setvalue={setSalaryTo}
-                placeholder={t("addPost.enterSalaryTo")}
-                keyboardType="number-pad"
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------salary period---------------*/}
-          {shouldRenderField("SalaryPeriod", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.salaryPeriod")}</Text>
-              <Input
-                value={salaryPeriod}
-                setvalue={setSalaryPeriod}
-                placeholder={t("addPost.enterSalaryPeriod")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------position Type---------------*/}
-          {shouldRenderField("PositionType", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.positionType")}</Text>
-              <Input
-                value={positionType}
-                setvalue={setPositionType}
-                placeholder={t("addPost.enterPositionType")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------breed---------------*/}
-          {shouldRenderField("Breed", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.breed")}</Text>
-              <Input
-                value={breed}
-                setvalue={setBreed}
-                placeholder={t("addPost.enterBreed")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------age---------------*/}
-          {shouldRenderField("Age", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.age")}</Text>
-              <Input
-                value={age}
-                setvalue={setAge}
-                placeholder={t("addPost.enterAge")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------driven hours---------------*/}
-          {shouldRenderField("Hours Driven", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.drivenHours")}</Text>
-              <Input
-                value={drivenHours}
-                setvalue={setDrivenHours}
-                keyboardType="number-pad"
-                placeholder={t("addPost.enterDrivenHours")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------working hours---------------*/}
-          {shouldRenderField("Working Hours", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.workingHours")}</Text>
-              <Input
-                value={workingHours}
-                setvalue={setWorkingHours}
-                keyboardType="number-pad"
-                placeholder={t("addPost.enterWorkingHours")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------down payment---------------*/}
-          {shouldRenderField("Down Payment", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.downPayment")}</Text>
-              <Input
-                value={downPayment}
-                setvalue={setDownPayment}
-                keyboardType="number-pad"
-                placeholder={t("addPost.enterDownPayment")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------instalmentplan---------------*/}
-          {shouldRenderField("Installment Plan", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.installmentPlan")}</Text>
-              <Input
-                value={installmentPlan}
-                setvalue={setInstallmentPlan}
-                placeholder={t("addPost.enterInstallmentPlan")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------monthly instalment---------------*/}
-          {shouldRenderField("Monthly Installments", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>
-                {t("addPost.monthlyInstallments")}
-              </Text>
-              <Input
-                value={installments}
-                setvalue={setInstallments}
-                keyboardType="number-pad"
-                placeholder={t("addPost.enterMonthlyInstallment")}
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------bedroom---------------*/}
-          {shouldRenderField("Bedrooms", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.bedrooms")}</Text>
-              <Input
-                value={bedRooms}
-                setvalue={setBedRooms}
-                placeholder={t("addPost.enterBedrooms")}
-                keyboardType="number-pad"
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------bathroom---------------*/}
-          {shouldRenderField("bathrooms", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.bathrooms")}</Text>
-              <Input
-                value={bathRooms}
-                setvalue={setBathRooms}
-                placeholder={t("addPost.enterBathrooms")}
-                keyboardType="number-pad"
-                containerStyle={[styles.price, { width: width(90) }]}
-              />
-            </View>
-          )}
-          {/*-----------------condition---------------*/}
-          {shouldRenderField("Furnished", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.condition")}</Text>
-
-              <RadioButtonRN
-                data={pcdata}
-                initial={getPContitionInitialValue(propertyCondition)}
-                textStyle={{ fontSize: height(1.5) }}
-                circleSize={width(3)}
-                boxStyle={{
-                  width: width(90),
-                  borderWidth: 0,
-                  paddingVertical: width(1),
-                }}
-                activeColor={AppColors.primary}
-                selectedBtn={(e) => {
-                  setPropertyCondition(e.key);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------gender---------------*/}
-          {shouldRenderField("Gender", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.gender")}</Text>
-
-              <RadioButtonRN
-                data={gdata}
-                initial={getGenderInitialValue(gender)}
-                textStyle={{ fontSize: height(1.5) }}
-                circleSize={width(3)}
-                boxStyle={{
-                  width: width(90),
-                  borderWidth: 0,
-                  paddingVertical: width(1),
-                }}
-                activeColor={AppColors.primary}
-                selectedBtn={(e) => {
-                  setGender(e.key);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------i am---------------*/}
-          {shouldRenderField("I am", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.iAm")}</Text>
-
-              <RadioButtonRN
-                data={gdata}
-                initial={getGenderInitialValue(iAm)}
-                textStyle={{ fontSize: height(1.5) }}
-                circleSize={width(3)}
-                boxStyle={{
-                  width: width(90),
-                  borderWidth: 0,
-                  paddingVertical: width(1),
-                }}
-                activeColor={AppColors.primary}
-                selectedBtn={(e) => {
-                  setIAm(e.key);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------looking for---------------*/}
-          {shouldRenderField("Looking For", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.lookingFor")}</Text>
-
-              <RadioButtonRN
-                data={gdata}
-                initial={getGenderInitialValue(lookingFor)}
-                textStyle={{ fontSize: height(1.5) }}
-                circleSize={width(3)}
-                boxStyle={{
-                  width: width(90),
-                  borderWidth: 0,
-                  paddingVertical: width(1),
-                }}
-                activeColor={AppColors.primary}
-                selectedBtn={(e) => {
-                  setLookingFor(e.key);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------pricing radiobtn with Text Feild---------------*/}
-          {shouldRenderField("Price", category, subCategory) && (
-            <>
-              <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>{t("addPost.pricing")}</Text>
-
-                <RadioButtonRN
-                  data={pdata}
-                  initial={getPriceInitialValue(price)}
-                  textStyle={{ fontSize: height(1.5) }}
-                  circleSize={width(3)}
-                  boxStyle={{
-                    width: width(90),
-                    borderWidth: 0,
-                    paddingVertical: width(1),
-                  }}
-                  activeColor={AppColors.primary}
-                  selectedBtn={(e) => {
-                    console.log(e?.key);
-                    switch (e?.key) {
-                      case "Free":
-                        setPrice("Free");
-                        setPricing("Free");
-                        break;
-                      case "Contact":
-                        setPrice("Contact");
-                        setPricing("Contact");
-                        break;
-                      default:
-                        setPricing("Price");
-                        edit?.price ? setPrice(edit?.price) : setPrice("");
-                        break;
-                    }
-                  }}
-                />
-              </View>
-              <View
-                style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
-              >
-                <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
-
+            {/*-----------------driven hours---------------*/}
+            {shouldRenderField("Hours Driven", category, subCategory) && (
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>{t("addPost.drivenHours")}</Text>
                 <Input
-                  editable={pricing == "Price"}
-                  value={
-                    pricing == "Price" ? price + "" : t(`addPost.${price}`)
-                  }
-                  setvalue={handleInputChange}
-                  placeholder={t("addPost.phprice")}
-                  containerStyle={[
-                    styles.price,
-                    { width: width(90) },
-                    priceRequire && styles.required,
-                  ]}
+                  value={drivenHours + ""}
+                  setvalue={setDrivenHours}
                   keyboardType="number-pad"
-                />
-                {priceRequire && (
-                  <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-                )}
-              </View>
-            </>
-          )}
-          {/*-----------------condition Vahecal---------------*/}
-          {shouldRenderField("Condition", category, subCategory) &&
-            feild?.conditionList && (
-              <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>{t("addPost.condition")}</Text>
-
-                <RadioButtonRN
-                  data={rdata}
-                  initial={getConditionInitailValue(condition)}
-                  textStyle={{ fontSize: height(1.5) }}
-                  circleSize={width(3)}
-                  boxStyle={{
-                    width: width(90),
-                    borderWidth: 0,
-                    paddingVertical: width(1),
-                  }}
-                  activeColor={AppColors.primary}
-                  selectedBtn={(e) => {
-                    setCondition(e.key);
-                  }}
+                  placeholder={t("addPost.enterDrivenHours")}
+                  containerStyle={[styles.price, { width: width(90) }]}
                 />
               </View>
             )}
-          {/*-----------------Type or bodytype---------------*/}
-          {!(vtype == undefined || vtype == []) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.type")}</Text>
 
-              <SelectDropdown
-                defaultButtonText={
-                  type ? t(`type.${type}`) : t("addPost.defaultValueDropdown")
-                }
-                data={vtype}
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={[{ textAlign: "left", fontSize: height(1.6) }]}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  setType(selectedItem);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return t(`type.${selectedItem}`);
-                }}
-                rowTextForSelection={(item, index) => {
-                  return t(`type.${item}`);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------brand---------------*/}
-          {shouldRenderField("Brand", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.brand")}</Text>
-              <SelectDropdown
-                ref={brandRef}
-                defaultButtonText={
-                  brand
-                    ? brand === "Others"
-                      ? t("category.Others")
-                      : brand
-                    : t("addPost.defaultValueDropdown")
-                }
-                data={vcompanies}
-                disabled={otherBrand}
-                search={true}
-                searchInputStyle
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={[
-                  styles.searchbox,
-                  brandRequire && styles.required,
-                ]}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={[
-                  { textAlign: "left", fontSize: height(1.6) },
-                  otherBrand && { color: "grey" },
-                ]}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  if (model) {
-                    modelRef.current.reset();
-                    setModel("");
-                  }
-                  setBrand(selectedItem);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem;
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item;
-                }}
-              />
-              {brandRequire && (
-                <Text style={styles.require}>*{t(`addPost.require`)}</Text>
-              )}
-              <IconButton
-                onPress={otherBrandFuntion}
-                title={t("category.Others")}
-                containerStyle={styles.container}
-                textStyle={styles.texticon2}
-                iconright={
-                  <FontAwesome
-                    name={!otherBrand ? "toggle-off" : "toggle-on"}
-                    color={!otherBrand ? "black" : AppColors.primary}
-                    size={height(2.2)}
+            {/*-----------------down payment---------------*/}
+            {shouldRenderField("Down Payment", category, subCategory) && (
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>{t("addPost.downPayment")}</Text>
+                <Input
+                  value={downPayment + ""}
+                  setvalue={setDownPayment}
+                  keyboardType="number-pad"
+                  placeholder={t("addPost.enterDownPayment")}
+                  containerStyle={[styles.price, { width: width(90) }]}
+                />
+              </View>
+            )}
+            {/*-----------------instalmentplan---------------*/}
+            {shouldRenderField("Installment Plan", category, subCategory) && (
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>{t("addPost.installmentPlan")}</Text>
+                <Input
+                  value={installmentPlan + ""}
+                  setvalue={setInstallmentPlan}
+                  placeholder={t("addPost.enterInstallmentPlan")}
+                  containerStyle={[styles.price, { width: width(90) }]}
+                />
+              </View>
+            )}
+            {/*-----------------monthly instalment---------------*/}
+            {shouldRenderField(
+              "Monthly Installments",
+              category,
+              subCategory
+            ) && (
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>
+                  {t("addPost.monthlyInstallments")}
+                </Text>
+                <Input
+                  value={installments + ""}
+                  setvalue={setInstallments}
+                  keyboardType="number-pad"
+                  placeholder={t("addPost.enterMonthlyInstallment")}
+                  containerStyle={[styles.price, { width: width(90) }]}
+                />
+              </View>
+            )}
+
+            {/*-----------------pricing radiobtn with Text Feild---------------*/}
+            {shouldRenderField("Price", category, subCategory) && (
+              <>
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.pricing")}</Text>
+
+                  <RadioButtonRN
+                    data={pdata}
+                    initial={getPriceInitialValue(price)}
+                    textStyle={{ fontSize: height(1.5) }}
+                    circleSize={width(3)}
+                    boxStyle={{
+                      width: width(90),
+                      borderWidth: 0,
+                      paddingVertical: width(1),
+                    }}
+                    activeColor={AppColors.primary}
+                    selectedBtn={(e) => {
+                      console.log(e?.key);
+                      switch (e?.key) {
+                        case "Free":
+                          setPrice("Free");
+                          setPricing("Free");
+                          break;
+                        case "Contact":
+                          setPrice("Contact");
+                          setPricing("Contact");
+                          break;
+                        default:
+                          setPricing("Price");
+                          edit?.price ? setPrice(edit?.price) : setPrice("");
+                          break;
+                      }
+                    }}
                   />
-                }
-                onPressRightIcon={otherBrandFuntion}
-              />
-            </View>
-          )}
+                </View>
+                <View
+                  style={{ paddingVertical: width(1), alignSelf: "flex-start" }}
+                >
+                  <Text style={styles.title}>{t("addPost.price")}(CHF)</Text>
 
-          {/*-----------------render after select brand---------------*/}
-          {brand &&
-            (apimodel && brand != "Others" ? (
+                  <Input
+                    editable={pricing == "Price"}
+                    value={
+                      pricing == "Price" ? price + "" : t(`addPost.${price}`)
+                    }
+                    setvalue={handleInputChange}
+                    placeholder={t("addPost.phprice")}
+                    containerStyle={[
+                      styles.price,
+                      { width: width(90) },
+                      priceRequire && styles.required,
+                    ]}
+                    keyboardType="number-pad"
+                  />
+                  {priceRequire && (
+                    <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+                  )}
+                </View>
+              </>
+            )}
+            {/*-----------------condition Vahecal---------------*/}
+            {shouldRenderField("Condition", category, subCategory) &&
+              feild?.conditionList && (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.condition")}</Text>
+
+                  <RadioButtonRN
+                    data={rdata}
+                    initial={getConditionInitailValue(condition)}
+                    textStyle={{ fontSize: height(1.5) }}
+                    circleSize={width(3)}
+                    boxStyle={{
+                      width: width(90),
+                      borderWidth: 0,
+                      paddingVertical: width(1),
+                    }}
+                    activeColor={AppColors.primary}
+                    selectedBtn={(e) => {
+                      setCondition(e.key);
+                    }}
+                  />
+                </View>
+              )}
+            {/*-----------------Type or bodytype---------------*/}
+            {!(vtype == undefined || vtype == []) && (
               <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>{t("addPost.model")}</Text>
+                <Text style={styles.title}>{t("addPost.type")}</Text>
+
                 <SelectDropdown
                   defaultButtonText={
-                    model
-                      ? model === "Others"
-                        ? t("category.Others")
-                        : model
-                      : t("addPost.defaultValueDropdown")
+                    type ? t(`type.${type}`) : t("addPost.defaultValueDropdown")
                   }
-                  ref={modelRef}
+                  data={vtype}
                   searchPlaceHolder={t("addPost.phsearchHere")}
-                  data={apimodel}
-                  disabled={otherModel}
-                  search={true}
                   buttonStyle={styles.searchbox}
                   selectedRowStyle={{ backgroundColor: AppColors.primary }}
                   selectedRowTextStyle={{ color: AppColors.white }}
                   buttonTextStyle={[
                     { textAlign: "left", fontSize: height(1.6) },
-                    otherModel && { color: "grey" },
                   ]}
                   dropdownStyle={styles.dropdown}
                   onSelect={(selectedItem, index) => {
-                    setModel(selectedItem);
+                    setType(selectedItem);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(`type.${selectedItem}`);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(`type.${item}`);
+                  }}
+                />
+              </View>
+            )}
+            {/*-----------------brand---------------*/}
+            {shouldRenderField("Brand", category, subCategory) && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.brand")}</Text>
+                <SelectDropdown
+                  ref={brandRef}
+                  defaultButtonText={
+                    brand
+                      ? brand === "Others"
+                        ? t("category.Others")
+                        : brand
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  data={vcompanies}
+                  disabled={otherBrand}
+                  search={true}
+                  searchInputStyle
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={[
+                    styles.searchbox,
+                    brandRequire && styles.required,
+                  ]}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={[
+                    { textAlign: "left", fontSize: height(1.6) },
+                    otherBrand && { color: "grey" },
+                  ]}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    if (model) {
+                      modelRef.current.reset();
+                      setModel("");
+                    }
+                    setBrand(selectedItem);
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => {
                     return selectedItem;
@@ -1308,85 +888,104 @@ export default function AddPost({ navigation, route }) {
                     return item;
                   }}
                 />
+                {brandRequire && (
+                  <Text style={styles.require}>*{t(`addPost.require`)}</Text>
+                )}
                 <IconButton
-                  onPress={otherModelFuntion}
+                  onPress={otherBrandFuntion}
                   title={t("category.Others")}
                   containerStyle={styles.container}
                   textStyle={styles.texticon2}
                   iconright={
                     <FontAwesome
-                      name={!otherModel ? "toggle-off" : "toggle-on"}
-                      color={!otherModel ? "black" : AppColors.primary}
+                      name={!otherBrand ? "toggle-off" : "toggle-on"}
+                      color={!otherBrand ? "black" : AppColors.primary}
                       size={height(2.2)}
                     />
                   }
-                  onPressRightIcon={otherModelFuntion}
+                  onPressRightIcon={otherBrandFuntion}
                 />
               </View>
-            ) : (
-              <></>
-            ))}
-          {/*-----------------Year---------------*/}
-          {shouldRenderField("Year", category, subCategory) && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.year")}</Text>
-              <Input
-                value={year + ""}
-                setvalue={setYear}
-                containerStyle={[styles.price, { width: width(90) }]}
-                placeholder={t("addPost.phyear")}
-                keyboardType="number-pad"
-              />
-            </View>
-          )}
-          {/*-----------------body shap---------------*/}
-          {shouldRenderField("bodyShap", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
-              <SelectDropdown
-                defaultButtonText={
-                  bodyshape
-                    ? t(`bodyShapeList.${bodyshape}`)
-                    : t("addPost.defaultValueDropdown")
-                }
-                data={
-                  category == "Bikes"
-                    ? feild?.bikeBodyShape
-                    : feild?.AutosBodyShape
-                }
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{
-                  textAlign: "left",
-                  fontSize: height(1.6),
-                }}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  setBodyshap(selectedItem.name);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return t(`bodyShapeList.${selectedItem.name}`);
-                }}
-                rowTextForSelection={(item, index) => {
-                  return t(`bodyShapeList.${item.name}`);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------Gear box---------------*/}
-          {shouldRenderField("gearBox", category, subCategory) &&
-            feild?.gearBox && (
+            )}
+
+            {/*-----------------render after select brand---------------*/}
+            {brand &&
+              (apimodel && brand != "Others" ? (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.model")}</Text>
+                  <SelectDropdown
+                    defaultButtonText={
+                      model
+                        ? model === "Others"
+                          ? t("category.Others")
+                          : model
+                        : t("addPost.defaultValueDropdown")
+                    }
+                    ref={modelRef}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
+                    data={apimodel}
+                    disabled={otherModel}
+                    search={true}
+                    buttonStyle={styles.searchbox}
+                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowTextStyle={{ color: AppColors.white }}
+                    buttonTextStyle={[
+                      { textAlign: "left", fontSize: height(1.6) },
+                      otherModel && { color: "grey" },
+                    ]}
+                    dropdownStyle={styles.dropdown}
+                    onSelect={(selectedItem, index) => {
+                      setModel(selectedItem);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return selectedItem;
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return item;
+                    }}
+                  />
+                  <IconButton
+                    onPress={otherModelFuntion}
+                    title={t("category.Others")}
+                    containerStyle={styles.container}
+                    textStyle={styles.texticon2}
+                    iconright={
+                      <FontAwesome
+                        name={!otherModel ? "toggle-off" : "toggle-on"}
+                        color={!otherModel ? "black" : AppColors.primary}
+                        size={height(2.2)}
+                      />
+                    }
+                    onPressRightIcon={otherModelFuntion}
+                  />
+                </View>
+              ) : (
+                <></>
+              ))}
+            {/*-----------------Year---------------*/}
+            {shouldRenderField("Year", category, subCategory) && (
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>{t("addPost.year")}</Text>
+                <Input
+                  value={year + ""}
+                  setvalue={yearFix}
+                  containerStyle={[styles.price, { width: width(90) }]}
+                  placeholder={t("addPost.phyear")}
+                  keyboardType="number-pad"
+                />
+              </View>
+            )}
+            {/*-----------------body shap of car---------------*/}
+            {shouldRenderField("AutosBodyShape", category, subCategory) && (
               <View style={{ alignSelf: "center" }}>
-                <Text style={styles.title}>{t("addPost.gearbox")}</Text>
+                <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                 <SelectDropdown
                   defaultButtonText={
-                    gearbox
-                      ? t(`gearBoxList.${gearbox}`)
+                    bodyshape
+                      ? t(`bodyShapeList.${bodyshape}`)
                       : t("addPost.defaultValueDropdown")
                   }
-                  data={feild.gearBox}
+                  data={feild?.AutosBodyShape}
                   searchPlaceHolder={t("addPost.phsearchHere")}
                   buttonStyle={styles.searchbox}
                   selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -1397,294 +996,378 @@ export default function AddPost({ navigation, route }) {
                   }}
                   dropdownStyle={styles.dropdown}
                   onSelect={(selectedItem, index) => {
-                    setGearbox(selectedItem.name);
+                    setBodyshap(selectedItem.name);
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => {
-                    return t(`gearBoxList.${selectedItem.name}`);
+                    return t(`bodyShapeList.${selectedItem.name}`);
                   }}
                   rowTextForSelection={(item, index) => {
-                    return t(`gearBoxList.${item.name}`);
+                    return t(`bodyShapeList.${item.name}`);
                   }}
                 />
               </View>
             )}
-          {/*-----------------fule type---------------*/}
-          {shouldRenderField("fuelType", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.fueltype")}</Text>
-              <SelectDropdown
-                defaultButtonText={
-                  fueltype
-                    ? t(`fuelTypelist.${fueltype}`)
-                    : t("addPost.defaultValueDropdown")
-                }
-                data={
-                  category == "Bikes" ? feild?.BikeFuelType : feild?.fuelType
-                }
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{
-                  textAlign: "left",
-                  fontSize: height(1.6),
-                }}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  setFueltype(selectedItem.name);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return t(`fuelTypelist.${selectedItem.name}`);
-                }}
-                rowTextForSelection={(item, index) => {
-                  return t(`fuelTypelist.${item.name}`);
-                }}
+            {/*-----------------body shap bike---------------*/}
+            {shouldRenderField("bikeBodyShape", category, subCategory) && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
+                <SelectDropdown
+                  defaultButtonText={
+                    bodyshape
+                      ? t(`bodyShapeList.${bodyshape}`)
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  data={feild?.bikeBodyShape}
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={{
+                    textAlign: "left",
+                    fontSize: height(1.6),
+                  }}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setBodyshap(selectedItem.name);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(`bodyShapeList.${selectedItem.name}`);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(`bodyShapeList.${item.name}`);
+                  }}
+                />
+              </View>
+            )}
+            {/*-----------------Gear box---------------*/}
+            {shouldRenderField("gearBox", category, subCategory) &&
+              feild?.gearBox && (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.gearbox")}</Text>
+                  <SelectDropdown
+                    defaultButtonText={
+                      gearbox
+                        ? t(`gearBoxList.${gearbox}`)
+                        : t("addPost.defaultValueDropdown")
+                    }
+                    data={feild.gearBox}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
+                    buttonStyle={styles.searchbox}
+                    selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                    selectedRowTextStyle={{ color: AppColors.white }}
+                    buttonTextStyle={{
+                      textAlign: "left",
+                      fontSize: height(1.6),
+                    }}
+                    dropdownStyle={styles.dropdown}
+                    onSelect={(selectedItem, index) => {
+                      setGearbox(selectedItem.name);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return t(`gearBoxList.${selectedItem.name}`);
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return t(`gearBoxList.${item.name}`);
+                    }}
+                  />
+                </View>
+              )}
+            {/*-----------------fule type---------------*/}
+            {shouldRenderField("fuelType", category, subCategory) && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.fueltype")}</Text>
+                <SelectDropdown
+                  defaultButtonText={
+                    fueltype
+                      ? t(`fuelTypelist.${fueltype}`)
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  data={
+                    category == "Bikes" ? feild?.BikeFuelType : feild?.fuelType
+                  }
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={{
+                    textAlign: "left",
+                    fontSize: height(1.6),
+                  }}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setFueltype(selectedItem.name);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(`fuelTypelist.${selectedItem.name}`);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(`fuelTypelist.${item.name}`);
+                  }}
+                />
+              </View>
+            )}
+            {/*-----------------exterior color---------------*/}
+            {shouldRenderField("ExteriorColor", category, subCategory) && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
+                <SelectDropdown
+                  defaultButtonText={
+                    exterior
+                      ? t(`colorList.${exterior}`)
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  data={
+                    category == "Bikes"
+                      ? feild?.bikeColor
+                      : feild?.exteriorColor
+                  }
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={{
+                    textAlign: "left",
+                    fontSize: height(1.6),
+                  }}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setExterior(selectedItem.name);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(`colorList.${selectedItem.name}`);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(`colorList.${item.name}`);
+                  }}
+                />
+              </View>
+            )}
+            {/*-----------------Interior color---------------*/}
+            {shouldRenderField("interirColor", category, subCategory) && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
+                <SelectDropdown
+                  defaultButtonText={
+                    interior
+                      ? t(`colorList.${interior}`)
+                      : t("addPost.defaultValueDropdown")
+                  }
+                  data={feild?.interiorColor}
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={{
+                    textAlign: "left",
+                    fontSize: height(1.6),
+                  }}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setInterior(selectedItem.name);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(`colorList.${selectedItem.name}`);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(`colorList.${item.name}`);
+                  }}
+                />
+              </View>
+            )}
+            {/*-----------------Km---------------*/}
+            {shouldRenderField("km", category, subCategory) && (
+              <View style={{ alignSelf: "center" }}>
+                <Text style={styles.title}>{t("addPost.km")}</Text>
+                <SelectDropdown
+                  data={feild?.kilometers}
+                  defaultButtonText={km || t("addPost.defaultValueDropdown")}
+                  searchPlaceHolder={t("addPost.phsearchHere")}
+                  buttonStyle={styles.searchbox}
+                  selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                  selectedRowTextStyle={{ color: AppColors.white }}
+                  buttonTextStyle={{
+                    textAlign: "left",
+                    fontSize: height(1.6),
+                  }}
+                  dropdownStyle={styles.dropdown}
+                  onSelect={(selectedItem, index) => {
+                    setKm(selectedItem.name);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return t(selectedItem.name);
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return t(item.name);
+                  }}
+                />
+              </View>
+            )}
+            {/*-----------------working hours---------------*/}
+            {shouldRenderField("Working Hours", category, subCategory) && (
+              <View style={{ paddingVertical: width(1) }}>
+                <Text style={styles.title}>{t("addPost.workingHours")}</Text>
+                <Input
+                  value={workingHours}
+                  setvalue={setWorkingHours}
+                  keyboardType="number-pad"
+                  placeholder={t("addPost.enterWorkingHours")}
+                  containerStyle={[styles.price, { width: width(90) }]}
+                />
+              </View>
+            )}
+            {/*-----------------description---------------*/}
+            <View style={{ paddingVertical: width(1) }}>
+              <Text style={styles.title}>{t("addPost.description")}</Text>
+              <Input
+                value={description}
+                multi
+                setvalue={setDescription}
+                placeholder={t("addPost.phdescription")}
+                containerStyle={[styles.price, { width: width(90) }]}
               />
             </View>
-          )}
-          {/*-----------------exterior color---------------*/}
-          {shouldRenderField("ExteriorColor", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
-              <SelectDropdown
-                defaultButtonText={
-                  exterior
-                    ? t(`colorList.${exterior}`)
-                    : t("addPost.defaultValueDropdown")
-                }
-                data={
-                  category == "Bikes" ? feild?.bikeColor : feild?.exteriorColor
-                }
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{
-                  textAlign: "left",
-                  fontSize: height(1.6),
-                }}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  setExterior(selectedItem.name);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return t(`colorList.${selectedItem.name}`);
-                }}
-                rowTextForSelection={(item, index) => {
-                  return t(`colorList.${item.name}`);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------Interior color---------------*/}
-          {shouldRenderField("interirColor", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.interiorcolor")}</Text>
-              <SelectDropdown
-                defaultButtonText={
-                  interior
-                    ? t(`colorList.${interior}`)
-                    : t("addPost.defaultValueDropdown")
-                }
-                data={feild?.interiorColor}
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{
-                  textAlign: "left",
-                  fontSize: height(1.6),
-                }}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  setInterior(selectedItem.name);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return t(`colorList.${selectedItem.name}`);
-                }}
-                rowTextForSelection={(item, index) => {
-                  return t(`colorList.${item.name}`);
-                }}
-              />
-            </View>
-          )}
-          {/*-----------------Km---------------*/}
-          {shouldRenderField("km", category, subCategory) && (
-            <View style={{ alignSelf: "center" }}>
-              <Text style={styles.title}>{t("addPost.km")}</Text>
-              <SelectDropdown
-                data={feild?.kilometers}
-                defaultButtonText={km || t("addPost.defaultValueDropdown")}
-                searchPlaceHolder={t("addPost.phsearchHere")}
-                buttonStyle={styles.searchbox}
-                selectedRowStyle={{ backgroundColor: AppColors.primary }}
-                selectedRowTextStyle={{ color: AppColors.white }}
-                buttonTextStyle={{
-                  textAlign: "left",
-                  fontSize: height(1.6),
-                }}
-                dropdownStyle={styles.dropdown}
-                onSelect={(selectedItem, index) => {
-                  setKm(selectedItem.name);
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return t(selectedItem.name);
-                }}
-                rowTextForSelection={(item, index) => {
-                  return t(item.name);
-                }}
-              />
-            </View>
-          )}
-
-          {/*-----------------description---------------*/}
-          <View style={{ paddingVertical: width(1) }}>
-            <Text style={styles.title}>{t("addPost.description")}</Text>
-            <Input
-              value={description}
-              multi
-              setvalue={setDescription}
-              placeholder={t("addPost.phdescription")}
-              containerStyle={[styles.price, { width: width(90) }]}
-            />
           </View>
-        </View>
-        {/*-----------------Video url---------------*/}
-        <View style={{ paddingVertical: width(1) }}>
-          <Text style={styles.title}>{t("addPost.videourl")}</Text>
-          <Input
-            value={url}
-            setvalue={setUrl}
-            placeholder={t("addPost.phurl")}
-            containerStyle={[styles.price, { width: width(90) }]}
-          />
-        </View>
-        {/* --------owner infomartio---- */}
-        <View>
-          <Text style={[styles.title, { fontSize: height(2.5) }]}>
-            {t("addPost.contactdetail")}
-          </Text>
-          {/* --------Email---- */}
-          <IconButton
-            onPress={() => {
-              setAddEmail(!addEmail);
-            }}
-            title={"addPost.addEmail"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            iconright={
-              <FontAwesome
-                name={!addEmail ? "toggle-off" : "toggle-on"}
-                color={!addEmail ? "black" : AppColors.primary}
-                size={height(3)}
-              />
-            }
-            onPressRightIcon={() => {
-              setAddEmail(!addEmail);
-            }}
-          />
-          {addEmail && (
+        )}
+        {title && image.length > 0 && (
+          <>
+            {/*-----------------Video url---------------*/}
             <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.email")}</Text>
+              <Text style={styles.title}>{t("addPost.videourl")}</Text>
               <Input
-                value={email}
-                setvalue={setEmail}
+                value={url}
+                setvalue={setUrl}
+                placeholder={t("addPost.phurl")}
                 containerStyle={[styles.price, { width: width(90) }]}
-                editable={false}
               />
             </View>
-          )}
-          {/* --------phone number---- */}
-          <IconButton
-            onPress={() => {
-              setAddPhone(!addPhone);
-            }}
-            title={"addPost.addNumber"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            iconright={
-              <FontAwesome
-                name={!addPhone ? "toggle-off" : "toggle-on"}
-                color={!addPhone ? "black" : AppColors.primary}
-                size={height(3)}
+            {/* --------owner infomartio---- */}
+            <View>
+              <Text style={[styles.title, { fontSize: height(2.5) }]}>
+                {t("addPost.contactdetail")}
+              </Text>
+              {/* --------Email---- */}
+              <IconButton
+                onPress={() => {
+                  setAddEmail(!addEmail);
+                }}
+                title={"addPost.addEmail"}
+                containerStyle={styles.container}
+                textStyle={styles.texticon}
+                iconright={
+                  <FontAwesome
+                    name={!addEmail ? "toggle-off" : "toggle-on"}
+                    color={!addEmail ? "black" : AppColors.primary}
+                    size={height(3)}
+                  />
+                }
+                onPressRightIcon={() => {
+                  setAddEmail(!addEmail);
+                }}
               />
-            }
-            onPressRightIcon={() => {
-              setAddPhone(!addPhone);
-            }}
-          />
-          {addPhone && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
-              <Input
-                value={phone}
-                setvalue={setPhone}
-                containerStyle={[styles.price, { width: width(90) }]}
-                editable={false}
+              {addEmail && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.email")}</Text>
+                  <Input
+                    value={email}
+                    setvalue={setEmail}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                    editable={false}
+                  />
+                </View>
+              )}
+              {/* --------phone number---- */}
+              <IconButton
+                onPress={() => {
+                  setAddPhone(!addPhone);
+                }}
+                title={"addPost.addNumber"}
+                containerStyle={styles.container}
+                textStyle={styles.texticon}
+                iconright={
+                  <FontAwesome
+                    name={!addPhone ? "toggle-off" : "toggle-on"}
+                    color={!addPhone ? "black" : AppColors.primary}
+                    size={height(3)}
+                  />
+                }
+                onPressRightIcon={() => {
+                  setAddPhone(!addPhone);
+                }}
               />
+              {addPhone && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.phoneNumber")}</Text>
+                  <Input
+                    value={phone}
+                    setvalue={setPhone}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                    editable={false}
+                  />
+                </View>
+              )}
+              {/* --------whatsapp---- */}
+              <IconButton
+                onPress={() => {
+                  setAddWhatsapp(!addWhatsapp);
+                }}
+                title={"addPost.addWhatsapp"}
+                containerStyle={styles.container}
+                textStyle={styles.texticon}
+                iconright={
+                  <FontAwesome
+                    name={!addWhatsapp ? "toggle-off" : "toggle-on"}
+                    color={!addWhatsapp ? "black" : AppColors.primary}
+                    size={height(3)}
+                  />
+                }
+                onPressRightIcon={() => {
+                  setAddWhatsapp(!addWhatsapp);
+                }}
+              />
+              {addWhatsapp && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
+                  <NumberInput
+                    value={whatsapp}
+                    setvalue={setWhatsapp}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                    keyboardType="phone-pad"
+                  />
+                </View>
+              )}
+              {/* --------viber---- */}
+              <IconButton
+                onPress={() => {
+                  setAddViber(!addViber);
+                }}
+                title={"addPost.addViber"}
+                containerStyle={styles.container}
+                textStyle={styles.texticon}
+                iconright={
+                  <FontAwesome
+                    name={!addViber ? "toggle-off" : "toggle-on"}
+                    color={!addViber ? "black" : AppColors.primary}
+                    size={height(3)}
+                  />
+                }
+                onPressRightIcon={() => {
+                  setAddViber(!addViber);
+                }}
+              />
+              {addViber && (
+                <View style={{ paddingVertical: width(1) }}>
+                  <Text style={styles.title}>{t("addPost.viber")}</Text>
+                  <NumberInput
+                    value={viber}
+                    setvalue={setViber}
+                    containerStyle={[styles.price, { width: width(90) }]}
+                    keyboardType="phone-pad"
+                  />
+                </View>
+              )}
             </View>
-          )}
-          {/* --------whatsapp---- */}
-          <IconButton
-            onPress={() => {
-              setAddWhatsapp(!addWhatsapp);
-            }}
-            title={"addPost.addWhatsapp"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            iconright={
-              <FontAwesome
-                name={!addWhatsapp ? "toggle-off" : "toggle-on"}
-                color={!addWhatsapp ? "black" : AppColors.primary}
-                size={height(3)}
-              />
-            }
-            onPressRightIcon={() => {
-              setAddWhatsapp(!addWhatsapp);
-            }}
-          />
-          {addWhatsapp && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.whatsapp")}</Text>
-              <NumberInput
-                value={whatsapp}
-                setvalue={setWhatsapp}
-                containerStyle={[styles.price, { width: width(90) }]}
-                keyboardType="phone-pad"
-              />
-            </View>
-          )}
-          {/* --------viber---- */}
-          <IconButton
-            onPress={() => {
-              setAddViber(!addViber);
-            }}
-            title={"addPost.addViber"}
-            containerStyle={styles.container}
-            textStyle={styles.texticon}
-            iconright={
-              <FontAwesome
-                name={!addViber ? "toggle-off" : "toggle-on"}
-                color={!addViber ? "black" : AppColors.primary}
-                size={height(3)}
-              />
-            }
-            onPressRightIcon={() => {
-              setAddViber(!addViber);
-            }}
-          />
-          {addViber && (
-            <View style={{ paddingVertical: width(1) }}>
-              <Text style={styles.title}>{t("addPost.viber")}</Text>
-              <NumberInput
-                value={viber}
-                setvalue={setViber}
-                containerStyle={[styles.price, { width: width(90) }]}
-                keyboardType="phone-pad"
-              />
-            </View>
-          )}
-        </View>
+          </>
+        )}
         {/* --------location---- */}
         <View
           style={{
@@ -1764,88 +1447,95 @@ export default function AddPost({ navigation, route }) {
           </MapView>
         </View>
         {/* --------T&C check---- */}
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: width(4),
-            paddingHorizontal: width(1),
-            alignSelf: "flex-start",
-          }}
-        >
-          <CheckBox
-            checkedImage={
-              <MaterialIcons
-                name="check-box"
-                size={height(2)}
-                color={AppColors.primary}
-              />
-            }
-            unCheckedImage={
-              <MaterialIcons name="check-box-outline-blank" size={height(2)} />
-            }
-            style={{ paddingRight: width(2) }}
-            onClick={() => {
-              setCheck(!check);
-            }}
-            checkedCheckBoxColor={AppColors.primary}
-            isChecked={check}
-          />
-          <View
-            style={{
-              width: width(90),
-              flexDirection: "row",
-              flexWrap: "wrap",
-            }}
-          >
-            <Text
+        {title && image.length > 0 && (
+          <>
+            <View
               style={{
-                fontSize: height(1.8),
+                flexDirection: "row",
+                paddingVertical: width(4),
+                paddingHorizontal: width(1),
+                alignSelf: "flex-start",
               }}
             >
-              {t("addPost.TandC1")}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate(ScreenNames.TNC);
-              }}
-            >
-              <Text
+              <CheckBox
+                checkedImage={
+                  <MaterialIcons
+                    name="check-box"
+                    size={height(2)}
+                    color={AppColors.primary}
+                  />
+                }
+                unCheckedImage={
+                  <MaterialIcons
+                    name="check-box-outline-blank"
+                    size={height(2)}
+                  />
+                }
+                style={{ paddingRight: width(2) }}
+                onClick={() => {
+                  setCheck(!check);
+                }}
+                checkedCheckBoxColor={AppColors.primary}
+                isChecked={check}
+              />
+              <View
                 style={{
-                  color: AppColors.primary,
-                  fontWeight: "bold",
-                  fontSize: height(1.8),
+                  width: width(90),
+                  flexDirection: "row",
+                  flexWrap: "wrap",
                 }}
               >
-                {t("addPost.TandC2")}
-              </Text>
-            </TouchableOpacity>
-            <Text
+                <Text
+                  style={{
+                    fontSize: height(1.8),
+                  }}
+                >
+                  {t("addPost.TandC1")}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(ScreenNames.TNC);
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: AppColors.primary,
+                      fontWeight: "bold",
+                      fontSize: height(1.8),
+                    }}
+                  >
+                    {t("addPost.TandC2")}
+                  </Text>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: height(1.8),
+                  }}
+                >
+                  {t("addPost.TandC3")}
+                </Text>
+              </View>
+            </View>
+            {/* --------button infomartio---- */}
+            <View
               style={{
-                fontSize: height(1.8),
+                padding: width(3),
+                width: width(90),
               }}
             >
-              {t("addPost.TandC3")}
-            </Text>
-          </View>
-        </View>
-        {/* --------button infomartio---- */}
-        <View
-          style={{
-            padding: width(3),
-            width: width(90),
-          }}
-        >
-          <Button
-            disabled={!check}
-            onPress={addPost}
-            title={edit ? "editAd.edit" : "addPost.post"}
-            containerStyle={{
-              width: width(80),
-              borderRadius: width(2),
-              backgroundColor: !check ? "grey" : AppColors.primary,
-            }}
-          />
-        </View>
+              <Button
+                disabled={!check}
+                onPress={addPost}
+                title={edit ? "editAd.edit" : "addPost.post"}
+                containerStyle={{
+                  width: width(80),
+                  borderRadius: width(2),
+                  backgroundColor: !check ? "grey" : AppColors.primary,
+                }}
+              />
+            </View>
+          </>
+        )}
       </View>
       {/* --------Image Piker Model---- */}
       <FilePickerModal

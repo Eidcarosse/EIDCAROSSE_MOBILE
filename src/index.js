@@ -3,7 +3,7 @@ import Routes from "./routes";
 import { Provider } from "react-redux";
 import { store } from "./redux/index";
 import FlashMessage from "react-native-flash-message";
-import { LogBox } from "react-native";
+import { LogBox,AppState } from "react-native";
 import i18n from "./translation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 LogBox.ignoreAllLogs(true);
@@ -17,6 +17,7 @@ import { Platform } from "react-native";
 //     shouldSetBadge: true,
 //   }),
 // });
+
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");

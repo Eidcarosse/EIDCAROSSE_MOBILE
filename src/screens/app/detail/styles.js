@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     width: height(7),
     height: height(7),
     borderRadius: width(10),
-    borderColor: AppColors.black,
-    borderWidth: height(0.1),
+    borderColor: AppColors.greybackground,
+    borderWidth: height(0.4),
   },
   map: {
     height: height(30),

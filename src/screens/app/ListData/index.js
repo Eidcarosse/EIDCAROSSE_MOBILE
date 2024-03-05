@@ -4,20 +4,18 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { Menu, MenuItem } from "react-native-material-menu";
-import Modal from "react-native-modal";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   Image,
   RefreshControl,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
-  Platform,
 } from "react-native";
+import { Menu, MenuItem } from "react-native-material-menu";
+import Modal from "react-native-modal";
 
 import {
   Button,
@@ -44,14 +42,11 @@ import {
 import { selectCategoryList, setAppLoader } from "../../../redux/slices/config";
 
 import { useRoute } from "@react-navigation/native";
-import CheckBox from "react-native-check-box";
 import ScreenNames from "../../../routes/routes";
 import { sortList } from "../../../utills/Data";
 import { height, width } from "../../../utills/Dimension";
 import {
   getConditionInitailValue,
-  getGenderInitialValue,
-  getPContitionInitialValue,
   getPriceInitialValue,
   shouldRenderField,
   showType,
@@ -68,7 +63,6 @@ export default function ListData({ navigation }) {
   const s = useSelector(selectCategoryList);
   const [feild, setFeild] = useState();
   const dispatch = useDispatch();
-  const [findValue, setFindValue] = useState(sub);
   const brandRef = useRef();
   const modelRef = useRef();
   const [refreshing, onRefresh] = useState(false);
@@ -103,20 +97,11 @@ export default function ListData({ navigation }) {
   const [fueltype, setFueltype] = useState("");
   const [type, setType] = useState();
   const [pricing, setPricing] = useState("Price");
-  const [companyName, setCompanyName] = useState("");
-  const [salaryFrom, setSalaryFrom] = useState("");
   const [drivenHours, setDrivenHours] = useState("");
   const [workingHours, setWorkingHours] = useState("");
   const [downPayment, setDownPayment] = useState("");
   const [installments, setInstallments] = useState("");
   const [installmentPlan, setInstallmentPlan] = useState("");
-  const [bedRooms, setBedRooms] = useState("");
-  const [bathRooms, setBathRooms] = useState("");
-  const [lookingFor, setLookingFor] = useState("");
-  const [wlookingFor, setWLookingFor] = useState("");
-  const [gender, setGender] = useState("");
-  const [propertyCondition, setPropertyCondition] = useState("");
-  const [area, setArea] = useState("");
   let uniqueEntries = {};
   const queryParams = {
     address: address.trim() || "",
@@ -136,19 +121,11 @@ export default function ListData({ navigation }) {
     bodyShape: bodyshape || "",
     gearBox: gearbox || "",
     fuelType: fueltype || "",
-    furnished: propertyCondition || "",
-    bedrooms: bedRooms || "",
-    bathrooms: bathRooms || "",
-    companyName: companyName || "",
-    iAm: lookingFor,
-    salaryFrom: salaryFrom || "",
-    lkinFor: wlookingFor || "",
     workingHours: workingHours || "",
     hrzDrvn: drivenHours || "",
     dwnPymnt: downPayment || "",
     mnthlyInstl: installments || "",
     instlPlan: installmentPlan || "",
-    area: area || "",
     page: pageNumber, // Adjust the page number as needed
   };
 
@@ -168,18 +145,11 @@ export default function ListData({ navigation }) {
     setBodyshap("");
     setGearbox("");
     setFueltype("");
-    setPropertyCondition("");
-    setBedRooms("");
-    setBathRooms("");
-    setCompanyName("");
-    setLookingFor("");
-    setWLookingFor("");
     setWorkingHours("");
     setDrivenHours("");
     setDownPayment("");
     setInstallments("");
     setInstallmentPlan("");
-    setArea("");
     setData([]);
     setempty(false);
     if (pageNumber != 0) {
@@ -194,7 +164,7 @@ export default function ListData({ navigation }) {
     dispatch(setAppLoader(false));
   }, []);
   useEffect(() => {
-    if (brand) getmodel(findValue, brand);
+    if (brand) getmodel(subCategory, brand);
   }, [brand]);
   const getmodel = async (a, b) => {
     dispatch(setAppLoader(true));
@@ -231,7 +201,7 @@ export default function ListData({ navigation }) {
   };
   const getvehicleMake = async () => {
     setLoder(true);
-    let vehicledata = await geVehicleMakes(findValue);
+    let vehicledata = await geVehicleMakes(subCategory);
     if (vehicledata) {
       setLoder(false);
       setVcompanies(vehicledata);
@@ -242,7 +212,7 @@ export default function ListData({ navigation }) {
     setLoder(false);
   };
   const getvehicleSubCategory = async () => {
-    let vehicledata = await geVehicleCategory(findValue);
+    let vehicledata = await geVehicleCategory(subCategory);
     if (vehicledata) {
       setVCategory(vehicledata);
     } else {
@@ -305,30 +275,6 @@ export default function ListData({ navigation }) {
     {
       key: "Contact",
       label: t("addPost.Contact"),
-    },
-  ];
-  const pcdata = [
-    {
-      key: "Yes",
-      label: t("addPost.furnished"),
-    },
-    {
-      key: "No",
-      label: t("addPost.unFurnished"),
-    },
-  ];
-  const gdata = [
-    {
-      key: "Male",
-      label: t("addPost.Male"),
-    },
-    {
-      key: "Female",
-      label: t("addPost.Female"),
-    },
-    {
-      key: "Others",
-      label: t("addPost.Others"),
     },
   ];
   const otherModelFuntion = () => {
@@ -704,7 +650,7 @@ export default function ListData({ navigation }) {
                       console.log("navigation", error);
                     }
                   }}
-                  title={t(`subList.${subCategory}`)}
+                  title={t(`category.${subCategory}`)}
                   containerStyle={styles.containerb}
                   textStyle={styles.texticon}
                   iconright={
@@ -804,18 +750,6 @@ export default function ListData({ navigation }) {
                   />
                 </View>
               )}
-              {/*-----------------company name---------------*/}
-              {shouldRenderField("CompanyName", category, subCategory) && (
-                <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>{t("addPost.companyName")}</Text>
-                  <Input
-                    value={companyName}
-                    setvalue={setCompanyName}
-                    placeholder={t("addPost.enterCompanyName")}
-                    containerStyle={[styles.price, { width: width(90) }]}
-                  />
-                </View>
-              )}
               {/*-----------------working hours---------------*/}
               {shouldRenderField("Working Hours", category, subCategory) && (
                 <View style={{ paddingVertical: width(1) }}>
@@ -875,148 +809,7 @@ export default function ListData({ navigation }) {
                   />
                 </View>
               )}
-              {/*-----------------area---------------*/}
-              {shouldRenderField("Area", category, subCategory) && (
-                <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>
-                    {t("addPost.area") + " (sq.ft)"}
-                  </Text>
-                  <Input
-                    value={area}
-                    keyboardType="number-pad"
-                    setvalue={setArea}
-                    placeholder={t("addPost.enterArea")}
-                    containerStyle={[styles.price, { width: width(90) }]}
-                  />
-                </View>
-              )}
-              {/*-----------------salary from---------------*/}
-              {shouldRenderField("SalaryFrom", category, subCategory) && (
-                <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>{t("addPost.salaryFrom")}</Text>
-                  <Input
-                    value={salaryFrom}
-                    setvalue={setSalaryFrom}
-                    placeholder={t("addPost.enterSalaryFrom")}
-                    keyboardType="number-pad"
-                    containerStyle={[styles.price, { width: width(90) }]}
-                  />
-                </View>
-              )}
-              {/*-----------------bedroom---------------*/}
-              {shouldRenderField("Bedrooms", category, subCategory) && (
-                <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>{t("addPost.bedrooms")}</Text>
-                  <Input
-                    value={bedRooms}
-                    setvalue={setBedRooms}
-                    placeholder={t("addPost.enterBedrooms")}
-                    keyboardType="number-pad"
-                    containerStyle={[styles.price, { width: width(90) }]}
-                  />
-                </View>
-              )}
-              {/*-----------------bathroom---------------*/}
-              {shouldRenderField("bathrooms", category, subCategory) && (
-                <View style={{ paddingVertical: width(1) }}>
-                  <Text style={styles.title}>{t("addPost.bathrooms")}</Text>
-                  <Input
-                    value={bathRooms}
-                    setvalue={setBathRooms}
-                    placeholder={t("addPost.enterBathrooms")}
-                    keyboardType="number-pad"
-                    containerStyle={[styles.price, { width: width(90) }]}
-                  />
-                </View>
-              )}
-              {/*-----------------property condition---------------*/}
-              {shouldRenderField("Furnished", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.condition")}</Text>
 
-                  <RadioButtonRN
-                    data={pcdata}
-                    initial={getPContitionInitialValue(propertyCondition)}
-                    textStyle={{ fontSize: height(1.5) }}
-                    circleSize={width(3)}
-                    boxStyle={{
-                      width: width(90),
-                      borderWidth: 0,
-                      paddingVertical: width(1),
-                    }}
-                    activeColor={AppColors.primary}
-                    selectedBtn={(e) => {
-                      setPropertyCondition(e?.key);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------gender---------------*/}
-              {shouldRenderField("Gender", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.gender")}</Text>
-
-                  <RadioButtonRN
-                    data={gdata}
-                    initial={getGenderInitialValue(gender)}
-                    textStyle={{ fontSize: height(1.5) }}
-                    circleSize={width(3)}
-                    boxStyle={{
-                      width: width(90),
-                      borderWidth: 0,
-                      paddingVertical: width(1),
-                    }}
-                    activeColor={AppColors.primary}
-                    selectedBtn={(e) => {
-                      setGender(e.key);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------i am looking for---------------*/}
-              {shouldRenderField("Looking For", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("addPost.lookingFor")}</Text>
-
-                  <RadioButtonRN
-                    data={gdata}
-                    initial={getGenderInitialValue(lookingFor)}
-                    textStyle={{ fontSize: height(1.5) }}
-                    circleSize={width(3)}
-                    boxStyle={{
-                      width: width(90),
-                      borderWidth: 0,
-                      paddingVertical: width(1),
-                    }}
-                    activeColor={AppColors.primary}
-                    selectedBtn={(e) => {
-                      setLookingFor(e.key);
-                    }}
-                  />
-                </View>
-              )}
-              {/*-----------------who's looking for---------------*/}
-              {shouldRenderField("Looking For", category, subCategory) && (
-                <View style={{ alignSelf: "center" }}>
-                  <Text style={styles.title}>{t("Who's Looking For")}</Text>
-
-                  <RadioButtonRN
-                    data={gdata}
-                    initial={getGenderInitialValue(wlookingFor)}
-                    textStyle={{ fontSize: height(1.5) }}
-                    circleSize={width(3)}
-                    boxStyle={{
-                      width: width(90),
-                      borderWidth: 0,
-                      paddingVertical: width(1),
-                    }}
-                    activeColor={AppColors.primary}
-                    selectedBtn={(e) => {
-                      setWLookingFor(e.key);
-                    }}
-                  />
-                </View>
-              )}
               {/*-----------------condition Vahecal---------------*/}
               {shouldRenderField("Condition", category, subCategory) && (
                 <View style={{ alignSelf: "center" }}>

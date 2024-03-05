@@ -71,12 +71,6 @@
         },
         "plugins": [
             [
-                "expo-secure-store",
-                {
-                  "faceIDPermission": "Allow Eidcarosse.ch to access your Face ID biometric data."
-                }
-              ],
-            [
                 "expo-build-properties",
                 {
                     "android": {

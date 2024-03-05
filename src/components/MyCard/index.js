@@ -122,7 +122,7 @@ const MyCard = React.memo(({ data }) => {
             EUR {data?.price}
           </Text>
         </View> */}
-        {!isNullOrNullOrEmpty(data?.price) ? (
+        {!isNullOrNullOrEmpty(data?.price) && (
           <View style={styles.detailinerview}>
             {checkPrice(data?.price) ? (
               <View style={{ width: width(50) }}>
@@ -141,18 +141,6 @@ const MyCard = React.memo(({ data }) => {
               </View>
             )}
           </View>
-        ) : (
-          <Text
-            numberOfLines={1}
-            style={{
-              fontSize: height(2),
-              color: AppColors.primary,
-              fontWeight: "bold",
-              maxWidth: width(38),
-            }}
-          >
-            {data?.jobZ?.positionType}
-          </Text>
         )}
       </View>
 

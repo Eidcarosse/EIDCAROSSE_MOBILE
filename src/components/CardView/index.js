@@ -116,7 +116,7 @@ const CardView = React.memo(({ data }) => {
               </Text>
             </View>
           </View>
-          {!isNullOrNullOrEmpty(data?.price) ? (
+          {!isNullOrNullOrEmpty(data?.price) && (
             <View
               style={{
                 paddingBottom: width(2),
@@ -141,18 +141,6 @@ const CardView = React.memo(({ data }) => {
                 </View>
               )}
             </View>
-          ) : (
-            <Text
-              numberOfLines={1}
-              style={{
-                fontSize: height(2),
-                color: AppColors.primary,
-                fontWeight: "bold",
-                maxWidth: width(38),
-              }}
-            >
-              {data?.jobZ?.positionType}
-            </Text>
           )}
         </View>
       </TouchableOpacity>

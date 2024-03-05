@@ -314,109 +314,80 @@ export const showDetails = (x) => {
 export function shouldRenderField(field, category, sub_category) {
   const config = {
     // Main categories
-    Mobiles: ["Condition", "Price", "Free"],
-    Vehicles: ["Condition", "Price", "Free"],
-    "Property for Sale": ["Area", "Price", "Free"],
-    "Property for Rent": ["Area", "Price", "Free"],
-    "Electronics & Home Appliances": ["Condition", "Price", "Free"],
-    Bikes: ["Brand", "Condition", "Price", "Free"],
-    Jobs: [
-      "CompanyName",
-      "SalaryFrom",
-      "SalaryTo",
-      "SalaryPeriod",
-      "PositionType",
-    ],
-    Animals: ["Breed", "Gender", "Age", "Price", "Free"],
-    "Furniture & Home Decor": ["Condition", "Price", "Free"],
-    "Fashion & Beauty": ["Condition", "Price", "Free"],
-    "Books, Sports & Hobbies": ["Condition", "Price", "Free"],
-    Kids: ["Condition", "Price", "Free"],
-    Relationship: ["Dating", "Price", "Free"],
-    "Business, Industrial & Agriculture": ["Price", "Free"],
-    "Other ads": ["Price"],
-    Services: ["Price"],
+    Vehicles: ["Condition", "Price"],
+    Bike: ["Condition", "Price","Year"],
+    Cycles: ["Condition", "Price"],
+    "Industrial & Agriculture Machinery": ["Condition", "Price"],
+    "Commercial Vehicles": ["Condition", "Price"],
+    Boat: ["Condition", "Price"],
+    Drone: ["Condition", "Price"],
+    Others: ["Price", "Condition"],
 
     // Subcategories
-    Tablets: ["Brand"],
-    "Mobile Phones": ["Brand"],
-    "Smart Watches": ["Brand"],
-    Autos: [
+    Cars: [
+      "Condition",
       "Brand",
       "Model",
       "Year",
-      "km",
-      "fuelType",
+      "AutosBodyShape",
       "gearBox",
-      "Condition",
-      "bodyShap",
-      "ExteriorColor",
-      "interirColor",
+      "fuelType",
+      "kilometers",
+      "exteriorColor",
+      "interiorColor",
     ],
     "Cars on Installments": [
+      "Condition",
       "Brand",
       "Model",
       "Year",
-      "km",
-      // "fuelType",
+      "AutosBodyShape",
       "gearBox",
-      "Condition",
+      "fuelType",
+      "Mileage",
       "Down Payment",
       "Monthly Installments",
       "Installment Plan",
     ],
-    Boats: ["Brand", "Hours Driven"],
-    Buses: [
-      "Brand",
-      "Year",
-      "km",
-      // "fuelType",
-      "Type",
-    ],
-    Vans: [
-      "Brand",
-      "Year",
-      "km",
-      // "fuelType",
-      "Type",
-    ],
-    Trucks: [
-      "Brand",
-      "Year",
-      "km",
-      //  "fuelType",
-      "Type",
-    ],
-    Trailers: ["Brand", "km", "Type"],
-    "Other Vehicles": ["Year", "km"],
-    Houses: ["Furnished", "Bedrooms", "bathrooms"],
-    "Apartments & Flats": ["Furnished", "Bedrooms", "bathrooms"],
-    "Shops - Offices - Commercial Space": ["Furnished", "bathrooms"],
-    Drones: ["Brand"],
-    "Portions & Floors": ["Furnished", "Bedrooms", "bathrooms"],
-    "Roommates & Paying Guests": ["Furnished"],
-    Rooms: ["Furnished"],
-    "Vacation Rentals - Guest Houses": ["Bedrooms", "bathrooms"],
-    Motorcycles: [
+    Bikes: [
       "Brand",
       "Model",
-      "km",
-      "Type",
-      "bodyShap",
-      "ExteriorColor",
-      "fuelType",
+      "kilometers",
+      "Year",
+      "bikeBodyShape",
+      "BikeFuelType",
+      "bikeColor",
     ],
-    // "Bikes Accessories": ["Brand"],
+    "Bikes on Installments": [
+      "Brand",
+      "Model",
+      "Year",
+      "kilometers",
+      "bikeBodyShape",
+      "BikeFuelType",
+      "bikeColor",
+      "Down Payment",
+      "Monthly Installments",
+      "Installment Plan",
+    ],
+    "E-scooters": ["Brand","Year"],
     Bicycles: ["Brand", "Year"],
-    "ATV & Quads": ["Brand", "Year"],
-    Dating: ["I am", "Looking For"],
+    "E-bikes": ["Brand"],
     "Construction & Heavy Machinery": [
       "Brand",
       "Working Hours",
       "Condition",
       "Type",
     ],
-    Scooters: ["Brand"],
+    "Agriculture Machinery": ["Brand", "Working Hours", "Condition", "Type"],
+    Trucks: ["Brand", "Year", "kilometers", "Type"],
+    Vans: ["Brand", "Year", "kilometers", "Type"],
+    Trailers: ["Brand", "kilometers", "Type"],
+    Busses: ["Brand", "Year", "kilometers", "fuelType", "Type", "axelCount"],
+    Boats: ["Brand", "Hours Driven"],
+    Drones: ["Brand"],
+
+    "Other Vehicles": ["Year", "kilometers"],
   };
 
   return (
@@ -424,7 +395,6 @@ export function shouldRenderField(field, category, sub_category) {
     (config[sub_category] && config[sub_category].includes(field))
   );
 }
-
 export const formatPrice = (price) => {
   const priceString = price.toString();
   const groups = [];
@@ -494,23 +464,6 @@ export function getPriceInitialValue(input) {
   }
 }
 
-export function getGenderInitialValue(input) {
-  switch (input) {
-    case "Male":
-      return 1;
-    case "Female":
-      return 2;
-    case "Others":
-      return 3;
-    case "":
-    case null:
-    case undefined:
-      return 0;
-    default:
-      return 0;
-  }
-}
-
 export function getConditionInitailValue(input) {
   switch (input) {
     case "New":
@@ -528,20 +481,6 @@ export function getConditionInitailValue(input) {
   }
 }
 
-export function getPContitionInitialValue(input) {
-  switch (input) {
-    case "Yes":
-      return 1;
-    case "No":
-      return 2;
-    case "":
-    case null:
-    case undefined:
-      return 0;
-    default:
-      return 0;
-  }
-}
 const onPressFavorite = () => {};
 const GlobalMethods = {
   toastMessage,

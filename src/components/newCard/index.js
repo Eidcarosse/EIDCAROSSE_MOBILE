@@ -1,10 +1,10 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Swiper from "react-native-swiper";
-import { Pressable, Text, TouchableOpacity, View, Image } from "react-native";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
+import Swiper from "react-native-swiper";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../backend/api";
 import { selectCurrentLanguage } from "../../redux/slices/language";
@@ -22,10 +22,9 @@ import GlobalMethods, {
   formatPrice,
   formatPriceE,
   infoMessage,
-  shouldRenderField,
+  isNullOrNullOrEmpty,
 } from "../../utills/Methods";
 import styles from "./styles";
-import { isNullOrNullOrEmpty } from "../../utills/Methods";
 const Card = React.memo(({ data, onPresshide, map = false }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -213,7 +212,7 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
             navigation.navigate(ScreenNames.DETAIL, data);
           }}
         >
-          {!isNullOrNullOrEmpty(data?.price) ? (
+          {!isNullOrNullOrEmpty(data?.price) && (
             <View style={styles.detailinerview}>
               {checkPrice(data?.price) ? (
                 <View>
@@ -232,20 +231,6 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
                 </View>
               )}
             </View>
-          ) : (
-            !isNullOrNullOrEmpty(data?.jobZ?.positionType) && (
-              <Text
-                numberOfLines={1}
-                style={{
-                  fontSize: height(2.5),
-                  color: AppColors.primary,
-                  fontWeight: "bold",
-                  marginBottom: height(0.5),
-                }}
-              >
-                {data?.jobZ?.positionType}
-              </Text>
-            )
           )}
           <View
             style={{

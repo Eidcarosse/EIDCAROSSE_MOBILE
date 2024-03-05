@@ -71,7 +71,7 @@ export default function DetailHeader({
                     paddingHorizontal: width(4.5),
                   }}
                 >
-                  {t(`subList.${sub?.name}`)}
+                  {t(`category.${sub?.name}`)}
                 </Text>
               )}
             </View>

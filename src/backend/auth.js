@@ -1,4 +1,4 @@
-import { BaseUrl, BaseUrl1 } from "../utills/Constants";
+import { BaseUrl } from "../utills/Constants";
 import { ApiManager } from "./ApiManager";
 
 const signupApi = async (data) => {

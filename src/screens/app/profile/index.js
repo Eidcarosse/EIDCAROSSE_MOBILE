@@ -1,19 +1,18 @@
 import {
+  AntDesign,
   Entypo,
+  FontAwesome,
   Fontisto,
   Ionicons,
   MaterialIcons,
-  FontAwesome,
-  AntDesign,
 } from "@expo/vector-icons";
 import React from "react";
-import { Image, ImageBackground, Pressable, Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Image, Pressable, Text, View } from "react-native";
 import styles from "./styles";
 
-import { useDispatch, useSelector } from "react-redux";
-import Icons from "../../../asset/images";
-import { Header, IconButton, ScreenWrapper } from "../../../components";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { IconButton, ScreenWrapper } from "../../../components";
 import {
   selectFavAds,
   selectUserAds,
@@ -22,7 +21,7 @@ import {
 import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import { useTranslation } from "react-i18next";
+import { TouchableOpacity } from "react-native-gesture-handler";
 export default function Profile({ navigation, route }) {
   const { t } = useTranslation();
   const userdata = useSelector(selectUserMeta);
@@ -45,7 +44,18 @@ export default function Profile({ navigation, route }) {
           }}
         />
         <View style={styles.imageiner}>
-          <Image style={styles.avatar} source={{ uri: userdata?.image }} />
+         
+          <Pressable
+         onPress={() => {
+          navigation.navigate(ScreenNames.EDITPROFILE);
+        }}
+            style={styles.flotView}
+          >
+             <Image
+            style={styles.avatar}
+            source={{ uri: userdata?.image }}
+          />
+          </Pressable>
           <View
             style={{
               justifyContent: "center",

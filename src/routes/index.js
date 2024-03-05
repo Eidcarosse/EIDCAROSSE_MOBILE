@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Network from "expo-network";
-import { getDatabase, off, onValue, ref, get } from "firebase/database";
-import React, { useCallback, useEffect, useState } from "react";
+import { getDatabase, off, onValue, ref, set, get } from "firebase/database";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
+import { Alert, AppState } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
@@ -22,6 +22,7 @@ import {
 } from "../redux/slices/config";
 import { setLanguage } from "../redux/slices/language";
 import {
+  selectUserMeta,
   setAdsFav,
   setChatRedux,
   setChatRooms,
@@ -83,6 +84,29 @@ export default function Routes() {
   const [isConnected, setIsConnected] = useState(true);
   const [user, setUser] = useState();
   const [countMsg, setCountMsg] = useState(0);
+  const loginuser = useSelector(selectUserMeta);
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      appState.current = nextAppState;
+      console.log("AppState", appState.current);
+      if (nextAppState === "active") {
+        fetchOlineStatus(true);
+      } else {
+        fetchOlineStatus(false);
+      }
+     
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+  useEffect(() => {
+    fetchOlineStatus(true);
+  }, [user, loginuser]);
+
   useEffect(() => {
     if (countMsg > 0) {
       dispatch(setNewChat(true));
@@ -108,6 +132,15 @@ export default function Routes() {
       }, 600);
     }
   }, [isConnected]);
+  async function fetchOlineStatus(check) {
+    try {
+      if (user || loginuser) {
+        let a = user || loginuser;
+        const userStatusRef = ref(db, `users/${a?._id}/online`);
+        await set(userStatusRef, check);
+      }
+    } catch (error) {}
+  }
   const getData = useCallback(async () => {
     try {
       const data = await getDataofHomePage();
@@ -297,9 +330,7 @@ export default function Routes() {
   };
   return (
     <NavigationContainer>
-      <NetworkLoader />
       <Loader />
-
       <Stack.Navigator screenOptions={{ header: () => false }}>
         <Stack.Screen name={"drawr"} component={MyDrawer} />
         <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />

@@ -66,7 +66,7 @@ export default function BikeCategory({ navigation, route }) {
                   style={{ width: height(4), height: height(4) }}
                 /> */}
                 <Text style={{ fontSize: height(1.8), color: AppColors.black }}>
-                  {t(`subList.${item.name}`)}
+                  {t(`category.${item.name}`)}
                 </Text>
               </TouchableOpacity>
             );

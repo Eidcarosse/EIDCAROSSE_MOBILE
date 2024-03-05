@@ -14,14 +14,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   imageStyle: {
-    width: height(3),
-    height: height(3),
+    width: height(5),
+    height: height(5),
   },
   textStyle:{
-    fontSize:height(1.8),
-    fontWeight:'500',
-    paddingHorizontal:width(6),
-    width:width(70),
+    fontSize:height(1.5),
+    padding:width(1),
   }
 });
 export default styles;
