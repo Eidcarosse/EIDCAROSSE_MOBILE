@@ -21,4 +21,3 @@ export { default as FilePickerModal } from "./filepikermodal";
 export { default as ChatIcon } from "./chatIcon";
 export { default as AdView } from "./adviewChat";
 export { default as Card } from "./newCard";
-export {default as NetworkLoader} from './networkview'

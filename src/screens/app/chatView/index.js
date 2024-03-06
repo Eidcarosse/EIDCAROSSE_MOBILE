@@ -617,7 +617,6 @@ function ChatView({ route }) {
           renderTime={renderTime}
           renderBubble={renderBubble}
           textInputProps={{ editable: selectedItem && usrData ? true : false }}
-          
         />
 
         <View>
@@ -688,11 +687,15 @@ function ChatView({ route }) {
       />
       <Modal
         backdropOpacity={0.5}
+        swipeDirection={"down"}
         isVisible={modal}
         onBackdropPress={() => {
           setModal(false);
         }}
         onBackButtonPress={() => {
+          setModal(false);
+        }}
+        onSwipeComplete={() => {
           setModal(false);
         }}
       >

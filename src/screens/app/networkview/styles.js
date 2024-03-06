@@ -1,15 +1,13 @@
 import { StyleSheet } from "react-native";
-import AppColors from "../../utills/AppColors";
-import { height, width } from "../../utills/Dimension";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
 const styles = StyleSheet.create({
   container: {
-    width: width(30),
     flex:1,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    borderRadius: width(3),
-    flexDirection: "row",
+
   },
   text: {
     color: AppColors.black,

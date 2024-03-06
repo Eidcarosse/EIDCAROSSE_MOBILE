@@ -9,9 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
-import { Loader, NetworkLoader } from "../components";
+import { Loader } from "../components";
 // import * as Notifications from "expo-notifications";
 import {
+  selectNetworkLoader,
   setAppLoader,
   setCategoryList,
   setNetworkLoader,
@@ -45,6 +46,7 @@ import {
   HTSFScreen,
   ListData,
   MyListingScreen,
+  NetworkLoader,
   OtherProfileScreen,
   PasswordScreens,
   PrivacyPolicyScreen,
@@ -86,17 +88,17 @@ export default function Routes() {
   const [countMsg, setCountMsg] = useState(0);
   const loginuser = useSelector(selectUserMeta);
   const appState = useRef(AppState.currentState);
+  const net = useSelector(selectNetworkLoader);
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       appState.current = nextAppState;
-      console.log("AppState", appState.current);
-      if (nextAppState === "active") {
+      console.log("AppState in app", appState.current);
+      if (nextAppState === "active" || appState.current === "active") {
         fetchOlineStatus(true);
       } else {
         fetchOlineStatus(false);
       }
-     
     });
 
     return () => {
@@ -127,16 +129,14 @@ export default function Routes() {
       getCategorylist();
     } else {
       dispatch(setAppLoader(false));
-      setTimeout(() => {
-        dispatch(setNetworkLoader(true));
-      }, 600);
+      dispatch(setNetworkLoader(true));
     }
   }, [isConnected]);
   async function fetchOlineStatus(check) {
     try {
       if (user || loginuser) {
-        let a = user || loginuser;
-        const userStatusRef = ref(db, `users/${a?._id}/online`);
+        let a = user?._id || loginuser?._id;
+        const userStatusRef = ref(db, `users/${a}/online`);
         await set(userStatusRef, check);
       }
     } catch (error) {}
@@ -323,6 +323,7 @@ export default function Routes() {
       dispatch(setAppLoader(false));
     }
   };
+
   const languageset = async () => {
     let lang = await getlangData();
     i18n.changeLanguage(lang);
@@ -331,47 +332,65 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Loader />
-      <Stack.Navigator screenOptions={{ header: () => false }}>
-        <Stack.Screen name={"drawr"} component={MyDrawer} />
-        <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />
-        <Stack.Screen
-          name={ScreenNames.FORGET}
-          component={ForgetPasswordScreen}
-        />
-        <Stack.Screen name={ScreenNames.VERIFY} component={verifyScreen} />
-        <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
-        <Stack.Screen name={ScreenNames.DETAIL} component={DetailScreen} />
-        <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
-        <Stack.Screen name={ScreenNames.CATEGORY} component={CategoryScreen} />
-        <Stack.Screen name={ScreenNames.BIKECATEGORY} component={BikeScreen} />
-        <Stack.Screen name={ScreenNames.SEARCH} component={SearchScreen} />
-        <Stack.Screen name={ScreenNames.PROFILE} component={ProfileScreen} />
-        <Stack.Screen
-          name={ScreenNames.OTHERPROFILE}
-          component={OtherProfileScreen}
-        />
-        <Stack.Screen name={ScreenNames.EDITPROFILE} component={EditProfile} />
-        <Stack.Screen name={ScreenNames.PASSWORD} component={PasswordScreens} />
-        <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />
-        <Stack.Screen name={ScreenNames.WISH} component={WishScreen} />
-        <Stack.Screen
-          name={ScreenNames.MYLISTING}
-          component={MyListingScreen}
-        />
-        <Stack.Screen name={ScreenNames.ADDPOST} component={AddPostScreen} />
-        <Stack.Screen name={ScreenNames.CHAT} component={ChatViewScreen} />
-        <Stack.Screen name={ScreenNames.FAQ} component={FAQScreen} />
-        <Stack.Screen name={ScreenNames.HTSF} component={HTSFScreen} />
-        <Stack.Screen name={ScreenNames.ABOUTUS} component={AboutUsScreen} />
-        <Stack.Screen name={ScreenNames.TNC} component={TNCScreen} />
-        <Stack.Screen name={ScreenNames.PP} component={PrivacyPolicyScreen} />
-        <Stack.Screen name={ScreenNames.SNTU} component={SellUsScreen} />
-        <Stack.Screen name={ScreenNames.REPAIR} component={RepairSreen} />
-        <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
-        <Stack.Screen name={ScreenNames.PANDS} component={PrivacySafety} />
+      {net ? (
+        <Stack.Navigator screenOptions={{ header: () => false }}>
+          <Stack.Screen name={"net"} component={NetworkLoader} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator screenOptions={{ header: () => false }}>
+          <Stack.Screen name={"drawr"} component={MyDrawer} />
+          <Stack.Screen name={ScreenNames.LOGIN} component={LoginScreen} />
+          <Stack.Screen
+            name={ScreenNames.FORGET}
+            component={ForgetPasswordScreen}
+          />
+          <Stack.Screen name={ScreenNames.VERIFY} component={verifyScreen} />
+          <Stack.Screen name={ScreenNames.SIGNUP} component={SignUpScreen} />
+          <Stack.Screen name={ScreenNames.DETAIL} component={DetailScreen} />
+          <Stack.Screen name={ScreenNames.LISTDATA} component={ListData} />
+          <Stack.Screen
+            name={ScreenNames.CATEGORY}
+            component={CategoryScreen}
+          />
+          <Stack.Screen
+            name={ScreenNames.BIKECATEGORY}
+            component={BikeScreen}
+          />
+          <Stack.Screen name={ScreenNames.SEARCH} component={SearchScreen} />
+          <Stack.Screen name={ScreenNames.PROFILE} component={ProfileScreen} />
+          <Stack.Screen
+            name={ScreenNames.OTHERPROFILE}
+            component={OtherProfileScreen}
+          />
+          <Stack.Screen
+            name={ScreenNames.EDITPROFILE}
+            component={EditProfile}
+          />
+          <Stack.Screen
+            name={ScreenNames.PASSWORD}
+            component={PasswordScreens}
+          />
+          <Stack.Screen name={ScreenNames.ACCOUNT} component={AccountScreen} />
+          <Stack.Screen name={ScreenNames.WISH} component={WishScreen} />
+          <Stack.Screen
+            name={ScreenNames.MYLISTING}
+            component={MyListingScreen}
+          />
+          <Stack.Screen name={ScreenNames.ADDPOST} component={AddPostScreen} />
+          <Stack.Screen name={ScreenNames.CHAT} component={ChatViewScreen} />
+          <Stack.Screen name={ScreenNames.FAQ} component={FAQScreen} />
+          <Stack.Screen name={ScreenNames.HTSF} component={HTSFScreen} />
+          <Stack.Screen name={ScreenNames.ABOUTUS} component={AboutUsScreen} />
+          <Stack.Screen name={ScreenNames.TNC} component={TNCScreen} />
+          <Stack.Screen name={ScreenNames.PP} component={PrivacyPolicyScreen} />
+          <Stack.Screen name={ScreenNames.SNTU} component={SellUsScreen} />
+          <Stack.Screen name={ScreenNames.REPAIR} component={RepairSreen} />
+          <Stack.Screen name={ScreenNames.SETTING} component={AppSetting} />
+          <Stack.Screen name={ScreenNames.PANDS} component={PrivacySafety} />
 
-        <Stack.Screen name={ScreenNames.CPF} component={CPFscreen} />
-      </Stack.Navigator>
+          <Stack.Screen name={ScreenNames.CPF} component={CPFscreen} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }

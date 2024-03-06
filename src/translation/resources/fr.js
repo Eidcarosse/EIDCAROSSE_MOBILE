@@ -86,7 +86,7 @@ export default {
   aboutUs: {
     aboutus: "À propos de nous",
     paraDetail1:
-      "Eidcarosse, nous sommes animés par la passion de connecter les gens avec les véhicules, l'électronique, les propriétés, les emplois et les articles dont ils ont besoin. Notre mission est de fournir une expérience fluide et agréable aussi bien pour les acheteurs que pour les vendeurs. Avec un engagement envers un design convivial et des fonctionnalités de recherche puissantes, nous avons créé une plateforme qui simplifie le processus d'achat et de vente dans un large éventail de catégories.Notre équipe est dédiée à promouvoir une communauté en ligne dynamique où les individus et les entreprises peuvent se réunir pour trouver exactement ce qu'ils recherchent. Que vous recherchiez votre voiture de rêve, les derniers gadgets, votre prochain logement, des opportunités d'emploi excitantes ou des articles uniques, Eidcarosse est là pour vous aider à naviguer à travers tout.Avec Eidcarosse, vous pouvez faire confiance à l'accès à un marché diversifié qui privilégie la commodité, la fiabilité et la sécurité. Rejoignez-nous aujourd'hui et découvrez un monde de possibilités infinies à portée de main.",
+    "Eidcarosse est une place de marché en ligne complète dédiée à faciliter l'achat et la vente de véhicules. Avec une interface conviviale et des fonctionnalités de recherche puissantes, Eidcarosse met en relation les particuliers à la recherche de véhicules avec des vendeurs proposant une gamme étendue d'options. Que vous recherchiez une berline élégante, un puissant camion, une moto élégante ou tout autre véhicule, Eidcarosse offre une plateforme qui simplifie l'ensemble du processus.",
 
     paraTitle2: "Acheteurs",
     paraDetail2by1:

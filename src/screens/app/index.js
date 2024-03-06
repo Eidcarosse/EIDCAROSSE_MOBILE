@@ -23,3 +23,5 @@ export { default as SellUsScreen } from "./SNTU";
 export { default as RepairSreen } from "./repairnow";
 export { default as AppSetting } from "./AppSetting";
 export { default as PrivacySafety } from "./privecyandSafety";
+export { default as NetworkLoader } from './networkview';
+

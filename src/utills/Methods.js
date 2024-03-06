@@ -372,7 +372,7 @@ export function shouldRenderField(field, category, sub_category) {
     ],
     "E-scooters": ["Brand","Year"],
     Bicycles: ["Brand", "Year"],
-    "E-bikes": ["Brand"],
+    "E-bikes": ["Brand","Year"],
     "Construction & Heavy Machinery": [
       "Brand",
       "Working Hours",

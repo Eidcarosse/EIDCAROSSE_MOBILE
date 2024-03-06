@@ -45,6 +45,7 @@ import AppColors from "../../../utills/AppColors";
 import { Apikey } from "../../../utills/Constants";
 import { height, width } from "../../../utills/Dimension";
 import {
+  checkPrice,
   errorMessage,
   getConditionInitailValue,
   getPriceInitialValue,
@@ -755,7 +756,11 @@ export default function AddPost({ navigation, route }) {
                         break;
                       default:
                         setPricing("Price");
-                        edit?.price ? setPrice(edit?.price) : setPrice("");
+                        edit?.price
+                          ? checkPrice(edit?.price)
+                            ? setPrice(edit?.price)
+                            : setPrice("")
+                          : setPrice("");
                         break;
                     }
                   }}
