@@ -992,7 +992,7 @@ export default function ListData({ navigation }) {
                 </View>
               )}
               {/*-----------------body shap---------------*/}
-              {shouldRenderField("bodyShap", category, subCategory) && (
+              {shouldRenderField("AutosBodyShape", category, subCategory) && (
                 <View style={{ alignSelf: "center" }}>
                   <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
                   <SelectDropdown
@@ -1001,11 +1001,41 @@ export default function ListData({ navigation }) {
                         ? t(`bodyShapeList.${bodyshape}`)
                         : t("addPost.defaultValueDropdown")
                     }
-                    data={
-                      category == "Bikes"
-                        ? feild?.bikeBodyShape
-                        : feild?.AutosBodyShape
+                    data={feild?.AutosBodyShape}
+                    searchPlaceHolder={t("addPost.phsearchHere")}
+                    buttonStyle={styles.searchbox}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
+                    selectedRowTextStyle={{ color: AppColors.white }}
+                    buttonTextStyle={{
+                      textAlign: "left",
+                      fontSize: height(1.6),
+                    }}
+                    dropdownStyle={styles.dropdown}
+                    onSelect={(selectedItem, index) => {
+                      setBodyshap(selectedItem.name);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return t(`bodyShapeList.${selectedItem.name}`);
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return t(`bodyShapeList.${item.name}`);
+                    }}
+                  />
+                </View>
+              )}
+              {/*-----------------body shap---------------*/}
+              {shouldRenderField("bikeBodyShape", category, subCategory) && (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.bodyshape")}</Text>
+                  <SelectDropdown
+                    defaultButtonText={
+                      bodyshape
+                        ? t(`bodyShapeList.${bodyshape}`)
+                        : t("addPost.defaultValueDropdown")
                     }
+                    data={feild?.bikeBodyShape}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{
@@ -1079,6 +1109,40 @@ export default function ListData({ navigation }) {
                         ? feild?.BikeFuelType
                         : feild?.fuelType
                     }
+                    searchPlaceHolder={t("addPost.phsearchHere")}
+                    buttonStyle={styles.searchbox}
+                    selectedRowStyle={{
+                      backgroundColor: AppColors.primary,
+                    }}
+                    selectedRowTextStyle={{ color: AppColors.white }}
+                    buttonTextStyle={{
+                      textAlign: "left",
+                      fontSize: height(1.6),
+                    }}
+                    dropdownStyle={styles.dropdown}
+                    onSelect={(selectedItem, index) => {
+                      setFueltype(selectedItem.name);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return t(`fuelTypelist.${selectedItem.name}`);
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return t(`fuelTypelist.${item.name}`);
+                    }}
+                  />
+                </View>
+              )}
+              {/*-----------------fule type---------------*/}
+              {shouldRenderField("BikeFuelType", category, subCategory) && (
+                <View style={{ alignSelf: "center" }}>
+                  <Text style={styles.title}>{t("addPost.fueltype")}</Text>
+                  <SelectDropdown
+                    defaultButtonText={
+                      fueltype
+                        ? t(`fuelTypelist.${fueltype}`)
+                        : t("addPost.defaultValueDropdown")
+                    }
+                    data={feild?.BikeFuelType}
                     searchPlaceHolder={t("addPost.phsearchHere")}
                     buttonStyle={styles.searchbox}
                     selectedRowStyle={{

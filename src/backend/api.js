@@ -75,7 +75,6 @@ export const geVehicleMakes = async (type) => {
 };
 ////////////////////////////////////////////////
 export const geVehicleCategory = async (type) => {
-  console.log("type", type);
   try {
     const response = await ApiManager.get(`ad/findVehicleSubCategory/${type}`);
     if (!response?.success) {

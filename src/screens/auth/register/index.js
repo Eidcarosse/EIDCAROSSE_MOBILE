@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { useTranslation } from "react-i18next";
 import CheckBox from "react-native-check-box";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import { signupApi } from "../../../backend/auth";
 import {
@@ -28,9 +28,11 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
 export default function SignUp({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const lang = useSelector(selectCurrentLanguage);
   const [check, setCheck] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -47,7 +49,6 @@ export default function SignUp({ navigation, route }) {
   const [emailr, setEmailr] = useState("");
   const [passwordr, setPasswordr] = useState("");
   const [phoneNumberr, setPhoneNumberr] = useState("");
-
   const userData = {
     firstName,
     lastName,
@@ -57,6 +58,7 @@ export default function SignUp({ navigation, route }) {
     phoneNumber,
     whatsapp,
     viber,
+    lang,
   };
   const isValidEmail = (email) => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;

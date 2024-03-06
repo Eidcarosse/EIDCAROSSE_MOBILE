@@ -22,7 +22,7 @@ export default function DetailFooter({
         disabled={pNumber ? false : true}
         onPress={onPressCall}
         icon={<Ionicons size={height(2)} name="call" color={AppColors.white} />}
-        title={"Call"}
+        title={"footer.call"}
       />
       <IconButton
         onPress={onPressMail}

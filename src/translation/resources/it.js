@@ -85,7 +85,7 @@ export default {
   aboutUs: {
     aboutus: "Chi siamo",
     paraDetail1:
-    "Eidcarosse è un completo mercato online dedicato a facilitare l'acquisto e la vendita di veicoli. Con un'interfaccia utente amichevole e potenti funzionalità di ricerca, Eidcarosse collega individui alla ricerca di veicoli con venditori che offrono un'ampia gamma di opzioni. Che tu stia cercando una berlina elegante, un potente camion, una moto elegante o qualsiasi altro veicolo, Eidcarosse fornisce una piattaforma che semplifica l'intero processo.",
+      "Eidcarosse è un completo mercato online dedicato a facilitare l'acquisto e la vendita di veicoli. Con un'interfaccia utente amichevole e potenti funzionalità di ricerca, Eidcarosse collega individui alla ricerca di veicoli con venditori che offrono un'ampia gamma di opzioni. Che tu stia cercando una berlina elegante, un potente camion, una moto elegante o qualsiasi altro veicolo, Eidcarosse fornisce una piattaforma che semplifica l'intero processo.",
     paraTitle2: "Acquirenti",
     paraDetail2by1:
       "Per gli acquirenti, Eidcarosse offre una vasta selezione di veicoli da venditori privati e concessionari, garantendo l'accesso a una vasta gamma di opzioni per soddisfare le tue preferenze e il tuo budget.",
@@ -243,7 +243,7 @@ export default {
     Accessories: "Accessori",
     Others: "Altro",
   },
-  
+
   profile: {
     wish: "La Mia Lista dei Desideri",
     listing: "Le Mie Pubblicazioni",
@@ -334,8 +334,8 @@ export default {
     enterMonthlyInstallment: "Inserisci rata mensile",
     installmentPlan: "Piano rateale",
     enterInstallmentPlan: "Inserisci piano rateale",
-    "0": "Libero",
-    Free: "Libero",
+    0: "Libero",
+    Free: "Gratis",
     Contact: "Contattare per il Prezzo",
   },
   fuelTypelist: {
@@ -490,6 +490,7 @@ export default {
     location: "Posizione",
     seeAllAds: "Vedi Tutti gli Annunci",
     relatedAds: "Annunci Correlati",
+    membrSince: "Membro dal",
   },
   searchbar: {
     phsearch: "cosa desideri cercare?",
@@ -624,6 +625,72 @@ export default {
   },
 
   type: {
+    "Agricultural conveying and storage technology":
+      "Tecnologia di trasporto e stoccaggio agricolo",
+    "Agricultural rollers": "Rulli agricoli",
+    "Agricultural spare parts": "Ricambi agricoli",
+    "ATVs / farm quads": "ATV / quad agricoli",
+    "Bale wrappers": "Avvolgitori di balle",
+    "Balers & baling equipment": "Pressa e attrezzature per la pressatura",
+    "Beet technology": "Tecnologia della barbabietola",
+    "Chaff cutters": "Tagliabietole",
+    "Combination harrows": "Aratri combinati",
+    "Combine harvesters": "Mietitrebbie",
+    "Cultivators / grubbers": "Cultivatori / scarificatori",
+    "Disc harrows": "Aratri a dischi",
+    Dryers: "Asciugatrici",
+    "Farm tractors / yard tractors": "Trattori agricoli / trattori da cortile",
+    "Feeding machines / feeders": "Macchine per l'alimentazione / alimentatori",
+    "Fertilizer spreaders / lime spreaders": "Spandiconcime / spandilime",
+    "Forage wagons / loader wagons": "Carri foraggio / carri caricatori",
+    "Forestry machines / logging equipment":
+      "Macchine forestali / attrezzature per l'abbattimento",
+    "Forestry vehicles": "Veicoli forestali",
+    "Front-end loader": "Caricatore frontale",
+    "Fruit farming & viticulture equipment":
+      "Attrezzature per la coltivazione di frutta e viticoltura",
+    Harrows: "Aratri",
+    "Harvesters / reapers": "Mietitrebbie / mietitori",
+    "Hay equipment": "Attrezzature per il fieno",
+    "Hay technology": "Tecnologia del fieno",
+    Hoes: "Zappe",
+    "Irrigation equipment": "Attrezzature per l'irrigazione",
+    "Manure spreaders / dung spreaders": "Spandiletame / spandiletame",
+    "Manure spreaders & slurry spreaders": "Spandiletame e spandispurgo",
+    "Milking machinery / milking equipment":
+      "Macchine da mungere / attrezzature per la mungitura",
+    Mulchers: "Sminuzzatori",
+    "Other farm machinery": "Altra macchinaria agricola",
+    Packers: "Imballatori",
+    "Pesticide sprayers & fertilizer spreaders":
+      "Irroratori di pesticidi e spandiletame",
+    Plow: "Aratro",
+    "Potato farming machinery":
+      "Macchine agricole per la coltivazione delle patate",
+    "Precision seeders": "Seminatori di precisione",
+    "Rotary cultivators": "Cultivatori rotativi",
+    "Rotary harrows / power harrows": "Aratri rotativi / aratri a potenza",
+    "Scarifiers / dethatchers": "Scarificatori / disservanti",
+    "Seed drills / seed planters / planting machines":
+      "Seminatori / piantatrici di semi / macchine per la semina",
+    "Silage equipment": "Attrezzature per il silaggio",
+    Silos: "Silos",
+    "Stall equipment / livestock stalling":
+      "Attrezzature per le stalle / stallaggi del bestiame",
+    "Stone crushers": "Frantoi",
+    "Tillage equipment / field cultivators":
+      "Attrezzature per la lavorazione del terreno / coltivatori da campo",
+    "Tires, wheels & rims for agricultural vehicles":
+      "Pneumatici, ruote e cerchioni per veicoli agricoli",
+    Tractors: "Trattori",
+    "Transportation equipment & trailers":
+      "Attrezzature per il trasporto e rimorchi",
+    "Vegetable farming equipment":
+      "Attrezzature per la coltivazione di verdure",
+    "Vintage tractors & antique farm vehicles":
+      "Trattori d'epoca e veicoli agricoli antichi",
+    "Weighing equipment / agricultural scales":
+      "Attrezzature di pesatura / bilance agricole",
     "Articulated bus": "Autobus articolato",
     "City bus": "Autobus urban",
     Coach: "Pullman",
@@ -822,6 +889,39 @@ export default {
     "Dosing Wagon": "Carro dosatore",
     "Goods Transport Trailer": "Rimorchio per trasporto merci",
     Others: "Altro",
+    "Beverage trucks": "Camion per bevande",
+    "Car transporter trucks": "Camion trasportatori di auto",
+    "Concrete mixer trucks / cement mixer trucks":
+      "Autobetoniere / Autocisterne per cemento",
+    "Concrete pump trucks": "Autobetoniere con pompa",
+    "Custom body trucks": "Camion con carrozzeria personalizzata",
+    "Dump trucks": "Camion ribaltabile",
+    "Flatbed trucks": "Camion a pianale",
+    "Garbage trucks": "Camion della spazzatura",
+    "Grain truck": "Camion per cereali",
+    "Jumbo trucks / high-volume trucks": "Camion jumbo / ad alto volume",
+    "Livestock trucks / cattle trucks": "Camion per il trasporto di bestiame",
+    "Logging trucks": "Camion per il trasporto di tronchi",
+    "Reefer trucks / refrigerated trucks": "Camion refrigerati",
+    "Roll-off trucks": "Camion roll-off",
+    "Skip trucks / hooklift trucks": "Camion cassoni / camion gancio",
+    "Special purpose trucks": "Camion ad uso speciale",
+    "Sweeper trucks / street cleaner trucks":
+      "Camion spazzaneve / camion puliscistrada",
+    "Three-sided tipper trucks": "Camion ribaltabile a tre lati",
+    "Tipper trucks / dump trucks": "Camion ribaltabile",
+    "Tow trucks": "Camion da traino",
+    "Truck & trailer / road trains": "Camion e rimorchi / treni stradali",
+    "Truck chassis": "Telaio del camion",
+    "Truck mounted cranes / mobile cranes": "Camion gru / gru mobili",
+    "Trucks with box body / box trucks": "Camion con cassone / camion furgone",
+    "Trucks with flatbed & tarpaulin": "Camion con pianale e telo",
+    "Trucks with silo body / silo trucks": "Camion con cassone per silo",
+    "Trucks with swap chassis / swap body":
+      "Camion con telaio intercambiabile / cassone intercambiabile",
+    "Trucks with tank body / tanker trucks": "Camion cisterna",
+    "Vacuum and pressure van": "Furgone a vuoto e pressione",
+    "Work platform trucks": "Camion con piattaforma di lavoro",
   },
   editAd: {
     title: "Modifica Annuncio",
@@ -839,6 +939,9 @@ export default {
     nochatMsg: "Nessun messaggio",
     checkNet: "Controlla la connessione Internet.",
     cpholder: "Inserisci il nome del tuo paese",
+  },
+  footer: {
+    call: "Call",
   },
   Others: "Altros",
 };

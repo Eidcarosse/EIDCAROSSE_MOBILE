@@ -283,15 +283,6 @@ export function checkPrice(d) {
   }
   return false; // The condition is not met
 }
-export const showType = (x) => {
-  return (
-    x === "Construction Machines" ||
-    x === "Trucks" ||
-    x === "Vans" ||
-    x === "Trailers" ||
-    x === "Busses"
-  );
-};
 export function isNullOrNullOrEmpty(value) {
   return (
     value === null ||
@@ -314,7 +305,7 @@ export const showDetails = (x) => {
 export function shouldRenderField(field, category, sub_category) {
   const config = {
     // Main categories
-    Vehicles: ["Condition", "Price"],
+    Vehicles: ["Condition", "Price","km"],
     Bike: ["Condition", "Price","Year"],
     Cycles: ["Condition", "Price"],
     "Industrial & Agriculture Machinery": ["Condition", "Price"],
@@ -332,9 +323,9 @@ export function shouldRenderField(field, category, sub_category) {
       "AutosBodyShape",
       "gearBox",
       "fuelType",
-      "kilometers",
-      "exteriorColor",
-      "interiorColor",
+      "km",
+      "ExteriorColor",
+      "interirColor",
     ],
     "Cars on Installments": [
       "Condition",
@@ -352,7 +343,7 @@ export function shouldRenderField(field, category, sub_category) {
     Bikes: [
       "Brand",
       "Model",
-      "kilometers",
+      "km",
       "Year",
       "bikeBodyShape",
       "BikeFuelType",
@@ -362,7 +353,7 @@ export function shouldRenderField(field, category, sub_category) {
       "Brand",
       "Model",
       "Year",
-      "kilometers",
+      "km",
       "bikeBodyShape",
       "BikeFuelType",
       "bikeColor",
@@ -380,14 +371,14 @@ export function shouldRenderField(field, category, sub_category) {
       "Type",
     ],
     "Agriculture Machinery": ["Brand", "Working Hours", "Condition", "Type"],
-    Trucks: ["Brand", "Year", "kilometers", "Type"],
-    Vans: ["Brand", "Year", "kilometers", "Type"],
-    Trailers: ["Brand", "kilometers", "Type"],
-    Busses: ["Brand", "Year", "kilometers", "fuelType", "Type", "axelCount"],
+    Trucks: ["Brand", "Year", "km", "Type"],
+    Vans: ["Brand", "Year", "km", "Type"],
+    Trailers: ["Brand", "km", "Type"],
+    Busses: ["Brand", "Year", "km", "fuelType", "Type"],
     Boats: ["Brand", "Hours Driven"],
     Drones: ["Brand"],
 
-    "Other Vehicles": ["Year", "kilometers"],
+    "Other Vehicles": ["Year", "km"],
   };
 
   return (

@@ -35,11 +35,34 @@ import GlobalMethods, {
   showDetails,
 } from "../../../utills/Methods";
 import styles from "./styles";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
+
+function getLocale(languageCode) {
+  const localeMap = {
+    en: "en-US",
+    de: "de-DE",
+    es: "es-ES",
+    it: "it-IT",
+    fr: "fr-FR",
+  };
+
+  // Check if the language code exists in the map, otherwise return 'en-US' as default
+  return localeMap[languageCode] || "de-DE";
+}
+function isInArray(element, arr) {
+  // Check if arr is defined and not null
+  if (arr && Array.isArray(arr)) {
+    return arr.includes(element);
+  }
+  return false; // Return false if arr is not defined or not an array
+}
+
 export default function Detail({ navigation, route }) {
   const { t } = useTranslation();
   const dat = route?.params;
   const loginuser = useSelector(selectUserMeta);
   const islogin = useSelector(selectIsLoggedIn);
+  const lang = useSelector(selectCurrentLanguage);
   const mapRef = useRef(null);
   const dispatch = useDispatch();
   const [data, setDat] = useState({});
@@ -56,17 +79,7 @@ export default function Detail({ navigation, route }) {
       setFav(false);
     }
   });
-  const handlePress = () => {
-    // You can replace the URL with the link you want to open
-    Linking.openURL(data?.videoUrl);
-  };
-  function isInArray(element, arr) {
-    // Check if arr is defined and not null
-    if (arr && Array.isArray(arr)) {
-      return arr.includes(element);
-    }
-    return false; // Return false if arr is not defined or not an array
-  }
+
   const onpressfav = async () => {
     if (!loginuser) {
       infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
@@ -116,6 +129,10 @@ export default function Detail({ navigation, route }) {
     }
 
     // dispatch(setAppLoader(false));
+  };
+  const handlePress = () => {
+    // You can replace the URL with the link you want to open
+    Linking.openURL(data?.videoUrl);
   };
   return (
     <ScreenWrapper
@@ -298,7 +315,7 @@ export default function Detail({ navigation, route }) {
                   color: AppColors.black,
                 }}
               >
-                {new Date(data?.createdAt).toLocaleString("en-US", {
+                {new Date(data?.createdAt).toLocaleString(getLocale(lang), {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -575,15 +592,15 @@ export default function Detail({ navigation, route }) {
                       color: AppColors.black,
                     }}
                   >
-                    Member since{"  "}
-                    {new Date(data?.userId?.createdAt).toLocaleString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      // hour: "numeric",
-                      // minute: "numeric",
-                      // second: "numeric",
-                    })}
+                    {t("detail.membrSince") + " "}
+                    {new Date(data?.userId?.createdAt).toLocaleString(
+                      getLocale(lang),
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      }
+                    )}
                   </Text>
                 </View>
 

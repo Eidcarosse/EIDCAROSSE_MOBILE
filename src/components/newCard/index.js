@@ -333,10 +333,6 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
         onBackButtonPress={() => {
           setModal(false);
         }}
-        swipeDirection={"down"}
-        onSwipeComplete={() => {
-          setModal(false);
-        }}
       >
         <View
           style={{

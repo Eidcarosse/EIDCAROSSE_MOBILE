@@ -51,7 +51,6 @@ import {
   getPriceInitialValue,
   infoMessage,
   shouldRenderField,
-  showType,
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
@@ -60,6 +59,7 @@ export default function AddPost({ navigation, route }) {
   const edit = route?.params?.data;
   const category = route?.params?.category || edit?.category;
   const sub = route?.params?.subcategory || edit?.subCategory;
+
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserMeta);
   const v = useSelector(selectShowViber);
@@ -133,17 +133,32 @@ export default function AddPost({ navigation, route }) {
       setAddWhatsapp(edit?.whatsapp ? true : false);
       setAddPhone(edit?.phone ? true : false);
       setAddEmail(edit?.email ? true : false);
+      setLatiitude(edit?.latitude);
+      setLongitude(edit?.longitude);
       getPriceInitialValue(edit?.price) == 1 && setPrice(edit?.price);
       edit?.vhclZ?.brand === "Others" && setOtherBrand(true);
       edit?.vhclZ?.model === "Others" && setOtherModel(true);
     }
   }, [edit]);
   useEffect(() => {
+    if (edit && mapRef?.current) {
+      mapRef?.current.animateToRegion(
+        {
+          latitude: edit?.latitude,
+          longitude: edit?.longitude,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        },
+        2 * 1000
+      );
+    }
+  }, [mapRef?.current, edit]);
+  useEffect(() => {
     getvehicleMake();
-    if (showType(subCategory)) {
+    getFeilds();
+    if (shouldRenderField("Type", category, subCategory)) {
       getvehicleCategory();
     }
-    getFeilds();
   }, [subCategory]);
   useEffect(() => {
     cat.map((i) => {
@@ -152,7 +167,13 @@ export default function AddPost({ navigation, route }) {
       }
     });
   }, []);
-
+  useEffect(() => {
+    if (brand) getmodel(subCategory, brand);
+  }, [brand, subCategory]);
+  useEffect(() => {
+    if (image.length > 0) setRenderNow(true);
+    else setRenderNow(false);
+  }, [image]);
   const getFeilds = async () => {
     let data = await backEndDataAPi({
       cat: category,
@@ -180,9 +201,7 @@ export default function AddPost({ navigation, route }) {
       setVtype(false);
     }
   };
-  useEffect(() => {
-    if (brand) getmodel(subCategory, brand);
-  }, [brand, subCategory]);
+
   const getmodel = async (a, b) => {
     dispatch(setAppLoader(true));
     let cardata = await getModel(a, b);
@@ -451,10 +470,7 @@ export default function AddPost({ navigation, route }) {
     const currentYear = new Date().getFullYear();
     if (year <= currentYear) setYear(year);
   }
-  useEffect(() => {
-    if (image.length > 0) setRenderNow(true);
-    else setRenderNow(false);
-  }, [image]);
+
   const renderItem = ({ item, drag, isActive }) => (
     <ScaleDecorator>
       <TouchableOpacity
@@ -492,10 +508,6 @@ export default function AddPost({ navigation, route }) {
     <ScreenWrapper
       showStatusBar={false}
       headerUnScrollable={() => (
-        // <Head
-        //   // headtitle={edit ? "editAd.title" : "addPost.title"}
-        //   navigation={navigation}
-        // >
         <View
           style={{
             flexDirection: "row",
@@ -1069,7 +1081,7 @@ export default function AddPost({ navigation, route }) {
                 />
               </View>
             )}
-          {/*-----------------fule type---------------*/}
+          {/*-----------------fule type Auto---------------*/}
           {shouldRenderField("fuelType", category, subCategory) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.fueltype")}</Text>
@@ -1079,9 +1091,7 @@ export default function AddPost({ navigation, route }) {
                     ? t(`fuelTypelist.${fueltype}`)
                     : t("addPost.defaultValueDropdown")
                 }
-                data={
-                  category == "Bikes" ? feild?.BikeFuelType : feild?.fuelType
-                }
+                data={feild?.fuelType}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 buttonStyle={styles.searchbox}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}
@@ -1103,7 +1113,39 @@ export default function AddPost({ navigation, route }) {
               />
             </View>
           )}
-          {/*-----------------exterior color---------------*/}
+          {/*-----------------fule type bike---------------*/}
+          {shouldRenderField("BikeFuelType", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.fueltype")}</Text>
+              <SelectDropdown
+                defaultButtonText={
+                  fueltype
+                    ? t(`fuelTypelist.${fueltype}`)
+                    : t("addPost.defaultValueDropdown")
+                }
+                data={feild?.BikeFuelType}
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setFueltype(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(`fuelTypelist.${selectedItem.name}`);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(`fuelTypelist.${item.name}`);
+                }}
+              />
+            </View>
+          )}
+          {/*-----------------exterior color auto---------------*/}
           {shouldRenderField("ExteriorColor", category, subCategory) && (
             <View style={{ alignSelf: "center" }}>
               <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
@@ -1113,9 +1155,39 @@ export default function AddPost({ navigation, route }) {
                     ? t(`colorList.${exterior}`)
                     : t("addPost.defaultValueDropdown")
                 }
-                data={
-                  category == "Bikes" ? feild?.bikeColor : feild?.exteriorColor
+                data={feild?.exteriorColor}
+                searchPlaceHolder={t("addPost.phsearchHere")}
+                buttonStyle={styles.searchbox}
+                selectedRowStyle={{ backgroundColor: AppColors.primary }}
+                selectedRowTextStyle={{ color: AppColors.white }}
+                buttonTextStyle={{
+                  textAlign: "left",
+                  fontSize: height(1.6),
+                }}
+                dropdownStyle={styles.dropdown}
+                onSelect={(selectedItem, index) => {
+                  setExterior(selectedItem.name);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return t(`colorList.${selectedItem.name}`);
+                }}
+                rowTextForSelection={(item, index) => {
+                  return t(`colorList.${item.name}`);
+                }}
+              />
+            </View>
+          )}
+          {/*-----------------exterior color bike---------------*/}
+          {shouldRenderField("bikeColor", category, subCategory) && (
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.title}>{t("addPost.exteriorcolor")}</Text>
+              <SelectDropdown
+                defaultButtonText={
+                  exterior
+                    ? t(`colorList.${exterior}`)
+                    : t("addPost.defaultValueDropdown")
                 }
+                data={feild?.bikeColor}
                 searchPlaceHolder={t("addPost.phsearchHere")}
                 buttonStyle={styles.searchbox}
                 selectedRowStyle={{ backgroundColor: AppColors.primary }}

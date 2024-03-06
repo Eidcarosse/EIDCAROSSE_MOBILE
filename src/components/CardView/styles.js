@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.grey,
     padding: height(1),
     borderRadius: width(1),
-    width: width(38),
+    maxWidth: width(38),
   },
   cfp: {
     fontSize: height(1.5),

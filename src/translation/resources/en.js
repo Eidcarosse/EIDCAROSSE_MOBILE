@@ -82,7 +82,7 @@ export default {
   aboutUs: {
     aboutus: "About Us",
     paraDetail1:
-    "Eidcarosse is a comprehensive online marketplace dedicated to facilitating the buying and selling of vehicles. With a user-friendly interface and powerful search features, Eidcarosse connects individuals looking for vehicles with sellers offering an extensive range of options. Whether you're in the market for a stylish sedan, a powerful truck, a sleek bike, or any other vehicle, Eidcarosse provides a platform that simplifies the entire process.",
+      "Eidcarosse is a comprehensive online marketplace dedicated to facilitating the buying and selling of vehicles. With a user-friendly interface and powerful search features, Eidcarosse connects individuals looking for vehicles with sellers offering an extensive range of options. Whether you're in the market for a stylish sedan, a powerful truck, a sleek bike, or any other vehicle, Eidcarosse provides a platform that simplifies the entire process.",
     paraTitle2: "Buyers",
     paraDetail2by1:
       "For buyers, Eidcarosse offers a vast selection of vehicles from private sellers and dealerships, ensuring you have access to a wide range of options to suit your preferences and budget",
@@ -354,9 +354,9 @@ export default {
     enterMonthlyInstallment: "Enter Monthly Installment",
     installmentPlan: "Installments Plan",
     enterInstallmentPlan: "Enter Installment Plan",
-    Free: "Free",
+    Free: "Gratis",
     Contact: "Contact for Price",
-    "0": "Free",
+    0: "Gratis",
   },
   fuelTypelist: {
     Gasoline: "Gasoline",
@@ -520,6 +520,7 @@ export default {
     location: "Location",
     seeAllAds: "See All Ads",
     relatedAds: "Related Ads",
+    membrSince: "Member since",
   },
   searchbar: {
     phsearch: "What do you want to search?",
@@ -648,6 +649,72 @@ export default {
     sussessdeleteAccount: "Account deleted successfully.",
   },
   type: {
+    "Agricultural conveying and storage technology":
+      "Tecnología de transporte y almacenamiento agrícola",
+    "Agricultural rollers": "Rodillos agrícolas",
+    "Agricultural spare parts": "Repuestos agrícolas",
+    "ATVs / farm quads": "ATVs / cuatrimotos agrícolas",
+    "Bale wrappers": "Envolvedoras de pacas",
+    "Balers & baling equipment": "Empacadoras y equipos de empacado",
+    "Beet technology": "Tecnología de remolacha",
+    "Chaff cutters": "Picadoras de forraje",
+    "Combination harrows": "Arados combinados",
+    "Combine harvesters": "Cosechadoras",
+    "Cultivators / grubbers": "Cultivadores / escardadoras",
+    "Disc harrows": "Arados de discos",
+    Dryers: "Secadoras",
+    "Farm tractors / yard tractors": "Tractores agrícolas / tractores de patio",
+    "Feeding machines / feeders": "Máquinas de alimentación / alimentadores",
+    "Fertilizer spreaders / lime spreaders":
+      "Esparcidores de fertilizantes / esparcidores de cal",
+    "Forage wagons / loader wagons": "Carros de forraje / carros cargadores",
+    "Forestry machines / logging equipment":
+      "Máquinas forestales / equipos de tala",
+    "Forestry vehicles": "Vehículos forestales",
+    "Front-end loader": "Cargador frontal",
+    "Fruit farming & viticulture equipment":
+      "Equipos para cultivo de frutas y viticultura",
+    Harrows: "Arados",
+    "Harvesters / reapers": "Cosechadoras / segadoras",
+    "Hay equipment": "Equipos de heno",
+    "Hay technology": "Tecnología de heno",
+    Hoes: "Azadas",
+    "Irrigation equipment": "Equipos de riego",
+    "Manure spreaders / dung spreaders":
+      "Esparcidores de estiércol / esparcidores de estiércol",
+    "Manure spreaders & slurry spreaders":
+      "Esparcidores de estiércol y esparcidores de purines",
+    "Milking machinery / milking equipment":
+      "Máquinas de ordeño / equipos de ordeño",
+    Mulchers: "Desmenuzadoras",
+    "Other farm machinery": "Otras maquinarias agrícolas",
+    Packers: "Empacadoras",
+    "Pesticide sprayers & fertilizer spreaders":
+      "Pulverizadores de pesticidas y esparcidores de fertilizantes",
+    Plow: "Arado",
+    "Potato farming machinery": "Maquinaria para cultivo de patatas",
+    "Precision seeders": "Sembradoras de precisión",
+    "Rotary cultivators": "Cultivadores rotativos",
+    "Rotary harrows / power harrows": "Arados rotativos / arados de potencia",
+    "Scarifiers / dethatchers": "Escarificadores / desmalezadoras",
+    "Seed drills / seed planters / planting machines":
+      "Sembradoras / plantadoras de semillas / máquinas de siembra",
+    "Silage equipment": "Equipos de ensilaje",
+    Silos: "Silos",
+    "Stall equipment / livestock stalling":
+      "Equipamiento para establos / estabulación de ganado",
+    "Stone crushers": "Trituradoras de piedra",
+    "Tillage equipment / field cultivators":
+      "Equipos de labranza / cultivadores de campo",
+    "Tires, wheels & rims for agricultural vehicles":
+      "Neumáticos, ruedas y llantas para vehículos agrícolas",
+    Tractors: "Tractores",
+    "Transportation equipment & trailers": "Equipos de transporte y remolques",
+    "Vegetable farming equipment": "Equipos para cultivo de verduras",
+    "Vintage tractors & antique farm vehicles":
+      "Tractores antiguos y vehículos agrícolas vintage",
+    "Weighing equipment / agricultural scales":
+      "Equipos de pesaje / balanzas agrícolas",
     "Articulated bus": "Articulated bus",
     "City bus": "City bus",
     Coach: "Coach",
@@ -843,6 +910,43 @@ export default {
     "Dosing Wagon": "Dosing Wagon",
     "Goods Transport Trailer": "Goods Transport Trailer",
     Others: "Others",
+    "Beverage trucks": "Beverage trucks",
+    "Car transporter trucks": "Car transporter trucks",
+    "Concrete mixer trucks / cement mixer trucks":
+      "Concrete mixer trucks / cement mixer trucks",
+    "Concrete pump trucks": "Concrete pump trucks",
+    "Custom body trucks": "Custom body trucks",
+    "Dump trucks": "Dump trucks",
+    "Flatbed trucks": "Flatbed trucks",
+    "Garbage trucks": "Garbage trucks",
+    "Grain truck": "Grain truck",
+    "Jumbo trucks / high-volume trucks": "Jumbo trucks / high-volume trucks",
+    "Livestock trucks / cattle trucks": "Livestock trucks / cattle trucks",
+    "Logging trucks": "Logging trucks",
+    "Reefer trucks / refrigerated trucks":
+      "Reefer trucks / refrigerated trucks",
+    "Roll-off trucks": "Roll-off trucks",
+    "Skip trucks / hooklift trucks": "Skip trucks / hooklift trucks",
+    "Special purpose trucks": "Special purpose trucks",
+    "Sweeper trucks / street cleaner trucks":
+      "Sweeper trucks / street cleaner trucks",
+    "Three-sided tipper trucks": "Three-sided tipper trucks",
+    "Tipper trucks / dump trucks": "Tipper trucks / dump trucks",
+    "Tow trucks": "Tow trucks",
+    "Truck & trailer / road trains": "Truck & trailer / road trains",
+    "Truck chassis": "Truck chassis",
+    "Truck mounted cranes / mobile cranes":
+      "Truck mounted cranes / mobile cranes",
+    "Trucks with box body / box trucks": "Trucks with box body / box trucks",
+    "Trucks with flatbed & tarpaulin": "Trucks with flatbed & tarpaulin",
+    "Trucks with silo body / silo trucks":
+      "Trucks with silo body / silo trucks",
+    "Trucks with swap chassis / swap body":
+      "Trucks with swap chassis / swap body",
+    "Trucks with tank body / tanker trucks":
+      "Trucks with tank body / tanker trucks",
+    "Vacuum and pressure van": "Vacuum and pressure van",
+    "Work platform trucks": "Work platform trucks",
   },
   editAd: {
     title: "Edit Ad",
@@ -860,6 +964,9 @@ export default {
     nochatMsg: "No messages",
     checkNet: "Check the Internet connection",
     cpholder: "Enter your country name",
+  },
+  footer: {
+    call: "Call",
   },
   Others: "Others",
 };
