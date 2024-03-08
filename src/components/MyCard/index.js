@@ -123,7 +123,7 @@ const MyCard = React.memo(({ data }) => {
           </Text>
         </View> */}
         {!isNullOrNullOrEmpty(data?.price) && (
-          <View style={styles.detailinerview}>
+          <View style={{width:width(40)}}>
             {checkPrice(data?.price) ? (
               <View style={{ width: width(50) }}>
                 <Text numberOfLines={1} style={styles.chf}>

@@ -8,6 +8,8 @@ import i18n from "./translation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 LogBox.ignoreAllLogs(true);
 import { Platform } from "react-native";
+import {appUpgradeVersionCheck} from 'app-upgrade-react-native-sdk';
+
 // import * as Notifications from "expo-notifications";
 
 // Notifications.setNotificationHandler({
@@ -80,6 +82,22 @@ export default function App() {
 
   //   return token;
   // }
+  const xApiKey = "OTlmODUxMTktYjg3ZC00ZDEzLTkzZjMtNWZjY2JkMWI3MWRh"; // Your project key
+  const appInfo = {
+    appId: 'com.eidcarosse.Eidcarossech', // Your app id in play store or app store
+    appName: 'Eidcarosse.ch', // Your app name
+    appVersion: '1.0.3', // Your app version
+    platform: 'android', // App Platform, android or ios
+    environment: 'development', // App Environment, production, development
+    appLanguage: 'de' //Your app language ex: en, es etc. Optional.
+  };
+
+  // Alert config is optional
+  const alertConfig = {
+    updateButtonTitle: 'Update Now',
+  };
+
+  appUpgradeVersionCheck(appInfo, xApiKey, alertConfig);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

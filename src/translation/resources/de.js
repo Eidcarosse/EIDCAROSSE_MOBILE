@@ -479,7 +479,7 @@ export default {
     title: "Detail",
   },
   detail: {
-    detailword: "Details",
+    detailword: "Detail",
     DP: "Preis auf Anfrage",
     price: "Preis",
     condition: "Zustand",
@@ -635,6 +635,10 @@ export default {
     reloginMsg:
       "Du kannst dich ausloggen oder das Passwort ändern. Bitte logge dich erneut ein",
     sussessdeleteAccount: "Konto erfolgreich gelöscht.",
+    samepassword: "Kann nicht dasselbe Passwort eingeben",
+    passwordLength: "Mindestens 8 Zeichen",
+    passwordOldIncorect: "Falsches altes Passwort",
+    imgRequire:"Bild erforderlich"
   },
 
   type: {
@@ -891,7 +895,6 @@ export default {
     "Silo Wagon": "Silo-Wagen",
     "Dosing Wagon": "Dosierwagen",
     "Goods Transport Trailer": "Warentransportanhänger",
-    Others: "Sonstige",
     "Beverage trucks": "Getränkelastwagen",
     "Car transporter trucks": "Auto-Transporter-Lkw",
     "Concrete mixer trucks / cement mixer trucks":

@@ -642,6 +642,10 @@ export default {
     reloginMsg:
       "Puede cerrar sesión o cambiar la contraseña. Por favor, inicie sesión nuevamente",
     sussessdeleteAccount: "Cuenta eliminada exitosamente.",
+    samepassword: "No se puede ingresar la misma contraseña",
+    passwordLength: "Mínimo 8 caracteres",
+    passwordOldIncorect: "Contraseña anterior incorrecta",
+    imgRequire:"Imagen requerida"
   },
 
   type: {

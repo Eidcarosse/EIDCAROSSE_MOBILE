@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import styles from "./styles";
+import styles from "./styles";   //task
 
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,13 +38,12 @@ export default function ChangePassword({ navigation, route }) {
 
       if (!r?.success) {
         dispatch(setAppLoader(false));
-        errorMessage(r?.message, t(`flashmsg.error`));
+        errorMessage(t(`flashmsg.passwordOldIncorect`), t(`flashmsg.error`));
       } else if (r.success) {
         await setAuthData({
-          email: data?.email,
+          email: user?.email,
           password: newPassword.trim(),
         });
-
         successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
         navigation.goBack();
@@ -96,14 +95,14 @@ export default function ChangePassword({ navigation, route }) {
                 !isValidPassword(newPassword.trim()) ||
                 !isValidPassword(oldPassword.trim())
               ) {
-                errorMessage(t("Atlest 8 character"), t(`flashmsg.password`));
+                errorMessage(t("flashmsg.passwordLength"), t(`flashmsg.password`));
               } else if (newPassword.trim() !== confirmPassword.trim())
                 errorMessage(
                   t(`flashmsg.confirmerrormsg`),
                   t(`flashmsg.password`)
                 );
               else if (newPassword.trim() === oldPassword.trim())
-                errorMessage(t(`same password`), t(`flashmsg.password`));
+                errorMessage(t(`flashmsg.samepassword`), t(`flashmsg.password`));
               else chngePassword();
             }}
           />

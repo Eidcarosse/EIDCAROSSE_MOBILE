@@ -647,6 +647,10 @@ export default {
     "Ad deleted": "Ad deleted",
     reloginMsg: "You may Logout or change Password please login again",
     sussessdeleteAccount: "Account deleted successfully.",
+    samepassword:'cannot enter same password',
+    passwordLength:"Atlest 8 character",
+    passwordOldIncorect:"Old Password Incorect",
+    imgRequire:"Image require "
   },
   type: {
     "Agricultural conveying and storage technology":

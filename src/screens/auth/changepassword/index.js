@@ -34,10 +34,12 @@ export default function ChangePassword({ navigation, route }) {
         dispatch(setAppLoader(false));
         errorMessage(r?.message, t(`flashmsg.error`));
       } else if (r) {
-        successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
         dispatch(setAppLoader(false));
+        successMessage(t(`flashmsg.passwordchangemsg`), t(`flashmsg.password`));
+
         navigation.navigate(ScreenNames.LOGIN);
       } else {
+       
         // errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.password`));
       }
       // dispatch(setAppLoader(false));
@@ -61,7 +63,10 @@ export default function ChangePassword({ navigation, route }) {
                 t(`flashmsg.password`)
               );
             } else if (!isValidPassword(newPassword.trim())) {
-              errorMessage(t("Atlest 8 character"), t(`flashmsg.password`));
+              errorMessage(
+                t(`flashmsg.passwordLength`),
+                t(`flashmsg.password`)
+              );
             } else if (
               newPassword.trim() == "" ||
               confirmPassword.trim() == ""

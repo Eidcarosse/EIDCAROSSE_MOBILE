@@ -122,15 +122,20 @@ export default function Routes() {
     languageset();
   }, []);
   useEffect(() => {
-    if (isConnected) {
-      dispatch(setNetworkLoader(false));
-      getuser();
-      getData();
-      getCategorylist();
-    } else {
-      dispatch(setAppLoader(false));
-      dispatch(setNetworkLoader(true));
+    try {
+      if (isConnected) {
+        dispatch(setNetworkLoader(false));
+        getuser();
+        getData();
+        getCategorylist();
+      } else {
+        dispatch(setAppLoader(false));
+        dispatch(setNetworkLoader(true));
+      }
+    } catch (error) {
+      
     }
+   
   }, [isConnected]);
   async function fetchOlineStatus(check) {
     try {
@@ -157,7 +162,7 @@ export default function Routes() {
   });
   const getNetwork = async () => {
     let a = await Network.getNetworkStateAsync();
-    setIsConnected(a);
+    setIsConnected(a?.isConnected);
   };
   const getuser = async () => {
     try {

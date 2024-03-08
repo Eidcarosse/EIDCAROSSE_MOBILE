@@ -622,6 +622,10 @@ export default {
     reloginMsg:
       "Puoi disconnetterti o cambiare la password. Effettua nuovamente il login",
     sussessdeleteAccount: "Account eliminato con successo.",
+    samepassword: "Non è possibile inserire la stessa password",
+    passwordLength: "Almeno 8 caratteri",
+    passwordOldIncorect: "Vecchia password errata",
+    imgRequire:"Immagine richiesta"
   },
 
   type: {

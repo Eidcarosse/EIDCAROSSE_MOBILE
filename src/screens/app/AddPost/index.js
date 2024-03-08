@@ -223,12 +223,9 @@ export default function AddPost({ navigation, route }) {
         address,
         image,
         userInfo,
+        price
       ];
       // category && requiredFields.push(brand);
-      shouldRenderField("Price", category, subCategory) &&
-        pricing == "Price" &&
-        parseInt(price) <= 0 &&
-        requiredFields.push(price);
       const isAnyFieldEmpty = requiredFields.some((field) => !field);
 
       if (isAnyFieldEmpty) {
@@ -271,7 +268,7 @@ export default function AddPost({ navigation, route }) {
         return;
       }
       if (image.length < 1) {
-        errorMessage("Image require ", t(`flashmsg.error`));
+        errorMessage(t(`flashmsg.imgRequire`), t(`flashmsg.error`));
         dispatch(setAppLoader(false));
         return;
       }

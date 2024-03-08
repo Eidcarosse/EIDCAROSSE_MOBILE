@@ -660,6 +660,10 @@ export default {
     reloginMsg:
       "Vous pouvez vous déconnecter ou changer de mot de passe. Veuillez vous reconnecter",
     sussessdeleteAccount: "Compte supprimé avec succès.",
+    samepassword: "Impossible d'entrer le même mot de passe",
+    passwordLength: "Au moins 8 caractères",
+    passwordOldIncorect: "Ancien mot de passe incorrect",
+    imgRequire:"Image requise"
   },
 
   type: {
