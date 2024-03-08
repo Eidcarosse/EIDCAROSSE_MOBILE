@@ -64,6 +64,8 @@ function ChatView({ route }) {
   const [imgModal, setImgModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
+  const [sendImageLoader, setSendImageLoader] = useState(false);
+
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
@@ -479,6 +481,7 @@ function ChatView({ route }) {
     return (await fetch(imageUri)).blob();
   }
   const saveImages = async () => {
+    setSendImageLoader(true);
     const imageUrls = [];
     if (
       (route.params?.userRoom == null || route.params?.userRoom == undefined) &&
@@ -523,6 +526,7 @@ function ChatView({ route }) {
         }
       } catch (error) {
         console.log("Error uploading images:", error);
+        setSendImageLoader(false);
       }
     }
 
@@ -537,6 +541,12 @@ function ChatView({ route }) {
     }
 
     setImageModal(false);
+    const lastReadRef = ref(
+      database,
+      `chatrooms/${roomID}/lastRead/${user?._id}`
+    );
+    await set(lastReadRef, Date.now());
+    setSendImageLoader(false);
     setImage([]);
   };
   const handleBack = () => {
@@ -659,6 +669,7 @@ function ChatView({ route }) {
                 })}
 
               <Button
+                isLoading={sendImageLoader}
                 containerStyle={{ marginTop: height(3) }}
                 title="Send"
                 onPress={saveImages}
@@ -714,7 +725,7 @@ function ChatView({ route }) {
             resizeMode="contain"
             style={{
               width: width(96),
-              height: height(60),
+              height: height(50),
               // alignSelf: "center",
             }}
             // style={{ flex: 1, resizeMode: "cover" }}

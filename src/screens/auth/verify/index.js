@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ImageBackground, Text, View } from "react-native";
-import { useDispatch } from "react-redux";
-import Icons from "../../../asset/images";
-import Modal from "react-native-modal";
-import { Button, Head, Input, ScreenWrapper } from "../../../components";
-import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
+import { Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import {
-  verifyCodeAPI,
-  forgetPasswordAPI,
-  verifycode,
-  verifyAccount,
-} from "../../../backend/auth";
-import { errorMessage, successMessage } from "../../../utills/Methods";
+import Modal from "react-native-modal";
+import { useDispatch ,useSelector} from "react-redux";
+import { verifyAccount, verifycode } from "../../../backend/auth";
+import { Button, Head, Input, ScreenWrapper } from "../../../components";
 import ScreenNames from "../../../routes/routes";
-import {
-  setIsLoggedIn,
-  setToken,
-  setUserMeta,
-} from "../../../redux/slices/user";
+import { height, width } from "../../../utills/Dimension";
+import { errorMessage, successMessage } from "../../../utills/Methods";
+import styles from "./styles";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
 //import i18n from "../../../translation";
 export default function Verify({ navigation, route }) {
   const { t } = useTranslation();
   const data = route?.params?.data;
   const dispatch = useDispatch();
-
+  const lang = useSelector(selectCurrentLanguage);
   const [email, setEmail] = useState(data?.userDetails?.email);
   const [code, setCode] = useState("");
   const [modal, setModel] = useState(false);
@@ -51,7 +40,7 @@ export default function Verify({ navigation, route }) {
     }
   }
   async function sendverifycode() {
-    const d = await verifycode({ email });
+    const d = await verifycode({ email, lang });
     if (d?.success) {
       setToken1(d?.data);
       successMessage(t(`flashmsg.emailsussesssendmsg`), t(`flashmsg.success`));

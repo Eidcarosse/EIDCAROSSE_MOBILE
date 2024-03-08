@@ -94,8 +94,8 @@ export default function AddPost({ navigation, route }) {
   const [fueltype, setFueltype] = useState(edit?.vhclZ?.fuelType || "");
   const [exterior, setExterior] = useState(edit?.vhclZ?.exteriorColor || "");
   const [interior, setInterior] = useState(edit?.vhclZ?.interiorColor || "");
-  const [latitude, setLatiitude] = useState(edit?.latitude || 37.78825);
-  const [longitude, setLongitude] = useState(edit?.longitude || -122.4324);
+  const [latitude, setLatiitude] = useState(edit?.latitude || 46.8182);
+  const [longitude, setLongitude] = useState(edit?.longitude ||  8.2275);
   const [email, setEmail] = useState(userInfo?.email);
   const [phone, setPhone] = useState(userInfo?.phoneNumber);
   const [whatsapp, setWhatsapp] = useState(
@@ -141,18 +141,17 @@ export default function AddPost({ navigation, route }) {
     }
   }, [edit]);
   useEffect(() => {
-    if (edit && mapRef?.current) {
-      mapRef?.current.animateToRegion(
-        {
-          latitude: edit?.latitude,
-          longitude: edit?.longitude,
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.001,
-        },
-        2 * 1000
+    if (edit&&mapRef.current) {
+      mapRef.current.animateToRegion({
+        latitude: edit?.latitude,
+        longitude: edit?.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001,
+      },
+      3*1000
       );
     }
-  }, [mapRef?.current, edit]);
+  }, [mapRef.current]);
   useEffect(() => {
     getvehicleMake();
     getFeilds();
@@ -1495,6 +1494,12 @@ export default function AddPost({ navigation, route }) {
         >
           <MapView
             ref={mapRef}
+            initialRegion={{
+              latitude: latitude,
+              longitude: longitude,
+              latitudeDelta: 1,
+              longitudeDelta: 1,
+            }}
             style={{
               width: "100%",
               height: "100%",

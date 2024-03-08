@@ -49,7 +49,6 @@ import {
   getConditionInitailValue,
   getPriceInitialValue,
   shouldRenderField,
-  showType,
 } from "../../../utills/Methods";
 import styles from "./styles";
 
@@ -185,13 +184,20 @@ export default function ListData({ navigation }) {
   const handleEndReached = () => {
     getData();
   };
+  // useEffect(() => {
+  //   getvehicleMake();
+  //   if (showType(subCategory)) {
+  //     getvehicleSubCategory();
+  //   }
+  //   getFeilds();
+  // }, [category]);
   useEffect(() => {
     getvehicleMake();
-    if (showType(subCategory)) {
+    getFeilds();
+    if (shouldRenderField("Type", category, subCategory)) {
       getvehicleSubCategory();
     }
-    getFeilds();
-  }, [category]);
+  }, [subCategory]);
   const getFeilds = async () => {
     let data = await backEndDataAPi({
       cat: category,
@@ -697,9 +703,13 @@ export default function ListData({ navigation }) {
                         switch (e?.key) {
                           case "Free":
                             setPricing("Free");
+                            setPricefrom("")
+                            setPriceto("")
                             break;
                           case "Contact":
                             setPricing("Contact");
+                            setPricefrom("")
+                            setPriceto("")
                             break;
                           default:
                             setPricing("Price");

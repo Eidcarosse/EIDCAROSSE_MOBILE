@@ -68,6 +68,8 @@ export default function Detail({ navigation, route }) {
   const [data, setDat] = useState({});
   const favAdIds = useSelector(selectFavAds);
   const [fav, setFav] = useState(false);
+  const [loadfav, setloadFav] = useState(false);
+
   const [img, setimg] = useState([]);
   const [load, setload] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -81,17 +83,28 @@ export default function Detail({ navigation, route }) {
   });
 
   const onpressfav = async () => {
-    if (!loginuser) {
-      infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
-    } else {
-      let fav = await toggleFavorite(data?._id, loginuser?._id);
-      if (isInArray(data._id, fav)) {
-        setFav(true);
+    try {
+      if (!loginuser) {
+        infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
       } else {
-        setFav(false);
+        setloadFav(true)
+        let fav = await toggleFavorite(data?._id, loginuser?._id);
+        if (isInArray(data._id, fav)) {
+          setFav(true);
+          setloadFav(false)
+        } else {
+          setFav(false);
+          setloadFav(false)
+        }
+        dispatch(setAdsFav(fav));
       }
-      dispatch(setAdsFav(fav));
+    } catch (error) {
+      
     }
+    finally{
+      setloadFav(false)
+    }
+   
   };
   useEffect(() => {
     getData();
@@ -271,16 +284,22 @@ export default function Detail({ navigation, route }) {
                 )}
                 {/*------fav btn-------*/}
                 {!(data?.userId?._id === loginuser?._id) ? (
-                  <TouchableOpacity
+                  loadfav ? (
+                    <ActivityIndicator
                     style={{ marginHorizontal: width(3) }}
-                    onPress={onpressfav}
-                  >
-                    <AntDesign
-                      size={height(2.5)}
-                      color={fav ? AppColors.primary : "black"}
-                      name={fav ? "heart" : "hearto"}
-                    />
-                  </TouchableOpacity>
+                    color={AppColors.primary} />
+                  ) : (
+                    <TouchableOpacity
+                      style={{ marginHorizontal: width(3) }}
+                      onPress={onpressfav}
+                    >
+                      <AntDesign
+                        size={height(2.5)}
+                        color={fav ? AppColors.primary : "black"}
+                        name={fav ? "heart" : "hearto"}
+                      />
+                    </TouchableOpacity>
+                  )
                 ) : (
                   <></>
                 )}

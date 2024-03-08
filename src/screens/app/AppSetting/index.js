@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
-import { AntDesign, Fontisto } from "@expo/vector-icons";
 
-import { Head, IconButton, ScreenWrapper } from "../../../components";
-import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
-import SelectDropdown from "react-native-select-dropdown";
 import { useTranslation } from "react-i18next";
-import i18next from "i18next";
+import SelectDropdown from "react-native-select-dropdown";
 import { useDispatch, useSelector } from "react-redux";
+import { Head, ScreenWrapper } from "../../../components";
 import {
   selectCurrentLanguage,
   setLanguage,
 } from "../../../redux/slices/language";
+import AppColors from "../../../utills/AppColors";
+import { height, width } from "../../../utills/Dimension";
 import { storelangData } from "../../../utills/Methods";
-
+import styles from "./styles";
+const countries = [
+  { key: "appseting.English", value: "en" },
+  { key: "appseting.German", value: "de" },
+  { key: "appseting.Italian", value: "it" },
+  { key: "appseting.Spanish", value: "es" },
+  { key: "appseting.French", value: "fr" },
+];
 export default function AppSetting({ navigation, route }) {
   const dispatch = useDispatch();
-  const [show, setShow] = useState();
-  const countries = [
-    { key: "appseting.English", value: "en" },
-    { key: "appseting.German", value: "de" },
-    { key: "appseting.Italian", value: "it" },
-    { key: "appseting.Spanish", value: "es" },
-    { key: "appseting.French", value: "fr" },
-  ];
+ 
   const { t, i18n } = useTranslation();
   const lang = useSelector(selectCurrentLanguage);
 

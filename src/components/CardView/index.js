@@ -2,7 +2,13 @@ import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../../backend/api";
 import { selectCurrentLanguage } from "../../redux/slices/language";
@@ -39,6 +45,7 @@ const CardView = React.memo(({ data }) => {
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
+  const [loadfav, setloadFav] = useState(false);
 
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
@@ -51,12 +58,15 @@ const CardView = React.memo(({ data }) => {
     if (!loginuser) {
       infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
+      setloadFav(true);
       let fav = await toggleFavorite(data._id, loginuser._id);
       dispatch(setAdsFav(fav));
       if (isInArray(data._id, fav)) {
         setFav(true);
+        setloadFav(false);
       } else {
         setFav(false);
+        setloadFav(false);
       }
     }
   };
@@ -146,13 +156,17 @@ const CardView = React.memo(({ data }) => {
       </TouchableOpacity>
       {!(data?.userId?._id === loginuser?._id) ? (
         <View style={styles.icons}>
-          <TouchableOpacity onPress={onpressfav} style={styles.space}>
-            <AntDesign
-              size={height(2)}
-              color={fav ? AppColors.primary : "black"}
-              name={fav ? "heart" : "hearto"}
-            />
-          </TouchableOpacity>
+          {loadfav ? (
+            <ActivityIndicator color={AppColors.primary} />
+          ) : (
+            <TouchableOpacity onPress={onpressfav} style={styles.space}>
+              <AntDesign
+                size={height(2)}
+                color={fav ? AppColors.primary : "black"}
+                name={fav ? "heart" : "hearto"}
+              />
+            </TouchableOpacity>
+          )}
         </View>
       ) : (
         <></>

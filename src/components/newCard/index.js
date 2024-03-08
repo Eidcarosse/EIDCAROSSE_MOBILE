@@ -2,7 +2,7 @@ import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, Text, TouchableOpacity, View,ActivityIndicator } from "react-native";
 import Modal from "react-native-modal";
 import Swiper from "react-native-swiper";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +33,8 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
+  const [loadfav, setloadFav] = useState(false);
+
   const [img, setimg] = useState(data?.images || []);
   const [modal, setModal] = useState(false);
   useEffect(() => {
@@ -57,11 +59,14 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
     if (!loginuser) {
       infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
+      setloadFav(true);
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {
         setFav(true);
+        setloadFav(false);
       } else {
         setFav(false);
+        setloadFav(false);
       }
       dispatch(setAdsFav(fav));
     }
@@ -122,13 +127,17 @@ const Card = React.memo(({ data, onPresshide, map = false }) => {
               </TouchableOpacity>
               {!(data?.userId?._id === loginuser?._id) ? (
                 <View>
-                  <TouchableOpacity onPress={onpressfav}>
-                    <AntDesign
-                      size={height(2.5)}
-                      color={fav ? AppColors.primary : "grey"}
-                      name={fav ? "heart" : "hearto"}
-                    />
-                  </TouchableOpacity>
+                  {loadfav ? (
+                    <ActivityIndicator color={AppColors.primary} />
+                  ) : (
+                    <TouchableOpacity onPress={onpressfav}>
+                      <AntDesign
+                        size={height(2.5)}
+                        color={fav ? AppColors.primary : "grey"}
+                        name={fav ? "heart" : "hearto"}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
               ) : (
                 <></>

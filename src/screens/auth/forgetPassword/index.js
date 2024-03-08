@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, Text, View } from "react-native";
-import { useDispatch } from "react-redux";
-import Icons from "../../../asset/images";
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import Modal from "react-native-modal";
+import { useSelector } from "react-redux";
+import Icons from "../../../asset/images";
+import { forgetPasswordAPI, verifyCodeAPI } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
+import ScreenNames from "../../../routes/routes";
 import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
-import styles from "./styles";
-import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { verifyCodeAPI, forgetPasswordAPI } from "../../../backend/auth";
 import { errorMessage, successMessage } from "../../../utills/Methods";
-import ScreenNames from "../../../routes/routes";
+import styles from "./styles";
 //import i18n from "../../../translation";
 export default function ForgetPassword({ navigation, route }) {
   const { t } = useTranslation();
@@ -19,9 +20,9 @@ export default function ForgetPassword({ navigation, route }) {
   const [code, setCode] = useState("");
   const [modal, setModel] = useState(false);
   const [token, setToken] = useState("");
-
+  const lang = useSelector(selectCurrentLanguage);
   async function forgetpassword() {
-    const d = await forgetPasswordAPI(email.trim());
+    const d = await forgetPasswordAPI(email.trim(), lang);
     if (d?.success) {
       setToken(d?.data);
       successMessage(t(`flashmsg.emailsussesssendmsg`), t(`flashmsg.success`));

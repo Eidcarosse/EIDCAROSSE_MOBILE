@@ -106,10 +106,11 @@ const getShowAds = async (id) => {
     return response;
   } catch (error) {}
 };
-const forgetPasswordAPI = async (mail) => {
+const forgetPasswordAPI = async (mail,lang) => {
   try {
     const response = await ApiManager.post("auth/forgot-password", {
       email: mail,
+      lang,lang
     });
 
     // Handle the response here

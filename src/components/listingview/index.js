@@ -1,7 +1,7 @@
 import { AntDesign, Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View,ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFavAds,
@@ -31,6 +31,7 @@ export default function ListingView({ data }) {
   const loginuser = useSelector(selectUserMeta);
   const navigation = useNavigation();
   const [fav, setFav] = useState(false);
+  const [loadfav, setloadFav] = useState(false);
 
   useEffect(() => {
     if (isInArray(data._id, favAdIds)) {
@@ -51,11 +52,14 @@ export default function ListingView({ data }) {
     if (!loginuser) {
       infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
     } else {
+      setloadFav(true)
       let fav = await toggleFavorite(data._id, loginuser._id);
       if (isInArray(data._id, fav)) {
         setFav(true);
+        setloadFav(false)
       } else {
         setFav(false);
+        setloadFav(false)
       }
       dispatch(setAdsFav(fav));
     }
@@ -92,13 +96,17 @@ export default function ListingView({ data }) {
               )}
               {!(data?.userId?._id === loginuser?._id) ? (
                 <View>
-                  <TouchableOpacity onPress={onpressfav}>
-                    <AntDesign
-                      size={width(4)}
-                      color={fav ? AppColors.primary : "black"}
-                      name={fav ? "heart" : "hearto"}
-                    />
-                  </TouchableOpacity>
+                  {loadfav ? (
+                    <ActivityIndicator color={AppColors.primary} />
+                  ) : (
+                    <TouchableOpacity onPress={onpressfav}>
+                      <AntDesign
+                        size={width(4)}
+                        color={fav ? AppColors.primary : "black"}
+                        name={fav ? "heart" : "hearto"}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
               ) : (
                 <></>
