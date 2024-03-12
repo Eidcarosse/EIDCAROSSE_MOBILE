@@ -1,17 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { IconButton, ScreenWrapper } from "../../../components";
 import { Ionicons } from "@expo/vector-icons";
-import CategoryList from "../../../components/categorylist";
-import Header from "../../../components/header";
-import SearchBar from "../../../components/searchbar";
-import ScreenNames from "../../../routes/routes";
-import AppColors from "../../../utills/AppColors";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Image, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import Icons from "../../../asset/images";
 import { getDataofHomePage } from "../../../backend/api";
+import { IconButton, ScreenWrapper } from "../../../components";
+import CategoryList from "../../../components/categorylist";
+import Header from "../../../components/header";
 import {
   selectCategoryList,
   selectTopAds,
@@ -19,6 +16,8 @@ import {
   setCategoryList,
   setTopAds,
 } from "../../../redux/slices/config";
+import ScreenNames from "../../../routes/routes";
+import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 
 import { useScrollToTop } from "@react-navigation/native";
@@ -40,7 +39,7 @@ export default function Home({}) {
   const onRefresh = async () => {
     // setRefreshing(true);
     dispatch(setAppLoader(true));
-    if (!category || category.length < 1) {
+    if (category.error || !category || category.length < 1) {
       getCategorylist();
     }
     getData();
@@ -55,7 +54,6 @@ export default function Home({}) {
   );
   async function getCategorylist() {
     const d = await getCategory();
-    console.log("d",d);
     if (d) dispatch(setCategoryList(d));
   }
   const getData = useCallback(async () => {

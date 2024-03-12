@@ -480,6 +480,7 @@ export default {
     whatsappPlaceholder: "Entrez votre numéro Whatsapp",
     viberTitle: "Viber",
     viberPlaceholder: "Entrez votre numéro Viber",
+    msg: "Appuyez sur l'icône d'édition pour mettre à jour le numéro et confirmer les modifications.",
   },
   manageAccount: {
     title: "Gérer le Compte",
@@ -663,7 +664,7 @@ export default {
     samepassword: "Impossible d'entrer le même mot de passe",
     passwordLength: "Au moins 8 caractères",
     passwordOldIncorect: "Ancien mot de passe incorrect",
-    imgRequire:"Image requise"
+    imgRequire: "Image requise",
   },
 
   type: {

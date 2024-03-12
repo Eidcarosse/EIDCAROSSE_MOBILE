@@ -25,12 +25,13 @@ export default function Category({ navigation, route }) {
   useEffect(() => {
     onRefresh();
   }, []);
-  const onRefresh = async () => {
-    async function getCategorylist() {
-      const d = await getCategory();
-      if (d) dispatch(setCategoryList(d));
-    }
-    // setRefreshing(true);
+  async function getCategorylist() {
+    const d = await getCategory();
+    if (d) dispatch(setCategoryList(d));
+  }
+  const onRefresh =  () => {
+   
+    setRefreshing(true);
     try {
       if (!data || data.length < 1) {
         dispatch(setAppLoader(true));
@@ -39,7 +40,10 @@ export default function Category({ navigation, route }) {
           dispatch(setAppLoader(false));
         }, 1000);
       }
-    } catch (error) {}
+      setRefreshing(false);
+    } catch (error) {
+      setRefreshing(false);
+    }
   };
   return (
     <ScreenWrapper
@@ -102,6 +106,8 @@ export default function Category({ navigation, route }) {
           }}
           numColumns={1}
           keyExtractor={(item, index) => index}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
         />
         <View
           style={{

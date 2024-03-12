@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
@@ -6,6 +6,9 @@ import PhoneInput from "react-native-phone-number-input";
 import AppColors from "../../utills/AppColors";
 import { height, width } from "../../utills/Dimension";
 import styles from "./styles";
+import { Menu, MenuItem } from "react-native-material-menu";
+
+import { AntDesign } from "@expo/vector-icons";
 export default function NumberInput({
   showBtn = true,
   title,
@@ -25,13 +28,39 @@ export default function NumberInput({
   const [secureText, setSecureText] = useState(secure);
   const phoneInput = useRef(null);
   const [changeValue, setChangeValue] = useState();
+  const [isModalVisible, setModalVisible] = useState(false);
+
   return (
     <View>
       <View style={[styles.container, containerStyle]}>
         {title && (
-          <Text style={[titlestyle, { fontSize: height(1.8), color: AppColors.black, }]}>
-            {t(title)}
-          </Text>
+          <View style={{ flexDirection: "row", alignContent: "center" }}>
+            <Text
+              style={[
+                titlestyle,
+                { fontSize: height(1.8), color: AppColors.black },
+              ]}
+            >
+              {t(title)}
+            </Text>
+            {secureText && (
+              <TouchableOpacity
+                style={{ marginLeft: width(5) }}
+                onPress={() => {
+                  setModalVisible(true);
+                  setTimeout(() => {
+                    setModalVisible(false);
+                  }, 5000);
+                }}
+              >
+                <AntDesign
+                  name="infocirlceo"
+                  size={height(2)}
+                  color={AppColors.black}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         )}
         <View style={styles.innerview}>
           {!secureText ? (
@@ -82,6 +111,7 @@ export default function NumberInput({
 
           {showBtn && (
             <TouchableOpacity
+            style={{padding:height(1)}}
               onPress={() => {
                 setSecureText(!secureText);
                 if (!secureText) {
@@ -92,7 +122,7 @@ export default function NumberInput({
                 }
               }}
             >
-              <Feather
+              <FontAwesome
                 name={secureText ? "edit" : "check-square"}
                 color={secureText ? "grey" : AppColors.primary}
                 size={height(2)}
@@ -101,6 +131,25 @@ export default function NumberInput({
           )}
         </View>
       </View>
+      {isModalVisible && (
+        <View
+          style={{
+            backgroundColor: AppColors.white,
+            width: width(75),
+            position: "absolute",
+            left: width(20),
+            padding: width(2),
+            borderWidth: 1,
+            borderColor: "grey",
+            zIndex: 100,
+            borderRadius: height(0.5),
+          }}
+        >
+          <Text style={{ color: "grey" ,fontWeight:'bold'}}>
+         {t('editprofile.msg')}
+          </Text>
+        </View>
+      )}
       {require && (
         <Text
           style={{

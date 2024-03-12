@@ -3,12 +3,13 @@ import Routes from "./routes";
 import { Provider } from "react-redux";
 import { store } from "./redux/index";
 import FlashMessage from "react-native-flash-message";
-import { LogBox,AppState } from "react-native";
+import { LogBox, AppState } from "react-native";
 import i18n from "./translation";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 LogBox.ignoreAllLogs(true);
 import { Platform } from "react-native";
-import {appUpgradeVersionCheck} from 'app-upgrade-react-native-sdk';
+import { appUpgradeVersionCheck } from "app-upgrade-react-native-sdk";
+import { getlangData } from "./utills/Methods";
 
 // import * as Notifications from "expo-notifications";
 
@@ -20,13 +21,24 @@ import {appUpgradeVersionCheck} from 'app-upgrade-react-native-sdk';
 //   }),
 // });
 
-
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
+  const [lang, setLang] = useState(false);
+
   const notificationListener = useRef();
   const responseListener = useRef();
 
+  useEffect(() => {
+    const languageset = async () => {
+      let l = await getlangData();
+      setLang(l);
+    };
+    languageset();
+  }, []);
+  useEffect(() => {
+    if (lang) appUpgradeVersionCheck(appInfo, xApiKey, alertConfig);
+  }, [lang]);
   // useEffect(() => {
   //   registerForPushNotificationsAsync().then((token) =>
   //     setExpoPushToken(token)
@@ -82,22 +94,24 @@ export default function App() {
 
   //   return token;
   // }
+
   const xApiKey = "OTlmODUxMTktYjg3ZC00ZDEzLTkzZjMtNWZjY2JkMWI3MWRh"; // Your project key
   const appInfo = {
-    appId: 'com.eidcarosse.Eidcarossech', // Your app id in play store or app store
-    appName: 'Eidcarosse.ch', // Your app name
-    appVersion: '1.0.3', // Your app version
-    platform: 'android', // App Platform, android or ios
-    environment: 'development', // App Environment, production, development
-    appLanguage: 'de' //Your app language ex: en, es etc. Optional.
+    appId: "com.eidcarosse.Eidcarossech", // Your app id in play store or app store
+    appName: "Eidcarosse.ch", // Your app name
+    appVersion: "1.0.3", // Your app version
+    platform: "android",
+    // platform: 'ios', // App Platform, android or ios
+    environment: "development", // App Environment, production, development
+    appLanguage: lang || "de", //Your app language ex: en, es etc. Optional.
   };
 
   // Alert config is optional
   const alertConfig = {
-    updateButtonTitle: 'Update Now',
+    title: lang == "en" ? "Update" : "Aktualisierung",
+    updateButtonTitle: lang == "en" ? "Update" : "Aktualisierung",
+    laterButtonTitle: lang == "en" ? "later" : "Später",
   };
-
-  appUpgradeVersionCheck(appInfo, xApiKey, alertConfig);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

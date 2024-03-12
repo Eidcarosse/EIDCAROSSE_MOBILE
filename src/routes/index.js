@@ -85,7 +85,6 @@ export default function Routes() {
   const dispatch = useDispatch();
   const [isConnected, setIsConnected] = useState(true);
   const [user, setUser] = useState();
-  const [countMsg, setCountMsg] = useState(0);
   const loginuser = useSelector(selectUserMeta);
   const appState = useRef(AppState.currentState);
   const net = useSelector(selectNetworkLoader);
@@ -95,7 +94,9 @@ export default function Routes() {
       appState.current = nextAppState;
       console.log("AppState in app", appState.current);
       if (nextAppState === "active" || appState.current === "active") {
-        fetchOlineStatus(true);
+        setTimeout(() => {
+          fetchOlineStatus(true);
+        }, 1000);
       } else {
         fetchOlineStatus(false);
       }
@@ -104,18 +105,11 @@ export default function Routes() {
     return () => {
       subscription.remove();
     };
-  }, []);
+  });
   useEffect(() => {
     fetchOlineStatus(true);
   }, [user, loginuser]);
 
-  useEffect(() => {
-    if (countMsg > 0) {
-      dispatch(setNewChat(true));
-    } else {
-      dispatch(setNewChat(false));
-    }
-  }, [countMsg]);
   useEffect(() => {
     dispatch(setAppLoader(true));
     getNetwork();
@@ -132,11 +126,8 @@ export default function Routes() {
         dispatch(setAppLoader(false));
         dispatch(setNetworkLoader(true));
       }
-    } catch (error) {
-      
-    }
-   
-  }, [isConnected]);
+    } catch (error) {}
+  }, [isConnected,net]);
   async function fetchOlineStatus(check) {
     try {
       if (user || loginuser) {

@@ -681,8 +681,8 @@ export default function Detail({ navigation, route }) {
                 initialRegion={{
                   latitude: data?.latitude || 0,
                   longitude: data?.longitude || 0,
-                  latitudeDelta: 0.1,
-                  longitudeDelta: 0.1,
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.01,
                 }}
                 style={{
                   width: "100%",
@@ -695,8 +695,8 @@ export default function Detail({ navigation, route }) {
                   coordinate={{
                     latitude: data?.latitude || 0,
                     longitude: data?.longitude || 0,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
+                    latitudeDelta: 0.001,
+                    longitudeDelta: 0.001,
                   }}
                 />
               </MapView>

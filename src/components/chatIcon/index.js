@@ -77,7 +77,7 @@ export default function ChatIcon({ data }) {
         const currentRooms = snapshot.val() || [];
 
         // Filter out the room to be removed
-        const updatedRooms = currentRooms.filter((room) => room !== roomId);
+        const updatedRooms = currentRooms?.filter((room) => room !== roomId);
 
         // Update the user's data with the updated rooms array
         await set(userRef, updatedRooms);

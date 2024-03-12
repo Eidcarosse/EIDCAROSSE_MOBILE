@@ -58,7 +58,7 @@ export default function AppSetting({ navigation, route }) {
             countries.find((item) => {
               return item.value == lang;
             })?.key
-          )}
+          )||t("addPost.defaultValueDropdown")}
           searchPlaceHolder={t("addPost.phsearchHere")}
           buttonStyle={styles.searchbox}
           selectedRowStyle={{ backgroundColor: AppColors.primary }}

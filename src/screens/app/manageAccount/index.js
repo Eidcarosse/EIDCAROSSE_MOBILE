@@ -1,10 +1,14 @@
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import { ref, set, getDatabase } from "firebase/database";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
-import styles from "./styles";
+
+import { useTranslation } from "react-i18next";
 import Dialog from "react-native-dialog";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteAccountAPI } from "../../../backend/auth";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
+import { setAppLoader } from "../../../redux/slices/config";
 import {
   selectUserMeta,
   setAdsFav,
@@ -14,18 +18,17 @@ import {
   setUserMeta,
 } from "../../../redux/slices/user";
 import AppColors from "../../../utills/AppColors";
-import { height, width } from "../../../utills/Dimension";
+import { height } from "../../../utills/Dimension";
 import {
   errorMessage,
   setAuthData,
   successMessage,
 } from "../../../utills/Methods";
-import { deleteAccountAPI } from "../../../backend/auth";
-import { useTranslation } from "react-i18next";
-import { setAppLoader } from "../../../redux/slices/config";
+import styles from "./styles";
 export default function ManageAccount({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const db = getDatabase();
   const [visible, setVisible] = useState(false);
   const [code, setCode] = useState("");
 
@@ -35,7 +38,7 @@ export default function ManageAccount({ navigation, route }) {
     try {
       const formData = new FormData();
       formData.append("password", password);
-      const data = await deleteAccountAPI(user._id, formData);
+      const data = await deleteAccountAPI(user?._id, formData);
       if (data?.success) {
         successMessage(
           t("flashmsg.sussessdeleteAccount"),
@@ -56,6 +59,12 @@ export default function ManageAccount({ navigation, route }) {
       dispatch(setAppLoader(false));
     }
   };
+  async function fetchOlineStatus(id, check) {
+    try {
+      const userStatusRef = ref(db, `users/${id}/online`);
+      await set(userStatusRef, check);
+    } catch (error) {}
+  }
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -74,6 +83,9 @@ export default function ManageAccount({ navigation, route }) {
               dispatch(setAdsFav([]));
               dispatch(setChatRooms([]));
               setAuthData(null), navigation.goBack();
+              setTimeout(() => {
+                fetchOlineStatus(user._id, false);
+              }, 1000);
             }}
             title={"manageAccount.logout"}
             containerStyle={styles.logoutcontainer}

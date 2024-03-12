@@ -475,6 +475,7 @@ export default {
     emailTitle: "Email",
     emailPlaceholder: "Enter your email address",
     update: "Update",
+    msg:"Press the edit icon to update the number and confirm the changes."
   },
   manageAccount: {
     title: "Manage Account",

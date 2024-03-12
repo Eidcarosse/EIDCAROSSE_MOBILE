@@ -456,6 +456,7 @@ export default {
     emailTitle: "E-Mail",
     emailPlaceholder: "Geben Sie Ihre E-Mail-Adresse ein",
     update: "Speichern",
+    msg: "Drücken Sie das Bearbeitungssymbol, um die Nummer zu aktualisieren, und bestätigen Sie die Änderungen.",
   },
   manageAccount: {
     title: "Konto verwalten",
@@ -638,7 +639,7 @@ export default {
     samepassword: "Kann nicht dasselbe Passwort eingeben",
     passwordLength: "Mindestens 8 Zeichen",
     passwordOldIncorect: "Falsches altes Passwort",
-    imgRequire:"Bild erforderlich"
+    imgRequire: "Bild erforderlich",
   },
 
   type: {

@@ -445,6 +445,7 @@ export default {
     whatsappPlaceholder: "Inserisci il tuo numero di Whatsapp",
     viberTitle: "Viber",
     viberPlaceholder: "Inserisci il tuo numero di Viber",
+    msg: "Premi l'icona di modifica per aggiornare il numero e confermare le modifiche.",
   },
   manageAccount: {
     title: "Gestisci Account",
@@ -625,7 +626,7 @@ export default {
     samepassword: "Non è possibile inserire la stessa password",
     passwordLength: "Almeno 8 caratteri",
     passwordOldIncorect: "Vecchia password errata",
-    imgRequire:"Immagine richiesta"
+    imgRequire: "Immagine richiesta",
   },
 
   type: {

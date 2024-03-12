@@ -224,8 +224,8 @@ const openWhatsAppChannel = (link) => {
       console.log("WhatsApp opened successfully");
     })
     .catch((error) => {
-      console.error("Error opening WhatsApp:", error);
-      errorMessage("Whatsapp not exist");
+      Linking.openURL("https://whatsapp.com");
+      console.error("Error opening WhatsApp CHANEL", error);
     });
 };
 export const openViber = (phoneNumber) => {
@@ -305,8 +305,8 @@ export const showDetails = (x) => {
 export function shouldRenderField(field, category, sub_category) {
   const config = {
     // Main categories
-    Vehicles: ["Condition", "Price","km"],
-    Bike: ["Condition", "Price","Year"],
+    Vehicles: ["Condition", "Price", "km"],
+    Bike: ["Condition", "Price", "Year"],
     Cycles: ["Condition", "Price"],
     "Industrial & Agriculture Machinery": ["Condition", "Price"],
     "Commercial Vehicles": ["Condition", "Price"],
@@ -361,16 +361,23 @@ export function shouldRenderField(field, category, sub_category) {
       "Monthly Installments",
       "Installment Plan",
     ],
-    "E-scooters": ["Brand","Year"],
+    "E-scooters": ["Brand", "Year"],
     Bicycles: ["Brand", "Year"],
-    "E-bikes": ["Brand","Year"],
+    "E-bikes": ["Brand", "Year"],
     "Construction & Heavy Machinery": [
       "Brand",
       "Working Hours",
       "Condition",
       "Type",
+      "Year",
     ],
-    "Agriculture Machinery": ["Brand", "Working Hours", "Condition", "Type"],
+    "Agriculture Machinery": [
+      "Brand",
+      "Working Hours",
+      "Condition",
+      "Type",
+      "Year",
+    ],
     Trucks: ["Brand", "Year", "km", "Type"],
     Vans: ["Brand", "Year", "km", "Type"],
     Trailers: ["Brand", "km", "Type"],

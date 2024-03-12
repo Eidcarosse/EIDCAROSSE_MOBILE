@@ -1,14 +1,9 @@
-import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
+import { ref, set,getDatabase } from "firebase/database";
 import React, { useEffect, useState } from "react";
-import {
-  ImageBackground,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { useTranslation } from "react-i18next";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import CheckBox from "react-native-check-box";
 import { useDispatch } from "react-redux";
 import Icons from "../../../asset/images";
@@ -26,8 +21,6 @@ import AppColors from "../../../utills/AppColors";
 import { height, width } from "../../../utills/Dimension";
 import {
   errorMessage,
-  getAuthAllData,
-  getAuthData,
   getRememberMe,
   infoMessage,
   setAuthAllData,
@@ -36,8 +29,6 @@ import {
   successMessage,
 } from "../../../utills/Methods";
 import styles from "./styles";
-import { useTranslation } from "react-i18next";
-import * as SecureStore from "expo-secure-store";
 //import i18n from "../../../translation";
 async function save(value) {
   try {
@@ -71,6 +62,7 @@ async function getValueFor() {
 export default function Login({ navigation, route }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const db = getDatabase();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailr, setEmailr] = useState("");
@@ -137,7 +129,7 @@ export default function Login({ navigation, route }) {
           dispatch(setUserMeta(res?.data?.userDetails));
           dispatch(setToken(res?.data?.token));
           dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
-
+          fetchOlineStatus(res?.data?.userDetails?._id, true);
           setAuthData(data);
           setAuthAllData(res?.data?.userDetails);
           dispatch(setAppLoader(false));
@@ -155,6 +147,12 @@ export default function Login({ navigation, route }) {
   };
   async function handleRemberMe() {
     setCheck(!check);
+  }
+  async function fetchOlineStatus(id, check) {
+    try {
+      const userStatusRef = ref(db, `users/${id}/online`);
+      await set(userStatusRef, check);
+    } catch (error) {}
   }
   return (
     <ScreenWrapper

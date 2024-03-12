@@ -466,6 +466,7 @@ export default {
     whatsappPlaceholder: "Ingresa tu número de Whatsapp",
     viberTitle: "Viber",
     viberPlaceholder: "Ingresa tu número de Viber",
+    msg:"Presiona el ícono de edición para actualizar el número y confirmar los cambios."
   },
   manageAccount: {
     title: "Gestionar Cuenta",

@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, Ionicons,MaterialCommunityIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import styles from "./styles";
@@ -29,6 +29,9 @@ export default function OtherProfile({ navigation, route }) {
     if (userAd) setData(userAd);
     setRefreshing(false);
   };
+  console.log('====================================');
+  console.log("other profilw ",userdata);
+  console.log('====================================');
   return (
     <ScreenWrapper
       refreshing={refreshing}
@@ -167,15 +170,36 @@ export default function OtherProfile({ navigation, route }) {
               </View>
             ))}
           {userdata?.showAds && (
-            <Text
-              style={{
-                alignSelf: "center",
-                marginVertical: height(20),
-                fontWeight: "bold",
-              }}
-            >
-              {t("otherProfile.op")}
-            </Text>
+            // <Text
+            //   style={{
+            //     alignSelf: "center",
+            //     marginVertical: height(20),
+            //     fontWeight: "bold",
+            //   }}
+            // >
+            //  
+            // </Text>
+            <View style={{
+              alignContent:'center',
+              alignItems:'center',
+              justifyContent:'center',
+              height:height(70)
+            }}>
+              <MaterialCommunityIcons
+              name="shield-lock-outline"
+              size={width(50)}
+              color={AppColors.bgIcon}
+              />
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: height(2),
+                  color: AppColors.black,
+                }}
+              >
+                {t("otherProfile.op")}
+              </Text>
+            </View>
           )}
         </View>
       </View>

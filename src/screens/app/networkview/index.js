@@ -17,7 +17,7 @@ export default function NetworkLoader() {
     console.log('====================================');
     console.log("neteettee",a);
     console.log('====================================');
-    dispatch(setNetworkLoader(a?.isConnected));
+    dispatch(setNetworkLoader(!a?.isConnected));
   };
   return (
     <ScreenWrapper scrollEnabled onRefresh={getNetwork}>
