@@ -241,6 +241,7 @@ function ChatView({ route }) {
         ...Platform.select({
           ios: {
             bottom: height(0),
+            top:height(.1)
           },
           android: {
             bottom: height(0),

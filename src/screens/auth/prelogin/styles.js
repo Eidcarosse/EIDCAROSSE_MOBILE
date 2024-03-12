@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
   mainViewContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",alignSelf:'center'
+    alignItems: "center",
+    alignSelf: "center",
+    paddingBottom: height(10),
   },
   containerStyle: {
     borderRadius: width(2),
@@ -15,7 +17,8 @@ const styles = StyleSheet.create({
   image: {
     width: width(75),
     alignSelf: "center",
-    height: width(70),marginVertical:height(10)
+    height: width(70),
+    marginVertical: height(10),
   },
   text: { fontSize: height(2), margin: width(10), fontWeight: "bold" },
 });

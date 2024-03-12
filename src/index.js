@@ -99,7 +99,7 @@ export default function App() {
   const appInfo = {
     appId: "com.eidcarosse.Eidcarossech", // Your app id in play store or app store
     appName: "Eidcarosse.ch", // Your app name
-    appVersion: "1.0.3", // Your app version
+    appVersion: "1.0.4", // Your app version
     platform: "android",
     // platform: 'ios', // App Platform, android or ios
     environment: "development", // App Environment, production, development
