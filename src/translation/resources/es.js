@@ -272,7 +272,7 @@ export default {
     title: "Ma Liste de Souhaits",
   },
   otherProfile: {
-    op: "Cuenta privada",
+    op: "Privada",
   },
 
   home: {

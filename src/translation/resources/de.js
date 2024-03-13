@@ -263,7 +263,7 @@ export default {
     title: "Meine Favoriten",
   },
   otherProfile: {
-    op: "Leer",
+    op: "Privat",
   },
 
   home: {

@@ -257,7 +257,7 @@ export default {
     title: "La Mia Lista dei Desideri",
   },
   otherProfile: {
-    op: "Account privato",
+    op: "Privato",
   },
 
   home: {

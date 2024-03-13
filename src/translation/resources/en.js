@@ -278,7 +278,7 @@ export default {
     title: "My Wish List",
   },
   otherProfile: {
-    op: "Private Account",
+    op: "Private",
   },
   home: {
     letest: "Latest Ads",
@@ -624,7 +624,6 @@ export default {
     emailrequireerrormsg: "Enter your registered Email to forget Password",
     emailmsg: "Email is required or may be incorrect format",
     passwordmsg: "Password must be required or may be incorrect",
-
     entercode: "Enter code to confirm",
     signuperrormsg: "Something went wrong to Signup",
 
@@ -637,8 +636,8 @@ export default {
     "Invalid email or password.": "Invalid email or password",
     "Account is registered but not verified":
       "Account is registered but not verified",
-    "Alert! email already exists please enter someother email.":
-      "Alert! email already exists please enter someother email.",
+    "EmalArdExisits":
+      "Email already exists please enter someother email.",
     "Unable to create user! please try again.":
       "Unable to create user! please try again.",
     "Please fill all required fields": "Please fill all required fields",

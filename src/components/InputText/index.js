@@ -19,7 +19,7 @@ export default function Input({
   require = false,
   keyboardType = "default",
   inputTextStyle,
-  autoCapitalize =  "sentences" ,
+  autoCapitalize = "sentences",
 }) {
   const { t } = useTranslation();
   const [secureText, setSecureText] = useState(secure);
@@ -27,7 +27,12 @@ export default function Input({
     <View>
       <View style={[styles.container, containerStyle]}>
         {title && (
-          <Text style={[titlestyle, { fontSize: height(1.8), color: AppColors.black, }]}>
+          <Text
+            style={[
+              titlestyle,
+              { fontSize: height(1.8), color: AppColors.black },
+            ]}
+          >
             {t(title)}
           </Text>
         )}
@@ -71,7 +76,7 @@ export default function Input({
             paddingLeft: width(5),
           }}
         >
-          {t("addPost.require")}
+          {secure ? t("flashmsg.passwordLength") : t("addPost.require")}
         </Text>
       )}
     </View>
