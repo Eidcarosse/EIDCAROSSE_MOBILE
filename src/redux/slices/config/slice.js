@@ -7,7 +7,7 @@ const initialState = {
   showWhatsapp: false,
   showViber: false,
   newChat: false,
-  networkLoder:false
+  networkLoder: true,
 };
 
 const configSlice = createSlice({

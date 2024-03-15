@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import Modal from "react-native-modal";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { verifyAccount, verifycode } from "../../../backend/auth";
 import { Button, Head, Input, ScreenWrapper } from "../../../components";
+import { selectCurrentLanguage } from "../../../redux/slices/language";
 import ScreenNames from "../../../routes/routes";
 import { height, width } from "../../../utills/Dimension";
 import { errorMessage, successMessage } from "../../../utills/Methods";
 import styles from "./styles";
-import { selectCurrentLanguage } from "../../../redux/slices/language";
 //import i18n from "../../../translation";
 export default function Verify({ navigation, route }) {
   const { t } = useTranslation();
@@ -23,10 +23,12 @@ export default function Verify({ navigation, route }) {
   const [token1, setToken1] = useState(data?.token);
 
   useEffect(() => {
-    setTimeout(() => {
-      sendverifycode();
-      setModel(true);
-    }, 600);
+    if (email) {
+      setTimeout(() => {
+        sendverifycode();
+        setModel(true);
+      }, 600);
+    }
   }, []);
 
   async function verifyfuntion(code) {

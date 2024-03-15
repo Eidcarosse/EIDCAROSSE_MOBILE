@@ -950,5 +950,8 @@ export default {
   footer: {
     call: "Anrufen",
   },
+  network: {
+    msg: "Überprüfen Sie Ihre Internetverbindung.",
+  },
   Others: "Andere",
 };

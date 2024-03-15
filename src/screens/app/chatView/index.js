@@ -6,6 +6,7 @@ import {
   ref,
   set,
   remove,
+  serverTimestamp,
 } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -100,14 +101,14 @@ function ChatView({ route }) {
     setReceiver(route.params?.usr);
   }, []);
   useEffect(() => {
-    if (usrData) {
-      const userStatusRef = ref(database, `users/${usrData?._id}/online`);
+    if (route.params?.usr) {
+      const userStatusRef = ref(database, `users/${route.params?.usr?._id}/online`);
       onValue(userStatusRef, (snapshot) => {
         const status = snapshot.val();
         setOnline(status);
       });
     }
-  }, [usrData]);
+  }, [route.params?.usr]);
 
   useEffect(() => {
     if (!selectedItem) {
@@ -231,7 +232,56 @@ function ChatView({ route }) {
       />
     );
   };
+  async function sendPushNotification(
+    expoPushToken,
+    title = "New Messsage",
+    messageText = "new one"
+  ) {
+    const message = {
+      to: expoPushToken,
+      sound: "default",
+      title: title,
+      body: messageText,
+    };
 
+    await fetch("https://exp.host/--/api/v2/push/send", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
+  }
+
+  const sendNotification = async (title, message) => {
+    console.log('====================================');
+    console.log("New msg ",route.params?.usr?._id);
+    console.log('====================================');
+    if (route.params?.usr?._id) {
+      const postUserTokenRef = ref(database, `tokens/${route.params?.usr?._id}`);
+      const tokenSnapshot = await get(postUserTokenRef);
+
+      if (tokenSnapshot.exists()) {
+        const tokenData = Object.values(tokenSnapshot.val());
+        const postUserToken = tokenData[tokenData.length - 1].token.data;
+
+        // Send notification to post user using their token
+        if (postUserToken) {
+          sendPushNotification(postUserToken, title, message);
+        }
+      } else {
+        // Post user token not available, store notification along with postUserId
+        await push(ref(database, `notifications/${route.params?.usr?._id}`), {
+          title: "New Message",
+          createdAt: serverTimestamp(),
+        });
+      }
+    } else {
+      console.log("postUserId is null or undefined. Notification not sent.");
+    }
+  };
   const renderActions = (props) => (
     <Actions
       {...props}
@@ -241,7 +291,7 @@ function ChatView({ route }) {
         ...Platform.select({
           ios: {
             bottom: height(0),
-            top:height(.1)
+            top: height(0.1),
           },
           android: {
             bottom: height(0),
@@ -408,7 +458,7 @@ function ChatView({ route }) {
       rooms: lst, // Update the 'rooms' field with the 'lst' object
     };
 
-    set(userRef, updateData)
+    await set(userRef, updateData)
       .then(() => {
         dispatch(setChatRooms(roomID));
 
@@ -439,7 +489,7 @@ function ChatView({ route }) {
           ref(database, `chatrooms/${roomNew}/messages`)
         );
 
-        set(newMessageRef, {
+        await set(newMessageRef, {
           text: newMessage.text,
           timestamp: Date.now(),
           senderId: user?._id, // Set the sender's user ID here
@@ -473,6 +523,7 @@ function ChatView({ route }) {
           `chatrooms/${roomID}/lastRead/${user?._id}`
         );
         await set(lastReadRef, Date.now());
+        await sendNotification(route.params.usr?.firstName, newMessage.text);
         await setRooms(roomID, route.params.usr?._id);
         await setRooms(roomID, user?._id);
       }
@@ -573,20 +624,20 @@ function ChatView({ route }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              usrData &&
+              route.params?.usr &&
               navigation.navigate(ScreenNames.OTHERPROFILE, {
-                user: usrData,
+                user: route.params?.usr,
               })
             }
           >
             <Image
-              source={{ uri: usrData?.image }}
+              source={{ uri: route.params?.usr?.image }}
               style={styles.image_Style}
               resizeMode="cover"
             />
           </TouchableOpacity>
           <View>
-            <Text style={styles.account_Text}>{usrData?.firstName}</Text>
+            <Text style={styles.account_Text}>{route.params?.usr?.firstName}</Text>
             {online ? (
               <View style={styles.online_View}>
                 <View style={styles.online_Indicator}></View>
@@ -627,7 +678,7 @@ function ChatView({ route }) {
           renderMessageText={renderMessageText}
           renderTime={renderTime}
           renderBubble={renderBubble}
-          textInputProps={{ editable: selectedItem && usrData ? true : false }}
+          textInputProps={{ editable: selectedItem && route.params?.usr ? true : false }}
         />
 
         <View>

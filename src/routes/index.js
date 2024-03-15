@@ -10,7 +10,7 @@ import { getDataofAdByID, getDataofHomePage } from "../backend/api";
 import { getOwneAd, getUserByID, loginApi } from "../backend/auth";
 import { getCategory } from "../backend/common";
 import { Loader } from "../components";
-// import * as Notifications from "expo-notifications";
+import NetInfo from "@react-native-community/netinfo";
 import {
   selectNetworkLoader,
   setAppLoader,
@@ -83,12 +83,20 @@ export default function Routes() {
   const db = getDatabase();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [isConnected, setIsConnected] = useState(true);
   const [user, setUser] = useState();
   const loginuser = useSelector(selectUserMeta);
   const appState = useRef(AppState.currentState);
   const net = useSelector(selectNetworkLoader);
 
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      dispatch(setNetworkLoader(state.isConnected));
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       appState.current = nextAppState;
@@ -112,26 +120,23 @@ export default function Routes() {
 
   useEffect(() => {
     dispatch(setAppLoader(true));
-    getNetwork();
     languageset();
   }, []);
   useEffect(() => {
     try {
-      if (isConnected) {
-        dispatch(setNetworkLoader(false));
+      if (net) {
         getuser();
         getData();
         getCategorylist();
       } else {
         dispatch(setAppLoader(false));
-        dispatch(setNetworkLoader(true));
       }
     } catch (error) {}
-  }, [isConnected,net]);
+  }, []);
   async function fetchOlineStatus(check) {
     try {
-      if (user || loginuser) {
-        let a = user?._id || loginuser?._id;
+      if (loginuser) {
+        let a = loginuser?._id;
         const userStatusRef = ref(db, `users/${a}/online`);
         await set(userStatusRef, check);
       }
@@ -151,10 +156,6 @@ export default function Routes() {
       dispatch(setAppLoader(false));
     }
   });
-  const getNetwork = async () => {
-    let a = await Network.getNetworkStateAsync();
-    setIsConnected(a?.isConnected);
-  };
   const getuser = async () => {
     try {
       let data = await getAuthData();
@@ -183,7 +184,7 @@ export default function Routes() {
         dispatch(setToken(response?.data?.token));
         dispatch(setUserAds(userAd));
         dispatch(setAdsFav(response?.data?.userDetails?.favAdIds));
-      } else if (response?.data?.success == false && isConnected) {
+      } else if (response?.data?.success == false) {
         dispatch(setIsLoggedIn(false));
         dispatch(setUserMeta(null));
         dispatch(setUserAds(null));
@@ -201,22 +202,21 @@ export default function Routes() {
           Alert.alert(t("flashmsg.alert"), t("flashmsg.reloginMsg"), [
             { text: "OK", onPress: () => {} },
           ]);
-      } else {
-        let userData = await getAuthAllData();
-        if (userData) {
-          dispatch(setIsLoggedIn(true));
-          dispatch(setUserMeta(userData));
-
-          await fetchRoomsData(userData?._id);
-          const userAd = await getOwneAd(userData?._id);
-          setUser(userData);
-          dispatch(setUserAds(userAd));
-          dispatch(setAdsFav(userData?.favAdIds));
-        }
-        // Alert.alert(t("flashmsg.alert"), t("Check the Internet connection"), [
-        //   { text: "OK", onPress: () => {} },
-        // ]);
       }
+      //  else {
+      //   let userData = await getAuthAllData();
+      //   if (userData) {
+      //     dispatch(setIsLoggedIn(true));
+      //     dispatch(setUserMeta(userData));
+      //     const userAd = await getOwneAd(userData?._id);
+      //     setUser(userData);
+      //     dispatch(setUserAds(userAd));
+      //     dispatch(setAdsFav(userData?.favAdIds));
+      //   }
+      //   // Alert.alert(t("flashmsg.alert"), t("Check the Internet connection"), [
+      //   //   { text: "OK", onPress: () => {} },
+      //   // ]);
+      // }
     } catch (error) {
       dispatch(setAppLoader(false));
     }
@@ -230,20 +230,20 @@ export default function Routes() {
   });
   const myFunction = useCallback(async (data, id) => {
     let lastmsg = {};
-    const lastReadRef = await ref(db, `chatrooms/${data}/lastRead/${id}`);
-
-    // Assuming you're using Firebase Realtime Database
-    const snapshot = await get(lastReadRef);
-    let lastReadTimestamp = await snapshot.val();
-    const messagesRef = ref(db, `chatrooms/${data}/messages`);
-    onValue(messagesRef, (snapshot) => {
+    const messagesRef = await ref(db, `chatrooms/${data}/messages`);
+    await onValue(messagesRef, (snapshot) => {
       const messageData = snapshot.val();
-
       if (messageData) {
         const messageList = Object.values(messageData);
         lastmsg = messageList[messageList.length - 1];
       }
     });
+
+    const lastReadRef = await ref(db, `chatrooms/${data}/lastRead/${id}`);
+
+    // Assuming you're using Firebase Realtime Database
+    const snapshot = await get(lastReadRef);
+    let lastReadTimestamp = await snapshot.val();
     return { lastmsg, readd: lastReadTimestamp < lastmsg?.timestamp };
   });
 
@@ -259,7 +259,6 @@ export default function Routes() {
   const fetchRoomsData = useCallback(async (userId) => {
     try {
       roomRef = ref(db, `users/${userId}/rooms`);
-
       const handleRoomUpdate = async (snapshot) => {
         const room = snapshot.val() || [];
         dispatch(setChatRooms(room));
@@ -281,16 +280,6 @@ export default function Routes() {
     }
   });
 
-  // async function schedulePushNotification() {
-  //   await Notifications.scheduleNotificationAsync({
-  //     content: {
-  //       title: "Eidcarosse",
-  //       body: "New message",
-  //     },
-  //     trigger: { seconds: 0.2 },
-  //   });
-  // }
-
   const promisFuntion = async (allRooms, id) => {
     try {
       const promises = allRooms.map(async (element) => {
@@ -308,7 +297,6 @@ export default function Routes() {
 
       const newData = await Promise.all(promises);
       if (newData.find((item) => item?.read == true)) {
-        // await schedulePushNotification();
         dispatch(setNewChat(true));
       } else {
         dispatch(setNewChat(false));
@@ -328,7 +316,7 @@ export default function Routes() {
   return (
     <NavigationContainer>
       <Loader />
-      {net ? (
+      {!net ? (
         <Stack.Navigator screenOptions={{ header: () => false }}>
           <Stack.Screen name={"net"} component={NetworkLoader} />
         </Stack.Navigator>

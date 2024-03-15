@@ -2,13 +2,13 @@ import { get, getDatabase, off, onValue, ref } from "firebase/database";
 import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 
+import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataofAdByID } from "../../../backend/api";
 import { getUserByID } from "../../../backend/auth";
 import { ChatIcon, ScreenWrapper } from "../../../components";
-import {  Ionicons } from "@expo/vector-icons";
 
 import Header from "../../../components/header";
 import { selectNewChat, setNewChat } from "../../../redux/slices/config";
@@ -43,7 +43,7 @@ export default function ChatList({ navigation, route }) {
   //       title: "Eidcarosse",
   //       body: "New message",
   //     },
-  //     trigger: { seconds: 1 },
+  //     trigger: { seconds: 2 },
   //   });
   // }
   const fetchRooms = async (userId) => {
@@ -134,7 +134,9 @@ export default function ChatList({ navigation, route }) {
 
   return (
     <ScreenWrapper
-      headerUnScrollable={() => <Header navigation={navigation} title="Chats" />}
+      headerUnScrollable={() => (
+        <Header navigation={navigation} title="Chats" />
+      )}
       refreshing={loading}
       onRefresh={promisFuntion}
       scrollEnabled
@@ -155,16 +157,18 @@ export default function ChatList({ navigation, route }) {
           )}
           keyExtractor={(item, index) => index}
           ListEmptyComponent={() => (
-            <View style={{
-              alignContent:'center',
-              alignItems:'center',
-              justifyContent:'center',
-              height:height(70)
-            }}>
+            <View
+              style={{
+                alignContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                height: height(70),
+              }}
+            >
               <Ionicons
-              name="chatbubbles-outline"
-              size={width(50)}
-              color={AppColors.bgIcon}
+                name="chatbubbles-outline"
+                size={width(50)}
+                color={AppColors.bgIcon}
               />
               <Text
                 style={{

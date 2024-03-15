@@ -44,17 +44,13 @@ export default function Profile({ navigation, route }) {
           }}
         />
         <View style={styles.imageiner}>
-         
           <Pressable
-         onPress={() => {
-          navigation.navigate(ScreenNames.EDITPROFILE);
-        }}
+            onPress={() => {
+              navigation.navigate(ScreenNames.EDITPROFILE);
+            }}
             style={styles.flotView}
           >
-             <Image
-            style={styles.avatar}
-            source={{ uri: userdata?.image }}
-          />
+            <Image style={styles.avatar} source={{ uri: userdata?.image }} />
           </Pressable>
           <View
             style={{

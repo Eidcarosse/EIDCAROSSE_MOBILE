@@ -475,7 +475,7 @@ export default {
     emailTitle: "Email",
     emailPlaceholder: "Enter your email address",
     update: "Update",
-    msg:"Press the edit icon to update the number and confirm the changes."
+    msg: "Press the edit icon to update the number and confirm the changes.",
   },
   manageAccount: {
     title: "Manage Account",
@@ -636,8 +636,7 @@ export default {
     "Invalid email or password.": "Invalid email or password",
     "Account is registered but not verified":
       "Account is registered but not verified",
-    "EmalArdExisits":
-      "Email already exists please enter someother email.",
+    EmalArdExisits: "Email already exists please enter someother email.",
     "Unable to create user! please try again.":
       "Unable to create user! please try again.",
     "Please fill all required fields": "Please fill all required fields",
@@ -647,10 +646,10 @@ export default {
     "Ad deleted": "Ad deleted",
     reloginMsg: "You may Logout or change Password please login again",
     sussessdeleteAccount: "Account deleted successfully.",
-    samepassword:'cannot enter same password',
-    passwordLength:"Atlest 8 character",
-    passwordOldIncorect:"Old Password Incorect",
-    imgRequire:"Image require "
+    samepassword: "cannot enter same password",
+    passwordLength: "Atlest 8 character",
+    passwordOldIncorect: "Old Password Incorect",
+    imgRequire: "Image require ",
   },
   type: {
     "Agricultural conveying and storage technology":
@@ -971,6 +970,9 @@ export default {
   },
   footer: {
     call: "Call",
+  },
+  network: {
+    msg: "Check your internet connection.",
   },
   Others: "Others",
 };

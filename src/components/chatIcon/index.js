@@ -1,30 +1,29 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { get, getDatabase, onValue, ref, set } from "firebase/database";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
+  Image,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
 import Dialog from "react-native-dialog";
-import ScreenNames from "../../routes/routes";
-import { height, width } from "../../utills/Dimension";
-import styles from "./styles";
-import { onValue, remove } from "firebase/database";
-import { get, getDatabase, ref, set } from "firebase/database";
-import { selectUserMeta, setChatRooms } from "../../redux/slices/user";
 import { useDispatch, useSelector } from "react-redux";
-import AppColors from "../../utills/AppColors";
-import { selectNewChat, setNewChat } from "../../redux/slices/config";
-// import * as Notifications from "expo-notifications";
-import GlobalMethods from "../../utills/Methods";
+import { setNewChat } from "../../redux/slices/config";
 import { selectCurrentLanguage } from "../../redux/slices/language";
+import { selectUserMeta } from "../../redux/slices/user";
+import ScreenNames from "../../routes/routes";
+import AppColors from "../../utills/AppColors";
+import { height } from "../../utills/Dimension";
+import styles from "./styles";
+
 export default function ChatIcon({ data }) {
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const database = getDatabase();
   const user = useSelector(selectUserMeta);
   const language = useSelector(selectCurrentLanguage);
   const dispatch = useDispatch();
@@ -40,12 +39,15 @@ export default function ChatIcon({ data }) {
   useEffect(() => {
     setSelectedItem(!data?.product || !data?.user);
     setUserDetail(data);
-    if (!(data?.product && data?.user)) {
-      // deleteChatroom(data?.roomId);
-    }
-    // setLatestMsg(data?.lastmsg);
   }, [data]);
-  const database = getDatabase();
+
+  useEffect(() => {
+    if (data?.roomId == userDetail?.roomId) {
+      const dataRef = ref(database, `chatrooms/${userDetail?.roomId}/messages`);
+      setNot(0);
+      onValue(dataRef, handleSnapshot);
+    }
+  }, [userDetail]);
 
   const deleteChatroom = async (chatroomId) => {
     try {
@@ -59,15 +61,6 @@ export default function ChatIcon({ data }) {
       // Handle errors as needed
     }
   };
-  // async function schedulePushNotification(title, body) {
-  //   await Notifications.scheduleNotificationAsync({
-  //     content: {
-  //       title: title,
-  //       body: body,
-  //     },
-  //     trigger: null,
-  //   });
-  // }
   const setRooms = async (roomId, id) => {
     try {
       const userRef = ref(database, `users/${id}/rooms`);
@@ -85,7 +78,7 @@ export default function ChatIcon({ data }) {
     } catch (error) {}
   };
 
-  const handlePress = useCallback(() => {
+  const handlePress = () => {
     if (data?.roomId == userDetail?.roomId) {
       setNewMsg(false);
       navigation.navigate(ScreenNames.CHAT, {
@@ -94,7 +87,7 @@ export default function ChatIcon({ data }) {
         userItem: data?.product,
       });
     }
-  });
+  };
 
   const handleSnapshot = useCallback(async (snapshot) => {
     let lastmsg = {};
@@ -119,23 +112,11 @@ export default function ChatIcon({ data }) {
       ) {
         setLastNot(lastmsg?.timestamp);
         setNot(not + 1);
-        // await schedulePushNotification(
-        //   userDetail?.user?.firstName,
-        //   lastmsg.text
-        // );
       }
       dispatch(setNewChat(lastReadTimestamp < lastmsg?.timestamp));
     }
     // Handle the updated data here
   });
-
-  useEffect(() => {
-    if (data?.roomId == userDetail?.roomId) {
-      const dataRef = ref(database, `chatrooms/${userDetail?.roomId}/messages`);
-      setNot(0);
-      onValue(dataRef, handleSnapshot);
-    }
-  }, [userDetail]);
 
   return (
     <Fragment>
@@ -262,7 +243,7 @@ export default function ChatIcon({ data }) {
         <Dialog.Container visible={visible}>
           <Dialog.Title> {t("Delete Chat")}</Dialog.Title>
           <Dialog.Description>
-            <Text style={{ fontSize: height(1.5), color: AppColors.black, }}>
+            <Text style={{ fontSize: height(1.5), color: AppColors.black }}>
               {t("Do you want to delete the chat")}
             </Text>
           </Dialog.Description>

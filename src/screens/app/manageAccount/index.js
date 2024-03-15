@@ -8,7 +8,7 @@ import Dialog from "react-native-dialog";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccountAPI } from "../../../backend/auth";
 import { Head, IconButton, ScreenWrapper } from "../../../components";
-import { setAppLoader } from "../../../redux/slices/config";
+import { setAppLoader, setNewChat } from "../../../redux/slices/config";
 import {
   selectUserMeta,
   setAdsFav,
@@ -65,6 +65,12 @@ export default function ManageAccount({ navigation, route }) {
       await set(userStatusRef, check);
     } catch (error) {}
   }
+  const unregisterTokenOnLogout = async () => {
+    if (user?._id) {
+      const tokenRef = ref(db, `tokens/${user?._id}`);
+      await set(tokenRef, null);
+    }
+  };
   return (
     <ScreenWrapper
       showStatusBar={false}
@@ -82,7 +88,9 @@ export default function ManageAccount({ navigation, route }) {
               dispatch(setUserAds(null));
               dispatch(setAdsFav([]));
               dispatch(setChatRooms([]));
+              dispatch(setNewChat(false));
               setAuthData(null), navigation.goBack();
+              unregisterTokenOnLogout();
               setTimeout(() => {
                 fetchOlineStatus(user._id, false);
               }, 1000);

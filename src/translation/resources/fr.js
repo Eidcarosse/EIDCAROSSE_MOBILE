@@ -998,5 +998,8 @@ export default {
   footer: {
     call: "Call",
   },
+  network: {
+    msg: "Vérifiez votre connexion internet.",
+  },
   Others: "Autres",
 };

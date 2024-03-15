@@ -105,6 +105,9 @@ export default function Login({ navigation, route }) {
     try {
       dispatch(setAppLoader(true));
       let res = await loginApi(data);
+      console.log('====================================');
+      console.log("res",res);
+      console.log('====================================');
       if (!res?.success) {
         dispatch(setAppLoader(false));
         console.log(res?.message);
@@ -131,7 +134,7 @@ export default function Login({ navigation, route }) {
           dispatch(setAdsFav(res?.data?.userDetails?.favAdIds));
           fetchOlineStatus(res?.data?.userDetails?._id, true);
           setAuthData(data);
-          setAuthAllData(res?.data?.userDetails);
+          // setAuthAllData(res?.data?.userDetails);
           dispatch(setAppLoader(false));
           successMessage("", t(`flashmsg.sussessloginmsg`));
           navigation.navigate(ScreenNames.BUTTOM);

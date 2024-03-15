@@ -948,5 +948,8 @@ export default {
   footer: {
     call: "Call",
   },
+  network: {
+    msg: "Controlla la tua connessione internet.",
+  },
   Others: "Altros",
 };
