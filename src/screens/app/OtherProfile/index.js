@@ -29,9 +29,6 @@ export default function OtherProfile({ navigation, route }) {
     if (userAd) setData(userAd);
     setRefreshing(false);
   };
-  console.log('====================================');
-  console.log("other profilw ",userdata);
-  console.log('====================================');
   return (
     <ScreenWrapper
       refreshing={refreshing}

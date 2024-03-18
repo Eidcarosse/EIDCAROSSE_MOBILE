@@ -140,6 +140,7 @@ export default function ChatIcon({ data }) {
                 "https://res.cloudinary.com/dlkuyfwzu/image/upload/v1704430891/Simple_avatar_qrmt3r.png",
             }}
             onLoad={() => setImageLoading(false)}
+            onError={()=>setImageLoading(false)}
           />
           {imageLoading && (
             <View
@@ -147,7 +148,7 @@ export default function ChatIcon({ data }) {
                 width: height(8),
                 height: height(8),
                 borderRadius: height(10),
-                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                backgroundColor: "rgba(0, 0, 0, 0.7)",
                 position: "absolute",
                 alignItems: "center",
                 justifyContent: "center",

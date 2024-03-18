@@ -70,7 +70,7 @@ export const NotificationProvider = ({ children }) => {
 
           if (userToken) {
             //sendPushNotification(userToken,title , body || 'Sent an image');
-            sendPushNotification(userToken, "Nova poruka");
+            sendPushNotification(userToken, "New Message");
           }
         }
         // });
@@ -130,10 +130,6 @@ export const NotificationProvider = ({ children }) => {
       if (existingStatus !== "granted") {
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
-      }
-      if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
-        return;
       }
       // token = (await Notifications.getExpoPushTokenAsync()).data;
 

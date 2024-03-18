@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "232832919856",
+    "firebase_url": "https://eidcarosse-7d282-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "eidcarosse-7d282",
+    "storage_bucket": "eidcarosse-7d282.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232832919856:android:0757ebf6df24792ef0c0f5",
+        "android_client_info": {
+          "package_name": "com.eidcarosse.Eidcarossech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232832919856-952thhcto3vg46ok2rca11gfaksedb3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuJTOZptNxPpdkXRrAo8e5fuTo_b5kS9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232832919856-952thhcto3vg46ok2rca11gfaksedb3v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "232832919856-nq21trbgq6hbic46hs1fhum89lavipm2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.eidcarosse.Eidcarosse"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -70,8 +70,6 @@ function ChatView({ route }) {
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-
-  const usrData = route.params?.usr;
   const user = useSelector(selectUserMeta);
   const data = useSelector(selectChatRooms);
   const [modal, setModal] = useState(false);
@@ -102,7 +100,10 @@ function ChatView({ route }) {
   }, []);
   useEffect(() => {
     if (route.params?.usr) {
-      const userStatusRef = ref(database, `users/${route.params?.usr?._id}/online`);
+      const userStatusRef = ref(
+        database,
+        `users/${route.params?.usr?._id}/online`
+      );
       onValue(userStatusRef, (snapshot) => {
         const status = snapshot.val();
         setOnline(status);
@@ -234,8 +235,8 @@ function ChatView({ route }) {
   };
   async function sendPushNotification(
     expoPushToken,
-    title = "New Messsage",
-    messageText = "new one"
+    title = "Neue Nachricht",
+    messageText = ""
   ) {
     const message = {
       to: expoPushToken,
@@ -256,11 +257,11 @@ function ChatView({ route }) {
   }
 
   const sendNotification = async (title, message) => {
-    console.log('====================================');
-    console.log("New msg ",route.params?.usr?._id);
-    console.log('====================================');
     if (route.params?.usr?._id) {
-      const postUserTokenRef = ref(database, `tokens/${route.params?.usr?._id}`);
+      const postUserTokenRef = ref(
+        database,
+        `tokens/${route.params?.usr?._id}`
+      );
       const tokenSnapshot = await get(postUserTokenRef);
 
       if (tokenSnapshot.exists()) {
@@ -523,7 +524,7 @@ function ChatView({ route }) {
           `chatrooms/${roomID}/lastRead/${user?._id}`
         );
         await set(lastReadRef, Date.now());
-        await sendNotification(route.params.usr?.firstName, newMessage.text);
+        await sendNotification(user?.firstName, newMessage.text);
         await setRooms(roomID, route.params.usr?._id);
         await setRooms(roomID, user?._id);
       }
@@ -637,7 +638,9 @@ function ChatView({ route }) {
             />
           </TouchableOpacity>
           <View>
-            <Text style={styles.account_Text}>{route.params?.usr?.firstName}</Text>
+            <Text style={styles.account_Text}>
+              {route.params?.usr?.firstName}
+            </Text>
             {online ? (
               <View style={styles.online_View}>
                 <View style={styles.online_Indicator}></View>
@@ -678,7 +681,9 @@ function ChatView({ route }) {
           renderMessageText={renderMessageText}
           renderTime={renderTime}
           renderBubble={renderBubble}
-          textInputProps={{ editable: selectedItem && route.params?.usr ? true : false }}
+          textInputProps={{
+            editable: selectedItem && route.params?.usr ? true : false,
+          }}
         />
 
         <View>

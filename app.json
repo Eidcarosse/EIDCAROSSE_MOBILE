@@ -48,7 +48,7 @@
                 "NSMicrophoneUsageDescription": "Eidcarosse uses your microphone while taking video of your product for uploading in listing information."
             },
             "bundleIdentifier": "com.eidcarosse.Eidcarosse",
-            "buildNumber": "11"
+            "buildNumber": "12"
         },
         "androidStatusBar": {
             "hidden": true
@@ -64,12 +64,20 @@
                 "backgroundColor": "#ffffff"
             },
             "package": "com.eidcarosse.Eidcarossech",
-            "versionCode": 4
+            "versionCode": 4,
+            "googleServicesFile": "./google-services.json"
         },
         "web": {
             "favicon": "./assets/favicon.png"
         },
         "plugins": [
+            [
+                "expo-notifications",
+                  {
+                    "icon":"./assets/icon1.png",
+                    "color": "#ffffff"
+                  }
+            ],
             [
                 "expo-build-properties",
                 {
@@ -79,7 +87,7 @@
                         "buildToolsVersion": "30.0.2"
                     },
                     "ios": {
-                        "deploymentTarget": "13.0"
+                        "deploymentTarget": "13.4"
                     }
                 }
             ],
