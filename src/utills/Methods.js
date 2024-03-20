@@ -305,7 +305,7 @@ export const showDetails = (x) => {
 export function shouldRenderField(field, category, sub_category) {
   const config = {
     // Main categories
-    Vehicles: ["Condition", "Price", "km"],
+    Vehicles: ["Condition", "Price"],
     Bike: ["Condition", "Price", "Year"],
     Cycles: ["Condition", "Price"],
     "Industrial & Agriculture Machinery": ["Condition", "Price"],

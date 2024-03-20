@@ -925,6 +925,116 @@ export default {
       "Trucks with tank body / tanker trucks",
     "Vacuum and pressure van": "Vacuum and pressure van",
     "Work platform trucks": "Work platform trucks",
+    "Agricultural conveying and storage technology":
+      "Agricultural conveying and storage technology",
+    "Agricultural rollers": "Agricultural rollers",
+    "Agricultural spare parts": "Agricultural spare parts",
+    "ATVs / farm quads": "ATVs / farm quads",
+    "Bale wrappers": "Bale wrappers",
+    "Balers & baling equipment": "Balers & baling equipment",
+    "Beet technology": "Beet technology",
+    "Chaff cutters": "Chaff cutters",
+    "Combination harrows": "Combination harrows",
+    "Combine harvesters": "Combine harvesters",
+    "Cultivators / grubbers": "Cultivators / grubbers",
+    "Disc harrows": "Disc harrows",
+    "Dryers (agriculture)": "Dryers (agriculture)",
+    "Farm tractors / yard tractors": "Farm tractors / yard tractors",
+    "Feeding machines / feeders": "Feeding machines / feeders",
+    "Fertilizer spreaders / lime spreaders":
+      "Fertilizer spreaders / lime spreaders",
+    "Forage wagons / loader wagons": "Forage wagons / loader wagons",
+    "Forestry machines / logging equipment":
+      "Forestry machines / logging equipment",
+    "Forestry vehicles": "Forestry vehicles",
+    "Front-end loader": "Front-end loader",
+    "Fruit farming & viticulture equipment":
+      "Fruit farming & viticulture equipment",
+    Harrows: "Harrows",
+    "Harvesters / reapers": "Harvesters / reapers",
+    "Hay equipment": "Hay equipment",
+    "Hay technology": "Hay technology",
+    "Hoes (agriculture) / farming hoes": "Hoes (agriculture) / farming hoes",
+    "Irrigation equipment": "Irrigation equipment",
+    "Manure spreaders / dung spreaders": "Manure spreaders / dung spreaders",
+    "Manure spreaders & slurry spreaders":
+      "Manure spreaders & slurry spreaders",
+    "Milking machinery / milking equipment":
+      "Milking machinery / milking equipment",
+    Mulchers: "Mulchers",
+    "Other farm machinery": "Other farm machinery",
+    "Packers (agriculture)": "Packers (agriculture)",
+    "Pesticide sprayers & fertilizer spreaders":
+      "Pesticide sprayers & fertilizer spreaders",
+    Plow: "Plow",
+    "Potato farming machinery": "Potato farming machinery",
+    "Precision seeders": "Precision seeders",
+    "Rotary cultivators": "Rotary cultivators",
+    "Rotary harrows / power harrows": "Rotary harrows / power harrows",
+    "Scarifiers / dethatchers (agriculture)":
+      "Scarifiers / dethatchers (agriculture)",
+    "Seed drills / seed planters / planting machines":
+      "Seed drills / seed planters / planting machines",
+    "Silage equipment": "Silage equipment",
+    "Silos (agriculture) / farm silos": "Silos (agriculture) / farm silos",
+    "Stall equipment / livestock stalling":
+      "Stall equipment / livestock stalling",
+    "Stone crushers": "Stone crushers",
+    "Tillage equipment / field cultivators":
+      "Tillage equipment / field cultivators",
+    "Tires, wheels & rims for agricultural vehicles":
+      "Tires, wheels & rims for agricultural vehicles",
+    Tractors: "Tractors",
+    "Transportation equipment & trailers":
+      "Transportation equipment & trailers",
+    "Vegetable farming equipment": "Vegetable farming equipment",
+    "Vintage tractors & antique farm vehicles":
+      "Vintage tractors & antique farm vehicles",
+    "Weighing equipment / agricultural scales":
+      "Weighing equipment / agricultural scales",
+    "Asphalt technology": "Asphalt technology",
+    "Attachments for construction machinery":
+      "Attachments for construction machinery",
+    "Building material fabrication": "Building material fabrication",
+    Compactors: "Compactors",
+    Compressors: "Compressors",
+    "Concrete technology & mortar preparation":
+      "Concrete technology & mortar preparation",
+    "Construction equipments": "Construction equipments",
+    "Construction tools": "Construction tools",
+    Cranes: "Cranes",
+    "Crushing equipment": "Crushing equipment",
+    "Demolition tools, recycling machines & landfill equipment":
+      "Demolition tools, recycling machines & landfill equipment",
+    Dozers: "Dozers",
+    "Drill systems": "Drill systems",
+    "Dump trucks": "Dump trucks",
+    Dumpers: "Dumpers",
+    Excavators: "Excavators",
+    Generators: "Generators",
+    "Graders / road graders / grader blades":
+      "Graders / road graders / grader blades",
+    "Grinding machines & cutting machinery":
+      "Grinding machines & cutting machinery",
+    "Industrial trailers / construction site trailers":
+      "Industrial trailers / construction site trailers",
+    Loader: "Loader",
+    "Milling cutters / milling machines": "Milling cutters / milling machines",
+    "Other construction machinery": "Other construction machinery",
+    "Pile drivers / pile pullers": "Pile drivers / pile pullers",
+    Pumps: "Pumps",
+    "Railway construction machinery": "Railway construction machinery",
+    "Rammers / tamping rammers": "Rammers / tamping rammers",
+    "Road rollers": "Road rollers",
+    Scraper: "Scraper",
+    "Screed pumps": "Screed pumps",
+    "Sewer construction tools & pipe construction equipment":
+      "Sewer construction tools & pipe construction equipment",
+    "Soil stabilizers": "Soil stabilizers",
+    "Spare parts": "Spare parts",
+    "Trench cutter": "Trench cutter",
+    "Wheel dozers": "Wheel dozers",
+    "Work platforms": "Work platforms",
   },
   editAd: {
     title: "Edit Ad",

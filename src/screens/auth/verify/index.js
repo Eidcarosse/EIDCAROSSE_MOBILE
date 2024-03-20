@@ -23,12 +23,14 @@ export default function Verify({ navigation, route }) {
   const [token1, setToken1] = useState(data?.token);
 
   useEffect(() => {
-    if (email) {
-      setTimeout(() => {
-        sendverifycode();
-        setModel(true);
-      }, 600);
-    }
+    // if (email) {
+    //   setTimeout(() => {
+    //     sendverifycode();
+    //     setModel(true);
+    //   }, 600);
+    // }
+    successMessage(t(`flashmsg.emailsussesssendmsg`), t(`flashmsg.success`));
+    setTimeout(() => setModel(true), 1200);
   }, []);
 
   async function verifyfuntion(code) {

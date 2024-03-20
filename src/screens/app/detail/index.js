@@ -87,27 +87,24 @@ export default function Detail({ navigation, route }) {
       if (!loginuser) {
         infoMessage(t(`flashmsg.loginfavorite`), t(`flashmsg.authentication`));
       } else {
-        setloadFav(true)
+        setloadFav(true);
         let fav = await toggleFavorite(data?._id, loginuser?._id);
         if (isInArray(data._id, fav)) {
           setFav(true);
-          setloadFav(false)
+          setloadFav(false);
         } else {
           setFav(false);
-          setloadFav(false)
+          setloadFav(false);
         }
         dispatch(setAdsFav(fav));
       }
     } catch (error) {
-      
+    } finally {
+      setloadFav(false);
     }
-    finally{
-      setloadFav(false)
-    }
-   
   };
   useEffect(() => {
-    getData();
+    if (dat?._id != data?._id) getData();
   }, [dat?._id != data?._id]);
   useEffect(() => {
     if (data && mapRef?.current) {
@@ -286,8 +283,9 @@ export default function Detail({ navigation, route }) {
                 {!(data?.userId?._id === loginuser?._id) ? (
                   loadfav ? (
                     <ActivityIndicator
-                    style={{ marginHorizontal: width(3) }}
-                    color={AppColors.primary} />
+                      style={{ marginHorizontal: width(3) }}
+                      color={AppColors.primary}
+                    />
                   ) : (
                     <TouchableOpacity
                       style={{ marginHorizontal: width(3) }}
