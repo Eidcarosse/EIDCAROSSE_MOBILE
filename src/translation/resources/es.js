@@ -630,7 +630,7 @@ export default {
     "Invalid email or password.": "Correo electrónico o contraseña no válidos",
     "Account is registered but not verified":
       "La cuenta está registrada pero no verificada",
-    "Alert! email already exists please enter someother email.":
+    EmalArdExisits:
       "¡Alerta! El correo electrónico ya existe, por favor ingrese otro correo electrónico.",
     "Unable to create user! please try again.":
       "No se puede crear el usuario, por favor inténtelo de nuevo.",
@@ -647,6 +647,8 @@ export default {
     passwordLength: "Mínimo 8 caracteres",
     passwordOldIncorect: "Contraseña anterior incorrecta",
     imgRequire: "Imagen requerida",
+    emailnotvalid:
+      "Correo electrónico no registrado. ¡Por favor, proporcione un correo electrónico válido!",
   },
 
   type: {

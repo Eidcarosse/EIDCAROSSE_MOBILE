@@ -647,7 +647,7 @@ export default {
     "Invalid email or password.": "Email ou mot de passe invalide",
     "Account is registered but not verified":
       "Le compte est enregistré mais non vérifié",
-    "Alert! email already exists please enter someother email.":
+    EmalArdExisits:
       "Alerte ! L'email existe déjà, veuillez saisir une autre adresse email.",
     "Unable to create user! please try again.":
       "Impossible de créer l'utilisateur ! Veuillez réessayer.",
@@ -665,6 +665,8 @@ export default {
     passwordLength: "Au moins 8 caractères",
     passwordOldIncorect: "Ancien mot de passe incorrect",
     imgRequire: "Image requise",
+    emailnotvalid:
+      "Adresse e-mail non enregistrée. Veuillez fournir une adresse e-mail valide!",
   },
 
   type: {

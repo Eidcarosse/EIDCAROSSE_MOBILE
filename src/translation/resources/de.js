@@ -622,7 +622,7 @@ export default {
     "Invalid email or password.": "Ungültige E-Mail oder Passwort",
     "Account is registered but not verified":
       "Konto ist registriert, aber nicht verifiziert",
-    "Alert! email already exists please enter someother email.":
+    EmalArdExisits:
       "Warnung! E-Mail existiert bereits, bitte eine andere E-Mail eingeben.",
     "Unable to create user! please try again.":
       "Benutzer kann nicht erstellt werden, bitte versuche es erneut.",
@@ -640,6 +640,8 @@ export default {
     passwordLength: "Mindestens 8 Zeichen",
     passwordOldIncorect: "Falsches altes Passwort",
     imgRequire: "Bild erforderlich",
+    emailnotvalid:
+      "E-Mail nicht registriert. Bitte geben Sie eine gültige E-Mail-Adresse an!",
   },
 
   type: {

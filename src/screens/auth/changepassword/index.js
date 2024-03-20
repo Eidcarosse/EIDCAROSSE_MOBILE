@@ -27,7 +27,7 @@ export default function ChangePassword({ navigation, route }) {
       dispatch(setAppLoader(true));
       let r = await resetPasswordAPI({
         password: newPassword.trim(),
-        email: email,
+        email: email.trim(),
         token: token,
       });
       if (!r?.success) {
@@ -39,7 +39,6 @@ export default function ChangePassword({ navigation, route }) {
 
         navigation.navigate(ScreenNames.LOGIN);
       } else {
-       
         // errorMessage(t(`flashmsg.profileupdateerrormsg`),t(`flashmsg.password`));
       }
       // dispatch(setAppLoader(false));

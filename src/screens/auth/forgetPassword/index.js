@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
@@ -21,13 +21,23 @@ export default function ForgetPassword({ navigation, route }) {
   const [modal, setModel] = useState(false);
   const [token, setToken] = useState("");
   const lang = useSelector(selectCurrentLanguage);
+
+  useEffect(() => {
+    setCode("");
+  }, []);
+
   async function forgetpassword() {
     const d = await forgetPasswordAPI(email.trim(), lang);
     if (d?.success) {
       setToken(d?.data);
       successMessage(t(`flashmsg.emailsussesssendmsg`), t(`flashmsg.success`));
       setTimeout(() => setModel(true), 600);
-    } else errorMessage(d?.message, t(`flashmsg.authentication`));
+    } else {
+      console.log("====================================");
+      console.log(d);
+      console.log("====================================");
+      errorMessage(t(`flashmsg.emailnotvalid`), t(`flashmsg.authentication`));
+    }
   }
   async function checkPassword(code) {
     const d = await verifyCodeAPI(code);
@@ -62,6 +72,7 @@ export default function ForgetPassword({ navigation, route }) {
           }}
         />
       )}
+      scrollEnabled
     >
       <View style={styles.mainViewContainer}>
         <View>

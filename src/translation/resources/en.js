@@ -650,6 +650,7 @@ export default {
     passwordLength: "Atlest 8 character",
     passwordOldIncorect: "Old Password Incorect",
     imgRequire: "Image require ",
+    emailnotvalid: "Email not registered, Please! provide valid email",
   },
   type: {
     "Agricultural conveying and storage technology":
